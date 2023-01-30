@@ -1,4 +1,4 @@
-package com.tg.opcv;
+package com.example.opcv;
 
 import androidx.appcompat.app.AppCompatActivity;
 

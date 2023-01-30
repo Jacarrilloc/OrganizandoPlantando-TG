@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    namespace 'com.tg.opcv'
-    compileSdk 32
+    namespace 'com.example.opcv'
+    compileSdk 33
 
     defaultConfig {
-        applicationId "com.tg.opcv"
+        applicationId "com.example.opcv"
         minSdk 23
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
