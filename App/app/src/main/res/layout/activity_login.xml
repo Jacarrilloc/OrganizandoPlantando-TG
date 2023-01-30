@@ -36,7 +36,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Correo Electronico"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:background="@drawable/imput_text_style"/>
 
             <EditText
                 android:layout_margin="10sp"
@@ -45,16 +46,18 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Contraseña"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:background="@drawable/imput_text_style"/>
 
             <Button
                 android:layout_margin="10sp"
-                android:id="@+id/button"
+                android:id="@+id/buttonLoginActivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Iniciar Sesión"
+                android:backgroundTint="@null"
                 android:background="@drawable/button_ok_style"/>
         </LinearLayout>
     </LinearLayout>
