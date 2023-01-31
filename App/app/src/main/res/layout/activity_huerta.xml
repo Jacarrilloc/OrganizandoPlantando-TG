@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".huertaActivity">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_navegacion" />
+
+    <ImageView
+        android:id="@+id/gardenProfilePicture"
+        android:layout_width="408dp"
+        android:layout_height="297dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/gardenpicture" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/returnArrowButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:contentDescription="Boton para regresar"
+        android:tint="#A33D3D"
+        app:backgroundTint="#91BF63"
+        app:layout_constraintBottom_toBottomOf="@+id/gardenProfilePicture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toStartOf="@+id/gardenProfilePicture"
+        app:layout_constraintTop_toTopOf="@+id/gardenProfilePicture"
+        app:layout_constraintVertical_bias="0.064"
+        app:srcCompat="@drawable/returnarrow" />
+
+    <TextView
+        android:id="@+id/gardenNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/cabin"
+        android:text="Ozaín"
+        android:textColor="#020202"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gardenProfilePicture" />
+
+    <TextView
+        android:id="@+id/comabaquinta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/cabin"
+        android:text="Comabaquinta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gardenNameText" />
+
+    <TextView
+        android:id="@+id/gardenDescription"
+        android:layout_width="376dp"
+        android:layout_height="83dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/cabin"
+        android:text="Descripción..."
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/comabaquinta" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gardenDescription"
+        app:srcCompat="@drawable/hearticon" />
+
+    <TextView
+        android:id="@+id/gardenParticipants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/cabin"
+        android:text="3 Participantes"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/gardenDescription" />
+
+    <TextView
+        android:id="@+id/formulariosText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="Formularios"
+        android:textColor="#0E0E0E"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="122dp"
+        android:layout_height="122dp"
+        android:layout_marginStart="12dp"
+        android:background="#FFFFFF"
+        android:contentDescription="Lombricultura"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/formulariosText"
+        app:srcCompat="@drawable/wormpicture" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="122dp"
+        android:layout_height="122dp"
+        android:layout_marginStart="12dp"
+        android:background="#FFFFFF"
+        android:contentDescription="Herramientas"
+        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        app:layout_constraintTop_toBottomOf="@+id/formulariosText"
+        app:srcCompat="@drawable/shovelpicture" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="122dp"
+        android:layout_height="121dp"
+        android:layout_marginStart="16dp"
+        android:background="#FFFFFF"
+        android:contentDescription="Proceso de siembra"
+        app:layout_constraintStart_toEndOf="@+id/imageButton2"
+        app:layout_constraintTop_toBottomOf="@+id/formulariosText"
+        app:srcCompat="@drawable/diggingpicture" />
+
+    <TextView
+        android:id="@+id/lombriculturaText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:text="Lombricultura"
+        android:textColor="#040404"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:layout_constraintVertical_bias="0.375" />
+
+    <TextView
+        android:id="@+id/herramientasText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Herramientas"
+        android:textColor="#0B0A0A"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toStartOf="@+id/procesoSiembraText"
+        app:layout_constraintStart_toEndOf="@+id/lombriculturaText"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton2" />
+
+    <TextView
+        android:id="@+id/procesoSiembraText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Proceso de siembra"
+        android:textColor="#040404"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton3"
+        app:layout_constraintVertical_bias="0.444" />
+
+    <ImageButton
+        android:id="@+id/messageButton"
+        android:layout_width="54dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="#FDFDFD"
+        android:contentDescription="Boton para mensaje"
+        app:layout_constraintStart_toEndOf="@+id/gardenNameText"
+        app:layout_constraintTop_toBottomOf="@+id/gardenProfilePicture"
+        app:srcCompat="@drawable/messagebutton" />
+
+    <ImageButton
+        android:id="@+id/imageButton8"
+        android:layout_width="53dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="12dp"
+        android:background="#FDFDFD"
+        android:contentDescription="Boton para añadir personas"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton9"
+        app:layout_constraintTop_toBottomOf="@+id/gardenProfilePicture"
+        app:srcCompat="@drawable/addpersonicon" />
+
+    <ImageButton
+        android:id="@+id/imageButton9"
+        android:layout_width="50dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:background="#FDFCFC"
+        android:contentDescription="Boton de descargar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gardenProfilePicture"
+        app:srcCompat="@drawable/downloadicon" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
