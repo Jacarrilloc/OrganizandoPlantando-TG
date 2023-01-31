@@ -42,6 +42,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/backImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/union" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/anadirButton"
         android:layout_width="wrap_content"
@@ -122,13 +131,6 @@
                 app:backgroundTint="#F2F2F2"
                 card_view:srcCompat="@drawable/arrownext"
                 android:contentDescription="Ir a ver la huerta"/>
-
-            <ImageView
-                android:id="@+id/backImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
-                app:srcCompat="@drawable/union" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
