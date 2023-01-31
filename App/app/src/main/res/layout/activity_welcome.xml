@@ -43,8 +43,9 @@
 
     <TextView
         android:id="@+id/welcomeText"
-        android:layout_width="316dp"
-        android:layout_height="69dp"
+        android:layout_width="314dp"
+        android:layout_height="73dp"
+        android:fontFamily="@font/cabin"
         android:text="Hola, bienvenido(a) a Ceres"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -86,6 +87,7 @@
         app:iconPadding="100dp"
         app:layout_constraintBottom_toTopOf="@+id/masTardeButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
