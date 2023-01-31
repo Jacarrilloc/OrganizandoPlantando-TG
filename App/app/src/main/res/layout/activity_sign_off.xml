@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".signOffActivity">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_navegacion" />
+
+    <ImageView
+        android:id="@+id/decorationLogo"
+        android:layout_width="533dp"
+        android:layout_height="448dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/decoration" />
+
+    <ImageView
+        android:id="@+id/ceresLogo2"
+        android:layout_width="399dp"
+        android:layout_height="216dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/decorationLogo"
+        app:srcCompat="@drawable/logo_ceres2" />
+
+    <TextView
+        android:id="@+id/signOffText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contextClickable="false"
+        android:text="¿Esta seguro de cerrar sesión?"
+        android:textAlignment="center"
+        android:textColor="#0B0A0A"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/cabin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ceresLogo2" />
+
+    <Button
+        android:id="@+id/returnButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#91BF63"
+        android:fontFamily="@font/cabin"
+        android:text="Regresar"
+        android:textSize="20sp"
+        android:textStyle="normal|italic"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toStartOf="@+id/closeButton"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/decorationLogo"
+        app:layout_constraintVertical_bias="0.214" />
+
+    <Button
+        android:id="@+id/closeButton"
+        android:layout_width="131dp"
+        android:layout_height="52dp"
+        android:layout_marginEnd="52dp"
+        android:backgroundTint="#D22424"
+        android:fontFamily="@font/cabin"
+        android:text="Cerrar"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/decorationLogo"
+        app:layout_constraintVertical_bias="0.217" />
+</androidx.constraintlayout.widget.ConstraintLayout>
