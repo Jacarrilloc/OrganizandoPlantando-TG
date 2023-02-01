@@ -11,7 +11,7 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:background="#4A812E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:fontFamily="@font/cabin"
+        android:fontFamily="sans-serif"
         android:text="Ozaín"
         android:textColor="#020202"
         android:textSize="34sp"
@@ -64,6 +64,7 @@
         android:layout_marginTop="4dp"
         android:fontFamily="@font/cabin"
         android:text="Comabaquinta"
+        android:textColor="#050505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gardenNameText" />
 
@@ -73,8 +74,9 @@
         android:layout_height="83dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:fontFamily="@font/cabin"
+        android:fontFamily="sans-serif"
         android:text="Descripción..."
+        android:textColor="#050505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/comabaquinta" />
 
@@ -96,6 +98,7 @@
         android:layout_marginTop="12dp"
         android:fontFamily="@font/cabin"
         android:text="3 Participantes"
+        android:textColor="#0B0A0A"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/gardenDescription" />

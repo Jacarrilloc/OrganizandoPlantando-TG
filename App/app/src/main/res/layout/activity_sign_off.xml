@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".signOffActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_gravity="start"
+        android:background="#4A812E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,12 +42,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contextClickable="false"
+        android:fontFamily="sans-serif"
         android:text="¿Esta seguro de cerrar sesión?"
         android:textAlignment="center"
         android:textColor="#0B0A0A"
         android:textSize="28sp"
         android:textStyle="bold"
-        android:fontFamily="@font/cabin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ceresLogo2" />
@@ -55,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#91BF63"
-        android:fontFamily="@font/cabin"
+        android:fontFamily="sans-serif"
         android:text="Regresar"
         android:textSize="20sp"
         android:textStyle="normal|italic"
@@ -73,7 +75,7 @@
         android:layout_height="52dp"
         android:layout_marginEnd="52dp"
         android:backgroundTint="#D22424"
-        android:fontFamily="@font/cabin"
+        android:fontFamily="sans-serif"
         android:text="Cerrar"
         android:textSize="20sp"
         android:textStyle="italic"

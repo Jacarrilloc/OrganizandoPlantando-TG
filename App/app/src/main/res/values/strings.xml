@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">OPCV</string>
+    <string name="Ludi">Ludi</string>
+    <string name="Map">Huertas</string>
+    <string name="Gardens">Mis Huertas</string>
+    <string name="User">Perfil</string>
+
 </resources>
