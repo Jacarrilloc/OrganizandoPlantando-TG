@@ -45,7 +45,7 @@
         android:id="@+id/welcomeText"
         android:layout_width="314dp"
         android:layout_height="73dp"
-        android:fontFamily="@font/cabin"
+        android:fontFamily="sans-serif"
         android:text="Hola, bienvenido(a) a Ceres"
         android:textAlignment="center"
         android:textColor="@color/white"

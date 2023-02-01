@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    app:itemBackground="#AF2828"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:title="Perfil"
+    <item android:title="@string/Ludi"
+        android:icon="@drawable/hearticon"
+        android:id="@+id/ludif"/>
+    <item android:title="@string/Map"
+        android:icon="@drawable/colombia"
+        android:id="@+id/map"/>
+
+
+    <item android:title="@string/Gardens"
+        android:icon="@drawable/plant"
+        android:id="@+id/huertas"/>
+    <item android:title="@string/User"
         android:icon="@drawable/usericon"
         android:id="@+id/perfilUser" />
+
 </menu>
