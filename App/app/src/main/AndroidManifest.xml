@@ -12,6 +12,9 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".GenerateReportsActivity"
+            android:exported="false" />
+        <activity
             android:name=".GardenEditActivity"
             android:exported="false" />
         <activity
