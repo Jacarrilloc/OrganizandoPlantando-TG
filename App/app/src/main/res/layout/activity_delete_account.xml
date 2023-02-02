@@ -63,6 +63,7 @@
         android:text="Volver"
         android:textStyle="italic"
         app:cornerRadius="50dp"
+        android:background="@drawable/button_ok_style"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoDecoration" />
 
@@ -73,6 +74,7 @@
         android:layout_marginEnd="52dp"
         android:backgroundTint="#D22424"
         android:text="Eliminar"
+        android:background="@drawable/button_ok_style"
         android:textStyle="italic"
         app:cornerRadius="50dp"
         app:layout_constraintEnd_toEndOf="parent"

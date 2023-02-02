@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="mainColor">#92be65</color>
     <color name="mainButtonColor">#92be65</color>
     <color name="editTextBackground">#a1a4b2</color>
     <color name="backgrountTintEditText">#e3e3e3</color>
