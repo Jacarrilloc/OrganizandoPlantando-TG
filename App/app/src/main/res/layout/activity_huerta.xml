@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:contentDescription="Boton para regresar"
-        android:tint="#A33D3D"
+        android:tint="#F8F5F5"
         app:backgroundTint="#91BF63"
         app:layout_constraintBottom_toBottomOf="@+id/gardenProfilePicture"
         app:layout_constraintEnd_toEndOf="parent"

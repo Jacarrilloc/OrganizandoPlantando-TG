@@ -81,13 +81,10 @@
         android:bottomRightRadius="1000dp"
         android:text="Ingresa tu celular"
         android:textColor="@color/black"
-        android:topLeftRadius="1000dp"
-        android:topRightRadius="1000dp"
         app:cornerRadius="50dp"
         app:iconPadding="100dp"
         app:layout_constraintBottom_toTopOf="@+id/masTardeButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
