@@ -15,6 +15,9 @@
             android:name=".registroLombriculturaActivity"
             android:exported="false" />
         <activity
+            android:name=".CreateGardenActivity"
+            android:exported="false" />
+        <activity
             android:name=".VegetablePatchAvailableActivity"
             android:exported="false" />
         <activity
