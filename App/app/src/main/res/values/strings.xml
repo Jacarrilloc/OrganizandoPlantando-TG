@@ -11,10 +11,15 @@
     <string name="gardenName">Nombre Huerta</string>
     <string name="privateL">Privado</string>
     <string name="publicL">Público</string>
-    <string name="tipo_de_huerta">Tipo de huerta</string>
+    <string name="gardenType">Tipo de huerta</string>
     <string name="add">Agregar</string>
     <string name="gardenInfo">Información de la Huerta</string>
     <string name="questionGardenName">¿Cómo se llama su huerta?</string>
     <string name="createGarden">Crear Huerta</string>
+    <string name="Comunity">Comunidad</string>
+    <string name="Caption">Descripción</string>
+    <string name="Team">Administrar integrantes de la huerta</string>
+    <string name="ChangesHistory">Historial de Cambios</string>
+    <string name="AddForm">Agregar Formulario</string>
 
 </resources>

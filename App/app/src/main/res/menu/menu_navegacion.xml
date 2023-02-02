@@ -4,11 +4,11 @@
     app:itemBackground="@color/purple_200"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:title="@string/Ludi"
+    <item android:title="@string/Diccionary"
         android:icon="@drawable/hearticon"
         android:id="@+id/ludif"/>
     <item android:title="@string/Map"
-        android:icon="@drawable/colombia"
+        android:icon="@drawable/im_colombia"
         android:id="@+id/map"/>
 
 

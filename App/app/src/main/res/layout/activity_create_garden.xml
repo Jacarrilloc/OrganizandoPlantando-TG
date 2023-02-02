@@ -41,7 +41,7 @@
                 android:layout_width="288dp"
                 android:layout_height="146dp"
                 android:layout_gravity="center"
-                android:background="#CCD99C"
+                android:background="@color/lightGreen"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:text="@string/tipo_de_huerta"
+            android:text="@string/gardenType"
             android:textColor="@color/black" />
 
         <LinearLayout
@@ -117,7 +117,7 @@
                 android:layout_width="96dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:buttonTint="#A1A4B2"
+                android:buttonTint="@color/lightgray"
                 android:text="@string/publicL"
                 android:textColor="@color/black" />
 
@@ -126,7 +126,7 @@
                 android:layout_width="113dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:buttonTint="#A1A4B2"
+                android:buttonTint="@color/lightgray"
                 android:focusable="true"
                 android:text="@string/privateL"
                 android:textColor="@color/black" />
@@ -181,7 +181,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/colombia"
+            android:drawableTop="@drawable/im_colombia"
             android:padding="10dp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
