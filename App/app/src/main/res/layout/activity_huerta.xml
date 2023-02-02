@@ -7,20 +7,11 @@
     android:background="#FFFFFF"
     tools:context=".huertaActivity">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#4A812E"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_navegacion" />
 
     <ImageView
         android:id="@+id/gardenProfilePicture"
         android:layout_width="408dp"
-        android:layout_height="297dp"
+        android:layout_height="229dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -156,10 +147,10 @@
         android:textColor="#040404"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton"
-        app:layout_constraintVertical_bias="0.375" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/herramientasText"
@@ -168,10 +159,12 @@
         android:text="Herramientas"
         android:textColor="#0B0A0A"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
         app:layout_constraintEnd_toStartOf="@+id/procesoSiembraText"
+        app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toEndOf="@+id/lombriculturaText"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageButton2"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/procesoSiembraText"
@@ -180,10 +173,10 @@
         android:text="Proceso de siembra"
         android:textColor="#040404"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton3"
-        app:layout_constraintVertical_bias="0.444" />
+        app:layout_constraintVertical_bias="0.055" />
 
     <ImageButton
         android:id="@+id/messageButton"
@@ -220,5 +213,82 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gardenProfilePicture"
         app:srcCompat="@drawable/downloadicon" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="411dp"
+        android:layout_height="122dp"
+        android:background="@drawable/dr_shadow_top"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gardenList"
+        app:layout_constraintVertical_bias="1.0">
+
+        <Button
+            android:id="@+id/ludification"
+            android:layout_width="73dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="7dp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/hearticon"
+            android:padding="10dp"
+            android:stateListAnimator="@null"
+            android:text="Ludi"
+            android:textAllCaps="false"
+            android:textColor="#A0A3B1" />
+
+        <Button
+            android:id="@+id/gardens"
+            android:layout_width="77dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="7dp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/colombia"
+            android:padding="10dp"
+            android:stateListAnimator="@null"
+            android:text="Huertas"
+            android:textAllCaps="false"
+            android:textColor="#A0A3B1" />
+
+        <Button
+            android:id="@+id/myGardens"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="7dp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/plant"
+            android:padding="10dp"
+            android:stateListAnimator="@null"
+            android:text="Mis huertas"
+            android:textAllCaps="false"
+            android:textColor="#A0A3B1" />
+
+        <Button
+            android:id="@+id/profile"
+            android:layout_width="78dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="7dp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/usericon"
+            android:padding="5dp"
+            android:stateListAnimator="@null"
+            android:text="Perfil"
+            android:textAllCaps="false"
+            android:textColor="#A0A3B1" />
+
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

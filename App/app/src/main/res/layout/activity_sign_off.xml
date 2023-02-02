@@ -7,16 +7,6 @@
     android:background="#FFFFFF"
     tools:context=".signOffActivity">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:background="#4A812E"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_navegacion" />
 
     <ImageView
         android:id="@+id/decorationLogo"
@@ -54,34 +44,110 @@
 
     <Button
         android:id="@+id/returnButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="126dp"
+        android:layout_height="51dp"
+        android:background="@drawable/button_ok_style"
         android:backgroundTint="#91BF63"
         android:fontFamily="sans-serif"
         android:text="Regresar"
         android:textSize="20sp"
         android:textStyle="normal|italic"
         app:cornerRadius="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toStartOf="@+id/closeButton"
-        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/decorationLogo"
-        app:layout_constraintVertical_bias="0.214" />
+        app:layout_constraintTop_toBottomOf="@+id/decorationLogo" />
 
     <Button
         android:id="@+id/closeButton"
         android:layout_width="131dp"
         android:layout_height="52dp"
-        android:layout_marginEnd="52dp"
+        android:layout_marginEnd="56dp"
         android:backgroundTint="#D22424"
         android:fontFamily="sans-serif"
         android:text="Cerrar"
         android:textSize="20sp"
         android:textStyle="italic"
+        android:background="@drawable/button_ok_style"
         app:cornerRadius="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/decorationLogo"
-        app:layout_constraintVertical_bias="0.217" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="411dp"
+        android:layout_height="122dp"
+        android:background="@drawable/dr_shadow_top"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/returnButton2"
+        app:layout_constraintVertical_bias="1.0">
+
+        <Button
+            android:id="@+id/ludification"
+            android:layout_width="73dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="7dp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/hearticon"
+            android:padding="10dp"
+            android:stateListAnimator="@null"
+            android:text="Ludi"
+            android:textAllCaps="false"
+            android:textColor="#A0A3B1" />
+
+        <Button
+            android:id="@+id/gardens"
+            android:layout_width="77dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="7dp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/colombia"
+            android:padding="10dp"
+            android:stateListAnimator="@null"
+            android:text="Huertas"
+            android:textAllCaps="false"
+            android:textColor="#A0A3B1" />
+
+        <Button
+            android:id="@+id/myGardens"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="7dp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/plant"
+            android:padding="10dp"
+            android:stateListAnimator="@null"
+            android:text="Mis huertas"
+            android:textAllCaps="false"
+            android:textColor="#A0A3B1" />
+
+        <Button
+            android:id="@+id/profile"
+            android:layout_width="78dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="7dp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/usericon"
+            android:padding="5dp"
+            android:stateListAnimator="@null"
+            android:text="Perfil"
+            android:textAllCaps="false"
+            android:textColor="#A0A3B1" />
+
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

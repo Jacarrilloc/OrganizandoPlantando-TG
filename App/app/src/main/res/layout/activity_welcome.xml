@@ -21,7 +21,7 @@
         android:id="@+id/worldIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="76dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,34 +57,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ceresIcon" />
 
-    <TextView
+    <EditText
+        android:id="@+id/enterPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:background="@drawable/imput_text_style"
+        android:ems="10"
+        android:hint="Digita tu celular"
+        android:inputType="textEmailAddress"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textColorHint="@color/black"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/masTardeButton"
+        app:layout_constraintTop_toBottomOf="@+id/worldIcon"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="-9dp" />
+
+    <Button
         android:id="@+id/masTardeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Más tarde"
+        android:layout_gravity="center"
+        android:layout_marginStart="162dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="162dp"
+        android:background="@null"
+        android:text="Mas tarde"
         android:textColor="@color/white"
-        android:textSize="20sp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/editCellPhoneButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:backgroundTint="@color/white"
-        android:bottomLeftRadius="1000dp"
-        android:bottomRightRadius="1000dp"
-        android:text="Ingresa tu celular"
-        android:textColor="@color/black"
-        app:cornerRadius="50dp"
-        app:iconPadding="100dp"
-        app:layout_constraintBottom_toTopOf="@+id/masTardeButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/worldIcon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
