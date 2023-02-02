@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class GardenEditActivity extends AppCompatActivity {
+public class EditGardenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_garden_edit);
+        setContentView(R.layout.activity_edit_garden);
     }
 }
