@@ -182,7 +182,7 @@
         android:id="@+id/messageButton"
         android:layout_width="54dp"
         android:layout_height="52dp"
-        android:layout_marginStart="112dp"
+        android:layout_marginStart="56dp"
         android:layout_marginTop="4dp"
         android:backgroundTint="#FDFDFD"
         android:contentDescription="Boton para mensaje"
@@ -290,5 +290,17 @@
 
 
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/editButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/gardenDescription"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton8"
+        app:layout_constraintHorizontal_bias="0.368"
+        app:layout_constraintStart_toEndOf="@+id/messageButton"
+        app:layout_constraintTop_toBottomOf="@+id/gardenProfilePicture"
+        app:layout_constraintVertical_bias="0.117"
+        app:srcCompat="@drawable/editbutton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
