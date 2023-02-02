@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:autoSizeTextType="uniform"
-            android:text="Crear Huerta"
+            android:text="@string/createGarden"
             android:textColor="@color/black"
             android:textFontWeight="700"
             android:textSize="20sp"
@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="¿Cómo se llama su huerta?"
+            android:text="@string/questionGardenName"
             android:textColor="@color/black" />
 
         <EditText
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:text="Información de la Huerta"
+            android:text="@string/gardenInfo"
             android:textColor="@color/black" />
 
         <EditText
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:text="Tipo de huerta"
+            android:text="@string/tipo_de_huerta"
             android:textColor="@color/black" />
 
         <LinearLayout
@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:buttonTint="#A1A4B2"
-                android:text="Público"
+                android:text="@string/publicL"
                 android:textColor="@color/black" />
 
             <CheckBox
@@ -128,7 +128,7 @@
                 android:layout_marginStart="20dp"
                 android:buttonTint="#A1A4B2"
                 android:focusable="true"
-                android:text="Privado"
+                android:text="@string/privateL"
                 android:textColor="@color/black" />
 
         </LinearLayout>
@@ -140,7 +140,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:background="@drawable/button_ok_style"
-            android:text="Agregar"
+            android:text="@string/add"
             android:textAllCaps="false" />
 
 
@@ -160,18 +160,18 @@
 
         <Button
             android:id="@+id/ludification"
-            android:layout_width="73dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="25dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/hearticon"
             android:padding="10dp"
             android:stateListAnimator="@null"
-            android:text="Ludi"
+            android:text="@string/Diccionary"
             android:textAllCaps="false"
-            android:textColor="#A0A3B1" />
+            android:textColor="@color/grayLetters" />
 
         <Button
             android:id="@+id/gardens"
@@ -184,9 +184,9 @@
             android:drawableTop="@drawable/colombia"
             android:padding="10dp"
             android:stateListAnimator="@null"
-            android:text="Huertas"
+            android:text="@string/Map"
             android:textAllCaps="false"
-            android:textColor="#A0A3B1" />
+            android:textColor="@color/grayLetters" />
 
         <Button
             android:id="@+id/myGardens"
@@ -199,9 +199,9 @@
             android:drawableTop="@drawable/plant"
             android:padding="10dp"
             android:stateListAnimator="@null"
-            android:text="Mis huertas"
+            android:text="@string/Gardens"
             android:textAllCaps="false"
-            android:textColor="#A0A3B1" />
+            android:textColor="@color/grayLetters" />
 
         <Button
             android:id="@+id/profile"
@@ -215,11 +215,13 @@
             android:drawableTop="@drawable/usericon"
             android:padding="5dp"
             android:stateListAnimator="@null"
-            android:text="Perfil"
+            android:text="@string/User"
             android:textAllCaps="false"
-            android:textColor="#A0A3B1" />
+            android:textColor="@color/grayLetters" />
 
 
     </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

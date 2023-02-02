@@ -12,6 +12,12 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".GardenAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".NewToAppActivity"
+            android:exported="false" />
+        <activity
             android:name=".registroLombriculturaActivity"
             android:exported="false" />
         <activity
