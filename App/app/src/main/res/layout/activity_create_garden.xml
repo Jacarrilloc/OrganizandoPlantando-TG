@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:text="@string/tipo_de_huerta"
+            android:text="@string/gardenType"
             android:textColor="@color/black" />
 
         <LinearLayout
@@ -181,7 +181,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/colombia"
+            android:drawableTop="@drawable/im_colombia"
             android:padding="10dp"
             android:stateListAnimator="@null"
             android:text="@string/Map"

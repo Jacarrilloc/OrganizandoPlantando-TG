@@ -128,7 +128,8 @@
             android:text="REGISTRATE"
             android:textColor="@color/mainButtonColor"
             android:textSize="18sp"
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            tools:ignore="RtlCompat" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
