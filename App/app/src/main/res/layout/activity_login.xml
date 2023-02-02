@@ -53,6 +53,8 @@
                 android:ems="10"
                 android:textStyle="italic"
                 android:hint="Correo Electronico"
+                android:textColor="@color/black"
+                android:textAlignment="center"
                 android:textColorHint="@color/editTextBackground"
                 android:inputType="textEmailAddress"
                 android:background="@drawable/imput_text_style"/>
@@ -64,6 +66,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:textStyle="italic"
+                android:textAlignment="center"
+                android:textColor="@color/black"
                 android:hint="Contraseña"
                 android:textColorHint="@color/editTextBackground"
                 android:inputType="textPassword"
