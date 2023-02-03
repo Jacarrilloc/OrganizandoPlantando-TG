@@ -4,6 +4,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GenerateReportsActivity">
+    tools:context=".GenerateReportsActivity"
+    android:background="@color/green">
+
+    <LinearLayout
+        android:layout_width="411dp"
+        android:layout_height="679dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="270dp"
+            android:layout_height="132dp"
+            android:background="@drawable/logo_ceres"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/generateReport"
+            android:layout_width="258dp"
+            android:layout_height="73dp"
+            android:layout_gravity="center"
+            android:text="@string/Report"
+            android:textAlignment="center"
+            android:textFontWeight="900"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/questionReport"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:textSize="20dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="150dp"/>
+
+        <Button
+            android:layout_width="240dp"
+            android:layout_height="38dp"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:background="@drawable/button"
+            android:text="@string/Report"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
+
+        <Button
+            android:layout_width="240dp"
+            android:layout_height="38dp"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button"
+            android:backgroundTint="@color/red"
+            android:text="@string/cancel"
+            android:textAllCaps="false" />
+
+
+
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
