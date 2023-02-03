@@ -12,6 +12,18 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".FormsRegisterAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterForms"
+            android:exported="false" />
+        <activity
+            android:name=".FormsAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".GardenForms"
+            android:exported="false" />
+        <activity
             android:name=".GardenMembersAdapter"
             android:exported="false" />
         <activity
