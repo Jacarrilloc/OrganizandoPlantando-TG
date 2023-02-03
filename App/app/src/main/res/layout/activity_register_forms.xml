@@ -34,7 +34,7 @@
             app:layout_constraintStart_toStartOf="@+id/gardenProfilePicture"
             app:layout_constraintTop_toTopOf="@+id/gardenProfilePicture"
             app:layout_constraintVertical_bias="0.064"
-            app:srcCompat="@drawable/returnarrow" />
+            app:srcCompat="@drawable/dr_return_arrow" />
 
         <TextView
             android:id="@+id/formsTittle"
@@ -77,7 +77,7 @@
         android:id="@+id/addForm"
         android:layout_width="190dp"
         android:layout_height="33dp"
-        android:background="@drawable/button_ok_style"
+        android:background="@drawable/dr_green_button"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -106,7 +106,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/hearticon"
+            android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
@@ -136,7 +136,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/plant"
+            android:drawableTop="@drawable/im_plant_icon"
             android:padding="10dp"
             android:stateListAnimator="@null"
             android:text="@string/Gardens"
@@ -152,7 +152,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/usericon"
+            android:drawableTop="@drawable/im_user_icon"
             android:padding="5dp"
             android:stateListAnimator="@null"
             android:text="@string/User"

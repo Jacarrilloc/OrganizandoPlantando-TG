@@ -15,7 +15,7 @@
         app:layout_constraintHorizontal_bias="0.38"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/decoration" />
+        app:srcCompat="@drawable/im_lines_decoration" />
 
 
 
@@ -29,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/logoDecoration"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/logo_ceres2" />
+        app:srcCompat="@drawable/im_logo_ceres_green" />
 
     <TextView
         android:id="@+id/deleteAccountText"
@@ -55,7 +55,7 @@
         android:text="Volver"
         android:textStyle="italic"
         app:cornerRadius="50dp"
-        android:background="@drawable/button_ok_style"
+        android:background="@drawable/dr_green_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoDecoration" />
 
@@ -66,7 +66,7 @@
         android:layout_marginEnd="52dp"
         android:backgroundTint="#D22424"
         android:text="Eliminar"
-        android:background="@drawable/button_ok_style"
+        android:background="@drawable/dr_green_button"
         android:textStyle="italic"
         app:cornerRadius="50dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,7 +94,7 @@
             android:layout_marginLeft="25dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/hearticon"
+            android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
             android:stateListAnimator="@null"
             android:text="Ludi"
@@ -124,7 +124,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/plant"
+            android:drawableTop="@drawable/im_plant_icon"
             android:padding="10dp"
             android:stateListAnimator="@null"
             android:text="Mis huertas"
@@ -140,7 +140,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/usericon"
+            android:drawableTop="@drawable/im_user_icon"
             android:padding="5dp"
             android:stateListAnimator="@null"
             android:text="Perfil"

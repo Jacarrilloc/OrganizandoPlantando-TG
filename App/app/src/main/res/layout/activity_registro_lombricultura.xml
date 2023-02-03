@@ -29,7 +29,7 @@
             android:contentDescription="Boton para regresar"
             android:tint="#F8F5F5"
             app:backgroundTint="#91BF63"
-            app:srcCompat="@drawable/returnarrow" />
+            app:srcCompat="@drawable/dr_return_arrow" />
 
         <TextView
             android:id="@+id/registrosText"
@@ -78,7 +78,7 @@
             android:layout_marginLeft="25dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/hearticon"
+            android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
             android:stateListAnimator="@null"
             android:text="Ludi"
@@ -108,7 +108,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/plant"
+            android:drawableTop="@drawable/im_plant_icon"
             android:padding="10dp"
             android:stateListAnimator="@null"
             android:text="Mis huertas"
@@ -124,7 +124,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/usericon"
+            android:drawableTop="@drawable/im_user_icon"
             android:padding="5dp"
             android:stateListAnimator="@null"
             android:text="Perfil"

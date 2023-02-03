@@ -49,7 +49,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/returnarrow" />
+        app:srcCompat="@drawable/dr_return_arrow" />
 
     <LinearLayout
         android:id="@+id/linearLayout7"
@@ -183,7 +183,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
-                android:background="@drawable/addpersonicon" />
+                android:background="@drawable/dr_add_person_icon" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -201,7 +201,7 @@
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:background="@drawable/button_ok_style"
+            android:background="@drawable/dr_green_button"
             android:text="@string/ChangesHistory"
             android:textAllCaps="false" />
 
@@ -211,7 +211,7 @@
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:background="@drawable/button_ok_style"
+            android:background="@drawable/dr_green_button"
             android:text="@string/AddForm"
             android:textAllCaps="false" />
 
@@ -237,7 +237,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/hearticon"
+            android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
@@ -267,7 +267,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/plant"
+            android:drawableTop="@drawable/im_plant_icon"
             android:padding="10dp"
             android:stateListAnimator="@null"
             android:text="@string/Gardens"
@@ -283,7 +283,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/usericon"
+            android:drawableTop="@drawable/im_user_icon"
             android:padding="5dp"
             android:stateListAnimator="@null"
             android:text="@string/User"

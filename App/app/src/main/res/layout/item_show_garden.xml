@@ -6,7 +6,7 @@
     android:layout_width="320dp"
     android:layout_height="80dp"
     android:layout_margin="20dp"
-    android:background="@drawable/gray_rectangle"
+    android:background="@drawable/dr_gray_rectangle"
     android:backgroundTint="#F2F2F2">
 
     <LinearLayout
@@ -36,8 +36,8 @@
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/gray_rectangle"
-            android:drawableRight="@drawable/arrownext" />
+            android:background="@drawable/dr_gray_rectangle"
+            android:drawableRight="@drawable/dr_arrow_next" />
 
 
     </LinearLayout>

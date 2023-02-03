@@ -14,7 +14,7 @@
         android:layout_marginTop="72dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/union" />
+        app:srcCompat="@drawable/im_cloud_bck" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
             android:padding="20dp"
-            app:srcCompat="@drawable/map_icon" />
+            app:srcCompat="@drawable/im_map_icon" />
 
     </LinearLayout>
 
@@ -88,7 +88,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/hearticon"
+            android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
@@ -118,7 +118,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/plant"
+            android:drawableTop="@drawable/im_plant_icon"
             android:padding="10dp"
             android:stateListAnimator="@null"
             android:text="@string/Gardens"
@@ -134,7 +134,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/usericon"
+            android:drawableTop="@drawable/im_user_icon"
             android:padding="5dp"
             android:stateListAnimator="@null"
             android:text="@string/User"

@@ -34,7 +34,7 @@
             app:layout_constraintStart_toStartOf="@+id/gardenProfilePicture"
             app:layout_constraintTop_toTopOf="@+id/gardenProfilePicture"
             app:layout_constraintVertical_bias="0.064"
-            app:srcCompat="@drawable/returnarrow" />
+            app:srcCompat="@drawable/dr_return_arrow" />
 
         <TextView
             android:layout_width="wrap_content"

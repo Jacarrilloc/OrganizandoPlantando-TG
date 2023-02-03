@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_ceres" />
+        app:srcCompat="@drawable/im_logo_ceres" />
 
     <ImageView
         android:id="@+id/worldIcon"
@@ -27,7 +27,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/mundo" />
+        app:srcCompat="@drawable/im_world" />
 
     <TextView
         android:id="@+id/phoneText"
@@ -64,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
-        android:background="@drawable/imput_text_style"
+        android:background="@drawable/dr_white_input_text"
         android:ems="10"
         android:hint="Digita tu celular"
         android:inputType="textEmailAddress"

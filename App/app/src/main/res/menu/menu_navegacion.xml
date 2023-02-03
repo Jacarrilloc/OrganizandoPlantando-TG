@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:title="@string/Diccionary"
-        android:icon="@drawable/hearticon"
+        android:icon="@drawable/im_dictionary"
         android:id="@+id/ludif"/>
     <item android:title="@string/Map"
         android:icon="@drawable/im_colombia"
@@ -13,10 +13,10 @@
 
 
     <item android:title="@string/Gardens"
-        android:icon="@drawable/plant"
+        android:icon="@drawable/im_plant_icon"
         android:id="@+id/huertas"/>
     <item android:title="@string/User"
-        android:icon="@drawable/usericon"
+        android:icon="@drawable/im_user_icon"
         android:id="@+id/perfilUser" />
 
 </menu>

@@ -15,7 +15,7 @@
         app:layout_constraintHorizontal_bias="0.38"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/decoration" />
+        app:srcCompat="@drawable/im_lines_decoration" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,7 +57,7 @@
                 android:textAlignment="center"
                 android:textColorHint="@color/editTextBackground"
                 android:inputType="textEmailAddress"
-                android:background="@drawable/imput_text_style"/>
+                android:background="@drawable/dr_white_input_text"/>
 
             <EditText
                 android:layout_margin="10sp"
@@ -71,7 +71,7 @@
                 android:hint="Contraseña"
                 android:textColorHint="@color/editTextBackground"
                 android:inputType="textPassword"
-                android:background="@drawable/imput_text_style"/>
+                android:background="@drawable/dr_white_input_text"/>
 
             <Button
                 android:layout_margin="10sp"
@@ -83,7 +83,7 @@
                 android:textStyle="italic"
                 android:text="Iniciar Sesión"
                 android:backgroundTint="@null"
-                android:background="@drawable/button_ok_style"/>
+                android:background="@drawable/dr_green_button"/>
 
             <Button
                 android:id="@+id/fotgotPasswordButtom"
