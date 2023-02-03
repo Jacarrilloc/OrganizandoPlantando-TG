@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/gardenpicture" />
+        app:srcCompat="@drawable/im_garden_pic" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/returnArrowButton"
@@ -31,7 +31,7 @@
         app:layout_constraintStart_toStartOf="@+id/gardenProfilePicture"
         app:layout_constraintTop_toTopOf="@+id/gardenProfilePicture"
         app:layout_constraintVertical_bias="0.064"
-        app:srcCompat="@drawable/returnarrow" />
+        app:srcCompat="@drawable/dr_return_arrow" />
 
     <TextView
         android:id="@+id/gardenNameText"
@@ -80,7 +80,7 @@
         android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gardenDescription"
-        app:srcCompat="@drawable/hearticon" />
+        app:srcCompat="@drawable/im_dictionary" />
 
     <TextView
         android:id="@+id/gardenParticipants"
@@ -116,7 +116,7 @@
         android:contentDescription="Lombricultura"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/formulariosText"
-        app:srcCompat="@drawable/wormpicture" />
+        app:srcCompat="@drawable/im_worm" />
 
     <ImageButton
         android:id="@+id/imageButton2"
@@ -127,7 +127,7 @@
         android:contentDescription="Herramientas"
         app:layout_constraintStart_toEndOf="@+id/imageButton"
         app:layout_constraintTop_toBottomOf="@+id/formulariosText"
-        app:srcCompat="@drawable/shovelpicture" />
+        app:srcCompat="@drawable/im_shovel" />
 
     <ImageButton
         android:id="@+id/imageButton3"
@@ -138,7 +138,7 @@
         android:contentDescription="Proceso de siembra"
         app:layout_constraintStart_toEndOf="@+id/imageButton2"
         app:layout_constraintTop_toBottomOf="@+id/formulariosText"
-        app:srcCompat="@drawable/diggingpicture" />
+        app:srcCompat="@drawable/im_digging" />
 
     <TextView
         android:id="@+id/lombriculturaText"
@@ -190,7 +190,7 @@
         android:contentDescription="Boton para mensaje"
         app:layout_constraintStart_toEndOf="@+id/gardenNameText"
         app:layout_constraintTop_toBottomOf="@+id/gardenProfilePicture"
-        app:srcCompat="@drawable/messagebutton" />
+        app:srcCompat="@drawable/dr_message_icon" />
 
     <ImageButton
         android:id="@+id/imageButton8"
@@ -202,7 +202,7 @@
         android:contentDescription="Boton para añadir personas"
         app:layout_constraintEnd_toStartOf="@+id/imageButton9"
         app:layout_constraintTop_toBottomOf="@+id/gardenProfilePicture"
-        app:srcCompat="@drawable/addpersonicon" />
+        app:srcCompat="@drawable/dr_add_person_icon" />
 
     <ImageButton
         android:id="@+id/imageButton9"
@@ -214,7 +214,7 @@
         android:contentDescription="Boton de descargar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gardenProfilePicture"
-        app:srcCompat="@drawable/downloadicon" />
+        app:srcCompat="@drawable/dr_download_icon" />
 
     <LinearLayout
         android:id="@+id/linearLayout5"
@@ -237,7 +237,7 @@
             android:layout_marginLeft="25dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/hearticon"
+            android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
             android:stateListAnimator="@null"
             android:text="Ludi"
@@ -267,7 +267,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/plant"
+            android:drawableTop="@drawable/im_plant_icon"
             android:padding="10dp"
             android:stateListAnimator="@null"
             android:text="Mis huertas"
@@ -283,7 +283,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/usericon"
+            android:drawableTop="@drawable/im_user_icon"
             android:padding="5dp"
             android:stateListAnimator="@null"
             android:text="Perfil"
@@ -305,6 +305,6 @@
         app:layout_constraintStart_toEndOf="@+id/messageButton"
         app:layout_constraintTop_toBottomOf="@+id/gardenProfilePicture"
         app:layout_constraintVertical_bias="0.117"
-        app:srcCompat="@drawable/editbutton" />
+        app:srcCompat="@drawable/dr_edit_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

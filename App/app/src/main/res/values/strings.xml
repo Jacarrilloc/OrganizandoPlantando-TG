@@ -21,5 +21,19 @@
     <string name="Team">Administrar integrantes de la huerta</string>
     <string name="ChangesHistory">Historial de Cambios</string>
     <string name="AddForm">Agregar Formulario</string>
+    <string name="Report">Generar Reporte</string>
+    <string name="questionReport">¿Desea generar reporte de la huerta?</string>
+    <string name="cancel">Cancelar</string>
+    <string name="nameUsr">Nombre</string>
+    <string name="nombre">Nombre:</string>
+    <string name="cellphon">Telefono:</string>
+    <string name="direcci_n">Dirección:</string>
+    <string name="comunity2">Comunidad:</string>
+    <string name="editar">Editar</string>
+    <string name="otras_opciones">Otras opciones</string>
+    <string name="integrantes_de_la_huerta">Integrantes de la huerta</string>
+    <string name="boton_para_regresar">Boton para regresar</string>
+    <string name="nombre_usuario">Nombre Usuario</string>
+    <string name="formularios">Formularios</string>
 
 </resources>

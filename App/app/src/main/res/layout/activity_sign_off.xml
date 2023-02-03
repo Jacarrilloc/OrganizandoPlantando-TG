@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/decoration" />
+        app:srcCompat="@drawable/im_lines_decoration" />
 
     <ImageView
         android:id="@+id/ceresLogo2"
@@ -25,7 +25,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/decorationLogo"
-        app:srcCompat="@drawable/logo_ceres2" />
+        app:srcCompat="@drawable/im_logo_ceres_green" />
 
     <TextView
         android:id="@+id/signOffText"
@@ -46,7 +46,7 @@
         android:id="@+id/returnButton2"
         android:layout_width="126dp"
         android:layout_height="51dp"
-        android:background="@drawable/button_ok_style"
+        android:background="@drawable/dr_green_button"
         android:backgroundTint="#91BF63"
         android:fontFamily="sans-serif"
         android:text="Regresar"
@@ -67,7 +67,7 @@
         android:text="Cerrar"
         android:textSize="20sp"
         android:textStyle="italic"
-        android:background="@drawable/button_ok_style"
+        android:background="@drawable/dr_green_button"
         app:cornerRadius="50dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
@@ -95,7 +95,7 @@
             android:layout_marginLeft="25dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/hearticon"
+            android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
             android:stateListAnimator="@null"
             android:text="Ludi"
@@ -125,7 +125,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/plant"
+            android:drawableTop="@drawable/im_plant_icon"
             android:padding="10dp"
             android:stateListAnimator="@null"
             android:text="Mis huertas"
@@ -141,7 +141,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/usericon"
+            android:drawableTop="@drawable/im_user_icon"
             android:padding="5dp"
             android:stateListAnimator="@null"
             android:text="Perfil"

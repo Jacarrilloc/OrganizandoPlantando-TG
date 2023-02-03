@@ -4,81 +4,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VegetablePatchAvailableActivity"
+    tools:context=".GardenForms"
     android:background="@color/white">
 
-    <ImageView
-        android:id="@+id/backImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/im_cloud_bck" />
-
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="362dp"
-        android:layout_height="84dp"
-        android:layout_marginBottom="20dp"
+        android:id="@+id/linearLayout10"
+        android:layout_width="412dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="32dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.092">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="183dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
-            android:autoSizeTextType="uniform"
-            android:text="@string/GardenAvTittle"
-            android:textColor="@color/black"
-            android:textFontWeight="700"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="293dp" />
-
-        <ImageView
-            android:id="@+id/mapIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:padding="20dp"
-            app:srcCompat="@drawable/im_map_icon" />
-
-    </LinearLayout>
-
-
-    <ListView
-        android:id="@+id/gardenList"
-        android:layout_width="365dp"
-        android:layout_height="430dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.235">
-
-    </ListView>
-
-    <LinearLayout
-        android:layout_width="411dp"
-        android:layout_height="122dp"
-        android:background="@drawable/dr_shadow_top"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gardenList"
-        app:layout_constraintVertical_bias="1.0"
-        android:orientation="horizontal">
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/returnArrowButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:contentDescription="@string/boton_para_regresar"
+            android:tint="#F8F5F5"
+            app:backgroundTint="#91BF63"
+            app:layout_constraintBottom_toBottomOf="@+id/gardenProfilePicture"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.045"
+            app:layout_constraintStart_toStartOf="@+id/gardenProfilePicture"
+            app:layout_constraintTop_toTopOf="@+id/gardenProfilePicture"
+            app:layout_constraintVertical_bias="0.064"
+            app:srcCompat="@drawable/dr_return_arrow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/formularios"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/im_gray_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout10" />
+
+    <ListView
+        android:layout_width="368dp"
+        android:layout_height="467dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="411dp"
+        android:layout_height="122dp"
+        android:background="@drawable/dr_shadow_top"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/ludification"
@@ -140,7 +141,6 @@
             android:text="@string/User"
             android:textAllCaps="false"
             android:textColor="@color/grayLetters" />
-
 
 
     </LinearLayout>

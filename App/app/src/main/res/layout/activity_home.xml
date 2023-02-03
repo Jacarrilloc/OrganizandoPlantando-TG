@@ -17,7 +17,7 @@
         android:layout_marginTop="80dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/union" />
+        app:srcCompat="@drawable/im_cloud_bck" />
 
     <LinearLayout
         android:layout_width="359dp"
@@ -49,7 +49,7 @@
                     android:layout_height="60dp"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    tools:srcCompat="@drawable/gardenpicture" />
+                    tools:srcCompat="@drawable/im_garden_pic" />
 
                 <TextView
                     android:id="@+id/gardenName"
@@ -71,7 +71,7 @@
                     android:hint="Ir a la huerta"
                     android:tint="#000000"
                     app:backgroundTint="#F2F2F2"
-                    card_view:srcCompat="@drawable/arrownext" />
+                    card_view:srcCompat="@drawable/dr_arrow_next" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
@@ -109,7 +109,7 @@
         app:layout_constraintTop_toBottomOf="@+id/misHuertasText"
         app:maxImageSize="60dp"
         app:rippleColor="#E8E1E1"
-        app:srcCompat="@drawable/anadirbutton" />
+        app:srcCompat="@drawable/dr_add_button" />
 
     <TextView
         android:id="@+id/anadirText"
@@ -128,7 +128,7 @@
         android:layout_width="181dp"
         android:layout_height="52dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/button_ok_style"
+        android:background="@drawable/dr_green_button"
         android:backgroundTint="#91BF63"
         android:text="Ver otras huertas"
         android:textColor="#000000"
@@ -156,7 +156,7 @@
             android:layout_marginLeft="25dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/hearticon"
+            android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
             android:stateListAnimator="@null"
             android:text="Ludi"
@@ -186,7 +186,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/plant"
+            android:drawableTop="@drawable/im_plant_icon"
             android:padding="10dp"
             android:stateListAnimator="@null"
             android:text="Mis huertas"
@@ -202,7 +202,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/usericon"
+            android:drawableTop="@drawable/im_user_icon"
             android:padding="5dp"
             android:stateListAnimator="@null"
             android:text="Perfil"

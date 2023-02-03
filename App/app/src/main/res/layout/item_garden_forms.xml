@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".FormsAdapter"
+    android:layout_width="320dp"
+    android:layout_height="80dp"
+    android:layout_margin="20dp"
+    android:background="@drawable/dr_gray_rectangle"
+    android:backgroundTint="@color/green">
+
+    <TextView
+        android:id="@+id/formsTittle"
+        android:layout_width="292dp"
+        android:layout_height="54dp"
+        android:layout_gravity="center"
+        android:text="@string/gardenName"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+</androidx.cardview.widget.CardView>
+
