@@ -7,7 +7,7 @@
     android:id="@+id/ConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/white"
     tools:context=".HomeActivity">
 
     <ImageView
@@ -29,8 +29,8 @@
         app:layout_constraintTop_toBottomOf="@+id/anadirText">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="325dp"
+            android:layout_height="62dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
@@ -45,8 +45,9 @@
 
                 <ImageView
                     android:id="@+id/gardenPicture"
-                    android:layout_width="110dp"
+                    android:layout_width="70dp"
                     android:layout_height="60dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_weight="1"
                     tools:srcCompat="@drawable/gardenpicture" />
 

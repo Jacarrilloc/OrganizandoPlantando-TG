@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/white"
     tools:context=".huertaActivity">
 
 
@@ -58,15 +58,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gardenNameText" />
 
-    <TextView
+    <EditText
         android:id="@+id/gardenDescription"
         android:layout_width="376dp"
         android:layout_height="83dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:fontFamily="sans-serif"
-        android:text="Descripción..."
+        android:hint="Descripción..."
+        android:textAlignment="textStart"
         android:textColor="#050505"
+        android:textColorHint="@color/editTextBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/comabaquinta" />
 
@@ -293,8 +295,10 @@
 
     <ImageButton
         android:id="@+id/editButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="52dp"
+        android:backgroundTint="@color/white"
+        android:contentDescription="Boton de editar"
         app:layout_constraintBottom_toTopOf="@+id/gardenDescription"
         app:layout_constraintEnd_toStartOf="@+id/imageButton8"
         app:layout_constraintHorizontal_bias="0.368"

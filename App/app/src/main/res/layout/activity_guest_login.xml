@@ -95,7 +95,8 @@
                 android:layout_marginLeft="15dp"
                 android:layout_weight="1"
                 android:text="He leído los"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/termsAndConditionsText"
@@ -103,7 +104,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Términos y Condiciones"
-                android:textColor="@color/green" />
+                android:textColor="@color/green"
+                android:textStyle="italic" />
 
             <CheckBox
                 android:id="@+id/checkBox"
