@@ -21,12 +21,8 @@ public class LoginActivity extends AppCompatActivity {
         registerButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                launch();
+                //Intent registerActivityLaunch = new Intent(this,);
             }
         });
-    }
-
-    public void launch(){
-        startActivity(new Intent(this,RegisterProfileActivity.class));
     }
 }
