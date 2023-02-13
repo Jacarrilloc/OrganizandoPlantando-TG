@@ -23,7 +23,7 @@
         android:id="@+id/worldIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="88dp"
+        android:layout_marginBottom="76dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,42 +72,26 @@
         android:textColor="@color/white"
         android:textColorHint="@color/editTextBackground"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/laterButton"
+        app:layout_constraintBottom_toTopOf="@+id/masTardeButton"
         app:layout_constraintTop_toBottomOf="@+id/worldIcon"
         app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="9dp" />
+        tools:layout_editor_absoluteX="-9dp" />
 
     <Button
-        android:id="@+id/laterButton"
+        android:id="@+id/masTardeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="162dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="162dp"
         android:background="@null"
-        android:onClick="aceptar"
-        android:text="Más tarde"
-        android:textAlignment="center"
+        android:text="Mas tarde"
         android:textColor="@color/white"
-        android:textColorHint="@color/editTextBackground"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.583"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/worldIcon" />
-
-    <Button
-        android:id="@+id/acceptButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@null"
-        android:text="Aceptar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/laterButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterPhone"
-        app:layout_constraintVertical_bias="0.36" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

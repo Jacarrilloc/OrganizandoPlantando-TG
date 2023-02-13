@@ -108,7 +108,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <ImageButton
-        android:id="@+id/vermicultureButton"
+        android:id="@+id/imageButton"
         android:layout_width="122dp"
         android:layout_height="122dp"
         android:layout_marginStart="12dp"
@@ -125,7 +125,7 @@
         android:layout_marginStart="12dp"
         android:background="#FFFFFF"
         android:contentDescription="Herramientas"
-        app:layout_constraintStart_toEndOf="@+id/vermicultureButton"
+        app:layout_constraintStart_toEndOf="@+id/imageButton"
         app:layout_constraintTop_toBottomOf="@+id/formulariosText"
         app:srcCompat="@drawable/im_shovel" />
 
@@ -151,7 +151,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vermicultureButton"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -193,19 +193,19 @@
         app:srcCompat="@drawable/dr_message_icon" />
 
     <ImageButton
-        android:id="@+id/addPeopleButton"
+        android:id="@+id/imageButton8"
         android:layout_width="53dp"
         android:layout_height="52dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="12dp"
         android:background="#FDFDFD"
         android:contentDescription="Boton para añadir personas"
-        app:layout_constraintEnd_toStartOf="@+id/downloadButton"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton9"
         app:layout_constraintTop_toBottomOf="@+id/gardenProfilePicture"
         app:srcCompat="@drawable/dr_add_person_icon" />
 
     <ImageButton
-        android:id="@+id/downloadButton"
+        android:id="@+id/imageButton9"
         android:layout_width="50dp"
         android:layout_height="52dp"
         android:layout_marginTop="4dp"
@@ -300,7 +300,7 @@
         android:backgroundTint="@color/white"
         android:contentDescription="Boton de editar"
         app:layout_constraintBottom_toTopOf="@+id/gardenDescription"
-        app:layout_constraintEnd_toStartOf="@+id/addPeopleButton"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton8"
         app:layout_constraintHorizontal_bias="0.368"
         app:layout_constraintStart_toEndOf="@+id/messageButton"
         app:layout_constraintTop_toBottomOf="@+id/gardenProfilePicture"
