@@ -60,7 +60,7 @@ public class RegisterProfileActivity extends AppCompatActivity {
                 if(validationField(nameString,lastNameString,emailString,passwordString,confirmPasswordString,termsBool))
                 {
                     createNewUser(emailString,passwordString);
-                    //addAllInfoNewUser(nameString,lastNameString,emailString);
+                    addAllInfoNewUser(nameString,lastNameString,emailString);
                     Toast.makeText(RegisterProfileActivity.this, "Se ha Creado correctamente el Usuario", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(RegisterProfileActivity.this,HomeActivity.class));
                 }
@@ -126,11 +126,6 @@ public class RegisterProfileActivity extends AppCompatActivity {
         userInfo.put("apellido",lastName );
         userInfo.put("email",email );
 
-        database.collection("UserInfo").document(IdUser).set(userInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                Log.i("Database","User Added to Database");
-            }
-        });
+        
     }
 }
