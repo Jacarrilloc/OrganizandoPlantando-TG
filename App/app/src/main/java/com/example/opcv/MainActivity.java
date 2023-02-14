@@ -12,6 +12,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_garden);
 
-        startActivity(new Intent(this,LoginActivity.class));
+        startActivity(new Intent(this,NewToAppActivity.class));
     }
 }

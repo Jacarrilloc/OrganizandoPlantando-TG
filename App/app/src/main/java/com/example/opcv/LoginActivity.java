@@ -20,9 +20,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText email,password;
-    Button registerButtom,LogginButtom;
-
+    private Button registerButtom,loginButtom;
+    private EditText emailLogin,passwordLogin;
     private FirebaseAuth autentication;
 
     @Override
@@ -32,10 +31,20 @@ public class LoginActivity extends AppCompatActivity {
 
         autentication = FirebaseAuth.getInstance();
 
-        email = findViewById(R.id.editTextTextEmailAddress);
-        password = findViewById(R.id.editTextTextPassword);
-        LogginButtom = findViewById(R.id.buttonLoginActivity);
+        emailLogin = findViewById(R.id.editTextTextEmailAddress);
+        passwordLogin = findViewById(R.id.editTextTextPassword);
+
         registerButtom = findViewById(R.id.registerButtom);
+        loginButtom = findViewById(R.id.buttonLoginActivity);
+
+        loginButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String emailInfo = emailLogin.getText().toString();
+                String passwordInfo = passwordLogin.getText().toString();
+                logginUser(emailInfo,passwordInfo);
+            }
+        });
 
         registerButtom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,37 +52,35 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this,RegisterProfileActivity.class));
             }
         });
-
-        LogginButtom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                logginUser(email.getText().toString(),password.getText().toString());
-            }
-        });
     }
 
-    private void  logginUser(String emailSt, String passwordSt){
-        if(validate(emailSt,passwordSt)){
-            autentication.signInWithEmailAndPassword(emailSt,passwordSt).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    private void logginUser(String email,String password){
+
+        if(ValidateInfo(email,password)){
+            autentication.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        Log.i("INFO","TASK OK");
-                        FirebaseUser user = autentication.getCurrentUser();
                         Log.i("INFO","LOGGEADO CORRECTO");
+                        FirebaseUser usuarioActual = autentication.getCurrentUser();
                         startActivity(new Intent(LoginActivity.this,HomeActivity.class));
                     }else{
-                        Log.i("INFO","LOGGEADO Fallido");
+                        String error = task.getException().getMessage();
+                        Log.i("INFO",error);
+                        Toast.makeText(LoginActivity.this,"No existe este Usuario Registrado, por favor cree una cuenta", Toast.LENGTH_LONG).show();
+                        emailLogin.setText("");
+                        passwordLogin.setText("");
                     }
                 }
             });
         }else{
-            email.setText("");
-            password.setText("");
+            Toast.makeText(this,"Información Incorrecta, Por Favor intentelo de nuevo",Toast.LENGTH_LONG).show();
+            emailLogin.setText("");
+            passwordLogin.setText("");
         }
     }
 
-    private boolean validate(String email,String password){
+    private boolean ValidateInfo(String email,String password){
         if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
             if(TextUtils.isEmpty(email) && TextUtils.isEmpty(password)) {
                 Toast.makeText(this,"No se ha Ingresado el Email y la Contraseña",Toast.LENGTH_LONG).show();
@@ -102,14 +109,15 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
-    private boolean validatePassword(String password){
-        if(password.length() < 4)
+
+    private boolean validateEmail(String email){
+        if(!email.contains("@") || !email.contains(".") || email.length() < 5)
             return false;
         return true;
     }
 
-    private boolean validateEmail(String email){
-        if(!email.contains("@") || !email.contains(".") || email.length() < 5)
+    private boolean validatePassword(String password){
+        if(password.length() < 4)
             return false;
         return true;
     }

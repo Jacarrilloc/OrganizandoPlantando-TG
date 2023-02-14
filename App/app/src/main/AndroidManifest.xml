@@ -52,7 +52,7 @@
             android:name=".RegisterForms"
             android:exported="false" />
         <activity
-            android:name=".FormsAdapter"
+            android:name=".RegisterProfileActivity"
             android:exported="false" />
         <activity
             android:name=".GardenForms"
@@ -113,7 +113,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
