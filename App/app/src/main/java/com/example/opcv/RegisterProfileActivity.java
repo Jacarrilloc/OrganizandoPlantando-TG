@@ -13,11 +13,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterProfileActivity extends AppCompatActivity {
 
@@ -54,7 +61,6 @@ public class RegisterProfileActivity extends AppCompatActivity {
                 Boolean termsBool = terms.isChecked();
                 if(validationField(nameString,lastNameString,emailString,passwordString,confirmPasswordString,termsBool)){
                     createNewUser(emailString,passwordString);
-                    startActivity(new Intent(RegisterProfileActivity.this,HomeActivity.class));
                 }
             }
         });
@@ -88,9 +94,46 @@ public class RegisterProfileActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     FirebaseUser user = autentication.getCurrentUser();
+                    addToDataBase(user.getUid().toString());
                 }
             }
         });
+    }
+
+    private void addToDataBase(String userId){
+        String nameString = name.getText().toString();
+        String lastNameString = lastName.getText().toString();
+        String emailString = email.getText().toString();
+
+        Map<String, Object> newUserInfo = new HashMap<>();
+        newUserInfo.put("Name", name.getText().toString());
+        newUserInfo.put("LastName", lastName.getText().toString());
+        newUserInfo.put("Email",email.getText().toString());
+
+        CollectionReference collectionRef = database.collection("UserInfo");
+
+        collectionRef.add(newUserInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                startActivity(new Intent(RegisterProfileActivity.this,HomeActivity.class));
+            }
+        });
+/*
+        database.collection("UserInfo").document(userId)
+                .set(newUserInfo)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(RegisterProfileActivity.this, "Se creó el usuario correctamente.", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(RegisterProfileActivity.this,MainActivity.class));
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(RegisterProfileActivity.this, "No se pudo crear el usuario.", Toast.LENGTH_SHORT).show();
+                    }
+                });*/
     }
 
     private boolean validateEmail(String email){
