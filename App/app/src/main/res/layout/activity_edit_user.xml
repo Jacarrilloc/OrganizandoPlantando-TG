@@ -4,6 +4,285 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditUserActivity">
+    tools:context=".EditUserActivity"
+    android:background="@color/white">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/view2"
+        android:layout_width="163dp"
+        android:layout_height="160dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp"
+        android:elevation="12dp"
+        android:innerRadius="0dp"
+        android:shape="ring"
+        android:thicknessRatio="1.9"
+        app:cardCornerRadius="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/userImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="411dp"
+        android:layout_height="122dp"
+        android:background="@drawable/dr_shadow_top"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/ludification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="7dp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/im_dictionary"
+            android:padding="10dp"
+            android:stateListAnimator="@null"
+            android:text="@string/Diccionary"
+            android:textAllCaps="false"
+            android:textColor="@color/grayLetters" />
+
+        <Button
+            android:id="@+id/gardens"
+            android:layout_width="77dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="7dp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/im_colombia"
+            android:padding="10dp"
+            android:stateListAnimator="@null"
+            android:text="@string/Map"
+            android:textAllCaps="false"
+            android:textColor="@color/grayLetters" />
+
+        <Button
+            android:id="@+id/myGardens"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="7dp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/im_plant_icon"
+            android:padding="10dp"
+            android:stateListAnimator="@null"
+            android:text="@string/Gardens"
+            android:textAllCaps="false"
+            android:textColor="@color/grayLetters" />
+
+        <Button
+            android:id="@+id/profile"
+            android:layout_width="78dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="7dp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/im_user_icon"
+            android:padding="5dp"
+            android:stateListAnimator="@null"
+            android:text="@string/User"
+            android:textAllCaps="false"
+            android:textColor="@color/grayLetters" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/addImage"
+        android:layout_width="54dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="164dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/im_add_image"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.736"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout9"
+        android:layout_width="411dp"
+        android:layout_height="393dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="409dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:text="@string/nameUsr"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:text="@string/nombre"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/userName2"
+                android:layout_width="245dp"
+                android:layout_height="39dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/dr_gray_input_text"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:text="@string/cellphon"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/gardenName"
+                android:layout_width="245dp"
+                android:layout_height="39dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="36dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/dr_gray_input_text"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:text="@string/direcci_n"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/address"
+                android:layout_width="245dp"
+                android:layout_height="39dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/dr_gray_input_text"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:text="@string/comunity2"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/comunity"
+                android:layout_width="245dp"
+                android:layout_height="39dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/dr_gray_input_text"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/editUser"
+            android:layout_width="164dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/dr_green_button"
+            android:text="@string/editar"
+            android:textAllCaps="false" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/options"
+                android:layout_gravity="center"
+                android:layout_width="41dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/im_info" />
+
+            <TextView
+                android:id="@+id/options2"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="@string/otras_opciones"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

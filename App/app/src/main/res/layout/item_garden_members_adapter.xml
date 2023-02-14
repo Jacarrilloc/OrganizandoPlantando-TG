@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".GardenAdapter"
+    tools:context=".GardenMembersAdapter"
     android:layout_width="320dp"
     android:layout_height="80dp"
     android:layout_margin="20dp"
@@ -15,30 +15,28 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/gardenImage"
+            android:id="@+id/UserImage"
             android:layout_width="103dp"
             android:layout_height="60dp"
             android:layout_margin="10dp"
             android:padding="10dp" />
 
         <TextView
-            android:id="@+id/gardenName"
+            android:id="@+id/userName"
             android:layout_width="122dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/gardenName"
+            android:text="@string/nombre_usuario"
             android:textColor="@color/black" />
 
         <Button
             android:id="@+id/selected"
-            android:layout_width="56dp"
-            android:layout_height="wrap_content"
+            android:layout_width="31dp"
+            android:layout_height="26dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/dr_gray_rectangle"
-            android:drawableRight="@drawable/dr_arrow_next" />
-
+            android:background="@drawable/im_delete_icon" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

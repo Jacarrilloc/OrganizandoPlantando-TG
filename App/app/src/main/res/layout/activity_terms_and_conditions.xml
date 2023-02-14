@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/logo_ceres" />
+        app:srcCompat="@drawable/im_logo_ceres" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -67,7 +67,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="60sp"
             android:layout_marginRight="60sp"
-            android:background="@drawable/button"
+            android:background="@drawable/dr_white_button"
             android:backgroundTint="@color/white"
             android:gravity="center"
             android:padding="10dp"

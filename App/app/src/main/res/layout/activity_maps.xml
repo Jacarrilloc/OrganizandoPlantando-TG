@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VegetablePatchAvailableActivity"
+    tools:context=".MapsActivity"
     android:background="@color/white">
+
+
 
     <ImageView
         android:id="@+id/backImage"
@@ -48,37 +50,35 @@
             android:id="@+id/mapIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="70dp"
             android:padding="20dp"
-            app:srcCompat="@drawable/im_map_icon" />
+            app:srcCompat="@drawable/im_list_view" />
 
     </LinearLayout>
 
 
-    <ListView
-        android:id="@+id/gardenList"
-        android:layout_width="365dp"
-        android:layout_height="430dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <fragment
+        android:id="@+id/mapUser"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="372dp"
+        android:layout_height="448dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout11"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.235">
-
-    </ListView>
+        tools:context=".MapsActivity" />
 
     <LinearLayout
+        android:id="@+id/linearLayout11"
         android:layout_width="411dp"
         android:layout_height="122dp"
         android:background="@drawable/dr_shadow_top"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gardenList"
-        app:layout_constraintVertical_bias="1.0"
-        android:orientation="horizontal">
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/ludification"
@@ -142,8 +142,6 @@
             android:textColor="@color/grayLetters" />
 
 
-
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

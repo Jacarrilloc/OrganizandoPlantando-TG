@@ -19,7 +19,7 @@
         app:backgroundTint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/returnarrow" />
+        app:srcCompat="@drawable/dr_return_arrow" />
 
     <ImageView
         android:id="@+id/logoDecoration"
@@ -31,7 +31,7 @@
         app:layout_constraintHorizontal_bias="0.38"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/decoration" />
+        app:srcCompat="@drawable/im_lines_decoration" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10sp"
-                android:background="@drawable/imput_text_style"
+                android:background="@drawable/dr_white_input_text"
                 android:ems="10"
                 android:hint="Ingresa tu nombre de invitado"
                 android:inputType="textEmailAddress"
@@ -137,7 +137,7 @@
             android:layout_margin="10sp"
             android:layout_marginTop="50dp"
             android:layout_marginRight="50dp"
-            android:background="@drawable/button_ok_style"
+            android:background="@drawable/dr_green_button"
             android:backgroundTint="@null"
             android:gravity="center"
             android:text="Ingresar"

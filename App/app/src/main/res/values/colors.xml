@@ -15,4 +15,5 @@
     <color name="backgrountTintEditText">#e3e3e3</color>
     <color name="lightGreen">#CCD99C</color>
     <color name="lightgray">#A1A4B2</color>
+    <color name="red">#CB3234</color>
 </resources>

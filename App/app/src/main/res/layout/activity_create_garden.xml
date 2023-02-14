@@ -139,14 +139,16 @@
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:background="@drawable/button_ok_style"
+            android:background="@drawable/dr_green_button"
             android:text="@string/add"
             android:textAllCaps="false" />
 
 
     </LinearLayout>
 
+
     <LinearLayout
+        android:id="@+id/linearLayout8"
         android:layout_width="411dp"
         android:layout_height="122dp"
         android:background="@drawable/dr_shadow_top"
@@ -154,9 +156,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/ludification"
@@ -166,7 +166,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/hearticon"
+            android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
@@ -196,7 +196,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/plant"
+            android:drawableTop="@drawable/im_plant_icon"
             android:padding="10dp"
             android:stateListAnimator="@null"
             android:text="@string/Gardens"
@@ -212,7 +212,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/usericon"
+            android:drawableTop="@drawable/im_user_icon"
             android:padding="5dp"
             android:stateListAnimator="@null"
             android:text="@string/User"
