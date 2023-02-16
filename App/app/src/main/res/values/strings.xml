@@ -36,5 +36,7 @@
     <string name="nombre_usuario">Nombre Usuario</string>
     <string name="formularios">Formularios</string>
     <string name="title_activity_maps_fragment">MapsActivityFragment</string>
+    <string name="signout">Cerrar sesion</string>
+    <string name="delete">Eliminar cuenta</string>
 
 </resources>
