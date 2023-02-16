@@ -106,6 +106,7 @@ public class RegisterProfileActivity extends AppCompatActivity {
         String emailString = email.getText().toString();
 
         Map<String, Object> newUserInfo = new HashMap<>();
+        newUserInfo.put("ID",userId);
         newUserInfo.put("Name", name.getText().toString());
         newUserInfo.put("LastName", lastName.getText().toString());
         newUserInfo.put("Email",email.getText().toString());
