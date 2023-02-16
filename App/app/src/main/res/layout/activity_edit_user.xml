@@ -40,7 +40,7 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
@@ -275,12 +275,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:text="@string/otras_opciones"
+                android:text="@string/signout"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/options3"
+                android:layout_gravity="center"
+                android:layout_width="41dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/im_info" />
+
+            <TextView
+                android:id="@+id/options4"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="@string/delete"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
 
         </LinearLayout>
+
+
 
     </LinearLayout>
 
