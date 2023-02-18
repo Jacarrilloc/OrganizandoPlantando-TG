@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.service.controls.actions.FloatAction;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeActivity extends AppCompatActivity {
     private Button otherGardensButton, profile;
+    private ListView gardensUser;
     private FloatingActionButton nextArrow, addButton;
 
     @Override
@@ -20,15 +22,17 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         //Declaracion metodos de navegacion
-        nextArrow = (FloatingActionButton) findViewById(R.id.nextArrow);
-        nextArrow.setOnClickListener(new View.OnClickListener() {
+        gardensUser = findViewById(R.id.listAviableGardens);
+        addButton = (FloatingActionButton) findViewById(R.id.addButton);
+
+        fillGardenUser();
+        /*nextArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomeActivity.this, huertaActivity.class));
             }
-        });
+        });*/
 
-        addButton = (FloatingActionButton) findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,6 +55,10 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeActivity.this, EditUserActivity.class));
             }
         });
+
+    }
+
+    private void fillGardenUser(){
 
     }
 }
