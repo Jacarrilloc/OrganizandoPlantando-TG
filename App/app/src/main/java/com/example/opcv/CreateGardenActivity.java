@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.opcv.info.GardenInfo;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,6 +28,7 @@ public class CreateGardenActivity extends AppCompatActivity {
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
     private Button create;
+    private GardenInfo newInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,16 +63,19 @@ public class CreateGardenActivity extends AppCompatActivity {
             FirebaseUser user = autentication.getCurrentUser();
             CollectionReference collectionRef = database.collection("Gardens");
 
-            Map<String, Object> gardenInfo = new HashMap<>();
-            gardenInfo.put("ID_Owner",user.getUid());
-            gardenInfo.put("GardenName",name);
-            gardenInfo.put("InfoGarden",info);
             if(gardenPublic){
-                gardenInfo.put("GardenType", "Public");
+                newInfo = new GardenInfo(user.getUid(),nameGarden.getText().toString(),infoGarden.getText().toString(),"Public");
             }
             if(gardenPrivate){
-                gardenInfo.put("GardenType", "Private");
+                newInfo = new GardenInfo(user.getUid(),nameGarden.getText().toString(),infoGarden.getText().toString(),"Private");
             }
+
+
+            Map<String, Object> gardenInfo = new HashMap<>();
+            gardenInfo.put("ID_Owner",newInfo.getID_Owner());
+            gardenInfo.put("GardenName",newInfo.getName());
+            gardenInfo.put("InfoGarden",newInfo.getInfo());
+            gardenInfo.put("GardenType", newInfo.getGardenType());
             collectionRef.add(gardenInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {

@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 public class HomeActivity extends AppCompatActivity {
     private Button otherGardensButton, profile;
@@ -24,7 +27,6 @@ public class HomeActivity extends AppCompatActivity {
         //Declaracion metodos de navegacion
         gardensUser = findViewById(R.id.listAviableGardens);
         addButton = (FloatingActionButton) findViewById(R.id.addButton);
-
         fillGardenUser();
         /*nextArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +61,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void fillGardenUser(){
-
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference usersRef = db.collection("Gardens");
+        Query query = usersRef.orderBy("ID_Owner");
     }
 }
