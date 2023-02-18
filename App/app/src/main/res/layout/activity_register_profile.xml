@@ -97,6 +97,20 @@
                 android:textStyle="italic" />
 
             <EditText
+                android:id="@+id/imputPhoneRegisterActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:background="@drawable/dr_white_input_text"
+                android:ems="10"
+                android:hint="Telefono"
+                android:textColorHint="@color/editTextBackground"
+                android:textStyle="italic"
+                android:inputType="phone" />
+
+            <EditText
                 android:id="@+id/imputPasswordRegisterActivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
