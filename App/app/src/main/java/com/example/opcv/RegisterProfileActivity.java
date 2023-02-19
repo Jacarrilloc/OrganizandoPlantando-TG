@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class RegisterProfileActivity extends AppCompatActivity {
 
-    private EditText name,lastName,email,password,confirmPassword;
+    private EditText name,lastName,email,password,confirmPassword,phoneNumber;
     private CheckBox terms;
     private Button register;
     private FirebaseAuth autentication;
@@ -45,6 +45,7 @@ public class RegisterProfileActivity extends AppCompatActivity {
         name = findViewById(R.id.imputNameRegisterActivity);
         lastName = findViewById(R.id.imputLastNameRegisterActivity);
         email = findViewById(R.id.imputEmailRegisterActivity);
+        phoneNumber = findViewById(R.id.imputPhoneRegisterActivity);
         password = findViewById(R.id.imputPasswordRegisterActivity);
         confirmPassword = findViewById(R.id.imputConfirmPaswordRegisterActivity);
         terms = findViewById(R.id.okSignalTermsRegisterActivity);
@@ -100,41 +101,22 @@ public class RegisterProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void addToDataBase(String userId){
-        String nameString = name.getText().toString();
-        String lastNameString = lastName.getText().toString();
-        String emailString = email.getText().toString();
-
+    private void addToDataBase(String userId) {
         Map<String, Object> newUserInfo = new HashMap<>();
-        newUserInfo.put("ID",userId);
+        newUserInfo.put("ID", userId);
         newUserInfo.put("Name", name.getText().toString());
         newUserInfo.put("LastName", lastName.getText().toString());
-        newUserInfo.put("Email",email.getText().toString());
+        newUserInfo.put("Email", email.getText().toString());
+        newUserInfo.put("PhoneNumber", phoneNumber.getText().toString());
 
         CollectionReference collectionRef = database.collection("UserInfo");
 
         collectionRef.add(newUserInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                startActivity(new Intent(RegisterProfileActivity.this,HomeActivity.class));
+                startActivity(new Intent(RegisterProfileActivity.this, HomeActivity.class));
             }
         });
-/*
-        database.collection("UserInfo").document(userId)
-                .set(newUserInfo)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(RegisterProfileActivity.this, "Se creó el usuario correctamente.", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(RegisterProfileActivity.this,MainActivity.class));
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(RegisterProfileActivity.this, "No se pudo crear el usuario.", Toast.LENGTH_SHORT).show();
-                    }
-                });*/
     }
 
     private boolean validateEmail(String email){
@@ -143,8 +125,8 @@ public class RegisterProfileActivity extends AppCompatActivity {
         return true;
     }
 
-    private boolean validatePassword(String contra){
-        if(contra.length() < 6)
+    private boolean validatePassword(String password){
+        if(password.length() < 6)
             return false;
         return true;
     }

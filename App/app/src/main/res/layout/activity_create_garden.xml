@@ -76,6 +76,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
+            android:textColor="@color/black"
             android:background="@drawable/dr_gray_input_text" />
 
         <TextView
@@ -93,6 +94,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
+            android:textColor="@color/black"
             android:background="@drawable/dr_gray_input_text" />
 
         <TextView
@@ -101,6 +103,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:text="@string/gardenType"
+
             android:textColor="@color/black" />
 
         <LinearLayout
@@ -113,7 +116,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <CheckBox
-                android:id="@+id/checkbox_public"
+                android:id="@+id/checkbox_public_Create_Activity"
                 android:layout_width="96dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -122,7 +125,7 @@
                 android:textColor="@color/black" />
 
             <CheckBox
-                android:id="@+id/checkbox_private"
+                android:id="@+id/checkbox_private_Create_Activity"
                 android:layout_width="113dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"

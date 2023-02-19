@@ -1,152 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     android:id="@+id/ConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".HomeActivity">
 
-    <ImageView
-        android:id="@+id/backImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/im_cloud_bck" />
-
     <LinearLayout
-        android:layout_width="359dp"
-        android:layout_height="389dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/otherGardensButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/anadirText">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5sp"
+        android:orientation="horizontal"
+        android:layout_weight="0">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="325dp"
-            android:layout_height="62dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            app:cardCornerRadius="50dp"
-            card_view:cardBackgroundColor="#F2F2F2">
+        <TextView
+            android:id="@+id/misHuertasText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:layout_weight="0.6"
+            android:text="Mis Huertas"
+            android:textColor="#070707"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.3"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/addButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5sp"
+                android:backgroundTint="#91BF63"
+                android:clickable="true"
+                android:contentDescription="Añadir"
+                android:focusable="true"
+                android:foregroundTint="@color/green"
+                android:foregroundTintMode="multiply"
+                android:tint="@color/white"
+                android:tintMode="multiply"
+                app:backgroundTintMode="src_in"
+                app:maxImageSize="60dp"
+                app:rippleColor="@color/white"
+                app:srcCompat="@drawable/dr_add_button" />
 
-                <ImageView
-                    android:id="@+id/gardenPicture"
-                    android:layout_width="70dp"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
-                    tools:srcCompat="@drawable/im_garden_pic" />
+            <TextView
+                android:id="@+id/anadirText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Añadir"
+                android:textColor="#090909"
+                android:textStyle="normal|italic" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/gardenName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:text="Ozain"
-                    android:textColor="#131313"
-                    android:textSize="34sp" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/nextArrow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:contentDescription="Ir a ver la huerta"
-                    android:hint="Ir a la huerta"
-                    android:tint="#000000"
-                    app:backgroundTint="#F2F2F2"
-                    card_view:srcCompat="@drawable/dr_arrow_next" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
-
-    <TextView
-        android:id="@+id/misHuertasText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="44dp"
-        android:text="Mis Huertas"
-        android:textColor="#070707"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="32dp"
-        android:backgroundTint="#91BF63"
-        android:clickable="true"
-        android:contentDescription="Añadir"
-        android:focusable="true"
-        android:foregroundTint="#F0F3ED"
-        android:foregroundTintMode="multiply"
-        android:tint="#F8F5F5"
-        android:tintMode="multiply"
-        app:backgroundTintMode="src_in"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/misHuertasText"
-        app:maxImageSize="60dp"
-        app:rippleColor="#E8E1E1"
-        app:srcCompat="@drawable/dr_add_button" />
-
-    <TextView
-        android:id="@+id/anadirText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="40dp"
-        android:text="Añadir"
-        android:textColor="#090909"
-        android:textStyle="normal|italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addButton" />
+    <ListView
+        android:id="@+id/listAviableGardens"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10sp"
+        android:layout_weight="0.9" />
 
     <Button
         android:id="@+id/otherGardensButton"
         android:layout_width="181dp"
         android:layout_height="52dp"
         android:layout_marginEnd="16dp"
+        android:layout_gravity="end"
         android:background="@drawable/dr_green_button"
         android:backgroundTint="#91BF63"
         android:text="Ver otras huertas"
-        android:textColor="#000000"
-        app:cornerRadius="50dp"
-        app:iconPadding="100dp"
-        app:layout_constraintBottom_toTopOf="@id/navBar"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textColor="@color/black" />
 
     <LinearLayout
         android:id="@+id/navBar"
         android:layout_width="411dp"
         android:layout_height="122dp"
-
         android:background="@drawable/dr_shadow_top"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_gravity="end">
 
         <Button
             android:id="@+id/ludification"
@@ -208,9 +153,5 @@
             android:text="Perfil"
             android:textAllCaps="false"
             android:textColor="#A0A3B1" />
-
-
     </LinearLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

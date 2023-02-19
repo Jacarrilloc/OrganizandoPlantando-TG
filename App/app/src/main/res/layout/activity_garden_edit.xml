@@ -149,7 +149,7 @@
                 android:textColor="@color/black" />
 
             <CheckBox
-                android:id="@+id/checkbox_public"
+                android:id="@+id/checkbox_public_Create_Activity"
                 android:layout_width="96dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -159,7 +159,7 @@
                 android:textColor="@color/black" />
 
             <CheckBox
-                android:id="@+id/checkbox_private"
+                android:id="@+id/checkbox_private_Create_Activity"
                 android:layout_width="113dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
