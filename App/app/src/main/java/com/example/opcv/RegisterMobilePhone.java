@@ -20,7 +20,7 @@ public class RegisterMobilePhone extends AppCompatActivity {
 
     private FirebaseFirestore database;
     private ImageButton continueButtom;
-    private TextView laterText;
+    private TextView laterText,welcome;
     private EditText phone;
 
     @Override
@@ -31,11 +31,18 @@ public class RegisterMobilePhone extends AppCompatActivity {
         phone = findViewById(R.id.phone_Imput);
         continueButtom = findViewById(R.id.continueButtom_phone_activity);
         laterText = findViewById(R.id.later_Buttom);
+        welcome = findViewById(R.id.welcome_msg);
 
         database = FirebaseFirestore.getInstance();
 
         Intent intent = getIntent();
         Map<String, Object> myMap = (Map<String, Object>) intent.getSerializableExtra("mapUser");
+
+        String nameUser = myMap.get("Name").toString();
+
+        String mesage = "Hola " + nameUser + ", Bienvenido(a) a Ceres";
+
+        welcome.setText(mesage);
 
 
         continueButtom.setOnClickListener(new View.OnClickListener() {

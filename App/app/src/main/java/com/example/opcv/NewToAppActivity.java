@@ -60,7 +60,9 @@ public class NewToAppActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = autenticacion.getCurrentUser();
         if(currentUser != null) {
-            startActivity(new Intent(NewToAppActivity.this, HomeActivity.class));
+            Intent intent = new Intent(NewToAppActivity.this, HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
     }
 }
