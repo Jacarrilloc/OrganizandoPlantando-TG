@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2sp"
+    android:background="@drawable/dr_white_input_text">
+
+    <ImageView
+        android:id="@+id/garden_imagen_list_item"
+        android:layout_width="5sp"
+        android:layout_height="40sp"
+        android:layout_weight="0.2"
+        android:layout_margin="2sp"
+        tools:srcCompat="@drawable/im_logo_ceres" />
+
+    <TextView
+        android:id="@+id/garden_name_list_item"
+        android:layout_margin="10sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:text="Garden Name" />
+</LinearLayout>
