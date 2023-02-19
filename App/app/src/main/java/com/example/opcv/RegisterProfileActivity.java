@@ -31,7 +31,7 @@ public class RegisterProfileActivity extends AppCompatActivity {
 
     private EditText name,lastName,email,password,confirmPassword,phoneNumber;
     private CheckBox terms;
-    private Button register;
+    private Button register,termsConditions;
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
 
@@ -51,6 +51,14 @@ public class RegisterProfileActivity extends AppCompatActivity {
         terms = findViewById(R.id.okSignalTermsRegisterActivity);
         register = findViewById(R.id.createAcountButtomRegisterActivity);
 
+        termsConditions = findViewById(R.id.terms_condition_buttom_registerProfileActivity);
+
+        termsConditions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(RegisterProfileActivity.this,TermsAndConditionsActivity.class));
+            }
+        });
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

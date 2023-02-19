@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -54,7 +55,6 @@ public class HomeActivity extends AppCompatActivity {
                 }).create().show();
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +67,13 @@ public class HomeActivity extends AppCompatActivity {
         listAviableGardensInfo = findViewById(R.id.listAviableGardens);
         addButton = (FloatingActionButton) findViewById(R.id.addButton);
         fillGardenUser();
+
+        listAviableGardensInfo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //Intent start = new Intent(HomeActivity.this,);
+            }
+        });
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -141,7 +141,7 @@
                     android:textStyle="italic" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/terms_condition_buttom_registerProfileActivity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5sp"
