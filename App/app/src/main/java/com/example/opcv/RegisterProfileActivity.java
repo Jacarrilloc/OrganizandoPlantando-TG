@@ -23,6 +23,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,7 +46,6 @@ public class RegisterProfileActivity extends AppCompatActivity {
         name = findViewById(R.id.imputNameRegisterActivity);
         lastName = findViewById(R.id.imputLastNameRegisterActivity);
         email = findViewById(R.id.imputEmailRegisterActivity);
-        phoneNumber = findViewById(R.id.imputPhoneRegisterActivity);
         password = findViewById(R.id.imputPasswordRegisterActivity);
         confirmPassword = findViewById(R.id.imputConfirmPaswordRegisterActivity);
         terms = findViewById(R.id.okSignalTermsRegisterActivity);
@@ -107,16 +107,10 @@ public class RegisterProfileActivity extends AppCompatActivity {
         newUserInfo.put("Name", name.getText().toString());
         newUserInfo.put("LastName", lastName.getText().toString());
         newUserInfo.put("Email", email.getText().toString());
-        newUserInfo.put("PhoneNumber", phoneNumber.getText().toString());
 
-        CollectionReference collectionRef = database.collection("UserInfo");
-
-        collectionRef.add(newUserInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                startActivity(new Intent(RegisterProfileActivity.this, HomeActivity.class));
-            }
-        });
+        Intent intent = new Intent(RegisterProfileActivity.this,RegisterMobilePhone.class);
+        intent.putExtra("mapUser",(Serializable) newUserInfo);
+        startActivity(intent);
     }
 
     private boolean validateEmail(String email){

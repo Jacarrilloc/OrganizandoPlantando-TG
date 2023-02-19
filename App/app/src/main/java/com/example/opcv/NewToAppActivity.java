@@ -1,7 +1,9 @@
 package com.example.opcv;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +18,19 @@ public class NewToAppActivity extends AppCompatActivity {
     Button createAcount;
     TextView goToLogin;
     private FirebaseAuth autenticacion;
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage("¿Estás seguro de que quieres salir de Ceres?")
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        NewToAppActivity.super.onBackPressed();
+                        finishAffinity();
+                    }
+                }).create().show();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

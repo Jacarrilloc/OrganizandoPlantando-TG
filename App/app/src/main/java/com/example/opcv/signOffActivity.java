@@ -37,7 +37,9 @@ public class signOffActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 autentication.signOut();
-                startActivity(new Intent(signOffActivity.this, NewToAppActivity.class));
+                Intent intent = new Intent(signOffActivity.this, NewToAppActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
     }
