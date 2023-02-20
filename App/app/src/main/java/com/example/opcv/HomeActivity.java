@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -71,7 +72,15 @@ public class HomeActivity extends AppCompatActivity {
         listAviableGardensInfo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Intent start = new Intent(HomeActivity.this,);
+
+                Object selectedItem = adapterView.getItemAtPosition(i);
+                String itemName = ((ItemGardenHomeList) selectedItem).getName();
+                String userID = autentication.getCurrentUser().getUid();
+
+                Intent start = new Intent(HomeActivity.this,huertaActivity.class);
+                start.putExtra("ID",userID);
+                start.putExtra("gardenName",itemName);
+                startActivity(start);
             }
         });
 
