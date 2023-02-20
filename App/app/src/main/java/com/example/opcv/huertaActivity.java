@@ -59,7 +59,6 @@ public class huertaActivity extends AppCompatActivity {
                         String infoDoc = document.getString("InfoGarden");
                         String typeDoc = document.getString("GardenType");
                         GardenInfo gardenInfo = new GardenInfo(idUser,name,infoDoc,typeDoc);
-                        Toast.makeText(huertaActivity.this, "Info:" + gardenInfo.getName() + " " + gardenInfo.getInfo(), Toast.LENGTH_SHORT).show();
                         fillSreen(gardenInfo);
                     }
                 } else {
