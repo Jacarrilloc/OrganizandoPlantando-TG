@@ -13,6 +13,7 @@
         android:layout_height="563dp"
         android:layout_marginTop="28dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,8 +77,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            android:textColor="@color/black"
-            android:background="@drawable/dr_gray_input_text" />
+            android:background="@drawable/dr_gray_input_text"
+            android:textColor="@color/black" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -94,8 +95,9 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            android:textColor="@color/black"
-            android:background="@drawable/dr_gray_input_text" />
+            android:background="@drawable/dr_gray_input_text"
+            android:maxLines="4"
+            android:textColor="@color/black" />
 
         <TextView
             android:layout_width="wrap_content"

@@ -6,6 +6,9 @@ public class GardenInfo {
     String info;
     String gardenType;
 
+    public GardenInfo() {
+    }
+
     public GardenInfo(String ID_Owner, String name, String info, String gardenType) {
         this.ID_Owner = ID_Owner;
         this.name = name;
