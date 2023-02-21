@@ -36,7 +36,7 @@
     <TextView
         android:id="@+id/gardenNameText"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:fontFamily="sans-serif"
@@ -44,6 +44,8 @@
         android:textColor="#020202"
         android:textSize="34sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/messageButton"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gardenProfilePicture" />
 
@@ -184,12 +186,13 @@
         android:id="@+id/messageButton"
         android:layout_width="54dp"
         android:layout_height="52dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="4dp"
         android:backgroundTint="#FDFDFD"
         android:contentDescription="Boton para mensaje"
-        app:layout_constraintStart_toEndOf="@+id/gardenNameText"
+
+        app:layout_constraintBottom_toTopOf="@+id/gardenDescription"
+        app:layout_constraintEnd_toStartOf="@+id/editButton2"
         app:layout_constraintTop_toBottomOf="@+id/gardenProfilePicture"
+        app:layout_constraintVertical_bias="0.166"
         app:srcCompat="@drawable/dr_message_icon" />
 
     <ImageButton
@@ -197,7 +200,7 @@
         android:layout_width="53dp"
         android:layout_height="52dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="4dp"
         android:background="#FDFDFD"
         android:contentDescription="Boton para añadir personas"
         app:layout_constraintEnd_toStartOf="@+id/imageButton9"
@@ -209,7 +212,7 @@
         android:layout_width="50dp"
         android:layout_height="52dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="4dp"
         android:background="#FDFCFC"
         android:contentDescription="Boton de descargar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -300,11 +303,10 @@
         android:backgroundTint="@color/white"
         android:contentDescription="Boton de editar"
         app:layout_constraintBottom_toTopOf="@+id/gardenDescription"
+
         app:layout_constraintEnd_toStartOf="@+id/imageButton8"
-        app:layout_constraintHorizontal_bias="0.368"
-        app:layout_constraintStart_toEndOf="@+id/messageButton"
         app:layout_constraintTop_toBottomOf="@+id/gardenProfilePicture"
-        app:layout_constraintVertical_bias="0.117"
+        app:layout_constraintVertical_bias="0.166"
         app:srcCompat="@drawable/dr_edit_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

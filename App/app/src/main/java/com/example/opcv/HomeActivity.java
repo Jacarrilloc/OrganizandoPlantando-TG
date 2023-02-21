@@ -35,6 +35,7 @@ public class HomeActivity extends AppCompatActivity {
     private FloatingActionButton nextArrow, addButton;
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
+    private static String nameGarden;
 
     @Override
     protected void onStart() {
@@ -126,5 +127,10 @@ public class HomeActivity extends AppCompatActivity {
         GardenListAdapter adapter = new GardenListAdapter(this, gardenInfoDocument);
         listAviableGardensInfo.setAdapter(adapter);
         listAviableGardensInfo.setDividerHeight(5);
+
     }
+
+
+
+
 }
