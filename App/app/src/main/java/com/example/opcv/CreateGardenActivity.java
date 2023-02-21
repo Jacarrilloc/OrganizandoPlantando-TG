@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.opcv.entity_classes.GardenClass;
 import com.example.opcv.info.GardenInfo;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -76,15 +77,20 @@ public class CreateGardenActivity extends AppCompatActivity {
             gardenInfo.put("GardenName",newInfo.getName());
             gardenInfo.put("InfoGarden",newInfo.getInfo());
             gardenInfo.put("GardenType", newInfo.getGardenType());
+
             collectionRef.add(gardenInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
+                    //GardenClass garden = new GardenClass(newInfo.getName(), newInfo.getInfo(), newInfo.getGardenType(), documentReference.getId().toString(), newInfo.getID_Owner());
+                    //System.out.println("El id creado es: " +documentReference.getId().toString());
                     Toast.makeText(CreateGardenActivity.this, "Se Creó exitosamente la Huerta", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(CreateGardenActivity.this, HomeActivity.class));
+                    startActivity(new Intent(CreateGardenActivity.this, HomeActivity.class).putExtra("idGarden", documentReference.getId().toString()));
                 }
             });
+
         }
     }
+
     private boolean validateField(String name,String info,Boolean gardenPublic,Boolean gardenPrivate){
 
         if(name.isEmpty() || info.isEmpty()){
@@ -101,4 +107,5 @@ public class CreateGardenActivity extends AppCompatActivity {
         }
         return true;
     }
+
 }

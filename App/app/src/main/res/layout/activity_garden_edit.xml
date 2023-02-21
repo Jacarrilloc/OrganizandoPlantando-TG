@@ -54,7 +54,7 @@
     <LinearLayout
         android:id="@+id/linearLayout7"
         android:layout_width="382dp"
-        android:layout_height="360dp"
+        android:layout_height="395dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,6 +82,8 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
                 android:background="@drawable/dr_gray_input_text" />
 
         </LinearLayout>
@@ -106,6 +108,8 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="45dp"
                 android:layout_marginRight="20dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
                 android:background="@drawable/dr_gray_input_text" />
 
         </LinearLayout>
@@ -196,13 +200,13 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/changesHistory"
+            android:id="@+id/acceptChanges"
             android:layout_width="167dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:background="@drawable/dr_green_button"
-            android:text="@string/ChangesHistory"
+            android:text="@string/acceptChanges"
             android:textAllCaps="false" />
 
         <Button
@@ -214,6 +218,16 @@
             android:background="@drawable/dr_green_button"
             android:text="@string/AddForm"
             android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/deleteGarden"
+            android:layout_width="167dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/dr_cancel_button"
+            android:text="@string/deleteGarden"
+            android:textAllCaps="false"/>
 
     </LinearLayout>
 

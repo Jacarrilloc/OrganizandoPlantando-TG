@@ -33,11 +33,11 @@
 
     <TextView
         android:id="@+id/deleteAccountText"
-        android:layout_width="425dp"
+        android:layout_width="wrap_content"
         android:layout_height="66dp"
         android:layout_marginTop="4dp"
         android:fontFamily="sans-serif"
-        android:text="¿Esta seguro de eliminar cuenta?"
+        android:text="@string/deleteGardenConfirmation"
         android:textColor="#050505"
         android:textSize="27dp"
         android:textStyle="bold"

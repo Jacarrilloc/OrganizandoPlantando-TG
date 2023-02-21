@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,9 +26,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class huertaActivity extends AppCompatActivity {
 
     private Button returnArrowButton;
+    private ImageButton editGarden;
     private TextView nameGarden,descriptionGarden;
     private FirebaseFirestore database;
     private CollectionReference gardensRef;
+
+    private String gardenID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +48,20 @@ public class huertaActivity extends AppCompatActivity {
         if(extras != null){
             String id = extras.getString("ID");
             String garden = extras.getString("gardenName");
+            gardenID = extras.getString("idGarden");
             SearchInfoGardenSreen(id,garden);
         }
+
+        editGarden = (ImageButton) findViewById(R.id.imageButton8);
+        editGarden.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //System.out.println("El id creado es: " +gardenID);
+                Intent start = new Intent(huertaActivity.this,GardenEditActivity.class);
+                start.putExtra("idGarden", gardenID);
+                startActivity(start);
+            }
+        });
     }
 
     private void SearchInfoGardenSreen(String idUser,String name){

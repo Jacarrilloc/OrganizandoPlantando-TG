@@ -38,6 +38,8 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseFirestore database;
     private Animation animSlideUp;
 
+    private String idHuerta;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -78,10 +80,12 @@ public class HomeActivity extends AppCompatActivity {
                 Object selectedItem = adapterView.getItemAtPosition(i);
                 String itemName = ((ItemGardenHomeList) selectedItem).getName();
                 String userID = autentication.getCurrentUser().getUid();
-
+                String idGarden = ((ItemGardenHomeList) selectedItem).getIdGarden();
                 Intent start = new Intent(HomeActivity.this,huertaActivity.class);
                 start.putExtra("ID",userID);
                 start.putExtra("gardenName",itemName);
+                start.putExtra("idGarden", idGarden);
+
                 startActivity(start);
             }
         });
@@ -122,9 +126,21 @@ public class HomeActivity extends AppCompatActivity {
                     List<ItemGardenHomeList> gardenNames = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         String name = document.getString("GardenName");
-                        ItemGardenHomeList newItem = new ItemGardenHomeList(name);
+                        String gardenId = document.getId();
+
+                        ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId);
                         gardenNames.add(newItem);
                     }
+                    /*String newString;
+                    Bundle extras = getIntent().getExtras();
+                    if(extras==null){
+                        newString = null;
+                    }
+                    else {
+                        newString = extras.getString("idGarden");
+                    }
+                    idHuerta = newString;*/
+
                     fillListGardens(gardenNames);
                 } else {
                     Toast.makeText(HomeActivity.this, "Error al obtener los documentos", Toast.LENGTH_SHORT).show();
