@@ -4,8 +4,10 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -60,17 +62,6 @@ public class GardenEditActivity extends AppCompatActivity {
             idGarden = extras.getString("idGarden");
         }
 
-       // System.out.println("El id creado es: " +idGarden);
-        //Bundle extras = getIntent().getExtras();
-        if(extras != null){
-
-            response = extras.getBoolean("response");
-
-        }
-        if(response){
-            System.out.println("response " +idGarden);
-            deleteGarden(idGarden);
-        }
 
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
@@ -119,12 +110,18 @@ public class GardenEditActivity extends AppCompatActivity {
         deleteGarden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent start = new Intent(GardenEditActivity.this,deleteGardenConfirmationActivity.class);
-                start.putExtra("idGarden",idGarden);
+                new AlertDialog.Builder(view.getContext())
+                        .setMessage("¿Estás seguro de que deseas eliminar esta huerta?")
+                        .setNegativeButton(android.R.string.no, null)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                deleteGarden(idGarden);
+                                Intent exit = new Intent(GardenEditActivity.this, HomeActivity.class);
+                                exit.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(exit);
+                            }
+                        }).create().show();
 
-                startActivity(start);
-
-                //deleteGarden(idGarden, response);
 
             }
         });
