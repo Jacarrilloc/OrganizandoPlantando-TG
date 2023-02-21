@@ -49,7 +49,6 @@ public class huertaActivity extends AppCompatActivity {
     }
 
     private void SearchInfoGardenSreen(String idUser,String name){
-        Toast.makeText(this, "Entró", Toast.LENGTH_SHORT).show();
         Query query = gardensRef.whereEqualTo("ID_Owner", idUser).whereEqualTo("GardenName", name);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

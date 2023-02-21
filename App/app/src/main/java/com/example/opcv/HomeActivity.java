@@ -4,13 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -36,6 +36,7 @@ public class HomeActivity extends AppCompatActivity {
     private FloatingActionButton nextArrow, addButton;
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
+    private Animation animSlideUp;
 
     @Override
     protected void onStart() {
@@ -67,6 +68,7 @@ public class HomeActivity extends AppCompatActivity {
         //Declaracion metodos de navegacion
         listAviableGardensInfo = findViewById(R.id.listAviableGardens);
         addButton = (FloatingActionButton) findViewById(R.id.addButton);
+        animSlideUp = AnimationUtils.loadAnimation(this, R.anim.slide_right_to_left);
         fillGardenUser();
 
         listAviableGardensInfo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
