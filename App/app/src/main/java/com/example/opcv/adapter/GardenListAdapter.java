@@ -1,4 +1,4 @@
-package com.example.opcv.info;
+package com.example.opcv.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,11 +7,11 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.opcv.R;
+import com.example.opcv.item_list.ItemGardenHomeList;
 
 import java.util.List;
 
