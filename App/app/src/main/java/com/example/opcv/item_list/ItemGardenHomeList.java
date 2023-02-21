@@ -1,4 +1,4 @@
-package com.example.opcv.info;
+package com.example.opcv.item_list;
 
 public class ItemGardenHomeList {
     public String getName() {

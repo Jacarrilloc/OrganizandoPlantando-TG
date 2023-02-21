@@ -22,7 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.2"
         android:textColor="@color/black"
+        android:textAlignment="textStart"
         android:textSize="20sp"
-        android:layout_gravity="center"
         android:text="Garden Name" />
+
 </LinearLayout>

@@ -14,8 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5sp"
-        android:orientation="horizontal"
-        android:layout_weight="0">
+        android:layout_weight="0"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/misHuertasText"
@@ -66,24 +66,31 @@
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/listAviableGardens"
-        android:background="@color/white"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10sp"
-        android:layout_weight="0.9" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
-    <Button
-        android:id="@+id/otherGardensButton"
-        android:layout_width="181dp"
-        android:layout_height="52dp"
-        android:layout_marginEnd="16dp"
-        android:layout_gravity="end"
-        android:background="@drawable/dr_green_button"
-        android:backgroundTint="#91BF63"
-        android:text="Ver otras huertas"
-        android:textColor="@color/black" />
+        <ListView
+            android:id="@+id/listAviableGardens"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20sp"
+            android:layout_weight="0.9"
+            android:background="@color/white" />
+
+        <Button
+            android:id="@+id/otherGardensButton"
+            android:layout_width="181dp"
+            android:layout_height="52dp"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:background="@drawable/dr_green_button"
+            android:backgroundTint="#91BF63"
+            android:text="Ver otras huertas"
+            android:textColor="@color/black" />
+
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/navBar"
