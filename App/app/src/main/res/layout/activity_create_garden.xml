@@ -77,6 +77,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
+            android:maxLines="1"
             android:background="@drawable/dr_gray_input_text"
             android:textColor="@color/black" />
 
@@ -96,7 +97,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/dr_gray_input_text"
-            android:maxLines="4"
+            android:maxLines="3"
             android:textColor="@color/black" />
 
         <TextView

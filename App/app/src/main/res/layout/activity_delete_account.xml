@@ -64,13 +64,12 @@
         android:layout_width="131dp"
         android:layout_height="52dp"
         android:layout_marginEnd="52dp"
-        android:backgroundTint="#D22424"
+        android:background="@drawable/dr_cancel_button"
         android:text="Eliminar"
-        android:background="@drawable/dr_green_button"
         android:textStyle="italic"
         app:cornerRadius="50dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.972"
         app:layout_constraintStart_toEndOf="@+id/returnButton2"
         app:layout_constraintTop_toBottomOf="@+id/logoDecoration" />
 

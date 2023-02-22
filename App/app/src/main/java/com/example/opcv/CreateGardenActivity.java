@@ -76,15 +76,18 @@ public class CreateGardenActivity extends AppCompatActivity {
             gardenInfo.put("GardenName",newInfo.getName());
             gardenInfo.put("InfoGarden",newInfo.getInfo());
             gardenInfo.put("GardenType", newInfo.getGardenType());
+
             collectionRef.add(gardenInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
                     Toast.makeText(CreateGardenActivity.this, "Se Creó exitosamente la Huerta", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(CreateGardenActivity.this, HomeActivity.class));
+                    startActivity(new Intent(CreateGardenActivity.this, HomeActivity.class).putExtra("idGarden", documentReference.getId().toString()));
                 }
             });
+
         }
     }
+
     private boolean validateField(String name,String info,Boolean gardenPublic,Boolean gardenPrivate){
 
         if(name.isEmpty() || info.isEmpty()){
@@ -101,4 +104,5 @@ public class CreateGardenActivity extends AppCompatActivity {
         }
         return true;
     }
+
 }

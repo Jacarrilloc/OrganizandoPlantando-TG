@@ -11,7 +11,18 @@ public class ItemGardenHomeList {
 
     private String name;
 
-    public ItemGardenHomeList(String name) {
+    public String getIdGarden() {
+        return idGarden;
+    }
+
+    public void setIdGarden(String idGarden) {
+        this.idGarden = idGarden;
+    }
+
+    private String idGarden;
+
+    public ItemGardenHomeList(String name, String idGarden) {
         this.name = name;
+        this.idGarden = idGarden;
     }
 }
