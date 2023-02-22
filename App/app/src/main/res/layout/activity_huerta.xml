@@ -274,7 +274,7 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/imageView2"
+                            android:id="@+id/moreFormsButtom"
                             android:layout_width="122dp"
                             android:layout_height="121dp"
                             android:layout_gravity="center"
@@ -284,7 +284,7 @@
                             app:srcCompat="@drawable/dr_add_button" />
 
                         <TextView
-                            android:id="@+id/moreFormsButtom"
+                            android:id="@+id/text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"

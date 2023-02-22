@@ -25,7 +25,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class huertaActivity extends AppCompatActivity {
 
-    private Button returnArrowButton;
+    private Button returnArrowButton,moreFormsButtom;
     private ImageButton editGarden;
     private TextView nameGarden,descriptionGarden;
     private FirebaseFirestore database;
@@ -40,6 +40,7 @@ public class huertaActivity extends AppCompatActivity {
 
         nameGarden = findViewById(R.id.gardenNameText);
         descriptionGarden = findViewById(R.id.descriptionGarden);
+        moreFormsButtom = findViewById(R.id.moreFormsButtom);
 
         database = FirebaseFirestore.getInstance();
         gardensRef = database.collection("Gardens");
@@ -51,6 +52,13 @@ public class huertaActivity extends AppCompatActivity {
             gardenID = extras.getString("idGarden");
             SearchInfoGardenSreen(id,garden);
         }
+
+        moreFormsButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         editGarden = (ImageButton) findViewById(R.id.imageButton8);
         editGarden.setOnClickListener(new View.OnClickListener() {
