@@ -16,8 +16,12 @@ import android.widget.Toast;
 
 import com.example.opcv.info.GardenInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -25,13 +29,13 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class huertaActivity extends AppCompatActivity {
 
-    private Button returnArrowButton;
+    private Button returnArrowButton, gardens, myGardens, profile;
     private ImageButton editGarden;
     private TextView nameGarden,descriptionGarden;
     private FirebaseFirestore database;
     private CollectionReference gardensRef;
 
-    private String gardenID;
+    private String gardenID, garden, infoGarden;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,7 @@ public class huertaActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             String id = extras.getString("ID");
-            String garden = extras.getString("gardenName");
+            garden = extras.getString("gardenName");
             gardenID = extras.getString("idGarden");
             SearchInfoGardenSreen(id,garden);
         }
@@ -59,12 +63,63 @@ public class huertaActivity extends AppCompatActivity {
                 //System.out.println("El id creado es: " +gardenID);
                 Intent start = new Intent(huertaActivity.this,GardenEditActivity.class);
                 start.putExtra("idGarden", gardenID);
+                start.putExtra("gardenName", garden);
+                start.putExtra("infoGarden", infoGarden);
                 startActivity(start);
+            }
+        });
+
+        gardens = (Button) findViewById(R.id.gardens);
+        gardens.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(huertaActivity.this, VegetablePatchAvailableActivity.class));
+            }
+        });
+
+        myGardens = (Button) findViewById(R.id.myGardens);
+        myGardens.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(huertaActivity.this, HomeActivity.class));
+            }
+        });
+
+        profile = (Button) findViewById(R.id.profile);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(huertaActivity.this, EditUserActivity.class));
             }
         });
     }
 
     private void SearchInfoGardenSreen(String idUser,String name){
+        DocumentReference ref = gardensRef.document(gardenID);
+        ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                String infoDoc=null;
+                if (documentSnapshot.exists()) {
+
+                    String typeDoc = documentSnapshot.getString("GardenType");
+                    infoDoc = documentSnapshot.getString("InfoGarden");
+                    GardenInfo gardenInfo = new GardenInfo(idUser,name,infoDoc,typeDoc);
+
+                    fillSreen(gardenInfo);
+                }
+                /*else {
+                    System.out.println("Se genero error al mostrar la información");
+                }*/
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "Se genero error: ", e);
+            }
+        });
+
+        /*
         Query query = gardensRef.whereEqualTo("ID_Owner", idUser).whereEqualTo("GardenName", name);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -80,7 +135,7 @@ public class huertaActivity extends AppCompatActivity {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }
             }
-        });
+        });*/
     }
 
     private void fillSreen(GardenInfo gardenInfo){

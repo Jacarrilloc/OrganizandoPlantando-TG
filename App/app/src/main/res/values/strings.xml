@@ -16,6 +16,7 @@
     <string name="questionGardenName">¿Cómo se llama su huerta?</string>
     <string name="createGarden">Crear Huerta</string>
     <string name="gardenType">Tipo de huerta</string>
+    <string name="publicGarden">¿Desea hacer la huerta publica?</string>
     <string name="Comunity">Comunidad</string>
     <string name="Caption">Descripción</string>
     <string name="Team">Administrar integrantes de la huerta</string>
