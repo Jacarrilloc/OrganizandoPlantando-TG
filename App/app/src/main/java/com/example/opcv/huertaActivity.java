@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,8 +26,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class huertaActivity extends AppCompatActivity {
 
-    private Button returnArrowButton,moreFormsButtom;
+    private Button returnArrowButton;
     private ImageButton editGarden;
+
+    private ImageView moreFormsButtom;
     private TextView nameGarden,descriptionGarden;
     private FirebaseFirestore database;
     private CollectionReference gardensRef;
@@ -56,7 +59,7 @@ public class huertaActivity extends AppCompatActivity {
         moreFormsButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(huertaActivity.this,GardenForms.class));
             }
         });
 
@@ -64,7 +67,6 @@ public class huertaActivity extends AppCompatActivity {
         editGarden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //System.out.println("El id creado es: " +gardenID);
                 Intent start = new Intent(huertaActivity.this,GardenEditActivity.class);
                 start.putExtra("idGarden", gardenID);
                 startActivity(start);

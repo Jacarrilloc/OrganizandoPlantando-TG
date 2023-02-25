@@ -299,13 +299,13 @@
         </LinearLayout>
     </ScrollView>
 
-
     <LinearLayout
         android:id="@+id/navBarGardenActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/dr_shadow_top"
         android:orientation="horizontal"
+        android:backgroundTint="@color/white"
         android:layout_gravity="end">
 
         <Button
