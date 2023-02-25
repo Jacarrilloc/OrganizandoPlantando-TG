@@ -13,17 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/returnArrowButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10sp"
-            android:background="@drawable/dr_return_arrow"
-            android:clickable="true"
-            android:contentDescription="Boton para regresar"
-            android:tint="@color/GreenBackgroung"
-            app:backgroundTint="#91BF63" />
-
         <ImageView
             android:id="@+id/gardenProfilePicture"
             android:layout_width="408dp"
@@ -32,7 +21,20 @@
             android:background="@drawable/im_garden_pic"
             android:scaleType="fitCenter" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/returnArrowButtonToHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:contentDescription="@string/boton_para_regresar"
+            android:tint="@color/white"
+            app:backgroundTint="#91BF63"
+            app:srcCompat="@drawable/dr_return_arrow" />
+
     </FrameLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

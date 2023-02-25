@@ -2,6 +2,7 @@ package com.example.opcv;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -11,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.opcv.adapter.FormsListAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Arrays;
 
@@ -19,11 +21,15 @@ public class GardenForms extends AppCompatActivity {
 
     private ListView gardenFormsList;
     private String[] itemsList;
+
+    private FloatingActionButton backButtom;
     private Animation animSlideUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forms_adapter);
+
+        backButtom = findViewById(R.id.returnArrowButtonFormsToGarden);
 
         animSlideUp = AnimationUtils.loadAnimation(this, R.anim.slide_right_to_left);
         gardenFormsList = findViewById(R.id.gardenFormsList);
@@ -32,10 +38,21 @@ public class GardenForms extends AppCompatActivity {
         gardenFormsList.setDividerHeight(5);
         gardenFormsList.setAdapter(adapter);
 
+        backButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
         gardenFormsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Object selectedItem = adapterView.getItemAtPosition(i);
+                String formsName = selectedItem.toString();
+                Intent newForm = new Intent(GardenForms.this,FormsActivity.class);
+                newForm.putExtra("Name",formsName);
+                startActivity(newForm);
             }
         });
     }

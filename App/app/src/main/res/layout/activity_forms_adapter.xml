@@ -9,18 +9,16 @@
     tools:context=".GardenForms">
 
     <LinearLayout
-        android:id="@+id/linearLayout10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10sp"
         android:orientation="horizontal">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/returnArrowButton"
+            android:id="@+id/returnArrowButtonFormsToGarden"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
+            android:layout_margin="10dp"
             android:clickable="true"
             android:contentDescription="@string/boton_para_regresar"
             android:tint="#F8F5F5"
@@ -59,7 +57,10 @@
 
         <ListView
             android:id="@+id/gardenFormsList"
-            android:layout_margin="20sp"
+            android:layout_marginTop="0sp"
+            android:layout_marginBottom="0sp"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
     </FrameLayout>
