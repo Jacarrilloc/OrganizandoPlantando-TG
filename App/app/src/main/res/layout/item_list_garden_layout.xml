@@ -9,10 +9,11 @@
 
     <ImageView
         android:id="@+id/garden_imagen_list_item"
-        android:layout_width="5sp"
-        android:layout_height="40sp"
-        android:layout_weight="0.2"
+        android:layout_width="10sp"
+        android:layout_height="50sp"
+        android:layout_weight="1"
         android:layout_margin="2sp"
+        android:scaleType="fitCenter"
         tools:srcCompat="@drawable/im_logo_ceres" />
 
     <TextView
@@ -20,9 +21,9 @@
         android:layout_margin="10sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.2"
+        android:layout_weight="1"
+        android:layout_gravity="center"
         android:textColor="@color/black"
-        android:textAlignment="textStart"
         android:textSize="20sp"
         android:text="Garden Name" />
 

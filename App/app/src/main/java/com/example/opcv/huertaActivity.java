@@ -11,14 +11,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.opcv.info.GardenInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -31,7 +32,10 @@ public class huertaActivity extends AppCompatActivity {
 
     private Button returnArrowButton, gardens, myGardens, profile;
     private ImageButton editGarden;
+
+    private ImageView moreFormsButtom;
     private TextView nameGarden,descriptionGarden;
+    private FloatingActionButton backButtom;
     private FirebaseFirestore database;
     private CollectionReference gardensRef;
 
@@ -44,6 +48,8 @@ public class huertaActivity extends AppCompatActivity {
 
         nameGarden = findViewById(R.id.gardenNameText);
         descriptionGarden = findViewById(R.id.descriptionGarden);
+        moreFormsButtom = findViewById(R.id.moreFormsButtom);
+        backButtom = findViewById(R.id.returnArrowButtonToHome);
 
         database = FirebaseFirestore.getInstance();
         gardensRef = database.collection("Gardens");
@@ -56,11 +62,24 @@ public class huertaActivity extends AppCompatActivity {
             SearchInfoGardenSreen(id,garden);
         }
 
+        backButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        moreFormsButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(huertaActivity.this,GardenForms.class));
+            }
+        });
+
         editGarden = (ImageButton) findViewById(R.id.imageButton8);
         editGarden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //System.out.println("El id creado es: " +gardenID);
                 Intent start = new Intent(huertaActivity.this,GardenEditActivity.class);
                 start.putExtra("idGarden", gardenID);
                 start.putExtra("gardenName", garden);

@@ -42,4 +42,19 @@
     <string name="acceptChanges">Aceptar cambios</string>
     <string name="deleteGardenConfirmation">¿Esta seguro que desea eliminar la huerta?</string>
 
+    <string-array name="list_forms">
+        <item>Registro y Actualización de Compostaje</item>
+        <item>Solicitud de visita a la huerta</item>
+        <item>Control de Inventario de Materia Prima</item>
+        <item>Solicitud de compra de materia prima y herramientas</item>
+        <item>Recepción y Requisición de Materia Prima</item>
+        <item>Revisión de Asistencia a la Huerta</item>
+        <item>Control de Procesos de Siembra</item>
+        <item>Registro y Control de Compostaje</item>
+        <item>Recepción y Requisición de Herramientas</item>
+        <item>Control de Inventarios de Herramientas</item>
+        <item>Registro Histórico Caja</item>
+    </string-array>
+
+
 </resources>
