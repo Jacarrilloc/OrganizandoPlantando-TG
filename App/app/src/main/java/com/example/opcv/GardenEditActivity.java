@@ -41,6 +41,7 @@ import com.google.firebase.firestore.Transaction;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class GardenEditActivity extends AppCompatActivity {
     private EditText gardenName, comunity, description;
@@ -125,12 +126,14 @@ public class GardenEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String name = editGardenInfo();
+
                 Intent start = new Intent(GardenEditActivity.this,HomeActivity.class);
                 String id = autentication.getCurrentUser().getUid().toString();
                 //System.out.println("El id es:.  "+id);
                 start.putExtra("ID", id);
                 start.putExtra("idGarden", idGarden);
                 start.putExtra("gardenName", name);
+
                 startActivity(start);
             }
         });
