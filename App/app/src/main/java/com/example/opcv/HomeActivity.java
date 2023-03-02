@@ -46,6 +46,8 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseFirestore database;
     private Animation animSlideUp;
 
+    private  Button gardensMap;
+
     private String idHuerta;
 
     @Override
@@ -79,6 +81,7 @@ public class HomeActivity extends AppCompatActivity {
         listAviableGardensInfo = findViewById(R.id.listAviableGardens);
         addButton = (FloatingActionButton) findViewById(R.id.addButton);
         animSlideUp = AnimationUtils.loadAnimation(this, R.anim.slide_right_to_left);
+
         fillGardenUser();
 
         listAviableGardensInfo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -125,6 +128,15 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomeActivity.this, HomeActivity.class));
+            }
+        });
+
+        gardensMap = (Button) findViewById(R.id.globalMap);
+
+        gardensMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, MapsActivity.class));
             }
         });
 
