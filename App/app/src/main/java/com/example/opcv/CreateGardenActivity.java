@@ -84,7 +84,6 @@ public class CreateGardenActivity extends AppCompatActivity {
                     startActivity(new Intent(CreateGardenActivity.this, HomeActivity.class).putExtra("idGarden", documentReference.getId().toString()));
                 }
             });
-
         }
     }
 

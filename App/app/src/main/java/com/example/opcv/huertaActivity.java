@@ -72,7 +72,10 @@ public class huertaActivity extends AppCompatActivity {
         moreFormsButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(huertaActivity.this,GardenForms.class));
+                Intent infoForms = new Intent(huertaActivity.this,GardenForms.class);
+                String idGardenFirebase = extras.getString("idGardenFirebaseDoc");
+                infoForms.putExtra("idGardenFirebaseDoc",idGardenFirebase);
+                startActivity(infoForms);
             }
         });
 

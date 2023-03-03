@@ -92,12 +92,14 @@ public class HomeActivity extends AppCompatActivity {
                 String itemName = ((ItemGardenHomeList) selectedItem).getName();
                 String userID = autentication.getCurrentUser().getUid();
                 String idGarden = ((ItemGardenHomeList) selectedItem).getIdGarden();
+                String idGardenFirebaseDoc = getIntent().getStringExtra("idGarden");
                 Intent start = new Intent(HomeActivity.this,huertaActivity.class);
                 start.putExtra("ID",userID);
                 start.putExtra("gardenName",itemName);
                 start.putExtra("idGarden", idGarden);
-
+                start.putExtra("idGardenFirebaseDoc",idGarden);
                 startActivity(start);
+                finish();
             }
         });
 
@@ -157,6 +159,19 @@ public class HomeActivity extends AppCompatActivity {
         Query query = Ref.whereEqualTo("ID_Owner", userID);
         query.whereEqualTo("ID_Owner", userID).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    List<ItemGardenHomeList> gardenNames = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String name = document.getString("GardenName");
+                        String gardenId = document.getId();
+
+                        ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId);
+                        gardenNames.add(newItem);
+                    }
+                    fillListGardens(gardenNames);
+                } else {
+                    Toast.makeText(HomeActivity.this, "Error al obtener los documentos", Toast.LENGTH_SHORT).show();
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException e) {
                 if(e != null){
                     Log.d(TAG, "Se genero error: ", e);

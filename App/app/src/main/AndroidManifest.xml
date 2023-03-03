@@ -24,6 +24,9 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".formsScreen.First_form"
+            android:exported="false" />
+        <activity
             android:name=".FormsActivity"
             android:exported="false" />
         <activity
