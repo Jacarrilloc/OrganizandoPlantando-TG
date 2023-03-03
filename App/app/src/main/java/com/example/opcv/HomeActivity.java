@@ -1,12 +1,16 @@
 package com.example.opcv;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -22,21 +26,27 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class HomeActivity extends AppCompatActivity {
-    private Button otherGardensButton, profile;
+    private Button otherGardensButton, profile, myGardens;
     private ListView listAviableGardensInfo;
     private FloatingActionButton nextArrow, addButton;
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
     private Animation animSlideUp;
+
+    private  Button gardensMap;
 
     private String idHuerta;
 
@@ -71,6 +81,7 @@ public class HomeActivity extends AppCompatActivity {
         listAviableGardensInfo = findViewById(R.id.listAviableGardens);
         addButton = (FloatingActionButton) findViewById(R.id.addButton);
         animSlideUp = AnimationUtils.loadAnimation(this, R.anim.slide_right_to_left);
+
         fillGardenUser();
 
         listAviableGardensInfo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -114,14 +125,39 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeActivity.this, EditUserActivity.class));
             }
         });
+        myGardens = (Button) findViewById(R.id.myGardens);
+        myGardens.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, HomeActivity.class));
+            }
+        });
+
+        gardensMap = (Button) findViewById(R.id.globalMap);
+
+        gardensMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, MapsActivity.class));
+            }
+        });
 
     }
 
     private void fillGardenUser(){
+        //startActivity(new Intent(HomeActivity.this, HomeActivity.class));
         CollectionReference Ref = database.collection("Gardens");
         String userID = autentication.getCurrentUser().getUid();
+        /*try {
+            TimeUnit.SECONDS.sleep(2);
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+*/
         Query query = Ref.whereEqualTo("ID_Owner", userID);
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        query.whereEqualTo("ID_Owner", userID).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -136,9 +172,39 @@ public class HomeActivity extends AppCompatActivity {
                     fillListGardens(gardenNames);
                 } else {
                     Toast.makeText(HomeActivity.this, "Error al obtener los documentos", Toast.LENGTH_SHORT).show();
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException e) {
+                if(e != null){
+                    Log.d(TAG, "Se genero error: ", e);
+                    return;
+                }
+                for(DocumentSnapshot documentSnapshot : value){
+                    if(documentSnapshot.exists()){
+                        List<ItemGardenHomeList> gardenNames = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : value) {
+                            String name = document.getString("GardenName");
+                            String gardenId = document.getId();
+
+                            ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId);
+                            gardenNames.add(newItem);
+                        }
+                    /*String newString;
+                    Bundle extras = getIntent().getExtras();
+                    if(extras==null){
+                        newString = null;
+                    }
+                    else {
+                        newString = extras.getString("idGarden");
+                    }
+                    idHuerta = newString;*/
+
+                        fillListGardens(gardenNames);
+                    } else {
+                        Toast.makeText(HomeActivity.this, "Error al obtener los documentos", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
+
     }
 
     private void fillListGardens( List<ItemGardenHomeList> gardenInfoDocument){

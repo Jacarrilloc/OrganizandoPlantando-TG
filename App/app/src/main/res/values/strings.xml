@@ -16,6 +16,7 @@
     <string name="questionGardenName">¿Cómo se llama su huerta?</string>
     <string name="createGarden">Crear Huerta</string>
     <string name="gardenType">Tipo de huerta</string>
+    <string name="publicGarden">¿Desea hacer la huerta publica?</string>
     <string name="Comunity">Comunidad</string>
     <string name="Caption">Descripción</string>
     <string name="Team">Administrar integrantes de la huerta</string>
@@ -36,7 +37,7 @@
     <string name="nombre_usuario">Nombre Usuario</string>
     <string name="formularios">Formularios</string>
     <string name="title_activity_maps_fragment">MapsActivityFragment</string>
-    <string name="signout">Cerrar sesion</string>
+    <string name="signout">Cerrar sesión</string>
     <string name="delete">Eliminar cuenta</string>
     <string name="acceptChanges">Aceptar cambios</string>
     <string name="deleteGardenConfirmation">¿Esta seguro que desea eliminar la huerta?</string>

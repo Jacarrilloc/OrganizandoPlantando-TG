@@ -8,7 +8,6 @@
     android:background="@color/white">
 
 
-
     <ImageView
         android:id="@+id/backImage"
         android:layout_width="wrap_content"
@@ -18,18 +17,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/im_cloud_bck" />
 
+
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="362dp"
-        android:layout_height="84dp"
-        android:layout_marginBottom="20dp"
+        android:layout_width="376dp"
+        android:layout_height="97dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/mapglobal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.092">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView"
@@ -58,45 +56,44 @@
     </LinearLayout>
 
 
-    <fragment
-        android:id="@+id/mapUser"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="372dp"
-        android:layout_height="448dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout11"
+    <org.osmdroid.views.MapView
+        android:id="@+id/mapglobal"
+        android:layout_width="357dp"
+        android:layout_height="468dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:context=".MapsActivity" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayout11"
+        android:id="@+id/linearLayout4"
         android:layout_width="411dp"
         android:layout_height="122dp"
         android:background="@drawable/dr_shadow_top"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mapglobal"
+        app:layout_constraintVertical_bias="1.0">
 
         <Button
             android:id="@+id/ludification"
-            android:layout_width="wrap_content"
+            android:layout_width="73dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="25dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
             android:stateListAnimator="@null"
-            android:text="@string/Diccionary"
+            android:text="Ludi"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="#A0A3B1" />
 
         <Button
-            android:id="@+id/gardens"
+            android:id="@+id/globalMap"
             android:layout_width="77dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -106,9 +103,9 @@
             android:drawableTop="@drawable/im_colombia"
             android:padding="10dp"
             android:stateListAnimator="@null"
-            android:text="@string/Map"
+            android:text="Huertas"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="#A0A3B1" />
 
         <Button
             android:id="@+id/myGardens"
@@ -121,9 +118,9 @@
             android:drawableTop="@drawable/im_plant_icon"
             android:padding="10dp"
             android:stateListAnimator="@null"
-            android:text="@string/Gardens"
+            android:text="Mis huertas"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="#A0A3B1" />
 
         <Button
             android:id="@+id/profile"
@@ -137,9 +134,9 @@
             android:drawableTop="@drawable/im_user_icon"
             android:padding="5dp"
             android:stateListAnimator="@null"
-            android:text="@string/User"
+            android:text="Perfil"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="#A0A3B1" />
 
 
     </LinearLayout>

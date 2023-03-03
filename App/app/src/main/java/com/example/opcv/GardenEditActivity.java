@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,22 +36,24 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 import com.google.firebase.firestore.Transaction;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class GardenEditActivity extends AppCompatActivity {
     private EditText gardenName, comunity, description;
     private Button acceptChanges, gardens, myGardens, profile, deleteGarden;
-    private CheckBox publicGarden,privateGarden;
+    private ImageView addParticipants;
+    private CheckBox publicGarden, privateGarden;
     private FirebaseAuth autentication;
     private FirebaseFirestore database, database2;
     private FirebaseUser userLog;
 
     private CollectionReference gardensRef;
-    private String idUser, idGarden;
-    private Boolean response = null;
+    private String idUser, idGarden, nameGarden, infoGarden;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,19 +64,38 @@ public class GardenEditActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             idGarden = extras.getString("idGarden");
+            //nameGarden = extras.getString("gardenName");
+            //infoGarden = extras.getString("infoGarden");
         }
+
+
 
 
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
         gardensRef = database.collection("Gardens");
-
-
         gardenName = (EditText) findViewById(R.id.gardenName);
-        comunity = (EditText) findViewById(R.id.gardenInfo);
+        gardensRef.document(idGarden).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                nameGarden = documentSnapshot.getString("GardenName");
+                gardenName.setText(nameGarden);
+            }
+        });
+
         description = (EditText) findViewById(R.id.gardenDescription);
+        gardensRef.document(idGarden).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                infoGarden = documentSnapshot.getString("InfoGarden");
+                description.setText(infoGarden);
+            }
+        });
+
+        comunity = (EditText) findViewById(R.id.gardenInfo);
         publicGarden = (CheckBox) findViewById(R.id.checkbox_public_Create_Activity);
         privateGarden = (CheckBox) findViewById(R.id.checkbox_private_Create_Activity);
+
 
         gardens = (Button) findViewById(R.id.gardens);
         gardens.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +125,16 @@ public class GardenEditActivity extends AppCompatActivity {
         acceptChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editGardenInfo();
+                String name = editGardenInfo();
+
+                Intent start = new Intent(GardenEditActivity.this,HomeActivity.class);
+                String id = autentication.getCurrentUser().getUid().toString();
+                //System.out.println("El id es:.  "+id);
+                start.putExtra("ID", id);
+                start.putExtra("idGarden", idGarden);
+                start.putExtra("gardenName", name);
+
+                startActivity(start);
             }
         });
 
@@ -123,6 +155,13 @@ public class GardenEditActivity extends AppCompatActivity {
                         }).create().show();
 
 
+            }
+        });
+
+        addParticipants = (ImageView) findViewById(R.id.addPersons);
+        addParticipants.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
             }
         });
     }
@@ -147,7 +186,7 @@ public class GardenEditActivity extends AppCompatActivity {
 
     }
 
-    private void editGardenInfo(){
+    private String editGardenInfo(){
         String name = gardenName.getText().toString();
         String info = description.getText().toString();
         Boolean gardenPublic = publicGarden.isChecked();
@@ -163,6 +202,7 @@ public class GardenEditActivity extends AppCompatActivity {
 
             //System.out.println("El id es: "+collectionRef.getPath().toString());
         }
+        return name;
     }
 
     private void searchGarden(String idUser, String name, String info, Boolean gardenPublic, Boolean gardenPrivate) {
@@ -210,7 +250,7 @@ public class GardenEditActivity extends AppCompatActivity {
     }
 
 
-    private boolean validateField(String name,String info,Boolean gardenPublic,Boolean gardenPrivate){
+    private boolean validateField(String name,String info,Boolean gardenPublic, Boolean gardenPrivate){
 
         if(name.isEmpty() || info.isEmpty()){
             Toast.makeText(this, "Es necesario Ingresar el nombre e información de la Huerta", Toast.LENGTH_SHORT).show();
@@ -226,4 +266,6 @@ public class GardenEditActivity extends AppCompatActivity {
         }
         return true;
     }
+
+
 }
