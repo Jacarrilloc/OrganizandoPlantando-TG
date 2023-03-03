@@ -81,12 +81,14 @@ public class HomeActivity extends AppCompatActivity {
                 String itemName = ((ItemGardenHomeList) selectedItem).getName();
                 String userID = autentication.getCurrentUser().getUid();
                 String idGarden = ((ItemGardenHomeList) selectedItem).getIdGarden();
+                String idGardenFirebaseDoc = getIntent().getStringExtra("idGarden");
                 Intent start = new Intent(HomeActivity.this,huertaActivity.class);
                 start.putExtra("ID",userID);
                 start.putExtra("gardenName",itemName);
                 start.putExtra("idGarden", idGarden);
-
+                start.putExtra("idGardenFirebaseDoc",idGarden);
                 startActivity(start);
+                finish();
             }
         });
 
@@ -131,16 +133,6 @@ public class HomeActivity extends AppCompatActivity {
                         ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId);
                         gardenNames.add(newItem);
                     }
-                    /*String newString;
-                    Bundle extras = getIntent().getExtras();
-                    if(extras==null){
-                        newString = null;
-                    }
-                    else {
-                        newString = extras.getString("idGarden");
-                    }
-                    idHuerta = newString;*/
-
                     fillListGardens(gardenNames);
                 } else {
                     Toast.makeText(HomeActivity.this, "Error al obtener los documentos", Toast.LENGTH_SHORT).show();

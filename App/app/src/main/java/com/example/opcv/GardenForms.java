@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.opcv.adapter.FormsListAdapter;
+import com.example.opcv.formsScreen.First_form;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Arrays;
@@ -38,6 +39,9 @@ public class GardenForms extends AppCompatActivity {
         gardenFormsList.setDividerHeight(5);
         gardenFormsList.setAdapter(adapter);
 
+        String idGardenFirebase = getIntent().getStringExtra("idGardenFirebaseDoc");
+        Toast.makeText(this, "antes del case:" + idGardenFirebase, Toast.LENGTH_SHORT).show();
+
         backButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,11 +52,22 @@ public class GardenForms extends AppCompatActivity {
         gardenFormsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Object selectedItem = adapterView.getItemAtPosition(i);
+                switch (i){
+                    case 0:{
+                        Object selectedItem = adapterView.getItemAtPosition(i);
+                        String formsName = selectedItem.toString();
+                        Intent newForm = new Intent(GardenForms.this, First_form.class);
+                        newForm.putExtra("Name",formsName);
+                        newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                        startActivity(newForm);
+                        finish();
+                    }
+                }
+                /*Object selectedItem = adapterView.getItemAtPosition(i);
                 String formsName = selectedItem.toString();
                 Intent newForm = new Intent(GardenForms.this,FormsActivity.class);
                 newForm.putExtra("Name",formsName);
-                startActivity(newForm);
+                startActivity(newForm);*/
             }
         });
     }
