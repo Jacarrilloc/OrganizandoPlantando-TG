@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.opcv.R;
 
-// Formulario Solicitud de Visita a la Huerta
+//Formulario Solicitud de Visita a la Huerta
 public class Form_SVH extends AppCompatActivity {
 
     @Override
