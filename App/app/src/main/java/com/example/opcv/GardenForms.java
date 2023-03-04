@@ -40,7 +40,6 @@ public class GardenForms extends AppCompatActivity {
         gardenFormsList.setAdapter(adapter);
 
         String idGardenFirebase = getIntent().getStringExtra("idGardenFirebaseDoc");
-        Toast.makeText(this, "antes del case:" + idGardenFirebase, Toast.LENGTH_SHORT).show();
 
         backButtom.setOnClickListener(new View.OnClickListener() {
             @Override
