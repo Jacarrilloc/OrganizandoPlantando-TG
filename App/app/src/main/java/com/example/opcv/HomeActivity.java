@@ -158,20 +158,7 @@ public class HomeActivity extends AppCompatActivity {
 */
         Query query = Ref.whereEqualTo("ID_Owner", userID);
         query.whereEqualTo("ID_Owner", userID).addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    List<ItemGardenHomeList> gardenNames = new ArrayList<>();
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String name = document.getString("GardenName");
-                        String gardenId = document.getId();
 
-                        ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId);
-                        gardenNames.add(newItem);
-                    }
-                    fillListGardens(gardenNames);
-                } else {
-                    Toast.makeText(HomeActivity.this, "Error al obtener los documentos", Toast.LENGTH_SHORT).show();
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException e) {
                 if(e != null){
                     Log.d(TAG, "Se genero error: ", e);
