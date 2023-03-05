@@ -221,7 +221,7 @@
                         android:orientation="vertical">
 
                         <ImageButton
-                            android:id="@+id/imageButton2"
+                            android:id="@+id/toolsButton"
                             android:layout_width="122dp"
                             android:layout_height="122dp"
                             android:layout_margin="2sp"
@@ -248,7 +248,7 @@
                         android:orientation="vertical">
 
                         <ImageButton
-                            android:id="@+id/imageButton3"
+                            android:id="@+id/seedTime"
                             android:layout_width="122dp"
                             android:layout_height="121dp"
                             android:layout_gravity="center"

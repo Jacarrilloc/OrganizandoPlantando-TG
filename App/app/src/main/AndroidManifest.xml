@@ -27,6 +27,21 @@
             android:name=".formsScreen.Form_SVH"
             android:exported="false" />
         <activity
+            android:name=".formsScreen.Form_RHC"
+            android:exported="false" />
+        <activity
+            android:name=".formsScreen.Form_CIH"
+            android:exported="false" />
+        <activity
+            android:name=".formsScreen.Form_RRH"
+            android:exported="false" />
+        <activity
+            android:name=".formsScreen.Form_RCC"
+            android:exported="false" />
+        <activity
+            android:name=".formsScreen.Form_CPS"
+            android:exported="false" />
+        <activity
             android:name=".formsScreen.First_form"
             android:exported="false" />
         <activity

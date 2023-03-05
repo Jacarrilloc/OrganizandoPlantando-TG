@@ -14,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.opcv.formsScreen.Form_CIH;
+import com.example.opcv.formsScreen.Form_CPS;
 import com.example.opcv.info.GardenInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -31,7 +33,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class huertaActivity extends AppCompatActivity {
 
     private Button returnArrowButton, gardens, myGardens, profile;
-    private ImageButton editGarden;
+    private ImageButton editGarden, seedTime, toolsButton;
 
     private ImageView moreFormsButtom;
     private TextView nameGarden,descriptionGarden;
@@ -112,6 +114,31 @@ public class huertaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(huertaActivity.this, EditUserActivity.class));
+            }
+        });
+        String idGardenFirebase = getIntent().getStringExtra("idGardenFirebaseDoc");
+        String formsName = "Control de Procesos de Siembra";
+        seedTime = (ImageButton) findViewById(R.id.seedTime);
+        seedTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newForm = new Intent(huertaActivity.this, Form_CPS.class);
+                newForm.putExtra("Name",formsName);
+                newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                startActivity(newForm);
+                finish();
+            }
+        });
+        String formsName2 = "Control de Inventarios de Herramientas";
+        toolsButton = (ImageButton) findViewById(R.id.toolsButton);
+        toolsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newForm = new Intent(huertaActivity.this, Form_CIH.class);
+                newForm.putExtra("Name",formsName2);
+                newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                startActivity(newForm);
+                finish();
             }
         });
     }
