@@ -99,7 +99,7 @@ public class First_form extends AppCompatActivity {
                 infoForm.put("amount of waste",waste);
                 infoForm.put("collected humus",humus);
                 infoForm.put("amount leached",leached);
-                //Toast.makeText(First_form.this, "idGardenFb:"+ idGardenFb, Toast.LENGTH_SHORT).show();
+
                 formsUtilities.createForm(First_form.this,infoForm,idGardenFb);
                 Toast.makeText(First_form.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(First_form.this, HomeActivity.class));
