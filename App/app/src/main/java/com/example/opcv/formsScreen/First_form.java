@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +17,7 @@ import com.example.opcv.fbComunication.FormsUtilities;
 import com.example.opcv.*;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,11 +25,12 @@ public class First_form extends AppCompatActivity {
 
     private FloatingActionButton backButtom;
     private FormsUtilities formsUtilities;
-    private Button addFormButtom;
+    private Button addFormButtom, gardens, myGardens, profile;
 
     private TextView formsName;
 
     private EditText containerSize,worrmsWeightInfo,humidityInfo,amount_of_waste_info,collected_humus_info,amount_leached_info;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,32 @@ public class First_form extends AppCompatActivity {
         amount_of_waste_info = findViewById(R.id.amount_of_waste_info);
         collected_humus_info = findViewById(R.id.collected_humus_info);
         amount_leached_info = findViewById(R.id.amount_leached_info);
+
+        gardens = (Button) findViewById(R.id.gardens);
+        gardens.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(First_form.this, VegetablePatchAvailableActivity.class));
+            }
+        });
+
+        myGardens = (Button) findViewById(R.id.myGardens);
+        myGardens.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(First_form.this, HomeActivity.class));
+            }
+        });
+
+        profile = (Button) findViewById(R.id.profile);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(First_form.this, EditUserActivity.class));
+            }
+        });
+
+
 
         addFormButtom = findViewById(R.id.create_forms1_buttom);
 
@@ -69,10 +99,10 @@ public class First_form extends AppCompatActivity {
                 infoForm.put("amount of waste",waste);
                 infoForm.put("collected humus",humus);
                 infoForm.put("amount leached",leached);
-                Toast.makeText(First_form.this, "idGardenFb:"+ idGardenFb, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(First_form.this, "idGardenFb:"+ idGardenFb, Toast.LENGTH_SHORT).show();
                 formsUtilities.createForm(First_form.this,infoForm,idGardenFb);
                 Toast.makeText(First_form.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(First_form.this, huertaActivity.class));
+                startActivity(new Intent(First_form.this, HomeActivity.class));
                 finish();
             }
         });

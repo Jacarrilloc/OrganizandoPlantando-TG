@@ -206,7 +206,7 @@ public class GardenEditActivity extends AppCompatActivity {
     }
 
     private void searchGarden(String idUser, String name, String info, Boolean gardenPublic, Boolean gardenPrivate) {
-                database.collection("Gardens")
+        database.collection("Gardens")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
