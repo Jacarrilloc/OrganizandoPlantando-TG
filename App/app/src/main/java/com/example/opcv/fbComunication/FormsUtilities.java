@@ -34,6 +34,7 @@ public class FormsUtilities {
 
         String date = String.format("%02d/%02d/%d", day, month, year);
         infoForm.put("Date",date);
+        infoForm.put("Gardenid",idGardenFb);
 
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
