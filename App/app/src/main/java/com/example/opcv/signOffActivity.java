@@ -11,7 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class signOffActivity extends AppCompatActivity {
-    private Button returnScreen, signOff;
+    private Button returnScreen, signOff, gardensMap, profile, myGarden;
 
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
@@ -23,6 +23,30 @@ public class signOffActivity extends AppCompatActivity {
 
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
+
+        profile = (Button) findViewById(R.id.profile);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(signOffActivity.this, EditUserActivity.class));
+            }
+        });
+        myGarden = (Button) findViewById(R.id.myGardens);
+        myGarden.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(signOffActivity.this, HomeActivity.class));
+            }
+        });
+
+        gardensMap = (Button) findViewById(R.id.gardens);
+
+        gardensMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(signOffActivity.this, MapsActivity.class));
+            }
+        });
 
         returnScreen = (Button) findViewById(R.id.returnButton2);
         returnScreen.setOnClickListener(new View.OnClickListener() {

@@ -29,7 +29,8 @@
     <string name="nombre">Nombre:</string>
     <string name="cellphon">Telefono:</string>
     <string name="direcci_n">Dirección:</string>
-    <string name="comunity2">Comunidad:</string>
+    <string name="email">Correo electronico:</string>
+    <string name="comunity2">Apellido:</string>
     <string name="editar">Editar</string>
     <string name="otras_opciones">Otras opciones</string>
     <string name="integrantes_de_la_huerta">Integrantes de la huerta</string>
