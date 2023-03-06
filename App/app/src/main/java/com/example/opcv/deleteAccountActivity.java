@@ -21,7 +21,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class deleteAccountActivity extends AppCompatActivity {
 
-    private Button delete, returnButton;
+    private Button delete, returnButton, gardensMap, profile, myGardens;
 
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
@@ -34,6 +34,30 @@ public class deleteAccountActivity extends AppCompatActivity {
 
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
+
+        profile = (Button) findViewById(R.id.profile);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(deleteAccountActivity.this, EditUserActivity.class));
+            }
+        });
+        myGardens = (Button) findViewById(R.id.myGardens);
+        myGardens.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(deleteAccountActivity.this, HomeActivity.class));
+            }
+        });
+
+        gardensMap = (Button) findViewById(R.id.gardens);
+
+        gardensMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(deleteAccountActivity.this, MapsActivity.class));
+            }
+        });
 
         returnButton = (Button) findViewById(R.id.returnButton2);
         returnButton.setOnClickListener(new View.OnClickListener() {
