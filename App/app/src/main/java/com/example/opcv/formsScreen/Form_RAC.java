@@ -5,23 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.opcv.R;
+import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.fbComunication.FormsUtilities;
 import com.example.opcv.*;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class First_form extends AppCompatActivity {
+public class Form_RAC extends AppCompatActivity {
 
     private FloatingActionButton backButtom;
     private FormsUtilities formsUtilities;
@@ -54,7 +52,7 @@ public class First_form extends AppCompatActivity {
         gardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(First_form.this, VegetablePatchAvailableActivity.class));
+                startActivity(new Intent(Form_RAC.this, VegetablePatchAvailableActivity.class));
             }
         });
 
@@ -62,7 +60,7 @@ public class First_form extends AppCompatActivity {
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(First_form.this, HomeActivity.class));
+                startActivity(new Intent(Form_RAC.this, HomeActivity.class));
             }
         });
 
@@ -70,7 +68,7 @@ public class First_form extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(First_form.this, EditUserActivity.class));
+                startActivity(new Intent(Form_RAC.this, EditUserActivity.class));
             }
         });
 
@@ -100,9 +98,9 @@ public class First_form extends AppCompatActivity {
                 infoForm.put("collected humus",humus);
                 infoForm.put("amount leached",leached);
 
-                formsUtilities.createForm(First_form.this,infoForm,idGardenFb);
-                Toast.makeText(First_form.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(First_form.this, HomeActivity.class));
+                formsUtilities.createForm(Form_RAC.this,infoForm,idGardenFb);
+                Toast.makeText(Form_RAC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Form_RAC.this, HomeActivity.class));
                 finish();
             }
         });

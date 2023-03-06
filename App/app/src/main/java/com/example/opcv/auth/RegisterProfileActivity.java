@@ -1,4 +1,4 @@
-package com.example.opcv;
+package com.example.opcv.auth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,15 +12,13 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.opcv.R;
+import com.example.opcv.TermsAndConditionsActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.Serializable;
@@ -56,7 +54,7 @@ public class RegisterProfileActivity extends AppCompatActivity {
         termsConditions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RegisterProfileActivity.this,TermsAndConditionsActivity.class));
+                startActivity(new Intent(RegisterProfileActivity.this, TermsAndConditionsActivity.class));
             }
         });
         register.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +114,7 @@ public class RegisterProfileActivity extends AppCompatActivity {
         newUserInfo.put("LastName", lastName.getText().toString());
         newUserInfo.put("Email", email.getText().toString());
 
-        Intent intent = new Intent(RegisterProfileActivity.this,RegisterMobilePhone.class);
+        Intent intent = new Intent(RegisterProfileActivity.this, RegisterMobilePhone.class);
         intent.putExtra("mapUser",(Serializable) newUserInfo);
         startActivity(intent);
     }

@@ -2,7 +2,6 @@ package com.example.opcv;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,9 +19,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.opcv.adapter.GardenListAdapter;
+import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.item_list.ItemGardenHomeList;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -36,7 +34,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class HomeActivity extends AppCompatActivity {
     private Button otherGardensButton, profile, myGardens;
