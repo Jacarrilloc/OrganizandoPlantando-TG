@@ -42,13 +42,13 @@
             android:name=".formsScreen.Form_CPS"
             android:exported="false" />
         <activity
-            android:name=".formsScreen.First_form"
+            android:name=".formsScreen.Form_RAC"
             android:exported="false" />
         <activity
             android:name=".FormsActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterMobilePhone"
+            android:name=".auth.RegisterMobilePhone"
             android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
@@ -79,7 +79,7 @@
             android:name=".RegisterForms"
             android:exported="false" />
         <activity
-            android:name=".RegisterProfileActivity"
+            android:name=".auth.RegisterProfileActivity"
             android:exported="false" />
         <activity
             android:name=".GardenForms"
@@ -91,7 +91,7 @@
             android:name=".GardenMembersActivity"
             android:exported="false" />
         <activity
-            android:name=".EditUserActivity"
+            android:name=".auth.EditUserActivity"
             android:exported="false" />
         <activity
             android:name=".GenerateReportsActivity"
@@ -124,10 +124,10 @@
             android:name=".huertaActivity"
             android:exported="false" />
         <activity
-            android:name=".deleteAccountActivity"
+            android:name=".auth.deleteAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".signOffActivity"
+            android:name=".auth.signOffActivity"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
@@ -136,7 +136,7 @@
             android:name=".WelcomeActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".auth.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

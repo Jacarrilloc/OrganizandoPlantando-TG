@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.opcv.auth.LoginActivity;
+import com.example.opcv.auth.RegisterProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -44,13 +46,13 @@ public class NewToAppActivity extends AppCompatActivity {
         goToLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(NewToAppActivity.this,LoginActivity.class));
+                startActivity(new Intent(NewToAppActivity.this, LoginActivity.class));
             }
         });
         createAcount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(NewToAppActivity.this,RegisterProfileActivity.class));
+                startActivity(new Intent(NewToAppActivity.this, RegisterProfileActivity.class));
             }
         });
     }

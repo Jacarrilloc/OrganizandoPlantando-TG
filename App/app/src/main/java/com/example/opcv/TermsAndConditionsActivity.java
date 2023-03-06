@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.opcv.auth.RegisterProfileActivity;
+
 public class TermsAndConditionsActivity extends AppCompatActivity {
 
     private Button ok;

@@ -1,4 +1,4 @@
-package com.example.opcv;
+package com.example.opcv.auth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.opcv.HomeActivity;
+import com.example.opcv.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -49,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         registerButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this,RegisterProfileActivity.class));
+                startActivity(new Intent(LoginActivity.this, RegisterProfileActivity.class));
             }
         });
     }
@@ -63,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                     if(task.isSuccessful()){
                         Log.i("INFO","LOGGEADO CORRECTO");
                         FirebaseUser usuarioActual = autentication.getCurrentUser();
-                        startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                     }else{
                         String error = task.getException().getMessage();
                         Log.i("INFO",error);
