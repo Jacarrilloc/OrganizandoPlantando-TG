@@ -1,10 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".formsScreen.Form_SVH">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/returnArrowButtonFormOnetoFormListElement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="20dp"
+            android:clickable="true"
+            android:contentDescription="@string/boton_para_regresar"
+            android:tint="#F8F5F5"
+            app:backgroundTint="#91BF63"
+            app:layout_constraintBottom_toBottomOf="@+id/gardenProfilePicture"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.045"
+            app:layout_constraintStart_toStartOf="@+id/gardenProfilePicture"
+            app:layout_constraintTop_toTopOf="@+id/gardenProfilePicture"
+            app:layout_constraintVertical_bias="0.064"
+            app:srcCompat="@drawable/dr_return_arrow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:text="Solicitud de visita a la huerta"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:layout_margin="20sp">
+
+            <TextView
+                android:id="@+id/info1"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:text="Nombre" />
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:textColor="@color/black"
+                android:background="@drawable/dr_white_input_text"/>
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_marginTop="5sp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tipo identificación" />
+
+            <Spinner
+                android:id="@+id/typeID"
+                android:layout_width="fill_parent"
+                android:layout_height="46dp"
+                android:backgroundTint="@color/black"
+                android:overlapAnchor="false"
+                android:spinnerMode="dropdown"
+                android:textAlignment="inherit"
+                android:textColor="@color/red"
+                android:textStyle="bold" />
+
+
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_marginTop="5sp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Número de identificación" />
+
+            <EditText
+                android:id="@+id/numberId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_margin="2sp"
+                android:inputType="number"
+                android:background="@drawable/dr_white_input_text"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                android:textColor="@color/black"
+                android:text="Número de contacto" />
+
+            <EditText
+                android:id="@+id/phoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number"
+                android:layout_margin="2sp"
+                android:textColor="@color/black"
+                android:background="@drawable/dr_white_input_text" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                android:textColor="@color/black"
+                android:text="Procedencia" />
+
+            <EditText
+                android:id="@+id/origin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_margin="2sp"
+                android:background="@drawable/dr_white_input_text"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_marginTop="5sp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fecha solicitud de visita" />
+
+            <EditText
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_margin="2sp"
+                android:background="@drawable/dr_white_input_text"
+                android:textColor="@color/black" />
+
+
+
+            <Button
+                android:id="@+id/create_forms1_buttom"
+                android:layout_width="272dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/dr_green_button"
+                android:text="Agregar Formulario"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/navBarGardenActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dr_shadow_top"
+        android:orientation="horizontal"
+        android:backgroundTint="@color/white"
+        android:layout_gravity="end">
+
+        <Button
+            android:id="@+id/ludification"
+            android:layout_width="73dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10sp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/im_dictionary"
+            android:padding="10dp"
+            android:stateListAnimator="@null"
+            android:text="Ludi"
+            android:textAllCaps="false"
+            android:textColor="#A0A3B1"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/gardens"
+            android:layout_width="77dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10sp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/im_colombia"
+            android:padding="10dp"
+            android:stateListAnimator="@null"
+            android:text="Huertas"
+            android:textAllCaps="false"
+            android:textColor="#A0A3B1"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/myGardens"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10sp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/im_plant_icon"
+            android:padding="10dp"
+            android:stateListAnimator="@null"
+            android:text="Mis huertas"
+            android:textAllCaps="false"
+            android:textColor="#A0A3B1"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/profile"
+            android:layout_width="78dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10sp"
+            android:layout_marginBottom="7dp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/im_user_icon"
+            android:padding="5dp"
+            android:stateListAnimator="@null"
+            android:text="Perfil"
+            android:textAllCaps="false"
+            android:textColor="#A0A3B1"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</LinearLayout>
