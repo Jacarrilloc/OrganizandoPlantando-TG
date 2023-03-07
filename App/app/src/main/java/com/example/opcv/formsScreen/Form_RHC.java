@@ -158,6 +158,7 @@ public class Form_RHC extends AppCompatActivity {
                 idGardenFb = getIntent().getStringExtra("idGardenFirebase");
 
                 Map<String,Object> infoForm = new HashMap<>();
+                infoForm.put("idForm",11);
                 infoForm.put("nameForm",nameForm);
                 infoForm.put("responsable",personResponsable);
                 infoForm.put("income/expense",conceptSelectedItem);
