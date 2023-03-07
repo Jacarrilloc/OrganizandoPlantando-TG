@@ -73,7 +73,7 @@
             android:name=".MapsActivity"
             android:exported="false" />
         <activity
-            android:name=".FormsRegisterAdapter"
+            android:name=".adapter.FormsRegisterAdapter"
             android:exported="false" />
         <activity
             android:name=".RegisterForms"
@@ -82,13 +82,13 @@
             android:name=".auth.RegisterProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".GardenForms"
+            android:name=".gardens.GardenForms"
             android:exported="false" />
         <activity
-            android:name=".GardenMembersAdapter"
+            android:name=".adapter.GardenMembersAdapter"
             android:exported="false" />
         <activity
-            android:name=".GardenMembersActivity"
+            android:name=".gardens.GardenMembersActivity"
             android:exported="false" />
         <activity
             android:name=".auth.EditUserActivity"
@@ -97,13 +97,13 @@
             android:name=".GenerateReportsActivity"
             android:exported="false" />
         <activity
-            android:name=".GardenEditActivity"
+            android:name=".gardens.GardenEditActivity"
             android:exported="false" />
         <activity
             android:name=".guestLoginActivity"
             android:exported="false" />
         <activity
-            android:name=".GardenAdapter"
+            android:name=".adapter.GardenAdapter"
             android:exported="false" />
         <activity
             android:name=".NewToAppActivity"
@@ -112,7 +112,7 @@
             android:name=".registroLombriculturaActivity"
             android:exported="false" />
         <activity
-            android:name=".CreateGardenActivity"
+            android:name=".gardens.CreateGardenActivity"
             android:exported="false" />
         <activity
             android:name=".VegetablePatchAvailableActivity"
@@ -121,7 +121,7 @@
             android:name=".TermsAndConditionsActivity"
             android:exported="false" />
         <activity
-            android:name=".huertaActivity"
+            android:name=".gardens.huertaActivity"
             android:exported="false" />
         <activity
             android:name=".auth.deleteAccountActivity"

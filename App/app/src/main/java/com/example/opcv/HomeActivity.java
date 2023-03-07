@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import com.example.opcv.adapter.GardenListAdapter;
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.gardens.CreateGardenActivity;
+import com.example.opcv.gardens.huertaActivity;
 import com.example.opcv.item_list.ItemGardenHomeList;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -90,7 +92,7 @@ public class HomeActivity extends AppCompatActivity {
                 String userID = autentication.getCurrentUser().getUid();
                 String idGarden = ((ItemGardenHomeList) selectedItem).getIdGarden();
                 String idGardenFirebaseDoc = getIntent().getStringExtra("idGarden");
-                Intent start = new Intent(HomeActivity.this,huertaActivity.class);
+                Intent start = new Intent(HomeActivity.this, huertaActivity.class);
                 start.putExtra("ID",userID);
                 start.putExtra("gardenName",itemName);
                 start.putExtra("idGarden", idGarden);
