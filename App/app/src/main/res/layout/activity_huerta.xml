@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".huertaActivity">
+    tools:context=".gardens.huertaActivity">
 
 
     <FrameLayout
@@ -70,8 +70,8 @@
 
             <ImageButton
                 android:id="@+id/messageButton"
-                android:layout_width="25sp"
-                android:layout_height="25sp"
+                android:layout_width="35sp"
+                android:layout_height="35sp"
                 android:layout_gravity="center"
                 android:layout_margin="4sp"
                 android:layout_weight="0.25"
@@ -81,8 +81,8 @@
 
             <ImageButton
                 android:id="@+id/imageButton8"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:layout_margin="4sp"
                 android:layout_weight="0.25"
@@ -92,8 +92,8 @@
 
             <ImageButton
                 android:id="@+id/editButton2"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:layout_margin="4sp"
                 android:layout_weight="0.25"
@@ -103,8 +103,8 @@
 
             <ImageButton
                 android:id="@+id/imageButton9"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:layout_margin="4sp"
                 android:layout_weight="0.25"

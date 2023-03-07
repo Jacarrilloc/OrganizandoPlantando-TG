@@ -1,4 +1,4 @@
-package com.example.opcv;
+package com.example.opcv.gardens;
 
 import static android.content.ContentValues.TAG;
 
@@ -14,6 +14,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.opcv.HomeActivity;
+import com.example.opcv.R;
+import com.example.opcv.VegetablePatchAvailableActivity;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.formsScreen.Form_CIH;
 import com.example.opcv.formsScreen.Form_CPS;
@@ -70,7 +73,7 @@ public class huertaActivity extends AppCompatActivity {
         moreFormsButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent infoForms = new Intent(huertaActivity.this,GardenForms.class);
+                Intent infoForms = new Intent(huertaActivity.this, GardenForms.class);
                 String idGardenFirebase = extras.getString("idGardenFirebaseDoc");
                 infoForms.putExtra("idGardenFirebaseDoc",idGardenFirebase);
                 startActivity(infoForms);
@@ -81,7 +84,7 @@ public class huertaActivity extends AppCompatActivity {
         editGarden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent start = new Intent(huertaActivity.this,GardenEditActivity.class);
+                Intent start = new Intent(huertaActivity.this, GardenEditActivity.class);
                 start.putExtra("idGarden", gardenID);
                 start.putExtra("gardenName", garden);
                 start.putExtra("infoGarden", infoGarden);

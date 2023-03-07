@@ -1,8 +1,10 @@
-package com.example.opcv;
+package com.example.opcv.gardens;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.opcv.R;
 
 public class GardenMembersActivity extends AppCompatActivity {
 
