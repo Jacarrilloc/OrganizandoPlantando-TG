@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.opcv.HomeActivity;
 import com.example.opcv.R;
@@ -54,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(success){
                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 }else{
+                    Toast.makeText(context, "No fue posible Iniciar Sesion, Por Favor revise si ingresó correctamente el correo y la contraseña", Toast.LENGTH_SHORT).show();
                     emailLogin.setText("");
                     passwordLogin.setText("");
                 }

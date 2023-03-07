@@ -4,16 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.opcv.R;
 import com.example.opcv.TermsAndConditionsActivity;
+import com.example.opcv.fbComunication.AuthUtilities;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,17 +34,23 @@ public class RegisterProfileActivity extends AppCompatActivity {
 
     private EditText name,lastName,email,password,confirmPassword,phoneNumber;
     private CheckBox terms;
-    private Button register,termsConditions;
-    private FirebaseAuth autentication;
+    private ImageView profilePhoto;
+    private Button register,termsConditions,takePhotoUserRegister,galerySelectPhotoUserRegister;
     private FirebaseFirestore database;
+
+    private Map<String, Object> newUserInfo;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_profile);
 
-        autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
+
+        profilePhoto = findViewById(R.id.photoUserRegisterActivity);
+        takePhotoUserRegister = findViewById(R.id.TakePhotoUserRegister);
+        galerySelectPhotoUserRegister = findViewById(R.id.galerySelectPhotoUserRegister);
 
         name = findViewById(R.id.imputNameRegisterActivity);
         lastName = findViewById(R.id.imputLastNameRegisterActivity);
@@ -50,6 +61,22 @@ public class RegisterProfileActivity extends AppCompatActivity {
         register = findViewById(R.id.createAcountButtomRegisterActivity);
 
         termsConditions = findViewById(R.id.terms_condition_buttom_registerProfileActivity);
+
+        newUserInfo = new HashMap<>();
+
+        takePhotoUserRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //dispatchTakePictureIntent();
+            }
+        });
+
+        galerySelectPhotoUserRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         termsConditions.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,68 +93,37 @@ public class RegisterProfileActivity extends AppCompatActivity {
                 String passwordString = password.getText().toString();
                 String confirmPasswordString = confirmPassword.getText().toString();
                 Boolean termsBool = terms.isChecked();
-                if(validationField(nameString,lastNameString,emailString,passwordString,confirmPasswordString,termsBool)){
-                    createNewUser(emailString,passwordString);
-                }
+                AuthUtilities check = new AuthUtilities();
+
+                newUserInfo.put("Name", nameString);
+                newUserInfo.put("LastName", lastNameString);
+                newUserInfo.put("Email", emailString);
+
+                Intent intent = new Intent(RegisterProfileActivity.this, RegisterMobilePhone.class);
+                intent.putExtra("mapUser",(Serializable) newUserInfo);
+                intent.putExtra("emailRegister",emailString);
+                intent.putExtra("passwordRegister",passwordString);
+                startActivity(intent);
             }
         });
     }
 
-    private boolean validationField(String name,String lastName,String email,String password,String confirmPassword,Boolean terms)
-    {
-        if(TextUtils.isEmpty(name) || TextUtils.isEmpty(lastName) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPassword)){
-            Toast.makeText(this, "Debe rellenar todos los campos.", Toast.LENGTH_SHORT).show();
-            return false;
-        }else if (!validateEmail(email)){
-            Toast.makeText(this, "Ingrese un correo válido.", Toast.LENGTH_SHORT).show();
-            return false;
-        }else if (!validatePassword(password)){
-            Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres.", Toast.LENGTH_SHORT).show();
-            return false;
-        }else if (!password.equals(confirmPassword)){
-            Toast.makeText(this, "Las contraseñas no concuerdan.", Toast.LENGTH_SHORT).show();
-            return false;
-        }else if(!terms){
-            Toast.makeText(this, "Es necesario Aceptar los terminos y Condiciones", Toast.LENGTH_SHORT).show();
-            return false;
-        }else{
-            return true;
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
-
-    private void createNewUser(String email,String password){
-        autentication.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    FirebaseUser user = autentication.getCurrentUser();
-                    addToDataBase(user.getUid().toString());
-                }
-            }
-        });
-    }
-
-    private void addToDataBase(String userId) {
-        Map<String, Object> newUserInfo = new HashMap<>();
-        newUserInfo.put("ID", userId);
-        newUserInfo.put("Name", name.getText().toString());
-        newUserInfo.put("LastName", lastName.getText().toString());
-        newUserInfo.put("Email", email.getText().toString());
-
-        Intent intent = new Intent(RegisterProfileActivity.this, RegisterMobilePhone.class);
-        intent.putExtra("mapUser",(Serializable) newUserInfo);
-        startActivity(intent);
-    }
-
-    private boolean validateEmail(String email){
-        if(!email.contains("@") || !email.contains(".") || email.length() < 5)
-            return false;
-        return true;
-    }
-
-    private boolean validatePassword(String password){
-        if(password.length() < 6)
-            return false;
-        return true;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] photoBytes = baos.toByteArray();
+            newUserInfo.put("photo", photoBytes);
+            profilePhoto.setImageBitmap(imageBitmap);
+        }
     }
 }

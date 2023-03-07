@@ -11,16 +11,11 @@ import android.widget.TextView;
 
 import com.example.opcv.HomeActivity;
 import com.example.opcv.R;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.example.opcv.fbComunication.AuthUtilities;
 
 import java.util.Map;
 
 public class RegisterMobilePhone extends AppCompatActivity {
-
-    private FirebaseFirestore database;
     private ImageButton continueButtom;
     private TextView laterText,welcome;
     private EditText phone;
@@ -35,24 +30,29 @@ public class RegisterMobilePhone extends AppCompatActivity {
         laterText = findViewById(R.id.later_Buttom);
         welcome = findViewById(R.id.welcome_msg);
 
-        database = FirebaseFirestore.getInstance();
-
         Intent intent = getIntent();
-        Map<String, Object> myMap = (Map<String, Object>) intent.getSerializableExtra("mapUser");
+        Map<String, Object> newUserInfo = (Map<String, Object>) intent.getSerializableExtra("mapUser");
+        String emailRegister = intent.getStringExtra("emailRegister");
+        String passwordRegister = intent.getStringExtra("passwordRegister");
 
-        String nameUser = myMap.get("Name").toString();
+        String nameUser = newUserInfo.get("Name").toString();
 
         String mesage = "Hola " + nameUser + ", Bienvenido(a) a Ceres";
 
         welcome.setText(mesage);
 
-
         continueButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String PhoneNumberAdded = phone.getText().toString();
-                myMap.put("PhoneNumber",PhoneNumberAdded);
-                registerUser(myMap,PhoneNumberAdded);
+                newUserInfo.put("PhoneNumber",PhoneNumberAdded);
+                AuthUtilities authUtilities = new AuthUtilities();
+                if(!authUtilities.createUser(emailRegister,passwordRegister,newUserInfo,RegisterMobilePhone.this)){
+                    Intent intent = new Intent(RegisterMobilePhone.this, HomeActivity.class);
+                    intent.putExtra("authUtilities", authUtilities);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -60,20 +60,13 @@ public class RegisterMobilePhone extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String PhoneNumberAdded = "";
-                myMap.put("PhoneNumber",PhoneNumberAdded);
-                registerUser(myMap,PhoneNumberAdded);
-            }
-        });
-    }
-
-    private void registerUser(Map<String, Object> newUserInfo,String phoneNumber){
-        CollectionReference collectionRef = database.collection("UserInfo");
-        collectionRef.add(newUserInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Intent intent = new Intent(RegisterMobilePhone.this, HomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                newUserInfo.put("PhoneNumber",PhoneNumberAdded);
+                AuthUtilities authUtilities = new AuthUtilities();
+                if(!authUtilities.createUser(emailRegister,passwordRegister,newUserInfo,RegisterMobilePhone.this)){
+                    Intent intent = new Intent(RegisterMobilePhone.this, HomeActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
             }
         });
     }
