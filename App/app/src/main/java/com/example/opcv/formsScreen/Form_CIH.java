@@ -136,6 +136,7 @@ public class Form_CIH extends AppCompatActivity {
                 idGardenFb = getIntent().getStringExtra("idGardenFirebase");
 
                 Map<String,Object> infoForm = new HashMap<>();
+                infoForm.put("idForm",10);
                 infoForm.put("nameForm",nameForm);
                 infoForm.put("tool",tools);
                 infoForm.put("concept",conceptSelectedItem);

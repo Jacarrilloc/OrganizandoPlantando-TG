@@ -126,6 +126,7 @@ public class Form_CPS extends AppCompatActivity {
                 idGardenFb = getIntent().getStringExtra("idGardenFirebase");
 
                 Map<String,Object> infoForm = new HashMap<>();
+                infoForm.put("idForm",7);
                 infoForm.put("nameForm",nameForm);
                 infoForm.put("personResponsable",responsablePerson);
                 infoForm.put("processPhase",phaseSelectedItem);
