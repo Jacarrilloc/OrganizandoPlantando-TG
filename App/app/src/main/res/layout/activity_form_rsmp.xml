@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".formsScreen.Form_RAC">
+    tools:context=".formsScreen.Form_RSMP">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
+            android:layout_marginLeft="20dp"
             android:clickable="true"
             android:contentDescription="@string/boton_para_regresar"
             android:tint="#F8F5F5"
@@ -32,12 +33,12 @@
             app:srcCompat="@drawable/dr_return_arrow" />
 
         <TextView
-            android:id="@+id/form_CIH_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
-            android:text="@string/CIH"
+            android:layout_marginEnd="20dp"
+            android:text="@string/recepci_n_y_requesici_n_de_materia_prima"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -63,10 +64,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="2sp"
-                android:text="Herramienta" />
+                android:text="@string/descripci_n" />
 
             <EditText
-                android:id="@+id/tool"
+                android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="2sp"
@@ -76,93 +77,31 @@
                 android:background="@drawable/dr_white_input_text"/>
 
             <TextView
-                android:id="@+id/textView8"
-                android:layout_marginTop="5sp"
-                android:textColor="@color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Concepto" />
-
-            <Spinner
-                android:id="@+id/spinnerConcept"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:spinnerMode="dropdown"
-                android:backgroundTint="@color/black"
-                android:overlapAnchor="false"
-                android:textAlignment="inherit"
-                android:textStyle="bold"
-                />
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_marginTop="5sp"
-                android:textColor="@color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Es herramienta de entrada o salida" />
-
-            <Spinner
-                android:id="@+id/spinnerChoice"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:spinnerMode="dropdown"
-                android:backgroundTint="@color/black"
-                android:overlapAnchor="false"
-                android:textAlignment="inherit"
-                android:textStyle="bold"
-
-                />
-
-            <TextView
                 android:id="@+id/textView9"
                 android:layout_marginTop="5sp"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cantidad herramienta" />
-
-            <EditText
-                android:id="@+id/quantity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:layout_margin="2sp"
-                android:inputType="number"
-                android:background="@drawable/dr_white_input_text"
-                android:textColor="@color/black"/>
+                android:text="@string/unidades" />
 
 
+            <Spinner
+                android:id="@+id/spinner_units"
+                android:layout_width="309dp"
+                android:layout_height="41dp"
+                android:layout_marginStart="20dp"
+                android:backgroundTint="@color/gray" />
 
             <TextView
-                android:id="@+id/textView11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/textView8"
                 android:layout_marginTop="5sp"
                 android:textColor="@color/black"
-                android:text="Estado herramienta" />
-
-            <EditText
-                android:id="@+id/toolStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="text"
-                android:layout_margin="2sp"
-                android:background="@drawable/dr_white_input_text"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:id="@+id/info3"
-                android:textColor="@color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="2sp"
-                android:text="Cantidad Existencias" />
+                android:text="@string/cantidad" />
 
             <EditText
-                android:id="@+id/existanceTool"
+                android:id="@+id/amount_of_Mp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="2sp"
@@ -173,13 +112,94 @@
 
 
 
-            <Button
-                android:id="@+id/create_forms1_buttom"
+            <TextView
+
+                android:id="@+id/textView10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10sp"
-                android:text="Agregar Formulario"
-                android:background="@drawable/dr_green_button"/>
+                android:layout_marginTop="5sp"
+                android:textColor="@color/black"
+                android:text="@string/total" />
+
+            <EditText
+                android:id="@+id/total_Mp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:ems="10"
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:background="@drawable/dr_white_input_text" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                android:textColor="@color/black"
+                android:text="@string/concepto" />
+
+            <RadioGroup
+                android:layout_marginTop="5dp"
+                android:id="@+id/conceptOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:layout_marginStart="20dp"
+                    android:id="@+id/radio_button_tool"
+                    android:textColor="@color/black"
+                    android:buttonTint="@color/lightgray"
+                    android:focusable="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/recepci_n" />
+                <RadioButton
+                    android:layout_marginStart="20dp"
+                    android:buttonTint="@color/lightgray"
+                    android:focusable="true"
+                    android:textColor="@color/black"
+                    android:id="@+id/radio_button_Mp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/salida" />
+
+            </RadioGroup>
+
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                android:textColor="@color/black"
+                android:text="@string/estado" />
+
+            <EditText
+                android:id="@+id/state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:textColor="@color/black"
+                android:background="@drawable/dr_white_input_text" />
+
+
+
+
+
+            <Button
+                android:id="@+id/create_forms1_buttom"
+                android:layout_width="272dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/dr_green_button"
+                android:text="@string/agregar_formulario" />
 
         </LinearLayout>
     </ScrollView>
