@@ -12,12 +12,16 @@ import android.widget.ListView;
 
 import com.example.opcv.R;
 import com.example.opcv.adapter.FormsListAdapter;
+import com.example.opcv.formsScreen.Form_IMP;
 import com.example.opcv.formsScreen.Form_RAC;
 import com.example.opcv.formsScreen.Form_CIH;
 import com.example.opcv.formsScreen.Form_CPS;
 import com.example.opcv.formsScreen.Form_RCC;
 import com.example.opcv.formsScreen.Form_RHC;
 import com.example.opcv.formsScreen.Form_RRH;
+import com.example.opcv.formsScreen.Form_RSMP;
+import com.example.opcv.formsScreen.Form_SCMPH;
+import com.example.opcv.formsScreen.Form_SVH;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Arrays;
@@ -41,7 +45,7 @@ public class GardenForms extends AppCompatActivity {
         gardenFormsList = findViewById(R.id.gardenFormsList);
         itemsList = getResources().getStringArray(R.array.list_forms);
         FormsListAdapter adapter = new FormsListAdapter(this,R.layout.item_list_forms_adapter, Arrays.asList(itemsList));
-        gardenFormsList.setDividerHeight(5);
+        gardenFormsList.setDividerHeight(10);
         gardenFormsList.setAdapter(adapter);
 
         String idGardenFirebase = getIntent().getStringExtra("idGardenFirebaseDoc");
@@ -64,7 +68,43 @@ public class GardenForms extends AppCompatActivity {
                         newForm.putExtra("Name",formsName);
                         newForm.putExtra("idGardenFirebase",idGardenFirebase);
                         startActivity(newForm);
-                        finish();
+                        break;
+                    }
+                    case 1:{
+                        Object selectedItem = adapterView.getItemAtPosition(i);
+                        String formsName = selectedItem.toString();
+                        Intent newForm = new Intent(GardenForms.this, Form_SVH.class);
+                        newForm.putExtra("Name",formsName);
+                        newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                        startActivity(newForm);
+                        break;
+                    }
+                    case 2:{
+                        Object selectedItem = adapterView.getItemAtPosition(i);
+                        String formsName = selectedItem.toString();
+                        Intent newForm = new Intent(GardenForms.this, Form_IMP.class);
+                        newForm.putExtra("Name",formsName);
+                        newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                        startActivity(newForm);
+                        break;
+                    }
+                    case 3:{
+                        Object selectedItem = adapterView.getItemAtPosition(i);
+                        String formsName = selectedItem.toString();
+                        Intent newForm = new Intent(GardenForms.this, Form_SCMPH.class);
+                        newForm.putExtra("Name",formsName);
+                        newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                        startActivity(newForm);
+                        break;
+                    }
+                    case 4:{
+                        Object selectedItem = adapterView.getItemAtPosition(i);
+                        String formsName = selectedItem.toString();
+                        Intent newForm = new Intent(GardenForms.this, Form_RSMP.class);
+                        newForm.putExtra("Name",formsName);
+                        newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                        startActivity(newForm);
+                        break;
                     }
                     case 6:{
                         Object selectedItem = adapterView.getItemAtPosition(i);
@@ -73,7 +113,7 @@ public class GardenForms extends AppCompatActivity {
                         newForm.putExtra("Name",formsName);
                         newForm.putExtra("idGardenFirebase",idGardenFirebase);
                         startActivity(newForm);
-                        finish();
+                        break;
                     }
                     case 7:{
                         Object selectedItem = adapterView.getItemAtPosition(i);
@@ -82,7 +122,7 @@ public class GardenForms extends AppCompatActivity {
                         newForm.putExtra("Name",formsName);
                         newForm.putExtra("idGardenFirebase",idGardenFirebase);
                         startActivity(newForm);
-                        finish();
+                        break;
                     }
                     case 8:{
                         Object selectedItem = adapterView.getItemAtPosition(i);
@@ -91,7 +131,7 @@ public class GardenForms extends AppCompatActivity {
                         newForm.putExtra("Name",formsName);
                         newForm.putExtra("idGardenFirebase",idGardenFirebase);
                         startActivity(newForm);
-                        finish();
+                        break;
                     }
                     case 9:{
                         Object selectedItem = adapterView.getItemAtPosition(i);
@@ -100,7 +140,7 @@ public class GardenForms extends AppCompatActivity {
                         newForm.putExtra("Name",formsName);
                         newForm.putExtra("idGardenFirebase",idGardenFirebase);
                         startActivity(newForm);
-                        finish();
+                        break;
                     }
                     case 10:{
                         Object selectedItem = adapterView.getItemAtPosition(i);
@@ -109,7 +149,7 @@ public class GardenForms extends AppCompatActivity {
                         newForm.putExtra("Name",formsName);
                         newForm.putExtra("idGardenFirebase",idGardenFirebase);
                         startActivity(newForm);
-                        finish();
+                        break;
                     }
                 }
                 /*Object selectedItem = adapterView.getItemAtPosition(i);
