@@ -20,6 +20,7 @@ import com.example.opcv.VegetablePatchAvailableActivity;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.formsScreen.Form_CIH;
 import com.example.opcv.formsScreen.Form_CPS;
+import com.example.opcv.formsScreen.Form_RAC;
 import com.example.opcv.info.GardenInfo;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,7 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class huertaActivity extends AppCompatActivity {
 
     private Button returnArrowButton, gardens, myGardens, profile;
-    private ImageButton editGarden, seedTime, toolsButton;
+    private ImageButton editGarden, seedTime, toolsButton, worm;
 
     private ImageView moreFormsButtom;
     private TextView nameGarden,descriptionGarden;
@@ -134,6 +135,18 @@ public class huertaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent newForm = new Intent(huertaActivity.this, Form_CIH.class);
+                newForm.putExtra("Name",formsName2);
+                newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                startActivity(newForm);
+                finish();
+            }
+        });
+
+        worm = (ImageButton) findViewById(R.id.imageButtonWorm);
+        worm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newForm = new Intent(huertaActivity.this, Form_RAC.class);
                 newForm.putExtra("Name",formsName2);
                 newForm.putExtra("idGardenFirebase",idGardenFirebase);
                 startActivity(newForm);

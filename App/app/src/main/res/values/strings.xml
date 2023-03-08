@@ -47,6 +47,7 @@
     <string name="RRH">Recepción y Requisición de Herramientas</string>
     <string name="CIH">Control de Inventarios de Herramientas</string>
     <string name="RHC">Registro Histórico Caja</string>
+    <string name="RAC">Registro y Actualización de Compostaje</string>
     <string name="descripci_n_materia_prima">Descripción Materia Prima</string>
     <string name="nombre_del_tem">Nombre del ítem</string>
     <string name="tem">Ítem</string>
