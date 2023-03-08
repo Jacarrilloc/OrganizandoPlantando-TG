@@ -20,7 +20,8 @@ import android.widget.Toast;
 
 import com.example.opcv.adapter.GardenListAdapter;
 import com.example.opcv.auth.EditUserActivity;
-import com.example.opcv.fbComunication.AuthUtilities;
+import com.example.opcv.gardens.CreateGardenActivity;
+import com.example.opcv.gardens.huertaActivity;
 import com.example.opcv.item_list.ItemGardenHomeList;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -72,8 +73,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Intent intent = getIntent();
-        AuthUtilities authUtilities = (AuthUtilities) intent.getSerializableExtra("authUtilities");
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
 
@@ -90,10 +89,10 @@ public class HomeActivity extends AppCompatActivity {
 
                 Object selectedItem = adapterView.getItemAtPosition(i);
                 String itemName = ((ItemGardenHomeList) selectedItem).getName();
-                String userID = authUtilities.getCurrentUserUid();
+                String userID = autentication.getCurrentUser().getUid();
                 String idGarden = ((ItemGardenHomeList) selectedItem).getIdGarden();
                 String idGardenFirebaseDoc = getIntent().getStringExtra("idGarden");
-                Intent start = new Intent(HomeActivity.this,huertaActivity.class);
+                Intent start = new Intent(HomeActivity.this, huertaActivity.class);
                 start.putExtra("ID",userID);
                 start.putExtra("gardenName",itemName);
                 start.putExtra("idGarden", idGarden);

@@ -13,6 +13,8 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.NewToAppActivity;
 import com.example.opcv.R;
+import com.example.opcv.gardens.GardenEditActivity;
+import com.example.opcv.gardens.huertaActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -82,7 +84,8 @@ public class deleteAccountActivity extends AppCompatActivity {
                     public void onSuccess(Void unused) {
                         Toast.makeText(deleteAccountActivity.this, "Cuenta eliminada", Toast.LENGTH_SHORT).show();
                         autentication.signOut();
-                        startActivity(new Intent(deleteAccountActivity.this, NewToAppActivity.class));
+                        Intent start = new Intent(deleteAccountActivity.this, NewToAppActivity.class);
+                        startActivity(start);
                     }
                 });
             }
@@ -90,6 +93,7 @@ public class deleteAccountActivity extends AppCompatActivity {
     }
 
     private void deleteUser(String id){
+
         database.collection("UserInfo")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -104,6 +108,7 @@ public class deleteAccountActivity extends AppCompatActivity {
                             database.collection("UserInfo")
                                     .document(idCollection)
                                     .delete();
+
                         }
                     }
                 }
@@ -111,4 +116,5 @@ public class deleteAccountActivity extends AppCompatActivity {
         });
         //Toast.makeText(this, idUser, Toast.LENGTH_SHORT).show();
     }
+
 }

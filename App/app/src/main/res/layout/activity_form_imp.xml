@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".formsScreen.Form_RAC">
+    tools:context=".formsScreen.Form_IMP">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
+            android:layout_marginLeft="20dp"
             android:clickable="true"
             android:contentDescription="@string/boton_para_regresar"
             android:tint="#F8F5F5"
@@ -32,13 +33,13 @@
             app:srcCompat="@drawable/dr_return_arrow" />
 
         <TextView
-            android:id="@+id/form_CIH_name"
-            android:layout_width="wrap_content"
+            android:layout_width="293dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
-            android:text="@string/CIH"
+            android:text="Control de inventario de Materia Prima"
             android:textColor="@color/black"
+            android:layout_marginEnd="20dp"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -63,10 +64,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="2sp"
-                android:text="Herramienta" />
+                android:text="@string/descripci_n_materia_prima" />
 
             <EditText
-                android:id="@+id/tool"
+                android:id="@+id/rawMaterialContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="2sp"
@@ -83,16 +84,41 @@
                 android:layout_height="wrap_content"
                 android:text="Concepto" />
 
-            <Spinner
-                android:id="@+id/spinnerConcept"
-                android:layout_width="fill_parent"
+            <RadioGroup
+                android:id="@+id/conceptOptions"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:spinnerMode="dropdown"
-                android:backgroundTint="@color/black"
-                android:overlapAnchor="false"
-                android:textAlignment="inherit"
-                android:textStyle="bold"
-                />
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:layout_marginStart="20dp"
+                    android:id="@+id/radio_button_donation"
+                    android:textColor="@color/black"
+                    android:buttonTint="@color/lightgray"
+                    android:focusable="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Donación" />
+                <RadioButton
+                    android:layout_marginStart="20dp"
+                    android:buttonTint="@color/lightgray"
+                    android:focusable="true"
+                    android:textColor="@color/black"
+                    android:id="@+id/radio_button_buy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Compra" />
+                <RadioButton
+                    android:layout_marginStart="20dp"
+                    android:buttonTint="@color/lightgray"
+                    android:focusable="true"
+                    android:textColor="@color/black"
+                    android:id="@+id/radio_button_exit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Salida" />
+
+            </RadioGroup>
 
             <TextView
                 android:id="@+id/textView10"
@@ -100,17 +126,17 @@
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Es herramienta de entrada o salida" />
+                android:text="Movimiento de la materia prima" />
 
             <Spinner
                 android:id="@+id/spinnerChoice"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:spinnerMode="dropdown"
+                android:layout_height="34dp"
                 android:backgroundTint="@color/black"
                 android:overlapAnchor="false"
+                android:spinnerMode="dropdown"
                 android:textAlignment="inherit"
+                android:textColor="@color/black"
                 android:textStyle="bold"
 
                 />
@@ -121,7 +147,7 @@
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cantidad herramienta" />
+                android:text="Cantidad materia prima" />
 
             <EditText
                 android:id="@+id/quantity"
@@ -141,17 +167,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5sp"
                 android:textColor="@color/black"
-                android:text="Estado herramienta" />
+                android:text="Unidad" />
 
-            <EditText
-                android:id="@+id/toolStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="text"
-                android:layout_margin="2sp"
-                android:background="@drawable/dr_white_input_text"
-                android:textColor="@color/black" />
+            <Spinner
+                android:id="@+id/spinner_units"
+                android:layout_width="fill_parent"
+                android:layout_height="34dp"
+                android:backgroundTint="@color/black"
+                android:overlapAnchor="false"
+                android:spinnerMode="dropdown"
+                android:textAlignment="inherit"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+
+                />
 
             <TextView
                 android:id="@+id/info3"
@@ -173,13 +202,18 @@
 
 
 
+
+
             <Button
                 android:id="@+id/create_forms1_buttom"
-                android:layout_width="match_parent"
+                android:layout_width="272dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="10sp"
-                android:text="Agregar Formulario"
-                android:background="@drawable/dr_green_button"/>
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/dr_green_button"
+                android:text="Agregar Formulario" />
 
         </LinearLayout>
     </ScrollView>

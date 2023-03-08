@@ -1,14 +1,16 @@
-package com.example.opcv;
+package com.example.opcv.adapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class GardenMembersAdapter extends AppCompatActivity {
+import com.example.opcv.R;
+
+public class FormsRegisterAdapter extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.item_garden_members_adapter);
+        setContentView(R.layout.item_forms_register_adapter);
     }
 }

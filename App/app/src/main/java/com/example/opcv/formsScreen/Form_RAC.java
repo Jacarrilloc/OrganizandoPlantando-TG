@@ -90,6 +90,7 @@ public class Form_RAC extends AppCompatActivity {
                 String idGardenFb = getIntent().getStringExtra("idGardenFirebase");
 
                 Map<String,Object> infoForm = new HashMap<>();
+                infoForm.put("idForm",1);
                 infoForm.put("nameForm",name);
                 infoForm.put("containerSize",container);
                 infoForm.put("wormsWeight",worms);
