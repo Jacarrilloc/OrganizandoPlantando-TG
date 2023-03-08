@@ -172,6 +172,7 @@
         </LinearLayout>
     </ScrollView>
 
+
     <LinearLayout
         android:id="@+id/navBarGardenActivity"
         android:layout_width="match_parent"

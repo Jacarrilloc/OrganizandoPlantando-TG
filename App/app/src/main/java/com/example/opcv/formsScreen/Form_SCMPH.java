@@ -138,6 +138,7 @@ public class Form_SCMPH extends AppCompatActivity {
                 formsUtilities = new FormsUtilities();
                 String itemR, quantityR, totalR, stateR, nameForm, idGardenFb;
 
+
                 itemR = itemName.getText().toString();
                 quantityR = quantity.getText().toString();
                 totalR = total.getText().toString();
