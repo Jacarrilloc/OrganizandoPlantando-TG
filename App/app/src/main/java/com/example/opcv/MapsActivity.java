@@ -10,6 +10,7 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.overlay.Marker;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -30,14 +31,14 @@ public class MapsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Context ctx = getApplicationContext();
-        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
+        Configuration.getInstance().load(ctx,PreferenceManager.getDefaultSharedPreferences(ctx));
         setContentView(R.layout.activity_maps);
-        map = findViewById(R.id.mapglobal);
+        map =findViewById(R.id.mapglobal);
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setMultiTouchControls(true);
 
         Marker marker = new Marker(map);
-        marker.setTitle("Mi marcador");
+        marker.setTitle("Mi Marcador");
         Drawable myIcon = getResources().getDrawable(R.drawable.dr_location_red, this.getTheme());
         marker.setIcon(myIcon);
         marker.setPosition(this.bogota);
@@ -62,7 +63,6 @@ public class MapsActivity extends AppCompatActivity {
         });
 
         gardensMap = (Button) findViewById(R.id.globalMap);
-
         gardensMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,7 +77,7 @@ public class MapsActivity extends AppCompatActivity {
         super.onResume();
         map.onResume();
         IMapController mapController = map.getController();
-        mapController.setZoom(20.0);
+        mapController.setZoom(18.0);
         mapController.setCenter(this.bogota);
     }
     @Override
