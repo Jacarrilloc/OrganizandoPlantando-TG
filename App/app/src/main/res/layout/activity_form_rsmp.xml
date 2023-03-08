@@ -33,6 +33,7 @@
             app:srcCompat="@drawable/dr_return_arrow" />
 
         <TextView
+            android:id="@+id/form_RSMP_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -86,11 +87,17 @@
 
 
             <Spinner
-                android:id="@+id/spinner_units"
-                android:layout_width="309dp"
-                android:layout_height="41dp"
-                android:layout_marginStart="20dp"
-                android:backgroundTint="@color/gray" />
+                android:id="@+id/unitsChoice"
+                android:layout_width="fill_parent"
+                android:layout_height="43dp"
+                android:backgroundTint="@color/black"
+                android:overlapAnchor="false"
+                android:spinnerMode="dropdown"
+                android:textAlignment="inherit"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+
+                />
 
             <TextView
                 android:id="@+id/textView8"
@@ -139,33 +146,18 @@
                 android:textColor="@color/black"
                 android:text="@string/concepto" />
 
-            <RadioGroup
-                android:layout_marginTop="5dp"
-                android:id="@+id/conceptOptions"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+            <Spinner
+                android:id="@+id/conceptChoice"
+                android:layout_width="fill_parent"
+                android:layout_height="39dp"
+                android:backgroundTint="@color/black"
+                android:overlapAnchor="false"
+                android:spinnerMode="dropdown"
+                android:textAlignment="inherit"
+                android:textColor="@color/black"
+                android:textStyle="bold"
 
-                <RadioButton
-                    android:layout_marginStart="20dp"
-                    android:id="@+id/radio_button_tool"
-                    android:textColor="@color/black"
-                    android:buttonTint="@color/lightgray"
-                    android:focusable="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/recepci_n" />
-                <RadioButton
-                    android:layout_marginStart="20dp"
-                    android:buttonTint="@color/lightgray"
-                    android:focusable="true"
-                    android:textColor="@color/black"
-                    android:id="@+id/radio_button_Mp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/salida" />
-
-            </RadioGroup>
+                />
 
 
             <TextView
@@ -191,7 +183,7 @@
 
 
             <Button
-                android:id="@+id/create_forms1_buttom"
+                android:id="@+id/create_forms4_buttom"
                 android:layout_width="272dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
