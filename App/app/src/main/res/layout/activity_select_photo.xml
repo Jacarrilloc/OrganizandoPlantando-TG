@@ -55,15 +55,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="25sp"
+        android:layout_margin="10sp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/takePhotoButtom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="5sp"
+            android:layout_weight="1"
             android:background="@drawable/dr_green_button"
             android:text="Camara" />
 
@@ -72,9 +72,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5sp"
-            android:background="@drawable/dr_green_button"
             android:layout_weight="1"
+            android:background="@drawable/dr_green_button"
             android:text="Seleccionar Foto" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="25sp"
+        android:background="@drawable/dr_green_button"
+        android:text="Continuar" />
 
 </LinearLayout>
