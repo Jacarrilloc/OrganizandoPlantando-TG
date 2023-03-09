@@ -82,6 +82,13 @@
                 android:textColorHint="@color/editTextBackground"
                 android:textStyle="italic" />
 
+            <Spinner
+                android:id="@+id/spinnerGenderRegisterActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:background="@drawable/dr_white_input_text"/>
+
             <EditText
                 android:id="@+id/imputEmailRegisterActivity"
                 android:layout_width="match_parent"
