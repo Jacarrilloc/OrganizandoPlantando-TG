@@ -124,47 +124,14 @@
                 android:textColorHint="@color/editTextBackground"
                 android:textStyle="italic" />
 
-            <LinearLayout
+            <Button
+                android:id="@+id/selectPhotoProfileActivity"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/photoUserRegisterActivity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    tools:srcCompat="@tools:sample/avatars" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="5sp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <Button
-                        android:id="@+id/TakePhotoUserRegister"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="5sp"
-                        android:layout_weight="1"
-                        android:background="@drawable/dr_green_button"
-                        android:text="Tomar Foto" />
-
-                    <Button
-                        android:id="@+id/galerySelectPhotoUserRegister"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5sp"
-                        android:layout_weight="1"
-                        android:background="@drawable/dr_green_button"
-                        android:text="Galeria" />
-                </LinearLayout>
-
-            </LinearLayout>
+                android:layout_height="match_parent"
+                android:layout_marginLeft="50sp"
+                android:layout_marginRight="50sp"
+                android:background="@drawable/dr_green_button"
+                android:text="Seleccionar Foto de Perfil" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

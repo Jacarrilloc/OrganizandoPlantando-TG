@@ -35,7 +35,7 @@ public class RegisterProfileActivity extends AppCompatActivity {
     private EditText name,lastName,email,password,confirmPassword,phoneNumber;
     private CheckBox terms;
     private ImageView profilePhoto;
-    private Button register,termsConditions,takePhotoUserRegister,galerySelectPhotoUserRegister;
+    private Button register,termsConditions,selectPhoto;
     private FirebaseFirestore database;
 
     private Map<String, Object> newUserInfo;
@@ -48,10 +48,7 @@ public class RegisterProfileActivity extends AppCompatActivity {
 
         database = FirebaseFirestore.getInstance();
 
-        profilePhoto = findViewById(R.id.photoUserRegisterActivity);
-        takePhotoUserRegister = findViewById(R.id.TakePhotoUserRegister);
-        galerySelectPhotoUserRegister = findViewById(R.id.galerySelectPhotoUserRegister);
-
+        selectPhoto = findViewById(R.id.selectPhotoProfileActivity);
         name = findViewById(R.id.imputNameRegisterActivity);
         lastName = findViewById(R.id.imputLastNameRegisterActivity);
         email = findViewById(R.id.imputEmailRegisterActivity);
@@ -64,17 +61,12 @@ public class RegisterProfileActivity extends AppCompatActivity {
 
         newUserInfo = new HashMap<>();
 
-        takePhotoUserRegister.setOnClickListener(new View.OnClickListener() {
+        selectPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //dispatchTakePictureIntent();
-            }
-        });
-
-        galerySelectPhotoUserRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
+                Intent takePhoto = new Intent(RegisterProfileActivity.this,SelectPhotoActivity.class);
+                takePhoto.putExtra("newUserInfo",(Serializable) newUserInfo);
+                startActivity(takePhoto);
             }
         });
 
@@ -106,24 +98,5 @@ public class RegisterProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] photoBytes = baos.toByteArray();
-            newUserInfo.put("photo", photoBytes);
-            profilePhoto.setImageBitmap(imageBitmap);
-        }
     }
 }
