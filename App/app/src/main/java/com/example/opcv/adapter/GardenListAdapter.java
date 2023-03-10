@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +19,7 @@ import java.util.List;
 public class GardenListAdapter extends ArrayAdapter<ItemGardenHomeList> {
 
     private TextView gardenName;
-    private ImageView image;
+    private ImageView image, arrow;
     private Context context;
 
     public GardenListAdapter(Context context, List<ItemGardenHomeList> items) {
@@ -41,6 +42,9 @@ public class GardenListAdapter extends ArrayAdapter<ItemGardenHomeList> {
         convertView.startAnimation(animation);
 
         image = convertView.findViewById(R.id.garden_imagen_list_item);
+        image.setVisibility(View.VISIBLE);
+        //arrow = convertView.findViewById(R.id.selected);
+
 
         return convertView;
     }

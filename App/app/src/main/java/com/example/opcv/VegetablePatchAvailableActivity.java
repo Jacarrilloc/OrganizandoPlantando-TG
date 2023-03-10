@@ -42,7 +42,7 @@ public class VegetablePatchAvailableActivity extends AppCompatActivity {
 
     private Button gardensMap, profile, myGardens;
     private FirebaseAuth autentication;
-    private ListView listAviableGardensInfo;
+    private ListView listGardens;
     private FirebaseFirestore database;
     private Animation animSlideUp;
 
@@ -52,18 +52,6 @@ public class VegetablePatchAvailableActivity extends AppCompatActivity {
         fillGardenAvaliable();
     }
 
-    @Override
-    public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setMessage("¿Estás seguro de que quieres salir de Ceres?")
-                .setNegativeButton(android.R.string.no, null)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        finishAffinity();
-                        VegetablePatchAvailableActivity.super.onBackPressed();
-                    }
-                }).create().show();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +60,7 @@ public class VegetablePatchAvailableActivity extends AppCompatActivity {
         animSlideUp = AnimationUtils.loadAnimation(this, R.anim.slide_right_to_left);
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
+        listGardens = findViewById(R.id.gardenList);
 
         profile = (Button) findViewById(R.id.profile);
         profile.setOnClickListener(new View.OnClickListener() {
@@ -96,16 +85,17 @@ public class VegetablePatchAvailableActivity extends AppCompatActivity {
             }
         });
 
-        listAviableGardensInfo = findViewById(R.id.gardenList);
+
         fillGardenAvaliable();
-        listAviableGardensInfo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+        listGardens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
                 Object selectedItem = adapterView.getItemAtPosition(i);
-                String itemName = ((ItemShowGardenAvailable) selectedItem).getName();
+                String itemName = ((ItemGardenHomeList) selectedItem).getName();
                 String userID = autentication.getCurrentUser().getUid();
-                String idGarden = ((ItemShowGardenAvailable) selectedItem).getIdGarden();
+                String idGarden = ((ItemGardenHomeList) selectedItem).getIdGarden();
                 String idGardenFirebaseDoc = getIntent().getStringExtra("idGarden");
                 Intent start = new Intent(VegetablePatchAvailableActivity.this, otherGardensActivity.class);
                 start.putExtra("ID",userID);
@@ -130,12 +120,12 @@ public class VegetablePatchAvailableActivity extends AppCompatActivity {
                 }
                 for(DocumentSnapshot documentSnapshot : value){
                     if(documentSnapshot.exists()){
-                        List<ItemShowGardenAvailable> gardenNames = new ArrayList<>();
+                        List<ItemGardenHomeList> gardenNames = new ArrayList<>();
                         for (QueryDocumentSnapshot document : value) {
                             String name = document.getString("GardenName");
                             String gardenId = document.getId();
 
-                            ItemShowGardenAvailable newItem = new ItemShowGardenAvailable(name, gardenId);
+                            ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId);
                             gardenNames.add(newItem);
                         }
                         fillListGardens(gardenNames);
@@ -148,9 +138,9 @@ public class VegetablePatchAvailableActivity extends AppCompatActivity {
 
     }
 
-    private void fillListGardens( List<ItemShowGardenAvailable> gardenInfoDocument){
-        GardenAvailableListAdapter adapter = new GardenAvailableListAdapter(this, gardenInfoDocument);
-        listAviableGardensInfo.setAdapter(adapter);
-        listAviableGardensInfo.setDividerHeight(15);
+    private void fillListGardens( List<ItemGardenHomeList> gardenInfoDocument){
+        GardenListAdapter  adapter = new GardenListAdapter(this, gardenInfoDocument);
+        listGardens.setAdapter(adapter);
+        listGardens.setDividerHeight(15);
     }
 }
