@@ -79,7 +79,7 @@
 
         <Button
             android:id="@+id/ludification"
-            android:layout_width="73dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginLeft="25dp"
@@ -88,7 +88,7 @@
             android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
             android:stateListAnimator="@null"
-            android:text="Ludi"
+            android:text="Diccionario"
             android:textAllCaps="false"
             android:textColor="#A0A3B1" />
 

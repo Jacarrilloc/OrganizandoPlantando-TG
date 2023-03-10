@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.opcv.HomeActivity;
+import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.VegetablePatchAvailableActivity;
 import com.example.opcv.auth.EditUserActivity;
@@ -97,7 +98,7 @@ public class huertaActivity extends AppCompatActivity {
         gardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(huertaActivity.this, VegetablePatchAvailableActivity.class));
+                startActivity(new Intent(huertaActivity.this, MapsActivity.class));
             }
         });
 

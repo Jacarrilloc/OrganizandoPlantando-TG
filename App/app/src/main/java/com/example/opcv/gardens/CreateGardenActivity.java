@@ -11,7 +11,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.opcv.HomeActivity;
+import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
+import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.info.GardenInfo;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,7 +31,7 @@ public class CreateGardenActivity extends AppCompatActivity {
     private CheckBox publicGarden,privateGarden;
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
-    private Button create;
+    private Button create, otherGardensButton, profile, myGardens;
     private GardenInfo newInfo;
 
     @Override
@@ -46,6 +48,29 @@ public class CreateGardenActivity extends AppCompatActivity {
         database = FirebaseFirestore.getInstance();
 
         create = findViewById(R.id.add_garden_button);
+
+        otherGardensButton = (Button) findViewById(R.id.gardens);
+        otherGardensButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CreateGardenActivity.this, MapsActivity.class));
+            }
+        });
+
+        profile = (Button) findViewById(R.id.profile);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CreateGardenActivity.this, EditUserActivity.class));
+            }
+        });
+        myGardens = (Button) findViewById(R.id.myGardens);
+        myGardens.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CreateGardenActivity.this, HomeActivity.class));
+            }
+        });
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
