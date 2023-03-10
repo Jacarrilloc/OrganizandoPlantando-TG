@@ -28,14 +28,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true" />
 
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:id="@+id/linearLayout8"
-        android:layout_width="392dp"
-        android:layout_height="118dp"
+        android:layout_width="412dp"
+        android:layout_height="114dp"
         android:background="@drawable/dr_shadow_top"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -113,9 +113,7 @@
         android:layout_height="51dp"
         android:layout_marginTop="164dp"
         android:layout_marginRight="30dp"
-        android:layout_marginBottom="18dp"
         android:background="@drawable/im_add_image"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.736"
         app:layout_constraintStart_toStartOf="parent"
@@ -129,7 +127,6 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2"
         app:layout_constraintVertical_bias="1.0">
@@ -164,9 +161,9 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="20dp"
+                android:background="@drawable/dr_gray_input_text"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:background="@drawable/dr_gray_input_text" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -191,9 +188,9 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="20dp"
+                android:background="@drawable/dr_gray_input_text"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:background="@drawable/dr_gray_input_text" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -217,9 +214,9 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:background="@drawable/dr_gray_input_text"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:background="@drawable/dr_gray_input_text" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -243,12 +240,11 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="34dp"
                 android:layout_marginRight="20dp"
+                android:background="@drawable/dr_gray_input_text"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:background="@drawable/dr_gray_input_text" />
+                android:textSize="14sp" />
 
         </LinearLayout>
-
 
 
         <Button
