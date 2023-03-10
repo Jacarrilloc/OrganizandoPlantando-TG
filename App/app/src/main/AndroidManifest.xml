@@ -27,6 +27,9 @@
             android:name=".gardens.otherGardensActivity"
             android:exported="false" />
         <activity
+            android:name=".adapter.GardenAvailableListAdapter"
+            android:exported="false" />
+        <activity
             android:name=".formsScreen.Form_RSMP"
             android:exported="false" />
         <activity
@@ -113,9 +116,6 @@
             android:exported="false" />
         <activity
             android:name=".guestLoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".adapter.GardenAdapter"
             android:exported="false" />
         <activity
             android:name=".NewToAppActivity"
