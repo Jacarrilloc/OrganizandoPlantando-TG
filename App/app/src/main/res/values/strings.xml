@@ -47,6 +47,7 @@
     <string name="RRH">Recepción y Requisición de Herramientas</string>
     <string name="CIH">Control de Inventarios de Herramientas</string>
     <string name="RHC">Registro Histórico Caja</string>
+    <string name="RAC">Registro y Actualización de Compostaje</string>
     <string name="descripci_n_materia_prima">Descripción Materia Prima</string>
     <string name="nombre_del_tem">Nombre del ítem</string>
     <string name="tem">Ítem</string>
@@ -60,6 +61,9 @@
     <string name="unidades">Unidades</string>
     <string name="descripci_n">Descripción</string>
     <string name="recepci_n_y_requesici_n_de_materia_prima">Recepción y Requesición de Materia Prima</string>
+    <string name="requestJoin">Solicitar Unirse</string>
+    <string name="visitRequest">Solicitar visita</string>
+
 
     <string-array name="list_forms">
         <item>Registro y Actualización de Compostaje</item>
@@ -74,4 +78,13 @@
         <item>Control de Inventarios de Herramientas</item>
         <item>Registro Histórico Caja</item>
     </string-array>
+    <string name="title_activity_other_garden">otherGardenActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

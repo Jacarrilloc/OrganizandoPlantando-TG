@@ -39,7 +39,7 @@ public class Form_RAC extends AppCompatActivity {
 
         formsName = findViewById(R.id.formsNameFist);
         String name = getIntent().getStringExtra("Name");
-        formsName.setText(name);
+        //formsName.setText("@string");
 
         containerSize = findViewById(R.id.containerSizeInfo);
         worrmsWeightInfo = findViewById(R.id.worrmsWeightInfo);
