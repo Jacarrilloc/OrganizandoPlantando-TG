@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.opcv.MapsActivity;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.HomeActivity;
 import com.example.opcv.R;
@@ -45,7 +46,7 @@ public class Form_CPS extends AppCompatActivity {
         gardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Form_CPS.this, VegetablePatchAvailableActivity.class));
+                startActivity(new Intent(Form_CPS.this, MapsActivity.class));
             }
         });
 

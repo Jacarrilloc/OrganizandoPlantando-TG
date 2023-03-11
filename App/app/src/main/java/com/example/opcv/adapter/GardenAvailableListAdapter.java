@@ -33,7 +33,7 @@ public class GardenAvailableListAdapter extends ArrayAdapter<ItemShowGardenAvail
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        /*
+
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_garden_available_list_adapter, parent, false);
         }
@@ -47,23 +47,7 @@ public class GardenAvailableListAdapter extends ArrayAdapter<ItemShowGardenAvail
         convertView.startAnimation(animation);
 
         image = convertView.findViewById(R.id.gardenImage);
-
-        return convertView;
-*/
-
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_list_garden_layout, parent, false);
-        }
-
-        ItemShowGardenAvailable item = getItem(position);
-
-        gardenName = convertView.findViewById(R.id.garden_name_list_item);
-        gardenName.setText(item.getName());
-        Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_right_to_left);
-        animation.setStartOffset(position * 100);
-        convertView.startAnimation(animation);
-
-        image = convertView.findViewById(R.id.garden_imagen_list_item);
+        image.setVisibility(View.VISIBLE);
 
         return convertView;
 
