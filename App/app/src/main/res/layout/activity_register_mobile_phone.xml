@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|top"
-            app:srcCompat="@drawable/dr_background_phone_add_activity" />
+            app:srcCompat="@drawable/im_background_phone_add_activity" />
 
         <LinearLayout
             android:layout_width="match_parent"
