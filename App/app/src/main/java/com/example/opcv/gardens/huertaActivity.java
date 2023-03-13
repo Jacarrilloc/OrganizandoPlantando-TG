@@ -24,13 +24,16 @@ import com.example.opcv.formsScreen.Form_CIH;
 import com.example.opcv.formsScreen.Form_CPS;
 import com.example.opcv.formsScreen.Form_RAC;
 import com.example.opcv.info.GardenInfo;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class huertaActivity extends AppCompatActivity {
 
@@ -38,10 +41,11 @@ public class huertaActivity extends AppCompatActivity {
     private ImageButton editGarden, seedTime, toolsButton, worm, collaboratorGardens;
 
     private ImageView moreFormsButtom;
-    private TextView nameGarden,descriptionGarden;
+    private TextView nameGarden,descriptionGarden, gardenParticipants;
     private FloatingActionButton backButtom;
     private FirebaseFirestore database;
     private CollectionReference gardensRef;
+    private int participants;
 
     private String gardenID, garden, infoGarden, idUSerColab;
 
@@ -54,9 +58,12 @@ public class huertaActivity extends AppCompatActivity {
         descriptionGarden = findViewById(R.id.descriptionGarden);
         moreFormsButtom = findViewById(R.id.moreFormsButtom);
         backButtom = findViewById(R.id.returnArrowButtonToHome);
+        gardenParticipants = (TextView) findViewById(R.id.gardenParticipants);
 
         database = FirebaseFirestore.getInstance();
         gardensRef = database.collection("Gardens");
+
+
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
@@ -65,6 +72,7 @@ public class huertaActivity extends AppCompatActivity {
             gardenID = extras.getString("idGarden");
             SearchInfoGardenSreen(id,garden);
         }
+
 
         backButtom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,6 +183,7 @@ public class huertaActivity extends AppCompatActivity {
 
     private void SearchInfoGardenSreen(String idUser,String name){
         DocumentReference ref = gardensRef.document(gardenID);
+
         ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -184,8 +193,15 @@ public class huertaActivity extends AppCompatActivity {
                     String typeDoc = documentSnapshot.getString("GardenType");
                     infoDoc = documentSnapshot.getString("InfoGarden");
                     GardenInfo gardenInfo = new GardenInfo(idUser,name,infoDoc,typeDoc);
-
-                    fillSreen(gardenInfo);
+                    //para conocer el numero de participantes de la huerta
+                    ref.collection("Collaborators").get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    participants = task.getResult().size();
+                                    fillSreen(gardenInfo, participants);
+                                }
+                            });
                 }
                 /*else {
                     System.out.println("Se genero error al mostrar la información");
@@ -197,7 +213,6 @@ public class huertaActivity extends AppCompatActivity {
                 Log.d(TAG, "Se genero error: ", e);
             }
         });
-
         /*
         Query query = gardensRef.whereEqualTo("ID_Owner", idUser).whereEqualTo("GardenName", name);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -217,8 +232,13 @@ public class huertaActivity extends AppCompatActivity {
         });*/
     }
 
-    private void fillSreen(GardenInfo gardenInfo){
+    private void fillSreen(GardenInfo gardenInfo, int gardenParticipant){
         nameGarden.setText(gardenInfo.getName());
+        if(gardenParticipant == 1){
+            gardenParticipants.setText(gardenParticipant+ " Participante de la huerta");
+        }else {
+            gardenParticipants.setText(gardenParticipant+ " Participantes de la huerta");
+        }
         descriptionGarden.setText(gardenInfo.getInfo());
     }
 }

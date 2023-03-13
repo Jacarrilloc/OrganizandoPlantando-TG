@@ -65,6 +65,8 @@
     <string name="visitRequest">Solicitar visita</string>
     <string name="collaboratorGardens">Colaboración</string>
     <string name="seeOtherGardens">Ver otras huertas</string>
+    <string name="participants1">Participantes</string>
+    <string name="participants2"> Participantes</string>
 
 
     <string-array name="list_forms">

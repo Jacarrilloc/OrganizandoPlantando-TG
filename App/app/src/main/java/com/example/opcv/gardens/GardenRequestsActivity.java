@@ -6,10 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -27,6 +29,7 @@ import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.item_list.ItemCollaboratorsRequest;
 import com.example.opcv.item_list.ItemGardenHomeList;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -42,6 +45,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 public class GardenRequestsActivity extends AppCompatActivity {
     private Button accept, deny;
@@ -68,6 +72,7 @@ public class GardenRequestsActivity extends AppCompatActivity {
         listGardens = findViewById(R.id.listViewCollabs);
         backButton = (FloatingActionButton) findViewById(R.id.returnArrowButtonFormsToGarden);
 
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,30 +88,9 @@ public class GardenRequestsActivity extends AppCompatActivity {
 
         }
         fillGardenAvaliable();
-        listGardens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-               /* Object selectedItem = adapterView.getItemAtPosition(i);
-                String itemName = ((ItemGardenHomeList) selectedItem).getName();
-                String userID = autentication.getCurrentUser().getUid();
-                String idGarden = ((ItemGardenHomeList) selectedItem).getIdGarden();
-                String idGardenFirebaseDoc = getIntent().getStringExtra("idGarden");
-                Intent start = new Intent(GardenRequestsActivity.this, otherGardensActivity.class);
-                start.putExtra("ID",userID);
-                start.putExtra("gardenName",itemName);
-                start.putExtra("idGarden", idGarden);
-                start.putExtra("idGardenFirebaseDoc",idGarden);
-                startActivity(start);
-                finish();*/
-            }
-        });
-
-
     }
     private void fillGardenAvaliable(){
         CollectionReference Ref = database.collection("Gardens").document(gardenId).collection("Requests");
-
         Query query = Ref.whereEqualTo("requestStatus", "SV");
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
 
@@ -122,6 +106,7 @@ public class GardenRequestsActivity extends AppCompatActivity {
                             String idUser = document.getString("idUserRequest");
                             database.collection("UserInfo")
                                     .get()
+
                                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                         @Override
                                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -132,13 +117,14 @@ public class GardenRequestsActivity extends AppCompatActivity {
                                                     if (idSearch == null) {
                                                         idSearch = (String) document.getData().get("id");
                                                     }
-                                                    //System.out.println("El id es: "+idSearch+"y el otro es: "+idUser);
                                                     if(idSearch.equals(idUser)){
                                                         name = (String) document.getData().get("Name");
-                                                        //System.out.println("El nombre es: "+name);
+                                                        //Si se necesita mas informacion usar la clase User
+                                                        ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(name, idUser, gardenId);
+                                                        gardenNames.add(newItem);
+                                                        fillListRequests(gardenNames);
                                                         break;
                                                     }
-
                                                 }
                                             }
                                         }
@@ -163,10 +149,8 @@ public class GardenRequestsActivity extends AppCompatActivity {
                                         }
                                     });*/
 
-                            ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(name, idUser);
-                            gardenNames.add(newItem);
                         }
-                        fillListRequests(gardenNames);
+
                     } else {
                         Toast.makeText(GardenRequestsActivity.this, "Error al obtener los documentos", Toast.LENGTH_SHORT).show();
                     }
@@ -181,9 +165,6 @@ public class GardenRequestsActivity extends AppCompatActivity {
         listGardens.setAdapter(adapter);
         listGardens.setDividerHeight(15);
     }
-    private void searchUser(String idUSer){
-        autentication = FirebaseAuth.getInstance();
-        database = FirebaseFirestore.getInstance();
 
-    }
+
 }

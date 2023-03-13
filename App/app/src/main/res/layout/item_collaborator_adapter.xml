@@ -46,7 +46,9 @@
                     android:gravity="center"
                     android:text="Aceptar"
                     android:textAllCaps="false"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    android:clickable="true"
+                    android:focusable="false"/>
 
                 <Button
                     android:layout_marginBottom="10dp"
@@ -58,7 +60,9 @@
                     android:backgroundTint="@color/red"
                     android:text="Rechazar"
                     android:textAllCaps="false"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    android:clickable="true"
+                    android:focusable="false"/>
 
             </LinearLayout>
         </LinearLayout>

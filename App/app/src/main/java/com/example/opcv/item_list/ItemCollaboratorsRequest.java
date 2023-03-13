@@ -9,9 +9,9 @@ public class ItemCollaboratorsRequest {
         this.name = name;
     }
 
-    private String name;
+    private String name, idUser, idGarden;
 
-    public String getIdGarden() {
+    public String getIdUser() {
         return idUser;
     }
 
@@ -19,10 +19,19 @@ public class ItemCollaboratorsRequest {
         this.idUser = idGarden;
     }
 
-    private String idUser;
 
-    public ItemCollaboratorsRequest(String name, String idUser) {
+
+    public String getIdGarden() {
+        return idGarden;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    public ItemCollaboratorsRequest(String name, String idUser, String idGarden) {
         this.name = name;
         this.idUser = idUser;
+        this.idGarden = idGarden;
     }
 }

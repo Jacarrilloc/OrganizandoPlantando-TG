@@ -31,7 +31,7 @@ public class CollaboratorRequestUtilities {
 
         Map<String,Object> infoRequest = new HashMap<>();
         infoRequest.put("idUserRequest", idUSer);
-        infoRequest.put("requestStatus", "SV");//Estados de solicitud: A: aceptado, R: Rechazado, SN: Sin verificar
+        infoRequest.put("requestStatus", "SV");//Estados de solicitud: A: aceptado, R: Rechazado, SV: Sin verificar
 
         database.collection("Gardens").document(idGardenFb).collection("Requests").add(infoRequest);
     }
@@ -80,7 +80,7 @@ public class CollaboratorRequestUtilities {
                             if(task.isSuccessful()){
                                 String idSearch;
                                 for(QueryDocumentSnapshot document : task.getResult()){
-                                    idSearch = document.getData().get("ID").toString();
+                                    idSearch = document.getData().get("idUserRequest").toString();
                                     if(idSearch.equals(idUSer)){
                                         final DocumentReference docRef = database.collection("Gardens").document(idGardenFb)
                                                 .collection("Requests")
