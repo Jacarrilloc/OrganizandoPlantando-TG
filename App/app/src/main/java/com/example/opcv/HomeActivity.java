@@ -114,7 +114,7 @@ public class HomeActivity extends AppCompatActivity {
         otherGardensButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, MapsActivity.class));
+                startActivity(new Intent(HomeActivity.this, VegetablePatchAvailableActivity.class));
             }
         });
 

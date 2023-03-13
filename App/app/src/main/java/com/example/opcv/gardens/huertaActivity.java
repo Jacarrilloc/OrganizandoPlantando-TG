@@ -19,6 +19,7 @@ import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.VegetablePatchAvailableActivity;
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.fbComunication.CollaboratorRequestUtilities;
 import com.example.opcv.formsScreen.Form_CIH;
 import com.example.opcv.formsScreen.Form_CPS;
 import com.example.opcv.formsScreen.Form_RAC;
@@ -34,7 +35,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class huertaActivity extends AppCompatActivity {
 
     private Button returnArrowButton, gardens, myGardens, profile;
-    private ImageButton editGarden, seedTime, toolsButton, worm;
+    private ImageButton editGarden, seedTime, toolsButton, worm, collaboratorGardens;
 
     private ImageView moreFormsButtom;
     private TextView nameGarden,descriptionGarden;
@@ -42,7 +43,7 @@ public class huertaActivity extends AppCompatActivity {
     private FirebaseFirestore database;
     private CollectionReference gardensRef;
 
-    private String gardenID, garden, infoGarden;
+    private String gardenID, garden, infoGarden, idUSerColab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +155,22 @@ public class huertaActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
+        collaboratorGardens = (ImageButton) findViewById(R.id.editButton2);
+        collaboratorGardens.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CollaboratorRequestUtilities cU = new CollaboratorRequestUtilities();
+                Intent requests = new Intent(huertaActivity.this, GardenRequestsActivity.class);
+                requests.putExtra("Name",formsName2);
+                requests.putExtra("idGardenFirebase",idGardenFirebase);
+                startActivity(requests);
+                finish();
+                //cU.acceptRequest("ZEhfjQHgINTIVTWtwxTMj2MWEbe2", idGardenFirebase, true);
+            }
+        });
+
     }
 
     private void SearchInfoGardenSreen(String idUser,String name){

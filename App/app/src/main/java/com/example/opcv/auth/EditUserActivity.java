@@ -129,32 +129,37 @@ public class EditUserActivity extends AppCompatActivity {
         String userID=autentication.getCurrentUser().getUid().toString();
 
         database.collection("UserInfo")
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if(task.isSuccessful()){
-                                    String idSearch;
-                                    for(QueryDocumentSnapshot document : task.getResult()){
-                                        idSearch = document.getData().get("ID").toString();
-                                        if(idSearch.equals(userID)){
-                                            String name, email, lastname, phoneNumber;
-                                            name=document.getData().get("Name").toString();
-                                            email=document.getData().get("Email").toString();
-                                            lastname=document.getData().get("LastName").toString();
-                                            phoneNumber=document.getData().get("PhoneNumber").toString();
-                                            userActive =  new User(name, email, userID, lastname, phoneNumber);
-                                            userNameTV.setText(userActive.getName());
-                                            userName.setText(userActive.getName());
-                                            userEmail.setText("Comabaquinta");
-                                            userPhone.setText(userActive.getPhoneNumber());
-                                            userLastName.setText(userActive.getLastName());
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            String idSearch;
+                            for(QueryDocumentSnapshot document : task.getResult()){
+                                idSearch = (String) document.getData().get("ID");
+                                if(idSearch == null){
+                                    idSearch = (String) document.getData().get("id");
+                                }
 
-                                        }
-                                    }
+
+                                if(idSearch.equals(userID)){
+                                    String name, email, lastname, phoneNumber;
+                                    name=document.getData().get("Name").toString();
+                                    email=document.getData().get("Email").toString();
+                                    lastname=document.getData().get("LastName").toString();
+                                    phoneNumber=document.getData().get("PhoneNumber").toString();
+                                    userActive =  new User(name, email, userID, lastname, phoneNumber);
+                                    userNameTV.setText(userActive.getName());
+                                    userName.setText(userActive.getName());
+                                    userEmail.setText("Comabaquinta");
+                                    userPhone.setText(userActive.getPhoneNumber());
+                                    userLastName.setText(userActive.getLastName());
+
                                 }
                             }
-                        });
+                        }
+                    }
+                });
 
         //System.out.println("EL id es "+userID);
     }

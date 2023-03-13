@@ -77,7 +77,9 @@
             android:layout_height="match_parent"
             android:layout_margin="20sp"
             android:layout_weight="0.9"
-            android:background="@color/white" />
+            android:background="@color/white" >
+
+        </ListView>
 
         <Button
             android:id="@+id/otherGardensButton"
@@ -87,7 +89,18 @@
             android:layout_margin="16dp"
             android:background="@drawable/dr_green_button"
             android:backgroundTint="#91BF63"
-            android:text="Ver otras huertas"
+            android:text="@string/seeOtherGardens"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/collaboratorGardens"
+            android:layout_width="181dp"
+            android:layout_height="52dp"
+            android:layout_gravity="start|bottom"
+            android:layout_margin="16dp"
+            android:background="@drawable/dr_green_button"
+            android:backgroundTint="#91BF63"
+            android:text="@string/collaboratorGardens"
             android:textColor="@color/black" />
 
     </FrameLayout>
