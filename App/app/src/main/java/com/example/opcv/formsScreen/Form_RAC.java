@@ -52,7 +52,7 @@ public class Form_RAC extends AppCompatActivity {
         gardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Form_RAC.this, VegetablePatchAvailableActivity.class));
+                startActivity(new Intent(Form_RAC.this, MapsActivity.class));
             }
         });
 

@@ -152,11 +152,6 @@ public class GardenForms extends AppCompatActivity {
                         break;
                     }
                 }
-                /*Object selectedItem = adapterView.getItemAtPosition(i);
-                String formsName = selectedItem.toString();
-                Intent newForm = new Intent(GardenForms.this,FormsActivity.class);
-                newForm.putExtra("Name",formsName);
-                startActivity(newForm);*/
             }
         });
     }
