@@ -8,12 +8,36 @@
     android:orientation="vertical"
     tools:context=".auth.RegisterMobilePhone">
 
-    <ImageView
-        android:id="@+id/imageView7"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15sp"
-        app:srcCompat="@drawable/im_logo_ceres" />
+        android:orientation="horizontal">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/returnArrowButtonSeleectPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:contentDescription="@string/boton_para_regresar"
+            android:tint="#F8F5F5"
+            app:backgroundTint="#91BF63"
+            app:layout_constraintBottom_toBottomOf="@+id/gardenProfilePicture"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.045"
+            app:layout_constraintStart_toStartOf="@+id/gardenProfilePicture"
+            app:layout_constraintTop_toTopOf="@+id/gardenProfilePicture"
+            app:layout_constraintVertical_bias="0.064"
+            app:srcCompat="@drawable/dr_return_arrow" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15sp"
+            app:srcCompat="@drawable/im_logo_ceres" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/welcome_msg"
@@ -23,7 +47,7 @@
         android:textStyle="bold"
         android:textAlignment="center"
         android:layout_margin="10sp"
-        android:text="Hola Taylor, Bienvenido(a) a Ceres" />
+        android:text="Hola, Bienvenido(a) a Ceres" />
 
     <TextView
         android:id="@+id/textView7"
@@ -53,50 +77,50 @@
             android:layout_gravity="bottom"
             android:layout_margin="10sp">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_margin="10sp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/phone_Imput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:background="@drawable/dr_white_input_text"
+                    android:ems="10"
+                    android:hint="Numero"
+                    android:inputType="phone"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/editTextBackground" />
+
+                <ImageButton
+                    android:id="@+id/continueButtom_phone_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="2sp"
+                    android:layout_weight="0"
+                    android:background="@drawable/dr_white_input_text"
+                    app:srcCompat="@drawable/dr_arrow_next" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/later_Buttom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="0sp"
+                android:text="Mas Tarde"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
         </LinearLayout>
 
     </FrameLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_margin="10sp"
-        android:layout_marginBottom="16dp"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/phone_Imput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.8"
-            android:background="@drawable/dr_white_input_text"
-            android:ems="10"
-            android:hint="Numero"
-            android:inputType="phone"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textColorHint="@color/editTextBackground" />
-
-        <ImageButton
-            android:id="@+id/continueButtom_phone_activity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="2sp"
-            android:layout_weight="0"
-            android:background="@drawable/dr_white_input_text"
-            app:srcCompat="@drawable/dr_arrow_next" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/later_Buttom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="0sp"
-        android:text="Mas Tarde"
-        android:textAlignment="center"
-        android:textSize="20sp" />
 
 </LinearLayout>

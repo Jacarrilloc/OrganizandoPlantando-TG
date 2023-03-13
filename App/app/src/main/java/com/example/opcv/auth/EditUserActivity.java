@@ -143,7 +143,7 @@ public class EditUserActivity extends AppCompatActivity {
                                             email=document.getData().get("Email").toString();
                                             lastname=document.getData().get("LastName").toString();
                                             phoneNumber=document.getData().get("PhoneNumber").toString();
-                                            userActive =  new User(name, email, userID, lastname, phoneNumber);
+                                            userActive =  new User(name,lastname, email, userID, phoneNumber,null);
                                             userNameTV.setText(userActive.getName());
                                             userName.setText(userActive.getName());
                                             userEmail.setText("Comabaquinta");

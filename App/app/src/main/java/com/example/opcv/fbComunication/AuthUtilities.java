@@ -1,12 +1,14 @@
 package com.example.opcv.fbComunication;
 
 import android.content.Context;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.opcv.info.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -16,6 +18,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -23,6 +28,10 @@ import java.util.Map;
 public class AuthUtilities implements Serializable {
 
     public boolean loginStatus;
+
+    interface OnDataAddedListener {
+        void onDataAdded(boolean success);
+    }
 
     public boolean isLogeed(){
         FirebaseAuth autentication = FirebaseAuth.getInstance();
@@ -98,7 +107,7 @@ public class AuthUtilities implements Serializable {
         return isValid;
     }
 
-    public boolean createUser(String emailRegister, String passwordRegister, Map<String, Object> newUserInfo, Context context) {
+    public boolean createUser(String emailRegister, String passwordRegister, User newUserInfo,Uri image, Context context) {
         if (ValidateInfo(emailRegister, passwordRegister,context)) {
             final boolean[] isUserCreated = {false};
             try{
@@ -106,8 +115,10 @@ public class AuthUtilities implements Serializable {
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()){
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                newUserInfo.put("ID",user.getUid().toString());
-                                addtoDataBase(newUserInfo);
+                                newUserInfo.setId(user.getUid().toString());
+                                String dataPatch = addProfilePhoto(image,user.getUid().toString());
+                                newUserInfo.setUriPath(dataPatch);
+                                addtoDataBase(newUserInfo.toMap());
                                 isUserCreated[0] = true;
                             }
                         });
@@ -131,6 +142,17 @@ public class AuthUtilities implements Serializable {
             }
         });
         return result[0];
+    }
+
+    public String addProfilePhoto(Uri imageProfile, String userID) {
+        String status = "";
+        if(imageProfile == null){
+            return status;
+        }
+        String imageName = userID + ".jpg";
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("userProfilePhoto/" + imageName);
+        UploadTask uploadTask = storageRef.putFile(imageProfile);
+        return status;
     }
 
     private boolean validateEmail(String email){
