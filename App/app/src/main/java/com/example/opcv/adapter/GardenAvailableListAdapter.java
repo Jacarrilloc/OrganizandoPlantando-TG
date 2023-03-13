@@ -13,7 +13,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.opcv.R;
 import com.example.opcv.item_list.ItemGardenHomeList;
 import com.example.opcv.item_list.ItemShowGardenAvailable;

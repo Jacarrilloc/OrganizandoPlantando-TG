@@ -90,6 +90,7 @@ public class VegetablePatchAvailableActivity extends AppCompatActivity {
 
 
         listGardens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Object selectedItem = adapterView.getItemAtPosition(i);

@@ -33,9 +33,4 @@
         android:scaleType="fitCenter"
         android:visibility="visible"
         android:src="@drawable/dr_arrow_next"/>
-
-
-
-
-
 </LinearLayout>
