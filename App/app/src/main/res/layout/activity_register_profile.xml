@@ -32,13 +32,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_margin="50sp"
+            android:layout_margin="30sp"
             android:autoSizeTextType="uniform"
             android:gravity="center"
             android:text="Registrarse"
             android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="italic" />
+
     </LinearLayout>
 
     <ScrollView
@@ -53,6 +54,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/imputNameRegisterActivity"
@@ -81,6 +89,13 @@
                 android:textColor="@color/black"
                 android:textColorHint="@color/editTextBackground"
                 android:textStyle="italic" />
+
+            <Spinner
+                android:id="@+id/spinnerGenderRegisterActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:background="@drawable/dr_white_input_text"/>
 
             <EditText
                 android:id="@+id/imputEmailRegisterActivity"

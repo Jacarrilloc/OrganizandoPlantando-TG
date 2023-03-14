@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,8 +22,11 @@ import android.widget.Toast;
 
 import com.example.opcv.adapter.GardenListAdapter;
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.conectionInfo.NetworkMonitorService;
+import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.CreateGardenActivity;
 import com.example.opcv.gardens.huertaActivity;
+import com.example.opcv.info.User;
 import com.example.opcv.item_list.ItemGardenHomeList;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,11 +53,29 @@ public class HomeActivity extends AppCompatActivity {
     private  Button gardensMap;
 
     private String idHuerta;
+    private User userInfo;
+    private String userId;
+
+    private NetworkMonitorService monitorService = new NetworkMonitorService();
 
     @Override
     protected void onStart() {
         super.onStart();
         fillGardenUser();
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(monitorService, filter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(monitorService);
+    }
+
+    @Override
+    protected void onResume() {
+        fillGardenUser();
+        super.onResume();
     }
 
     @Override
@@ -81,6 +104,16 @@ public class HomeActivity extends AppCompatActivity {
         addButton = (FloatingActionButton) findViewById(R.id.addButton);
         animSlideUp = AnimationUtils.loadAnimation(this, R.anim.slide_right_to_left);
 
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(monitorService, filter);
+
+        userId = getIntent().getStringExtra("userID");
+
+        if (userId == null){
+            AuthUtilities auth = new AuthUtilities();
+            userId = auth.getCurrentUserUid();
+        }
+
         fillGardenUser();
 
         listAviableGardensInfo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -89,7 +122,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 Object selectedItem = adapterView.getItemAtPosition(i);
                 String itemName = ((ItemGardenHomeList) selectedItem).getName();
-                String userID = autentication.getCurrentUser().getUid();
+                String userID = userId;
                 String idGarden = ((ItemGardenHomeList) selectedItem).getIdGarden();
                 String idGardenFirebaseDoc = getIntent().getStringExtra("idGarden");
                 Intent start = new Intent(HomeActivity.this, huertaActivity.class);
@@ -122,7 +155,11 @@ public class HomeActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, EditUserActivity.class));
+                if(userId != null) {
+                    Intent edit = new Intent(HomeActivity.this, EditUserActivity.class);
+                    edit.putExtra("userInfo", userId);
+                    startActivity(edit);
+                }
             }
         });
         myGardens = (Button) findViewById(R.id.myGardens);
@@ -147,7 +184,6 @@ public class HomeActivity extends AppCompatActivity {
     private void fillGardenUser(){
         //startActivity(new Intent(HomeActivity.this, HomeActivity.class));
         CollectionReference Ref = database.collection("Gardens");
-        String userID = autentication.getCurrentUser().getUid();
         /*try {
             TimeUnit.SECONDS.sleep(2);
 
@@ -156,8 +192,8 @@ public class HomeActivity extends AppCompatActivity {
         }
 
 */
-        Query query = Ref.whereEqualTo("ID_Owner", userID);
-        query.whereEqualTo("ID_Owner", userID).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        Query query = Ref.whereEqualTo("ID_Owner", userId);
+        query.whereEqualTo("ID_Owner", userId).addSnapshotListener(new EventListener<QuerySnapshot>() {
 
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException e) {
                 if(e != null){
