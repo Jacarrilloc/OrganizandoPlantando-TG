@@ -1,5 +1,7 @@
 package com.example.opcv.fbComunication;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
@@ -18,6 +20,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -41,6 +46,37 @@ public class AuthUtilities implements Serializable {
         }else{
             return false;
         }
+    }
+
+    public interface GetUserCallback {
+        void onSuccess(User user);
+    }
+
+    public void getActuallUserObject(GetUserCallback callback){
+        String userID = getCurrentUserUid();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference userInfoCollectionRef = db.collection("UserInfo");
+        Query query = userInfoCollectionRef.whereEqualTo("id", userID);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String name = document.getString("name");
+                        String lastName = document.getString("lastName");
+                        String email = document.getString("email");
+                        String id = userID;
+                        String phoneNumber = document.getString("phoneNumber");
+                        String uriPath = document.getString("UriPath");
+                        User user = new User(name,lastName,email,id,phoneNumber,uriPath);
+                        callback.onSuccess(user);
+                        return;
+                    }
+                } else {
+                    Log.d(TAG, "Error al obtener documentos: ", task.getException());
+                }
+            }
+        });
     }
 
     public String getCurrentUserUid() {

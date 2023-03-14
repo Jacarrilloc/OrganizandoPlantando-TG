@@ -40,6 +40,9 @@ public class SelectPhotoActivity extends AppCompatActivity {
     private String password;
     private static final int REQUEST_CAMERA_PERMISSION = 1;
     private static final int REQUEST_IMAGE_CAPTURE = 2;
+    private static final int PERMISSION_REQUEST_CODE = 1;
+    private static final int PICK_IMAGE_REQUEST_CODE = 2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +85,13 @@ public class SelectPhotoActivity extends AppCompatActivity {
         SelectPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                selectPhotoUser();
             }
         });
+    }
+
+    private void selectPhotoUser(){
+
     }
 
     private void createUserInDatabase(){

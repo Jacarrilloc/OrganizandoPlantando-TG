@@ -21,9 +21,10 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         AuthUtilities authUtilities = new AuthUtilities();
         if (authUtilities.isLogeed()){
+            String userId = authUtilities.getCurrentUserUid();
             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra("authUtilities", authUtilities);
+            intent.putExtra("userID", userId);
             startActivity(intent);
         }else{
             Intent intent = new Intent(this,NewToAppActivity.class);
