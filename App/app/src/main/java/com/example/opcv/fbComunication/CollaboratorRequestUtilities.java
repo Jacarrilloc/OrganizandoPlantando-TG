@@ -38,15 +38,21 @@ public class CollaboratorRequestUtilities {
 
     public void acceptRequest(String idUSer, String idGardenFb, Boolean action){
         database = FirebaseFirestore.getInstance();
+        database2 = FirebaseFirestore.getInstance();
         autentication = FirebaseAuth.getInstance();
 
 
         if(action){//action true= se acepto al solicitante, false= fue rechazado
             Map<String,Object> infoColab = new HashMap<>();
             infoColab.put("idCollaborator", idUSer);
-            database.collection("Gardens").document(idGardenFb).collection("Collaborators").add(infoColab);
 
-            database.collection("Gardens").document(idGardenFb).collection("Requests").get()
+            database.collection("Gardens").document(idGardenFb).collection("Collaborators").add(infoColab);
+            searchUser(idUSer);
+
+           // database2.collection("UserInfo").document(idUSer).collection("GardensCollaboration").add(gardensPart);
+
+
+                    database.collection("Gardens").document(idGardenFb).collection("Requests").get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -71,6 +77,9 @@ public class CollaboratorRequestUtilities {
                             }
                         }
                     });
+
+
+
         }
         else{
             database.collection("Gardens").document(idGardenFb).collection("Requests").get()
@@ -99,6 +108,29 @@ public class CollaboratorRequestUtilities {
                         }
                     });
         }
+    }
+    public void searchUser(String idUser){
+        database = FirebaseFirestore.getInstance();
+        database.collection("UserInfo").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    String idSearch;
+                    for(QueryDocumentSnapshot document : task.getResult()){
+                        idSearch = (String) document.getData().get("ID");
+                        if (idSearch == null) {
+                            idSearch = (String) document.getData().get("id");
+                        }
+                        if(idSearch.equals(idUser)){
+                            Map<String,Object> gardensPart = new HashMap<>();
+                            gardensPart.put("idGardenCollab", idUser);
+                            database.collection("UserInfo").document(document.getId()).collection("GardensCollaboration").add(gardensPart);
+
+                        }
+                    }
+                }
+            }
+        });
     }
 
 }

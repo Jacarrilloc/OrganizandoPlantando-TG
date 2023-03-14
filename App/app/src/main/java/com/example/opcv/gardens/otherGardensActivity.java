@@ -98,6 +98,8 @@ public class otherGardensActivity extends AppCompatActivity {
                 CollaboratorRequestUtilities cU = new CollaboratorRequestUtilities();
                 cU.addRequests(otherGardensActivity.this, id, gardenID);
                 Toast.makeText(otherGardensActivity.this, "Se envio la solicitud al dueño de la huerta", Toast.LENGTH_SHORT).show();
+                join.setVisibility(View.INVISIBLE);
+                join.setClickable(false);
             }
         });
     }
