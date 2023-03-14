@@ -36,12 +36,18 @@ public class EditUserActivity extends AppCompatActivity {
     private FirebaseFirestore database, database2;
     private FirebaseUser userLog;
     private String nameUSer;
-    private User userActive;
+    private User userActive,userPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user);
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            userPhoto = (User) extras.getSerializable("userInfo");
+        }
 
         signOff = (Button) findViewById(R.id.options);
         signOff.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +149,9 @@ public class EditUserActivity extends AppCompatActivity {
                                             email=document.getData().get("Email").toString();
                                             lastname=document.getData().get("LastName").toString();
                                             phoneNumber=document.getData().get("PhoneNumber").toString();
+
                                             userActive =  new User(name,lastname, email, userID, phoneNumber,null);
+
                                             userNameTV.setText(userActive.getName());
                                             userName.setText(userActive.getName());
                                             userEmail.setText("Comabaquinta");

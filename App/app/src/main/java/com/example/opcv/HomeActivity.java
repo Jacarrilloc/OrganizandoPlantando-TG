@@ -22,6 +22,7 @@ import com.example.opcv.adapter.GardenListAdapter;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.gardens.CreateGardenActivity;
 import com.example.opcv.gardens.huertaActivity;
+import com.example.opcv.info.User;
 import com.example.opcv.item_list.ItemGardenHomeList;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,6 +49,7 @@ public class HomeActivity extends AppCompatActivity {
     private  Button gardensMap;
 
     private String idHuerta;
+    private User userInfo;
 
     @Override
     protected void onStart() {
@@ -80,6 +82,12 @@ public class HomeActivity extends AppCompatActivity {
         listAviableGardensInfo = findViewById(R.id.listAviableGardens);
         addButton = (FloatingActionButton) findViewById(R.id.addButton);
         animSlideUp = AnimationUtils.loadAnimation(this, R.anim.slide_right_to_left);
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            userInfo = (User) extras.getSerializable("userInfo");
+        }
 
         fillGardenUser();
 
@@ -122,7 +130,9 @@ public class HomeActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, EditUserActivity.class));
+                Intent edit = new Intent(HomeActivity.this, EditUserActivity.class);
+                edit.putExtra("userInfo", userInfo);
+                startActivity(edit);
             }
         });
         myGardens = (Button) findViewById(R.id.myGardens);
