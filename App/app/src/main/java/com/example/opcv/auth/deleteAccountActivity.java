@@ -1,10 +1,13 @@
 package com.example.opcv.auth;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -78,7 +81,7 @@ public class deleteAccountActivity extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseUser user = autentication.getCurrentUser();
                 idUser = user.getUid();
-                deleteUser(idUser);
+                deleteUser(idUser, user);
                 user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
@@ -92,7 +95,8 @@ public class deleteAccountActivity extends AppCompatActivity {
         });
     }
 
-    private void deleteUser(String id){
+    private void deleteUser(String id, FirebaseUser auth){
+
 
         database.collection("UserInfo")
                 .get()
@@ -102,7 +106,10 @@ public class deleteAccountActivity extends AppCompatActivity {
                 String userId;
                 if(task.isSuccessful()){
                     for(QueryDocumentSnapshot document : task.getResult()){
-                        userId = document.getData().get("ID").toString();
+                        userId = (String) document.getData().get("ID");
+                        if (userId == null) {
+                            userId = (String) document.getData().get("id");
+                        }
                         if(userId.equals(id)){
                             String idCollection = document.getId().toString();
                             database.collection("UserInfo")
@@ -114,7 +121,16 @@ public class deleteAccountActivity extends AppCompatActivity {
                 }
             }
         });
+        auth.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Log.d(TAG, "User account deleted.");
+                }
+            }
+        });
         //Toast.makeText(this, idUser, Toast.LENGTH_SHORT).show();
     }
+
 
 }

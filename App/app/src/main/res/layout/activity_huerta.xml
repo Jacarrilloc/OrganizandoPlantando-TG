@@ -97,7 +97,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="4sp"
                 android:layout_weight="0.25"
-                android:background="@drawable/dr_add_person_icon"
+                android:background="@drawable/im_requests2"
                 android:contentDescription="Boton de editar"
                 android:scaleType="centerInside" />
 
@@ -156,7 +156,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5sp"
-                    android:text="Participantes"
+                    android:text="@string/participants1"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"/>

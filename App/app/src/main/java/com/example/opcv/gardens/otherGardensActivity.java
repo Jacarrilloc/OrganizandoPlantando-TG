@@ -11,12 +11,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.VegetablePatchAvailableActivity;
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.fbComunication.CollaboratorRequestUtilities;
 import com.example.opcv.info.GardenInfo;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,7 +33,7 @@ public class otherGardensActivity extends AppCompatActivity {
     private TextView nameGarden,descriptionGarden;
     private FirebaseFirestore database;
     private CollectionReference gardensRef;
-    private String gardenID, garden, infoGarden;
+    private String gardenID, garden, infoGarden, id;
     private FloatingActionButton returnButton;
 
     @Override
@@ -76,16 +78,30 @@ public class otherGardensActivity extends AppCompatActivity {
             }
         });
 
+
+
         database = FirebaseFirestore.getInstance();
         gardensRef = database.collection("Gardens");
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
-            String id = extras.getString("ID");
+            id = extras.getString("ID");
             garden = extras.getString("gardenName");
             gardenID = extras.getString("idGarden");
             SearchInfoGardenSreen(id,garden);
         }
+
+        join = (Button) findViewById(R.id.requesteJoin);
+        join.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CollaboratorRequestUtilities cU = new CollaboratorRequestUtilities();
+                cU.addRequests(otherGardensActivity.this, id, gardenID);
+                Toast.makeText(otherGardensActivity.this, "Se envio la solicitud al dueño de la huerta", Toast.LENGTH_SHORT).show();
+                join.setVisibility(View.INVISIBLE);
+                join.setClickable(false);
+            }
+        });
     }
     private void SearchInfoGardenSreen(String idUser,String name){
         DocumentReference ref = gardensRef.document(gardenID);
@@ -117,5 +133,10 @@ public class otherGardensActivity extends AppCompatActivity {
     private void fillSreen(GardenInfo gardenInfo){
         nameGarden.setText(gardenInfo.getName());
         descriptionGarden.setText(gardenInfo.getInfo());
+    }
+
+    private void joinRequest(String id, String gardenName, String idUser){
+        DocumentReference ref = gardensRef.document(id);
+
     }
 }

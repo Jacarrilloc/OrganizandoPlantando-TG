@@ -63,6 +63,10 @@
     <string name="recepci_n_y_requesici_n_de_materia_prima">Recepción y Requesición de Materia Prima</string>
     <string name="requestJoin">Solicitar Unirse</string>
     <string name="visitRequest">Solicitar visita</string>
+    <string name="collaboratorGardens">Colaboración</string>
+    <string name="seeOtherGardens">Ver otras huertas</string>
+    <string name="participants1">Participantes</string>
+    <string name="participants2"> Participantes</string>
 
 
     <string-array name="list_forms">
