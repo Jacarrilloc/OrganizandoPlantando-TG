@@ -44,6 +44,7 @@ public class VegetablePatchAvailableActivity extends AppCompatActivity {
     private FirebaseAuth autentication;
     private ListView listGardens;
     private FirebaseFirestore database;
+    String userID;
     private Animation animSlideUp;
 
     @Override
@@ -95,7 +96,7 @@ public class VegetablePatchAvailableActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Object selectedItem = adapterView.getItemAtPosition(i);
                 String itemName = ((ItemGardenHomeList) selectedItem).getName();
-                String userID = autentication.getCurrentUser().getUid();
+                userID = autentication.getCurrentUser().getUid();
                 String idGarden = ((ItemGardenHomeList) selectedItem).getIdGarden();
                 String idGardenFirebaseDoc = getIntent().getStringExtra("idGarden");
                 Intent start = new Intent(VegetablePatchAvailableActivity.this, otherGardensActivity.class);
@@ -111,7 +112,8 @@ public class VegetablePatchAvailableActivity extends AppCompatActivity {
     private void fillGardenAvaliable(){
         CollectionReference Ref = database.collection("Gardens");
 
-        Query query = Ref.whereEqualTo("GardenType", "Public");
+
+        Query query = Ref.whereEqualTo("GardenType", "Public").whereNotEqualTo("ID_Owner", autentication.getCurrentUser().getUid());
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
 
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException e) {

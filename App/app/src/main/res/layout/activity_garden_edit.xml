@@ -188,9 +188,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
-                android:background="@drawable/dr_add_person_icon" />
+                android:background="@drawable/im_members_admin" />
 
             <TextView
+                android:id="@+id/adminMembers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

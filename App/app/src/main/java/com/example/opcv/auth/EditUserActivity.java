@@ -101,7 +101,7 @@ public class EditUserActivity extends AppCompatActivity {
         searchUserInfo();
         userNameTV = (TextView) findViewById(R.id.userName);
         userName =(EditText) findViewById(R.id.userName2);
-        userLastName = (EditText) findViewById(R.id.comunity);
+        userLastName = (EditText) findViewById(R.id.lastNameInfo);
         userEmail = (EditText) findViewById(R.id.gardenName);
         userPhone = (EditText) findViewById(R.id.address);
 
@@ -148,7 +148,7 @@ public class EditUserActivity extends AppCompatActivity {
                                     email=document.getData().get("Email").toString();
                                     lastname=document.getData().get("LastName").toString();
                                     phoneNumber=document.getData().get("PhoneNumber").toString();
-                                    userActive =  new User(name, email, userID, lastname, phoneNumber);
+                                    userActive =  new User(name, email, userID, lastname, phoneNumber, null);
                                     userNameTV.setText(userActive.getName());
                                     userName.setText(userActive.getName());
                                     userEmail.setText("Comabaquinta");

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.opcv.HomeActivity;
@@ -46,6 +47,8 @@ public class GardenEditActivity extends AppCompatActivity {
     private FirebaseFirestore database, database2;
     private FirebaseUser userLog;
 
+    private TextView adminMembersGarden;
+
     private CollectionReference gardensRef;
     private String idUser, idGarden, nameGarden, infoGarden;
 
@@ -58,8 +61,6 @@ public class GardenEditActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             idGarden = extras.getString("idGarden");
-            //nameGarden = extras.getString("gardenName");
-            //infoGarden = extras.getString("infoGarden");
         }
 
 
@@ -68,6 +69,17 @@ public class GardenEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+            }
+        });
+
+        adminMembersGarden = (TextView) findViewById(R.id.adminMembers);
+        adminMembersGarden.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent requests = new Intent(GardenEditActivity.this, GardenMembersActivity.class);
+                requests.putExtra("idGardenFirebase",idGarden);
+                startActivity(requests);
+                finish();
             }
         });
 
