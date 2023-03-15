@@ -1,30 +1,20 @@
 package com.example.opcv.adapter;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ItemTouchHelper;
-
-import android.content.ClipData;
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.opcv.R;
-import com.example.opcv.fbComunication.CollaboratorRequestUtilities;
-import com.example.opcv.gardens.GardenRequestsActivity;
+import com.example.opcv.fbComunication.CollaboratorUtilities;
 import com.example.opcv.item_list.ItemCollaboratorsRequest;
-import com.example.opcv.item_list.ItemGardenHomeList;
-import com.example.opcv.item_list.ItemShowGardenAvailable;
 
 import java.util.List;
 
@@ -56,7 +46,7 @@ public class CollaboratorListAdapter extends ArrayAdapter<ItemCollaboratorsReque
         animation.setStartOffset(position * 100);
         convertView.startAnimation(animation);
         ItemCollaboratorsRequest ICR = new ItemCollaboratorsRequest(item.getName(), item.getIdUser(), item.getIdGarden());
-        CollaboratorRequestUtilities CRU = new CollaboratorRequestUtilities();
+        CollaboratorUtilities CRU = new CollaboratorUtilities();
         accept = convertView.findViewById(R.id.acceptedButton);
         accept.setOnClickListener(new View.OnClickListener() {
             @Override

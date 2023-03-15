@@ -16,9 +16,8 @@ import android.widget.Toast;
 import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
-import com.example.opcv.VegetablePatchAvailableActivity;
 import com.example.opcv.auth.EditUserActivity;
-import com.example.opcv.fbComunication.CollaboratorRequestUtilities;
+import com.example.opcv.fbComunication.CollaboratorUtilities;
 import com.example.opcv.info.GardenInfo;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -95,7 +94,7 @@ public class otherGardensActivity extends AppCompatActivity {
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CollaboratorRequestUtilities cU = new CollaboratorRequestUtilities();
+                CollaboratorUtilities cU = new CollaboratorUtilities();
                 cU.addRequests(otherGardensActivity.this, id, gardenID);
                 Toast.makeText(otherGardensActivity.this, "Se envio la solicitud al dueño de la huerta", Toast.LENGTH_SHORT).show();
                 join.setVisibility(View.INVISIBLE);

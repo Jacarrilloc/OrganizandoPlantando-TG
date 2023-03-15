@@ -17,9 +17,8 @@ import android.widget.TextView;
 import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
-import com.example.opcv.VegetablePatchAvailableActivity;
 import com.example.opcv.auth.EditUserActivity;
-import com.example.opcv.fbComunication.CollaboratorRequestUtilities;
+import com.example.opcv.fbComunication.CollaboratorUtilities;
 import com.example.opcv.formsScreen.Form_CIH;
 import com.example.opcv.formsScreen.Form_CPS;
 import com.example.opcv.formsScreen.Form_RAC;
@@ -192,7 +191,7 @@ public class huertaActivity extends AppCompatActivity {
         collaboratorGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CollaboratorRequestUtilities cU = new CollaboratorRequestUtilities();
+                CollaboratorUtilities cU = new CollaboratorUtilities();
                 Intent requests = new Intent(huertaActivity.this, GardenRequestsActivity.class);
                 requests.putExtra("Name",formsName2);
                 requests.putExtra("idGardenFirebase",idGardenFirebase);
