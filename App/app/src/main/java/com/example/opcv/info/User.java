@@ -72,11 +72,11 @@ public class User implements Serializable {
 
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
-        map.put("name", name);
-        map.put("lastName", lastName);
-        map.put("id", id);
-        map.put("email",email);
-        map.put("phoneNumber", phoneNumber);
+        map.put("Name", name);
+        map.put("LastName", lastName);
+        map.put("ID", id);
+        map.put("Email",email);
+        map.put("PhoneNumber", phoneNumber);
         map.put("UriPath",UriPath);
         return map;
     }
