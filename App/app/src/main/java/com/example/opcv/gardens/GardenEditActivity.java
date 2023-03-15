@@ -77,7 +77,8 @@ public class GardenEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent requests = new Intent(GardenEditActivity.this, GardenMembersActivity.class);
-                requests.putExtra("idGardenFirebase",idGarden);
+                System.out.println( "es id es : "+ idGarden);
+                requests.putExtra("idGarden",idGarden);
                 startActivity(requests);
                 finish();
             }
