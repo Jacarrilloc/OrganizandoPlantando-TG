@@ -89,7 +89,6 @@ public class VegetablePatchAvailableActivity extends AppCompatActivity {
 
         fillGardenAvaliable();
 
-
         listGardens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -146,4 +145,6 @@ public class VegetablePatchAvailableActivity extends AppCompatActivity {
         listGardens.setAdapter(adapter);
         listGardens.setDividerHeight(15);
     }
+
+
 }

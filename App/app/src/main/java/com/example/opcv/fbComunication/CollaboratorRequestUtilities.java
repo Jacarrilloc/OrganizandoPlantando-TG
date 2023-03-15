@@ -44,10 +44,10 @@ public class CollaboratorRequestUtilities {
 
         if(action){//action true= se acepto al solicitante, false= fue rechazado
             Map<String,Object> infoColab = new HashMap<>();
-            infoColab.put("idCollaborator", idUSer);
+            infoColab.put("idCollaborator", idUSer);//AQUI HICE EL CAMBIO
 
             database.collection("Gardens").document(idGardenFb).collection("Collaborators").add(infoColab);
-            searchUser(idUSer);
+            searchUser(idUSer, idGardenFb);
 
            // database2.collection("UserInfo").document(idUSer).collection("GardensCollaboration").add(gardensPart);
 
@@ -109,7 +109,7 @@ public class CollaboratorRequestUtilities {
                     });
         }
     }
-    public void searchUser(String idUser){
+    public void searchUser(String idUser, String idGarden){
         database = FirebaseFirestore.getInstance();
         database.collection("UserInfo").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -123,7 +123,7 @@ public class CollaboratorRequestUtilities {
                         }
                         if(idSearch.equals(idUser)){
                             Map<String,Object> gardensPart = new HashMap<>();
-                            gardensPart.put("idGardenCollab", idUser);
+                            gardensPart.put("idGardenCollab", idGarden);
                             database.collection("UserInfo").document(document.getId()).collection("GardensCollaboration").add(gardensPart);
 
                         }
