@@ -136,7 +136,7 @@ public class HomeActivity extends AppCompatActivity {
                 start.putExtra("gardenName",itemName);
                 start.putExtra("idGarden", idGarden);
                 start.putExtra("idGardenFirebaseDoc",idGarden);
-                start.putExtra("owner", true);
+                start.putExtra("owner", "true");
                 startActivity(start);
                 finish();
             }

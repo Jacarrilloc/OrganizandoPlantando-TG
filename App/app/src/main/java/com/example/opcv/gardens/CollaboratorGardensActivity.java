@@ -125,7 +125,7 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
                 start.putExtra("gardenName",itemName);
                 start.putExtra("idGarden", idGarden);
                 start.putExtra("idGardenFirebaseDoc",idGarden);
-                start.putExtra("owner", false);
+                start.putExtra("owner", "false");
                 startActivity(start);
                 finish();
             }
