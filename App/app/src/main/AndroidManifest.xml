@@ -117,6 +117,9 @@
             android:name=".gardens.GardenForms"
             android:exported="false" />
         <activity
+            android:name=".gardens.GardenRequestsActivity"
+            android:exported="false" />
+        <activity
             android:name=".adapter.GardenMembersAdapter"
             android:exported="false" />
         <activity

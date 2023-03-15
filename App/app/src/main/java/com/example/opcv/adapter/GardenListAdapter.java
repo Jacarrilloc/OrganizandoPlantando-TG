@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.opcv.R;
+import com.example.opcv.VegetablePatchAvailableActivity;
 import com.example.opcv.item_list.ItemGardenHomeList;
 
 import java.util.List;
@@ -43,7 +44,6 @@ public class GardenListAdapter extends ArrayAdapter<ItemGardenHomeList> {
 
         image = convertView.findViewById(R.id.garden_imagen_list_item);
         image.setVisibility(View.VISIBLE);
-        //arrow = convertView.findViewById(R.id.selected);
 
 
         return convertView;
