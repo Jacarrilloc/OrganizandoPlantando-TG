@@ -112,7 +112,7 @@ public class VegetablePatchAvailableActivity extends AppCompatActivity {
         CollectionReference Ref = database.collection("Gardens");
 
 
-        Query query = Ref.whereEqualTo("GardenType", "Public").whereNotEqualTo("ID_Owner", autentication.getCurrentUser().getUid());
+        Query query = Ref.whereEqualTo("GardenType", "Public");//.whereNotEqualTo("ID_Owner", autentication.getCurrentUser().getUid())
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
 
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException e) {
