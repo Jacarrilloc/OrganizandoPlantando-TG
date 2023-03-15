@@ -135,8 +135,4 @@ public class otherGardensActivity extends AppCompatActivity {
         descriptionGarden.setText(gardenInfo.getInfo());
     }
 
-    private void joinRequest(String id, String gardenName, String idUser){
-        DocumentReference ref = gardensRef.document(id);
-
-    }
 }

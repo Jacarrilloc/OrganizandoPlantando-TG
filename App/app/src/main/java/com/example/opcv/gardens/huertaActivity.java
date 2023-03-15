@@ -38,7 +38,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class huertaActivity extends AppCompatActivity {
 
     private Button returnArrowButton, gardens, myGardens, profile;
-    private ImageButton editGarden, seedTime, toolsButton, worm, collaboratorGardens;
+    private ImageButton editGarden, seedTime, toolsButton, worm, collaboratorGardens, messages;
 
     private ImageView moreFormsButtom;
     private TextView nameGarden,descriptionGarden, gardenParticipants;
@@ -48,6 +48,7 @@ public class huertaActivity extends AppCompatActivity {
     private int participants;
 
     private String gardenID, garden, infoGarden, idUSerColab;
+    private Boolean owner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,15 @@ public class huertaActivity extends AppCompatActivity {
         moreFormsButtom = findViewById(R.id.moreFormsButtom);
         backButtom = findViewById(R.id.returnArrowButtonToHome);
         gardenParticipants = (TextView) findViewById(R.id.gardenParticipants);
+        editGarden = (ImageButton) findViewById(R.id.imageButton8);
+        gardens = (Button) findViewById(R.id.gardens);
+        profile = (Button) findViewById(R.id.profile);
+        seedTime = (ImageButton) findViewById(R.id.seedTime);
+        toolsButton = (ImageButton) findViewById(R.id.toolsButton);
+        worm = (ImageButton) findViewById(R.id.imageButtonWorm);
+        collaboratorGardens = (ImageButton) findViewById(R.id.editButton2);
+        myGardens = (Button) findViewById(R.id.myGardens);
+        messages = (ImageButton) findViewById(R.id.messageButton);
 
         database = FirebaseFirestore.getInstance();
         gardensRef = database.collection("Gardens");
@@ -70,9 +80,16 @@ public class huertaActivity extends AppCompatActivity {
             String id = extras.getString("ID");
             garden = extras.getString("gardenName");
             gardenID = extras.getString("idGarden");
+            owner = Boolean.valueOf(extras.getString("owner"));
+            System.out.println("El nuevo id "+ owner);
             SearchInfoGardenSreen(id,garden);
         }
-
+        if(!owner){
+            editGarden.setVisibility(View.INVISIBLE);
+            editGarden.setClickable(false);
+            collaboratorGardens.setVisibility(View.INVISIBLE);
+            collaboratorGardens.setClickable(false);
+        }
 
         backButtom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,10 +108,11 @@ public class huertaActivity extends AppCompatActivity {
             }
         });
 
-        editGarden = (ImageButton) findViewById(R.id.imageButton8);
+
         editGarden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent start = new Intent(huertaActivity.this, GardenEditActivity.class);
                 start.putExtra("idGarden", gardenID);
                 start.putExtra("gardenName", garden);
@@ -103,7 +121,7 @@ public class huertaActivity extends AppCompatActivity {
             }
         });
 
-        gardens = (Button) findViewById(R.id.gardens);
+
         gardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,7 +129,7 @@ public class huertaActivity extends AppCompatActivity {
             }
         });
 
-        myGardens = (Button) findViewById(R.id.myGardens);
+
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,7 +137,7 @@ public class huertaActivity extends AppCompatActivity {
             }
         });
 
-        profile = (Button) findViewById(R.id.profile);
+
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,7 +146,7 @@ public class huertaActivity extends AppCompatActivity {
         });
         String idGardenFirebase = getIntent().getStringExtra("idGardenFirebaseDoc");
         String formsName = "Control de Procesos de Siembra";
-        seedTime = (ImageButton) findViewById(R.id.seedTime);
+
         seedTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,7 +158,7 @@ public class huertaActivity extends AppCompatActivity {
             }
         });
         String formsName2 = "Control de Inventarios de Herramientas";
-        toolsButton = (ImageButton) findViewById(R.id.toolsButton);
+
         toolsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,7 +170,7 @@ public class huertaActivity extends AppCompatActivity {
             }
         });
 
-        worm = (ImageButton) findViewById(R.id.imageButtonWorm);
+
         worm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -164,8 +182,13 @@ public class huertaActivity extends AppCompatActivity {
             }
         });
 
+        messages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        collaboratorGardens = (ImageButton) findViewById(R.id.editButton2);
+            }
+        });
+
         collaboratorGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
