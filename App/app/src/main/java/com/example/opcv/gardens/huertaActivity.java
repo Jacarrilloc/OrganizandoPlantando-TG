@@ -3,9 +3,11 @@ package com.example.opcv.gardens;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
@@ -31,8 +34,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class huertaActivity extends AppCompatActivity {
 
@@ -46,8 +55,8 @@ public class huertaActivity extends AppCompatActivity {
     private CollectionReference gardensRef;
     private int participants;
 
-    private String gardenID, garden, infoGarden, idUSerColab;
-    private Boolean owner;
+    private String gardenID, garden, infoGarden, idUSerColab, groupLink, id;
+    private String owner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,18 +85,25 @@ public class huertaActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
-            String id = extras.getString("ID");
+            id = extras.getString("ID");
             garden = extras.getString("gardenName");
             gardenID = extras.getString("idGarden");
-            owner = Boolean.valueOf(extras.getString("owner"));
-            System.out.println("El nuevo id "+ owner);
+            groupLink = extras.getString("GroupLink");
+            owner = extras.getString("owner");
+            System.out.println("El que es "+ owner);
             SearchInfoGardenSreen(id,garden);
         }
-        if(!owner){
+
+        if(!Objects.equals(owner, "true")){
             editGarden.setVisibility(View.INVISIBLE);
             editGarden.setClickable(false);
             collaboratorGardens.setVisibility(View.INVISIBLE);
             collaboratorGardens.setClickable(false);
+        }
+        else{
+            if(groupLink != null){
+                insertGroupLink(groupLink, gardenID);
+            }
         }
 
         backButtom.setOnClickListener(new View.OnClickListener() {
@@ -184,6 +200,19 @@ public class huertaActivity extends AppCompatActivity {
         messages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(Objects.equals(owner, "false")){
+                    goToLink(gardenID);
+                }
+                else{
+                    Intent newForm = new Intent(huertaActivity.this, WhatsappActivity.class);
+                    newForm.putExtra("ID", id);
+                    newForm.putExtra("idGarden", gardenID);
+                    newForm.putExtra("gardenName", garden);
+                    // newForm.putExtra("infoGarden", infoGarden);
+                    newForm.putExtra("owner", owner);
+                    startActivity(newForm);
+                    finish();
+                }
 
             }
         });
@@ -262,5 +291,27 @@ public class huertaActivity extends AppCompatActivity {
             gardenParticipants.setText(gardenParticipant+ " Participantes de la huerta");
         }
         descriptionGarden.setText(gardenInfo.getInfo());
+    }
+    private void insertGroupLink(String link, String idGarden){
+        Map<String, Object> gardenLink = new HashMap<>();
+        gardenLink.put("Garden_Chat_Link",link);
+        DocumentReference documentRef = database.collection("Gardens").document(idGarden);
+
+        documentRef.update(gardenLink);
+        Toast.makeText(huertaActivity.this, "Se agregó el link exitosamente", Toast.LENGTH_SHORT).show();
+    }
+    private void goToLink(String idGardem){
+        database.collection("Gardens").document(idGardem).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            String link = task.getResult().get("Garden_Chat_Link").toString();
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse(link));
+                            startActivity(intent);
+                        }
+                    }
+                });
     }
 }
