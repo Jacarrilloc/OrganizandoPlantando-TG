@@ -104,12 +104,6 @@ public class EditUserActivity extends AppCompatActivity {
             }
         });
 
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(EditUserActivity.this, EditUserActivity.class));
-            }
-        });
 
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override

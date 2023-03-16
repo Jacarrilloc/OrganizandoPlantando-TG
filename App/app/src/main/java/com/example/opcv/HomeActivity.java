@@ -171,15 +171,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        myGardens.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, HomeActivity.class));
-            }
-        });
-
-
-
         gardensMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
