@@ -170,8 +170,8 @@ public class SelectPhotoActivity extends AppCompatActivity {
     }
     private void callHome(User newUserInfo){
         Intent intent = new Intent(SelectPhotoActivity.this, HomeActivity.class);
-        intent.putExtra("userID", newUserInfo.getId());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("userID", authUtilities.getCurrentUserUid());
         startActivity(intent);
     }
 }
