@@ -147,14 +147,13 @@ public class EditUserActivity extends AppCompatActivity {
                         String email = document.getData().get("Email").toString();
                         String lastname = document.getData().get("LastName").toString();
                         String phoneNumber = document.getData().get("PhoneNumber").toString();
-                        userActive =  new User(name, email, userID_Recived, lastname, phoneNumber,null);
+                        userActive =  new User(name, lastname, email, userID_Recived, phoneNumber,null);
                         userNameTV.setText(userActive.getName());
                         userName.setText(userActive.getName());
                         userLastName.setText(userActive.getLastName());
                         userEmail.setText("Comabaquinta");
                         userPhone.setText(userActive.getPhoneNumber());
                     }
-                } else {
                 }
             }
         });
@@ -205,7 +204,10 @@ public class EditUserActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             String idSearch;
                             for(QueryDocumentSnapshot document : task.getResult()){
-                                idSearch = document.getData().get("ID").toString();
+                                idSearch = (String) document.getData().get("ID");
+                                if(idSearch == null){
+                                    idSearch = (String) document.getData().get("id");
+                                }
                                 if(idSearch.equals(userID)){
                                     final DocumentReference docRef = database.collection("UserInfo").document(document.getId().toString());
                                     database.runTransaction(new Transaction.Function<Void>() {
