@@ -53,7 +53,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onLogin(boolean success) {
                 if(success){
-                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    Intent intent =  new Intent(LoginActivity.this, HomeActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+
                 }else{
                     Toast.makeText(context, "No fue posible Iniciar Sesion, Por Favor revise si ingresó correctamente el correo y la contraseña", Toast.LENGTH_SHORT).show();
                     emailLogin.setText("");
