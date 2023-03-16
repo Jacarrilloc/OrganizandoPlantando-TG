@@ -69,7 +69,8 @@ public class AuthUtilities implements Serializable {
                         String id = userID;
                         String phoneNumber = document.getString("phoneNumber");
                         String uriPath = document.getString("UriPath");
-                        User user = new User(name,lastName,email,id,phoneNumber,uriPath);
+                        String gender = document.getString("Gender");
+                        User user = new User(name,lastName,email,id,phoneNumber,uriPath,gender);
                         callback.onSuccess(user);
                         return;
                     }

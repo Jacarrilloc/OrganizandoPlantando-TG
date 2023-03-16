@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.opcv.R;
-import com.example.opcv.fbComunication.CollaboratorRequestUtilities;
 import com.example.opcv.item_list.ItemCollaboratorsRequest;
 
 import java.util.List;

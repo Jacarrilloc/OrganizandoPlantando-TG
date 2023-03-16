@@ -10,16 +10,17 @@ public class User implements Serializable {
     String email;
     String id;
     String phoneNumber;
-
     String UriPath;
+    String gender;
 
-    public User(String name, String lastName, String email, String id, String phoneNumber, String uriPath) {
+    public User(String name, String lastName, String email, String id, String phoneNumber, String uriPath, String gender) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         this.id = id;
         this.phoneNumber = phoneNumber;
         UriPath = uriPath;
+        this.gender = gender;
     }
 
     public String getName() {
@@ -70,6 +71,14 @@ public class User implements Serializable {
         UriPath = uriPath;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("Name", name);
@@ -78,6 +87,7 @@ public class User implements Serializable {
         map.put("Email",email);
         map.put("PhoneNumber", phoneNumber);
         map.put("UriPath",UriPath);
+        map.put("Gender",gender);
         return map;
     }
 }
