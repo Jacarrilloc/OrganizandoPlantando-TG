@@ -5,19 +5,24 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.info.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -28,12 +33,15 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Transaction;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class EditUserActivity extends AppCompatActivity {
     private Button signOff, delete;
     private Button gardensMap, profile, myGardens, acceptChanges;
     private TextView userNameTV, close, deleteP;
     private EditText userName, userLastName, userEmail, userPhone;
+    private ImageView profilePhoto;
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
     private User userActive;
@@ -51,6 +59,7 @@ public class EditUserActivity extends AppCompatActivity {
             userID_Recived = info.getCurrentUserUid();
         }
 
+        profilePhoto = findViewById(R.id.userImageEditUserActivity);
         userNameTV = (TextView) findViewById(R.id.userName);
         userName =(EditText) findViewById(R.id.userName2);
         userLastName = (EditText) findViewById(R.id.lastNameInfo);
@@ -153,10 +162,30 @@ public class EditUserActivity extends AppCompatActivity {
                         userLastName.setText(userActive.getLastName());
                         userEmail.setText("Comabaquinta");
                         userPhone.setText(userActive.getPhoneNumber());
+                        getPhotoProfileUser(userActive.getId());
                     }
                 }
             }
         });
+    }
+
+    private void getPhotoProfileUser(String id){
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        String pathImage = "userProfilePhoto/" + id + ".jpg";
+        StorageReference storageRef = storage.getReference().child(pathImage);
+
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(getApplicationContext()).load(uri).into(profilePhoto);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                profilePhoto.setImageResource(R.drawable.im_logo_ceres_green);
+            }
+        });
+
     }
     /*private void searchUserInfo (){
         autentication = FirebaseAuth.getInstance();

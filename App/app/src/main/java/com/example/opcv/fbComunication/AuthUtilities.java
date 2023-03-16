@@ -23,6 +23,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 /*import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;*/
@@ -187,10 +190,10 @@ public class AuthUtilities implements Serializable {
         if(imageProfile == null){
             return status;
         }
-        /*
+
         String imageName = userID + ".jpg";
         StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("userProfilePhoto/" + imageName);
-        UploadTask uploadTask = storageRef.putFile(imageProfile);*/
+        UploadTask uploadTask = storageRef.putFile(imageProfile);
         return status;
     }
 
