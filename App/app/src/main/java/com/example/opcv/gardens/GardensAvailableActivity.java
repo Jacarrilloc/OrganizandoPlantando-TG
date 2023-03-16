@@ -1,12 +1,10 @@
-package com.example.opcv;
+package com.example.opcv.gardens;
 
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,13 +16,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.opcv.adapter.GardenAvailableListAdapter;
+import com.example.opcv.HomeActivity;
+import com.example.opcv.MapsActivity;
+import com.example.opcv.R;
 import com.example.opcv.adapter.GardenListAdapter;
 import com.example.opcv.auth.EditUserActivity;
-import com.example.opcv.gardens.huertaActivity;
-import com.example.opcv.gardens.otherGardensActivity;
 import com.example.opcv.item_list.ItemGardenHomeList;
-import com.example.opcv.item_list.ItemShowGardenAvailable;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -38,7 +35,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VegetablePatchAvailableActivity extends AppCompatActivity {
+public class GardensAvailableActivity extends AppCompatActivity {
 
     private Button gardensMap, profile, myGardens;
     private FirebaseAuth autentication;
@@ -67,14 +64,14 @@ public class VegetablePatchAvailableActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(VegetablePatchAvailableActivity.this, EditUserActivity.class));
+                startActivity(new Intent(GardensAvailableActivity.this, EditUserActivity.class));
             }
         });
         myGardens = (Button) findViewById(R.id.myGardens);
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(VegetablePatchAvailableActivity.this, HomeActivity.class));
+                startActivity(new Intent(GardensAvailableActivity.this, HomeActivity.class));
             }
         });
 
@@ -82,7 +79,7 @@ public class VegetablePatchAvailableActivity extends AppCompatActivity {
         gardensMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(VegetablePatchAvailableActivity.this, MapsActivity.class));
+                startActivity(new Intent(GardensAvailableActivity.this, MapsActivity.class));
             }
         });
 
@@ -98,7 +95,7 @@ public class VegetablePatchAvailableActivity extends AppCompatActivity {
                 userID = autentication.getCurrentUser().getUid();
                 String idGarden = ((ItemGardenHomeList) selectedItem).getIdGarden();
                 String idGardenFirebaseDoc = getIntent().getStringExtra("idGarden");
-                Intent start = new Intent(VegetablePatchAvailableActivity.this, otherGardensActivity.class);
+                Intent start = new Intent(GardensAvailableActivity.this, OtherGardensActivity.class);
                 start.putExtra("ID",userID);
                 start.putExtra("gardenName",itemName);
                 start.putExtra("idGarden", idGarden);
@@ -132,7 +129,7 @@ public class VegetablePatchAvailableActivity extends AppCompatActivity {
                         }
                         fillListGardens(gardenNames);
                     } else {
-                        Toast.makeText(VegetablePatchAvailableActivity.this, "Error al obtener los documentos", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GardensAvailableActivity.this, "Error al obtener los documentos", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

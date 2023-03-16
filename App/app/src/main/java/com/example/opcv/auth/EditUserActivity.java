@@ -71,27 +71,27 @@ public class EditUserActivity extends AppCompatActivity {
         signOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(EditUserActivity.this, signOffActivity.class));
+                startActivity(new Intent(EditUserActivity.this, SignOffActivity.class));
             }
         });
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(EditUserActivity.this, deleteAccountActivity.class));
+                startActivity(new Intent(EditUserActivity.this, DeleteAccountActivity.class));
             }
         });
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(EditUserActivity.this, signOffActivity.class));
+                startActivity(new Intent(EditUserActivity.this, SignOffActivity.class));
             }
         });
         deleteP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(EditUserActivity.this, deleteAccountActivity.class));
+                startActivity(new Intent(EditUserActivity.this, DeleteAccountActivity.class));
             }
         });
 

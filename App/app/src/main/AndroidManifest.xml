@@ -45,7 +45,7 @@
         </provider>
 
         <activity
-            android:name=".gardens.otherGardensActivity"
+            android:name=".gardens.OtherGardensActivity"
             android:exported="false" />
         <activity
             android:name=".adapter.GardenAvailableListAdapter"
@@ -154,19 +154,19 @@
             android:name=".gardens.CreateGardenActivity"
             android:exported="false" />
         <activity
-            android:name=".VegetablePatchAvailableActivity"
+            android:name=".gardens.GardensAvailableActivity"
             android:exported="false" />
         <activity
             android:name=".TermsAndConditionsActivity"
             android:exported="false" />
         <activity
-            android:name=".gardens.huertaActivity"
+            android:name=".gardens.GardenActivity"
             android:exported="false" />
         <activity
-            android:name=".auth.deleteAccountActivity"
+            android:name=".auth.DeleteAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".auth.signOffActivity"
+            android:name=".auth.SignOffActivity"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"

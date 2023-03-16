@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.helper.widget.MotionEffect;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -170,8 +171,35 @@ public class CollaboratorUtilities {
         database.collection("UserInfo").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                String userId;
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot document : task.getResult()){
+                        userId = (String) document.getData().get("ID");
+                        if (userId == null) {
+                            userId = (String) document.getData().get("id");
+                        }
+                        if(userId.equals(idUser)){
+                            String idCollection = document.getId().toString();
+                            CollectionReference Ref =  database.collection("UserInfo").document(idCollection).collection("GardensCollaboration");
+                            Query query = Ref.whereEqualTo("idGardenCollab", idGarden);
+                            query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                        documentSnapshot.getReference().delete();
+                                    }
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d(TAG, "Error getting documents: ");
+                                    // Ocurrió un error al intentar eliminar el colaborador
+                                }
+                            });
 
-
+                        }
+                    }
+                }
             }
         });
 

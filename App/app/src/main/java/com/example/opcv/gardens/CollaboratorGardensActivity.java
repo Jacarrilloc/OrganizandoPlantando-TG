@@ -19,15 +19,13 @@ import android.widget.ListView;
 import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
-import com.example.opcv.adapter.GardenListAdapter;
 import com.example.opcv.adapter.MyCollaborationsListAdapter;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.AuthUtilities;
-import com.example.opcv.fbComunication.CollaboratorRequestUtilities;
+import com.example.opcv.fbComunication.CollaboratorUtilities;
 import com.example.opcv.info.GardenInfo;
 import com.example.opcv.item_list.ItemCollaboratorsRequest;
-import com.example.opcv.item_list.ItemGardenHomeList;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -120,7 +118,7 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
                 String idGarden = ((ItemCollaboratorsRequest) selectedItem).getIdGarden();
                 String idGardenFirebaseDoc = getIntent().getStringExtra("idGarden");
 
-                Intent start = new Intent(CollaboratorGardensActivity.this, huertaActivity.class);
+                Intent start = new Intent(CollaboratorGardensActivity.this, GardenActivity.class);
                 start.putExtra("ID",userID);
                 start.putExtra("gardenName",itemName);
                 start.putExtra("idGarden", idGarden);

@@ -26,7 +26,8 @@ import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.CollaboratorGardensActivity;
 import com.example.opcv.gardens.CreateGardenActivity;
-import com.example.opcv.gardens.huertaActivity;
+import com.example.opcv.gardens.GardenActivity;
+import com.example.opcv.gardens.GardensAvailableActivity;
 import com.example.opcv.info.User;
 import com.example.opcv.item_list.ItemGardenHomeList;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -131,7 +132,7 @@ public class HomeActivity extends AppCompatActivity {
                 String userID = userId;
                 String idGarden = ((ItemGardenHomeList) selectedItem).getIdGarden();
                 String idGardenFirebaseDoc = getIntent().getStringExtra("idGarden");
-                Intent start = new Intent(HomeActivity.this, huertaActivity.class);
+                Intent start = new Intent(HomeActivity.this, GardenActivity.class);
                 start.putExtra("ID",userID);
                 start.putExtra("gardenName",itemName);
                 start.putExtra("idGarden", idGarden);
@@ -154,7 +155,7 @@ public class HomeActivity extends AppCompatActivity {
         otherGardensButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, VegetablePatchAvailableActivity.class));
+                startActivity(new Intent(HomeActivity.this, GardensAvailableActivity.class));
             }
         });
 
