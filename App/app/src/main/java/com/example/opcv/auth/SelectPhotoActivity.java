@@ -97,8 +97,9 @@ public class SelectPhotoActivity extends AppCompatActivity {
     private void createUserInDatabase(){
         if(authUtilities.createUser(newUserInfo.getEmail(),password,newUserInfo,imageUri,SelectPhotoActivity.this)){
             Toast.makeText(this, "Usuario Creado Exitosamente", Toast.LENGTH_SHORT).show();
-            callHome(newUserInfo);
+
         }
+        callHome(newUserInfo);
     }
 
     private void takePhotoUser(){
@@ -145,7 +146,7 @@ public class SelectPhotoActivity extends AppCompatActivity {
     }
     private void callHome(User newUserInfo){
         Intent intent = new Intent(SelectPhotoActivity.this, HomeActivity.class);
-        intent.putExtra("userInfo", newUserInfo);
+        intent.putExtra("userID", newUserInfo.getId());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }

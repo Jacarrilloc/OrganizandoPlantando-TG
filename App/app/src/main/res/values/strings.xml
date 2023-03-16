@@ -69,6 +69,16 @@
     <string name="participants2"> Participantes</string>
     <string name="MyCollaborations">Huertas en las que soy colaborador</string>
 
+    <string name="maleGender">Hombre</string>
+    <string name="femaleGender">Mujer</string>
+    <string name="otherGender">Otro</string>
+
+    <string-array name="gendersElements">
+        <item>@string/maleGender</item>
+        <item>@string/femaleGender</item>
+        <item>@string/otherGender</item>
+    </string-array>
+
 
     <string-array name="list_forms">
         <item>Registro y Actualización de Compostaje</item>
