@@ -30,6 +30,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <Button
+                    android:id="@+id/addImage"
+                    android:layout_width="54dp"
+                    android:layout_height="51dp"
+                    android:layout_marginTop="164dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/im_add_image" />
+
                 <ImageView
                     android:id="@+id/userImageEditUserActivity"
                     android:layout_width="match_parent"
@@ -38,13 +46,6 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true" />
 
-                <Button
-                    android:id="@+id/addImage"
-                    android:layout_width="54dp"
-                    android:layout_height="51dp"
-                    android:layout_marginTop="164dp"
-                    android:layout_marginRight="30dp"
-                    android:background="@drawable/im_add_image" />
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
