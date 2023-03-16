@@ -31,7 +31,6 @@ public class GardenAvailableListAdapter extends ArrayAdapter<ItemShowGardenAvail
         super(context, 0, items);
         this.context = context;
     }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
 

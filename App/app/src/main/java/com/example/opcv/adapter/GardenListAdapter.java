@@ -7,12 +7,10 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.opcv.R;
-import com.example.opcv.VegetablePatchAvailableActivity;
 import com.example.opcv.item_list.ItemGardenHomeList;
 
 import java.util.List;

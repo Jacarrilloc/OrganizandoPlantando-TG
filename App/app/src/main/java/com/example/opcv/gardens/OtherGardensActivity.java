@@ -27,7 +27,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class otherGardensActivity extends AppCompatActivity {
+public class OtherGardensActivity extends AppCompatActivity {
     private Button otherGardensButton, profile, myGardens, join, visit;
     private TextView nameGarden,descriptionGarden;
     private FirebaseFirestore database;
@@ -58,7 +58,7 @@ public class otherGardensActivity extends AppCompatActivity {
         otherGardensButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(otherGardensActivity.this, MapsActivity.class));
+                startActivity(new Intent(OtherGardensActivity.this, MapsActivity.class));
             }
         });
 
@@ -66,14 +66,14 @@ public class otherGardensActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(otherGardensActivity.this, EditUserActivity.class));
+                startActivity(new Intent(OtherGardensActivity.this, EditUserActivity.class));
             }
         });
         myGardens = (Button) findViewById(R.id.myGardens);
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(otherGardensActivity.this, HomeActivity.class));
+                startActivity(new Intent(OtherGardensActivity.this, HomeActivity.class));
             }
         });
 
@@ -95,8 +95,8 @@ public class otherGardensActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 CollaboratorUtilities cU = new CollaboratorUtilities();
-                cU.addRequests(otherGardensActivity.this, id, gardenID);
-                Toast.makeText(otherGardensActivity.this, "Se envio la solicitud al dueño de la huerta", Toast.LENGTH_SHORT).show();
+                cU.addRequests(OtherGardensActivity.this, id, gardenID);
+                Toast.makeText(OtherGardensActivity.this, "Se envio la solicitud al dueño de la huerta", Toast.LENGTH_SHORT).show();
                 join.setVisibility(View.INVISIBLE);
                 join.setClickable(false);
             }
