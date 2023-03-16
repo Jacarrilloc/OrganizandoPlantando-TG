@@ -189,6 +189,7 @@ public class CollaboratorUtilities {
                                         documentSnapshot.getReference().delete();
                                     }
                                 }
+
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {

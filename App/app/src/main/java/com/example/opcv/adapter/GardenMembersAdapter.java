@@ -39,7 +39,6 @@ public class GardenMembersAdapter extends ArrayAdapter<ItemCollaborator> {
         }
 
         ItemCollaborator item = getItem(position);
-
         userName = convertView.findViewById(R.id.userName);
         userName.setText(item.getName());
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_right_to_left);
