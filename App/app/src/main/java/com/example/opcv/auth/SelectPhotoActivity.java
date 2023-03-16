@@ -97,7 +97,6 @@ public class SelectPhotoActivity extends AppCompatActivity {
     private void createUserInDatabase(){
         if(authUtilities.createUser(newUserInfo.getEmail(),password,newUserInfo,imageUri,SelectPhotoActivity.this)){
             Toast.makeText(this, "Usuario Creado Exitosamente", Toast.LENGTH_SHORT).show();
-
         }
         callHome(newUserInfo);
     }
