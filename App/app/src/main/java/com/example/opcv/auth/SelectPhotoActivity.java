@@ -1,5 +1,6 @@
 package com.example.opcv.auth;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -40,8 +41,9 @@ public class SelectPhotoActivity extends AppCompatActivity {
     private String password;
     private static final int REQUEST_CAMERA_PERMISSION = 1;
     private static final int REQUEST_IMAGE_CAPTURE = 2;
-    private static final int PERMISSION_REQUEST_CODE = 1;
-    private static final int PICK_IMAGE_REQUEST_CODE = 2;
+    private static final int PERMISSION_REQUEST_STORAGE = 1000;
+    private static final int REQUEST_SELECT_PHOTO = 2000;
+
 
 
     @Override
@@ -91,14 +93,33 @@ public class SelectPhotoActivity extends AppCompatActivity {
     }
 
     private void selectPhotoUser(){
+        if(ContextCompat.checkSelfPermission(SelectPhotoActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(SelectPhotoActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_STORAGE);
+        }else{
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(intent, REQUEST_SELECT_PHOTO);
+        }
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_STORAGE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, REQUEST_SELECT_PHOTO);
+            } else {
+                Toast.makeText(SelectPhotoActivity.this, "Permiso denegado", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void createUserInDatabase(){
         if(authUtilities.createUser(newUserInfo.getEmail(),password,newUserInfo,imageUri,SelectPhotoActivity.this)){
             Toast.makeText(this, "Usuario Creado Exitosamente", Toast.LENGTH_SHORT).show();
-            callHome(newUserInfo);
         }
+        callHome(newUserInfo);
     }
 
     private void takePhotoUser(){
@@ -142,10 +163,14 @@ public class SelectPhotoActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             ImageSource.setImageURI(imageUri);
         }
+        if (requestCode == REQUEST_SELECT_PHOTO && resultCode == RESULT_OK) {
+            imageUri = data.getData();
+            ImageSource.setImageURI(imageUri);
+        }
     }
     private void callHome(User newUserInfo){
         Intent intent = new Intent(SelectPhotoActivity.this, HomeActivity.class);
-        intent.putExtra("userInfo", newUserInfo);
+        intent.putExtra("userID", newUserInfo.getId());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
