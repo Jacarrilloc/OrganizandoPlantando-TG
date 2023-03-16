@@ -22,6 +22,5 @@ public class NetworkMonitorService extends BroadcastReceiver {
             }
         }
     }
-
 }
 
