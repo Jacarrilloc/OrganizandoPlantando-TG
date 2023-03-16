@@ -3,7 +3,6 @@ package com.example.opcv.gardens;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -34,16 +33,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class huertaActivity extends AppCompatActivity {
+public class GardenActivity extends AppCompatActivity {
 
     private Button returnArrowButton, gardens, myGardens, profile;
     private ImageButton editGarden, seedTime, toolsButton, worm, collaboratorGardens, messages;
@@ -116,7 +113,7 @@ public class huertaActivity extends AppCompatActivity {
         moreFormsButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent infoForms = new Intent(huertaActivity.this, GardenForms.class);
+                Intent infoForms = new Intent(GardenActivity.this, GardenForms.class);
                 String idGardenFirebase = extras.getString("idGardenFirebaseDoc");
                 infoForms.putExtra("idGardenFirebaseDoc",idGardenFirebase);
                 startActivity(infoForms);
@@ -128,7 +125,7 @@ public class huertaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent start = new Intent(huertaActivity.this, GardenEditActivity.class);
+                Intent start = new Intent(GardenActivity.this, GardenEditActivity.class);
                 start.putExtra("idGarden", gardenID);
                 start.putExtra("gardenName", garden);
                 start.putExtra("infoGarden", infoGarden);
@@ -140,7 +137,7 @@ public class huertaActivity extends AppCompatActivity {
         gardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(huertaActivity.this, MapsActivity.class));
+                startActivity(new Intent(GardenActivity.this, MapsActivity.class));
             }
         });
 
@@ -148,7 +145,7 @@ public class huertaActivity extends AppCompatActivity {
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(huertaActivity.this, HomeActivity.class));
+                startActivity(new Intent(GardenActivity.this, HomeActivity.class));
             }
         });
 
@@ -156,7 +153,7 @@ public class huertaActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(huertaActivity.this, EditUserActivity.class));
+                startActivity(new Intent(GardenActivity.this, EditUserActivity.class));
             }
         });
         String idGardenFirebase = getIntent().getStringExtra("idGardenFirebaseDoc");
@@ -165,7 +162,7 @@ public class huertaActivity extends AppCompatActivity {
         seedTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newForm = new Intent(huertaActivity.this, Form_CPS.class);
+                Intent newForm = new Intent(GardenActivity.this, Form_CPS.class);
                 newForm.putExtra("Name",formsName);
                 newForm.putExtra("idGardenFirebase",idGardenFirebase);
                 startActivity(newForm);
@@ -177,7 +174,7 @@ public class huertaActivity extends AppCompatActivity {
         toolsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newForm = new Intent(huertaActivity.this, Form_CIH.class);
+                Intent newForm = new Intent(GardenActivity.this, Form_CIH.class);
                 newForm.putExtra("Name",formsName2);
                 newForm.putExtra("idGardenFirebase",idGardenFirebase);
                 startActivity(newForm);
@@ -189,7 +186,7 @@ public class huertaActivity extends AppCompatActivity {
         worm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newForm = new Intent(huertaActivity.this, Form_RAC.class);
+                Intent newForm = new Intent(GardenActivity.this, Form_RAC.class);
                 newForm.putExtra("Name",formsName2);
                 newForm.putExtra("idGardenFirebase",idGardenFirebase);
                 startActivity(newForm);
@@ -204,7 +201,7 @@ public class huertaActivity extends AppCompatActivity {
                     goToLink(gardenID);
                 }
                 else{
-                    Intent newForm = new Intent(huertaActivity.this, WhatsappActivity.class);
+                    Intent newForm = new Intent(GardenActivity.this, WhatsappActivity.class);
                     newForm.putExtra("ID", id);
                     newForm.putExtra("idGarden", gardenID);
                     newForm.putExtra("gardenName", garden);
@@ -221,7 +218,7 @@ public class huertaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 CollaboratorUtilities cU = new CollaboratorUtilities();
-                Intent requests = new Intent(huertaActivity.this, GardenRequestsActivity.class);
+                Intent requests = new Intent(GardenActivity.this, GardenRequestsActivity.class);
                 requests.putExtra("Name",formsName2);
                 requests.putExtra("idGardenFirebase",idGardenFirebase);
                 startActivity(requests);
@@ -298,7 +295,7 @@ public class huertaActivity extends AppCompatActivity {
         DocumentReference documentRef = database.collection("Gardens").document(idGarden);
 
         documentRef.update(gardenLink);
-        Toast.makeText(huertaActivity.this, "Se agregó el link exitosamente", Toast.LENGTH_SHORT).show();
+        Toast.makeText(GardenActivity.this, "Se agregó el link exitosamente", Toast.LENGTH_SHORT).show();
     }
     private void goToLink(String idGardem){
         database.collection("Gardens").document(idGardem).get()

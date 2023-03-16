@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.opcv.R;
-import com.example.opcv.formsScreen.Form_RAC;
 
 public class WhatsappActivity extends AppCompatActivity {
     private Button addLink, returnButton;
@@ -43,7 +42,7 @@ public class WhatsappActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String link = editLinkText.getText().toString();
-                Intent newForm = new Intent(WhatsappActivity.this, huertaActivity.class);
+                Intent newForm = new Intent(WhatsappActivity.this, GardenActivity.class);
                 newForm.putExtra("ID", id);
                 newForm.putExtra("idGarden", idGarden);
                 newForm.putExtra("gardenName", garden);

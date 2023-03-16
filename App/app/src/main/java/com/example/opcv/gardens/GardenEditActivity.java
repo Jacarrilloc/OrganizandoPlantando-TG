@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.example.opcv.HomeActivity;
 import com.example.opcv.R;
-import com.example.opcv.VegetablePatchAvailableActivity;
 import com.example.opcv.auth.EditUserActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,7 +29,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -116,7 +114,7 @@ public class GardenEditActivity extends AppCompatActivity {
         gardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(GardenEditActivity.this, VegetablePatchAvailableActivity.class));
+                startActivity(new Intent(GardenEditActivity.this, GardensAvailableActivity.class));
             }
         });
 

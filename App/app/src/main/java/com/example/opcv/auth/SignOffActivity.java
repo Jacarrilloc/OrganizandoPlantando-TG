@@ -14,7 +14,7 @@ import com.example.opcv.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class signOffActivity extends AppCompatActivity {
+public class SignOffActivity extends AppCompatActivity {
     private Button returnScreen, signOff, gardensMap, profile, myGarden;
 
     private FirebaseAuth autentication;
@@ -32,14 +32,14 @@ public class signOffActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(signOffActivity.this, EditUserActivity.class));
+                startActivity(new Intent(SignOffActivity.this, EditUserActivity.class));
             }
         });
         myGarden = (Button) findViewById(R.id.myGardens);
         myGarden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(signOffActivity.this, HomeActivity.class));
+                startActivity(new Intent(SignOffActivity.this, HomeActivity.class));
             }
         });
 
@@ -48,7 +48,7 @@ public class signOffActivity extends AppCompatActivity {
         gardensMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(signOffActivity.this, MapsActivity.class));
+                startActivity(new Intent(SignOffActivity.this, MapsActivity.class));
             }
         });
 
@@ -56,7 +56,7 @@ public class signOffActivity extends AppCompatActivity {
         returnScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(signOffActivity.this, EditUserActivity.class));
+                startActivity(new Intent(SignOffActivity.this, EditUserActivity.class));
             }
         });
 
@@ -65,7 +65,7 @@ public class signOffActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 autentication.signOut();
-                Intent intent = new Intent(signOffActivity.this, NewToAppActivity.class);
+                Intent intent = new Intent(SignOffActivity.this, NewToAppActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }

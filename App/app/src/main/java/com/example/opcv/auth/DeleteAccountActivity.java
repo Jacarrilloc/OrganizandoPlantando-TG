@@ -16,8 +16,6 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.NewToAppActivity;
 import com.example.opcv.R;
-import com.example.opcv.gardens.GardenEditActivity;
-import com.example.opcv.gardens.huertaActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -27,7 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class deleteAccountActivity extends AppCompatActivity {
+public class DeleteAccountActivity extends AppCompatActivity {
 
     private Button delete, returnButton, gardensMap, profile, myGardens;
 
@@ -47,14 +45,14 @@ public class deleteAccountActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(deleteAccountActivity.this, EditUserActivity.class));
+                startActivity(new Intent(DeleteAccountActivity.this, EditUserActivity.class));
             }
         });
         myGardens = (Button) findViewById(R.id.myGardens);
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(deleteAccountActivity.this, HomeActivity.class));
+                startActivity(new Intent(DeleteAccountActivity.this, HomeActivity.class));
             }
         });
 
@@ -63,7 +61,7 @@ public class deleteAccountActivity extends AppCompatActivity {
         gardensMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(deleteAccountActivity.this, MapsActivity.class));
+                startActivity(new Intent(DeleteAccountActivity.this, MapsActivity.class));
             }
         });
 
@@ -71,7 +69,7 @@ public class deleteAccountActivity extends AppCompatActivity {
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(deleteAccountActivity.this, EditUserActivity.class));
+                startActivity(new Intent(DeleteAccountActivity.this, EditUserActivity.class));
             }
         });
 
@@ -85,9 +83,9 @@ public class deleteAccountActivity extends AppCompatActivity {
                 user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(deleteAccountActivity.this, "Cuenta eliminada", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DeleteAccountActivity.this, "Cuenta eliminada", Toast.LENGTH_SHORT).show();
                         autentication.signOut();
-                        Intent start = new Intent(deleteAccountActivity.this, NewToAppActivity.class);
+                        Intent start = new Intent(DeleteAccountActivity.this, NewToAppActivity.class);
                         startActivity(start);
                     }
                 });

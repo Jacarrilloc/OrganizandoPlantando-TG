@@ -2,36 +2,22 @@ package com.example.opcv.gardens;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ClipData;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.opcv.HomeActivity;
-import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
-import com.example.opcv.VegetablePatchAvailableActivity;
 import com.example.opcv.adapter.CollaboratorListAdapter;
-import com.example.opcv.adapter.GardenListAdapter;
-import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.item_list.ItemCollaboratorsRequest;
-import com.example.opcv.item_list.ItemGardenHomeList;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -45,7 +31,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
 
 public class GardenRequestsActivity extends AppCompatActivity {
     private Button accept, deny;

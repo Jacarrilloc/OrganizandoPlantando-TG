@@ -138,7 +138,6 @@ public class GardenMembersActivity extends AppCompatActivity {
         });
         return collaboratorIds;
     }
-
     private void fillListMembers(List<ItemCollaborator> requestDocument){
         GardenMembersAdapter adapter = new GardenMembersAdapter(this, requestDocument);
         listMembers.setAdapter(adapter);
