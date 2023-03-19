@@ -28,6 +28,7 @@ public class Form_RAC extends AppCompatActivity {
     private TextView formsName;
 
     private EditText containerSize,worrmsWeightInfo,humidityInfo,amount_of_waste_info,collected_humus_info,amount_leached_info;
+    private String name;
 
 
     @Override
@@ -38,8 +39,8 @@ public class Form_RAC extends AppCompatActivity {
         backButtom = findViewById(R.id.returnArrowButtonFormOnetoFormListElement);
 
         formsName = findViewById(R.id.formsNameFist);
-        String name = getIntent().getStringExtra("Name");
-        //formsName.setText("@string");
+        name = getIntent().getStringExtra("Name");
+        System.out.println(name);
 
         containerSize = findViewById(R.id.containerSizeInfo);
         worrmsWeightInfo = findViewById(R.id.worrmsWeightInfo);

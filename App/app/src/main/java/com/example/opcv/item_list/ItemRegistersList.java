@@ -1,12 +1,15 @@
 package com.example.opcv.item_list;
 
 public class ItemRegistersList {
-    public String idGarden, formName, idFormCollection;
+    public String idGarden, formName, idFormCollection, date;
 
-    public ItemRegistersList(String idGarden, String formName, String idFormCollection) {
+
+
+    public ItemRegistersList(String idGarden, String formName, String idFormCollection, String date) {
         this.idGarden = idGarden;
         this.formName = formName;
         this.idFormCollection = idFormCollection;
+        this.date = date;
     }
 
     public String getIdFormCollection() {
@@ -31,5 +34,12 @@ public class ItemRegistersList {
 
     public void setFormName(String formName) {
         this.formName = formName;
+    }
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

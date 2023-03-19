@@ -185,11 +185,12 @@ public class GardenActivity extends AppCompatActivity {
         });
 
 
+        String formname3 = "Registro y Actualización de Compostaje";
         worm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent newForm = new Intent(GardenActivity.this, Form_RAC.class);
-                newForm.putExtra("Name",formsName2);
+                newForm.putExtra("Name",formname3);
                 newForm.putExtra("idGardenFirebase",idGardenFirebase);
                 startActivity(newForm);
                 finish();

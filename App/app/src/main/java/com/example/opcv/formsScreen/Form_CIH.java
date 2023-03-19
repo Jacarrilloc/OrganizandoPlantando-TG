@@ -1,5 +1,7 @@
 package com.example.opcv.formsScreen;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,11 +21,20 @@ import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.fbComunication.FormsUtilities;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 //Formulario Control de Inventario de Herramientas
 public class Form_CIH extends AppCompatActivity {
@@ -33,14 +44,28 @@ public class Form_CIH extends AppCompatActivity {
     private EditText tool, toolQuantity, toolStatus, preexistingTool;
     private TextView formName;
     private Spinner spinnerConcept, spinner2;
-    private String conceptSelectedItem, selectedItem;
+    private String conceptSelectedItem, selectedItem, watch, idGarden, idCollection;
+    private FirebaseFirestore database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_cih);
 
+        database = FirebaseFirestore.getInstance();
         gardens = (Button) findViewById(R.id.gardens);
+        addFormButtom = findViewById(R.id.create_forms1_buttom);
+        myGardens = (Button) findViewById(R.id.myGardens);
+        profile = (Button) findViewById(R.id.profile);
+        backButtom = findViewById(R.id.returnArrowButtonFormOnetoFormListElement);
+        formName = (TextView) findViewById(R.id.form_CIH_name);
+        tool = (EditText) findViewById(R.id.tool);
+        toolQuantity = (EditText) findViewById(R.id.quantity);
+        toolStatus = (EditText) findViewById(R.id.toolStatus);
+        preexistingTool = (EditText) findViewById(R.id.existanceTool);
+        spinnerConcept = (Spinner) findViewById(R.id.spinnerConcept);
+        spinner2 = (Spinner) findViewById(R.id.spinnerChoice);
+
         gardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,7 +73,7 @@ public class Form_CIH extends AppCompatActivity {
             }
         });
 
-        myGardens = (Button) findViewById(R.id.myGardens);
+
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,24 +81,32 @@ public class Form_CIH extends AppCompatActivity {
             }
         });
 
-        profile = (Button) findViewById(R.id.profile);
+
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Form_CIH.this, EditUserActivity.class));
             }
         });
+        watch = getIntent().getStringExtra("watch");
 
-        backButtom = findViewById(R.id.returnArrowButtonFormOnetoFormListElement);
+        if(watch.equals("true")){
+            idGarden = getIntent().getStringExtra("idGardenFirebase");
+            idCollection = getIntent().getStringExtra("idCollecion");
+            addFormButtom.setVisibility(View.INVISIBLE);
+            addFormButtom.setClickable(false);
+            spinner2.setClickable(false);
+            spinnerConcept.setClickable(false);
+            showInfo(idGarden, idCollection);
 
-        formName = (TextView) findViewById(R.id.form_CIH_name);
+        } else if (watch.equals("edit")) {
+            idGarden = getIntent().getStringExtra("idGardenFirebase");
+            idCollection = getIntent().getStringExtra("idCollecion");
+            addFormButtom.setText("Aceptar cambios");
+            editInfo(idGarden, idCollection);
+        }
 
-        tool = (EditText) findViewById(R.id.tool);
-        toolQuantity = (EditText) findViewById(R.id.quantity);
-        toolStatus = (EditText) findViewById(R.id.toolStatus);
-        preexistingTool = (EditText) findViewById(R.id.existanceTool);
 
-        spinnerConcept = (Spinner) findViewById(R.id.spinnerConcept);
         ArrayList<String> phaseElements = new ArrayList<>();
         phaseElements.add("Seleccione un elemento");
         phaseElements.add("Devolución de herramienta");
@@ -98,7 +131,7 @@ public class Form_CIH extends AppCompatActivity {
             }
         });
 
-        spinner2 = (Spinner) findViewById(R.id.spinnerChoice);
+
         ArrayList<String> choiceElements = new ArrayList<>();
         choiceElements.add("Seleccione un elemento");
         choiceElements.add("Entradas");
@@ -121,7 +154,7 @@ public class Form_CIH extends AppCompatActivity {
             }
         });
 
-        addFormButtom = findViewById(R.id.create_forms1_buttom);
+
         addFormButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,6 +190,38 @@ public class Form_CIH extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+    }
+    private void showInfo(String idGarden, String idCollection){
+
+        CollectionReference ref = database.collection("Gardens").document(idGarden).collection("Forms");
+        ref.document(idCollection).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    tool.setText(task.getResult().get("tool").toString());
+                    toolQuantity.setText(task.getResult().get("toolQuantity").toString());
+                    toolStatus.setText(task.getResult().get("toolStatus").toString());
+                    preexistingTool.setText(task.getResult().get("existenceQuantity").toString());
+                    String choice1 = task.getResult().get("incomingOutgoing").toString();
+                    ArrayList<String> elementShow = new ArrayList<>();
+                    elementShow.add(choice1);
+                    ArrayAdapter adap2 = new ArrayAdapter(Form_CIH.this, android.R.layout.simple_spinner_item, elementShow);
+                    spinner2.setAdapter(adap2);
+
+                    String choice2 = task.getResult().get("concept").toString();
+                    ArrayList<String> elementShow2 = new ArrayList<>();
+                    elementShow2.add(choice2);
+                    ArrayAdapter adap = new ArrayAdapter(Form_CIH.this, android.R.layout.simple_spinner_item, elementShow2);
+                    spinnerConcept.setAdapter(adap);
+
+                }
+            }
+        });
+
+    }
+
+    private void editInfo(String idGarden, String idCollection){
 
     }
 }

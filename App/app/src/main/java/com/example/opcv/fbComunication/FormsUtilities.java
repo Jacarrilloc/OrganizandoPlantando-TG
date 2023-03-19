@@ -1,14 +1,22 @@
 package com.example.opcv.fbComunication;
 
 import android.content.Context;
+import android.content.Intent;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.example.opcv.adapter.FormsRegistersAdapter;
+import com.example.opcv.formsScreen.Form_CPS;
+import com.example.opcv.formsScreen.FormsRegistersActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.Calendar;
 import java.util.Map;
@@ -53,9 +61,24 @@ public class FormsUtilities {
                     }
                 });
     }
-    public void editForms(){//este metodo sera el que se utilizara cuando se le de a editar en FormsRegisterActivity
+    public void editForms(String idGarden, String idFormCollection, String formName){//este metodo sera el que se utilizara cuando se le de a editar en FormsRegisterActivity
 
     }
+
+    public void deleteForm(String idGarden, String idFormCollection){
+        database = FirebaseFirestore.getInstance();
+
+        database.collection("Gardens").document(idGarden).collection("Forms").document(idFormCollection).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(value.exists()){
+                    database.collection("Gardens").document(idGarden).collection("Forms").document(idFormCollection).delete();
+                }
+            }
+        });
+    }
+
+
 
 }
 
