@@ -32,6 +32,7 @@
             app:srcCompat="@drawable/dr_return_arrow" />
 
         <TextView
+            android:id="@+id/formsOrRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

@@ -12,6 +12,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
 import java.util.Map;
+import java.util.Objects;
 
 public class FormsUtilities {
 
@@ -52,5 +53,9 @@ public class FormsUtilities {
                     }
                 });
     }
+    public void editForms(){//este metodo sera el que se utilizara cuando se le de a editar en FormsRegisterActivity
+
+    }
+
 }
 

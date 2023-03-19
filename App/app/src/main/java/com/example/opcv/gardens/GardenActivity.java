@@ -42,7 +42,7 @@ import java.util.Objects;
 
 public class GardenActivity extends AppCompatActivity {
 
-    private Button returnArrowButton, gardens, myGardens, profile;
+    private Button formsRegister, gardens, myGardens, profile;
     private ImageButton editGarden, seedTime, toolsButton, worm, collaboratorGardens, messages;
 
     private ImageView moreFormsButtom;
@@ -74,6 +74,7 @@ public class GardenActivity extends AppCompatActivity {
         collaboratorGardens = (ImageButton) findViewById(R.id.editButton2);
         myGardens = (Button) findViewById(R.id.myGardens);
         messages = (ImageButton) findViewById(R.id.messageButton);
+        formsRegister = (Button) findViewById(R.id.formsRegister);
 
         database = FirebaseFirestore.getInstance();
         gardensRef = database.collection("Gardens");
@@ -116,6 +117,7 @@ public class GardenActivity extends AppCompatActivity {
                 Intent infoForms = new Intent(GardenActivity.this, GardenForms.class);
                 String idGardenFirebase = extras.getString("idGardenFirebaseDoc");
                 infoForms.putExtra("idGardenFirebaseDoc",idGardenFirebase);
+                infoForms.putExtra("Register/Forms","Forms");
                 startActivity(infoForms);
             }
         });
@@ -211,6 +213,17 @@ public class GardenActivity extends AppCompatActivity {
                     finish();
                 }
 
+            }
+        });
+
+        formsRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent infoForms = new Intent(GardenActivity.this, GardenForms.class);
+                String idGardenFirebase = extras.getString("idGardenFirebaseDoc");
+                infoForms.putExtra("idGardenFirebaseDoc",idGardenFirebase);
+                infoForms.putExtra("Register/Forms","Register");
+                startActivity(infoForms);
             }
         });
 
