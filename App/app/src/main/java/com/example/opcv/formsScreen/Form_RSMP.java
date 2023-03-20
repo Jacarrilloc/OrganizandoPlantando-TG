@@ -1,5 +1,6 @@
 package com.example.opcv.formsScreen;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,7 +20,12 @@ import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.fbComunication.FormsUtilities;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +39,8 @@ public class Form_RSMP extends AppCompatActivity {
     private Button addFormButtom, gardens, myGardens, profile;
 
     private Spinner spinnerUnits, spinnerConcept;
-    private String unitSelectedItem, conceptSelectedItem;
+    private String unitSelectedItem, conceptSelectedItem, watch, idGarden, idCollection;
+    private FirebaseFirestore database;
     private EditText description, quantity, total, state;
     private TextView formName;
     @Override
@@ -41,13 +48,20 @@ public class Form_RSMP extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_rsmp);
 
+        database = FirebaseFirestore.getInstance();
         formName = (TextView) findViewById(R.id.form_RSMP_name);
         description = (EditText) findViewById(R.id.description);
         quantity = (EditText) findViewById(R.id.amount_of_Mp);
         total = (EditText) findViewById(R.id.total_Mp);
         state = (EditText) findViewById(R.id.state);
-
         gardens = (Button) findViewById(R.id.gardens);
+        myGardens = (Button) findViewById(R.id.myGardens);
+        profile = (Button) findViewById(R.id.profile);
+        backButtom = (FloatingActionButton) findViewById(R.id.returnArrowButtonFormOnetoFormListElement);
+        spinnerConcept = (Spinner) findViewById(R.id.conceptChoice);
+        spinnerUnits = (Spinner) findViewById(R.id.unitsChoice);
+        addFormButtom = findViewById(R.id.create_forms4_buttom);
+
         gardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,7 +69,7 @@ public class Form_RSMP extends AppCompatActivity {
             }
         });
 
-        myGardens = (Button) findViewById(R.id.myGardens);
+
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,7 +77,7 @@ public class Form_RSMP extends AppCompatActivity {
             }
         });
 
-        profile = (Button) findViewById(R.id.profile);
+
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +85,61 @@ public class Form_RSMP extends AppCompatActivity {
             }
         });
 
-        backButtom = (FloatingActionButton) findViewById(R.id.returnArrowButtonFormOnetoFormListElement);
+        watch = getIntent().getStringExtra("watch");
+
+        if(watch.equals("true")){
+            idGarden = getIntent().getStringExtra("idGardenFirebase");
+            idCollection = getIntent().getStringExtra("idCollecion");
+            addFormButtom.setVisibility(View.INVISIBLE);
+            addFormButtom.setClickable(false);
+            spinnerUnits.setEnabled(false);
+            spinnerConcept.setEnabled(false);
+            description.setEnabled(false);
+            quantity.setEnabled(false);
+            total.setEnabled(false);
+            state.setEnabled(false);
+            showInfo(idGarden, idCollection, "true");
+        } else if (watch.equals("edit")) {
+            formsUtilities = new FormsUtilities();
+
+            idGarden = getIntent().getStringExtra("idGardenFirebase");
+            idCollection = getIntent().getStringExtra("idCollecion");
+            showInfo(idGarden, idCollection, "edit");
+            addFormButtom.setText("Aceptar cambios");
+
+        }
+        else if (watch.equals("create")){
+            addFormButtom.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    formsUtilities = new FormsUtilities();
+                    String descriptionR, quantityR, totalR, stateR, nameForm, idGardenFb;
+
+                    descriptionR = description.getText().toString();
+                    quantityR = quantity.getText().toString();
+                    totalR = total.getText().toString();
+                    stateR = state.getText().toString();
+                    nameForm = formName.getText().toString();
+
+                    idGardenFb = getIntent().getStringExtra("idGardenFirebase");
+
+                    Map<String,Object> infoForm = new HashMap<>();
+                    infoForm.put("idForm",4);
+                    infoForm.put("nameForm",nameForm);
+                    infoForm.put("description",descriptionR);
+                    infoForm.put("units",unitSelectedItem);
+                    infoForm.put("quantity",quantityR);
+                    infoForm.put("total",totalR);
+                    infoForm.put("concept",conceptSelectedItem);
+                    infoForm.put("state",stateR);
+                    formsUtilities.createForm(Form_RSMP.this,infoForm,idGardenFb);
+                    Toast.makeText(Form_RSMP.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(Form_RSMP.this, HomeActivity.class));
+                    finish();
+                }
+            });
+
+        }
 
         backButtom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +148,7 @@ public class Form_RSMP extends AppCompatActivity {
             }
         });
 
-        spinnerConcept = (Spinner) findViewById(R.id.conceptChoice);
+
         ArrayList<String> phaseElements = new ArrayList<>();
         phaseElements.add("Seleccione un elemento");
         phaseElements.add("Recepción");
@@ -104,7 +172,7 @@ public class Form_RSMP extends AppCompatActivity {
             }
         });
 
-        spinnerUnits = (Spinner) findViewById(R.id.unitsChoice);
+
         ArrayList<String> phaseElements2 = new ArrayList<>();
         phaseElements2.add("Seleccione un elemento");
         phaseElements2.add("Litros");
@@ -130,39 +198,100 @@ public class Form_RSMP extends AppCompatActivity {
                 Toast.makeText(Form_RSMP.this, "Debe seleccionar un elemento", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
-        addFormButtom = findViewById(R.id.create_forms4_buttom);
+    private void showInfo(String idGarden, String idCollection, String status){
+
+        CollectionReference ref = database.collection("Gardens").document(idGarden).collection("Forms");
+        ref.document(idCollection).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                description.setText(task.getResult().get("description").toString());
+                quantity.setText(task.getResult().get("quantity").toString());
+                total.setText(task.getResult().get("total").toString());
+                state.setText(task.getResult().get("state").toString());
+                if(task.isSuccessful()){
+                    if(status.equals("edit")){
+                        String choice1 = task.getResult().get("concept").toString();
+                        ArrayList<String> elementShow = new ArrayList<>();
+                        if(choice1.equals("Recepción")){
+                            elementShow.add("Recepción");
+                            elementShow.add("Salida");
+                        } else if (choice1.equals("Salida")) {
+                            elementShow.add("Salida");
+                            elementShow.add("Recepción");
+                        }
+                        ArrayAdapter adap2 = new ArrayAdapter(Form_RSMP.this, android.R.layout.simple_spinner_item, elementShow);
+                        spinnerConcept.setAdapter(adap2);
+
+                        String choice2 = task.getResult().get("units").toString();
+                        ArrayList<String> elementShow2 = new ArrayList<>();
+                        if(choice2.equals("Litros")){
+                            elementShow2.add("Litros");
+                            elementShow2.add("Kilogramos");
+                            elementShow2.add("Libras");
+                            elementShow2.add("Mililitros");
+                            elementShow2.add("Gramos");
+                        }
+                        else if(choice2.equals("Kilogramos")){
+                            elementShow2.add("Kilogramos");
+                            elementShow2.add("Litros");
+                            elementShow2.add("Libras");
+                            elementShow2.add("Mililitros");
+                            elementShow2.add("Gramos");
+                        }
+                        else if(choice2.equals("Libras")){
+                            elementShow2.add("Libras");
+                            elementShow2.add("Litros");
+                            elementShow2.add("Kilogramos");
+                            elementShow2.add("Mililitros");
+                            elementShow2.add("Gramos");
+                        }
+                        else if(choice2.equals("Mililitros")){
+                            elementShow2.add("Mililitros");
+                            elementShow2.add("Litros");
+                            elementShow2.add("Kilogramos");
+                            elementShow2.add("Libras");
+                            elementShow2.add("Gramos");
+                        }
+                        else if(choice2.equals("Gramos")){
+                            elementShow2.add("Gramos");
+                            elementShow2.add("Litros");
+                            elementShow2.add("Kilogramos");
+                            elementShow2.add("Libras");
+                            elementShow2.add("Mililitros");
+                        }
+                        ArrayAdapter adap = new ArrayAdapter(Form_RSMP.this, android.R.layout.simple_spinner_item, elementShow2);
+                        spinnerUnits.setAdapter(adap);
+                    }
+                    else if(status.equals("true")){
+                        String choice1 = task.getResult().get("concept").toString();
+                        ArrayList<String> elementShow = new ArrayList<>();
+                        elementShow.add(choice1);
+                        ArrayAdapter adap2 = new ArrayAdapter(Form_RSMP.this, android.R.layout.simple_spinner_item, elementShow);
+                        spinnerConcept.setAdapter(adap2);
+                        String choice2 = task.getResult().get("units").toString();
+                        ArrayList<String> elementShow2 = new ArrayList<>();
+                        elementShow2.add(choice2);
+                        ArrayAdapter adap = new ArrayAdapter(Form_RSMP.this, android.R.layout.simple_spinner_item, elementShow2);
+                        spinnerUnits.setAdapter(adap);
+                    }
+                }
+            }
+        });
         addFormButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                formsUtilities = new FormsUtilities();
-                String descriptionR, quantityR, totalR, stateR, nameForm, idGardenFb;
-
+                String descriptionR, quantityR, totalR, stateR, concept, units;
                 descriptionR = description.getText().toString();
                 quantityR = quantity.getText().toString();
                 totalR = total.getText().toString();
                 stateR = state.getText().toString();
-                nameForm = formName.getText().toString();
-
-                idGardenFb = getIntent().getStringExtra("idGardenFirebase");
-
-                Map<String,Object> infoForm = new HashMap<>();
-                infoForm.put("idForm",4);
-                infoForm.put("nameForm",nameForm);
-                infoForm.put("description",descriptionR);
-                infoForm.put("units",unitSelectedItem);
-                infoForm.put("quantity",quantityR);
-                infoForm.put("total",totalR);
-                infoForm.put("concept",conceptSelectedItem);
-                infoForm.put("state",stateR);
-                formsUtilities.createForm(Form_RSMP.this,infoForm,idGardenFb);
-                Toast.makeText(Form_RSMP.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Form_RSMP.this, HomeActivity.class));
-                finish();
+                concept = conceptSelectedItem;
+                units = unitSelectedItem;
+                formsUtilities.editInfoRSMP(Form_RSMP.this, idGarden, idCollection, descriptionR, quantityR, totalR, stateR, concept, units);
+                Toast.makeText(Form_RSMP.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
     }
 }

@@ -1,5 +1,6 @@
 package com.example.opcv.formsScreen;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,7 +20,12 @@ import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.fbComunication.FormsUtilities;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,14 +39,27 @@ public class Form_RRH extends AppCompatActivity {
     private EditText description, quantity, performedBy, status;
     private TextView formName;
     private Spinner spinner;
-    private String conceptSelectedItem;
+    private String conceptSelectedItem, watch, idGarden, idCollection;
+    private FirebaseFirestore database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_rrh);
 
+        database = FirebaseFirestore.getInstance();
         gardens = (Button) findViewById(R.id.gardens);
+        myGardens = (Button) findViewById(R.id.myGardens);
+        profile = (Button) findViewById(R.id.profile);
+        backButtom = findViewById(R.id.returnArrowButtonFormOnetoFormListElement);
+        formName = (TextView) findViewById(R.id.form_RRH_name);
+        quantity = (EditText) findViewById(R.id.toolsQuantity);
+        description = (EditText) findViewById(R.id.description);
+        performedBy = (EditText) findViewById(R.id.performedBy);
+        status = (EditText) findViewById(R.id.status);
+        spinner = (Spinner) findViewById(R.id.spinnerConcept);
+        addFormButtom = findViewById(R.id.create_forms1_buttom);
+
         gardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,7 +67,7 @@ public class Form_RRH extends AppCompatActivity {
             }
         });
 
-        myGardens = (Button) findViewById(R.id.myGardens);
+
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,7 +75,7 @@ public class Form_RRH extends AppCompatActivity {
             }
         });
 
-        profile = (Button) findViewById(R.id.profile);
+
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,16 +83,59 @@ public class Form_RRH extends AppCompatActivity {
             }
         });
 
-        backButtom = findViewById(R.id.returnArrowButtonFormOnetoFormListElement);
+        watch = getIntent().getStringExtra("watch");
 
-        formName = (TextView) findViewById(R.id.form_RRH_name);
+        if(watch.equals("true")){
+            idGarden = getIntent().getStringExtra("idGardenFirebase");
+            idCollection = getIntent().getStringExtra("idCollecion");
+            addFormButtom.setVisibility(View.INVISIBLE);
+            addFormButtom.setClickable(false);
+            spinner.setEnabled(false);
+            description.setEnabled(false);
+            quantity.setEnabled(false);
+            performedBy.setEnabled(false);
+            status.setEnabled(false);
+            showInfo(idGarden, idCollection, "true");
+        } else if (watch.equals("edit")) {
+            formsUtilities = new FormsUtilities();
 
-        quantity = (EditText) findViewById(R.id.toolsQuantity);
-        description = (EditText) findViewById(R.id.description);
-        performedBy = (EditText) findViewById(R.id.performedBy);
-        status = (EditText) findViewById(R.id.status);
+            idGarden = getIntent().getStringExtra("idGardenFirebase");
+            idCollection = getIntent().getStringExtra("idCollecion");
+            showInfo(idGarden, idCollection, "edit");
+            addFormButtom.setText("Aceptar cambios");
 
-        spinner = (Spinner) findViewById(R.id.spinnerConcept);
+        }
+        else if (watch.equals("create")){
+            addFormButtom.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    formsUtilities = new FormsUtilities();
+                    String processDescription, toolQuantity, processPerformedBy, processStatus, idGardenFb, nameForm;
+                    processDescription = description.getText().toString();
+                    toolQuantity = quantity.getText().toString();
+                    processPerformedBy = performedBy.getText().toString();
+                    processStatus = status.getText().toString();
+                    nameForm = formName.getText().toString();
+
+                    idGardenFb = getIntent().getStringExtra("idGardenFirebase");
+
+                    Map<String,Object> infoForm = new HashMap<>();
+                    infoForm.put("idForm",9);
+                    infoForm.put("nameForm",nameForm);
+                    infoForm.put("description",processDescription);
+                    infoForm.put("toolQuantity",toolQuantity);
+                    infoForm.put("concept",conceptSelectedItem);
+                    infoForm.put("performedBy",processPerformedBy);
+                    infoForm.put("toolStatus",processStatus);
+                    formsUtilities.createForm(Form_RRH.this,infoForm,idGardenFb);
+                    Toast.makeText(Form_RRH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(Form_RRH.this, HomeActivity.class));
+                    finish();
+                }
+            });
+
+        }
+
         ArrayList<String> phaseElements = new ArrayList<>();
         phaseElements.add("Seleccione un elemento");
         phaseElements.add("Recepción");
@@ -97,34 +159,7 @@ public class Form_RRH extends AppCompatActivity {
                 Toast.makeText(Form_RRH.this, "Debe seleccionar un elemento", Toast.LENGTH_SHORT).show();
             }
         });
-        addFormButtom = findViewById(R.id.create_forms1_buttom);
-        addFormButtom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                formsUtilities = new FormsUtilities();
-                String processDescription, toolQuantity, processPerformedBy, processStatus, idGardenFb, nameForm;
-                processDescription = description.getText().toString();
-                toolQuantity = quantity.getText().toString();
-                processPerformedBy = performedBy.getText().toString();
-                processStatus = status.getText().toString();
-                nameForm = formName.getText().toString();
 
-                idGardenFb = getIntent().getStringExtra("idGardenFirebase");
-
-                Map<String,Object> infoForm = new HashMap<>();
-                infoForm.put("idForm",9);
-                infoForm.put("nameForm",nameForm);
-                infoForm.put("description",processDescription);
-                infoForm.put("toolQuantity",toolQuantity);
-                infoForm.put("concept",conceptSelectedItem);
-                infoForm.put("performedBy",processPerformedBy);
-                infoForm.put("toolStatus",processStatus);
-                formsUtilities.createForm(Form_RRH.this,infoForm,idGardenFb);
-                Toast.makeText(Form_RRH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Form_RRH.this, HomeActivity.class));
-                finish();
-            }
-        });
 
         backButtom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,4 +168,54 @@ public class Form_RRH extends AppCompatActivity {
             }
         });
     }
+    private void showInfo(String idGarden, String idCollection, String status1){
+
+        CollectionReference ref = database.collection("Gardens").document(idGarden).collection("Forms");
+        ref.document(idCollection).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                description.setText(task.getResult().get("description").toString());
+                quantity.setText(task.getResult().get("toolQuantity").toString());
+                performedBy.setText(task.getResult().get("performedBy").toString());
+                status.setText(task.getResult().get("toolStatus").toString());
+                if(task.isSuccessful()){
+                    if(status1.equals("edit")){
+                        String choice1 = task.getResult().get("concept").toString();
+                        ArrayList<String> elementShow = new ArrayList<>();
+                        if(choice1.equals("Recepción")){
+                            elementShow.add("Recepción");
+                            elementShow.add("Salida");
+                        } else if (choice1.equals("Salida")) {
+                            elementShow.add("Salida");
+                            elementShow.add("Recepción");
+                        }
+                        ArrayAdapter adap2 = new ArrayAdapter(Form_RRH.this, android.R.layout.simple_spinner_item, elementShow);
+                        spinner.setAdapter(adap2);
+                    }
+                    else if(status1.equals("true")){
+                        String choice1 = task.getResult().get("concept").toString();
+                        System.out.println("el concepto"+choice1);
+                        ArrayList<String> elementShow = new ArrayList<>();
+                        elementShow.add(choice1);
+                        ArrayAdapter adap2 = new ArrayAdapter(Form_RRH.this, android.R.layout.simple_spinner_item, elementShow);
+                        spinner.setAdapter(adap2);
+                    }
+                }
+            }
+        });
+        addFormButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String processDescription, toolQuantity, processPerformedBy, processStatus, concept;
+                processDescription = description.getText().toString();
+                toolQuantity = quantity.getText().toString();
+                processPerformedBy = performedBy.getText().toString();
+                processStatus = status.getText().toString();
+                concept = conceptSelectedItem;
+                formsUtilities.editInfoRRH(Form_RRH.this, idGarden, idCollection, processDescription, toolQuantity, processPerformedBy, processStatus, concept);
+                Toast.makeText(Form_RRH.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }

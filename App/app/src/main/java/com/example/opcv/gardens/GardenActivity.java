@@ -167,6 +167,7 @@ public class GardenActivity extends AppCompatActivity {
                 Intent newForm = new Intent(GardenActivity.this, Form_CPS.class);
                 newForm.putExtra("Name",formsName);
                 newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                newForm.putExtra("watch","create");
                 startActivity(newForm);
                 finish();
             }
@@ -179,18 +180,21 @@ public class GardenActivity extends AppCompatActivity {
                 Intent newForm = new Intent(GardenActivity.this, Form_CIH.class);
                 newForm.putExtra("Name",formsName2);
                 newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                newForm.putExtra("watch","create");
                 startActivity(newForm);
                 finish();
             }
         });
 
 
+        String formname3 = "Registro y Actualización de Compostaje";
         worm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent newForm = new Intent(GardenActivity.this, Form_RAC.class);
-                newForm.putExtra("Name",formsName2);
+                newForm.putExtra("Name",formname3);
                 newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                newForm.putExtra("watch","create");
                 startActivity(newForm);
                 finish();
             }
