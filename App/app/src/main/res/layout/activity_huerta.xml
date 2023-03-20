@@ -92,12 +92,12 @@
 
             <ImageButton
                 android:id="@+id/messageButton"
-                android:layout_width="35sp"
-                android:layout_height="35sp"
+                android:layout_width="45sp"
+                android:layout_height="45sp"
                 android:layout_gravity="center"
                 android:layout_margin="4sp"
                 android:layout_weight="0.25"
-                android:background="@drawable/dr_message_icon"
+                android:background="@drawable/im_whatsapp_logo"
                 android:contentDescription="Boton para mensaje"
                 android:scaleType="centerInside" />
 
