@@ -17,6 +17,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Transaction;
 
 import java.util.Calendar;
 import java.util.Map;
@@ -61,10 +62,145 @@ public class FormsUtilities {
                     }
                 });
     }
-    public void editForms(String idGarden, String idFormCollection, String formName){//este metodo sera el que se utilizara cuando se le de a editar en FormsRegisterActivity
+//Aca se haran los metodos para editar cada formulario
+    public void editInfoCIH(Context context, String idGarden, String idCollection, String tools, String quantityTools, String statusTools, String toolExistance, String conceptSelectedItem, String selectedItem){
+        database = FirebaseFirestore.getInstance();
+        database.collection("Gardens").document(idGarden).collection("Forms").document(idCollection).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            final DocumentReference docRef = database.collection("Gardens").document(idGarden).collection("Forms").document(idCollection);
+                            database.runTransaction(new Transaction.Function<Void>() {
+                                @Nullable
+                                @Override
+                                public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                                    transaction.update(docRef, "tool", tools, "toolQuantity", quantityTools, "toolStatus", statusTools, "existenceQuantity", toolExistance,
+                                            "concept", conceptSelectedItem , "incomingOutgoing", selectedItem);
+                                    return null;
+                                }
+                            });
+                        }
+                    }
+                });
+
 
     }
 
+    public void editInfoCPS(Context context, String idGarden, String idCollection, String personResp, String duration, String plantsSeeds, String comments, String phase){
+        database = FirebaseFirestore.getInstance();
+        database.collection("Gardens").document(idGarden).collection("Forms").document(idCollection).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            final DocumentReference docRef = database.collection("Gardens").document(idGarden).collection("Forms").document(idCollection);
+                            database.runTransaction(new Transaction.Function<Void>() {
+                                @Nullable
+                                @Override
+                                public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                                    transaction.update(docRef, "personResponsable", personResp, "phaseDuration", duration, "plants or seeds", plantsSeeds, "commentsObservations", comments,
+                                            "processPhase", phase);
+                                    return null;
+                                }
+                            });
+                        }
+                    }
+                });
+
+
+    }
+    public void editInfoIMP(Context context, String idGarden, String idCollection, String rawMaterial, String concept, String movement, String quantityMaterial, String units, String existenceQuantity){
+        database = FirebaseFirestore.getInstance();
+
+        database.collection("Gardens").document(idGarden).collection("Forms").document(idCollection).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            final DocumentReference docRef = database.collection("Gardens").document(idGarden).collection("Forms").document(idCollection);
+                            database.runTransaction(new Transaction.Function<Void>() {
+                                @Nullable
+                                @Override
+                                public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                                    transaction.update(docRef, "rawMaterial", rawMaterial, "concept", concept, "movement", movement, "quantityRawMaterial", quantityMaterial,
+                                            "units", units, "existenceQuantity", existenceQuantity);
+                                    return null;
+                                }
+                            });
+                        }
+                    }
+                });
+
+
+    }
+    public void editInfoRAC(Context context, String idGarden, String idCollection, String containerSize, String wormsWeight, String humidity, String wasteAmount, String humusCollected, String amountLeached){
+        database = FirebaseFirestore.getInstance();
+
+        database.collection("Gardens").document(idGarden).collection("Forms").document(idCollection).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            final DocumentReference docRef = database.collection("Gardens").document(idGarden).collection("Forms").document(idCollection);
+                            database.runTransaction(new Transaction.Function<Void>() {
+                                @Nullable
+                                @Override
+                                public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                                    transaction.update(docRef, "containerSize", containerSize, "wormsWeight", wormsWeight, "humidity", humidity, "amount of waste", wasteAmount,
+                                            "collected humus", humusCollected, "amount leached", amountLeached);
+                                    return null;
+                                }
+                            });
+                        }
+                    }
+                });
+    }
+    public void editInfoRCC(Context context, String idGarden, String idCollection, String areaRecipient, String description, String quantityResidue, String fertilizer, String leached){
+        database = FirebaseFirestore.getInstance();
+
+        database.collection("Gardens").document(idGarden).collection("Forms").document(idCollection).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            final DocumentReference docRef = database.collection("Gardens").document(idGarden).collection("Forms").document(idCollection);
+                            database.runTransaction(new Transaction.Function<Void>() {
+                                @Nullable
+                                @Override
+                                public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                                    transaction.update(docRef, "areaRecipient", areaRecipient, "areaDescription", description, "residueQuantity", quantityResidue, "fertilizerQuantity", fertilizer,
+                                            "leachedQuantity", leached);
+                                    return null;
+                                }
+                            });
+                        }
+                    }
+                });
+    }
+
+    public void editInfoRHC(Context context, String idGarden, String idCollection, String responsable, String code, String itemName, String units, String measurement, String totalCost, String comments, String incomeExpense, String type){
+        database = FirebaseFirestore.getInstance();
+
+        database.collection("Gardens").document(idGarden).collection("Forms").document(idCollection).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            final DocumentReference docRef = database.collection("Gardens").document(idGarden).collection("Forms").document(idCollection);
+                            database.runTransaction(new Transaction.Function<Void>() {
+                                @Nullable
+                                @Override
+                                public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                                    transaction.update(docRef, "responsable", responsable, "code", code, "itemName", itemName, "units", units,
+                                            "measurement", measurement, "totalCost", totalCost, "comments", comments, "incomeExpense", incomeExpense, "type", type);
+                                    return null;
+                                }
+                            });
+                        }
+                    }
+                });
+    }
     public void deleteForm(String idGarden, String idFormCollection){
         database = FirebaseFirestore.getInstance();
 
@@ -77,8 +213,6 @@ public class FormsUtilities {
             }
         });
     }
-
-
 
 }
 

@@ -83,7 +83,7 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                     newForm.putExtra("Name",item.getFormName());
                     context.startActivity(newForm);
                 }
-                else if(Objects.equals(item.getFormName(), "Control de Inventario de Materia Prima")){
+                else if(Objects.equals(item.getFormName(), "Control de inventario de Materia Prima")){
                     form = 3;
                     Intent newForm = new Intent(context, Form_IMP.class);
                     newForm.putExtra("watch","true");
@@ -184,7 +184,7 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                     newForm.putExtra("Name",item.getFormName());
                     context.startActivity(newForm);
                 }
-                else if(Objects.equals(item.getFormName(), "Control de Inventario de Materia Prima")){
+                else if(Objects.equals(item.getFormName(), "Control de inventario de Materia Prima")){
                     form = 3;
                     Intent newForm = new Intent(context, Form_IMP.class);
                     newForm.putExtra("watch","edit");

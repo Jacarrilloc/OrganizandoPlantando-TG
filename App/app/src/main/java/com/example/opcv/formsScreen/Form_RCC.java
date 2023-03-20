@@ -1,10 +1,12 @@
 package com.example.opcv.formsScreen;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,8 +17,14 @@ import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.fbComunication.FormsUtilities;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,13 +35,27 @@ public class Form_RCC extends AppCompatActivity {
     private Button addFormButtom, gardens, myGardens, profile;
     private EditText recipientArea, description, residueQuant, fertilizer, leached;
     private TextView formName;
+    private String watch, idGarden, idCollection;
+    private FirebaseFirestore database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_rcc);
 
+        database = FirebaseFirestore.getInstance();
         gardens = (Button) findViewById(R.id.gardens);
+        myGardens = (Button) findViewById(R.id.myGardens);
+        profile = (Button) findViewById(R.id.profile);
+        backButtom = findViewById(R.id.returnArrowButtonFormOnetoFormListElement);
+        formName = (TextView) findViewById(R.id.form_RCC_name);
+        recipientArea = (EditText) findViewById(R.id.areaRecipient);
+        description = (EditText) findViewById(R.id.areaDescription);
+        residueQuant = (EditText) findViewById(R.id.residueQuantity);
+        fertilizer = (EditText) findViewById(R.id.fertilizerQuantity);
+        leached = (EditText) findViewById(R.id.amount_leached_info);
+        addFormButtom = (Button) findViewById(R.id.addForm);
+
         gardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,7 +63,6 @@ public class Form_RCC extends AppCompatActivity {
             }
         });
 
-        myGardens = (Button) findViewById(R.id.myGardens);
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,7 +70,6 @@ public class Form_RCC extends AppCompatActivity {
             }
         });
 
-        profile = (Button) findViewById(R.id.profile);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,50 +77,89 @@ public class Form_RCC extends AppCompatActivity {
             }
         });
 
-        backButtom = findViewById(R.id.returnArrowButtonFormOnetoFormListElement);
+        watch = getIntent().getStringExtra("watch");
 
-        formName = (TextView) findViewById(R.id.form_RCC_name);
+        if(watch.equals("true")){
+            idGarden = getIntent().getStringExtra("idGardenFirebase");
+            idCollection = getIntent().getStringExtra("idCollecion");
+            addFormButtom.setVisibility(View.INVISIBLE);
+            addFormButtom.setClickable(false);
+            recipientArea.setEnabled(false);
+            description.setEnabled(false);
+            residueQuant.setEnabled(false);
+            fertilizer.setEnabled(false);
+            leached.setEnabled(false);
+            showInfo(idGarden, idCollection, "true");
+        } else if (watch.equals("edit")) {
+            formsUtilities = new FormsUtilities();
 
-        recipientArea = (EditText) findViewById(R.id.areaRecipient);
-        description = (EditText) findViewById(R.id.areaDescription);
-        residueQuant = (EditText) findViewById(R.id.residueQuantity);
-        fertilizer = (EditText) findViewById(R.id.fertilizerQuantity);
-        leached = (EditText) findViewById(R.id.amount_leached_info);
+            idGarden = getIntent().getStringExtra("idGardenFirebase");
+            idCollection = getIntent().getStringExtra("idCollecion");
+            showInfo(idGarden, idCollection, "edit");
+            addFormButtom.setText("Aceptar cambios");
 
-        addFormButtom = (Button) findViewById(R.id.addForm);
-        addFormButtom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                formsUtilities = new FormsUtilities();
-                String areaRecipient, descriptionProc, quantityResidue, fertilizerQuantity, quantityLeached, nameForm, idGardenFb;
-                areaRecipient = recipientArea.getText().toString();
-                descriptionProc = description.getText().toString();
-                quantityResidue = residueQuant.getText().toString();
-                fertilizerQuantity = fertilizer.getText().toString();
-                quantityLeached = leached.getText().toString();
-                nameForm = formName.getText().toString();
-                idGardenFb = getIntent().getStringExtra("idGardenFirebase");
+        }
+        else if (watch.equals("create")){
+            addFormButtom.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    formsUtilities = new FormsUtilities();
+                    String areaRecipient, descriptionProc, quantityResidue, fertilizerQuantity, quantityLeached, nameForm, idGardenFb;
+                    areaRecipient = recipientArea.getText().toString();
+                    descriptionProc = description.getText().toString();
+                    quantityResidue = residueQuant.getText().toString();
+                    fertilizerQuantity = fertilizer.getText().toString();
+                    quantityLeached = leached.getText().toString();
+                    nameForm = formName.getText().toString();
+                    idGardenFb = getIntent().getStringExtra("idGardenFirebase");
 
-                Map<String,Object> infoForm = new HashMap<>();
-                infoForm.put("idForm", 8);
-                infoForm.put("nameForm",nameForm);
-                infoForm.put("areaRecipient",areaRecipient);
-                infoForm.put("areaDescription",descriptionProc);
-                infoForm.put("residueQuantity",quantityResidue);
-                infoForm.put("fertilizerQuantity",fertilizerQuantity);
-                infoForm.put("leachedQuantity",quantityLeached);
-                formsUtilities.createForm(Form_RCC.this,infoForm,idGardenFb);
-                Toast.makeText(Form_RCC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Form_RCC.this, HomeActivity.class));
-                finish();
-
-            }
-        });
+                    Map<String,Object> infoForm = new HashMap<>();
+                    infoForm.put("idForm", 8);
+                    infoForm.put("nameForm",nameForm);
+                    infoForm.put("areaRecipient",areaRecipient);
+                    infoForm.put("areaDescription",descriptionProc);
+                    infoForm.put("residueQuantity",quantityResidue);
+                    infoForm.put("fertilizerQuantity",fertilizerQuantity);
+                    infoForm.put("leachedQuantity",quantityLeached);
+                    formsUtilities.createForm(Form_RCC.this,infoForm,idGardenFb);
+                    Toast.makeText(Form_RCC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(Form_RCC.this, HomeActivity.class));
+                    finish();
+                }
+            });
+        }
 
         backButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+            }
+        });
+    }
+
+    private void showInfo(String idGarden, String idCollection, String status){
+        CollectionReference ref = database.collection("Gardens").document(idGarden).collection("Forms");
+        ref.document(idCollection).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                recipientArea.setText(task.getResult().get("areaRecipient").toString());
+                description.setText(task.getResult().get("areaDescription").toString());
+                residueQuant.setText(task.getResult().get("residueQuantity").toString());
+                fertilizer.setText(task.getResult().get("fertilizerQuantity").toString());
+                leached.setText(task.getResult().get("leachedQuantity").toString());
+            }
+        });
+        addFormButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String areaRecipient, descriptionProc, quantityResidue, fertilizerQuantity, quantityLeached;
+                areaRecipient = recipientArea.getText().toString();
+                descriptionProc = description.getText().toString();
+                quantityResidue = residueQuant.getText().toString();
+                fertilizerQuantity = fertilizer.getText().toString();
+                quantityLeached = fertilizer.getText().toString();
+                formsUtilities.editInfoRCC(Form_RCC.this, idGarden, idCollection, areaRecipient, descriptionProc, quantityResidue, fertilizerQuantity, quantityLeached);
+                Toast.makeText(Form_RCC.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
             }
         });
     }

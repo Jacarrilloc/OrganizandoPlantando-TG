@@ -80,6 +80,7 @@ public class FormsRegistersActivity extends AppCompatActivity {
         registerNameText.setText(register_name);
     }
     private void fillFormsRegisters(){
+        System.out.println("id garden "+idGarden+" name "+register_name);
 
         CollectionReference Ref = database.collection("Gardens").document(idGarden).collection("Forms");
         Query query = Ref.whereEqualTo("nameForm", register_name);

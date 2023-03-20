@@ -78,6 +78,7 @@ public class GardenForms extends AppCompatActivity {
                             Intent newForm = new Intent(GardenForms.this, Form_RAC.class);
                             newForm.putExtra("Name",formsName);
                             newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                            newForm.putExtra("watch","create");
                             startActivity(newForm);
                             break;
                         }
@@ -87,6 +88,7 @@ public class GardenForms extends AppCompatActivity {
                             Intent newForm = new Intent(GardenForms.this, Form_SVH.class);
                             newForm.putExtra("Name",formsName);
                             newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                            newForm.putExtra("watch","create");
                             startActivity(newForm);
                             break;
                         }
@@ -96,6 +98,7 @@ public class GardenForms extends AppCompatActivity {
                             Intent newForm = new Intent(GardenForms.this, Form_IMP.class);
                             newForm.putExtra("Name",formsName);
                             newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                            //newForm.putExtra("watch","create");
                             startActivity(newForm);
                             break;
                         }
@@ -105,6 +108,7 @@ public class GardenForms extends AppCompatActivity {
                             Intent newForm = new Intent(GardenForms.this, Form_SCMPH.class);
                             newForm.putExtra("Name",formsName);
                             newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                            newForm.putExtra("watch","create");
                             startActivity(newForm);
                             break;
                         }
@@ -114,6 +118,7 @@ public class GardenForms extends AppCompatActivity {
                             Intent newForm = new Intent(GardenForms.this, Form_RSMP.class);
                             newForm.putExtra("Name",formsName);
                             newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                            newForm.putExtra("watch","create");
                             startActivity(newForm);
                             break;
                         }
@@ -123,6 +128,7 @@ public class GardenForms extends AppCompatActivity {
                             Intent newForm = new Intent(GardenForms.this, Form_CPS.class);
                             newForm.putExtra("Name",formsName);
                             newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                            newForm.putExtra("watch","create");
                             startActivity(newForm);
                             break;
                         }
@@ -132,6 +138,7 @@ public class GardenForms extends AppCompatActivity {
                             Intent newForm = new Intent(GardenForms.this, Form_RCC.class);
                             newForm.putExtra("Name",formsName);
                             newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                            newForm.putExtra("watch","create");
                             startActivity(newForm);
                             break;
                         }
@@ -141,6 +148,7 @@ public class GardenForms extends AppCompatActivity {
                             Intent newForm = new Intent(GardenForms.this, Form_RRH.class);
                             newForm.putExtra("Name",formsName);
                             newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                            newForm.putExtra("watch","create");
                             startActivity(newForm);
                             break;
                         }
@@ -150,6 +158,7 @@ public class GardenForms extends AppCompatActivity {
                             Intent newForm = new Intent(GardenForms.this, Form_CIH.class);
                             newForm.putExtra("Name",formsName);
                             newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                            newForm.putExtra("watch","create");
                             startActivity(newForm);
                             break;
                         }
@@ -159,6 +168,7 @@ public class GardenForms extends AppCompatActivity {
                             Intent newForm = new Intent(GardenForms.this, Form_RHC.class);
                             newForm.putExtra("Name",formsName);
                             newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                            newForm.putExtra("watch","create");
                             startActivity(newForm);
                             break;
                         }
@@ -181,6 +191,7 @@ public class GardenForms extends AppCompatActivity {
                             Intent newForm = new Intent(GardenForms.this, FormsRegistersActivity.class);
                             newForm.putExtra("Name",formsName);
                             newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                            //newForm.putExtra("watch","true");
                             startActivity(newForm);
                             break;
                         }

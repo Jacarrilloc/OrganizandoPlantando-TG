@@ -84,7 +84,7 @@
     <string-array name="list_forms">
         <item>Registro y Actualización de Compostaje</item>
         <item>Solicitud de visita a la huerta</item>
-        <item>Control de Inventario de Materia Prima</item>
+        <item>Control de inventario de Materia Prima</item>
         <item>Solicitud de compra de materia prima y herramientas</item>
         <item>Recepción y Requisición de Materia Prima</item>
         <item>Revisión de Asistencia a la Huerta</item>
