@@ -87,6 +87,14 @@ public class GenerateReportsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 searchInfo(idGarden, id);
+                Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
 
@@ -107,7 +115,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
                     else{
                         type = "Privada";
                     }
-                    if(!task.getResult().getString("Garden_Chat_Link").equals(null)){
+                    if(task.getResult().getString("Garden_Chat_Link") != null){
                         group = "Si";
                     }
                     else{
@@ -206,11 +214,19 @@ public class GenerateReportsActivity extends AppCompatActivity {
         page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, y+125, paint);
         page.getCanvas().drawText("Los formularios que tiene la huerta->", x, y+165, paint);
         int now = y+180, i=1;
-        for(String element : list){
-            page.getCanvas().drawText(i+": "+element, x, now, paint);
-            i++;
-            now = now+15;
+        if(!list.isEmpty()){
+            for(String element : list){
+                page.getCanvas().drawText(i+": "+element, x, now, paint);
+                i++;
+                now = now+15;
+            }
         }
+        else{
+            page.getCanvas().drawText("No hay formularios en esta huerta", x, now, paint);
+        }
+
+        page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, now+25, paint);
+        page.getCanvas().drawText("Fin del reporte", x, now+50, paint);
 
 
         document.finishPage(page);
@@ -225,8 +241,4 @@ public class GenerateReportsActivity extends AppCompatActivity {
         }
         document.close();
     }
-
-
-
-
 }
