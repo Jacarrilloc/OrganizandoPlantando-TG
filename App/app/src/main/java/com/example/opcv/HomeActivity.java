@@ -109,7 +109,7 @@ public class HomeActivity extends AppCompatActivity {
         otherGardensButton = (Button) findViewById(R.id.otherGardensButton);
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
-        gardensMap = (Button) findViewById(R.id.globalMap);
+        gardensMap = (Button) findViewById(R.id.gardens);
 
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(monitorService, filter);

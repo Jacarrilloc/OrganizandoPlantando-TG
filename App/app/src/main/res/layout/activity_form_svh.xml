@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="2sp"
-                android:text="Nombre" />
+                android:text="@string/nombre_completo" />
 
             <EditText
                 android:id="@+id/name"
@@ -76,12 +76,50 @@
                 android:background="@drawable/dr_white_input_text"/>
 
             <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                android:textColor="@color/black"
+
+                android:text="@string/n_mero_de_tel_fono" />
+
+            <EditText
+                android:id="@+id/phoneNumber"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_margin="2sp"
+                android:textColor="@color/black"
+                android:background="@drawable/dr_white_input_text"
+                tools:ignore="TextFields" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                android:textColor="@color/black"
+
+                android:text="Correo electrónico" />
+
+            <EditText
+                android:id="@+id/email"
+                android:inputType="textEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_margin="2sp"
+                android:textColor="@color/black"
+                android:background="@drawable/dr_white_input_text" />
+
+            <TextView
                 android:id="@+id/textView8"
                 android:layout_marginTop="5sp"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tipo identificación" />
+                android:text="@string/tipo_identificaci_n" />
 
             <Spinner
                 android:id="@+id/typeID"
@@ -114,23 +152,7 @@
                 android:background="@drawable/dr_white_input_text"
                 android:textColor="@color/black"/>
 
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:textColor="@color/black"
-                android:text="Número de contacto" />
 
-            <EditText
-                android:id="@+id/phoneNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="number"
-                android:layout_margin="2sp"
-                android:textColor="@color/black"
-                android:background="@drawable/dr_white_input_text" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -184,73 +206,77 @@
     </ScrollView>
 
     <LinearLayout
-        android:id="@+id/navBarGardenActivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout8"
+        android:layout_width="411dp"
+        android:layout_height="122dp"
         android:background="@drawable/dr_shadow_top"
         android:orientation="horizontal"
-        android:backgroundTint="@color/white"
-        android:layout_gravity="end">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/ludification"
-            android:layout_width="97dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10sp"
-            android:layout_weight="1"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
             android:stateListAnimator="@null"
-            android:text="Diccionario"
+            android:text="@string/Diccionary"
             android:textAllCaps="false"
-            android:textColor="#A0A3B1" />
+            android:textColor="@color/grayLetters" />
 
         <Button
             android:id="@+id/gardens"
             android:layout_width="77dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10sp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
             android:padding="10dp"
             android:stateListAnimator="@null"
-            android:text="Huertas"
+            android:text="@string/Map"
             android:textAllCaps="false"
-            android:textColor="#A0A3B1"
-            android:layout_weight="1"/>
+            android:textColor="@color/grayLetters" />
 
         <Button
             android:id="@+id/myGardens"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10sp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
             android:padding="10dp"
             android:stateListAnimator="@null"
-            android:text="Mis huertas"
+            android:text="@string/Gardens"
             android:textAllCaps="false"
-            android:textColor="#A0A3B1"
-            android:layout_weight="1"/>
+            android:textColor="@color/grayLetters" />
 
         <Button
             android:id="@+id/profile"
             android:layout_width="78dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10sp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
             android:padding="5dp"
             android:stateListAnimator="@null"
-            android:text="Perfil"
+            android:text="@string/User"
             android:textAllCaps="false"
-            android:textColor="#A0A3B1"
-            android:layout_weight="1"/>
+            android:textColor="@color/grayLetters" />
+
+
     </LinearLayout>
 </LinearLayout>

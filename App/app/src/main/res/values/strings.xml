@@ -104,4 +104,7 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="solicitudes">Solicitudes</string>
+    <string name="nombre_completo">Nombre completo</string>
+    <string name="n_mero_de_tel_fono">Número de teléfono</string>
+    <string name="tipo_identificaci_n">Tipo identificación</string>
 </resources>
