@@ -33,24 +33,26 @@
 
     <TextView
         android:id="@+id/deleteAccountText"
-        android:layout_width="425dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="316dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
         android:fontFamily="sans-serif"
         android:text="Ingrese el link de WhatsApp de la huerta"
         android:textColor="#050505"
         android:textSize="27dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.602"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoCeres2" />
 
     <EditText
         android:id="@+id/groupLInk"
-        android:layout_width="380dp"
-        android:layout_height="39dp"
+        android:layout_width="367dp"
+        android:layout_height="53dp"
         android:layout_gravity="center"
+        android:layout_margin="10dp"
         android:background="@drawable/dr_gray_input_text"
         android:textColor="@color/black"
         android:textSize="14sp"
@@ -84,10 +86,10 @@
         app:cornerRadius="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.972"
-        app:layout_constraintStart_toEndOf="@+id/returnButton2"
         app:layout_constraintTop_toBottomOf="@+id/logoDecoration" />
 
     <LinearLayout
+        android:id="@+id/linearLayout8"
         android:layout_width="411dp"
         android:layout_height="122dp"
         android:background="@drawable/dr_shadow_top"
@@ -95,24 +97,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/returnButton2"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/ludification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="25dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
             android:stateListAnimator="@null"
-            android:text="Diccionario"
+            android:text="@string/Diccionary"
             android:textAllCaps="false"
-            android:textColor="#A0A3B1" />
+            android:textColor="@color/grayLetters" />
 
         <Button
             android:id="@+id/gardens"
@@ -125,9 +125,9 @@
             android:drawableTop="@drawable/im_colombia"
             android:padding="10dp"
             android:stateListAnimator="@null"
-            android:text="Huertas"
+            android:text="@string/Map"
             android:textAllCaps="false"
-            android:textColor="#A0A3B1" />
+            android:textColor="@color/grayLetters" />
 
         <Button
             android:id="@+id/myGardens"
@@ -140,9 +140,9 @@
             android:drawableTop="@drawable/im_plant_icon"
             android:padding="10dp"
             android:stateListAnimator="@null"
-            android:text="Mis huertas"
+            android:text="@string/Gardens"
             android:textAllCaps="false"
-            android:textColor="#A0A3B1" />
+            android:textColor="@color/grayLetters" />
 
         <Button
             android:id="@+id/profile"
@@ -156,9 +156,9 @@
             android:drawableTop="@drawable/im_user_icon"
             android:padding="5dp"
             android:stateListAnimator="@null"
-            android:text="Perfil"
+            android:text="@string/User"
             android:textAllCaps="false"
-            android:textColor="#A0A3B1" />
+            android:textColor="@color/grayLetters" />
 
 
     </LinearLayout>

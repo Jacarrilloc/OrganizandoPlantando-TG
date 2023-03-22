@@ -120,11 +120,11 @@ public class CreateGardenActivity extends AppCompatActivity {
             Toast.makeText(this, "Es necesario Ingresar el nombre e información de la Huerta", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if ((gardenPublic == false) && (gardenPrivate == false)){
+        if ((!gardenPublic) && (!gardenPrivate)){
             Toast.makeText(this, "Debes indicar si la huerta es publica o privada", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if ((gardenPublic == true) && (gardenPrivate == true)){
+        if ((gardenPublic) && (gardenPrivate)){
             Toast.makeText(this, "Debes Seleccionar una sola Opción", Toast.LENGTH_SHORT).show();
             return false;
         }

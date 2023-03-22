@@ -56,7 +56,7 @@
         android:layout_width="382dp"
         android:layout_height="395dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gardenImage"
@@ -82,9 +82,9 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:background="@drawable/dr_gray_input_text"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:background="@drawable/dr_gray_input_text" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -108,9 +108,9 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="45dp"
                 android:layout_marginRight="20dp"
+                android:background="@drawable/dr_gray_input_text"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:background="@drawable/dr_gray_input_text" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -229,12 +229,12 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/dr_cancel_button"
             android:text="@string/deleteGarden"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout6"
+        android:id="@+id/linearLayout8"
         android:layout_width="411dp"
         android:layout_height="122dp"
         android:background="@drawable/dr_shadow_top"
@@ -242,8 +242,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/ludification"
