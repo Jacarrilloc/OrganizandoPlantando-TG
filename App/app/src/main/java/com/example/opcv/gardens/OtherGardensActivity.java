@@ -90,7 +90,6 @@ public class OtherGardensActivity extends AppCompatActivity {
             SearchInfoGardenSreen(id,garden);
         }
 
-        join = (Button) findViewById(R.id.requesteJoin);
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
