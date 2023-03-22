@@ -62,7 +62,7 @@ public class MapsActivity extends AppCompatActivity {
             }
         });
 
-        gardensMap = (Button) findViewById(R.id.globalMap);
+        gardensMap = (Button) findViewById(R.id.gardens);
         gardensMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
