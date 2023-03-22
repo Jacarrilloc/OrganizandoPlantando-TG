@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.example.opcv.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.fbComunication.FormsUtilities;
 import com.example.opcv.formsScreen.Form_CIH;
@@ -26,10 +25,7 @@ import com.example.opcv.formsScreen.Form_RHC;
 import com.example.opcv.formsScreen.Form_RRH;
 import com.example.opcv.formsScreen.Form_RSMP;
 import com.example.opcv.formsScreen.Form_SCMPH;
-import com.example.opcv.formsScreen.Form_SVH;
-import com.example.opcv.formsScreen.FormsRegistersActivity;
-import com.example.opcv.gardens.GardenForms;
-import com.example.opcv.item_list.ItemCollaboratorsRequest;
+import com.example.opcv.formsScreen.Form_RE;
 import com.example.opcv.item_list.ItemRegistersList;
 
 import java.util.List;
@@ -76,7 +72,7 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                 }
                 else if(Objects.equals(item.getFormName(), "Solicitud de visita a la huerta")){
                     form = 2;
-                    Intent newForm = new Intent(context, Form_SVH.class);
+                    Intent newForm = new Intent(context, Form_RE.class);
                     newForm.putExtra("watch","true");
                     newForm.putExtra("idGardenFirebase",item.getIdGarden());
                     newForm.putExtra("idCollecion",item.getIdFormCollection());
@@ -177,7 +173,7 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                 }
                 else if(Objects.equals(item.getFormName(), "Solicitud de visita a la huerta")){
                     form = 2;
-                    Intent newForm = new Intent(context, Form_SVH.class);
+                    Intent newForm = new Intent(context, Form_RE.class);
                     newForm.putExtra("watch","edit");
                     newForm.putExtra("idGardenFirebase",item.getIdGarden());
                     newForm.putExtra("idCollecion",item.getIdFormCollection());
