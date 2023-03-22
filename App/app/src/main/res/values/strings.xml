@@ -83,7 +83,7 @@
 
     <string-array name="list_forms">
         <item>Registro y Actualización de Compostaje</item>
-        <item>Solicitud de visita a la huerta</item>
+        <item>Registros de eventos</item>
         <item>Control de inventario de Materia Prima</item>
         <item>Solicitud de compra de materia prima y herramientas</item>
         <item>Recepción y Requisición de Materia Prima</item>
@@ -107,4 +107,19 @@
     <string name="nombre_completo">Nombre completo</string>
     <string name="n_mero_de_tel_fono">Número de teléfono</string>
     <string name="tipo_identificaci_n">Tipo identificación</string>
+    <string name="registro_de_evento">Registro de evento</string>
+    <string name="fecha">Fecha</string>
+    <string name="asistencia_de_personas">Asistencia de personas por grupo</string>
+    <string name="personas_que_asistieron">Personas que asistieron</string>
+    <string name="nombre_del_evento">Nombre del evento</string>
+    <string name="poblaci_n_afro">Población afro</string>
+    <string name="poblaci_n_ind_gena">Población Indígena</string>
+    <string name="poblaci_n_lgbti">Población LGBTI+</string>
+    <string name="poblaci_n_rom">Población Rom</string>
+    <string name="poblaci_n_v_ctima_del_conflicto_armado">Población Víctima del Conflicto Armado</string>
+    <string name="poblaci_n_en_condici_n_de_discapacidad">Población en Condición de Discapacidad</string>
+    <string name="poblaci_n_desmovilizada">Población Desmovilizada</string>
+    <string name="poblaci_n_mestiza">Población Mestiza</string>
+    <string name="extranjero_a">Extranjero(a)</string>
+    <string name="campesino_a">Campesino(a)</string>
 </resources>

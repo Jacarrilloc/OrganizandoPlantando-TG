@@ -66,7 +66,7 @@
             android:name=".formsScreen.Form_IMP"
             android:exported="false" />
         <activity
-            android:name=".formsScreen.Form_SVH"
+            android:name=".formsScreen.Form_RE"
             android:exported="false" />
         <activity
             android:name=".formsScreen.Form_RHC"
