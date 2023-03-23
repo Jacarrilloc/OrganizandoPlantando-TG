@@ -12,6 +12,7 @@
         android:id="@+id/decorationLogo"
         android:layout_width="533dp"
         android:layout_height="448dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,10 +20,10 @@
 
     <ImageView
         android:id="@+id/ceresLogo2"
-        android:layout_width="399dp"
-        android:layout_height="216dp"
+        android:layout_width="386dp"
+        android:layout_height="212dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.44"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/decorationLogo"
         app:srcCompat="@drawable/im_logo_ceres_green" />
