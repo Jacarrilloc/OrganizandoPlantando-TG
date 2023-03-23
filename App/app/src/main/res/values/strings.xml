@@ -122,4 +122,15 @@
     <string name="poblaci_n_mestiza">Población Mestiza</string>
     <string name="extranjero_a">Extranjero(a)</string>
     <string name="campesino_a">Campesino(a)</string>
+    <string name="asistencia_seg_n_el_g_nero">Asistencia según el género</string>
+    <string name="asistencia_seg_n_el_rango_de_edad">Asistencia según el rango de edad</string>
+    <string name="infancia_6_11_a_os">Infancia (6-11 años)</string>
+    <string name="adolescencia_12_18_a_os">Adolescencia (12 -18 años)</string>
+    <string name="juventud_19_26_a_os">Juventud (19 -26 años)</string>
+    <string name="persona_mayor_60_a_os_o_m_s">Persona mayor (60 años o más)</string>
+    <string name="adultez_27_59_a_os">Adultez (27 -59 años)</string>
+    <string name="hombres">Hombres</string>
+    <string name="mujeres">Mujeres</string>
+    <string name="no_especificado">No especificado</string>
+    <string name="primera_infancia_0_5_a_os">Primera infancia (0-5 años)</string>
 </resources>
