@@ -98,7 +98,7 @@ public class GardenForms extends AppCompatActivity {
                             Intent newForm = new Intent(GardenForms.this, Form_IMP.class);
                             newForm.putExtra("Name",formsName);
                             newForm.putExtra("idGardenFirebase",idGardenFirebase);
-                            //newForm.putExtra("watch","create");
+                            newForm.putExtra("watch","create");
                             startActivity(newForm);
                             break;
                         }
