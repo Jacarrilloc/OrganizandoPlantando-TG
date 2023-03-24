@@ -56,11 +56,12 @@ import java.util.Objects;
 
 public class GenerateReportsActivity extends AppCompatActivity {
     private Button cancel, generate;
-    private String id, idGarden, garden, ownerName, nameU, gardenU, type, info, group;
+    private String id, idGarden, garden, ownerName, nameU, gardenU, type, info, group, idCollab;;
 
     private ArrayList<String> collection1Data;
     private List<String> collection2Data;
     private FirebaseFirestore db;
+    private int count=0;
 
     private PdfDocument document;
     @Override
@@ -151,28 +152,13 @@ public class GenerateReportsActivity extends AppCompatActivity {
     private void checkIfAllDataRetrieved(int numDocumentsToRetrieve, int numDocumentsRetrieved) throws IOException {
 
         if (numDocumentsRetrieved == numDocumentsToRetrieve) {
-            createPDF(gardenU, ownerName, collection1Data, type, info, group);
+            createPDF(gardenU, ownerName, collection1Data, type, info, group, count);
         }
     }
-    public void searchInfoUser(String idGarden, String idUser){
-        CollectionReference collectionRef2 = FirebaseFirestore.getInstance().collection("UserInfo");
-        Query query = collectionRef2.whereEqualTo("ID", idUser);
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for(DocumentSnapshot documentSnapshot : task.getResult()) {
-                        if (documentSnapshot.exists()) {
-                            nameU = documentSnapshot.getString("Name");
-                        }
-                    }
-                }
-            }
-        });
-    }
-    public void createPDF( String name, String nameUser, ArrayList<String> list, String type, String info, String group) throws IOException{
+
+    public void createPDF( String name, String nameUser, ArrayList<String> list, String type, String info, String group, int count) throws IOException{
         PdfDocument document = new PdfDocument();
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 1).create();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 2).create();
         PdfDocument.Page page = document.startPage(pageInfo);
         Canvas canvas = page.getCanvas();
         Paint paint = new Paint();
@@ -211,9 +197,10 @@ public class GenerateReportsActivity extends AppCompatActivity {
         page.getCanvas().drawText("Tipo de huerta: "+type, x, y+50, paint);
         page.getCanvas().drawText("Información de la huerta: "+info, x, y+75, paint);
         page.getCanvas().drawText("La huerta tiene chat grupal: "+group, x, y+100, paint);
-        page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, y+125, paint);
-        page.getCanvas().drawText("Los formularios que tiene la huerta->", x, y+165, paint);
-        int now = y+180, i=1;
+        page.getCanvas().drawText("Numero de colaboradores de la huerta: "+count, x, y+125, paint);
+        page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, y+150, paint);
+        page.getCanvas().drawText("Los formularios que tiene la huerta->", x, y+190, paint);
+        int now = y+205, i=1;
         if(!list.isEmpty()){
             for(String element : list){
                 page.getCanvas().drawText(i+": "+element, x, now, paint);
@@ -231,7 +218,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
 
         document.finishPage(page);
 
-        String path = Environment.getExternalStorageDirectory().getPath() + "/example.pdf";
+        String path = Environment.getExternalStorageDirectory().getPath() + "/"+name+".pdf";
         File file = new File(path);
 
         try {
@@ -241,4 +228,62 @@ public class GenerateReportsActivity extends AppCompatActivity {
         }
         document.close();
     }
+    public void searchInfoUser(String idGarden, String idUser){
+        final int NUM_DOCUMENTS_TO_RETRIEVE =1;
+        final int[] NUM_DOCUMENTS_RETRIEVED = {0};
+        CollectionReference collectionRef2 = FirebaseFirestore.getInstance().collection("UserInfo");
+        CollectionReference collectionRef = FirebaseFirestore.getInstance().collection("Gardens").document(idGarden).collection("Collaborators");
+        collectionRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    int a=0, b=0;
+                    ArrayList<String> ids = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        idCollab = document.getString("idCollaborator");
+                        ids.add(idCollab);
+                        a++;
+                    }
+                    collectionRef2.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()){
+                                for(String ele : ids){
+
+
+                                    Query query = collectionRef2.whereEqualTo("ID", ele);
+                                    query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                                            collection2Data = new ArrayList<>();
+                                            if (task.isSuccessful()) {
+
+                                                String name = null;
+
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    //name = document.getData().get("Name").toString();
+                                                    //System.out.println("name: " + name);
+                                                    count++;
+                                                    //collection2Data.add(name);
+                                                }
+
+
+
+                                            }
+
+                                        }
+                                    });
+
+
+                                }
+                            }
+                        }
+                    });
+
+                }
+            }
+        });
+    }
+
 }
