@@ -308,6 +308,9 @@ public class FormsUtilities {
             }
         });
     }
+     public void searchInfo(String idGarden, String idFormCollection){
+
+     }
 
 }
 
