@@ -97,8 +97,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
             }
         }
         context = this;
-        System.out.println("El id loggeado: "+ ownerName);
-        System.out.println("El id garden: "+ idGarden);
+
         generate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -245,7 +244,6 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                     }
                                     collection1Data.add(field);
                                 }
-                               // collection4.put("eventName", "Putaaaaa");
                                 mapsArray.add(collection4);
 
                                 NUM_DOCUMENTS_RETRIEVED[0]++;
@@ -264,7 +262,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
 
     private void checkIfAllDataRetrieved(int numDocumentsToRetrieve, int numDocumentsRetrieved) throws IOException {
 
-        if (numDocumentsRetrieved == numDocumentsToRetrieve && countEvents ==2) {
+        if (numDocumentsRetrieved == numDocumentsToRetrieve) {
             createPDF(gardenU, ownerName, collection1Data, type, info, group, count, countForms, answer, mapsArray);
         }
     }
@@ -325,25 +323,18 @@ public class GenerateReportsActivity extends AppCompatActivity {
             page.getCanvas().drawText("No hay formularios en esta huerta", x, now, paint);
         }
 
-        page.getCanvas().drawText("En el último mes se realizarón "+countForms+" registros", x, now+15, paint);
+        page.getCanvas().drawText("En el último mes se realizarón "+countForms+" registros", x, now+25, paint);
 
-        page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, now+25, paint);
+        page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, now+40, paint);
         document.finishPage(page);
 
-
-        /*if(!map.isEmpty()){
-            page.getCanvas().drawText("Evento: "+maps, x, z, paint);
-            page.getCanvas().drawText("Estadisticas del evento: ", x, z+10, paint);
-        }
-        else{
-            page.getCanvas().drawText("No hubo eventos en la huerta.", x, z, paint);
-        }*/
         int z = y, o=2, con=0;
         Boolean bo=false;
         String later = "";
-        if(!map.isEmpty()){
 
+        if(!map.isEmpty()){
             for(HashMap<Object, String> maps : map) {
+                con++;
                 later = maps.get("eventName");
                 if(later != null){
                     pageInfo = new PdfDocument.PageInfo.Builder(300, 600, o).create();
@@ -377,21 +368,25 @@ public class GenerateReportsActivity extends AppCompatActivity {
                     page.getCanvas().drawText("Campesino(a): "+maps.get("peasantNumber"), x+15, z + 345, paint);
                     page.getCanvas().drawText("Otros: "+maps.get("otherNumber"), x+15, z + 360, paint);
 
-                    document.finishPage(page);
                     o++;
-                    con++;
+                    if(con == map.size()-1){
+                        page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, z+380, paint);
+                        page.getCanvas().drawText("Fin del reporte", x, z+395, paint);
+                    }
+
+                    document.finishPage(page);
                 }
-
+                if(map.size() == 1){
+                    pageInfo = new PdfDocument.PageInfo.Builder(300, 600, o).create();
+                    page = document.startPage(pageInfo);
+                    page.getCanvas().drawBitmap(bitmap, null, destRect, null);
+                    page.getCanvas().drawText("No hubo eventos en la huerta.", x, z, paint);
+                    page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, z+20, paint);
+                    page.getCanvas().drawText("Fin del reporte", x, z+40, paint);
+                    document.finishPage(page);
+                }
             }
-            System.out.println("tamano: "+con);
         }
-        else{
-            page.getCanvas().drawText("No hubo eventos en la huerta.", x, z, paint);
-        }
-        //page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, z+380, paint);
-        //page.getCanvas().drawText("Fin del reporte", x, z+395, paint);
-
-
 
         String path = Environment.getExternalStorageDirectory().getPath() + "/"+name+".pdf";
         File file = new File(path);
@@ -443,12 +438,13 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-                                            collection2Data = new ArrayList<>();
+
                                             if (task.isSuccessful()) {
 
                                                 String name = null;
 
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    collection2Data = new ArrayList<>();
                                                     name = document.getData().get("Name").toString();
 
                                                     //count++;
