@@ -43,6 +43,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.element.Paragraph;
 
@@ -71,10 +72,10 @@ public class GenerateReportsActivity extends AppCompatActivity {
 
     private ArrayList<String> collection1Data;
     private ArrayList<String> collection2Data;
-    private ArrayList<HashMap<Object, String>> mapsArray;
-    private HashMap<Object, String> collection3;
+    private List<HashMap<Object, String>> mapsArray;
+    private HashMap<Object, String> collection3, collection4;
     private FirebaseFirestore db;
-    private int count=0, countForms=0;
+    private int count=0, countForms=0, countEvents=0;
 
     private Context context;
     @Override
@@ -169,15 +170,17 @@ public class GenerateReportsActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()){
                                 collection1Data = new ArrayList<>();
-                                collection3 = new HashMap<>();
+
+                                collection4 = new HashMap<>();
                                 mapsArray = new ArrayList<>();
                                 Calendar calendar = Calendar.getInstance();
                                 calendar.add(Calendar.MONTH, -1);
                                 Date startDate = calendar.getTime();
                                 Date endDate = new Date();
+                                String field, date;
                                 for(QueryDocumentSnapshot document : task.getResult()){
-                                    String field = document.getString("nameForm");
-                                    String date = document.getString("Date");
+                                    field = document.getString("nameForm");
+                                    date = document.getString("Date");
                                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                                     try{
                                         Date createForm = formatter.parse(date);
@@ -189,6 +192,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                         throw new RuntimeException(e);
                                     }
                                     if(field.equals("Registro de evento")){
+                                        collection3 = new HashMap<>();
                                         String name = document.getString("eventName");
                                         String lgbt = document.getString("lgtbiNumber");
                                         String dateEvent = document.getString("date");
@@ -236,11 +240,14 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                         collection3.put("youthNumber", youth);
                                         collection3.put("otherNumber", others);
                                         collection3.put("infantNumber", infant);
-
+                                        countEvents++;
+                                        mapsArray.add(collection3);
                                     }
-                                    mapsArray.add(collection3);
                                     collection1Data.add(field);
                                 }
+                               // collection4.put("eventName", "Putaaaaa");
+                                mapsArray.add(collection4);
+
                                 NUM_DOCUMENTS_RETRIEVED[0]++;
                                 try {
                                     checkIfAllDataRetrieved(NUM_DOCUMENTS_TO_RETRIEVE, NUM_DOCUMENTS_RETRIEVED[0]);
@@ -257,12 +264,12 @@ public class GenerateReportsActivity extends AppCompatActivity {
 
     private void checkIfAllDataRetrieved(int numDocumentsToRetrieve, int numDocumentsRetrieved) throws IOException {
 
-        if (numDocumentsRetrieved == numDocumentsToRetrieve) {
+        if (numDocumentsRetrieved == numDocumentsToRetrieve && countEvents ==2) {
             createPDF(gardenU, ownerName, collection1Data, type, info, group, count, countForms, answer, mapsArray);
         }
     }
 
-    public void createPDF( String name, String nameUser, ArrayList<String> list, String type, String info, String group, int count, int countForms, String answer, ArrayList<HashMap<Object, String>> map) throws IOException{
+    public void createPDF( String name, String nameUser, ArrayList<String> list, String type, String info, String group, int count, int countForms, String answer, List<HashMap<Object, String>> map) throws IOException{
         PdfDocument document = new PdfDocument();
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 1).create();
         PdfDocument.Page page = document.startPage(pageInfo);
@@ -322,13 +329,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
 
         page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, now+25, paint);
         document.finishPage(page);
-        pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 2).create();
-        page = document.startPage(pageInfo);
-        canvas = page.getCanvas();
-        paint = new Paint();
-        page.getCanvas().drawBitmap(bitmap, null, destRect, null);
-        int z = y, o=0;
-        page.getCanvas().drawText("Eventos realizados en la huerta: ", x, z, paint);
+
 
         /*if(!map.isEmpty()){
             page.getCanvas().drawText("Evento: "+maps, x, z, paint);
@@ -337,10 +338,21 @@ public class GenerateReportsActivity extends AppCompatActivity {
         else{
             page.getCanvas().drawText("No hubo eventos en la huerta.", x, z, paint);
         }*/
+        int z = y, o=2, con=0;
+        Boolean bo=false;
+        String later = "";
         if(!map.isEmpty()){
-            for(Map<Object, String> maps : map){
-                //for(Map.Entry<Object, String> entry : maps.entrySet()) {
-                    page.getCanvas().drawText("Evento: " + maps.get("eventName"), x, z+15, paint);
+
+            for(HashMap<Object, String> maps : map) {
+                later = maps.get("eventName");
+                if(later != null){
+                    pageInfo = new PdfDocument.PageInfo.Builder(300, 600, o).create();
+                    page = document.startPage(pageInfo);
+                    canvas = page.getCanvas();
+                    paint = new Paint();
+                    page.getCanvas().drawBitmap(bitmap, null, destRect, null);
+                    page.getCanvas().drawText("Eventos realizados en la huerta: ", x, z, paint);
+                    page.getCanvas().drawText("Evento: " + maps.get("eventName"), x, z + 15, paint);
                     page.getCanvas().drawText("Estadisticas del evento: ", x, z + 30, paint);
                     page.getCanvas().drawText("Fecha del evento: " + maps.get("date"), x+5, z + 45, paint);
                     page.getCanvas().drawText("Asistentes al evento según género: ", x+5, z + 60, paint);
@@ -365,23 +377,30 @@ public class GenerateReportsActivity extends AppCompatActivity {
                     page.getCanvas().drawText("Campesino(a): "+maps.get("peasantNumber"), x+15, z + 345, paint);
                     page.getCanvas().drawText("Otros: "+maps.get("otherNumber"), x+15, z + 360, paint);
 
-
-
-                //}
+                    document.finishPage(page);
+                    o++;
+                    con++;
+                }
 
             }
-            System.out.println("Key: " + map.get(9));
+            System.out.println("tamano: "+con);
         }
         else{
             page.getCanvas().drawText("No hubo eventos en la huerta.", x, z, paint);
         }
-        page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, z+380, paint);
-        page.getCanvas().drawText("Fin del reporte", x, z+395, paint);
+        //page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, z+380, paint);
+        //page.getCanvas().drawText("Fin del reporte", x, z+395, paint);
 
 
-        document.finishPage(page);
+
         String path = Environment.getExternalStorageDirectory().getPath() + "/"+name+".pdf";
         File file = new File(path);
+        try {
+            document.writeTo(new FileOutputStream(file));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        document.close();
         if(answer.equals("true")){
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             FirebaseUser user = mAuth.getCurrentUser();
@@ -394,15 +413,6 @@ public class GenerateReportsActivity extends AppCompatActivity {
             emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
             startActivity(Intent.createChooser(emailIntent, "Send email"));
         }
-
-
-
-        try {
-            document.writeTo(new FileOutputStream(file));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        document.close();
     }
     public void searchInfoUser(String idGarden, String idUser){
         final int NUM_DOCUMENTS_TO_RETRIEVE =1;
