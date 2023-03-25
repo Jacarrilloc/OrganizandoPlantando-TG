@@ -240,7 +240,7 @@ public class Form_RE extends AppCompatActivity {
                     String idGardenFb;
                     idGardenFb = getIntent().getStringExtra("idGardenFirebase");
                     Map<String,Object> infoForm = new HashMap<>();
-                    infoForm.put("idForm",1);
+                    infoForm.put("idForm",12);
                     infoForm.put("nameForm", formName.getText().toString());
                     infoForm.put("date",date.getText().toString());
                     infoForm.put("eventName", eventName.getText().toString());
