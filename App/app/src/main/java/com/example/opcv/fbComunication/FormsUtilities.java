@@ -87,6 +87,35 @@ public class FormsUtilities {
 
     }
 
+    public void editInfoRE(Context context, String idGarden, String idCollection, String date, String eventN, String totalP, String femaleN, String maleN,
+                           String noSpcN, String infantN, String childhoodN, String teenN, String youthN, String adultN, String elderlyN, String afroN, String nativeN,
+                           String lgtbiN, String romN, String victimN, String disabilityN, String demobilizedN, String mongrelN, String foreignN, String peasantN, String otherN){
+        database = FirebaseFirestore.getInstance();
+        database.collection("Gardens").document(idGarden).collection("Forms").document(idCollection).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            final DocumentReference docRef = database.collection("Gardens").document(idGarden).collection("Forms").document(idCollection);
+                            database.runTransaction(new Transaction.Function<Void>() {
+                                @Nullable
+                                @Override
+                                public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                                    transaction.update(docRef, "date", date, "eventName", eventN, "totalPerson", totalP, "womenNumber", femaleN, "menNumber", maleN,
+                                            "noSpcNumber", noSpcN, "infantNumber", infantN, "childhoodNumber", childhoodN, "teenNumber", teenN, "youthNumber", youthN,
+                                            "adultNumber", adultN, "elderlyNumber", elderlyN, "afroNumber", afroN, "nativeNumber", nativeN, "lgtbiNumber", lgtbiN,
+                                            "romNumber", romN,"victimNumber", victimN, "disabilityNumber", disabilityN, "demobilizedNumber", demobilizedN,
+                                            "mongrelNumber", mongrelN, "foreignNumber", foreignN, "peasantNumber", peasantN, "otherNumber", otherN);
+                                    return null;
+                                }
+                            });
+                        }
+                    }
+                });
+
+
+    }
+
     public void editInfoCPS(Context context, String idGarden, String idCollection, String personResp, String duration, String plantsSeeds, String comments, String phase){
         database = FirebaseFirestore.getInstance();
         database.collection("Gardens").document(idGarden).collection("Forms").document(idCollection).get()
@@ -279,6 +308,9 @@ public class FormsUtilities {
             }
         });
     }
+     public void searchInfo(String idGarden, String idFormCollection){
+
+     }
 
 }
 

@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.opcv.GenerateReportsActivity;
 import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
@@ -34,6 +35,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
@@ -43,7 +46,7 @@ import java.util.Objects;
 public class GardenActivity extends AppCompatActivity {
 
     private Button formsRegister, gardens, myGardens, profile;
-    private ImageButton editGarden, seedTime, toolsButton, worm, collaboratorGardens, messages;
+    private ImageButton editGarden, seedTime, toolsButton, worm, collaboratorGardens, messages, generateReport;
 
     private ImageView moreFormsButtom;
     private TextView nameGarden,descriptionGarden, gardenParticipants;
@@ -75,7 +78,7 @@ public class GardenActivity extends AppCompatActivity {
         myGardens = (Button) findViewById(R.id.myGardens);
         messages = (ImageButton) findViewById(R.id.messageButton);
         formsRegister = (Button) findViewById(R.id.formsRegister);
-
+        generateReport = (ImageButton) findViewById(R.id.imageButton9);
         database = FirebaseFirestore.getInstance();
         gardensRef = database.collection("Gardens");
 
@@ -88,7 +91,7 @@ public class GardenActivity extends AppCompatActivity {
             gardenID = extras.getString("idGarden");
             groupLink = extras.getString("GroupLink");
             owner = extras.getString("owner");
-            System.out.println("El que es "+ owner);
+            //System.out.println("El que es "+ owner);
             SearchInfoGardenSreen(id,garden);
         }
 
@@ -244,6 +247,35 @@ public class GardenActivity extends AppCompatActivity {
             }
         });
 
+        generateReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String idGardenFirebase = extras.getString("idGardenFirebaseDoc");
+                Intent requests = new Intent(GardenActivity.this, GenerateReportsActivity.class);
+                requests.putExtra("idGardenFirebaseDoc",idGardenFirebase);
+                requests.putExtra("idUser",id);
+                requests.putExtra("garden","true");
+                CollectionReference collectionRef2 = database.collection("UserInfo");
+                Query query = collectionRef2.whereEqualTo("ID", id);
+                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for (QueryDocumentSnapshot document : task.getResult()){
+                                String name = document.getData().get("Name").toString();
+                                String lastName =document.getData().get("LastName").toString();
+                                requests.putExtra("ownerName",name+" "+lastName);
+                                startActivity(requests);
+                                finish();
+                            }
+                        }
+                    }
+                });
+
+
+            }
+        });
+
     }
 
     private void SearchInfoGardenSreen(String idUser,String name){
@@ -278,23 +310,6 @@ public class GardenActivity extends AppCompatActivity {
                 Log.d(TAG, "Se genero error: ", e);
             }
         });
-        /*
-        Query query = gardensRef.whereEqualTo("ID_Owner", idUser).whereEqualTo("GardenName", name);
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String infoDoc = document.getString("InfoGarden");
-                        String typeDoc = document.getString("GardenType");
-                        GardenInfo gardenInfo = new GardenInfo(idUser,name,infoDoc,typeDoc);
-                        fillSreen(gardenInfo);
-                    }
-                } else {
-                    Log.d(TAG, "Error getting documents: ", task.getException());
-                }
-            }
-        });*/
     }
 
     private void fillSreen(GardenInfo gardenInfo, int gardenParticipant){

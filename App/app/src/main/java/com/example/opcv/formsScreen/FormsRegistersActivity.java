@@ -48,6 +48,7 @@ public class FormsRegistersActivity extends AppCompatActivity {
     private String register_name, idGarden;
     private FirebaseFirestore database;
     private FirebaseAuth autentication;
+    private Button gardens, myGardens, profile;
     private NetworkMonitorService monitorService = new NetworkMonitorService();
 
     @Override
@@ -65,6 +66,7 @@ public class FormsRegistersActivity extends AppCompatActivity {
         registerNameText = (TextView) findViewById(R.id.registerName);
         ListViewRegisters = (ListView) findViewById(R.id.ListViewRegisters);
         backButtom = findViewById(R.id.returnArrowButtonFormsToGarden);
+
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
 

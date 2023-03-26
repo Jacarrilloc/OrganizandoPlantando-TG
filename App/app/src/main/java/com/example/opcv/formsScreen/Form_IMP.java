@@ -85,8 +85,9 @@ public class Form_IMP extends AppCompatActivity {
         });
 
         watch = getIntent().getStringExtra("watch");
+        System.out.println("es nulo"+watch);
 
-        if(watch.equals("true")){
+        if(watch.equals("true") && watch == null){
             idGarden = getIntent().getStringExtra("idGardenFirebase");
             idCollection = getIntent().getStringExtra("idCollecion");
             addFormButtom.setVisibility(View.INVISIBLE);
