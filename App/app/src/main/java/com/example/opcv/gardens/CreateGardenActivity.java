@@ -1,13 +1,23 @@
 package com.example.opcv.gardens;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.opcv.HomeActivity;
@@ -29,6 +39,8 @@ public class CreateGardenActivity extends AppCompatActivity {
 
     private EditText nameGarden,infoGarden;
     private CheckBox publicGarden,privateGarden;
+    private ImageView photo;
+    private Button selectPhoto;
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
     private Button create, otherGardensButton, profile, myGardens;
@@ -43,6 +55,8 @@ public class CreateGardenActivity extends AppCompatActivity {
         infoGarden = findViewById(R.id.gardenInfo);
         publicGarden = findViewById(R.id.checkbox_public_Create_Activity);
         privateGarden = findViewById(R.id.checkbox_private_Create_Activity);
+        photo = findViewById(R.id.imageGardenCreate);
+        selectPhoto = findViewById(R.id.SelectImageCreateGarden);
 
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
@@ -50,6 +64,28 @@ public class CreateGardenActivity extends AppCompatActivity {
         create = findViewById(R.id.add_garden_button);
 
         otherGardensButton = (Button) findViewById(R.id.gardens);
+        profile = (Button) findViewById(R.id.profile);
+        myGardens = (Button) findViewById(R.id.myGardens);
+
+        selectPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(CreateGardenActivity.this)
+                        .setMessage("¿Deseas Tomar una foto o elegir desde la galeria?")
+                        .setNegativeButton("Tomar Foto", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                takePhoto();
+                            }
+                        })
+                        .setPositiveButton("Seleccionar desde la Galeria", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+
+                            }
+                        })
+                        .show();
+            }
+        });
+
         otherGardensButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,14 +93,14 @@ public class CreateGardenActivity extends AppCompatActivity {
             }
         });
 
-        profile = (Button) findViewById(R.id.profile);
+
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(CreateGardenActivity.this, EditUserActivity.class));
             }
         });
-        myGardens = (Button) findViewById(R.id.myGardens);
+
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,6 +165,35 @@ public class CreateGardenActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    private void takePhoto(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+
+            PackageManager pm = getPackageManager();
+            if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+                openCamaraAndTakePhoto();
+            } else {
+                Toast.makeText(this, "No hay una Camara en tu Dispositivo", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        }
+    }
+
+    private void openCamaraAndTakePhoto() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 0);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            Bitmap photoI = (Bitmap) data.getExtras().get("data");
+            photo.setImageBitmap(photoI);
+        }
     }
 
 }

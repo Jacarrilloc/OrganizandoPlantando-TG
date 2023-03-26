@@ -38,7 +38,7 @@
             android:layout_height="192dp">
 
             <ImageView
-                android:id="@+id/image"
+                android:id="@+id/imageGardenCreate"
                 android:layout_width="288dp"
                 android:layout_height="146dp"
                 android:layout_gravity="center"
@@ -50,6 +50,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
+                android:id="@+id/SelectImageCreateGarden"
                 android:layout_width="46dp"
                 android:layout_height="48dp"
                 android:background="@drawable/im_add_image"
