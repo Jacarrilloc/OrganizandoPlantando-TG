@@ -111,7 +111,7 @@
             android:textColor="@color/black" />
 
         <LinearLayout
-            android:layout_width="265dp"
+            android:layout_width="match_parent"
             android:layout_height="25dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
@@ -119,24 +119,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <CheckBox
-                android:id="@+id/checkbox_public_Create_Activity"
-                android:layout_width="96dp"
+            <Switch
+                android:id="@+id/switchGardenType"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:buttonTint="#A1A4B2"
-                android:text="@string/publicL"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:thumbTint="@color/green"
+                android:trackTint="@color/gray"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="Publica"/>
 
-            <CheckBox
-                android:id="@+id/checkbox_private_Create_Activity"
-                android:layout_width="113dp"
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:buttonTint="#A1A4B2"
-                android:focusable="true"
-                android:text="@string/privateL"
-                android:textColor="@color/black" />
+                android:layout_weight="1"
+                android:text="Privada"
+                android:textColor="@color/black"/>
 
         </LinearLayout>
 
