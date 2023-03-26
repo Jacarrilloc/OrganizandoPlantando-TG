@@ -17,6 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
     private Button otherGardensButton, profile, myGardens, collaboration;
+    private ImageButton generateReport;
     private ListView listAviableGardensInfo;
     private FloatingActionButton nextArrow, addButton;
     private FirebaseAuth autentication;
@@ -110,6 +112,7 @@ public class HomeActivity extends AppCompatActivity {
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
         gardensMap = (Button) findViewById(R.id.gardens);
+        generateReport = (ImageButton) findViewById(R.id.generalReport);
 
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(monitorService, filter);
@@ -185,6 +188,19 @@ public class HomeActivity extends AppCompatActivity {
                 Intent edit = new Intent(HomeActivity.this, CollaboratorGardensActivity.class);
                 edit.putExtra("userID", userId);
                 startActivity(edit);
+            }
+        });
+
+        generateReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent requests = new Intent(HomeActivity.this, GenerateReportsActivity.class);
+                requests.putExtra("idGardenFirebaseDoc","null");
+                requests.putExtra("idUser","null");
+                requests.putExtra("garden","false");// con esto se define si, al ejecutar GenerateReportsActivity es solo para la huerta o para todos
+                requests.putExtra("ownerName","null");
+                startActivity(requests);
+                finish();
             }
         });
 

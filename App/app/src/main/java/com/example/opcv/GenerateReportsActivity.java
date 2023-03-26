@@ -68,14 +68,20 @@ import java.util.Objects;
 
 public class GenerateReportsActivity extends AppCompatActivity {
     private Button cancel, generate;
-    private String id, idGarden, garden, ownerName, nameU, gardenU, type, info, group, idCollab, answer;
+    private String id, idGarden, garden, ownerName, nameU, gardenU, type, info, group, idCollab, answer, name;
 
     private ArrayList<String> collection1Data;
     private ArrayList<String> collection2Data;
+    private ArrayList<String> collectionCrops;
+    private ArrayList<String> gardensNames;
+    private ArrayList<String> contColl;
+    private ArrayList<String> crops = new ArrayList<>();
+    private ArrayList<Integer> conts;
     private List<HashMap<Object, String>> mapsArray;
     private HashMap<Object, String> collection3, collection4;
+    private Map<String, List<String>> collectionCols;
     private FirebaseFirestore db;
-    private int count=0, countForms=0, countEvents=0;
+    private int count=0, countForms=0, countEvents=0, countCollabs=0, count1=0, count2=0;
 
     private Context context;
     @Override
@@ -86,7 +92,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
         cancel = (Button) findViewById(R.id.cancelReport);
         generate = (Button) findViewById(R.id.generateReportButton);
 
-
+        context = this;
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             garden = extras.getString("garden");
@@ -94,42 +100,76 @@ public class GenerateReportsActivity extends AppCompatActivity {
                 id = extras.getString("idUser");
                 idGarden = extras.getString("idGardenFirebaseDoc");
                 ownerName = extras.getString("ownerName");
+                generate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        new AlertDialog.Builder(context)
+                                .setMessage("¿Deseas enviar el archivo generado por correo electronico?")
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        //finishAffinity();
+                                        answer = "false";
+                                        searchInfo(idGarden, id);
+                                        searchInfoUser(idGarden, id);
+                                        Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
+                                        GenerateReportsActivity.super.onBackPressed();
+                                    }
+                                })
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface arg0, int arg1) {
+                                        //finishAffinity();
+                                        answer = "true";
+                                        searchInfo(idGarden, id);
+                                        searchInfoUser(idGarden, id);
+
+                                        Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
+                                        GenerateReportsActivity.super.onBackPressed();
+                                    }
+                                }).create().show();
+
+                        //onBackPressed();
+                    }
+                });
+            }
+            else if(garden.equals("false")){
+                generate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        new AlertDialog.Builder(context)
+                                .setMessage("¿Deseas enviar el archivo generado por correo electronico?")
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        //finishAffinity();
+                                        answer = "false";
+                                        searchGeneralInfo();
+                                        //searchInfoUser(idGarden, id);
+
+                                        Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
+                                        GenerateReportsActivity.super.onBackPressed();
+                                    }
+                                })
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface arg0, int arg1) {
+                                        //finishAffinity();
+                                        answer = "true";
+                                        searchGeneralInfo();
+                                        //searchInfoUser(idGarden, id);
+
+                                        Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
+                                        GenerateReportsActivity.super.onBackPressed();
+                                    }
+                                }).create().show();
+
+                        //onBackPressed();
+                    }
+                });
             }
         }
-        context = this;
 
-        generate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new AlertDialog.Builder(context)
-                        .setMessage("¿Deseas enviar el archivo generado por correo electronico?")
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //finishAffinity();
-                                answer = "false";
-                                searchInfo(idGarden, id);
-                                searchInfoUser(idGarden, id);
 
-                                Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
-                                GenerateReportsActivity.super.onBackPressed();
-                            }
-                        })
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                //finishAffinity();
-                                answer = "true";
-                                searchInfo(idGarden, id);
-                                searchInfoUser(idGarden, id);
 
-                                Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
-                                GenerateReportsActivity.super.onBackPressed();
-                            }
-                        }).create().show();
-
-                //onBackPressed();
-            }
-        });
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,7 +209,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()){
                                 collection1Data = new ArrayList<>();
-
+                                collectionCrops = new ArrayList<>();
                                 collection4 = new HashMap<>();
                                 mapsArray = new ArrayList<>();
                                 Calendar calendar = Calendar.getInstance();
@@ -189,6 +229,12 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                         }
                                     } catch (Exception e) {
                                         throw new RuntimeException(e);
+                                    }
+
+                                    if(field.equals("Control de Procesos de Siembra")){
+
+                                        String name = document.getString("plants or seeds");
+                                        collectionCrops.add(name);
                                     }
                                     if(field.equals("Registro de evento")){
                                         collection3 = new HashMap<>();
@@ -263,17 +309,17 @@ public class GenerateReportsActivity extends AppCompatActivity {
     private void checkIfAllDataRetrieved(int numDocumentsToRetrieve, int numDocumentsRetrieved) throws IOException {
 
         if (numDocumentsRetrieved == numDocumentsToRetrieve) {
-            createPDF(gardenU, ownerName, collection1Data, type, info, group, count, countForms, answer, mapsArray);
+            createPDF(gardenU, ownerName, collection1Data, type, info, group, count, countForms, answer, mapsArray, collectionCrops);
         }
     }
 
-    public void createPDF( String name, String nameUser, ArrayList<String> list, String type, String info, String group, int count, int countForms, String answer, List<HashMap<Object, String>> map) throws IOException{
+    public void createPDF( String name, String nameUser, ArrayList<String> list, String type, String info, String group, int count, int countForms, String answer, List<HashMap<Object, String>> map, ArrayList<String> crops) throws IOException{
         PdfDocument document = new PdfDocument();
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 1).create();
         PdfDocument.Page page = document.startPage(pageInfo);
         Canvas canvas = page.getCanvas();
         Paint paint = new Paint();
-        int x = 10, y = 150, width=50;
+        int x = 10, y = 125, width=50;
         float left = 50, top = 50;
         //pa la imagen
         AssetManager assetManager = getAssets();
@@ -303,11 +349,28 @@ public class GenerateReportsActivity extends AppCompatActivity {
         Layout.Alignment alignment = Layout.Alignment.ALIGN_NORMAL;
 
         page.getCanvas().drawText("Huerta: "+name, x, y, paint);
-        page.getCanvas().drawText("Dueño de la huerta: "+ownerName, x, y+25, paint);
-        page.getCanvas().drawText("Tipo de huerta: "+type, x, y+50, paint);
-        page.getCanvas().drawText("Información de la huerta: "+info, x, y+75, paint);
-        page.getCanvas().drawText("La huerta tiene chat grupal: "+group, x, y+100, paint);
-        page.getCanvas().drawText("Numero de colaboradores de la huerta: "+count, x, y+125, paint);
+        page.getCanvas().drawText("Dueño de la huerta: "+ownerName, x, y+20, paint);
+        page.getCanvas().drawText("Tipo de huerta: "+type, x, y+40, paint);
+        page.getCanvas().drawText("Información de la huerta: "+info, x, y+60, paint);
+        page.getCanvas().drawText("La huerta tiene chat grupal: "+group, x, y+80, paint);
+        page.getCanvas().drawText("Numero de colaboradores de la huerta: "+count, x, y+100, paint);
+
+        String cropsNames = "";
+        if(!crops.isEmpty()){
+            for(int i =0; i<crops.size();i++){
+                cropsNames = cropsNames + crops.get(i);
+                if(i != crops.size()-1){
+                    cropsNames = cropsNames+", ";
+                }
+
+            }
+            page.getCanvas().drawText("Cultivos de la huerta: ", x, y+120, paint);
+            page.getCanvas().drawText(cropsNames, x+20, y+140, paint);
+        }
+        else{
+            page.getCanvas().drawText("No hay cultivos en la huerta.", x, y+120, paint);
+        }
+
         page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, y+150, paint);
 
         page.getCanvas().drawText("Los formularios que tiene la huerta->", x, y+170, paint);
@@ -410,7 +473,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
         }
     }
     public void searchInfoUser(String idGarden, String idUser){
-        final int NUM_DOCUMENTS_TO_RETRIEVE =1;
+        final int NUM_DOCUMENTS_TO_RETRIEVE =22;
         final int[] NUM_DOCUMENTS_RETRIEVED = {0};
         CollectionReference collectionRef2 = FirebaseFirestore.getInstance().collection("UserInfo");
         CollectionReference collectionRef = FirebaseFirestore.getInstance().collection("Gardens").document(idGarden).collection("Collaborators");
@@ -431,16 +494,11 @@ public class GenerateReportsActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if(task.isSuccessful()){
                                 for(String ele : ids){
-
-
                                     Query query = collectionRef2.whereEqualTo("ID", ele);
                                     query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-
                                             if (task.isSuccessful()) {
-
                                                 String name = null;
 
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -450,23 +508,114 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                                     //count++;
                                                     collection2Data.add(name);
                                                 }
-
-
-
                                             }
 
                                         }
                                     });
-
-
                                 }
                             }
                         }
                     });
-
                 }
             }
         });
+    }
+    private void searchGeneralInfo(){
+        final int[] NUM_DOCUMENTS_TO_RETRIEVE = new int[1];// se realizo el cambio con respecto a lo anterior debido al problem con los gardens
+        final int[] NUM_DOCUMENTS_RETRIEVED = {0};
+        CollectionReference collectionRef = FirebaseFirestore.getInstance().collection("Gardens");
+        collectionRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    NUM_DOCUMENTS_TO_RETRIEVE[0] =task.getResult().size();
+                    gardensNames = new ArrayList<>();
+                    contColl = new ArrayList<>();
+                    conts = new ArrayList<>();
+
+
+                    for(QueryDocumentSnapshot q : task.getResult()){
+
+                        name = q.getData().get("GardenName").toString();
+                        contColl.add(q.getId());
+                        gardensNames.add(name);
+
+                        collectionRef.document(q.getId()).collection("Forms").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.isSuccessful()){
+
+                                    String field, nameCrop;
+                                    int cont = 0;
+                                    collectionCols = new HashMap<>();
+                                    for(QueryDocumentSnapshot document : task.getResult()){
+
+                                        field = document.getString("nameForm");
+
+                                        if(field.equals("Control de Procesos de Siembra")){
+                                            List<String> listCrop = new ArrayList<>();
+
+                                            nameCrop = document.getString("plants or seeds");
+                                            listCrop.add(nameCrop);
+                                            crops.add(name+","+nameCrop);
+                                            collectionCols.put("name", listCrop);
+                                            System.out.println("Hola "+nameCrop);
+                                            count1++;
+                                        }
+
+                                        count2++;
+                                    }
+                                   // System.out.println("el contador: "+countEvents);
+                                    countEvents++;
+                                }
+
+                                collectionRef.document(q.getId()).collection("Collaborators").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if(task.isSuccessful()){
+                                            int cont=task.getResult().size();
+                                            //System.out.println("el tamano "+task.getResult().size());
+                                            conts.add(cont);
+                                            //collectionCols.put(name, cont);
+                                        }
+                                        NUM_DOCUMENTS_RETRIEVED[0]++;
+                                        try {
+                                            checkIfAllGeneralDataRetrieved(NUM_DOCUMENTS_TO_RETRIEVE[0], NUM_DOCUMENTS_RETRIEVED[0]);
+                                        } catch (IOException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                    }
+                                });
+                            }
+                        });
+
+
+                    }
+                }
+            }
+        });
+
+    }
+    private void checkIfAllGeneralDataRetrieved(int numDocumentsToRetrieve, int numDocumentsRetrieved) throws IOException {
+
+        if (numDocumentsRetrieved == numDocumentsToRetrieve ) {
+            createGeneralPDF(gardensNames, conts, collectionCols, crops, countEvents, count1, count2);
+        }
+    }
+    private void createGeneralPDF(ArrayList<String> list, ArrayList<Integer> list2, Map<String, List<String>> map, ArrayList<String> crops, Integer countEvents, Integer count1, Integer count2){
+        int cont=0;
+        for (int i = 0; i<list.size(); i++){
+            System.out.println("Garden: "+list.get(i)+"Colabs: "+list2.get(i));
+            cont = cont+list2.get(i);
+        }
+        System.out.println("Cont: "+cont);
+        System.out.println("Map: "+crops.size());
+        for (int i = 0; i<crops.size(); i++){
+            System.out.println("Cultivos: "+crops.get(i));
+        }
+        int x=count1+count2;
+        int y=x-countEvents;
+        System.out.println("Counteventos: "+y);//numero de huertas trabajando los cultivos
     }
 
 }
