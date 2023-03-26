@@ -36,7 +36,6 @@
             android:orientation="vertical">
 
 
-
             <ImageButton
                 android:id="@+id/generalReport"
                 android:layout_width="65dp"

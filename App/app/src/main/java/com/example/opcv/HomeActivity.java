@@ -197,7 +197,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent requests = new Intent(HomeActivity.this, GenerateReportsActivity.class);
                 requests.putExtra("idGardenFirebaseDoc","null");
                 requests.putExtra("idUser","null");
-                requests.putExtra("garden","false");// con esto se define si, al ejecutar GenerateReportsActivity es solo para la huerta o para todos
+                requests.putExtra("garden","false");//con esto se define si, al ejecutar GenerateReportsActivity es solo para la huerta o para todos
                 requests.putExtra("ownerName","null");
                 startActivity(requests);
                 finish();
