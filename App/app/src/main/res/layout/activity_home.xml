@@ -35,6 +35,37 @@
             android:layout_weight="0.3"
             android:orientation="vertical">
 
+
+            <ImageButton
+                android:id="@+id/generalReport"
+                android:layout_width="65dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:layout_margin="4sp"
+                android:layout_weight="0.25"
+                android:background="@drawable/dr_download_icon"
+                android:contentDescription="Boton de descargar"
+                android:scaleType="centerInside" />
+
+            <TextView
+                android:id="@+id/reportText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/generalReport"
+                android:textColor="#090909"
+                android:textStyle="normal|italic" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.3"
+            android:orientation="vertical">
+
+
+
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/addButton"
                 android:layout_width="wrap_content"

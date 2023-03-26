@@ -28,6 +28,7 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.opcv.gardens.GardenActivity;
@@ -45,6 +46,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Style;
 import com.itextpdf.layout.element.Paragraph;
 
 import java.text.SimpleDateFormat;
@@ -58,6 +60,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -68,14 +71,20 @@ import java.util.Objects;
 
 public class GenerateReportsActivity extends AppCompatActivity {
     private Button cancel, generate;
-    private String id, idGarden, garden, ownerName, nameU, gardenU, type, info, group, idCollab, answer;
+    private String id, idGarden, garden, ownerName, nameU, gardenU, type, info, group, idCollab, answer, name;
 
     private ArrayList<String> collection1Data;
     private ArrayList<String> collection2Data;
+    private ArrayList<String> collectionCrops;
+    private ArrayList<String> gardensNames;
+    private ArrayList<String> contColl;
+    private ArrayList<String> crops = new ArrayList<>();
+    private ArrayList<Integer> conts;
     private List<HashMap<Object, String>> mapsArray;
     private HashMap<Object, String> collection3, collection4;
+    private Map<String, List<String>> collectionCols;
     private FirebaseFirestore db;
-    private int count=0, countForms=0, countEvents=0;
+    private int count=0, countForms=0, countEvents=0, countCollabs=0, count1=0, count2=0;
 
     private Context context;
     @Override
@@ -86,7 +95,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
         cancel = (Button) findViewById(R.id.cancelReport);
         generate = (Button) findViewById(R.id.generateReportButton);
 
-
+        context = this;
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             garden = extras.getString("garden");
@@ -94,42 +103,76 @@ public class GenerateReportsActivity extends AppCompatActivity {
                 id = extras.getString("idUser");
                 idGarden = extras.getString("idGardenFirebaseDoc");
                 ownerName = extras.getString("ownerName");
+                generate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        new AlertDialog.Builder(context)
+                                .setMessage("¿Deseas enviar el archivo generado por correo electronico?")
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        //finishAffinity();
+                                        answer = "false";
+                                        searchInfo(idGarden, id);
+                                        searchInfoUser(idGarden, id);
+                                        Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
+                                        GenerateReportsActivity.super.onBackPressed();
+                                    }
+                                })
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface arg0, int arg1) {
+                                        //finishAffinity();
+                                        answer = "true";
+                                        searchInfo(idGarden, id);
+                                        searchInfoUser(idGarden, id);
+
+                                        Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
+                                        GenerateReportsActivity.super.onBackPressed();
+                                    }
+                                }).create().show();
+
+                        //onBackPressed();
+                    }
+                });
+            }
+            else if(garden.equals("false")){
+                generate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        new AlertDialog.Builder(context)
+                                .setMessage("¿Deseas enviar el archivo generado por correo electronico?")
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        //finishAffinity();
+                                        answer = "false";
+                                        searchGeneralInfo();
+                                        //searchInfoUser(idGarden, id);
+
+                                        Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
+                                        GenerateReportsActivity.super.onBackPressed();
+                                    }
+                                })
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface arg0, int arg1) {
+                                        //finishAffinity();
+                                        answer = "true";
+                                        searchGeneralInfo();
+                                        //searchInfoUser(idGarden, id);
+
+                                        Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
+                                        GenerateReportsActivity.super.onBackPressed();
+                                    }
+                                }).create().show();
+
+                        //onBackPressed();
+                    }
+                });
             }
         }
-        context = this;
 
-        generate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new AlertDialog.Builder(context)
-                        .setMessage("¿Deseas enviar el archivo generado por correo electronico?")
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //finishAffinity();
-                                answer = "false";
-                                searchInfo(idGarden, id);
-                                searchInfoUser(idGarden, id);
 
-                                Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
-                                GenerateReportsActivity.super.onBackPressed();
-                            }
-                        })
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                //finishAffinity();
-                                answer = "true";
-                                searchInfo(idGarden, id);
-                                searchInfoUser(idGarden, id);
 
-                                Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
-                                GenerateReportsActivity.super.onBackPressed();
-                            }
-                        }).create().show();
-
-                //onBackPressed();
-            }
-        });
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,7 +212,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()){
                                 collection1Data = new ArrayList<>();
-
+                                collectionCrops = new ArrayList<>();
                                 collection4 = new HashMap<>();
                                 mapsArray = new ArrayList<>();
                                 Calendar calendar = Calendar.getInstance();
@@ -189,6 +232,12 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                         }
                                     } catch (Exception e) {
                                         throw new RuntimeException(e);
+                                    }
+
+                                    if(field.equals("Control de Procesos de Siembra")){
+
+                                        String name = document.getString("plants or seeds");
+                                        collectionCrops.add(name);
                                     }
                                     if(field.equals("Registro de evento")){
                                         collection3 = new HashMap<>();
@@ -263,17 +312,17 @@ public class GenerateReportsActivity extends AppCompatActivity {
     private void checkIfAllDataRetrieved(int numDocumentsToRetrieve, int numDocumentsRetrieved) throws IOException {
 
         if (numDocumentsRetrieved == numDocumentsToRetrieve) {
-            createPDF(gardenU, ownerName, collection1Data, type, info, group, count, countForms, answer, mapsArray);
+            createPDF(gardenU, ownerName, collection1Data, type, info, group, count, countForms, answer, mapsArray, collectionCrops);
         }
     }
 
-    public void createPDF( String name, String nameUser, ArrayList<String> list, String type, String info, String group, int count, int countForms, String answer, List<HashMap<Object, String>> map) throws IOException{
+    public void createPDF( String name, String nameUser, ArrayList<String> list, String type, String info, String group, int count, int countForms, String answer, List<HashMap<Object, String>> map, ArrayList<String> crops) throws IOException{
         PdfDocument document = new PdfDocument();
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 1).create();
         PdfDocument.Page page = document.startPage(pageInfo);
         Canvas canvas = page.getCanvas();
         Paint paint = new Paint();
-        int x = 10, y = 150, width=50;
+        int x = 10, y = 125, width=50;
         float left = 50, top = 50;
         //pa la imagen
         AssetManager assetManager = getAssets();
@@ -302,16 +351,80 @@ public class GenerateReportsActivity extends AppCompatActivity {
         page.getCanvas().drawBitmap(bitmap, null, destRect, null);
         Layout.Alignment alignment = Layout.Alignment.ALIGN_NORMAL;
 
-        page.getCanvas().drawText("Huerta: "+name, x, y, paint);
-        page.getCanvas().drawText("Dueño de la huerta: "+ownerName, x, y+25, paint);
-        page.getCanvas().drawText("Tipo de huerta: "+type, x, y+50, paint);
-        page.getCanvas().drawText("Información de la huerta: "+info, x, y+75, paint);
-        page.getCanvas().drawText("La huerta tiene chat grupal: "+group, x, y+100, paint);
-        page.getCanvas().drawText("Numero de colaboradores de la huerta: "+count, x, y+125, paint);
-        page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, y+150, paint);
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH)+1;
+        String monthU="";
+        switch (month){
+            case 1:
+                monthU = "Enero";
+                break;
+            case 2:
+                monthU = "Febrero";
+                break;
+            case 3:
+                monthU = "Marzo";
+                break;
+            case 4:
+                monthU = "Abril";
+                break;
+            case 5:
+                monthU = "Mayo";
+                break;
+            case 6:
+                monthU = "Junio";
+                break;
+            case 7:
+                monthU = "Julio";
+                break;
+            case 8:
+                monthU = "Agosto";
+                break;
+            case 9:
+                monthU = "Septiembre";
+                break;
+            case 10:
+                monthU = "Octubre";
+                break;
+            case 11:
+                monthU = "Noviembre";
+                break;
+            case 12:
+                monthU = "Diciembre";
+                break;
+        }
 
-        page.getCanvas().drawText("Los formularios que tiene la huerta->", x, y+170, paint);
-        int now = y+195, i=1;
+        int year = calendar.get(Calendar.YEAR);
+
+        page.getCanvas().drawText("Fecha: "+day+" de "+monthU+" del "+year, x+110, y, paint);
+
+        page.getCanvas().drawText("Reporte de Huerta: "+name, x, y+20, paint);
+        page.getCanvas().drawText("Dueño de la huerta: "+ownerName, x, y+40, paint);
+        page.getCanvas().drawText("Tipo de huerta: "+type, x, y+60, paint);
+        page.getCanvas().drawText("Información de la huerta: "+info, x, y+80, paint);
+        page.getCanvas().drawText("La huerta tiene chat grupal: "+group, x, y+100, paint);
+        page.getCanvas().drawText("Numero de colaboradores de la huerta: "+count, x, y+120, paint);
+
+        String cropsNames = "";
+        if(!crops.isEmpty()){
+            for(int i =0; i<crops.size();i++){
+                cropsNames = cropsNames + crops.get(i);
+                if(i != crops.size()-1){
+                    cropsNames = cropsNames+", ";
+                }
+
+            }
+            page.getCanvas().drawText("Cultivos de la huerta: ", x, y+140, paint);
+            page.getCanvas().drawText(cropsNames, x+20, y+160, paint);
+        }
+        else{
+            page.getCanvas().drawText("No hay cultivos en la huerta.", x, y+140, paint);
+        }
+
+        page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, y+170, paint);
+
+        page.getCanvas().drawText("Los formularios que tiene la huerta->", x, y+190, paint);
+        int now = y+215, i=1;
         if(!list.isEmpty()){
             for(String element : list){
                 page.getCanvas().drawText(i+": "+element, x, now, paint);
@@ -410,7 +523,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
         }
     }
     public void searchInfoUser(String idGarden, String idUser){
-        final int NUM_DOCUMENTS_TO_RETRIEVE =1;
+        final int NUM_DOCUMENTS_TO_RETRIEVE =22;
         final int[] NUM_DOCUMENTS_RETRIEVED = {0};
         CollectionReference collectionRef2 = FirebaseFirestore.getInstance().collection("UserInfo");
         CollectionReference collectionRef = FirebaseFirestore.getInstance().collection("Gardens").document(idGarden).collection("Collaborators");
@@ -431,16 +544,11 @@ public class GenerateReportsActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if(task.isSuccessful()){
                                 for(String ele : ids){
-
-
                                     Query query = collectionRef2.whereEqualTo("ID", ele);
                                     query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-
                                             if (task.isSuccessful()) {
-
                                                 String name = null;
 
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -450,23 +558,276 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                                     //count++;
                                                     collection2Data.add(name);
                                                 }
-
-
-
                                             }
 
                                         }
                                     });
-
-
                                 }
                             }
                         }
                     });
-
                 }
             }
         });
     }
+    private void searchGeneralInfo(){
+        final int[] NUM_DOCUMENTS_TO_RETRIEVE = new int[1];// se realizo el cambio con respecto a lo anterior debido al problem con los gardens
+        final int[] NUM_DOCUMENTS_RETRIEVED = {0};
+        CollectionReference collectionRef = FirebaseFirestore.getInstance().collection("Gardens");
+        collectionRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    NUM_DOCUMENTS_TO_RETRIEVE[0] =task.getResult().size();
+                    gardensNames = new ArrayList<>();
+                    contColl = new ArrayList<>();
+                    conts = new ArrayList<>();
+
+
+                    for(QueryDocumentSnapshot q : task.getResult()){
+
+                        name = q.getData().get("GardenName").toString();
+                        contColl.add(q.getId());
+                        gardensNames.add(name);
+
+                        collectionRef.document(q.getId()).collection("Forms").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.isSuccessful()){
+
+                                    String field, nameCrop, date;
+                                    int cont = 0;
+                                    Calendar calendar = Calendar.getInstance();
+                                    calendar.add(Calendar.MONTH, -1);
+                                    Date startDate = calendar.getTime();
+                                    Date endDate = new Date();
+                                    collectionCols = new HashMap<>();
+                                    for(QueryDocumentSnapshot document : task.getResult()){
+
+                                        field = document.getString("nameForm");
+                                        date = document.getString("Date");
+                                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                                        try{
+                                            Date createForm = formatter.parse(date);
+                                            calendar.setTime(createForm);
+                                            if(createForm.after(startDate) && createForm.before(endDate)){
+                                                countForms++;
+                                            }
+                                        } catch (Exception e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                        if(field.equals("Control de Procesos de Siembra")){
+                                            List<String> listCrop = new ArrayList<>();
+
+                                            nameCrop = document.getString("plants or seeds");
+                                            listCrop.add(nameCrop);
+                                            crops.add(nameCrop);
+                                            collectionCols.put("name", listCrop);
+                                            System.out.println("Hola "+nameCrop);
+                                            count1++;
+                                        }
+
+                                        count2++;
+                                    }
+                                   // System.out.println("el contador: "+countEvents);
+                                    countEvents++;
+                                }
+
+                                collectionRef.document(q.getId()).collection("Collaborators").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if(task.isSuccessful()){
+                                            int cont=task.getResult().size();
+                                            //System.out.println("el tamano "+task.getResult().size());
+                                            conts.add(cont);
+                                            //collectionCols.put(name, cont);
+                                        }
+                                        NUM_DOCUMENTS_RETRIEVED[0]++;
+                                        try {
+                                            checkIfAllGeneralDataRetrieved(NUM_DOCUMENTS_TO_RETRIEVE[0], NUM_DOCUMENTS_RETRIEVED[0]);
+                                        } catch (IOException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                    }
+                                });
+                            }
+                        });
+
+
+                    }
+                }
+            }
+        });
+
+    }
+    private void checkIfAllGeneralDataRetrieved(int numDocumentsToRetrieve, int numDocumentsRetrieved) throws IOException {
+
+        if (numDocumentsRetrieved == numDocumentsToRetrieve ) {
+            createGeneralPDF(gardensNames, conts, collectionCols, crops, countEvents, count1, count2, countForms);
+        }
+    }
+    private void createGeneralPDF(ArrayList<String> list, ArrayList<Integer> list2, Map<String, List<String>> map, ArrayList<String> crops, Integer countEvents, Integer count1, Integer count2, Integer countForms) {
+
+       /* int cont=0;
+        for (int i = 0; i<list.size(); i++){
+            System.out.println("Garden: "+list.get(i)+"Colabs: "+list2.get(i));
+            cont = cont+list2.get(i);
+        }System.out.println("Cont: "+cont);
+
+
+        System.out.println("Map: "+crops.size());
+        for (int i = 0; i<crops.size(); i++){
+            System.out.println("Cultivos: "+crops.get(i));
+        }
+        int x=count1+count2;
+        int y=x-countEvents;
+        System.out.println("Counteventos: "+y);//numero de huertas trabajando los cultivos
+        System.out.println("Contador de registros ultimo mes: "+countForms);*/
+
+
+        PdfDocument document = new PdfDocument();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 1).create();
+        PdfDocument.Page page = document.startPage(pageInfo);
+        Canvas canvas = page.getCanvas();
+        Paint paint = new Paint();
+        int x = 10, y = 135, width = 50;
+        float left = 50, top = 50;
+        //pa la imagen
+        AssetManager assetManager = getAssets();
+
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.im_logo_ceres);
+        int maxWidth = 200;   // Maximum width of the image
+        int maxHeight = 200;  // Maximum height of the image
+        int imageWidth = bitmap.getWidth();   // Original width of the image
+        int imageHeight = bitmap.getHeight(); // Original height of the image
+        float aspectRatio = (float) imageWidth / imageHeight;
+        int destWidth = 0, destHeight = 0;
+        if (aspectRatio > 1) {
+            // Landscape image
+            destWidth = maxWidth;
+            destHeight = (int) (maxWidth / aspectRatio);
+        } else {
+            // Portrait or square image
+            destHeight = maxHeight;
+            destWidth = (int) (maxHeight * aspectRatio);
+        }
+        int destLeft = 55;  // Left coordinate of the rectangle
+        int destTop = 20;   // Top coordinate of the rectangle
+        int destRight = destLeft + destWidth;   // Right coordinate of the rectangle
+        int destBottom = destTop + destHeight;
+        Rect destRect = new Rect(destLeft, destTop, destRight, destBottom);
+        page.getCanvas().drawBitmap(bitmap, null, destRect, null);
+        Layout.Alignment alignment = Layout.Alignment.ALIGN_NORMAL;
+
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH)+1;
+        String monthU="";
+        switch (month){
+            case 1:
+                monthU = "Enero";
+                break;
+            case 2:
+                monthU = "Febrero";
+                break;
+            case 3:
+                monthU = "Marzo";
+                break;
+            case 4:
+                monthU = "Abril";
+                break;
+            case 5:
+                monthU = "Mayo";
+                break;
+            case 6:
+                monthU = "Junio";
+                break;
+            case 7:
+                monthU = "Julio";
+                break;
+            case 8:
+                monthU = "Agosto";
+                break;
+            case 9:
+                monthU = "Septiembre";
+                break;
+            case 10:
+                monthU = "Octubre";
+                break;
+            case 11:
+                monthU = "Noviembre";
+                break;
+            case 12:
+                monthU = "Diciembre";
+                break;
+        }
+
+        int year = calendar.get(Calendar.YEAR);
+
+        page.getCanvas().drawText("Fecha: "+day+" de "+monthU+" del "+year, x+100, y, paint);
+        page.getCanvas().drawText("Reporte General de Ceres", x, y + 20, paint);
+        page.getCanvas().drawText("Actualmente Ceres cuenta con " + list.size() + " huertas", x, y + 40, paint);
+        page.getCanvas().drawText("Actualmente Ceres cuenta con " + list.size() + " huertas", x, y + 60, paint);
+        page.getCanvas().drawText("Nombres de las huertas en pagina siguiente.", x, y + 80, paint);
+        int cont = 0;
+        for (int i = 0; i < list.size(); i++) {
+            cont = cont + list2.get(i);
+        }
+        page.getCanvas().drawText("Numero total de colaboradores en Ceres: " + cont, x, y + 110, paint);
+        page.getCanvas().drawText("Actualmente se existen los siguientes cultivos: ", x, y + 120, paint);
+        int z=y+140;
+        for (int i = 0; i<crops.size(); i++){
+            page.getCanvas().drawText(i+1+": "+crops.get(i), x+10, z, paint);
+            z=z+20;
+        }
+        int c1=count1+count2;
+        int c2=c1-countEvents;
+        page.getCanvas().drawText("De las "+list.size()+" huertas "+c2+" estan trabajando en estos ", x, z , paint);
+        page.getCanvas().drawText("estos cultivos.", x, z + 10, paint);
+        page.getCanvas().drawText("Se han realizado "+countForms+" registros de formularios en el ", x, z + 30, paint);
+        page.getCanvas().drawText("último mes.", x, z + 40, paint);
+        document.finishPage(page);
+
+        pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 2).create();
+        page = document.startPage(pageInfo);
+        canvas = page.getCanvas();
+        page.getCanvas().drawBitmap(bitmap, null, destRect, null);
+
+        page.getCanvas().drawText("Las huertas existentes a dia de hoy son: ", x+5, y + 20, paint);
+        int o=y+40;
+        for (int i = 0; i<list.size(); i++){
+            page.getCanvas().drawText(i+1+": "+list.get(i), x, o, paint);
+            o=o+14;
+
+        }
+        page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, o+20, paint);
+        page.getCanvas().drawText("Fin del reporte", x, o+40, paint);
+        document.finishPage(page);
+
+            String path = Environment.getExternalStorageDirectory().getPath() + "/ReporteGeneralCeres.pdf";
+            File file = new File(path);
+            try {
+                document.writeTo(new FileOutputStream(file));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            document.close();
+            if (answer.equals("true")) {
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                FirebaseUser user = mAuth.getCurrentUser();
+                String userEmail = user.getEmail();
+
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                emailIntent.setData(Uri.parse("mailto:" + userEmail));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Reporte de huerta " + name);
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Mensaje del correo...");
+                emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+                startActivity(Intent.createChooser(emailIntent, "Send email"));
+            }
+
+
+        }
+
+
 
 }
