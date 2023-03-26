@@ -1,10 +1,6 @@
 package com.example.opcv.adapter;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ItemTouchHelper;
-
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +11,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.opcv.R;
-import com.example.opcv.item_list.ItemGardenHomeList;
 import com.example.opcv.item_list.ItemShowGardenAvailable;
 
 import java.util.List;
@@ -48,7 +43,7 @@ public class GardenAvailableListAdapter extends ArrayAdapter<ItemShowGardenAvail
 
         accept = convertView.findViewById(R.id.acceptedButton);
         deny = convertView.findViewById(R.id.rejectedButton);
-        image = convertView.findViewById(R.id.gardenImage);
+        image = convertView.findViewById(R.id.gardenImageEditActivity);
         image.setVisibility(View.VISIBLE);
 
         return convertView;

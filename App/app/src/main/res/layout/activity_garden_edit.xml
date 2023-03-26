@@ -8,7 +8,7 @@
     android:background="@color/white">
 
     <ImageView
-        android:id="@+id/gardenImage"
+        android:id="@+id/gardenImageEditActivity"
         android:layout_width="411dp"
         android:layout_height="236dp"
         android:background="@color/lightGreen"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/addImage"
+        android:id="@+id/ChangeImageEditGarden"
         android:layout_width="65dp"
         android:layout_height="63dp"
         android:layout_marginStart="290dp"
@@ -29,8 +29,8 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/gardenImage"
-        app:layout_constraintTop_toTopOf="@+id/gardenImage"
+        app:layout_constraintStart_toStartOf="@+id/gardenImageEditActivity"
+        app:layout_constraintTop_toTopOf="@+id/gardenImageEditActivity"
         app:layout_constraintVertical_bias="0.916" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -41,8 +41,8 @@
         android:layout_marginBottom="158dp"
         android:clickable="true"
         android:contentDescription="Boton para regresar"
-        android:tint="#F8F5F5"
-        app:backgroundTint="#91BF63"
+        android:tint="@color/white"
+        app:backgroundTint="@color/green"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"
@@ -59,7 +59,7 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gardenImage"
+        app:layout_constraintTop_toBottomOf="@+id/gardenImageEditActivity"
         app:layout_constraintVertical_bias="0.4">
 
         <LinearLayout
