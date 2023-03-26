@@ -254,7 +254,7 @@ public class GardenActivity extends AppCompatActivity {
                 Intent requests = new Intent(GardenActivity.this, GenerateReportsActivity.class);
                 requests.putExtra("idGardenFirebaseDoc",idGardenFirebase);
                 requests.putExtra("idUser",id);
-                requests.putExtra("garden","true");
+                requests.putExtra("garden","true");// con esto se define si, al ejecutar GenerateReportsActivity es solo para la huerta o para todos
                 CollectionReference collectionRef2 = database.collection("UserInfo");
                 Query query = collectionRef2.whereEqualTo("ID", id);
                 query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
