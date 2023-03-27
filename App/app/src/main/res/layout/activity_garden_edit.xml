@@ -131,7 +131,8 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/dr_gray_input_text"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:maxLines="3"
+                android:textSize="14sp"/>
 
         </LinearLayout>
 

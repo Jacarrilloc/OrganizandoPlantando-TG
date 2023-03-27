@@ -70,7 +70,6 @@ public class CreateGardenActivity extends AppCompatActivity {
         gardenType = findViewById(R.id.switchGardenType);
         photo = findViewById(R.id.imageGardenCreate);
         selectPhoto = findViewById(R.id.SelectImageCreateGarden);
-        backButtom = findViewById(R.id.returnArrowButtomEditToGarden);
 
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
@@ -80,13 +79,6 @@ public class CreateGardenActivity extends AppCompatActivity {
         otherGardensButton = (Button) findViewById(R.id.gardens);
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
-
-        backButtom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
 
         selectPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
