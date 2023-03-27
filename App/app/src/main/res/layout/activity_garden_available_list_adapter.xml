@@ -11,7 +11,7 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/gardenImage"
+        android:id="@+id/gardenImageEditActivity"
         android:layout_width="103dp"
         android:layout_height="60dp"
         android:layout_margin="10dp"

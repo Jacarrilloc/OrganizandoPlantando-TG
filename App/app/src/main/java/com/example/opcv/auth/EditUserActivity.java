@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 //import com.bumptech.glide.Glide;
+import com.bumptech.glide.Glide;
 import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
@@ -33,6 +34,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Transaction;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 //import com.google.firebase.storage.FirebaseStorage;
 //import com.google.firebase.storage.StorageReference;
 
@@ -156,14 +159,14 @@ public class EditUserActivity extends AppCompatActivity {
                         userLastName.setText(userActive.getLastName());
                         userEmail.setText("Comabaquinta");
                         userPhone.setText(userActive.getPhoneNumber());
-                       // getPhotoProfileUser(userActive.getId());
+                        getPhotoProfileUser(userActive.getId());
                     }
                 }
             }
         });
     }
 
-    /*
+
     private void getPhotoProfileUser(String id){
         FirebaseStorage storage = FirebaseStorage.getInstance();
         String pathImage = "userProfilePhoto/" + id + ".jpg";
@@ -181,7 +184,7 @@ public class EditUserActivity extends AppCompatActivity {
             }
         });
 
-    }*/
+    }
     /*private void searchUserInfo (){
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();

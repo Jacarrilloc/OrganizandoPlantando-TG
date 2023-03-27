@@ -8,8 +8,8 @@
     android:background="@color/white">
 
     <ImageView
-        android:id="@+id/gardenImage"
-        android:layout_width="411dp"
+        android:id="@+id/gardenImageEditActivity"
+        android:layout_width="match_parent"
         android:layout_height="236dp"
         android:background="@color/lightGreen"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/addImage"
+        android:id="@+id/ChangeImageEditGarden"
         android:layout_width="65dp"
         android:layout_height="63dp"
         android:layout_marginStart="290dp"
@@ -29,26 +29,22 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/gardenImage"
-        app:layout_constraintTop_toTopOf="@+id/gardenImage"
+        app:layout_constraintStart_toStartOf="@+id/gardenImageEditActivity"
+        app:layout_constraintTop_toTopOf="@+id/gardenImageEditActivity"
         app:layout_constraintVertical_bias="0.916" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/returnArrowButton"
+        android:id="@+id/returnArrowButtomEditToGarden"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginBottom="158dp"
+        android:layout_marginLeft="20sp"
+        android:layout_marginTop="20sp"
         android:clickable="true"
-        android:contentDescription="Boton para regresar"
-        android:tint="#F8F5F5"
+        android:contentDescription="@string/boton_para_regresar"
+        android:tint="@color/white"
         app:backgroundTint="#91BF63"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.846"
         app:srcCompat="@drawable/dr_return_arrow" />
 
     <LinearLayout
@@ -59,7 +55,7 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gardenImage"
+        app:layout_constraintTop_toBottomOf="@+id/gardenImageEditActivity"
         app:layout_constraintVertical_bias="0.4">
 
         <LinearLayout

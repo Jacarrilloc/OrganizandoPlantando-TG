@@ -31,7 +31,7 @@
                 android:layout_height="match_parent">
 
                 <Button
-                    android:id="@+id/addImage"
+                    android:id="@+id/ChangeImageEditGarden"
                     android:layout_width="54dp"
                     android:layout_height="51dp"
                     android:layout_marginTop="164dp"

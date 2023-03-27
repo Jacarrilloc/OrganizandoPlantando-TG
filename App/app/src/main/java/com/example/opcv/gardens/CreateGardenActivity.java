@@ -1,13 +1,25 @@
 package com.example.opcv.gardens;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.opcv.HomeActivity;
@@ -16,23 +28,37 @@ import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.info.GardenInfo;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CreateGardenActivity extends AppCompatActivity {
 
     private EditText nameGarden,infoGarden;
-    private CheckBox publicGarden,privateGarden;
+    private ImageView photo;
+    private Button selectPhoto;
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
     private Button create, otherGardensButton, profile, myGardens;
+    private Switch gardenType;
     private GardenInfo newInfo;
+
+    private FloatingActionButton backButtom;
+
+    private static final int REQUEST_SELECT_PHOTO = 2000;
+    private static final int PERMISSION_REQUEST_STORAGE = 1000;
+
+    private static final int GALLERY_REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +67,10 @@ public class CreateGardenActivity extends AppCompatActivity {
 
         nameGarden = findViewById(R.id.gardenName);
         infoGarden = findViewById(R.id.gardenInfo);
-        publicGarden = findViewById(R.id.checkbox_public_Create_Activity);
-        privateGarden = findViewById(R.id.checkbox_private_Create_Activity);
+        gardenType = findViewById(R.id.switchGardenType);
+        photo = findViewById(R.id.imageGardenCreate);
+        selectPhoto = findViewById(R.id.SelectImageCreateGarden);
+        backButtom = findViewById(R.id.returnArrowButtomEditToGarden);
 
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
@@ -50,6 +78,35 @@ public class CreateGardenActivity extends AppCompatActivity {
         create = findViewById(R.id.add_garden_button);
 
         otherGardensButton = (Button) findViewById(R.id.gardens);
+        profile = (Button) findViewById(R.id.profile);
+        myGardens = (Button) findViewById(R.id.myGardens);
+
+        backButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        selectPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(CreateGardenActivity.this)
+                        .setMessage("¿Deseas Tomar una foto o elegir desde la galeria?")
+                        .setNegativeButton("Tomar Foto", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                takePhoto();
+                            }
+                        })
+                        .setPositiveButton("Seleccionar desde la Galeria", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                selectInGalery();
+                            }
+                        })
+                        .show();
+            }
+        });
+
         otherGardensButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,14 +114,14 @@ public class CreateGardenActivity extends AppCompatActivity {
             }
         });
 
-        profile = (Button) findViewById(R.id.profile);
+
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(CreateGardenActivity.this, EditUserActivity.class));
             }
         });
-        myGardens = (Button) findViewById(R.id.myGardens);
+
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,20 +140,17 @@ public class CreateGardenActivity extends AppCompatActivity {
     private void createGarden(){
         String name = nameGarden.getText().toString();
         String info = infoGarden.getText().toString();
-        Boolean gardenPublic = publicGarden.isChecked();
-        Boolean gardenPrivate = privateGarden.isChecked();
-
-        if(validateField(name,info,gardenPublic,gardenPrivate)){
+        Boolean gardenPrivateOrPublic = gardenType.isChecked();
+        if(validateField(name,info)){
             FirebaseUser user = autentication.getCurrentUser();
             CollectionReference collectionRef = database.collection("Gardens");
 
-            if(gardenPublic){
+            if(!gardenPrivateOrPublic){
                 newInfo = new GardenInfo(user.getUid(),nameGarden.getText().toString(),infoGarden.getText().toString(),"Public");
             }
-            if(gardenPrivate){
+            if(gardenPrivateOrPublic){
                 newInfo = new GardenInfo(user.getUid(),nameGarden.getText().toString(),infoGarden.getText().toString(),"Private");
             }
-
 
             Map<String, Object> gardenInfo = new HashMap<>();
             gardenInfo.put("ID_Owner",newInfo.getID_Owner());
@@ -107,6 +161,8 @@ public class CreateGardenActivity extends AppCompatActivity {
             collectionRef.add(gardenInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
+                    String idGarden = documentReference.getId();
+                    uploadPhotoGarden(idGarden);
                     Toast.makeText(CreateGardenActivity.this, "Se Creó exitosamente la Huerta", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(CreateGardenActivity.this, HomeActivity.class).putExtra("idGarden", documentReference.getId().toString()));
                 }
@@ -114,21 +170,74 @@ public class CreateGardenActivity extends AppCompatActivity {
         }
     }
 
-    private boolean validateField(String name,String info,Boolean gardenPublic,Boolean gardenPrivate){
+    private boolean validateField(String name,String info){
 
         if(name.isEmpty() || info.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar el nombre e información de la Huerta", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if ((!gardenPublic) && (!gardenPrivate)){
-            Toast.makeText(this, "Debes indicar si la huerta es publica o privada", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if ((gardenPublic) && (gardenPrivate)){
-            Toast.makeText(this, "Debes Seleccionar una sola Opción", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Es necesario Ingresar el nombre y la información de la Huerta", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
 
+    private void takePhoto(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+
+            PackageManager pm = getPackageManager();
+            if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+                openCamaraAndTakePhoto();
+            } else {
+                Toast.makeText(this, "No hay una Camara en tu Dispositivo", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        }
+    }
+
+    private void selectInGalery(){
+        if(ContextCompat.checkSelfPermission(CreateGardenActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(CreateGardenActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_STORAGE);
+        }else{
+            Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
+        }
+    }
+
+    private void openCamaraAndTakePhoto() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 0);
+    }
+
+    private void uploadPhotoGarden(String idGarden){
+        Bitmap bitmap = ((BitmapDrawable) photo.getDrawable()).getBitmap();
+        if(bitmap != null){
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+            StorageReference gardenRef = storageRef.child("gardenMainPhoto");
+            String imageName = idGarden + ".jpg";
+            StorageReference imageRef = gardenRef.child(imageName);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] data = baos.toByteArray();
+            UploadTask uploadTask = imageRef.putBytes(data);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Log.i("IMG","Image uploaded to Storage");
+                }
+            });
+        }
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            Bitmap photoI = (Bitmap) data.getExtras().get("data");
+            photo.setImageBitmap(photoI);
+        }
+        if (resultCode == RESULT_OK && requestCode == GALLERY_REQUEST_CODE && data != null) {
+            Uri imageUri = data.getData();
+            photo.setImageURI(imageUri);
+        }
+    }
 }

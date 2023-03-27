@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,6 +40,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,7 +52,7 @@ public class GardenActivity extends AppCompatActivity {
     private Button formsRegister, gardens, myGardens, profile;
     private ImageButton editGarden, seedTime, toolsButton, worm, collaboratorGardens, messages, generateReport;
 
-    private ImageView moreFormsButtom;
+    private ImageView moreFormsButtom,gardenImage;
     private TextView nameGarden,descriptionGarden, gardenParticipants;
     private FloatingActionButton backButtom;
     private FirebaseFirestore database;
@@ -81,8 +85,7 @@ public class GardenActivity extends AppCompatActivity {
         generateReport = (ImageButton) findViewById(R.id.imageButton9);
         database = FirebaseFirestore.getInstance();
         gardensRef = database.collection("Gardens");
-
-
+        gardenImage = findViewById(R.id.gardenProfilePicture);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
@@ -107,6 +110,7 @@ public class GardenActivity extends AppCompatActivity {
             }
         }
 
+        getImageGarden(extras.getString("idGarden"));
         backButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -342,5 +346,24 @@ public class GardenActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void getImageGarden(String idGarden){
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        String imageName = idGarden + ".jpg";
+        StorageReference imageRef = storageRef.child("gardenMainPhoto/" + imageName);
+        final long ONE_MEGABYTE = 1024 * 1024;
+        imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                gardenImage.setImageBitmap(bitmap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                gardenImage.setImageResource(R.drawable.im_logo_ceres_green);
+            }
+        });
     }
 }

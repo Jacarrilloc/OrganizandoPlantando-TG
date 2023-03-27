@@ -15,10 +15,10 @@
 
         <ImageView
             android:id="@+id/gardenProfilePicture"
-            android:layout_width="408dp"
+            android:layout_width="match_parent"
             android:layout_height="229dp"
             android:layout_gravity="center"
-            android:background="@drawable/im_garden_pic"
+            android:background="@color/lightGreen"
             android:scaleType="fitCenter" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
