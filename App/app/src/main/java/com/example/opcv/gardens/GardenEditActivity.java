@@ -21,6 +21,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +56,7 @@ public class GardenEditActivity extends AppCompatActivity {
     private EditText gardenName, comunity, description;
     private Button acceptChanges, gardens, myGardens, profile, deleteGarden, addForm, changeImage;
     private ImageView addParticipants,gardenImage;
+    private Switch switchGardenTypeModified;
     private CheckBox publicGarden, privateGarden;
     private FloatingActionButton backButtom;
     private FirebaseAuth autentication;
@@ -82,6 +85,7 @@ public class GardenEditActivity extends AppCompatActivity {
         gardenImage = findViewById(R.id.gardenImageEditActivity);
         changeImage = findViewById(R.id.ChangeImageEditGarden);
 
+        switchGardenTypeModified = findViewById(R.id.switchGardenTypeModified);
         backButtom = findViewById(R.id.returnArrowButtomEditToGarden);
         adminMembersGarden = (TextView) findViewById(R.id.adminMembers);
         autentication = FirebaseAuth.getInstance();
@@ -90,8 +94,6 @@ public class GardenEditActivity extends AppCompatActivity {
         gardenName = (EditText) findViewById(R.id.gardenName);
         description = (EditText) findViewById(R.id.gardenDescription);
         comunity = (EditText) findViewById(R.id.gardenInfo);
-        publicGarden = (CheckBox) findViewById(R.id.checkbox_public_Create_Activity);
-        privateGarden = (CheckBox) findViewById(R.id.checkbox_private_Create_Activity);
         gardens = (Button) findViewById(R.id.gardens);
         myGardens = (Button) findViewById(R.id.myGardens);
         acceptChanges = (Button) findViewById(R.id.acceptChanges);
@@ -274,15 +276,14 @@ public class GardenEditActivity extends AppCompatActivity {
     private String editGardenInfo(){
         String name = gardenName.getText().toString();
         String info = description.getText().toString();
-        Boolean gardenPublic = publicGarden.isChecked();
-        Boolean gardenPrivate = privateGarden.isChecked();
+        Boolean gardenType = switchGardenTypeModified.isChecked();
 
-        if(validateField(name, info, gardenPublic, gardenPrivate)){
+        if(validateField(name, info)){
             FirebaseUser user = autentication.getCurrentUser();
             CollectionReference collectionRef = database.collection("Gardens");
 
             idUser = user.getUid();
-            searchGarden(idUser, name, info, gardenPublic, gardenPrivate);
+            searchGarden(idUser, name, info, gardenType);
             Toast.makeText(GardenEditActivity.this, "Se modificó exitosamente tu huerta", Toast.LENGTH_SHORT).show();
 
             //System.out.println("El id es: "+collectionRef.getPath().toString());
@@ -290,7 +291,7 @@ public class GardenEditActivity extends AppCompatActivity {
         return name;
     }
 
-    private void searchGarden(String idUser, String name, String info, Boolean gardenPublic, Boolean gardenPrivate) {
+    private void searchGarden(String idUser, String name, String info, Boolean gardenType) {
         database.collection("Gardens")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -308,10 +309,10 @@ public class GardenEditActivity extends AppCompatActivity {
                                         @Override
                                         public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
                                             DocumentSnapshot snapshot = transaction.get(docRef);
-                                            if(gardenPublic){
+                                            if(!gardenType){
                                                 transaction.update(docRef, "GardenName", name, "InfoGarden", info, "GardenType", "Public");
                                             }
-                                            if(gardenPrivate){
+                                            if(gardenType){
                                                 transaction.update(docRef, "GardenName", name, "InfoGarden", info, "GardenType", "Private");
                                             }
 
@@ -335,18 +336,10 @@ public class GardenEditActivity extends AppCompatActivity {
     }
 
 
-    private boolean validateField(String name,String info,Boolean gardenPublic, Boolean gardenPrivate){
+    private boolean validateField(String name,String info){
 
         if(name.isEmpty() || info.isEmpty()){
             Toast.makeText(this, "Es necesario Ingresar el nombre e información de la Huerta", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if ((gardenPublic == false) && (gardenPrivate == false)){
-            Toast.makeText(this, "Debes indicar si la huerta es publica o privada", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if ((gardenPublic == true) && (gardenPrivate == true)){
-            Toast.makeText(this, "Debes Seleccionar una sola Opción", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
