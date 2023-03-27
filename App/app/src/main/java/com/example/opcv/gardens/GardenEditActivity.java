@@ -44,6 +44,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Transaction;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 
 public class GardenEditActivity extends AppCompatActivity {
     private EditText gardenName, comunity, description;
@@ -70,7 +75,7 @@ public class GardenEditActivity extends AppCompatActivity {
 
 
         Bundle extras = getIntent().getExtras();
-        if(extras != null){
+        if (extras != null) {
             idGarden = extras.getString("idGarden");
         }
 
@@ -81,6 +86,19 @@ public class GardenEditActivity extends AppCompatActivity {
         adminMembersGarden = (TextView) findViewById(R.id.adminMembers);
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
+        gardensRef = database.collection("Gardens");
+        gardenName = (EditText) findViewById(R.id.gardenName);
+        description = (EditText) findViewById(R.id.gardenDescription);
+        comunity = (EditText) findViewById(R.id.gardenInfo);
+        publicGarden = (CheckBox) findViewById(R.id.checkbox_public_Create_Activity);
+        privateGarden = (CheckBox) findViewById(R.id.checkbox_private_Create_Activity);
+        gardens = (Button) findViewById(R.id.gardens);
+        myGardens = (Button) findViewById(R.id.myGardens);
+        acceptChanges = (Button) findViewById(R.id.acceptChanges);
+        deleteGarden = (Button) findViewById(R.id.deleteGarden);
+        addForm = (Button) findViewById(R.id.addForm);
+
+        IsChangedPhoto = true;
 
         getImageGarden(idGarden);
 
@@ -115,15 +133,13 @@ public class GardenEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent requests = new Intent(GardenEditActivity.this, GardenMembersActivity.class);
-                System.out.println( "es id es : "+ idGarden);
-                requests.putExtra("idGarden",idGarden);
+                System.out.println("es id es : " + idGarden);
+                requests.putExtra("idGarden", idGarden);
                 startActivity(requests);
                 finish();
             }
         });
 
-        gardensRef = database.collection("Gardens");
-        gardenName = (EditText) findViewById(R.id.gardenName);
         gardensRef.document(idGarden).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -132,7 +148,6 @@ public class GardenEditActivity extends AppCompatActivity {
             }
         });
 
-        description = (EditText) findViewById(R.id.gardenDescription);
         gardensRef.document(idGarden).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -141,12 +156,6 @@ public class GardenEditActivity extends AppCompatActivity {
             }
         });
 
-        comunity = (EditText) findViewById(R.id.gardenInfo);
-        publicGarden = (CheckBox) findViewById(R.id.checkbox_public_Create_Activity);
-        privateGarden = (CheckBox) findViewById(R.id.checkbox_private_Create_Activity);
-
-
-        gardens = (Button) findViewById(R.id.gardens);
         gardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -154,7 +163,6 @@ public class GardenEditActivity extends AppCompatActivity {
             }
         });
 
-        myGardens = (Button) findViewById(R.id.myGardens);
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -170,11 +178,13 @@ public class GardenEditActivity extends AppCompatActivity {
             }
         });
 
-        acceptChanges = (Button) findViewById(R.id.acceptChanges);
         acceptChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String name = editGardenInfo();
+                if(IsChangedPhoto){
+                    changePhoto();
+                }
 
                 Intent start = new Intent(GardenEditActivity.this,HomeActivity.class);
                 String id = autentication.getCurrentUser().getUid().toString();
@@ -187,7 +197,6 @@ public class GardenEditActivity extends AppCompatActivity {
             }
         });
 
-        deleteGarden = (Button) findViewById(R.id.deleteGarden);
         deleteGarden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -207,7 +216,6 @@ public class GardenEditActivity extends AppCompatActivity {
             }
         });
 
-        addForm = (Button) findViewById(R.id.addForm);
         addForm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -404,5 +412,27 @@ public class GardenEditActivity extends AppCompatActivity {
             Uri imageUri = data.getData();
             gardenImage.setImageURI(imageUri);
         }
+    }
+
+    private void changePhoto(){
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference().child("gardenMainPhoto/" + idGarden + ".jpg");
+        gardenImage.setDrawingCacheEnabled(true);
+        Bitmap bitmap = gardenImage.getDrawingCache();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        InputStream stream = new ByteArrayInputStream(baos.toByteArray());
+        UploadTask uploadTask = storageRef.putStream(stream);
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(GardenEditActivity.this, "Se Cambio la Imagen de la Huerta Exitosamente", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // La carga de la foto ha fallado, manejar el error aquí
+            }
+        });
     }
 }
