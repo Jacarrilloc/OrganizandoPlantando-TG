@@ -1,6 +1,8 @@
 package com.example.opcv.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +12,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.example.opcv.R;
 import com.example.opcv.item_list.ItemGardenHomeList;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -42,8 +50,23 @@ public class GardenListAdapter extends ArrayAdapter<ItemGardenHomeList> {
 
         image = convertView.findViewById(R.id.garden_imagen_list_item);
         image.setVisibility(View.VISIBLE);
+        /*String id = item.getIdGarden();
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
 
-
+        StorageReference imageRef = storageRef.child("gardenMainPhoto/" +id + ".jpg");
+        final long ONE_MEGABYTE = 1024 * 1024;
+        imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                image.setImageBitmap(bitmap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                image.setImageResource(R.drawable.im_logo_ceres_green);
+            }
+        });*/
         return convertView;
     }
 }
