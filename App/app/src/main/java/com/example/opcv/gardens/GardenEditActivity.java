@@ -147,14 +147,14 @@ public class GardenEditActivity extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 nameGarden = documentSnapshot.getString("GardenName");
                 gardenName.setText(nameGarden);
-            }
-        });
-
-        gardensRef.document(idGarden).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
                 infoGarden = documentSnapshot.getString("InfoGarden");
                 description.setText(infoGarden);
+                String gardenInfoType = documentSnapshot.getString("GardenType");
+                if(gardenInfoType.equals("Public")){
+                    switchGardenTypeModified.setChecked(false);
+                } else if (gardenInfoType.equals("Private")) {
+                    switchGardenTypeModified.setChecked(true);
+                }
             }
         });
 
