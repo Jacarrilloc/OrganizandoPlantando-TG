@@ -1,6 +1,5 @@
 package com.example.opcv.gardens;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -18,7 +17,6 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -28,9 +26,9 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
-import com.example.opcv.auth.SelectPhotoActivity;
 import com.example.opcv.info.GardenInfo;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -55,6 +53,8 @@ public class CreateGardenActivity extends AppCompatActivity {
     private Switch gardenType;
     private GardenInfo newInfo;
 
+    private FloatingActionButton backButtom;
+
     private static final int REQUEST_SELECT_PHOTO = 2000;
     private static final int PERMISSION_REQUEST_STORAGE = 1000;
 
@@ -70,6 +70,7 @@ public class CreateGardenActivity extends AppCompatActivity {
         gardenType = findViewById(R.id.switchGardenType);
         photo = findViewById(R.id.imageGardenCreate);
         selectPhoto = findViewById(R.id.SelectImageCreateGarden);
+        backButtom = findViewById(R.id.returnArrowButtomEditToGarden);
 
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
@@ -79,6 +80,13 @@ public class CreateGardenActivity extends AppCompatActivity {
         otherGardensButton = (Button) findViewById(R.id.gardens);
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
+
+        backButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         selectPhoto.setOnClickListener(new View.OnClickListener() {
             @Override

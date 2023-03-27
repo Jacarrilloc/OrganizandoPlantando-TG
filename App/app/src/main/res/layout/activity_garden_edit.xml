@@ -9,7 +9,7 @@
 
     <ImageView
         android:id="@+id/gardenImageEditActivity"
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="236dp"
         android:background="@color/lightGreen"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,21 +34,17 @@
         app:layout_constraintVertical_bias="0.916" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/returnArrowButton"
+        android:id="@+id/returnArrowButtomEditToGarden"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginBottom="158dp"
+        android:layout_marginLeft="20sp"
+        android:layout_marginTop="20sp"
         android:clickable="true"
-        android:contentDescription="Boton para regresar"
+        android:contentDescription="@string/boton_para_regresar"
         android:tint="@color/white"
-        app:backgroundTint="@color/green"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:backgroundTint="#91BF63"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.846"
         app:srcCompat="@drawable/dr_return_arrow" />
 
     <LinearLayout

@@ -55,6 +55,7 @@ public class GardenEditActivity extends AppCompatActivity {
     private FirebaseFirestore database, database2;
     private FirebaseUser userLog;
 
+    private Boolean IsChangedPhoto = false;
     private TextView adminMembersGarden;
 
     private CollectionReference gardensRef;
@@ -76,7 +77,7 @@ public class GardenEditActivity extends AppCompatActivity {
         gardenImage = findViewById(R.id.gardenImageEditActivity);
         changeImage = findViewById(R.id.ChangeImageEditGarden);
 
-        backButtom = findViewById(R.id.returnArrowButton);
+        backButtom = findViewById(R.id.returnArrowButtomEditToGarden);
         adminMembersGarden = (TextView) findViewById(R.id.adminMembers);
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
@@ -369,6 +370,7 @@ public class GardenEditActivity extends AppCompatActivity {
             PackageManager pm = getPackageManager();
             if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
                 openCamaraAndTakePhoto();
+                IsChangedPhoto = true;
             } else {
                 Toast.makeText(this, "No hay una Camara en tu Dispositivo", Toast.LENGTH_SHORT).show();
             }
@@ -387,6 +389,7 @@ public class GardenEditActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(GardenEditActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_STORAGE);
         }else{
             Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            IsChangedPhoto = true;
             startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
         }
     }
