@@ -2,11 +2,19 @@ package com.example.opcv.auth;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +28,8 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.fbComunication.AuthUtilities;
+import com.example.opcv.gardens.CreateGardenActivity;
+import com.example.opcv.gardens.GardenEditActivity;
 import com.example.opcv.info.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -36,10 +46,15 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Transaction;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 
 public class EditUserActivity extends AppCompatActivity {
     private Button signOff, delete;
-    private Button gardensMap, profile, myGardens, acceptChanges;
+    private Button gardensMap, profile, myGardens, acceptChanges, changePhoto;
     private TextView userNameTV, close, deleteP;
     private EditText userName, userLastName, userEmail, userPhone;
     private ImageView profilePhoto;
@@ -47,6 +62,9 @@ public class EditUserActivity extends AppCompatActivity {
     private FirebaseFirestore database;
     private User userActive;
     private String userID_Recived;
+    private static final int GALLERY_REQUEST_CODE = 100;
+    private static final int PERMISSION_REQUEST_STORAGE = 1000;
+    private Boolean IsChangedPhoto = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +77,7 @@ public class EditUserActivity extends AppCompatActivity {
             AuthUtilities info = new AuthUtilities();
             userID_Recived = info.getCurrentUserUid();
         }
-
+        changePhoto = findViewById(R.id.ChangeImageEditUser);
         profilePhoto = findViewById(R.id.userImageEditUserActivity);
         userNameTV = (TextView) findViewById(R.id.userName);
         userName =(EditText) findViewById(R.id.userName2);
@@ -77,6 +95,25 @@ public class EditUserActivity extends AppCompatActivity {
         acceptChanges = (Button) findViewById(R.id.editUser);
 
         searchUserInfo();
+
+        changePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(EditUserActivity.this)
+                        .setMessage("¿Deseas Tomar una foto o elegir desde la galeria?")
+                        .setNegativeButton("Tomar Foto", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                takePhoto();
+                            }
+                        })
+                        .setPositiveButton("Seleccionar desde la Galeria", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                selectInGalery();
+                            }
+                        })
+                        .show();
+            }
+        });
 
         signOff.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,6 +257,7 @@ public class EditUserActivity extends AppCompatActivity {
     private void editUserInfo(String name, String lastName, String phoneNumber){
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
+        changePhoto();
         String userID=autentication.getCurrentUser().getUid().toString();
         database.collection("UserInfo")
                 .get()
@@ -256,5 +294,72 @@ public class EditUserActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    private void takePhoto(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+
+            PackageManager pm = getPackageManager();
+            if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+                openCamaraAndTakePhoto();
+                IsChangedPhoto = true;
+            } else {
+                Toast.makeText(this, "No hay una Camara en tu Dispositivo", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        }
+    }
+
+    private void openCamaraAndTakePhoto() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 0);
+    }
+
+    private void selectInGalery(){
+        if(ContextCompat.checkSelfPermission(EditUserActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(EditUserActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_STORAGE);
+        }else{
+            Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            IsChangedPhoto = true;
+            startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            Bitmap photoI = (Bitmap) data.getExtras().get("data");
+            profilePhoto.setImageBitmap(photoI);
+        }
+        if (resultCode == RESULT_OK && requestCode == GALLERY_REQUEST_CODE && data != null) {
+            Uri imageUri = data.getData();
+            profilePhoto.setImageURI(imageUri);
+        }
+    }
+
+    private void changePhoto(){
+        if(IsChangedPhoto) {
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef = storage.getReference().child("userProfilePhoto/" + userID_Recived + ".jpg");
+            profilePhoto.setDrawingCacheEnabled(true);
+            Bitmap bitmap = profilePhoto.getDrawingCache();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            InputStream stream = new ByteArrayInputStream(baos.toByteArray());
+            UploadTask uploadTask = storageRef.putStream(stream);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(EditUserActivity.this, "Se Cambio la Foto de Perfil Exitosamente", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // La carga de la foto ha fallado, manejar el error aquí
+                }
+            });
+        }
     }
 }
