@@ -328,7 +328,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
         //pa la imagen
         AssetManager assetManager = getAssets();
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.im_logo_ceres);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.im_logo_ceres_green);
         int maxWidth = 200;   // Maximum width of the image
         int maxHeight = 200;  // Maximum height of the image
         int imageWidth = bitmap.getWidth();   // Original width of the image
@@ -707,7 +707,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
         //pa la imagen
         AssetManager assetManager = getAssets();
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.im_logo_ceres);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.im_logo_ceres_green);
         int maxWidth = 200;   // Maximum width of the image
         int maxHeight = 200;  // Maximum height of the image
         int imageWidth = bitmap.getWidth();   // Original width of the image
@@ -724,7 +724,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
             destWidth = (int) (maxHeight * aspectRatio);
         }
         int destLeft = 55;  // Left coordinate of the rectangle
-        int destTop = 20;   // Top coordinate of the rectangle
+        int destTop = 10;   // Top coordinate of the rectangle
         int destRight = destLeft + destWidth;   // Right coordinate of the rectangle
         int destBottom = destTop + destHeight;
         Rect destRect = new Rect(destLeft, destTop, destRight, destBottom);
@@ -846,7 +846,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
 
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
                 emailIntent.setData(Uri.parse("mailto:" + userEmail));
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Reporte General de Ceres" + name);
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Reporte General de Ceres " + name);
                 emailIntent.putExtra(Intent.EXTRA_TEXT, "Mensaje del correo...");
                 emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
                 startActivity(Intent.createChooser(emailIntent, "Send email"));
