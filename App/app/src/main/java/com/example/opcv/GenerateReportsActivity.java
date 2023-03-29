@@ -17,6 +17,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Picture;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.media.Image;
 import android.net.Uri;
@@ -71,7 +72,7 @@ import java.util.Objects;
 
 public class GenerateReportsActivity extends AppCompatActivity {
     private Button cancel, generate;
-    private String id, idGarden, garden, ownerName, nameU, gardenU, type, info, group, idCollab, answer, name;
+    private String id, idGarden, garden, ownerName, nameU, gardenU, type, info, group, idCollab, answer, name, idStored;
 
     private ArrayList<String> collection1Data;
     private ArrayList<String> collection2Data;
@@ -84,7 +85,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
     private HashMap<Object, String> collection3, collection4;
     private Map<String, List<String>> collectionCols;
     private FirebaseFirestore db;
-    private int count=0, countForms=0, countEvents=0, countCollabs=0, count1=0, count2=0;
+    private int count=0, countForms=0, countEvents=0, countCollabs=0, count1=0, count2=0, countGardens=0;
 
     private Context context;
     @Override
@@ -327,7 +328,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
         //pa la imagen
         AssetManager assetManager = getAssets();
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.im_logo_ceres);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.im_logo_ceres_green);
         int maxWidth = 200;   // Maximum width of the image
         int maxHeight = 200;  // Maximum height of the image
         int imageWidth = bitmap.getWidth();   // Original width of the image
@@ -395,10 +396,15 @@ public class GenerateReportsActivity extends AppCompatActivity {
         }
 
         int year = calendar.get(Calendar.YEAR);
+        Paint paintDate = new Paint();
+        Paint paintBold = new Paint();
+        Typeface italics = Typeface.create(Typeface.DEFAULT, Typeface.ITALIC);
+        paintDate.setTypeface(italics);
+        Typeface bold = Typeface.create(Typeface.DEFAULT, Typeface.BOLD);
+        paintBold.setTypeface(bold);
+        page.getCanvas().drawText("Fecha: "+day+" de "+monthU+" del "+year, x+130, y, paintDate);
 
-        page.getCanvas().drawText("Fecha: "+day+" de "+monthU+" del "+year, x+110, y, paint);
-
-        page.getCanvas().drawText("Reporte de Huerta: "+name, x, y+20, paint);
+        page.getCanvas().drawText("Reporte de Huerta: "+name, x, y+20, paintBold);
         page.getCanvas().drawText("Dueño de la huerta: "+ownerName, x, y+40, paint);
         page.getCanvas().drawText("Tipo de huerta: "+type, x, y+60, paint);
         page.getCanvas().drawText("Información de la huerta: "+info, x, y+80, paint);
@@ -423,7 +429,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
 
         page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, y+170, paint);
 
-        page.getCanvas().drawText("Los formularios que tiene la huerta->", x, y+190, paint);
+        page.getCanvas().drawText("Los formularios que tiene la huerta->", x, y+190, paintBold);
         int now = y+215, i=1;
         if(!list.isEmpty()){
             for(String element : list){
@@ -436,7 +442,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
             page.getCanvas().drawText("No hay formularios en esta huerta", x, now, paint);
         }
 
-        page.getCanvas().drawText("En el último mes se realizarón "+countForms+" registros", x, now+25, paint);
+        page.getCanvas().drawText("En el último mes se realizarón "+countForms+" registros", x, now+25, paintBold);
 
         page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, now+40, paint);
         document.finishPage(page);
@@ -455,36 +461,36 @@ public class GenerateReportsActivity extends AppCompatActivity {
                     canvas = page.getCanvas();
                     paint = new Paint();
                     page.getCanvas().drawBitmap(bitmap, null, destRect, null);
-                    page.getCanvas().drawText("Eventos realizados en la huerta: ", x, z, paint);
-                    page.getCanvas().drawText("Evento: " + maps.get("eventName"), x, z + 15, paint);
-                    page.getCanvas().drawText("Estadisticas del evento: ", x, z + 30, paint);
-                    page.getCanvas().drawText("Fecha del evento: " + maps.get("date"), x+5, z + 45, paint);
-                    page.getCanvas().drawText("Asistentes al evento según género: ", x+5, z + 60, paint);
-                    page.getCanvas().drawText("Hombres: " + maps.get("menNumber")+", Mujeres: "+maps.get("womenNumber")+", No especificado: "+maps.get("noSpcNumber"), x+15, z + 75, paint);
-                    page.getCanvas().drawText("Asistentes al evento según rango de edad: ", x+5, z + 90, paint);
-                    page.getCanvas().drawText("Primera infancia (0-5 años): " + maps.get("infantNumber"), x+15, z + 105, paint);
-                    page.getCanvas().drawText("Infancia (6-11 años): "+maps.get("childhoodNumber"), x+15, z + 120, paint);
-                    page.getCanvas().drawText("Adolescencia (12-18 años): "+maps.get("teenNumber"), x+15, z + 135, paint);
-                    page.getCanvas().drawText("Jueventud (19-26 años): "+maps.get("youthNumber"), x+15, z + 150, paint);
-                    page.getCanvas().drawText("Adultez (27-59 años): "+maps.get("adultNumber"), x+15, z + 165, paint);
-                    page.getCanvas().drawText("Persona mayor (60 años o más): "+maps.get("elderlyNumber"), x+15, z + 180, paint);
-                    page.getCanvas().drawText("Asistentes al evento por grupo étnico: ", x+5, z + 195, paint);
-                    page.getCanvas().drawText("Población afro: "+maps.get("afroNumber"), x+15, z + 210, paint);
-                    page.getCanvas().drawText("Población Indígena: "+maps.get("nativeNumber"), x+15, z + 225, paint);
-                    page.getCanvas().drawText("Población LGBTI+: "+maps.get("lgtbiNumber"), x+15, z + 240, paint);
-                    page.getCanvas().drawText("Población Rom+: "+maps.get("romNumber"), x+15, z + 255, paint);
-                    page.getCanvas().drawText("Población Víctima del Conflicto Armado: "+maps.get("victimNumber"), x+15, z + 270, paint);
-                    page.getCanvas().drawText("Población en Condición de Discapacidad: "+maps.get("disabilityNumber"), x+15, z + 285, paint);
-                    page.getCanvas().drawText("Población Desmovilizada: "+maps.get("demobilizedNumber"), x+15, z + 300, paint);
-                    page.getCanvas().drawText("Población Mestiza: "+maps.get("mongrelNumber"), x+15, z + 315, paint);
-                    page.getCanvas().drawText("Extranjero(a): "+maps.get("foreignNumber"), x+15, z + 330, paint);
-                    page.getCanvas().drawText("Campesino(a): "+maps.get("peasantNumber"), x+15, z + 345, paint);
-                    page.getCanvas().drawText("Otros: "+maps.get("otherNumber"), x+15, z + 360, paint);
+                    page.getCanvas().drawText("Eventos realizados en la huerta: ", x, z+20, paintBold);
+                    page.getCanvas().drawText("Evento: " + maps.get("eventName"), x, z + 35, paintBold);
+                    page.getCanvas().drawText("Estadisticas del evento: ", x, z + 50, paintBold);
+                    page.getCanvas().drawText("Fecha del evento: " + maps.get("date"), x+5, z + 65, paintDate);
+                    page.getCanvas().drawText("Asistentes al evento según género: ", x+5, z + 80, paintBold);
+                    page.getCanvas().drawText("Hombres: " + maps.get("menNumber")+", Mujeres: "+maps.get("womenNumber")+", No especificado: "+maps.get("noSpcNumber"), x+15, z + 95, paint);
+                    page.getCanvas().drawText("Asistentes al evento según rango de edad: ", x+5, z + 110, paintBold);
+                    page.getCanvas().drawText("Primera infancia (0-5 años): " + maps.get("infantNumber"), x+15, z + 125, paint);
+                    page.getCanvas().drawText("Infancia (6-11 años): "+maps.get("childhoodNumber"), x+15, z + 140, paint);
+                    page.getCanvas().drawText("Adolescencia (12-18 años): "+maps.get("teenNumber"), x+15, z + 155, paint);
+                    page.getCanvas().drawText("Jueventud (19-26 años): "+maps.get("youthNumber"), x+15, z + 170, paint);
+                    page.getCanvas().drawText("Adultez (27-59 años): "+maps.get("adultNumber"), x+15, z + 185, paint);
+                    page.getCanvas().drawText("Persona mayor (60 años o más): "+maps.get("elderlyNumber"), x+15, z + 200, paint);
+                    page.getCanvas().drawText("Asistentes al evento por grupo étnico: ", x+5, z + 215, paintBold);
+                    page.getCanvas().drawText("Población afro: "+maps.get("afroNumber"), x+15, z + 230, paint);
+                    page.getCanvas().drawText("Población Indígena: "+maps.get("nativeNumber"), x+15, z + 245, paint);
+                    page.getCanvas().drawText("Población LGBTI+: "+maps.get("lgtbiNumber"), x+15, z + 260, paint);
+                    page.getCanvas().drawText("Población Rom+: "+maps.get("romNumber"), x+15, z + 275, paint);
+                    page.getCanvas().drawText("Población Víctima del Conflicto Armado: "+maps.get("victimNumber"), x+15, z + 290, paint);
+                    page.getCanvas().drawText("Población en Condición de Discapacidad: "+maps.get("disabilityNumber"), x+15, z + 305, paint);
+                    page.getCanvas().drawText("Población Desmovilizada: "+maps.get("demobilizedNumber"), x+15, z + 320, paint);
+                    page.getCanvas().drawText("Población Mestiza: "+maps.get("mongrelNumber"), x+15, z + 335, paint);
+                    page.getCanvas().drawText("Extranjero(a): "+maps.get("foreignNumber"), x+15, z + 350, paint);
+                    page.getCanvas().drawText("Campesino(a): "+maps.get("peasantNumber"), x+15, z + 365, paint);
+                    page.getCanvas().drawText("Otros: "+maps.get("otherNumber"), x+15, z + 380, paint);
 
                     o++;
                     if(con == map.size()-1){
-                        page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, z+380, paint);
-                        page.getCanvas().drawText("Fin del reporte", x, z+395, paint);
+                        page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, z+400, paint);
+                        page.getCanvas().drawText("Fin del reporte", x, z+415, paintBold);
                     }
 
                     document.finishPage(page);
@@ -493,9 +499,9 @@ public class GenerateReportsActivity extends AppCompatActivity {
                     pageInfo = new PdfDocument.PageInfo.Builder(300, 600, o).create();
                     page = document.startPage(pageInfo);
                     page.getCanvas().drawBitmap(bitmap, null, destRect, null);
-                    page.getCanvas().drawText("No hubo eventos en la huerta.", x, z, paint);
-                    page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, z+20, paint);
-                    page.getCanvas().drawText("Fin del reporte", x, z+40, paint);
+                    page.getCanvas().drawText("No hubo eventos en la huerta.", x, z+20, paintBold);
+                    page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, z+40, paint);
+                    page.getCanvas().drawText("Fin del reporte", x, z+60, paintBold);
                     document.finishPage(page);
                 }
             }
@@ -589,23 +595,25 @@ public class GenerateReportsActivity extends AppCompatActivity {
                         name = q.getData().get("GardenName").toString();
                         contColl.add(q.getId());
                         gardensNames.add(name);
-
+                        countGardens++;
                         collectionRef.document(q.getId()).collection("Forms").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if(task.isSuccessful()){
 
-                                    String field, nameCrop, date;
+                                    String field, nameCrop, date, idR;
                                     int cont = 0;
                                     Calendar calendar = Calendar.getInstance();
                                     calendar.add(Calendar.MONTH, -1);
                                     Date startDate = calendar.getTime();
                                     Date endDate = new Date();
                                     collectionCols = new HashMap<>();
+
                                     for(QueryDocumentSnapshot document : task.getResult()){
 
                                         field = document.getString("nameForm");
                                         date = document.getString("Date");
+                                        idR= document.getString("Gardenid");
                                         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                                         try{
                                             Date createForm = formatter.parse(date);
@@ -616,6 +624,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                         } catch (Exception e) {
                                             throw new RuntimeException(e);
                                         }
+
                                         if(field.equals("Control de Procesos de Siembra")){
                                             List<String> listCrop = new ArrayList<>();
 
@@ -623,8 +632,11 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                             listCrop.add(nameCrop);
                                             crops.add(nameCrop);
                                             collectionCols.put("name", listCrop);
-                                            System.out.println("Hola "+nameCrop);
                                             count1++;
+
+                                        }
+                                        if(field.equals("Control de Procesos de Siembra") && count1 == 1){
+                                            countGardens++;
                                         }
 
                                         count2++;
@@ -695,7 +707,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
         //pa la imagen
         AssetManager assetManager = getAssets();
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.im_logo_ceres);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.im_logo_ceres_green);
         int maxWidth = 200;   // Maximum width of the image
         int maxHeight = 200;  // Maximum height of the image
         int imageWidth = bitmap.getWidth();   // Original width of the image
@@ -712,7 +724,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
             destWidth = (int) (maxHeight * aspectRatio);
         }
         int destLeft = 55;  // Left coordinate of the rectangle
-        int destTop = 20;   // Top coordinate of the rectangle
+        int destTop = 10;   // Top coordinate of the rectangle
         int destRight = destLeft + destWidth;   // Right coordinate of the rectangle
         int destBottom = destTop + destHeight;
         Rect destRect = new Rect(destLeft, destTop, destRight, destBottom);
@@ -763,27 +775,42 @@ public class GenerateReportsActivity extends AppCompatActivity {
         }
 
         int year = calendar.get(Calendar.YEAR);
-
-        page.getCanvas().drawText("Fecha: "+day+" de "+monthU+" del "+year, x+100, y, paint);
-        page.getCanvas().drawText("Reporte General de Ceres", x, y + 20, paint);
+        Paint paintDate = new Paint();
+        Paint paintBold = new Paint();
+        Typeface italics = Typeface.create(Typeface.DEFAULT, Typeface.ITALIC);
+        paintDate.setTypeface(italics);
+        Typeface bold = Typeface.create(Typeface.DEFAULT, Typeface.BOLD);
+        paintBold.setTypeface(bold);
+        page.getCanvas().drawText("Fecha: "+day+" de "+monthU+" del "+year, x+130, y, paintDate);
+        page.getCanvas().drawText("Reporte General de Ceres", x, y + 20, paintBold);
+        //page.getCanvas().drawText("Actualmente Ceres cuenta con " + list.size() + " huertas", x, y + 40, paint);
         page.getCanvas().drawText("Actualmente Ceres cuenta con " + list.size() + " huertas", x, y + 40, paint);
-        page.getCanvas().drawText("Actualmente Ceres cuenta con " + list.size() + " huertas", x, y + 60, paint);
-        page.getCanvas().drawText("Nombres de las huertas en pagina siguiente.", x, y + 80, paint);
+        page.getCanvas().drawText("Nombres de las huertas en pagina siguiente.", x, y + 60, paint);
         int cont = 0;
         for (int i = 0; i < list.size(); i++) {
             cont = cont + list2.get(i);
         }
-        page.getCanvas().drawText("Numero total de colaboradores en Ceres: " + cont, x, y + 110, paint);
-        page.getCanvas().drawText("Actualmente se existen los siguientes cultivos: ", x, y + 120, paint);
-        int z=y+140;
+        page.getCanvas().drawText("Numero total de colaboradores en Ceres: " + cont, x, y + 80, paint);
+        page.getCanvas().drawText("Actualmente se existen los siguientes cultivos: ", x, y + 100, paint);
+        int z=y+120;
         for (int i = 0; i<crops.size(); i++){
-            page.getCanvas().drawText(i+1+": "+crops.get(i), x+10, z, paint);
+            page.getCanvas().drawText(i+1+": "+crops.get(i), x+10, z, paintDate);
             z=z+20;
         }
-        int c1=count1+count2;
-        int c2=c1-countEvents;
-        page.getCanvas().drawText("De las "+list.size()+" huertas "+c2+" estan trabajando en estos ", x, z , paint);
-        page.getCanvas().drawText("estos cultivos.", x, z + 10, paint);
+        int c1=countEvents-count2;
+        int prove=0;
+        if(c1%2!=0){
+            prove=2;
+        }
+        else{
+            prove=3;
+        }
+        //prove = prove*2;
+
+        int c2=count1-c1-prove;
+        System.out.println("c1: "+count1+" c2: "+count2+" countevents: "+countEvents);
+        page.getCanvas().drawText("De las "+list.size()+" huertas "+c2+" estan trabajando en estos cultivos.", x, z , paintDate);
+        //page.getCanvas().drawText("estos cultivos.", x, z + 10, paintDate);
         page.getCanvas().drawText("Se han realizado "+countForms+" registros de formularios en el ", x, z + 30, paint);
         page.getCanvas().drawText("último mes.", x, z + 40, paint);
         document.finishPage(page);
@@ -793,15 +820,15 @@ public class GenerateReportsActivity extends AppCompatActivity {
         canvas = page.getCanvas();
         page.getCanvas().drawBitmap(bitmap, null, destRect, null);
 
-        page.getCanvas().drawText("Las huertas existentes a dia de hoy son: ", x+5, y + 20, paint);
+        page.getCanvas().drawText("Las huertas existentes a dia de hoy son: ", x+5, y, paintBold);
         int o=y+40;
         for (int i = 0; i<list.size(); i++){
-            page.getCanvas().drawText(i+1+": "+list.get(i), x, o, paint);
+            page.getCanvas().drawText(i+1+": "+list.get(i), x+10, o, paintDate);
             o=o+14;
 
         }
         page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, o+20, paint);
-        page.getCanvas().drawText("Fin del reporte", x, o+40, paint);
+        page.getCanvas().drawText("Fin del reporte", x, o+40, paintBold);
         document.finishPage(page);
 
             String path = Environment.getExternalStorageDirectory().getPath() + "/ReporteGeneralCeres.pdf";
@@ -819,7 +846,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
 
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
                 emailIntent.setData(Uri.parse("mailto:" + userEmail));
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Reporte de huerta " + name);
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Reporte General de Ceres " + name);
                 emailIntent.putExtra(Intent.EXTRA_TEXT, "Mensaje del correo...");
                 emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
                 startActivity(Intent.createChooser(emailIntent, "Send email"));
