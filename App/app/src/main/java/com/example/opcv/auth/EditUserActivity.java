@@ -168,8 +168,9 @@ public class EditUserActivity extends AppCompatActivity {
                 editUserInfo(Name, Lastname, PhoneNumber);
                 if(validateField(Name, Lastname)){
                     editUserInfo(Name, Lastname, PhoneNumber);
-                    Intent start = new Intent(EditUserActivity.this,HomeActivity.class);
-                    startActivity(start);
+                    //Intent start = new Intent(EditUserActivity.this,HomeActivity.class);
+                    //startActivity(start);
+                    Toast.makeText(EditUserActivity.this, "Se guardarón los cambios con exito", Toast.LENGTH_SHORT).show();
                 }
             }
         });

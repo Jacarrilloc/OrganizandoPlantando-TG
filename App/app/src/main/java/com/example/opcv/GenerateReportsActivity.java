@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -85,7 +88,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
     private HashMap<Object, String> collection3, collection4;
     private Map<String, List<String>> collectionCols;
     private FirebaseFirestore db;
-    private int count=0, countForms=0, countEvents=0, countCollabs=0, count1=0, count2=0, countGardens=0;
+    private int count=0, countForms=0, countEvents=0, countCollabs=0, count1=0, count2=0, countGardens=0, STORAGE_PERMISSION_CODE = 1;
 
     private Context context;
     @Override
@@ -109,26 +112,37 @@ public class GenerateReportsActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         new AlertDialog.Builder(context)
                                 .setMessage("¿Deseas enviar el archivo generado por correo electronico?")
-                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
+                                        if(ContextCompat.checkSelfPermission(GenerateReportsActivity.this,
+                                                Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED){
+                                            answer = "false";
+                                            searchInfo(idGarden, id);
+                                            searchInfoUser(idGarden, id);
+                                            Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
+                                            GenerateReportsActivity.super.onBackPressed();
+                                        }else{
+                                            requestStoragePermission();
+                                        }
                                         //finishAffinity();
-                                        answer = "false";
-                                        searchInfo(idGarden, id);
-                                        searchInfoUser(idGarden, id);
-                                        Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
-                                        GenerateReportsActivity.super.onBackPressed();
                                     }
                                 })
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface arg0, int arg1) {
                                         //finishAffinity();
-                                        answer = "true";
-                                        searchInfo(idGarden, id);
-                                        searchInfoUser(idGarden, id);
+                                        if(ContextCompat.checkSelfPermission(GenerateReportsActivity.this,
+                                                Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED){
+                                            answer = "true";
+                                            searchInfo(idGarden, id);
+                                            searchInfoUser(idGarden, id);
 
-                                        Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
-                                        GenerateReportsActivity.super.onBackPressed();
+                                            Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
+                                            GenerateReportsActivity.super.onBackPressed();
+                                        }
+                                        else{
+                                            requestStoragePermission();
+                                        }
                                     }
                                 }).create().show();
 
@@ -142,27 +156,38 @@ public class GenerateReportsActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         new AlertDialog.Builder(context)
                                 .setMessage("¿Deseas enviar el archivo generado por correo electronico?")
-                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                .setNegativeButton("no", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         //finishAffinity();
-                                        answer = "false";
-                                        searchGeneralInfo();
-                                        //searchInfoUser(idGarden, id);
+                                        if(ContextCompat.checkSelfPermission(GenerateReportsActivity.this,
+                                                Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED){
+                                            answer = "false";
+                                            searchGeneralInfo();
 
-                                        Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
-                                        GenerateReportsActivity.super.onBackPressed();
+                                            Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
+                                            GenerateReportsActivity.super.onBackPressed();
+                                        }
+                                        else{
+                                            requestStoragePermission();
+                                        }
                                     }
                                 })
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface arg0, int arg1) {
                                         //finishAffinity();
-                                        answer = "true";
-                                        searchGeneralInfo();
-                                        //searchInfoUser(idGarden, id);
+                                        if(ContextCompat.checkSelfPermission(GenerateReportsActivity.this,
+                                                Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED){
+                                            answer = "true";
+                                            searchGeneralInfo();
 
-                                        Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
-                                        GenerateReportsActivity.super.onBackPressed();
+                                            Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
+                                            GenerateReportsActivity.super.onBackPressed();
+                                        }
+                                        else{
+                                            requestStoragePermission();
+                                        }
+
                                     }
                                 }).create().show();
 
@@ -172,8 +197,6 @@ public class GenerateReportsActivity extends AppCompatActivity {
             }
         }
 
-
-
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -181,6 +204,44 @@ public class GenerateReportsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void requestStoragePermission() {
+        if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+            new AlertDialog.Builder(this)
+                    .setTitle("Permiso de escritura")
+                    .setMessage("El permiso de escritura es necesario para esta tarea, desea otorgarlo?")
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            ActivityCompat.requestPermissions(GenerateReportsActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+                        }
+                    })
+                    .setNegativeButton("cancelar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    })
+                    .create().show();
+        }
+        else{
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+        }
+
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == STORAGE_PERMISSION_CODE){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(GenerateReportsActivity.this, "Se dio el permiso", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(GenerateReportsActivity.this, "No se dio el permiso", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     public void searchInfo(String idGarden, String idUser){
