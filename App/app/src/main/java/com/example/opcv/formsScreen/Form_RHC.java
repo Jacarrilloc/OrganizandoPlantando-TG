@@ -103,6 +103,20 @@ public class Form_RHC extends AppCompatActivity {
             measurement.setEnabled(false);
             totalCost.setEnabled(false);
             comments.setEnabled(false);
+            responsable.setFocusable(false);
+            responsable.setClickable(false);
+            code.setFocusable(false);
+            code.setClickable(false);
+            units.setFocusable(false);
+            units.setClickable(false);
+            itemName.setFocusable(false);
+            itemName.setClickable(false);
+            measurement.setFocusable(false);
+            measurement.setClickable(false);
+            totalCost.setFocusable(false);
+            totalCost.setClickable(false);
+            comments.setFocusable(false);
+            comments.setClickable(false);
             showInfo(idGarden, idCollection, "true");
         } else if (watch.equals("edit")) {
             formsUtilities = new FormsUtilities();

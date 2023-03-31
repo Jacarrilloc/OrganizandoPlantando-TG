@@ -95,6 +95,14 @@ public class Form_RRH extends AppCompatActivity {
             quantity.setEnabled(false);
             performedBy.setEnabled(false);
             status.setEnabled(false);
+            quantity.setFocusable(false);
+            quantity.setClickable(false);
+            description.setFocusable(false);
+            description.setClickable(false);
+            performedBy.setFocusable(false);
+            performedBy.setClickable(false);
+            status.setFocusable(false);
+            status.setClickable(false);
             showInfo(idGarden, idCollection, "true");
         } else if (watch.equals("edit")) {
             formsUtilities = new FormsUtilities();

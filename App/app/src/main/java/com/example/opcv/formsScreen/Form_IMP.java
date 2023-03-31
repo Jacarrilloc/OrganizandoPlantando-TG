@@ -87,7 +87,7 @@ public class Form_IMP extends AppCompatActivity {
         watch = getIntent().getStringExtra("watch");
         System.out.println("es nulo"+watch);
 
-        if(watch.equals("true") && watch == null){
+        if(watch.equals("true") ){
             idGarden = getIntent().getStringExtra("idGardenFirebase");
             idCollection = getIntent().getStringExtra("idCollecion");
             addFormButtom.setVisibility(View.INVISIBLE);
@@ -98,6 +98,12 @@ public class Form_IMP extends AppCompatActivity {
             rawMatirial.setEnabled(false);
             quantity.setEnabled(false);
             existingTool.setEnabled(false);
+            rawMatirial.setFocusable(false);
+            rawMatirial.setClickable(false);
+            existingTool.setFocusable(false);
+            existingTool.setClickable(false);
+            quantity.setFocusable(false);
+            quantity.setClickable(false);
             showInfo(idGarden, idCollection, "true");
 
         } else if (watch.equals("edit")) {

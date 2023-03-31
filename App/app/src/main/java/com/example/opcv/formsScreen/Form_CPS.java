@@ -91,6 +91,14 @@ public class Form_CPS extends AppCompatActivity {
             plantsSeeds.setEnabled(false);
             comments.setEnabled(false);
             spinner.setEnabled(false);
+            responsable.setFocusable(false);
+            responsable.setClickable(false);
+            duration.setFocusable(false);
+            duration.setClickable(false);
+            plantsSeeds.setFocusable(false);
+            plantsSeeds.setClickable(false);
+            comments.setFocusable(false);
+            comments.setClickable(false);
             showInfo(idGarden, idCollection, "true");
 
         } else if (watch.equals("edit")) {

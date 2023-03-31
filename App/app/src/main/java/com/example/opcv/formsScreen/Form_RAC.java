@@ -95,6 +95,18 @@ public class Form_RAC extends AppCompatActivity {
             amount_of_waste_info.setEnabled(false);
             amount_leached_info.setEnabled(false);
             collected_humus_info.setEnabled(false);
+            containerSize.setFocusable(false);
+            containerSize.setClickable(false);
+            worrmsWeightInfo.setFocusable(false);
+            worrmsWeightInfo.setClickable(false);
+            humidityInfo.setFocusable(false);
+            humidityInfo.setClickable(false);
+            amount_leached_info.setFocusable(false);
+            amount_leached_info.setClickable(false);
+            amount_of_waste_info.setFocusable(false);
+            amount_of_waste_info.setClickable(false);
+            collected_humus_info.setFocusable(false);
+            collected_humus_info.setClickable(false);
             showInfo(idGarden, idCollection, "true");
         } else if (watch.equals("edit")) {
             formsUtilities = new FormsUtilities();

@@ -98,6 +98,14 @@ public class Form_RSMP extends AppCompatActivity {
             quantity.setEnabled(false);
             total.setEnabled(false);
             state.setEnabled(false);
+            quantity.setFocusable(false);
+            quantity.setClickable(false);
+            total.setFocusable(false);
+            total.setClickable(false);
+            state.setFocusable(false);
+            state.setClickable(false);
+            description.setFocusable(false);
+            description.setClickable(false);
             showInfo(idGarden, idCollection, "true");
         } else if (watch.equals("edit")) {
             formsUtilities = new FormsUtilities();
