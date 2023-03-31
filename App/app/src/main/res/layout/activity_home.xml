@@ -38,12 +38,12 @@
 
             <ImageButton
                 android:id="@+id/generalReport"
-                android:layout_width="65dp"
-                android:layout_height="55dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_margin="4sp"
                 android:layout_weight="0.25"
-                android:background="@drawable/dr_download_icon"
+                android:background="@drawable/im_download_icon"
                 android:contentDescription="Boton de descargar"
                 android:scaleType="centerInside" />
 
@@ -115,24 +115,27 @@
         <Button
             android:id="@+id/otherGardensButton"
             android:layout_width="181dp"
-            android:layout_height="52dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_margin="16dp"
             android:background="@drawable/dr_green_button"
+            android:textAllCaps="false"
             android:backgroundTint="#91BF63"
             android:text="@string/seeOtherGardens"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/collaboratorGardens"
-            android:layout_width="181dp"
-            android:layout_height="52dp"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
             android:layout_gravity="start|bottom"
             android:layout_margin="16dp"
             android:background="@drawable/dr_green_button"
             android:backgroundTint="#91BF63"
+            android:textAllCaps="false"
             android:text="@string/collaboratorGardens"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
 
     </FrameLayout>
 

@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -85,7 +88,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
     private HashMap<Object, String> collection3, collection4;
     private Map<String, List<String>> collectionCols;
     private FirebaseFirestore db;
-    private int count=0, countForms=0, countEvents=0, countCollabs=0, count1=0, count2=0, countGardens=0;
+    private int count=0, countForms=0, countEvents=0, countCollabs=0, count1=0, count2=0, countGardens=0, STORAGE_PERMISSION_CODE = 1;
 
     private Context context;
     @Override
@@ -98,6 +101,13 @@ public class GenerateReportsActivity extends AppCompatActivity {
 
         context = this;
         Bundle extras = getIntent().getExtras();
+        if(ContextCompat.checkSelfPermission(GenerateReportsActivity.this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED){
+            System.out.println("se hizo");
+        }
+        else{
+            requestStoragePermission();
+        }
         if(extras != null){
             garden = extras.getString("garden");
             if(garden.equals("true")){
@@ -109,18 +119,18 @@ public class GenerateReportsActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         new AlertDialog.Builder(context)
                                 .setMessage("¿Deseas enviar el archivo generado por correo electronico?")
-                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        //finishAffinity();
                                         answer = "false";
                                         searchInfo(idGarden, id);
                                         searchInfoUser(idGarden, id);
                                         Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
                                         GenerateReportsActivity.super.onBackPressed();
+                                        //finishAffinity();
                                     }
                                 })
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface arg0, int arg1) {
                                         //finishAffinity();
                                         answer = "true";
@@ -142,27 +152,26 @@ public class GenerateReportsActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         new AlertDialog.Builder(context)
                                 .setMessage("¿Deseas enviar el archivo generado por correo electronico?")
-                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                .setNegativeButton("no", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         //finishAffinity();
                                         answer = "false";
                                         searchGeneralInfo();
-                                        //searchInfoUser(idGarden, id);
 
                                         Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
                                         GenerateReportsActivity.super.onBackPressed();
                                     }
                                 })
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface arg0, int arg1) {
                                         //finishAffinity();
                                         answer = "true";
                                         searchGeneralInfo();
-                                        //searchInfoUser(idGarden, id);
 
                                         Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
                                         GenerateReportsActivity.super.onBackPressed();
+
                                     }
                                 }).create().show();
 
@@ -172,8 +181,6 @@ public class GenerateReportsActivity extends AppCompatActivity {
             }
         }
 
-
-
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -181,6 +188,45 @@ public class GenerateReportsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void requestStoragePermission() {
+        if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+            new AlertDialog.Builder(this)
+                    .setTitle("Permiso de escritura")
+                    .setMessage("El permiso de escritura es necesario para esta tarea, desea otorgarlo?")
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            ActivityCompat.requestPermissions(GenerateReportsActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+
+                        }
+                    })
+                    .setNegativeButton("cancelar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    })
+                    .create().show();
+        }
+        else{
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+        }
+
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == STORAGE_PERMISSION_CODE){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(GenerateReportsActivity.this, "Se dio el permiso", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(GenerateReportsActivity.this, "No se dio el permiso", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     public void searchInfo(String idGarden, String idUser){
@@ -403,49 +449,95 @@ public class GenerateReportsActivity extends AppCompatActivity {
         Typeface bold = Typeface.create(Typeface.DEFAULT, Typeface.BOLD);
         paintBold.setTypeface(bold);
         page.getCanvas().drawText("Fecha: "+day+" de "+monthU+" del "+year, x+130, y, paintDate);
-
+        String firstPart, secondpart;
+        int index = 23, len=info.length();
+        firstPart = info.substring(0, index);
+        secondpart = info.substring(index);
         page.getCanvas().drawText("Reporte de Huerta: "+name, x, y+20, paintBold);
         page.getCanvas().drawText("Dueño de la huerta: "+ownerName, x, y+40, paint);
         page.getCanvas().drawText("Tipo de huerta: "+type, x, y+60, paint);
-        page.getCanvas().drawText("Información de la huerta: "+info, x, y+80, paint);
-        page.getCanvas().drawText("La huerta tiene chat grupal: "+group, x, y+100, paint);
-        page.getCanvas().drawText("Numero de colaboradores de la huerta: "+count, x, y+120, paint);
+        if(len<=index){
+            page.getCanvas().drawText("Información de la huerta: "+info, x, y+80, paint);
+            page.getCanvas().drawText("La huerta tiene chat grupal: "+group, x, y+100, paint);
+            page.getCanvas().drawText("Numero de colaboradores de la huerta: "+count, x, y+120, paint);
+            String cropsNames = "";
+            if(!crops.isEmpty()){
+                for(int i =0; i<crops.size();i++){
+                    cropsNames = cropsNames + crops.get(i);
+                    if(i != crops.size()-1){
+                        cropsNames = cropsNames+", ";
+                    }
 
-        String cropsNames = "";
-        if(!crops.isEmpty()){
-            for(int i =0; i<crops.size();i++){
-                cropsNames = cropsNames + crops.get(i);
-                if(i != crops.size()-1){
-                    cropsNames = cropsNames+", ";
                 }
-
+                page.getCanvas().drawText("Cultivos de la huerta: ", x, y+140, paint);
+                page.getCanvas().drawText(cropsNames, x+20, y+160, paint);
             }
-            page.getCanvas().drawText("Cultivos de la huerta: ", x, y+140, paint);
-            page.getCanvas().drawText(cropsNames, x+20, y+160, paint);
+            else{
+                page.getCanvas().drawText("No hay cultivos en la huerta.", x, y+140, paint);
+            }
+
+            page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, y+170, paint);
+
+            page.getCanvas().drawText("Los formularios que tiene la huerta->", x, y+190, paintBold);
+            int now = y+215, i=1;
+            if(!list.isEmpty()){
+                for(String element : list){
+                    page.getCanvas().drawText(i+": "+element, x, now, paint);
+                    i++;
+                    now = now+15;
+                }
+            }
+            else{
+                page.getCanvas().drawText("No hay formularios en esta huerta", x, now, paint);
+            }
+
+            page.getCanvas().drawText("En el último mes se realizarón "+countForms+" registros", x, now+25, paintBold);
+
+            page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, now+40, paint);
+            document.finishPage(page);
         }
         else{
-            page.getCanvas().drawText("No hay cultivos en la huerta.", x, y+140, paint);
-        }
+            page.getCanvas().drawText("Información de la huerta: "+firstPart, x, y+80, paint);
+            page.getCanvas().drawText(secondpart, x, y+100, paint);
+            page.getCanvas().drawText("La huerta tiene chat grupal: "+group, x, y+120, paint);
+            page.getCanvas().drawText("Numero de colaboradores de la huerta: "+count, x, y+140, paint);
+            String cropsNames = "";
+            if(!crops.isEmpty()){
+                for(int i =0; i<crops.size();i++){
+                    cropsNames = cropsNames + crops.get(i);
+                    if(i != crops.size()-1){
+                        cropsNames = cropsNames+", ";
+                    }
 
-        page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, y+170, paint);
-
-        page.getCanvas().drawText("Los formularios que tiene la huerta->", x, y+190, paintBold);
-        int now = y+215, i=1;
-        if(!list.isEmpty()){
-            for(String element : list){
-                page.getCanvas().drawText(i+": "+element, x, now, paint);
-                i++;
-                now = now+15;
+                }
+                page.getCanvas().drawText("Cultivos de la huerta: ", x, y+160, paint);
+                page.getCanvas().drawText(cropsNames, x+20, y+180, paint);
             }
-        }
-        else{
-            page.getCanvas().drawText("No hay formularios en esta huerta", x, now, paint);
+            else{
+                page.getCanvas().drawText("No hay cultivos en la huerta.", x, y+160, paint);
+            }
+
+            page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, y+190, paint);
+
+            page.getCanvas().drawText("Los formularios que tiene la huerta->", x, y+210, paintBold);
+            int now = y+240, i=1;
+            if(!list.isEmpty()){
+                for(String element : list){
+                    page.getCanvas().drawText(i+": "+element, x, now, paint);
+                    i++;
+                    now = now+15;
+                }
+            }
+            else{
+                page.getCanvas().drawText("No hay formularios en esta huerta", x, now, paint);
+            }
+
+            page.getCanvas().drawText("En el último mes se realizarón "+countForms+" registros", x, now+25, paintBold);
+
+            page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, now+40, paint);
+            document.finishPage(page);
         }
 
-        page.getCanvas().drawText("En el último mes se realizarón "+countForms+" registros", x, now+25, paintBold);
-
-        page.getCanvas().drawText("---------------------------------------------------------------------------------------------", x, now+40, paint);
-        document.finishPage(page);
 
         int z = y, o=2, con=0;
         Boolean bo=false;
