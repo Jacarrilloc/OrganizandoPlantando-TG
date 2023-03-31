@@ -139,10 +139,12 @@ public class Form_IMP extends AppCompatActivity {
                     infoForm.put("quantityRawMaterial",quantityMaterial);
                     infoForm.put("units",unitSelectedItem);
                     infoForm.put("existenceQuantity",existance);
-                    formsUtilities.createForm(Form_IMP.this,infoForm,idGardenFb);
-                    Toast.makeText(Form_IMP.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Form_IMP.this, HomeActivity.class));
-                    finish();
+                    if(validateField(rawMaterial, quantityMaterial, existance, movementSelectedItem, conceptSelectedItem, unitSelectedItem)){
+                        formsUtilities.createForm(Form_IMP.this,infoForm,idGardenFb);
+                        Toast.makeText(Form_IMP.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Form_IMP.this, HomeActivity.class));
+                        finish();
+                    }
                 }
             });
 
@@ -346,9 +348,38 @@ public class Form_IMP extends AppCompatActivity {
                 movement = movementSelectedItem;
                 concept = conceptSelectedItem;
                 units = unitSelectedItem;
-                formsUtilities.editInfoIMP(Form_IMP.this, idGarden, idCollection, rawMaterial, concept,movement, quantityMaterial, units, existance);
-                Toast.makeText(Form_IMP.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
+                if(validateField(rawMaterial, quantityMaterial, existance, movement, concept, units)){
+                    formsUtilities.editInfoIMP(Form_IMP.this, idGarden, idCollection, rawMaterial, concept,movement, quantityMaterial, units, existance);
+                    Toast.makeText(Form_IMP.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+    private boolean validateField(String rawMaterial,String quantityMaterial, String existance, String movement, String concept, String units){
+
+        if(rawMaterial.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la descripción de materia prima", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(concept.equals("Seleccione un elemento")){
+            Toast.makeText(this, "Es necesario seleccionar un concepto", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(movement.equals("Seleccione un elemento")){
+            Toast.makeText(this, "Es necesario seleccionar el movimiento de la materia prima", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(quantityMaterial.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la cantidad de materia prima", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(existance.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la cantidad de existencias", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(units.equals("Seleccione un elemento")){
+            Toast.makeText(this, "Es necesario seleccionar una unidad de materia prima", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 }

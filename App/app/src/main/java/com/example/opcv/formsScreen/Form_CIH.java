@@ -140,11 +140,12 @@ public class Form_CIH extends AppCompatActivity {
                         infoForm.put("toolQuantity",quantityTools);
                         infoForm.put("toolStatus",statusTools);
                         infoForm.put("existenceQuantity",toolExistance);
-                        formsUtilities.createForm(Form_CIH.this,infoForm,idGardenFb);
-                        Toast.makeText(Form_CIH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Form_CIH.this, HomeActivity.class));
-                        finish();
-
+                        if(validateField(tools, quantityTools, statusTools, toolExistance, conceptSelectedItem, selectedItem)){
+                            formsUtilities.createForm(Form_CIH.this,infoForm,idGardenFb);
+                            Toast.makeText(Form_CIH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(Form_CIH.this, HomeActivity.class));
+                            finish();
+                        }
                 }
             });
 
@@ -285,9 +286,39 @@ public class Form_CIH extends AppCompatActivity {
                 toolExistance = preexistingTool.getText().toString();
                 concept = conceptSelectedItem;
                 incomeOutgo = selectedItem;
-                formsUtilities.editInfoCIH(Form_CIH.this, idGarden, idCollection, tools, quantityTools, statusTools, toolExistance, concept, incomeOutgo);
-                Toast.makeText(Form_CIH.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
+                if(validateField(tools, quantityTools, statusTools, toolExistance, concept, incomeOutgo)){
+                    formsUtilities.editInfoCIH(Form_CIH.this, idGarden, idCollection, tools, quantityTools, statusTools, toolExistance, concept, incomeOutgo);
+                    Toast.makeText(Form_CIH.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
+    }
+    private boolean validateField(String tool,String quantityTools, String statusTools, String toolExistance, String concept, String incomeOutgo){
+
+        if(tool.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la herramienta", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(quantityTools.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar cantidad de herramienta", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(statusTools.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar el estado de la herramienta", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(toolExistance.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar cantidad de existencias de herramienta", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(concept.equals("Seleccione un elemento")){
+            Toast.makeText(this, "Es necesario seleccionar un concepto", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(incomeOutgo.equals("Seleccione un elemento")){
+            Toast.makeText(this, "Es necesario seleccionar si es entrada o salida", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 }

@@ -243,7 +243,7 @@ public class FormsUtilities {
                                 @Nullable
                                 @Override
                                 public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
-                                    transaction.update(docRef, "processDescription", description, "toolQuantity", quantity, "performedBy", performedBy, "toolStatus", status,
+                                    transaction.update(docRef, "description", description, "toolQuantity", quantity, "performedBy", performedBy, "toolStatus", status,
                                             "concept", concept);
                                     return null;
                                 }

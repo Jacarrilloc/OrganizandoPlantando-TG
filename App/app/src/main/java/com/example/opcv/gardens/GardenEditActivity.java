@@ -67,7 +67,7 @@ public class GardenEditActivity extends AppCompatActivity {
     private TextView adminMembersGarden;
 
     private CollectionReference gardensRef;
-    private String idUser, idGarden, nameGarden, infoGarden;
+    private String idUser, idGarden, nameGarden, infoGarden, name;
     private static final int GALLERY_REQUEST_CODE = 100;
     private static final int PERMISSION_REQUEST_STORAGE = 1000;
 
@@ -183,19 +183,22 @@ public class GardenEditActivity extends AppCompatActivity {
         acceptChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = editGardenInfo();
-                if(IsChangedPhoto){
-                    changePhoto();
+
+                if(editGardenInfo()){
+                    if(IsChangedPhoto){
+                        changePhoto();
+                    }
+
+                    Intent start = new Intent(GardenEditActivity.this,HomeActivity.class);
+                    String id = autentication.getCurrentUser().getUid().toString();
+                    //System.out.println("El id es:.  "+id);
+                    start.putExtra("ID", id);
+                    start.putExtra("idGarden", idGarden);
+                    start.putExtra("gardenName", name);
+
+                    startActivity(start);
                 }
 
-                Intent start = new Intent(GardenEditActivity.this,HomeActivity.class);
-                String id = autentication.getCurrentUser().getUid().toString();
-                //System.out.println("El id es:.  "+id);
-                start.putExtra("ID", id);
-                start.putExtra("idGarden", idGarden);
-                start.putExtra("gardenName", name);
-
-                startActivity(start);
             }
         });
 
@@ -273,22 +276,24 @@ public class GardenEditActivity extends AppCompatActivity {
 
     }
 
-    private String editGardenInfo(){
-        String name = gardenName.getText().toString();
+    private Boolean editGardenInfo(){
+        name = gardenName.getText().toString();
         String info = description.getText().toString();
         Boolean gardenType = switchGardenTypeModified.isChecked();
-
         if(validateField(name, info)){
             FirebaseUser user = autentication.getCurrentUser();
-            CollectionReference collectionRef = database.collection("Gardens");
+            //CollectionReference collectionRef = database.collection("Gardens");
 
             idUser = user.getUid();
             searchGarden(idUser, name, info, gardenType);
             Toast.makeText(GardenEditActivity.this, "Se modificó exitosamente tu huerta", Toast.LENGTH_SHORT).show();
+            return true;
 
             //System.out.println("El id es: "+collectionRef.getPath().toString());
         }
-        return name;
+        else{
+            return false;
+        }
     }
 
     private void searchGarden(String idUser, String name, String info, Boolean gardenType) {

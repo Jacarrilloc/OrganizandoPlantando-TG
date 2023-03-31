@@ -131,10 +131,12 @@ public class Form_RCC extends AppCompatActivity {
                     infoForm.put("residueQuantity",quantityResidue);
                     infoForm.put("fertilizerQuantity",fertilizerQuantity);
                     infoForm.put("leachedQuantity",quantityLeached);
-                    formsUtilities.createForm(Form_RCC.this,infoForm,idGardenFb);
-                    Toast.makeText(Form_RCC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Form_RCC.this, HomeActivity.class));
-                    finish();
+                    if(validateField(areaRecipient, descriptionProc, quantityResidue, fertilizerQuantity, quantityLeached)){
+                        formsUtilities.createForm(Form_RCC.this,infoForm,idGardenFb);
+                        Toast.makeText(Form_RCC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Form_RCC.this, HomeActivity.class));
+                        finish();
+                    }
                 }
             });
         }
@@ -167,10 +169,35 @@ public class Form_RCC extends AppCompatActivity {
                 descriptionProc = description.getText().toString();
                 quantityResidue = residueQuant.getText().toString();
                 fertilizerQuantity = fertilizer.getText().toString();
-                quantityLeached = fertilizer.getText().toString();
-                formsUtilities.editInfoRCC(Form_RCC.this, idGarden, idCollection, areaRecipient, descriptionProc, quantityResidue, fertilizerQuantity, quantityLeached);
-                Toast.makeText(Form_RCC.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
+                quantityLeached = leached.getText().toString();
+                if(validateField(areaRecipient, descriptionProc, quantityResidue, fertilizerQuantity, quantityLeached)){
+                    formsUtilities.editInfoRCC(Form_RCC.this, idGarden, idCollection, areaRecipient, descriptionProc, quantityResidue, fertilizerQuantity, quantityLeached);
+                    Toast.makeText(Form_RCC.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+    private boolean validateField(String areaRecipient,String descriptionProc, String quantityResidue, String fertilizerQuantity, String quantityLeached){
+
+        if(areaRecipient.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar el area del recipiente", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(descriptionProc.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la descripción", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(quantityResidue.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la cantidad de residuos", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(fertilizerQuantity.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la cantidad de abono recogido", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(quantityLeached.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la cantidad lixiviada", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 }
