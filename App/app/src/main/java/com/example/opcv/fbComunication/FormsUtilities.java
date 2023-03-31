@@ -12,6 +12,7 @@ import com.example.opcv.formsScreen.FormsRegistersActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -48,6 +49,8 @@ public class FormsUtilities {
 
         String time = String.format("%02d:%02d:%02d", hour, minute, second);
         infoForm.put("Time",time);
+
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
 
         database.collection("Gardens").document(idGardenFb).collection("Forms").add(infoForm)

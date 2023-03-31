@@ -31,6 +31,8 @@ import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.CreateGardenActivity;
 import com.example.opcv.gardens.GardenEditActivity;
 import com.example.opcv.info.User;
+import com.example.opcv.localDatabase.DB_User;
+import com.example.opcv.localDatabase.DatabaseHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -51,6 +53,8 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EditUserActivity extends AppCompatActivity {
     private Button signOff, delete;
@@ -65,6 +69,12 @@ public class EditUserActivity extends AppCompatActivity {
     private static final int GALLERY_REQUEST_CODE = 100;
     private static final int PERMISSION_REQUEST_STORAGE = 1000;
     private Boolean IsChangedPhoto = false;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        searchUserInfo();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,8 +173,8 @@ public class EditUserActivity extends AppCompatActivity {
                 String email, Lastname, Name, PhoneNumber;
                 //email=userEmail.getText().toString();
                 Lastname = userLastName.getText().toString();
-                Name=userName.getText().toString();
-                PhoneNumber=userPhone.getText().toString();
+                Name = userName.getText().toString();
+                PhoneNumber = userPhone.getText().toString();
                 editUserInfo(Name, Lastname, PhoneNumber);
                 if(validateField(Name, Lastname)){
                     editUserInfo(Name, Lastname, PhoneNumber);
@@ -175,31 +185,51 @@ public class EditUserActivity extends AppCompatActivity {
         });
     }
 
-    private void searchUserInfo(){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference collectionRef = db.collection("UserInfo");
-        Query query = collectionRef.whereEqualTo("ID", userID_Recived);
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String name = document.getData().get("Name").toString();
-                        String email = document.getData().get("Email").toString();
-                        String lastname = document.getData().get("LastName").toString();
-                        String phoneNumber = document.getData().get("PhoneNumber").toString();
-                        userActive =  new User(name, lastname, email, userID_Recived, phoneNumber,null,null);
-                        userNameTV.setText(userActive.getName());
-                        userName.setText(userActive.getName());
-                        userLastName.setText(userActive.getLastName());
-                        userEmail.setText("Comabaquinta");
-                        userPhone.setText(userActive.getPhoneNumber());
-                        getPhotoProfileUser(userActive.getId());
-                    }
-                }
-            }
-        });
+    private void searchUserInfo() {
+        DB_User info = new DB_User(this);
+        Map<String, Object> userInfo = info.getUserInfo();
+
+        if (userInfo != null) {
+            AuthUtilities userFB = new AuthUtilities();
+            String name = userInfo.get("Name").toString();
+            String email = userInfo.get("Email").toString();
+            String lastname = userInfo.get("LastName").toString();
+            String phoneNumber = userInfo.get("PhoneNumber").toString();
+            userNameTV.setText(name);
+            userName.setText(name);
+            userLastName.setText(lastname);
+            userEmail.setText("Comabaquinta");
+            userPhone.setText(phoneNumber);
+            getPhotoProfileUser(userFB.getCurrentUserUid());
+        }
     }
+
+
+//    private void searchUserInfo(){
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        CollectionReference collectionRef = db.collection("UserInfo");
+//        Query query = collectionRef.whereEqualTo("ID", userID_Recived);
+//        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                        String name = document.getData().get("Name").toString();
+//                        String email = document.getData().get("Email").toString();
+//                        String lastname = document.getData().get("LastName").toString();
+//                        String phoneNumber = document.getData().get("PhoneNumber").toString();
+//                        userActive =  new User(name, lastname, email, userID_Recived, phoneNumber,null,null);
+//                        userNameTV.setText(userActive.getName());
+//                        userName.setText(userActive.getName());
+//                        userLastName.setText(userActive.getLastName());
+//                        userEmail.setText("Comabaquinta");
+//                        userPhone.setText(userActive.getPhoneNumber());
+//                        getPhotoProfileUser(userActive.getId());
+//                    }
+//                }
+//            }
+//        });
+//    }
 
 
     private void getPhotoProfileUser(String id){
@@ -220,40 +250,18 @@ public class EditUserActivity extends AppCompatActivity {
         });
 
     }
-    /*private void searchUserInfo (){
-        autentication = FirebaseAuth.getInstance();
-        database = FirebaseFirestore.getInstance();
-        String userID=autentication.getCurrentUser().getUid().toString();
-        database.collection("UserInfo").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            String idSearch;
-                            for(QueryDocumentSnapshot document : task.getResult()){
-                                idSearch = document.getData().get("ID").toString();
-                                if(idSearch.equals(userID)){
-                                    String name, email, lastname, phoneNumber;
-                                    name=document.getData().get("Name").toString();
-                                    email=document.getData().get("Email").toString();
-                                    lastname=document.getData().get("LastName").toString();
-                                    phoneNumber=document.getData().get("PhoneNumber").toString();
-                                    userActive =  new User(name, email, userID, lastname, phoneNumber,null);
-                                    userNameTV.setText(userActive.getName());
-                                    userName.setText(userActive.getName());
-                                    userEmail.setText("Comabaquinta");
-                                    userPhone.setText(userActive.getPhoneNumber());
-                                    userLastName.setText(userActive.getLastName());
-                                }
-                            }
-                        }
-                    }
-                });
-    }*/
 
     private User returnUser (User userP){
         return userP;
     }
 
+    private void editUserInfo(String name, String lastName, String phoneNumber){
+        changePhoto();
+        DB_User changed = new DB_User(this);
+        changed.updateUserInfo(name,lastName,phoneNumber);
+    }
+
+    /*
     private void editUserInfo(String name, String lastName, String phoneNumber){
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
@@ -286,7 +294,7 @@ public class EditUserActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }
+    }*/
     private boolean validateField(String name,String lastName){
 
         if(name.isEmpty() || lastName.isEmpty()){

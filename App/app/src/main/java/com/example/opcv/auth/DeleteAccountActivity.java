@@ -42,13 +42,18 @@ public class DeleteAccountActivity extends AppCompatActivity {
         database = FirebaseFirestore.getInstance();
 
         profile = (Button) findViewById(R.id.profile);
+        myGardens = (Button) findViewById(R.id.myGardens);
+        gardensMap = (Button) findViewById(R.id.gardens);
+        returnButton = (Button) findViewById(R.id.returnButton2);
+        delete = (Button) findViewById(R.id.deleteButton);
+
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(DeleteAccountActivity.this, EditUserActivity.class));
             }
         });
-        myGardens = (Button) findViewById(R.id.myGardens);
+
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,7 +61,6 @@ public class DeleteAccountActivity extends AppCompatActivity {
             }
         });
 
-        gardensMap = (Button) findViewById(R.id.gardens);
 
         gardensMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +69,6 @@ public class DeleteAccountActivity extends AppCompatActivity {
             }
         });
 
-        returnButton = (Button) findViewById(R.id.returnButton2);
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,12 +76,13 @@ public class DeleteAccountActivity extends AppCompatActivity {
             }
         });
 
-        delete = (Button) findViewById(R.id.deleteButton);
+
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseUser user = autentication.getCurrentUser();
                 idUser = user.getUid();
+                deletePhoto(idUser);
                 deleteUser(idUser, user);
                 user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -130,5 +134,8 @@ public class DeleteAccountActivity extends AppCompatActivity {
         //Toast.makeText(this, idUser, Toast.LENGTH_SHORT).show();
     }
 
+    private void deletePhoto(String idUser){
+
+    }
 
 }

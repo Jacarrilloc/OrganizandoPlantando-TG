@@ -50,7 +50,8 @@ public class GardenListAdapter extends ArrayAdapter<ItemGardenHomeList> {
 
         image = convertView.findViewById(R.id.garden_imagen_list_item);
         image.setVisibility(View.VISIBLE);
-        /*String id = item.getIdGarden();
+
+        String id = item.getIdGarden();
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
 
         StorageReference imageRef = storageRef.child("gardenMainPhoto/" +id + ".jpg");
@@ -66,7 +67,7 @@ public class GardenListAdapter extends ArrayAdapter<ItemGardenHomeList> {
             public void onFailure(@NonNull Exception e) {
                 image.setImageResource(R.drawable.im_logo_ceres_green);
             }
-        });*/
+        });
         return convertView;
     }
 }

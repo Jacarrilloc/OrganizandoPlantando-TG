@@ -55,8 +55,6 @@ public class FormsRegistersActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         fillFormsRegisters();
-        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(monitorService, filter);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

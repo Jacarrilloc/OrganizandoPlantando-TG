@@ -53,8 +53,6 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         fillGardenUser();
-        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(monitorService, filter);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
