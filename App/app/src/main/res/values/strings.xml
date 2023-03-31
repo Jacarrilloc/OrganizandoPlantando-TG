@@ -134,4 +134,16 @@
     <string name="mujeres">Mujeres</string>
     <string name="no_especificado">No especificado</string>
     <string name="primera_infancia_0_5_a_os">Primera infancia (0-5 años)</string>
+    <string name="informaci_n_de_huerta">Información de la huerta</string>
+    <string name="description">Description</string>
+    <string name="formularioss">Formularios</string>
+    <string name="boton_para_a_adir_personas">Boton para añadir personas</string>
+    <string name="boton_de_editar">Boton de editar</string>
+    <string name="contrase_a">Contraseña</string>
+    <string name="correo_electronico">Correo Electronico</string>
+    <string name="bienvenido_a_de_nuevo">Bienvenido(a) de nuevo</string>
+    <string name="olvidaste_tu_contrase_a">¿Olvidaste tu contraseña?</string>
+    <string name="iniciar_sesi_n">Iniciar Sesión</string>
+    <string name="informaci_n_de_huerta1">Información de Huerta:</string>
+    <string name="description2">Description</string>
 </resources>
