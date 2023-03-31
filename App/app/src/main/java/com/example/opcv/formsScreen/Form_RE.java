@@ -134,6 +134,7 @@ public class Form_RE extends AppCompatActivity {
 
 
         watch = getIntent().getStringExtra("watch");
+        System.out.println("el watch: ");
 
         if(watch.equals("true")){
             idGarden = getIntent().getStringExtra("idGardenFirebase");
@@ -284,6 +285,7 @@ public class Form_RE extends AppCompatActivity {
 
     private void showInfo(String idGarden, String idCollection, String status) {
         CollectionReference ref = database.collection("Gardens").document(idGarden).collection("Forms");
+
         ref.document(idCollection).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

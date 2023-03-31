@@ -84,7 +84,7 @@
 
     <string-array name="list_forms">
         <item>Registro y Actualización de Compostaje</item>
-        <item>Registros de eventos</item>
+        <item>Registro de evento</item>
         <item>Control de inventario de Materia Prima</item>
         <item>Solicitud de compra de materia prima y herramientas</item>
         <item>Recepción y Requisición de Materia Prima</item>
