@@ -98,6 +98,14 @@ public class Form_CIH extends AppCompatActivity {
             toolQuantity.setEnabled(false);
             toolStatus.setEnabled(false);
             preexistingTool.setEnabled(false);
+            tool.setFocusable(false);
+            tool.setClickable(false);
+            toolQuantity.setFocusable(false);
+            toolQuantity.setClickable(false);
+            toolStatus.setFocusable(false);
+            toolStatus.setClickable(false);
+            preexistingTool.setFocusable(false);
+            preexistingTool.setClickable(false);
             showInfo(idGarden, idCollection, "true");
         } else if (watch.equals("edit")) {
             formsUtilities = new FormsUtilities();

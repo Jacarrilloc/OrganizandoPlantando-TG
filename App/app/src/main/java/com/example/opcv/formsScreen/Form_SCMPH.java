@@ -96,6 +96,12 @@ public class Form_SCMPH extends AppCompatActivity {
             itemName.setEnabled(false);
             quantity.setEnabled(false);
             total.setEnabled(false);
+            itemName.setFocusable(false);
+            itemName.setClickable(false);
+            quantity.setFocusable(false);
+            quantity.setClickable(false);
+            total.setFocusable(false);
+            total.setClickable(false);
             showInfo(idGarden, idCollection, "true");
         } else if (watch.equals("edit")) {
             formsUtilities = new FormsUtilities();

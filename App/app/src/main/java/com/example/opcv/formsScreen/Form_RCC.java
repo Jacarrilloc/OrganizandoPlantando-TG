@@ -89,6 +89,16 @@ public class Form_RCC extends AppCompatActivity {
             residueQuant.setEnabled(false);
             fertilizer.setEnabled(false);
             leached.setEnabled(false);
+            recipientArea.setFocusable(false);
+            recipientArea.setClickable(false);
+            description.setFocusable(false);
+            description.setClickable(false);
+            residueQuant.setFocusable(false);
+            residueQuant.setClickable(false);
+            fertilizer.setFocusable(false);
+            fertilizer.setClickable(false);
+            leached.setFocusable(false);
+            leached.setClickable(false);
             showInfo(idGarden, idCollection, "true");
         } else if (watch.equals("edit")) {
             formsUtilities = new FormsUtilities();

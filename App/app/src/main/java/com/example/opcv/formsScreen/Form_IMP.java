@@ -98,6 +98,12 @@ public class Form_IMP extends AppCompatActivity {
             rawMatirial.setEnabled(false);
             quantity.setEnabled(false);
             existingTool.setEnabled(false);
+            rawMatirial.setFocusable(false);
+            rawMatirial.setClickable(false);
+            existingTool.setFocusable(false);
+            existingTool.setClickable(false);
+            quantity.setFocusable(false);
+            quantity.setClickable(false);
             showInfo(idGarden, idCollection, "true");
 
         } else if (watch.equals("edit")) {
