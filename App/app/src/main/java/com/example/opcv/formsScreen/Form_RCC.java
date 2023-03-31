@@ -62,7 +62,6 @@ public class Form_RCC extends AppCompatActivity {
                 startActivity(new Intent(Form_RCC.this, MapsActivity.class));
             }
         });
-
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

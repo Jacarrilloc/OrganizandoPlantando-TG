@@ -188,7 +188,6 @@ public class GardenEditActivity extends AppCompatActivity {
                     if(IsChangedPhoto){
                         changePhoto();
                     }
-
                     Intent start = new Intent(GardenEditActivity.this,HomeActivity.class);
                     String id = autentication.getCurrentUser().getUid().toString();
                     //System.out.println("El id es:.  "+id);

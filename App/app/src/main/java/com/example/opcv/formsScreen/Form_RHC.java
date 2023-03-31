@@ -72,14 +72,12 @@ public class Form_RHC extends AppCompatActivity {
             }
         });
 
-
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Form_RHC.this, HomeActivity.class));
             }
         });
-
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -68,14 +68,12 @@ public class Form_SCMPH extends AppCompatActivity {
             }
         });
 
-
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Form_SCMPH.this, HomeActivity.class));
             }
         });
-
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override

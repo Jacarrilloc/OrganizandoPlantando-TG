@@ -69,15 +69,12 @@ public class Form_RSMP extends AppCompatActivity {
             }
         });
 
-
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Form_RSMP.this, HomeActivity.class));
             }
         });
-
-
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

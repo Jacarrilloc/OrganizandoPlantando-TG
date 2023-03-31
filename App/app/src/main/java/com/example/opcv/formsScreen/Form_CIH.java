@@ -73,6 +73,7 @@ public class Form_CIH extends AppCompatActivity {
                 startActivity(new Intent(Form_CIH.this, MapsActivity.class));
             }
         });
+
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

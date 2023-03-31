@@ -138,7 +138,6 @@ public class Form_CPS extends AppCompatActivity {
                     }
                 }
             });
-
         }
 
         ArrayList<String> phaseElements = new ArrayList<>();
