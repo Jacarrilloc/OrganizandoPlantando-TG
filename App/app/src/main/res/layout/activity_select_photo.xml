@@ -62,26 +62,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5sp"
+            android:textColor="@color/black"
+            android:backgroundTint="#F4EEE5"
             android:layout_weight="1"
+            android:textSize="18sp"
             android:background="@drawable/dr_green_button"
-            android:text="Camara" />
+            android:text="@string/c_mara"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/SelectPhotoButtom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:backgroundTint="#F4EEE5"
             android:layout_margin="5sp"
             android:layout_weight="1"
+            android:textAllCaps="false"
+            android:textSize="18sp"
             android:background="@drawable/dr_green_button"
-            android:text="Seleccionar Foto" />
+            android:text="@string/seleccionar_foto" />
     </LinearLayout>
 
     <Button
         android:id="@+id/finishRegisterInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="25sp"
+        android:layout_margin="25dp"
+
+        android:textAllCaps="false"
+        android:textSize="20sp"
         android:background="@drawable/dr_green_button"
-        android:text="Finalizar Registro" />
+        android:text="@string/finalizar_registro" />
 
 </LinearLayout>

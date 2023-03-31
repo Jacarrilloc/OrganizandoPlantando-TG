@@ -136,15 +136,7 @@
                     android:textSize="16sp"/>
             </LinearLayout>
 
-            <Button
-                android:id="@+id/requesteVisit"
-                android:layout_width="167dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="109dp"
-                android:background="@drawable/dr_dark_green_button"
-                android:text="@string/visitRequest"
-                android:textAllCaps="false" />
+
         </LinearLayout>
     </ScrollView>
 

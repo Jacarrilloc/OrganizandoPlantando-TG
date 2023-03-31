@@ -41,7 +41,6 @@ public class OtherGardensActivity extends AppCompatActivity {
         setContentView(R.layout.activity_other_gardens);
 
         join= (Button) findViewById(R.id.requesteJoin);
-        visit = (Button) findViewById(R.id.requesteVisit);
         nameGarden = (TextView) findViewById(R.id.gardenNameText);
         descriptionGarden = (TextView) findViewById(R.id.descriptionGarden);
         returnButton = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);

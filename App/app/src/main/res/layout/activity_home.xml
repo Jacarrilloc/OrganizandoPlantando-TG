@@ -121,6 +121,8 @@
             android:background="@drawable/dr_green_button"
             android:textAllCaps="false"
             android:backgroundTint="#91BF63"
+
+            android:textSize="16sp"
             android:text="@string/seeOtherGardens"
             android:textColor="@color/white" />
 
@@ -135,6 +137,7 @@
             android:backgroundTint="#91BF63"
             android:textAllCaps="false"
             android:text="@string/collaboratorGardens"
+            android:textSize="16sp"
             android:textColor="@color/white" />
 
     </FrameLayout>

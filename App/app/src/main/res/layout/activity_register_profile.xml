@@ -37,8 +37,7 @@
             android:gravity="center"
             android:text="Registrarse"
             android:textColor="@color/black"
-            android:textSize="25sp"
-            android:textStyle="italic" />
+            android:textSize="25sp" />
 
     </LinearLayout>
 
@@ -69,12 +68,11 @@
                 android:layout_margin="10sp"
                 android:background="@drawable/dr_white_input_text"
                 android:ems="10"
-                android:hint="Nombre"
+                android:hint="@string/nombre1"
                 android:inputType="text"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textColorHint="@color/editTextBackground"
-                android:textStyle="italic" />
+                android:textColorHint="@color/editTextBackground"/>
 
             <EditText
                 android:id="@+id/imputLastNameRegisterActivity"
@@ -83,12 +81,11 @@
                 android:layout_margin="10sp"
                 android:background="@drawable/dr_white_input_text"
                 android:ems="10"
-                android:hint="Apellido"
+                android:hint="@string/apellido"
                 android:inputType="text"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textColorHint="@color/editTextBackground"
-                android:textStyle="italic" />
+                android:textColorHint="@color/editTextBackground"/>
 
             <Spinner
                 android:id="@+id/spinnerGenderRegisterActivity"
@@ -104,12 +101,11 @@
                 android:layout_margin="10sp"
                 android:background="@drawable/dr_white_input_text"
                 android:ems="10"
-                android:hint="Correo Electronico"
+                android:hint="@string/correo_electronico1"
                 android:inputType="textEmailAddress"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textColorHint="@color/editTextBackground"
-                android:textStyle="italic" />
+                android:textColorHint="@color/editTextBackground"/>
 
             <EditText
                 android:id="@+id/imputPasswordRegisterActivity"
@@ -118,12 +114,11 @@
                 android:layout_margin="10sp"
                 android:background="@drawable/dr_white_input_text"
                 android:ems="10"
-                android:hint="Contraseña"
+                android:hint="@string/contrase_ia"
                 android:inputType="textPassword"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textColorHint="@color/editTextBackground"
-                android:textStyle="italic" />
+                android:textColorHint="@color/editTextBackground" />
 
             <EditText
                 android:id="@+id/imputConfirmPaswordRegisterActivity"
@@ -132,12 +127,11 @@
                 android:layout_margin="10sp"
                 android:background="@drawable/dr_white_input_text"
                 android:ems="10"
-                android:hint="Repetir Contraseña"
+                android:hint="@string/repetir_contrase_a"
                 android:inputType="textPassword"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textColorHint="@color/editTextBackground"
-                android:textStyle="italic" />
+                android:textColorHint="@color/editTextBackground" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -152,8 +146,7 @@
                     android:layout_margin="5sp"
                     android:layout_weight="1"
                     android:text="He leido los"
-                    android:textColor="@color/black"
-                    android:textStyle="italic" />
+                    android:textColor="@color/black"/>
 
                 <Button
                     android:id="@+id/terms_condition_buttom_registerProfileActivity"
@@ -164,8 +157,7 @@
                     android:background="@null"
                     android:text="Terminos y Condiciones"
                     android:textAllCaps="false"
-                    android:textColor="@color/mainButtonColor"
-                    android:textStyle="italic" />
+                    android:textColor="@color/mainButtonColor"/>
 
                 <CheckBox
                     android:id="@+id/okSignalTermsRegisterActivity"
@@ -184,9 +176,10 @@
                 android:layout_margin="20sp"
                 android:background="@drawable/dr_green_button"
                 android:backgroundTint="@null"
+                android:textAllCaps="false"
+                android:textSize="20sp"
                 android:gravity="center"
-                android:text="Crear Cuenta"
-                android:textStyle="italic" />
+                android:text="@string/crear_cuenta"/>
 
         </LinearLayout>
     </ScrollView>
