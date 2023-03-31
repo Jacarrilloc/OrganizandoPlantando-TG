@@ -72,14 +72,12 @@ public class Form_RHC extends AppCompatActivity {
             }
         });
 
-
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Form_RHC.this, HomeActivity.class));
             }
         });
-
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,11 +155,12 @@ public class Form_RHC extends AppCompatActivity {
                     infoForm.put("totalCost",totalCostC);
                     infoForm.put("comments",commentsC);
                     infoForm.put("units",unitsC);
-                    formsUtilities.createForm(Form_RHC.this,infoForm,idGardenFb);
-                    Toast.makeText(Form_RHC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Form_RHC.this, HomeActivity.class));
-                    finish();
-
+                    if(validateField(personResponsable, codeC, itemNameC, unitsC, measurementC, totalCostC, commentsC, conceptSelectedItem, selectedType)){
+                        formsUtilities.createForm(Form_RHC.this,infoForm,idGardenFb);
+                        Toast.makeText(Form_RHC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Form_RHC.this, HomeActivity.class));
+                        finish();
+                    }
                 }
             });
 
@@ -387,9 +386,50 @@ public class Form_RHC extends AppCompatActivity {
                 commentsC = comments.getText().toString();
                 incomeExpense = conceptSelectedItem;
                 type =selectedType;
-                formsUtilities.editInfoRHC(Form_RHC.this, idGarden, idCollection, personResponsable, codeC, itemNameC, unitsC, measurementC, totalCostC, commentsC, incomeExpense, type);
-                Toast.makeText(Form_RHC.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
+                if(validateField(personResponsable, codeC, itemNameC, unitsC, measurementC, totalCostC, commentsC, incomeExpense, type)){
+                    formsUtilities.editInfoRHC(Form_RHC.this, idGarden, idCollection, personResponsable, codeC, itemNameC, unitsC, measurementC, totalCostC, commentsC, incomeExpense, type);
+                    Toast.makeText(Form_RHC.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+    private boolean validateField(String personResponsable,String codeC, String itemNameC, String unitsC, String measurementC, String totalCostC, String commentsC, String incomeExpense, String type){
+
+        if(personResponsable.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la persona responsable", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(incomeExpense.equals("Seleccione un elemento")){
+            Toast.makeText(this, "Es necesario seleccionar si es ingreso o egreso", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(type.equals("Seleccione un elemento")){
+            Toast.makeText(this, "Es necesario seleccionar un tipo", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(codeC.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar el codigo", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(itemNameC.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar el nombre del item", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(unitsC.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar las unidades", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(measurementC.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar las medidas del ingreso/egreso", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(totalCostC.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar el costo total", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(commentsC.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar comentarios", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 }

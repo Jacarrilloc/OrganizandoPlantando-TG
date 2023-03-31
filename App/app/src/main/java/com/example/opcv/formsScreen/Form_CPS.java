@@ -130,13 +130,14 @@ public class Form_CPS extends AppCompatActivity {
                     infoForm.put("phaseDuration",durationT);
                     infoForm.put("plants or seeds",plantsOrSeeds);
                     infoForm.put("commentsObservations",commentsC);
-                    formsUtilities.createForm(Form_CPS.this,infoForm,idGardenFb);
-                    Toast.makeText(Form_CPS.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Form_CPS.this, HomeActivity.class));
-                    finish();
+                    if(validateField(personResp, durationT, plantsOrSeeds, commentsC, phaseSelectedItem)){
+                        formsUtilities.createForm(Form_CPS.this,infoForm,idGardenFb);
+                        Toast.makeText(Form_CPS.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Form_CPS.this, HomeActivity.class));
+                        finish();
+                    }
                 }
             });
-
         }
 
         ArrayList<String> phaseElements = new ArrayList<>();
@@ -294,10 +295,35 @@ public class Form_CPS extends AppCompatActivity {
                 plantsOrSeed = plantsSeeds.getText().toString();
                 commentsC = comments.getText().toString();
                 phase = phaseSelectedItem;
-                formsUtilities.editInfoCPS(Form_CPS.this, idGarden, idCollection, personRep, durationT, plantsOrSeed, commentsC, phase);
-                Toast.makeText(Form_CPS.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
+                if(validateField(personRep, durationT, plantsOrSeed, commentsC, phase)){
+                    formsUtilities.editInfoCPS(Form_CPS.this, idGarden, idCollection, personRep, durationT, plantsOrSeed, commentsC, phase);
+                    Toast.makeText(Form_CPS.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
+    }
+    private boolean validateField(String personRep,String duration, String plantsOrSeed, String commentsC, String phase){
+
+        if(personRep.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la persona responsable", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(duration.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la duración", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(plantsOrSeed.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la planta o semilla", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(commentsC.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar comentarios", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(phase.equals("Seleccione un elemento")){
+            Toast.makeText(this, "Es necesario seleccionar una fase", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 }

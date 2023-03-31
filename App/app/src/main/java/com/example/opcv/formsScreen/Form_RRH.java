@@ -75,7 +75,6 @@ public class Form_RRH extends AppCompatActivity {
             }
         });
 
-
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,10 +134,12 @@ public class Form_RRH extends AppCompatActivity {
                     infoForm.put("concept",conceptSelectedItem);
                     infoForm.put("performedBy",processPerformedBy);
                     infoForm.put("toolStatus",processStatus);
-                    formsUtilities.createForm(Form_RRH.this,infoForm,idGardenFb);
-                    Toast.makeText(Form_RRH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Form_RRH.this, HomeActivity.class));
-                    finish();
+                    if(validateField(processDescription, toolQuantity, processPerformedBy, processStatus, conceptSelectedItem)){
+                        formsUtilities.createForm(Form_RRH.this,infoForm,idGardenFb);
+                        Toast.makeText(Form_RRH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Form_RRH.this, HomeActivity.class));
+                        finish();
+                    }
                 }
             });
 
@@ -220,10 +221,34 @@ public class Form_RRH extends AppCompatActivity {
                 processPerformedBy = performedBy.getText().toString();
                 processStatus = status.getText().toString();
                 concept = conceptSelectedItem;
-                formsUtilities.editInfoRRH(Form_RRH.this, idGarden, idCollection, processDescription, toolQuantity, processPerformedBy, processStatus, concept);
-                Toast.makeText(Form_RRH.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
+                if(validateField(processDescription, toolQuantity, processPerformedBy, processStatus, concept)){
+                    formsUtilities.editInfoRRH(Form_RRH.this, idGarden, idCollection, processDescription, toolQuantity, processPerformedBy, processStatus, concept);
+                    Toast.makeText(Form_RRH.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
+    private boolean validateField(String processDescription,String toolQuantity, String processPerformedBy, String processStatus, String concept){
 
+        if(processDescription.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la descripción", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(concept.equals("Seleccione un elemento")){
+            Toast.makeText(this, "Es necesario seleccionar un concepto", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(toolQuantity.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la cantidad", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(processPerformedBy.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar el nombre del responsable", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(processStatus.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar el estado del proceso", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
 }
