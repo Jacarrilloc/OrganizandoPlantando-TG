@@ -18,13 +18,16 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.gardens.GardensAvailableActivity;
 
 public class MapsActivity extends AppCompatActivity {
     private MapView map;
     private Button profile, myGardens, gardensMap;
     private MapController myMapController;
+    private ImageView gardens;
     GeoPoint bogota = new GeoPoint(4.62, -74.07);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,15 @@ public class MapsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MapsActivity.this, MapsActivity.class));
+            }
+        });
+
+        gardens = (ImageView) findViewById(R.id.gardensIcon);
+
+        gardens.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MapsActivity.this, GardensAvailableActivity.class));
             }
         });
 

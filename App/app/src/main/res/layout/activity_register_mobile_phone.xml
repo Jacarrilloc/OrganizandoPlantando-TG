@@ -29,7 +29,8 @@
             app:layout_constraintStart_toStartOf="@+id/gardenProfilePicture"
             app:layout_constraintTop_toTopOf="@+id/gardenProfilePicture"
             app:layout_constraintVertical_bias="0.064"
-            app:srcCompat="@drawable/dr_return_arrow" />
+            app:srcCompat="@drawable/dr_return_arrow"
+            android:focusable="true" />
 
         <ImageView
             android:id="@+id/imageView7"
@@ -47,7 +48,7 @@
         android:textStyle="bold"
         android:textAlignment="center"
         android:layout_margin="10sp"
-        android:text="Hola, Bienvenido(a) a Ceres" />
+        android:text="@string/hola_bienvenido_a_a_ceres" />
 
     <TextView
         android:id="@+id/textView7"
@@ -56,7 +57,7 @@
         android:layout_margin="10sp"
         android:textAlignment="center"
         android:textSize="20sp"
-        android:text="Ingresa tu número de celular para poder crear y participar en las huertas" />
+        android:text="@string/ingresa_tu_n_mero_de_celular_para_poder_crear_y_participar_en_las_huertas" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -92,7 +93,7 @@
                     android:layout_weight="0.8"
                     android:background="@drawable/dr_white_input_text"
                     android:ems="10"
-                    android:hint="Numero"
+                    android:hint="@string/n_mero"
                     android:inputType="phone"
                     android:textAlignment="center"
                     android:textColor="@color/black"
@@ -100,8 +101,8 @@
 
                 <ImageButton
                     android:id="@+id/continueButtom_phone_activity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_margin="2sp"
                     android:layout_weight="0"
@@ -115,7 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="0sp"
-                android:text="Mas Tarde"
+                android:text="@string/m_s_tarde"
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
