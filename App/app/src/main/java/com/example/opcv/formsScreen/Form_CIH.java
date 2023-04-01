@@ -21,6 +21,8 @@ import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.fbComunication.FormsUtilities;
+import com.example.opcv.localDatabase.DB_InsertForms;
+import com.example.opcv.localDatabase.DatabaseFormsHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -132,6 +134,14 @@ public class Form_CIH extends AppCompatActivity {
                         infoForm.put("toolQuantity",quantityTools);
                         infoForm.put("toolStatus",statusTools);
                         infoForm.put("existenceQuantity",toolExistance);
+
+                        DB_InsertForms newForm = new DB_InsertForms(Form_CIH.this);
+                        long i = newForm.insertInto_CIH(infoForm);
+
+                        if(i>0){
+                            Toast.makeText(Form_CIH.this, "SE AGREGÓ", Toast.LENGTH_SHORT).show();
+                        }
+
                         formsUtilities.createForm(Form_CIH.this,infoForm,idGardenFb);
                         Toast.makeText(Form_CIH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Form_CIH.this, HomeActivity.class));

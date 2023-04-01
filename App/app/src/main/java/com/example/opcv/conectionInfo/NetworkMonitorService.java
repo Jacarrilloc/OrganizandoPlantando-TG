@@ -14,9 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.opcv.fbComunication.AuthUtilities;
+import com.example.opcv.localDatabase.DB_User;
 import com.example.opcv.localDatabase.DatabaseHelper;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -74,7 +76,19 @@ public class NetworkMonitorService extends Service {
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
-    private void syncFirestoreWithSQLite() {/*
+    /*private void syncFirestore_CIH(String idGardenFb){
+        DB_User info = new DB_User(this);
+        FirebaseFirestore dbFirestore = FirebaseFirestore.getInstance();
+        CollectionReference usersCollection = dbFirestore.collection("Gardens").document(idGardenFb).collection("Forms");
+        boolean conection = isOnline();
+        if(conection){
+            
+        }
+    }/*
+
+    private void syncFirestoreWithSQLite() {
+
+        /*
 
         // Obtener una instancia de la clase DatabaseHelper
         DatabaseHelper dbHelper = new DatabaseHelper(this);
@@ -137,6 +151,5 @@ public class NetworkMonitorService extends Service {
             }
         }
     */}
-
 }
 

@@ -32,6 +32,7 @@ public class FormsUtilities {
     public boolean statusCreateGarden;
 
     public void createForm(Context context, Map<String,Object> infoForm, String idGardenFb) {
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         database = FirebaseFirestore.getInstance();
         autentication = FirebaseAuth.getInstance();
         Calendar calendar = Calendar.getInstance();

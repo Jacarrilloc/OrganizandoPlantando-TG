@@ -56,6 +56,7 @@ public class FormsRegistersActivity extends AppCompatActivity {
         super.onStart();
         fillFormsRegisters();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

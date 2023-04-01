@@ -77,5 +77,4 @@ public class DB_User extends  DatabaseHelper{
         Toast.makeText(context, "Cambio Exitoso", Toast.LENGTH_SHORT).show();
         db.close();
     }
-
 }
