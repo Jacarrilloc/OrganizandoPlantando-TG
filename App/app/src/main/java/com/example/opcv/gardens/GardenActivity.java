@@ -23,6 +23,7 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.CollaboratorUtilities;
 import com.example.opcv.formsScreen.Form_CIH;
 import com.example.opcv.formsScreen.Form_CPS;
@@ -97,6 +98,8 @@ public class GardenActivity extends AppCompatActivity {
             //System.out.println("El que es "+ owner);
             SearchInfoGardenSreen(id,garden);
         }
+        NetworkMonitorService test = new NetworkMonitorService(GardenActivity.this);
+        test.syncFirestore_CIH(gardenID);
 
         if(!Objects.equals(owner, "true")){
             editGarden.setVisibility(View.INVISIBLE);

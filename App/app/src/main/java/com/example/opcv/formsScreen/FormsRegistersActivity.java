@@ -49,7 +49,7 @@ public class FormsRegistersActivity extends AppCompatActivity {
     private FirebaseFirestore database;
     private FirebaseAuth autentication;
     private Button gardens, myGardens, profile;
-    private NetworkMonitorService monitorService = new NetworkMonitorService();
+    private NetworkMonitorService monitorService = new NetworkMonitorService(FormsRegistersActivity.this);
 
     @Override
     protected void onStart() {

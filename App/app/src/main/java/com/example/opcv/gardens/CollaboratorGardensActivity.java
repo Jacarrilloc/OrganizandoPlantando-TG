@@ -47,7 +47,7 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
     private ListView listGardens;
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
-    private NetworkMonitorService monitorService = new NetworkMonitorService();
+    private NetworkMonitorService monitorService = new NetworkMonitorService(CollaboratorGardensActivity.this);
 
     @Override
     protected void onStart() {
