@@ -852,6 +852,4 @@ public class NetworkMonitorService extends Service {
             cursor.close();
         }
     }
-
 }
-
