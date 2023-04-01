@@ -49,15 +49,14 @@ public class FormsRegistersActivity extends AppCompatActivity {
     private FirebaseFirestore database;
     private FirebaseAuth autentication;
     private Button gardens, myGardens, profile;
-    private NetworkMonitorService monitorService = new NetworkMonitorService();
+    private NetworkMonitorService monitorService = new NetworkMonitorService(FormsRegistersActivity.this);
 
     @Override
     protected void onStart() {
         super.onStart();
         fillFormsRegisters();
-        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(monitorService, filter);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

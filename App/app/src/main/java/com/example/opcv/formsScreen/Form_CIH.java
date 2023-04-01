@@ -20,7 +20,10 @@ import com.example.opcv.MapsActivity;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.HomeActivity;
 import com.example.opcv.R;
+import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.FormsUtilities;
+import com.example.opcv.localDatabase.DB_InsertForms;
+import com.example.opcv.localDatabase.DatabaseFormsHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -73,7 +76,6 @@ public class Form_CIH extends AppCompatActivity {
                 startActivity(new Intent(Form_CIH.this, MapsActivity.class));
             }
         });
-
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,14 +101,6 @@ public class Form_CIH extends AppCompatActivity {
             toolQuantity.setEnabled(false);
             toolStatus.setEnabled(false);
             preexistingTool.setEnabled(false);
-            tool.setFocusable(false);
-            tool.setClickable(false);
-            toolQuantity.setFocusable(false);
-            toolQuantity.setClickable(false);
-            toolStatus.setFocusable(false);
-            toolStatus.setClickable(false);
-            preexistingTool.setFocusable(false);
-            preexistingTool.setClickable(false);
             showInfo(idGarden, idCollection, "true");
         } else if (watch.equals("edit")) {
             formsUtilities = new FormsUtilities();
@@ -141,12 +135,19 @@ public class Form_CIH extends AppCompatActivity {
                         infoForm.put("toolQuantity",quantityTools);
                         infoForm.put("toolStatus",statusTools);
                         infoForm.put("existenceQuantity",toolExistance);
-                        if(validateField(tools, quantityTools, statusTools, toolExistance, conceptSelectedItem, selectedItem)){
+
+                        NetworkMonitorService connection = new NetworkMonitorService(Form_CIH.this);
+
+                        if(connection.isOnline(Form_CIH.this)){
                             formsUtilities.createForm(Form_CIH.this,infoForm,idGardenFb);
-                            Toast.makeText(Form_CIH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(Form_CIH.this, HomeActivity.class));
-                            finish();
                         }
+
+                        DB_InsertForms newForm = new DB_InsertForms(Form_CIH.this);
+                        newForm.insertInto_CIH(infoForm);
+
+                        Toast.makeText(Form_CIH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Form_CIH.this, HomeActivity.class));
+                        finish();
                 }
             });
 
@@ -287,39 +288,9 @@ public class Form_CIH extends AppCompatActivity {
                 toolExistance = preexistingTool.getText().toString();
                 concept = conceptSelectedItem;
                 incomeOutgo = selectedItem;
-                if(validateField(tools, quantityTools, statusTools, toolExistance, concept, incomeOutgo)){
-                    formsUtilities.editInfoCIH(Form_CIH.this, idGarden, idCollection, tools, quantityTools, statusTools, toolExistance, concept, incomeOutgo);
-                    Toast.makeText(Form_CIH.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
-                }
-
+                formsUtilities.editInfoCIH(Form_CIH.this, idGarden, idCollection, tools, quantityTools, statusTools, toolExistance, concept, incomeOutgo);
+                Toast.makeText(Form_CIH.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-    private boolean validateField(String tool,String quantityTools, String statusTools, String toolExistance, String concept, String incomeOutgo){
-
-        if(tool.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar la herramienta", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        else if(quantityTools.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar cantidad de herramienta", Toast.LENGTH_SHORT).show();
-            return false;
-        }else if(statusTools.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar el estado de la herramienta", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        else if(toolExistance.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar cantidad de existencias de herramienta", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        else if(concept.equals("Seleccione un elemento")){
-            Toast.makeText(this, "Es necesario seleccionar un concepto", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        else if(incomeOutgo.equals("Seleccione un elemento")){
-            Toast.makeText(this, "Es necesario seleccionar si es entrada o salida", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
     }
 }

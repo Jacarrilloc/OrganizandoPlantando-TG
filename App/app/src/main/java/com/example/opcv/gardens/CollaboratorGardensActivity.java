@@ -47,14 +47,12 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
     private ListView listGardens;
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
-    private NetworkMonitorService monitorService = new NetworkMonitorService();
+    private NetworkMonitorService monitorService = new NetworkMonitorService(CollaboratorGardensActivity.this);
 
     @Override
     protected void onStart() {
         super.onStart();
         fillGardenUser();
-        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(monitorService, filter);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -9,6 +9,7 @@ import androidx.core.content.FileProvider;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,12 +23,15 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.info.User;
+import com.example.opcv.localDatabase.DB_User;
+import com.example.opcv.localDatabase.DatabaseHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 public class SelectPhotoActivity extends AppCompatActivity {
 
@@ -119,7 +123,7 @@ public class SelectPhotoActivity extends AppCompatActivity {
         if(authUtilities.createUser(newUserInfo.getEmail(),password,newUserInfo,imageUri,SelectPhotoActivity.this)){
             Toast.makeText(this, "Usuario Creado Exitosamente", Toast.LENGTH_SHORT).show();
         }
-        callHome(newUserInfo);
+        addToSQL(newUserInfo);
     }
 
     private void takePhotoUser(){
@@ -167,6 +171,23 @@ public class SelectPhotoActivity extends AppCompatActivity {
             imageUri = data.getData();
             ImageSource.setImageURI(imageUri);
         }
+    }
+
+    private void addToSQL(User newUserInfo){
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        if(db != null){
+            Toast.makeText(this, "Se crea la base de Datos", Toast.LENGTH_SHORT).show();
+            Map<String,Object> info = newUserInfo.toMap();
+            DB_User newI = new DB_User(this);
+            long i = newI.insertUserInfo(info);
+            if(i > 0){
+                Toast.makeText(this, "REGISTRO GUARDADO", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
+            }
+        }
+        callHome(newUserInfo);
     }
     private void callHome(User newUserInfo){
         Intent intent = new Intent(SelectPhotoActivity.this, HomeActivity.class);

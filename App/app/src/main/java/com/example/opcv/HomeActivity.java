@@ -31,6 +31,7 @@ import com.example.opcv.gardens.GardenActivity;
 import com.example.opcv.gardens.GardensAvailableActivity;
 import com.example.opcv.info.User;
 import com.example.opcv.item_list.ItemGardenHomeList;
+import com.example.opcv.localDatabase.DatabaseHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -42,6 +43,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,20 +62,19 @@ public class HomeActivity extends AppCompatActivity {
     private User userInfo;
     private String userId;
 
-    private NetworkMonitorService monitorService = new NetworkMonitorService();
+    private Intent serviceIntent;
 
     @Override
     protected void onStart() {
         super.onStart();
         fillGardenUser();
-        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(monitorService, filter);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(monitorService);
+        //Detiene el servicio NetworkMonitorService
+        stopService(serviceIntent);
     }
 
     @Override
@@ -100,6 +101,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        //Metodos para sicronizacion entre Firestore (Servidor) y  SQL Lite ( Base de Datos Local )
+        serviceIntent = new Intent(this, NetworkMonitorService.class);
+        startService(serviceIntent);
+
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
 
@@ -114,10 +119,8 @@ public class HomeActivity extends AppCompatActivity {
         gardensMap = (Button) findViewById(R.id.gardens);
         generateReport = (ImageButton) findViewById(R.id.generalReport);
 
-        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(monitorService, filter);
-
         userId = getIntent().getStringExtra("userID");
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
 
         if (userId == null){
             AuthUtilities auth = new AuthUtilities();
@@ -253,4 +256,5 @@ public class HomeActivity extends AppCompatActivity {
         listAviableGardensInfo.setAdapter(adapter);
         listAviableGardensInfo.setDividerHeight(5);
     }
+
 }

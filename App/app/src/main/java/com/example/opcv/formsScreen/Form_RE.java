@@ -19,7 +19,9 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.FormsUtilities;
+import com.example.opcv.localDatabase.DB_InsertForms;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -266,7 +268,14 @@ public class Form_RE extends AppCompatActivity {
                     infoForm.put("foreignNumber",foreignNumber.getText().toString());
                     infoForm.put("peasantNumber", peasantNumber.getText().toString());
                     infoForm.put("otherNumber", otherNumber.getText().toString());
-                    formsUtilities.createForm(Form_RE.this,infoForm,idGardenFb);
+                    NetworkMonitorService connection = new NetworkMonitorService(Form_RE.this);
+
+                    if(connection.isOnline(Form_RE.this)){
+                        formsUtilities.createForm(Form_RE.this,infoForm,idGardenFb);
+                    }
+
+                    DB_InsertForms newForm = new DB_InsertForms(Form_RE.this);
+                    newForm.insertInto_RE(infoForm);
                     Toast.makeText(Form_RE.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Form_RE.this, HomeActivity.class));
                     finish();
