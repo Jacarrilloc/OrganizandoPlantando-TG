@@ -88,13 +88,13 @@
         <item>Control de inventario de Materia Prima</item>
         <item>Solicitud de compra de materia prima y herramientas</item>
         <item>Recepción y Requisición de Materia Prima</item>
-        <item>Revisión de Asistencia a la Huerta</item>
         <item>Control de Procesos de Siembra</item>
         <item>Registro y Control de Compostaje</item>
         <item>Recepción y Requisición de Herramientas</item>
         <item>Control de Inventarios de Herramientas</item>
         <item>Registro Histórico Caja</item>
     </string-array>
+
     <string name="title_activity_other_garden">otherGardenActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

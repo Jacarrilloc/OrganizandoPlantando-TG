@@ -6,22 +6,20 @@ import java.util.Map;
 public class RCC_Element {
     int idForm;
     String nameForm;
-    String containerSize;
-    String wormsWeight;
-    String humidity;
-    String amountOfWaste;
-    String collectedHumus;
-    String amountLeached;
+    String areaRecipient;
+    String areaDescription;
+    String residueQuantity;
+    String fertilizerQuantity;
+    String leachedQuantity;
 
-    public RCC_Element(int idForm, String nameForm, String containerSize, String wormsWeight, String humidity, String amountOfWaste, String collectedHumus, String amountLeached) {
+    public RCC_Element(int idForm, String nameForm, String areaRecipient, String areaDescription, String residueQuantity, String fertilizerQuantity, String leachedQuantity) {
         this.idForm = idForm;
         this.nameForm = nameForm;
-        this.containerSize = containerSize;
-        this.wormsWeight = wormsWeight;
-        this.humidity = humidity;
-        this.amountOfWaste = amountOfWaste;
-        this.collectedHumus = collectedHumus;
-        this.amountLeached = amountLeached;
+        this.areaRecipient = areaRecipient;
+        this.areaDescription = areaDescription;
+        this.residueQuantity = residueQuantity;
+        this.fertilizerQuantity = fertilizerQuantity;
+        this.leachedQuantity = leachedQuantity;
     }
 
     public int getIdForm() {
@@ -40,64 +38,54 @@ public class RCC_Element {
         this.nameForm = nameForm;
     }
 
-    public String getContainerSize() {
-        return containerSize;
+    public String getAreaRecipient() {
+        return areaRecipient;
     }
 
-    public void setContainerSize(String containerSize) {
-        this.containerSize = containerSize;
+    public void setAreaRecipient(String areaRecipient) {
+        this.areaRecipient = areaRecipient;
     }
 
-    public String getWormsWeight() {
-        return wormsWeight;
+    public String getAreaDescription() {
+        return areaDescription;
     }
 
-    public void setWormsWeight(String wormsWeight) {
-        this.wormsWeight = wormsWeight;
+    public void setAreaDescription(String areaDescription) {
+        this.areaDescription = areaDescription;
     }
 
-    public String getHumidity() {
-        return humidity;
+    public String getResidueQuantity() {
+        return residueQuantity;
     }
 
-    public void setHumidity(String humidity) {
-        this.humidity = humidity;
+    public void setResidueQuantity(String residueQuantity) {
+        this.residueQuantity = residueQuantity;
     }
 
-    public String getAmountOfWaste() {
-        return amountOfWaste;
+    public String getFertilizerQuantity() {
+        return fertilizerQuantity;
     }
 
-    public void setAmountOfWaste(String amountOfWaste) {
-        this.amountOfWaste = amountOfWaste;
+    public void setFertilizerQuantity(String fertilizerQuantity) {
+        this.fertilizerQuantity = fertilizerQuantity;
     }
 
-    public String getCollectedHumus() {
-        return collectedHumus;
+    public String getLeachedQuantity() {
+        return leachedQuantity;
     }
 
-    public void setCollectedHumus(String collectedHumus) {
-        this.collectedHumus = collectedHumus;
+    public void setLeachedQuantity(String leachedQuantity) {
+        this.leachedQuantity = leachedQuantity;
     }
-
-    public String getAmountLeached() {
-        return amountLeached;
-    }
-
-    public void setAmountLeached(String amountLeached) {
-        this.amountLeached = amountLeached;
-    }
-
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("idForm", idForm);
         map.put("nameForm", nameForm);
-        map.put("containerSize", containerSize);
-        map.put("wormsWeight", wormsWeight);
-        map.put("humidity", humidity);
-        map.put("amountOfWaste", amountOfWaste);
-        map.put("collectedHumus", collectedHumus);
-        map.put("amountLeached", amountLeached);
+        map.put("areaRecipient", areaRecipient);
+        map.put("areaDescription", areaDescription);
+        map.put("residueQuantity", residueQuantity);
+        map.put("fertilizerQuantity", fertilizerQuantity);
+        map.put("leachedQuantity", leachedQuantity);
         return map;
     }
 }

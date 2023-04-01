@@ -8,10 +8,9 @@ public class RE_Element {
     String nameForm;
     String date;
     String eventName;
-    int totalPerson,womenNumber,menNumber,noSpcNumber,infantNumber,childhoodNumber,teenNumber, youthNumber,adultNumber,elderlyNumber,afroNumber,nativeNumber,lgtbiNumber,romNumber,victimNumber, disabilityNumber, demobilizedNumber,mongrelNumber,foreignNumber,peasantNumber,otherNumber;
+    String totalPerson,womenNumber,menNumber,noSpcNumber,infantNumber,childhoodNumber,teenNumber, youthNumber,adultNumber,elderlyNumber,afroNumber,nativeNumber,lgtbiNumber,romNumber,victimNumber, disabilityNumber, demobilizedNumber,mongrelNumber,foreignNumber,peasantNumber,otherNumber;
 
-
-    public RE_Element(int idForm, String nameForm, String date, String eventName, int totalPerson, int womenNumber, int menNumber, int noSpcNumber, int infantNumber, int childhoodNumber, int teenNumber, int youthNumber, int adultNumber, int elderlyNumber, int afroNumber, int nativeNumber, int lgtbiNumber, int romNumber, int victimNumber, int disabilityNumber, int demobilizedNumber, int mongrelNumber, int foreignNumber, int peasantNumber, int otherNumber) {
+    public RE_Element(int idForm, String nameForm, String date, String eventName, String totalPerson, String womenNumber, String menNumber, String noSpcNumber, String infantNumber, String childhoodNumber, String teenNumber, String youthNumber, String adultNumber, String elderlyNumber, String afroNumber, String nativeNumber, String lgtbiNumber, String romNumber, String victimNumber, String disabilityNumber, String demobilizedNumber, String mongrelNumber, String foreignNumber, String peasantNumber, String otherNumber) {
         this.idForm = idForm;
         this.nameForm = nameForm;
         this.date = date;
@@ -71,171 +70,171 @@ public class RE_Element {
         this.eventName = eventName;
     }
 
-    public int getTotalPerson() {
+    public String getTotalPerson() {
         return totalPerson;
     }
 
-    public void setTotalPerson(int totalPerson) {
+    public void setTotalPerson(String totalPerson) {
         this.totalPerson = totalPerson;
     }
 
-    public int getWomenNumber() {
+    public String getWomenNumber() {
         return womenNumber;
     }
 
-    public void setWomenNumber(int womenNumber) {
+    public void setWomenNumber(String womenNumber) {
         this.womenNumber = womenNumber;
     }
 
-    public int getMenNumber() {
+    public String getMenNumber() {
         return menNumber;
     }
 
-    public void setMenNumber(int menNumber) {
+    public void setMenNumber(String menNumber) {
         this.menNumber = menNumber;
     }
 
-    public int getNoSpcNumber() {
+    public String getNoSpcNumber() {
         return noSpcNumber;
     }
 
-    public void setNoSpcNumber(int noSpcNumber) {
+    public void setNoSpcNumber(String noSpcNumber) {
         this.noSpcNumber = noSpcNumber;
     }
 
-    public int getInfantNumber() {
+    public String getInfantNumber() {
         return infantNumber;
     }
 
-    public void setInfantNumber(int infantNumber) {
+    public void setInfantNumber(String infantNumber) {
         this.infantNumber = infantNumber;
     }
 
-    public int getChildhoodNumber() {
+    public String getChildhoodNumber() {
         return childhoodNumber;
     }
 
-    public void setChildhoodNumber(int childhoodNumber) {
+    public void setChildhoodNumber(String childhoodNumber) {
         this.childhoodNumber = childhoodNumber;
     }
 
-    public int getTeenNumber() {
+    public String getTeenNumber() {
         return teenNumber;
     }
 
-    public void setTeenNumber(int teenNumber) {
+    public void setTeenNumber(String teenNumber) {
         this.teenNumber = teenNumber;
     }
 
-    public int getYouthNumber() {
+    public String getYouthNumber() {
         return youthNumber;
     }
 
-    public void setYouthNumber(int youthNumber) {
+    public void setYouthNumber(String youthNumber) {
         this.youthNumber = youthNumber;
     }
 
-    public int getAdultNumber() {
+    public String getAdultNumber() {
         return adultNumber;
     }
 
-    public void setAdultNumber(int adultNumber) {
+    public void setAdultNumber(String adultNumber) {
         this.adultNumber = adultNumber;
     }
 
-    public int getElderlyNumber() {
+    public String getElderlyNumber() {
         return elderlyNumber;
     }
 
-    public void setElderlyNumber(int elderlyNumber) {
+    public void setElderlyNumber(String elderlyNumber) {
         this.elderlyNumber = elderlyNumber;
     }
 
-    public int getAfroNumber() {
+    public String getAfroNumber() {
         return afroNumber;
     }
 
-    public void setAfroNumber(int afroNumber) {
+    public void setAfroNumber(String afroNumber) {
         this.afroNumber = afroNumber;
     }
 
-    public int getNativeNumber() {
+    public String getNativeNumber() {
         return nativeNumber;
     }
 
-    public void setNativeNumber(int nativeNumber) {
+    public void setNativeNumber(String nativeNumber) {
         this.nativeNumber = nativeNumber;
     }
 
-    public int getLgtbiNumber() {
+    public String getLgtbiNumber() {
         return lgtbiNumber;
     }
 
-    public void setLgtbiNumber(int lgtbiNumber) {
+    public void setLgtbiNumber(String lgtbiNumber) {
         this.lgtbiNumber = lgtbiNumber;
     }
 
-    public int getRomNumber() {
+    public String getRomNumber() {
         return romNumber;
     }
 
-    public void setRomNumber(int romNumber) {
+    public void setRomNumber(String romNumber) {
         this.romNumber = romNumber;
     }
 
-    public int getVictimNumber() {
+    public String getVictimNumber() {
         return victimNumber;
     }
 
-    public void setVictimNumber(int victimNumber) {
+    public void setVictimNumber(String victimNumber) {
         this.victimNumber = victimNumber;
     }
 
-    public int getDisabilityNumber() {
+    public String getDisabilityNumber() {
         return disabilityNumber;
     }
 
-    public void setDisabilityNumber(int disabilityNumber) {
+    public void setDisabilityNumber(String disabilityNumber) {
         this.disabilityNumber = disabilityNumber;
     }
 
-    public int getDemobilizedNumber() {
+    public String getDemobilizedNumber() {
         return demobilizedNumber;
     }
 
-    public void setDemobilizedNumber(int demobilizedNumber) {
+    public void setDemobilizedNumber(String demobilizedNumber) {
         this.demobilizedNumber = demobilizedNumber;
     }
 
-    public int getMongrelNumber() {
+    public String getMongrelNumber() {
         return mongrelNumber;
     }
 
-    public void setMongrelNumber(int mongrelNumber) {
+    public void setMongrelNumber(String mongrelNumber) {
         this.mongrelNumber = mongrelNumber;
     }
 
-    public int getForeignNumber() {
+    public String getForeignNumber() {
         return foreignNumber;
     }
 
-    public void setForeignNumber(int foreignNumber) {
+    public void setForeignNumber(String foreignNumber) {
         this.foreignNumber = foreignNumber;
     }
 
-    public int getPeasantNumber() {
+    public String getPeasantNumber() {
         return peasantNumber;
     }
 
-    public void setPeasantNumber(int peasantNumber) {
+    public void setPeasantNumber(String peasantNumber) {
         this.peasantNumber = peasantNumber;
     }
 
-    public int getOtherNumber() {
+    public String getOtherNumber() {
         return otherNumber;
     }
 
-    public void setOtherNumber(int otherNumber) {
+    public void setOtherNumber(String otherNumber) {
         this.otherNumber = otherNumber;
     }
 

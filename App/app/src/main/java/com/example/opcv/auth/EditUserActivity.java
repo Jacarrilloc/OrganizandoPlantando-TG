@@ -186,7 +186,7 @@ public class EditUserActivity extends AppCompatActivity {
         });
     }
 
-    private void searchUserInfo() {
+    /*private void searchUserInfo() {
         DB_User info = new DB_User(this);
         Map<String, Object> userInfo = info.getUserInfo();
 
@@ -203,34 +203,34 @@ public class EditUserActivity extends AppCompatActivity {
             userPhone.setText(phoneNumber);
             getPhotoProfileUser(userFB.getCurrentUserUid());
         }
+    }*/
+
+
+    private void searchUserInfo(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference collectionRef = db.collection("UserInfo");
+        Query query = collectionRef.whereEqualTo("ID", userID_Recived);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String name = document.getData().get("Name").toString();
+                        String email = document.getData().get("Email").toString();
+                        String lastname = document.getData().get("LastName").toString();
+                        String phoneNumber = document.getData().get("PhoneNumber").toString();
+                        userActive =  new User(name, lastname, email, userID_Recived, phoneNumber,null,null);
+                        userNameTV.setText(userActive.getName());
+                        userName.setText(userActive.getName());
+                        userLastName.setText(userActive.getLastName());
+                        userEmail.setText("Comabaquinta");
+                        userPhone.setText(userActive.getPhoneNumber());
+                        getPhotoProfileUser(userActive.getId());
+                    }
+                }
+            }
+        });
     }
-
-
-//    private void searchUserInfo(){
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        CollectionReference collectionRef = db.collection("UserInfo");
-//        Query query = collectionRef.whereEqualTo("ID", userID_Recived);
-//        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    for (QueryDocumentSnapshot document : task.getResult()) {
-//                        String name = document.getData().get("Name").toString();
-//                        String email = document.getData().get("Email").toString();
-//                        String lastname = document.getData().get("LastName").toString();
-//                        String phoneNumber = document.getData().get("PhoneNumber").toString();
-//                        userActive =  new User(name, lastname, email, userID_Recived, phoneNumber,null,null);
-//                        userNameTV.setText(userActive.getName());
-//                        userName.setText(userActive.getName());
-//                        userLastName.setText(userActive.getLastName());
-//                        userEmail.setText("Comabaquinta");
-//                        userPhone.setText(userActive.getPhoneNumber());
-//                        getPhotoProfileUser(userActive.getId());
-//                    }
-//                }
-//            }
-//        });
-//    }
 
 
     private void getPhotoProfileUser(String id){
@@ -256,13 +256,13 @@ public class EditUserActivity extends AppCompatActivity {
         return userP;
     }
 
-    private void editUserInfo(String name, String lastName, String phoneNumber){
+    /*private void editUserInfo(String name, String lastName, String phoneNumber){
         changePhoto();
         DB_User changed = new DB_User(this);
         changed.updateUserInfo(name,lastName,phoneNumber);
-    }
+    }*/
 
-    /*
+
     private void editUserInfo(String name, String lastName, String phoneNumber){
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
@@ -295,7 +295,7 @@ public class EditUserActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }*/
+    }
     private boolean validateField(String name,String lastName){
 
         if(name.isEmpty() || lastName.isEmpty()){
