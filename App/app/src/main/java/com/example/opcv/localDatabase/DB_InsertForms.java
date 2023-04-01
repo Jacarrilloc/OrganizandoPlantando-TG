@@ -53,7 +53,7 @@ public class DB_InsertForms extends DatabaseFormsHelper {
         values.put("personResponsable", info.get("personResponsable").toString());
         values.put("processPhase", info.get("processPhase").toString());
         values.put("phaseDuration", info.get("phaseDuration").toString());
-        values.put("plantsOrSeeds", info.get("plantsOrSeeds").toString());
+        values.put("plantsOrSeeds", info.get("plants or seeds").toString());
         values.put("commentsObservations", info.get("commentsObservations").toString());
         db.insert(TABLE_CPS, null, values);
         db.close();
