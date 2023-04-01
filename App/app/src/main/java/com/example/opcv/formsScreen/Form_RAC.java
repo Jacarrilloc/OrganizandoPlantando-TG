@@ -75,7 +75,6 @@ public class Form_RAC extends AppCompatActivity {
             }
         });
 
-
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,6 +94,18 @@ public class Form_RAC extends AppCompatActivity {
             amount_of_waste_info.setEnabled(false);
             amount_leached_info.setEnabled(false);
             collected_humus_info.setEnabled(false);
+            containerSize.setFocusable(false);
+            containerSize.setClickable(false);
+            worrmsWeightInfo.setFocusable(false);
+            worrmsWeightInfo.setClickable(false);
+            humidityInfo.setFocusable(false);
+            humidityInfo.setClickable(false);
+            amount_leached_info.setFocusable(false);
+            amount_leached_info.setClickable(false);
+            amount_of_waste_info.setFocusable(false);
+            amount_of_waste_info.setClickable(false);
+            collected_humus_info.setFocusable(false);
+            collected_humus_info.setClickable(false);
             showInfo(idGarden, idCollection, "true");
         } else if (watch.equals("edit")) {
             formsUtilities = new FormsUtilities();
@@ -131,11 +142,12 @@ public class Form_RAC extends AppCompatActivity {
                     infoForm.put("amount of waste",waste);
                     infoForm.put("collected humus",humus);
                     infoForm.put("amount leached",leached);
-                    formsUtilities.createForm(Form_RAC.this,infoForm,idGardenFb);
-                    Toast.makeText(Form_RAC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Form_RAC.this, HomeActivity.class));
-                    finish();
-
+                    if(validateField(container, worms, humidity, waste, humus, leached)){
+                        formsUtilities.createForm(Form_RAC.this,infoForm,idGardenFb);
+                        Toast.makeText(Form_RAC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Form_RAC.this, HomeActivity.class));
+                        finish();
+                    }
                 }
             });
 
@@ -174,9 +186,38 @@ public class Form_RAC extends AppCompatActivity {
                 waste = amount_of_waste_info.getText().toString();
                 humus = collected_humus_info.getText().toString();
                 leached = amount_leached_info.getText().toString();
-                formsUtilities.editInfoRAC(Form_RAC.this, idGarden, idCollection, container, worms, humidity, waste, humus, leached);
-                Toast.makeText(Form_RAC.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
+                if(validateField(container, worms, humidity, waste, humus, leached)){
+                    formsUtilities.editInfoRAC(Form_RAC.this, idGarden, idCollection, container, worms, humidity, waste, humus, leached);
+                    Toast.makeText(Form_RAC.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+    private boolean validateField(String container,String worms, String humidity, String waste, String humus, String leached){
+
+        if(container.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar el area del recipiente", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(worms.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la cantidad de lombrices", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(humidity.isEmpty()) {
+            Toast.makeText(this, "Es necesario Ingresar la humedad", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(waste.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la cantidad de residuos", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(humus.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la cantidad de humus recogida", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(leached.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la cantidad lixiviada", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 }

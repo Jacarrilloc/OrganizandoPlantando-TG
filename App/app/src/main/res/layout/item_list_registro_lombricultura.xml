@@ -11,8 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
+
         <LinearLayout
-            android:layout_width="310dp"
+            android:layout_width="306dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -36,9 +37,9 @@
                 android:layout_marginTop="16dp"
                 android:text="Proceso: se hizo..."
                 android:textColor="#000000"
+                android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dateRegister"
-                android:visibility="invisible"/>
+                app:layout_constraintTop_toBottomOf="@+id/dateRegister" />
 
             <Button
                 android:id="@+id/seeMorButton"
@@ -48,7 +49,8 @@
                 android:layout_marginTop="2dp"
                 android:backgroundTint="#91BF63"
                 android:text="Ver más"
-                android:textColor="#000000"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
                 app:cornerRadius="50dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/processMade" />
@@ -63,7 +65,7 @@
                     android:id="@+id/deleteButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="48dp"
                     android:backgroundTint="@color/lightgray"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -74,8 +76,7 @@
                     android:id="@+id/editButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="44dp"
+                    android:layout_marginEnd="50dp"
                     android:backgroundTint="@color/lightgray"
                     android:contentDescription="Boton de editar"
                     app:layout_constraintEnd_toEndOf="parent"

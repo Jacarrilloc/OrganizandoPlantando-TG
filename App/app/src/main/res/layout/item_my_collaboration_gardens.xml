@@ -6,14 +6,26 @@
     android:layout_height="wrap_content"
     android:background="@drawable/dr_white_input_text">
 
-    <ImageView
-        android:id="@+id/garden_imagen_list_item"
-        android:layout_width="119dp"
-        android:layout_height="77dp"
-        android:layout_margin="2dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/im_logo_ceres"
-        android:visibility="visible" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/view2"
+        android:layout_width="12dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:elevation="12dp"
+        android:foregroundGravity="center"
+        app:cardCornerRadius="10dp">
+
+        <ImageView
+            android:id="@+id/garden_imagen_list_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/im_logo_ceres"
+            android:visibility="visible" />
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/garden_name_list_item"
@@ -22,7 +34,7 @@
         android:layout_gravity="center"
         android:layout_marginStart="10dp"
         android:layout_weight="1"
-        android:text="Garden Name"
+        android:text="@string/garden_name"
         android:textColor="@color/black"
         android:textSize="17sp" />
 

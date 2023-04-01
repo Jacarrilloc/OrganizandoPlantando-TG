@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-//Solicitud de compra e materia prima y/o herramientas
+//Solicitud de compra de materia prima y/o herramientas
 public class Form_SCMPH extends AppCompatActivity {
 
     private FormsUtilities formsUtilities;
@@ -68,14 +68,12 @@ public class Form_SCMPH extends AppCompatActivity {
             }
         });
 
-
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Form_SCMPH.this, HomeActivity.class));
             }
         });
-
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +94,12 @@ public class Form_SCMPH extends AppCompatActivity {
             itemName.setEnabled(false);
             quantity.setEnabled(false);
             total.setEnabled(false);
+            itemName.setFocusable(false);
+            itemName.setClickable(false);
+            quantity.setFocusable(false);
+            quantity.setClickable(false);
+            total.setFocusable(false);
+            total.setClickable(false);
             showInfo(idGarden, idCollection, "true");
         } else if (watch.equals("edit")) {
             formsUtilities = new FormsUtilities();
@@ -128,10 +132,12 @@ public class Form_SCMPH extends AppCompatActivity {
                     infoForm.put("units",unitSelectedItem);
                     infoForm.put("quantity",quantityR);
                     infoForm.put("total",totalR);
-                    formsUtilities.createForm(Form_SCMPH.this,infoForm,idGardenFb);
-                    Toast.makeText(Form_SCMPH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Form_SCMPH.this, HomeActivity.class));
-                    finish();
+                    if(validateField(itemR, quantityR, totalR, itemSelectedItem, unitSelectedItem)){
+                        formsUtilities.createForm(Form_SCMPH.this,infoForm,idGardenFb);
+                        Toast.makeText(Form_SCMPH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Form_SCMPH.this, HomeActivity.class));
+                        finish();
+                    }
                 }
             });
 
@@ -299,9 +305,35 @@ public class Form_SCMPH extends AppCompatActivity {
                 totalR = total.getText().toString();
                 item = itemSelectedItem;
                 units = unitSelectedItem;
-                formsUtilities.editInfoSCMPH(Form_SCMPH.this, idGarden, idCollection, itemR, item, units, quantityR, totalR);
-                Toast.makeText(Form_SCMPH.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
+                if(validateField(itemR, quantityR, totalR, item, units)){
+                    formsUtilities.editInfoSCMPH(Form_SCMPH.this, idGarden, idCollection, itemR, item, units, quantityR, totalR);
+                    Toast.makeText(Form_SCMPH.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+    private boolean validateField(String itemR,String quantityR, String totalR, String item, String units){
+
+        if(itemR.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar el nombre del ítem", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(item.equals("Seleccione un elemento")){
+            Toast.makeText(this, "Es necesario seleccionar un ítem", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(units.equals("Seleccione un elemento")){
+            Toast.makeText(this, "Es necesario seleccionar las unidades", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(quantityR.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la cantidad de materia prima/herramientas", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(totalR.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar el total", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 }

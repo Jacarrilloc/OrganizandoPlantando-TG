@@ -69,15 +69,12 @@ public class Form_RSMP extends AppCompatActivity {
             }
         });
 
-
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Form_RSMP.this, HomeActivity.class));
             }
         });
-
-
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,6 +95,14 @@ public class Form_RSMP extends AppCompatActivity {
             quantity.setEnabled(false);
             total.setEnabled(false);
             state.setEnabled(false);
+            quantity.setFocusable(false);
+            quantity.setClickable(false);
+            total.setFocusable(false);
+            total.setClickable(false);
+            state.setFocusable(false);
+            state.setClickable(false);
+            description.setFocusable(false);
+            description.setClickable(false);
             showInfo(idGarden, idCollection, "true");
         } else if (watch.equals("edit")) {
             formsUtilities = new FormsUtilities();
@@ -132,10 +137,12 @@ public class Form_RSMP extends AppCompatActivity {
                     infoForm.put("total",totalR);
                     infoForm.put("concept",conceptSelectedItem);
                     infoForm.put("state",stateR);
-                    formsUtilities.createForm(Form_RSMP.this,infoForm,idGardenFb);
-                    Toast.makeText(Form_RSMP.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Form_RSMP.this, HomeActivity.class));
-                    finish();
+                    if(validateField(descriptionR, quantityR, totalR, stateR, conceptSelectedItem, unitSelectedItem)){
+                        formsUtilities.createForm(Form_RSMP.this,infoForm,idGardenFb);
+                        Toast.makeText(Form_RSMP.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Form_RSMP.this, HomeActivity.class));
+                        finish();
+                    }
                 }
             });
 
@@ -289,9 +296,39 @@ public class Form_RSMP extends AppCompatActivity {
                 stateR = state.getText().toString();
                 concept = conceptSelectedItem;
                 units = unitSelectedItem;
-                formsUtilities.editInfoRSMP(Form_RSMP.this, idGarden, idCollection, descriptionR, quantityR, totalR, stateR, concept, units);
-                Toast.makeText(Form_RSMP.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
+                if(validateField(descriptionR, quantityR, totalR, stateR, concept, units)){
+                    formsUtilities.editInfoRSMP(Form_RSMP.this, idGarden, idCollection, descriptionR, quantityR, totalR, stateR, concept, units);
+                    Toast.makeText(Form_RSMP.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+    private boolean validateField(String descriptionR,String quantityR, String totalR, String stateR, String concept, String units){
+
+        if(descriptionR.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la descripción", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(units.equals("Seleccione un elemento")){
+            Toast.makeText(this, "Es necesario seleccionar una unidad", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(quantityR.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la cantidad de materia prima", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(totalR.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar el total", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(concept.equals("Seleccione un elemento")){
+            Toast.makeText(this, "Es necesario seleccionar un concepto", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(stateR.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar el estado de la materia prima", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 }

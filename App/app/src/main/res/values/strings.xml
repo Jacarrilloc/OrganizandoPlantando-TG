@@ -84,7 +84,7 @@
 
     <string-array name="list_forms">
         <item>Registro y Actualización de Compostaje</item>
-        <item>Registros de eventos</item>
+        <item>Registro de evento</item>
         <item>Control de inventario de Materia Prima</item>
         <item>Solicitud de compra de materia prima y herramientas</item>
         <item>Recepción y Requisición de Materia Prima</item>
@@ -146,4 +146,26 @@
     <string name="iniciar_sesi_n">Iniciar Sesión</string>
     <string name="informaci_n_de_huerta1">Información de Huerta:</string>
     <string name="description2">Description</string>
+    <string name="hola_bienvenido_a_a_ceres">Hola, Bienvenido(a) a Ceres</string>
+    <string name="ingresa_tu_n_mero_de_celular_para_poder_crear_y_participar_en_las_huertas">Ingresa tu número de celular para poder crear y participar en las huertas</string>
+    <string name="n_mero">Número</string>
+    <string name="m_s_tarde">Más tarde</string>
+    <string name="nombre1">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="correo_electronico1">Correo Electronico</string>
+    <string name="contrase_ia">Contraseña</string>
+    <string name="repetir_contrase_a">Repetir Contraseña</string>
+    <string name="crear_cuenta">Crear Cuenta</string>
+    <string name="esta_seguro_de_eliminar_cuenta">¿Esta seguro de eliminar cuenta?</string>
+    <string name="volver">Volver</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="garden_name">Garden Name</string>
+    <string name="regresar">Regresar</string>
+    <string name="cerrar">Cerrar</string>
+    <string name="digita_tu_celular">Digita tu celular</string>
+    <string name="m_s_tarde2">Más tarde</string>
+    <string name="hola_bienvenido_a_a_ceres2">Hola, bienvenido(a) a Ceres</string>
+    <string name="finalizar_registro">Finalizar Registro</string>
+    <string name="c_mara">Cámara</string>
+    <string name="seleccionar_foto">Seleccionar Foto</string>
 </resources>

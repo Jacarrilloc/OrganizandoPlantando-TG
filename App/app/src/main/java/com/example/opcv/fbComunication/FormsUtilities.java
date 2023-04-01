@@ -247,7 +247,7 @@ public class FormsUtilities {
                                 @Nullable
                                 @Override
                                 public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
-                                    transaction.update(docRef, "processDescription", description, "toolQuantity", quantity, "performedBy", performedBy, "toolStatus", status,
+                                    transaction.update(docRef, "description", description, "toolQuantity", quantity, "performedBy", performedBy, "toolStatus", status,
                                             "concept", concept);
                                     return null;
                                 }
@@ -258,7 +258,6 @@ public class FormsUtilities {
     }
     public void editInfoRSMP(Context context, String idGarden, String idCollection, String description, String quantity, String total, String state, String concept, String units){
         database = FirebaseFirestore.getInstance();
-
         database.collection("Gardens").document(idGarden).collection("Forms").document(idCollection).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
