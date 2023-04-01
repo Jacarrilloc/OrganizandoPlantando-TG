@@ -414,29 +414,26 @@ public class NetworkMonitorService extends Service {
                                     RCC_Element registroFirestore = querySnapshot.getDocuments().get(0).toObject(RCC_Element.class);
                                     if (registroFirestore.getIdForm() != idForm ||
                                             !registroFirestore.getNameForm().equals(nameForm) ||
-                                            !registroFirestore.getContainerSize().equals(containerSize) ||
-                                            !registroFirestore.getWormsWeight().equals(wormsWeight) ||
-                                            !registroFirestore.getHumidity().equals(humidity) ||
-                                            !registroFirestore.getAmountOfWaste().equals(amountOfWaste) ||
-                                            !registroFirestore.getCollectedHumus().equals(collectedHumus) ||
-                                            !registroFirestore.getAmountLeached().equals(amountLeached)) {
+                                            !registroFirestore.getLeachedQuantity().equals(containerSize) ||
+                                            !registroFirestore.getAreaDescription().equals(wormsWeight) ||
+                                            !registroFirestore.getResidueQuantity().equals(humidity) ||
+                                            !registroFirestore.getFertilizerQuantity().equals(amountOfWaste) ||
+                                            !registroFirestore.getLeachedQuantity().equals(collectedHumus)) {
                                         // El registro ha cambiado, actualiza en Firestore
                                         usersCollection.document(String.valueOf(idFormDatabase)).update(
                                                 "idForm", idForm,
                                                 "nameForm", nameForm,
-                                                "containerSize", containerSize,
-                                                "wormsWeight", wormsWeight,
-                                                "humidity", humidity,
-                                                "amountOfWaste", amountOfWaste,
-                                                "collectedHumus", collectedHumus,
-                                                "amountLeached", amountLeached
+                                                "leachedQuantity", containerSize,
+                                                "areaDescription", wormsWeight,
+                                                "residueQuantity", humidity,
+                                                "fertilizerQuantity", amountOfWaste,
+                                                "leachedQuantity", collectedHumus
                                         );
                                     }
                                 } else {
                                     // El registro no existe en Firestore, agrégalo
-                                    RCC_Element registroFirestore = new RCC_Element(
-                                            idForm, nameForm, containerSize, wormsWeight, humidity,
-                                            amountOfWaste, collectedHumus, amountLeached);
+                                    RCC_Element registroFirestore = new RCC_Element(idForm, nameForm,containerSize,wormsWeight,humidity,amountOfWaste,collectedHumus);
+
                                     Map<String,Object> infoForm = registroFirestore.toMap();
                                     infoForm = InsertLocalDate(infoForm,idGardenFb);
                                     usersCollection.add(infoForm);
@@ -467,27 +464,27 @@ public class NetworkMonitorService extends Service {
                     String nameForm = cursor.getString(cursor.getColumnIndex("nameForm"));
                     String date = cursor.getString(cursor.getColumnIndex("date"));
                     String eventName = cursor.getString(cursor.getColumnIndex("eventName"));
-                    int totalPerson = cursor.getInt(cursor.getColumnIndex("totalPerson"));
-                    int womenNumber = cursor.getInt(cursor.getColumnIndex("womenNumber"));
-                    int menNumber = cursor.getInt(cursor.getColumnIndex("menNumber"));
-                    int noSpcNumber = cursor.getInt(cursor.getColumnIndex("noSpcNumber"));
-                    int infantNumber = cursor.getInt(cursor.getColumnIndex("infantNumber"));
-                    int childhoodNumber = cursor.getInt(cursor.getColumnIndex("childhoodNumber"));
-                    int teenNumber = cursor.getInt(cursor.getColumnIndex("teenNumber"));
-                    int youthNumber = cursor.getInt(cursor.getColumnIndex("youthNumber"));
-                    int adultNumber = cursor.getInt(cursor.getColumnIndex("adultNumber"));
-                    int elderlyNumber = cursor.getInt(cursor.getColumnIndex("elderlyNumber"));
-                    int afroNumber = cursor.getInt(cursor.getColumnIndex("afroNumber"));
-                    int nativeNumber = cursor.getInt(cursor.getColumnIndex("nativeNumber"));
-                    int lgtbiNumber = cursor.getInt(cursor.getColumnIndex("lgtbiNumber"));
-                    int romNumber = cursor.getInt(cursor.getColumnIndex("romNumber"));
-                    int victimNumber = cursor.getInt(cursor.getColumnIndex("victimNumber"));
-                    int disabilityNumber = cursor.getInt(cursor.getColumnIndex("disabilityNumber"));
-                    int demobilizedNumber = cursor.getInt(cursor.getColumnIndex("demobilizedNumber"));
-                    int mongrelNumber = cursor.getInt(cursor.getColumnIndex("mongrelNumber"));
-                    int foreignNumber = cursor.getInt(cursor.getColumnIndex("foreignNumber"));
-                    int peasantNumber = cursor.getInt(cursor.getColumnIndex("peasantNumber"));
-                    int otherNumber = cursor.getInt(cursor.getColumnIndex("otherNumber"));
+                    String totalPerson = cursor.getString(cursor.getColumnIndex("totalPerson"));
+                    String womenNumber = cursor.getString(cursor.getColumnIndex("womenNumber"));
+                    String menNumber = cursor.getString(cursor.getColumnIndex("menNumber"));
+                    String noSpcNumber = cursor.getString(cursor.getColumnIndex("noSpcNumber"));
+                    String infantNumber = cursor.getString(cursor.getColumnIndex("infantNumber"));
+                    String childhoodNumber = cursor.getString(cursor.getColumnIndex("childhoodNumber"));
+                    String teenNumber = cursor.getString(cursor.getColumnIndex("teenNumber"));
+                    String youthNumber = cursor.getString(cursor.getColumnIndex("youthNumber"));
+                    String adultNumber = cursor.getString(cursor.getColumnIndex("adultNumber"));
+                    String elderlyNumber = cursor.getString(cursor.getColumnIndex("elderlyNumber"));
+                    String afroNumber = cursor.getString(cursor.getColumnIndex("afroNumber"));
+                    String nativeNumber = cursor.getString(cursor.getColumnIndex("nativeNumber"));
+                    String lgtbiNumber = cursor.getString(cursor.getColumnIndex("lgtbiNumber"));
+                    String romNumber = cursor.getString(cursor.getColumnIndex("romNumber"));
+                    String victimNumber = cursor.getString(cursor.getColumnIndex("victimNumber"));
+                    String disabilityNumber = cursor.getString(cursor.getColumnIndex("disabilityNumber"));
+                    String demobilizedNumber = cursor.getString(cursor.getColumnIndex("demobilizedNumber"));
+                    String mongrelNumber = cursor.getString(cursor.getColumnIndex("mongrelNumber"));
+                    String foreignNumber = cursor.getString(cursor.getColumnIndex("foreignNumber"));
+                    String peasantNumber = cursor.getString(cursor.getColumnIndex("peasantNumber"));
+                    String otherNumber = cursor.getString(cursor.getColumnIndex("otherNumber"));
                     Query query = usersCollection.whereEqualTo("ID_Form_database", idFormDatabase);
                     query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -500,27 +497,27 @@ public class NetworkMonitorService extends Service {
                                             !registroFirestore.getNameForm().equals(nameForm) ||
                                             !registroFirestore.getDate().equals(date) ||
                                             !registroFirestore.getEventName().equals(eventName) ||
-                                            registroFirestore.getTotalPerson() != totalPerson ||
-                                            registroFirestore.getWomenNumber() != womenNumber ||
-                                            registroFirestore.getMenNumber() != menNumber ||
-                                            registroFirestore.getNoSpcNumber() != noSpcNumber ||
-                                            registroFirestore.getInfantNumber() != infantNumber ||
-                                            registroFirestore.getChildhoodNumber() != childhoodNumber ||
-                                            registroFirestore.getTeenNumber() != teenNumber ||
-                                            registroFirestore.getYouthNumber() != youthNumber ||
-                                            registroFirestore.getAdultNumber() != adultNumber ||
-                                            registroFirestore.getElderlyNumber() != elderlyNumber ||
-                                            registroFirestore.getAfroNumber() != afroNumber ||
-                                            registroFirestore.getNativeNumber() != nativeNumber ||
-                                            registroFirestore.getLgtbiNumber() != lgtbiNumber ||
-                                            registroFirestore.getRomNumber() != romNumber ||
-                                            registroFirestore.getVictimNumber() != victimNumber ||
-                                            registroFirestore.getDisabilityNumber() != disabilityNumber ||
-                                            registroFirestore.getDemobilizedNumber() != demobilizedNumber ||
-                                            registroFirestore.getMongrelNumber() != mongrelNumber ||
-                                            registroFirestore.getForeignNumber() != foreignNumber ||
-                                            registroFirestore.getPeasantNumber() != peasantNumber ||
-                                            registroFirestore.getOtherNumber() != otherNumber)
+                                            !registroFirestore.getTotalPerson().equals(totalPerson) ||
+                                            !registroFirestore.getWomenNumber().equals(womenNumber) ||
+                                            !registroFirestore.getMenNumber().equals(menNumber) ||
+                                            !registroFirestore.getNoSpcNumber().equals(noSpcNumber) ||
+                                            !registroFirestore.getInfantNumber().equals(infantNumber) ||
+                                            !registroFirestore.getChildhoodNumber().equals(childhoodNumber) ||
+                                            !registroFirestore.getTeenNumber().equals(teenNumber) ||
+                                            !registroFirestore.getYouthNumber().equals(youthNumber) ||
+                                            !registroFirestore.getAdultNumber().equals(adultNumber) ||
+                                            !registroFirestore.getElderlyNumber().equals(elderlyNumber) ||
+                                            !registroFirestore.getAfroNumber().equals(afroNumber) ||
+                                            !registroFirestore.getNativeNumber().equals(nativeNumber) ||
+                                            !registroFirestore.getLgtbiNumber().equals(lgtbiNumber) ||
+                                            !registroFirestore.getRomNumber().equals(romNumber) ||
+                                            !registroFirestore.getVictimNumber().equals(victimNumber) ||
+                                            !registroFirestore.getDisabilityNumber().equals(disabilityNumber) ||
+                                            !registroFirestore.getDemobilizedNumber().equals(demobilizedNumber) ||
+                                            !registroFirestore.getMongrelNumber().equals(mongrelNumber) ||
+                                            !registroFirestore.getForeignNumber().equals(foreignNumber) ||
+                                            !registroFirestore.getPeasantNumber().equals(peasantNumber) ||
+                                            !registroFirestore.getOtherNumber().equals(otherNumber))
                                     {
                                         // El registro ha cambiado, actualiza en Firestore
                                         usersCollection.document(String.valueOf(idFormDatabase)).update(

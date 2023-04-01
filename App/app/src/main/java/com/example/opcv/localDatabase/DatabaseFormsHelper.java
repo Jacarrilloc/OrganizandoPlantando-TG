@@ -1,14 +1,14 @@
 package com.example.opcv.localDatabase;
 
-import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 public class DatabaseFormsHelper extends SQLiteOpenHelper {
 
@@ -76,13 +76,11 @@ public class DatabaseFormsHelper extends SQLiteOpenHelper {
             "ID_Form_database INTEGER PRIMARY KEY AUTOINCREMENT," +
             "idForm INTEGER," +
             "nameForm TEXT," +
-            "containerSize TEXT," +
-            "wormsWeight TEXT," +
-            "humidity TEXT," +
-            "amountOfWaste TEXT," +
-            "collectedHumus TEXT," +
-            "amountLeached TEXT" +
-            ")";
+            "areaRecipient TEXT," +
+            "areaDescription TEXT," +
+            "residueQuantity TEXT," +
+            "fertilizerQuantity TEXT," +
+            "leachedQuantity TEXT" +")";
 
     String createTable_RE = "CREATE TABLE IF NOT EXISTS "+ TABLE_RE +"(" +
             "ID_Form_database INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -165,7 +163,6 @@ public class DatabaseFormsHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
         sqLiteDatabase.execSQL(createTable_CIH);
         sqLiteDatabase.execSQL(createTable_CPS);
         sqLiteDatabase.execSQL(createTable_IMP);
@@ -204,4 +201,45 @@ public class DatabaseFormsHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(createTable_RSMP);
         sqLiteDatabase.execSQL(createTable_SCMPH);
     }
+
+    public boolean checkDatabaseExists(Context context) {
+        SQLiteDatabase checkDB = null;
+        try {
+            String databasePath = context.getDatabasePath(DATABASE_NAME).getPath();
+            checkDB = SQLiteDatabase.openDatabase(databasePath, null, SQLiteDatabase.OPEN_READONLY);
+            checkDB.close();
+        } catch (SQLiteException e) {
+            // la base de datos no existe todavía
+        }
+        return checkDB != null;
+    }
+
+    public boolean allTablesExist() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table'", null);
+        ArrayList<String> tableNames = new ArrayList<>();
+        tableNames.add(TABLE_CIH);
+        tableNames.add(TABLE_CPS);
+        tableNames.add(TABLE_IMP);
+        tableNames.add(TABLE_RAC);
+        tableNames.add(TABLE_RCC);
+        tableNames.add(TABLE_RE);
+        tableNames.add(TABLE_RHC);
+        tableNames.add(TABLE_RRH);
+        tableNames.add(TABLE_RSMP);
+        tableNames.add(TABLE_SCMPH);
+        int count = 0;
+        if (cursor.moveToFirst()) {
+            do {
+                String tableName = cursor.getString(0);
+                if (tableNames.contains(tableName)) {
+                    count++;
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return count == tableNames.size();
+    }
+
 }

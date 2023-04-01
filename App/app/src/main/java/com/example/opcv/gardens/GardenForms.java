@@ -122,7 +122,7 @@ public class GardenForms extends AppCompatActivity {
                             startActivity(newForm);
                             break;
                         }
-                        case 6:{
+                        case 5:{
                             Object selectedItem = adapterView.getItemAtPosition(i);
                             String formsName = selectedItem.toString();
                             Intent newForm = new Intent(GardenForms.this, Form_CPS.class);
@@ -132,7 +132,7 @@ public class GardenForms extends AppCompatActivity {
                             startActivity(newForm);
                             break;
                         }
-                        case 7:{
+                        case 6:{
                             Object selectedItem = adapterView.getItemAtPosition(i);
                             String formsName = selectedItem.toString();
                             Intent newForm = new Intent(GardenForms.this, Form_RCC.class);
@@ -142,7 +142,7 @@ public class GardenForms extends AppCompatActivity {
                             startActivity(newForm);
                             break;
                         }
-                        case 8:{
+                        case 7:{
                             Object selectedItem = adapterView.getItemAtPosition(i);
                             String formsName = selectedItem.toString();
                             Intent newForm = new Intent(GardenForms.this, Form_RRH.class);
@@ -152,7 +152,7 @@ public class GardenForms extends AppCompatActivity {
                             startActivity(newForm);
                             break;
                         }
-                        case 9:{
+                        case 8:{
                             Object selectedItem = adapterView.getItemAtPosition(i);
                             String formsName = selectedItem.toString();
                             Intent newForm = new Intent(GardenForms.this, Form_CIH.class);
@@ -162,7 +162,7 @@ public class GardenForms extends AppCompatActivity {
                             startActivity(newForm);
                             break;
                         }
-                        case 10:{
+                        case 9:{
                             Object selectedItem = adapterView.getItemAtPosition(i);
                             String formsName = selectedItem.toString();
                             Intent newForm = new Intent(GardenForms.this, Form_RHC.class);
