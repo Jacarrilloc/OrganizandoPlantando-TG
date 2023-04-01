@@ -143,16 +143,11 @@ public class Form_CIH extends AppCompatActivity {
                         }
 
                         DB_InsertForms newForm = new DB_InsertForms(Form_CIH.this);
-                        long i = newForm.insertInto_CIH(infoForm);
-
-                        if(i>0){
-                            Toast.makeText(Form_CIH.this, "SE AGREGÓ", Toast.LENGTH_SHORT).show();
-                        }
+                        newForm.insertInto_CIH(infoForm);
 
                         Toast.makeText(Form_CIH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Form_CIH.this, HomeActivity.class));
                         finish();
-
                 }
             });
 

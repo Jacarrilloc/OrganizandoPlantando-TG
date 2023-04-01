@@ -18,7 +18,7 @@ import androidx.annotation.Nullable;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.localDatabase.DB_User;
 import com.example.opcv.localDatabase.DatabaseHelper;
-import com.example.opcv.objects.CIH_Element;
+import com.example.opcv.objects.*;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -48,7 +48,6 @@ public class NetworkMonitorService extends Service {
             // Comprueba si hay conexión a Internet
             if (isOnline(context)) {
                 // Actualiza los datos de Firestore a partir de los datos de SQLite
-                syncFirestoreWithSQLite();
             }
         }
     };
@@ -88,6 +87,25 @@ public class NetworkMonitorService extends Service {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    private Map<String,Object> InsertLocalDate(Map<String,Object> i,String idGardenFb){
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1; // Se agrega 1 porque el primer mes es 0
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        String date = String.format("%02d/%02d/%d", day, month, year);
+        i.put("Date",date);
+        i.put("Gardenid",idGardenFb);
+
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        int second = calendar.get(Calendar.SECOND);
+
+        String time = String.format("%02d:%02d:%02d", hour, minute, second);
+        i.put("Time",time);
+        return i;
     }
 
     public void syncFirestore_CIH(String idGardenFb) {
@@ -146,22 +164,7 @@ public class NetworkMonitorService extends Service {
                                             idForm, nameForm, tool, concept, incomingOutgoing,
                                             toolQuantity, toolStatus, existenceQuantity);
                                     Map<String,Object> infoForm = registroFirestore.toMap();
-                                    Calendar calendar = Calendar.getInstance();
-                                    int year = calendar.get(Calendar.YEAR);
-                                    int month = calendar.get(Calendar.MONTH) + 1; // Se agrega 1 porque el primer mes es 0
-                                    int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-                                    String date = String.format("%02d/%02d/%d", day, month, year);
-                                    infoForm.put("Date",date);
-                                    infoForm.put("Gardenid",idGardenFb);
-
-                                    int hour = calendar.get(Calendar.HOUR_OF_DAY);
-                                    int minute = calendar.get(Calendar.MINUTE);
-                                    int second = calendar.get(Calendar.SECOND);
-
-                                    String time = String.format("%02d:%02d:%02d", hour, minute, second);
-                                    infoForm.put("Time",time);
-
+                                    infoForm = InsertLocalDate(infoForm,idGardenFb);
                                     usersCollection.add(infoForm);
                                 }
                             } else {
@@ -175,71 +178,680 @@ public class NetworkMonitorService extends Service {
         }
     }
 
-
-    private void syncFirestoreWithSQLite() {
-
-        /*
-
-        // Obtener una instancia de la clase DatabaseHelper
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-
-        // Obtener una instancia de FirebaseFirestore
+    public void syncFirestore_CPS(String idGardenFb) {
+        DB_User info = new DB_User(context);
+        SQLiteDatabase db = context.openOrCreateDatabase("database_Offline_Forms.db", Context.MODE_PRIVATE, null);
         FirebaseFirestore dbFirestore = FirebaseFirestore.getInstance();
+        CollectionReference usersCollection = dbFirestore.collection("Gardens").document(idGardenFb).collection("Forms");
+        boolean conection = isOnline(context);
+        if (conection) {
+            Cursor cursor = db.query("CPS", null, null, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    int idFormDatabase = cursor.getInt(cursor.getColumnIndex("ID_Form_database"));
+                    int idForm = cursor.getInt(cursor.getColumnIndex("idForm"));
+                    String nameForm = cursor.getString(cursor.getColumnIndex("nameForm"));
+                    String personResponsable = cursor.getString(cursor.getColumnIndex("personResponsable"));
+                    String processPhase = cursor.getString(cursor.getColumnIndex("processPhase"));
+                    String phaseDuration = cursor.getString(cursor.getColumnIndex("phaseDuration"));
+                    String plantsOrSeeds = cursor.getString(cursor.getColumnIndex("plantsOrSeeds"));
+                    String commentsObservations = cursor.getString(cursor.getColumnIndex("commentsObservations"));
 
-        // Obtener la colección "UserInfo" de Firestore
-        CollectionReference usersCollection = dbFirestore.collection("UserInfo");
+                    // Consulta el registro en Firestore
+                    Query query = usersCollection.whereEqualTo("ID_Form_database", idFormDatabase);
+                    query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                QuerySnapshot querySnapshot = task.getResult();
+                                if (!querySnapshot.isEmpty()) {
+                                    // El registro existe en Firestore, compara los valores
+                                    CPS_Element registroFirestore = querySnapshot.getDocuments().get(0).toObject(CPS_Element.class);
+                                    if (registroFirestore.getIdForm() != idForm ||
+                                            !registroFirestore.getNameForm().equals(nameForm) ||
+                                            !registroFirestore.getPersonResponsable().equals(personResponsable) ||
+                                            !registroFirestore.getProcessPhase().equals(processPhase) ||
+                                            !registroFirestore.getPhaseDuration().equals(phaseDuration) ||
+                                            !registroFirestore.getPlantsOrSeeds().equals(plantsOrSeeds) ||
+                                            !registroFirestore.getCommentsObservations().equals(commentsObservations)) {
+                                        // El registro ha cambiado, actualiza en Firestore
+                                        usersCollection.document(String.valueOf(idFormDatabase)).update(
+                                                "idForm", idForm,
+                                                "nameForm", nameForm,
+                                                "personResponsable", personResponsable,
+                                                "processPhase", processPhase,
+                                                "phaseDuration", phaseDuration,
+                                                "plantsOrSeeds", plantsOrSeeds,
+                                                "commentsObservations", commentsObservations
+                                        );
+                                    }
+                                } else {
+                                    // El registro no existe en Firestore, agrégalo
+                                    CPS_Element registroFirestore = new CPS_Element(
+                                            idForm, nameForm, personResponsable, processPhase, phaseDuration,
+                                            plantsOrSeeds, commentsObservations);
+                                    Map<String,Object> infoForm = registroFirestore.toMap();
+                                    infoForm = InsertLocalDate(infoForm,idGardenFb);
+                                    usersCollection.add(infoForm);
+                                }
+                            } else {
+                                Log.d("Off_On", "Error al obtener el registro de Firestore", task.getException());
+                            }
+                        }
+                    });
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+    }
 
-        // Obtener el estado de conexión a internet
-        boolean isNetworkConnected = isOnline();
+    public void syncFirestore_IMP(String idGardenFb) {
+        DB_User info = new DB_User(context);
+        SQLiteDatabase db = context.openOrCreateDatabase("database_Offline_Forms.db", Context.MODE_PRIVATE, null);
+        FirebaseFirestore dbFirestore = FirebaseFirestore.getInstance();
+        CollectionReference usersCollection = dbFirestore.collection("Gardens").document(idGardenFb).collection("Forms");
+        boolean conection = isOnline(context);
+        if (conection) {
+            Cursor cursor = db.query("IMP", null, null, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    int idFormDatabase = cursor.getInt(cursor.getColumnIndex("ID_Form_database"));
+                    int idForm = cursor.getInt(cursor.getColumnIndex("idForm"));
+                    String nameForm = cursor.getString(cursor.getColumnIndex("nameForm"));
+                    String personResponsable = cursor.getString(cursor.getColumnIndex("personResponsable"));
+                    String processPhase = cursor.getString(cursor.getColumnIndex("processPhase"));
+                    String phaseDuration = cursor.getString(cursor.getColumnIndex("phaseDuration"));
+                    String plantsOrSeeds = cursor.getString(cursor.getColumnIndex("plantsOrSeeds"));
+                    String commentsObservations = cursor.getString(cursor.getColumnIndex("commentsObservations"));
 
-        // Si hay conexión a internet
-        if (isNetworkConnected) {
-            // Obtener todos los documentos de la colección "UserInfo" de Firestore
-            usersCollection.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                @Override
-                public void onSuccess(QuerySnapshot querySnapshot) {
-                    // Para cada documento de la colección
-                    for (QueryDocumentSnapshot document : querySnapshot) {
-                        // Obtener el ID del documento
-                        String documentId = document.getId();
+                    // Consulta el registro en Firestore
+                    Query query = usersCollection.whereEqualTo("ID_Form_database", idFormDatabase);
+                    query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                QuerySnapshot querySnapshot = task.getResult();
+                                if (!querySnapshot.isEmpty()) {
+                                    // El registro existe en Firestore, compara los valores
+                                    IMP_Element registroFirestore = querySnapshot.getDocuments().get(0).toObject(IMP_Element.class);
+                                    if (registroFirestore.getIdForm() != idForm ||
+                                            !registroFirestore.getNameForm().equals(nameForm) ||
+                                            !registroFirestore.getPersonResponsable().equals(personResponsable) ||
+                                            !registroFirestore.getProcessPhase().equals(processPhase) ||
+                                            !registroFirestore.getPhaseDuration().equals(phaseDuration) ||
+                                            !registroFirestore.getPlantsOrSeeds().equals(plantsOrSeeds) ||
+                                            !registroFirestore.getCommentsObservations().equals(commentsObservations)) {
+                                        // El registro ha cambiado, actualiza en Firestore
+                                        usersCollection.document(String.valueOf(idFormDatabase)).update(
+                                                "idForm", idForm,
+                                                "nameForm", nameForm,
+                                                "personResponsable", personResponsable,
+                                                "processPhase", processPhase,
+                                                "phaseDuration", phaseDuration,
+                                                "plantsOrSeeds", plantsOrSeeds,
+                                                "commentsObservations", commentsObservations
+                                        );
+                                    }
+                                } else {
+                                    // El registro no existe en Firestore, agrégalo
+                                    IMP_Element registroFirestore = new IMP_Element(
+                                            idForm, nameForm, personResponsable, processPhase, phaseDuration,
+                                            plantsOrSeeds, commentsObservations);
+                                    Map<String,Object> infoForm = registroFirestore.toMap();
+                                    infoForm = InsertLocalDate(infoForm,idGardenFb);
+                                    usersCollection.add(infoForm);
+                                }
+                            } else {
+                                Log.d("Off_On", "Error al obtener el registro de Firestore", task.getException());
+                            }
+                        }
+                    });
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+    }
 
-                        // Obtener los datos del documento en un Map
-                        Map<String, Object> userInfo = document.getData();
+    public void syncFirestore_RAC(String idGardenFb) {
+        DB_User info = new DB_User(context);
+        SQLiteDatabase db = context.openOrCreateDatabase("database_Offline_Forms.db", Context.MODE_PRIVATE, null);
+        FirebaseFirestore dbFirestore = FirebaseFirestore.getInstance();
+        CollectionReference usersCollection = dbFirestore.collection("Gardens").document(idGardenFb).collection("Forms");
+        boolean conection = isOnline(context);
+        if (conection) {
+            Cursor cursor = db.query("RAC", null, null, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    int idFormDatabase = cursor.getInt(cursor.getColumnIndex("ID_Form_database"));
+                    int idForm = cursor.getInt(cursor.getColumnIndex("idForm"));
+                    String nameForm = cursor.getString(cursor.getColumnIndex("nameForm"));
+                    String containerSize = cursor.getString(cursor.getColumnIndex("containerSize"));
+                    String wormsWeight = cursor.getString(cursor.getColumnIndex("wormsWeight"));
+                    String humidity = cursor.getString(cursor.getColumnIndex("humidity"));
+                    String amountOfWaste = cursor.getString(cursor.getColumnIndex("amountOfWaste"));
+                    String collectedHumus = cursor.getString(cursor.getColumnIndex("collectedHumus"));
+                    String amountLeached = cursor.getString(cursor.getColumnIndex("amountLeached"));
 
-                        // Actualizar la tabla "UserInfo" en SQLite con los datos del Map
-                        dbHelper.updateUserInfo(userInfo);
-                    }
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.w("Persistence", "Error getting documents.", e);
-                }
-            });
-        } else { // Si no hay conexión a internet
-            // Obtener el ID del usuario actual
-            AuthUtilities info = new AuthUtilities();
-            String id = info.getCurrentUserUid();
+                    // Consulta el registro en Firestore
+                    Query query = usersCollection.whereEqualTo("ID_Form_database", idFormDatabase);
+                    query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                QuerySnapshot querySnapshot = task.getResult();
+                                if (!querySnapshot.isEmpty()) {
+                                    // El registro existe en Firestore, compara los valores
+                                    RAC_Element registroFirestore = querySnapshot.getDocuments().get(0).toObject(RAC_Element.class);
+                                    if (registroFirestore.getIdForm() != idForm ||
+                                            !registroFirestore.getNameForm().equals(nameForm) ||
+                                            !registroFirestore.getContainerSize().equals(containerSize) ||
+                                            !registroFirestore.getWormsWeight().equals(wormsWeight) ||
+                                            !registroFirestore.getHumidity().equals(humidity) ||
+                                            !registroFirestore.getAmountOfWaste().equals(amountOfWaste) ||
+                                            !registroFirestore.getCollectedHumus().equals(collectedHumus) ||
+                                            !registroFirestore.getAmountLeached().equals(amountLeached)) {
+                                        // El registro ha cambiado, actualiza en Firestore
+                                        usersCollection.document(String.valueOf(idFormDatabase)).update(
+                                                "idForm", idForm,
+                                                "nameForm", nameForm,
+                                                "containerSize", containerSize,
+                                                "wormsWeight", wormsWeight,
+                                                "humidity", humidity,
+                                                "amountOfWaste", amountOfWaste,
+                                                "collectedHumus", collectedHumus,
+                                                "amountLeached", amountLeached
+                                        );
+                                    }
+                                } else {
+                                    // El registro no existe en Firestore, agrégalo
+                                    RAC_Element registroFirestore = new RAC_Element(
+                                            idForm, nameForm, containerSize, wormsWeight, humidity,
+                                            amountOfWaste, collectedHumus, amountLeached);
+                                    Map<String,Object> infoForm = registroFirestore.toMap();
+                                    infoForm = InsertLocalDate(infoForm,idGardenFb);
+                                    usersCollection.add(infoForm);
+                                }
+                            } else {
+                                Log.d("Off_On", "Error al obtener el registro de Firestore", task.getException());
+                            }
+                        }
+                    });
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+    }
 
-            // Obtener los datos del usuario actual en la tabla "UserInfo" de SQLite
-            Map<String, Object> userInfo = dbHelper.getUserInfo(id);
+    public void syncFirestore_RCC(String idGardenFb) {
+        DB_User info = new DB_User(context);
+        SQLiteDatabase db = context.openOrCreateDatabase("database_Offline_Forms.db", Context.MODE_PRIVATE, null);
+        FirebaseFirestore dbFirestore = FirebaseFirestore.getInstance();
+        CollectionReference usersCollection = dbFirestore.collection("Gardens").document(idGardenFb).collection("Forms");
+        boolean conection = isOnline(context);
+        if (conection) {
+            Cursor cursor = db.query("RCC", null, null, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    int idFormDatabase = cursor.getInt(cursor.getColumnIndex("ID_Form_database"));
+                    int idForm = cursor.getInt(cursor.getColumnIndex("idForm"));
+                    String nameForm = cursor.getString(cursor.getColumnIndex("nameForm"));
+                    String containerSize = cursor.getString(cursor.getColumnIndex("containerSize"));
+                    String wormsWeight = cursor.getString(cursor.getColumnIndex("wormsWeight"));
+                    String humidity = cursor.getString(cursor.getColumnIndex("humidity"));
+                    String amountOfWaste = cursor.getString(cursor.getColumnIndex("amountOfWaste"));
+                    String collectedHumus = cursor.getString(cursor.getColumnIndex("collectedHumus"));
+                    String amountLeached = cursor.getString(cursor.getColumnIndex("amountLeached"));
 
-            // Si los datos no son nulos
-            if (userInfo != null) {
-                // Actualizar el documento correspondiente en la colección "UserInfo" de Firestore
-                usersCollection.document(id).set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("Persistence", "DocumentSnapshot successfully written!");
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("Persistence", "Error writing document", e);
-                    }
-                });
+                    // Consulta el registro en Firestore
+                    Query query = usersCollection.whereEqualTo("ID_Form_database", idFormDatabase);
+                    query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                QuerySnapshot querySnapshot = task.getResult();
+                                if (!querySnapshot.isEmpty()) {
+                                    // El registro existe en Firestore, compara los valores
+                                    RCC_Element registroFirestore = querySnapshot.getDocuments().get(0).toObject(RCC_Element.class);
+                                    if (registroFirestore.getIdForm() != idForm ||
+                                            !registroFirestore.getNameForm().equals(nameForm) ||
+                                            !registroFirestore.getContainerSize().equals(containerSize) ||
+                                            !registroFirestore.getWormsWeight().equals(wormsWeight) ||
+                                            !registroFirestore.getHumidity().equals(humidity) ||
+                                            !registroFirestore.getAmountOfWaste().equals(amountOfWaste) ||
+                                            !registroFirestore.getCollectedHumus().equals(collectedHumus) ||
+                                            !registroFirestore.getAmountLeached().equals(amountLeached)) {
+                                        // El registro ha cambiado, actualiza en Firestore
+                                        usersCollection.document(String.valueOf(idFormDatabase)).update(
+                                                "idForm", idForm,
+                                                "nameForm", nameForm,
+                                                "containerSize", containerSize,
+                                                "wormsWeight", wormsWeight,
+                                                "humidity", humidity,
+                                                "amountOfWaste", amountOfWaste,
+                                                "collectedHumus", collectedHumus,
+                                                "amountLeached", amountLeached
+                                        );
+                                    }
+                                } else {
+                                    // El registro no existe en Firestore, agrégalo
+                                    RCC_Element registroFirestore = new RCC_Element(
+                                            idForm, nameForm, containerSize, wormsWeight, humidity,
+                                            amountOfWaste, collectedHumus, amountLeached);
+                                    Map<String,Object> infoForm = registroFirestore.toMap();
+                                    infoForm = InsertLocalDate(infoForm,idGardenFb);
+                                    usersCollection.add(infoForm);
+                                }
+                            } else {
+                                Log.d("Off_On", "Error al obtener el registro de Firestore", task.getException());
+                            }
+                        }
+                    });
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+    }
+
+    public void syncFirestore_RE(String idGardenFb) {
+        DB_User info = new DB_User(context);
+        SQLiteDatabase db = context.openOrCreateDatabase("database_Offline_Forms.db", Context.MODE_PRIVATE, null);
+        FirebaseFirestore dbFirestore = FirebaseFirestore.getInstance();
+        CollectionReference usersCollection = dbFirestore.collection("Gardens").document(idGardenFb).collection("Forms");
+        boolean connection = isOnline(context);
+        if(connection){
+            Cursor cursor = db.query("RE", null, null, null, null, null, null);
+            if (cursor.moveToFirst()){
+                do{
+                    int idFormDatabase = cursor.getInt(cursor.getColumnIndex("ID_Form_database"));
+                    int idForm = cursor.getInt(cursor.getColumnIndex("idForm"));
+                    String nameForm = cursor.getString(cursor.getColumnIndex("nameForm"));
+                    String date = cursor.getString(cursor.getColumnIndex("date"));
+                    String eventName = cursor.getString(cursor.getColumnIndex("eventName"));
+                    int totalPerson = cursor.getInt(cursor.getColumnIndex("totalPerson"));
+                    int womenNumber = cursor.getInt(cursor.getColumnIndex("womenNumber"));
+                    int menNumber = cursor.getInt(cursor.getColumnIndex("menNumber"));
+                    int noSpcNumber = cursor.getInt(cursor.getColumnIndex("noSpcNumber"));
+                    int infantNumber = cursor.getInt(cursor.getColumnIndex("infantNumber"));
+                    int childhoodNumber = cursor.getInt(cursor.getColumnIndex("childhoodNumber"));
+                    int teenNumber = cursor.getInt(cursor.getColumnIndex("teenNumber"));
+                    int youthNumber = cursor.getInt(cursor.getColumnIndex("youthNumber"));
+                    int adultNumber = cursor.getInt(cursor.getColumnIndex("adultNumber"));
+                    int elderlyNumber = cursor.getInt(cursor.getColumnIndex("elderlyNumber"));
+                    int afroNumber = cursor.getInt(cursor.getColumnIndex("afroNumber"));
+                    int nativeNumber = cursor.getInt(cursor.getColumnIndex("nativeNumber"));
+                    int lgtbiNumber = cursor.getInt(cursor.getColumnIndex("lgtbiNumber"));
+                    int romNumber = cursor.getInt(cursor.getColumnIndex("romNumber"));
+                    int victimNumber = cursor.getInt(cursor.getColumnIndex("victimNumber"));
+                    int disabilityNumber = cursor.getInt(cursor.getColumnIndex("disabilityNumber"));
+                    int demobilizedNumber = cursor.getInt(cursor.getColumnIndex("demobilizedNumber"));
+                    int mongrelNumber = cursor.getInt(cursor.getColumnIndex("mongrelNumber"));
+                    int foreignNumber = cursor.getInt(cursor.getColumnIndex("foreignNumber"));
+                    int peasantNumber = cursor.getInt(cursor.getColumnIndex("peasantNumber"));
+                    int otherNumber = cursor.getInt(cursor.getColumnIndex("otherNumber"));
+                    Query query = usersCollection.whereEqualTo("ID_Form_database", idFormDatabase);
+                    query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()){
+                                QuerySnapshot querySnapshot = task.getResult();
+                                if (!querySnapshot.isEmpty()){
+                                    RE_Element registroFirestore = querySnapshot.getDocuments().get(0).toObject(RE_Element.class);
+                                    if (registroFirestore.getIdForm() != idForm ||
+                                            !registroFirestore.getNameForm().equals(nameForm) ||
+                                            !registroFirestore.getDate().equals(date) ||
+                                            !registroFirestore.getEventName().equals(eventName) ||
+                                            registroFirestore.getTotalPerson() != totalPerson ||
+                                            registroFirestore.getWomenNumber() != womenNumber ||
+                                            registroFirestore.getMenNumber() != menNumber ||
+                                            registroFirestore.getNoSpcNumber() != noSpcNumber ||
+                                            registroFirestore.getInfantNumber() != infantNumber ||
+                                            registroFirestore.getChildhoodNumber() != childhoodNumber ||
+                                            registroFirestore.getTeenNumber() != teenNumber ||
+                                            registroFirestore.getYouthNumber() != youthNumber ||
+                                            registroFirestore.getAdultNumber() != adultNumber ||
+                                            registroFirestore.getElderlyNumber() != elderlyNumber ||
+                                            registroFirestore.getAfroNumber() != afroNumber ||
+                                            registroFirestore.getNativeNumber() != nativeNumber ||
+                                            registroFirestore.getLgtbiNumber() != lgtbiNumber ||
+                                            registroFirestore.getRomNumber() != romNumber ||
+                                            registroFirestore.getVictimNumber() != victimNumber ||
+                                            registroFirestore.getDisabilityNumber() != disabilityNumber ||
+                                            registroFirestore.getDemobilizedNumber() != demobilizedNumber ||
+                                            registroFirestore.getMongrelNumber() != mongrelNumber ||
+                                            registroFirestore.getForeignNumber() != foreignNumber ||
+                                            registroFirestore.getPeasantNumber() != peasantNumber ||
+                                            registroFirestore.getOtherNumber() != otherNumber)
+                                    {
+                                        // El registro ha cambiado, actualiza en Firestore
+                                        usersCollection.document(String.valueOf(idFormDatabase)).update(
+                                                "idForm", idForm,
+                                                "nameForm", nameForm,
+                                                "date", date,
+                                                "eventName", eventName,
+                                                "totalPerson", totalPerson,
+                                                "womenNumber", womenNumber,
+                                                "menNumber", menNumber,
+                                                "noSpcNumber", noSpcNumber,
+                                                "infantNumber", infantNumber,
+                                                "childhoodNumber", childhoodNumber,
+                                                "teenNumber", teenNumber,
+                                                "youthNumber", youthNumber,
+                                                "adultNumber", adultNumber,
+                                                "elderlyNumber", elderlyNumber,
+                                                "afroNumber", afroNumber,
+                                                "nativeNumber", nativeNumber,
+                                                "lgtbiNumber", lgtbiNumber,
+                                                "romNumber", romNumber,
+                                                "victimNumber", victimNumber,
+                                                "disabilityNumber", disabilityNumber,
+                                                "demobilizedNumber", demobilizedNumber,
+                                                "mongrelNumber", mongrelNumber,
+                                                "foreignNumber", foreignNumber,
+                                                "peasantNumber", peasantNumber,
+                                                "otherNumber", otherNumber
+                                        );
+                                    }
+                                } else {
+                                    RE_Element registroFirestore = new RE_Element(idForm,nameForm,date,eventName,totalPerson,womenNumber,menNumber,noSpcNumber,infantNumber,childhoodNumber,teenNumber,youthNumber,adultNumber,elderlyNumber,afroNumber,nativeNumber,lgtbiNumber,romNumber,victimNumber,disabilityNumber,demobilizedNumber,mongrelNumber,foreignNumber,peasantNumber,otherNumber);
+                                    Map<String,Object> infoForm = registroFirestore.toMap();
+                                    infoForm = InsertLocalDate(infoForm,idGardenFb);
+                                    usersCollection.add(infoForm);
+                                }
+                            } else {
+                                Log.d("Off_On", "Error al obtener el registro de Firestore", task.getException());
+                            }
+                        }
+                    });
+                } while (cursor.moveToNext());
             }
         }
-    */}
+    }
+
+    public void syncFirestore_RRH(String idGardenFb) {
+        DB_User info = new DB_User(context);
+        SQLiteDatabase db = context.openOrCreateDatabase("database_Offline_Forms.db", Context.MODE_PRIVATE, null);
+        FirebaseFirestore dbFirestore = FirebaseFirestore.getInstance();
+        CollectionReference usersCollection = dbFirestore.collection("Gardens").document(idGardenFb).collection("Forms");
+        boolean conection = isOnline(context);
+        if (conection) {
+            Cursor cursor = db.query("RRH", null, null, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    int idFormDatabase = cursor.getInt(cursor.getColumnIndex("ID_Form_database"));
+                    int idForm = cursor.getInt(cursor.getColumnIndex("idForm"));
+                    String nameForm = cursor.getString(cursor.getColumnIndex("nameForm"));
+                    String description = cursor.getString(cursor.getColumnIndex("description"));
+                    int toolQuantity = cursor.getInt(cursor.getColumnIndex("toolQuantity"));
+                    String concept = cursor.getString(cursor.getColumnIndex("concept"));
+                    String performedBy = cursor.getString(cursor.getColumnIndex("performedBy"));
+                    String toolStatus = cursor.getString(cursor.getColumnIndex("toolStatus"));
+
+                    // Consulta el registro en Firestore
+                    Query query = usersCollection.whereEqualTo("ID_Form_database", idFormDatabase);
+                    query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                QuerySnapshot querySnapshot = task.getResult();
+                                if (!querySnapshot.isEmpty()) {
+                                    // El registro existe en Firestore, compara los valores
+                                    RRH_Element registroFirestore = querySnapshot.getDocuments().get(0).toObject(RRH_Element.class);
+                                    if (registroFirestore.getIdForm() != idForm ||
+                                            !registroFirestore.getNameForm().equals(nameForm) ||
+                                            !registroFirestore.getDescription().equals(description) ||
+                                            registroFirestore.getToolQuantity() != String.valueOf(toolQuantity) ||
+                                            !registroFirestore.getConcept().equals(concept) ||
+                                            !registroFirestore.getPerformedBy().equals(performedBy) ||
+                                            !registroFirestore.getToolStatus().equals(toolStatus)) {
+                                        // El registro ha cambiado, actualiza en Firestore
+                                        usersCollection.document(String.valueOf(idFormDatabase)).update(
+                                                "idForm", idForm,
+                                                "nameForm", nameForm,
+                                                "description", description,
+                                                "toolQuantity", toolQuantity,
+                                                "concept", concept,
+                                                "performedBy", performedBy,
+                                                "toolStatus", toolStatus
+                                        );
+                                    }
+                                } else {
+                                    // El registro no existe en Firestore, agrégalo
+                                    RRH_Element registroFirestore = new RRH_Element(
+                                            idForm, nameForm, description, String.valueOf(toolQuantity), concept,
+                                            performedBy, toolStatus);
+                                    Map<String,Object> infoForm = registroFirestore.toMap();
+                                    infoForm = InsertLocalDate(infoForm,idGardenFb);
+                                    usersCollection.add(infoForm);
+                                }
+                            } else {
+                                Log.d("Off_On", "Error al obtener el registro de Firestore", task.getException());
+                            }
+                        }
+                    });
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+    }
+
+    public void syncFirestore_SCMPH(String idGardenFb) {
+        DB_User info = new DB_User(context);
+        SQLiteDatabase db = context.openOrCreateDatabase("database_Offline_Forms.db", Context.MODE_PRIVATE, null);
+        FirebaseFirestore dbFirestore = FirebaseFirestore.getInstance();
+        CollectionReference usersCollection = dbFirestore.collection("Gardens").document(idGardenFb).collection("Forms");
+        boolean conection = isOnline(context);
+        if (conection) {
+            Cursor cursor = db.query("SCMPH", null, null, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    int idFormDatabase = cursor.getInt(cursor.getColumnIndex("ID_Form_database"));
+                    int idForm = cursor.getInt(cursor.getColumnIndex("idForm"));
+                    String nameForm = cursor.getString(cursor.getColumnIndex("nameForm"));
+                    String itemName = cursor.getString(cursor.getColumnIndex("itemName"));
+                    String item = cursor.getString(cursor.getColumnIndex("item"));
+                    String units = cursor.getString(cursor.getColumnIndex("units"));
+                    int quantity = cursor.getInt(cursor.getColumnIndex("quantity"));
+                    double total = cursor.getDouble(cursor.getColumnIndex("total"));
+
+                    // Consulta el registro en Firestore
+                    Query query = usersCollection.whereEqualTo("ID_Form_database", idFormDatabase);
+                    query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                QuerySnapshot querySnapshot = task.getResult();
+                                if (!querySnapshot.isEmpty()) {
+                                    // El registro existe en Firestore, compara los valores
+                                    SCMPH_Element registroFirestore = querySnapshot.getDocuments().get(0).toObject(SCMPH_Element.class);
+                                    if (registroFirestore.getIdForm() != idForm ||
+                                            !registroFirestore.getNameForm().equals(nameForm) ||
+                                            !registroFirestore.getItemName().equals(itemName) ||
+                                            !registroFirestore.getItem().equals(item) ||
+                                            !registroFirestore.getUnits().equals(units) ||
+                                            registroFirestore.getQuantity() != quantity ||
+                                            registroFirestore.getTotal() != String.valueOf(total)) {
+                                        // El registro ha cambiado, actualiza en Firestore
+                                        usersCollection.document(String.valueOf(idFormDatabase)).update(
+                                                "idForm", idForm,
+                                                "nameForm", nameForm,
+                                                "itemName", itemName,
+                                                "item", item,
+                                                "units", units,
+                                                "quantity", quantity,
+                                                "total", total
+                                        );
+                                    }
+                                } else {
+                                    // El registro no existe en Firestore, agrégalo
+                                    SCMPH_Element registroFirestore = new SCMPH_Element(
+                                            idForm, nameForm, itemName, item, units,
+                                            String.valueOf(quantity), (int) total);
+                                    Map<String,Object> infoForm = registroFirestore.toMap();
+                                    infoForm = InsertLocalDate(infoForm,idGardenFb);
+                                    usersCollection.add(infoForm);
+                                }
+                            } else {
+                                Log.d("Off_On", "Error al obtener el registro de Firestore", task.getException());
+                            }
+                        }
+                    });
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+    }
+
+    public void syncFirestore_RSMP(String idGardenFb) {
+        DB_User info = new DB_User(context);
+        SQLiteDatabase db = context.openOrCreateDatabase("database_Offline_Forms.db", Context.MODE_PRIVATE, null);
+        FirebaseFirestore dbFirestore = FirebaseFirestore.getInstance();
+        CollectionReference usersCollection = dbFirestore.collection("Gardens").document(idGardenFb).collection("Forms");
+        boolean connection = isOnline(context);
+        if (connection) {
+            Cursor cursor = db.query("RSMP", null, null, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    int idFormDatabase = cursor.getInt(cursor.getColumnIndex("ID_Form_database"));
+                    int idForm = cursor.getInt(cursor.getColumnIndex("idForm"));
+                    String nameForm = cursor.getString(cursor.getColumnIndex("nameForm"));
+                    String description = cursor.getString(cursor.getColumnIndex("description"));
+                    String units = cursor.getString(cursor.getColumnIndex("units"));
+                    int quantity = cursor.getInt(cursor.getColumnIndex("quantity"));
+                    int total = cursor.getInt(cursor.getColumnIndex("total"));
+                    String concept = cursor.getString(cursor.getColumnIndex("concept"));
+                    String state = cursor.getString(cursor.getColumnIndex("state"));
+
+                    // Consulta el registro en Firestore
+                    Query query = usersCollection.whereEqualTo("ID_Form_database", idFormDatabase);
+                    query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                QuerySnapshot querySnapshot = task.getResult();
+                                if (!querySnapshot.isEmpty()) {
+                                    // El registro existe en Firestore, compara los valores
+                                    RSMP_Element registroFirestore = querySnapshot.getDocuments().get(0).toObject(RSMP_Element.class);
+                                    if (registroFirestore.getIdForm() != idForm ||
+                                            !registroFirestore.getNameForm().equals(nameForm) ||
+                                            !registroFirestore.getDescription().equals(description) ||
+                                            !registroFirestore.getUnits().equals(units) ||
+                                            registroFirestore.getQuantity() != quantity ||
+                                            registroFirestore.getTotal() != total ||
+                                            !registroFirestore.getConcept().equals(concept) ||
+                                            !registroFirestore.getState().equals(state)) {
+                                        // El registro ha cambiado, actualiza en Firestore
+                                        usersCollection.document(String.valueOf(idFormDatabase)).update(
+                                                "idForm", idForm,
+                                                "nameForm", nameForm,
+                                                "description", description,
+                                                "units", units,
+                                                "quantity", quantity,
+                                                "total", total,
+                                                "concept", concept,
+                                                "state", state
+                                        );
+                                    }
+                                } else {
+                                    // El registro no existe en Firestore, agrégalo
+                                    RSMP_Element registroFirestore = new RSMP_Element(
+                                            idForm, nameForm, description, units, quantity,
+                                            total, concept, state);
+                                    Map<String,Object> infoForm = registroFirestore.toMap();
+                                    infoForm = InsertLocalDate(infoForm,idGardenFb);
+                                    usersCollection.add(infoForm);
+                                }
+                            } else {
+                                Log.d("Off_On", "Error al obtener el registro de Firestore", task.getException());
+                            }
+                        }
+                    });
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+    }
+
+    public void syncFirestore_RHC(String idGardenFb) {
+        DB_User info = new DB_User(context);
+        SQLiteDatabase db = context.openOrCreateDatabase("database_Offline_Forms.db", Context.MODE_PRIVATE, null);
+        FirebaseFirestore dbFirestore = FirebaseFirestore.getInstance();
+        CollectionReference usersCollection = dbFirestore.collection("Gardens").document(idGardenFb).collection("Forms");
+        boolean conection = isOnline(context);
+        if (conection) {
+            Cursor cursor = db.query("RHC", null, null, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    int idFormDatabase = cursor.getInt(cursor.getColumnIndex("ID_Form_database"));
+                    int idForm = cursor.getInt(cursor.getColumnIndex("idForm"));
+                    String nameForm = cursor.getString(cursor.getColumnIndex("nameForm"));
+                    String responsable = cursor.getString(cursor.getColumnIndex("responsable"));
+                    String incomeExpense = cursor.getString(cursor.getColumnIndex("incomeExpense"));
+                    String type = cursor.getString(cursor.getColumnIndex("type"));
+                    String code = cursor.getString(cursor.getColumnIndex("code"));
+                    String itemName = cursor.getString(cursor.getColumnIndex("itemName"));
+                    String measurement = cursor.getString(cursor.getColumnIndex("measurement"));
+                    int totalCost = cursor.getInt(cursor.getColumnIndex("totalCost"));
+                    String comments = cursor.getString(cursor.getColumnIndex("comments"));
+                    String units = cursor.getString(cursor.getColumnIndex("units"));
+                    String state = cursor.getString(cursor.getColumnIndex("state"));
+
+                    // Consulta el registro en Firestore
+                    Query query = usersCollection.whereEqualTo("ID_Form_database", idFormDatabase);
+                    query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                QuerySnapshot querySnapshot = task.getResult();
+                                if (!querySnapshot.isEmpty()) {
+                                    // El registro existe en Firestore, compara los valores
+                                    RHC_Element registroFirestore = querySnapshot.getDocuments().get(0).toObject(RHC_Element.class);
+                                    if (registroFirestore.getIdForm() != idForm ||
+                                            !registroFirestore.getNameForm().equals(nameForm) ||
+                                            !registroFirestore.getResponsable().equals(responsable) ||
+                                            !registroFirestore.getIncomeExpense().equals(incomeExpense) ||
+                                            !registroFirestore.getType().equals(type) ||
+                                            !registroFirestore.getCode().equals(code) ||
+                                            !registroFirestore.getItemName().equals(itemName) ||
+                                            !registroFirestore.getMeasurement().equals(measurement) ||
+                                            registroFirestore.getTotalCost() != totalCost ||
+                                            !registroFirestore.getComments().equals(comments) ||
+                                            !registroFirestore.getUnits().equals(units) ||
+                                            !registroFirestore.getState().equals(state)) {
+                                        // El registro ha cambiado, actualiza en Firestore
+                                        usersCollection.document(String.valueOf(idFormDatabase)).update(
+                                                "idForm", idForm,
+                                                "nameForm", nameForm,
+                                                "responsable", responsable,
+                                                "incomeExpense", incomeExpense,
+                                                "type", type,
+                                                "code", code,
+                                                "itemName", itemName,
+                                                "measurement", measurement,
+                                                "totalCost", totalCost,
+                                                "comments", comments,
+                                                "units", units,
+                                                "state", state
+                                        );
+                                    }
+                                } else {
+                                    // El registro no existe en Firestore, agrégalo
+                                    RHC_Element registroFirestore = new RHC_Element(
+                                            idForm, nameForm, responsable, incomeExpense, type,
+                                            code, itemName, measurement, totalCost, comments, units, state);
+                                    Map<String,Object> infoForm = registroFirestore.toMap();
+                                    infoForm = InsertLocalDate(infoForm,idGardenFb);
+                                    usersCollection.add(infoForm);
+                                }
+                            } else {
+                                Log.d("Off_On", "Error al obtener el registro de Firestore", task.getException());
+                            }
+                        }
+                    });
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+    }
+
 }
 

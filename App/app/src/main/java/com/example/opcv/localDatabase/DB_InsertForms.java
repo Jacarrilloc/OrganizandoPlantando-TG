@@ -28,7 +28,7 @@ public class DB_InsertForms extends DatabaseFormsHelper {
         this.context = context;
     }
 
-    public long insertInto_CIH(Map<String, Object> info) {
+    public void insertInto_CIH(Map<String, Object> info) {
         DatabaseFormsHelper Info = new DatabaseFormsHelper(context);
         SQLiteDatabase db = Info.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -40,31 +40,30 @@ public class DB_InsertForms extends DatabaseFormsHelper {
         values.put("toolQuantity", Integer.parseInt(info.get("toolQuantity").toString()));
         values.put("toolStatus", info.get("toolStatus").toString());
         values.put("existenceQuantity", Integer.parseInt(info.get("existenceQuantity").toString()));
-        long i = db.insert(TABLE_CIH, null, values);
+        db.insert(TABLE_CIH, null, values);
         db.close();
-        return i;
     }
 
-    public void insertInto_CPS(Map<String, Object> Info){
-        DatabaseFormsHelper dbHelper = new DatabaseFormsHelper(context);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+    public void insertInto_CPS(Map<String, Object> info) {
+        DatabaseFormsHelper Info = new DatabaseFormsHelper(context);
+        SQLiteDatabase db = Info.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("idForm", Info.get("idForm").toString());
-        values.put("nameForm", Info.get("nameForm").toString());
-        values.put("personResponsable", Info.get("personResponsable").toString());
-        values.put("processPhase", Info.get("processPhase").toString());
-        values.put("phaseDuration", Info.get("phaseDuration").toString());
-        values.put("plantsOrSeeds", Info.get("plantsOrSeeds").toString());
-        values.put("commentsObservations", Info.get("commentsObservations").toString());
+        values.put("idForm", Integer.parseInt(info.get("idForm").toString()));
+        values.put("nameForm", info.get("nameForm").toString());
+        values.put("personResponsable", info.get("personResponsable").toString());
+        values.put("processPhase", info.get("processPhase").toString());
+        values.put("phaseDuration", info.get("phaseDuration").toString());
+        values.put("plantsOrSeeds", info.get("plantsOrSeeds").toString());
+        values.put("commentsObservations", info.get("commentsObservations").toString());
         db.insert(TABLE_CPS, null, values);
         db.close();
     }
 
-    public void insertInto_IMP(Map<String, Object> info){
-        DatabaseFormsHelper dbHelper = new DatabaseFormsHelper(context);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+    public void insertInto_IMP(Map<String, Object> info) {
+        DatabaseFormsHelper Info = new DatabaseFormsHelper(context);
+        SQLiteDatabase db = Info.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("idForm", info.get("idForm").toString());
+        values.put("idForm", Integer.parseInt(info.get("idForm").toString()));
         values.put("nameForm", info.get("nameForm").toString());
         values.put("personResponsable", info.get("personResponsable").toString());
         values.put("processPhase", info.get("processPhase").toString());
@@ -75,122 +74,128 @@ public class DB_InsertForms extends DatabaseFormsHelper {
         db.close();
     }
 
-    public void insertInto_RAC(Map<String, Object> Info){
-        DatabaseFormsHelper dbHelper = new DatabaseFormsHelper(context);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+    public void insertInto_RAC(Map<String, Object> info) {
+        DatabaseFormsHelper Info = new DatabaseFormsHelper(context);
+        SQLiteDatabase db = Info.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("idForm", Info.get("idForm").toString());
-        values.put("nameForm", Info.get("nameForm").toString());
-        values.put("containerSize", Info.get("containerSize").toString());
-        values.put("wormsWeight", Info.get("wormsWeight").toString());
-        values.put("humidity", Info.get("humidity").toString());
-        values.put("amountOfWaste", Info.get("amountOfWaste").toString());
-        values.put("collectedHumus", Info.get("collectedHumus").toString());
-        values.put("amountLeached", Info.get("amountLeached").toString());
+        values.put("idForm", Integer.parseInt(info.get("idForm").toString()));
+        values.put("nameForm", info.get("nameForm").toString());
+        values.put("containerSize", info.get("containerSize").toString());
+        values.put("wormsWeight", info.get("wormsWeight").toString());
+        values.put("humidity", info.get("humidity").toString());
+        values.put("amountOfWaste", info.get("amountOfWaste").toString());
+        values.put("collectedHumus", info.get("collectedHumus").toString());
+        values.put("amountLeached", info.get("amountLeached").toString());
         db.insert(TABLE_RAC, null, values);
         db.close();
     }
 
-
-    public void insertInto_RCC(Map<String, Object> Info){
-        DatabaseFormsHelper dbHelper = new DatabaseFormsHelper(context);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+    public void insertInto_RCC(Map<String, Object> info) {
+        DatabaseFormsHelper infoHelper = new DatabaseFormsHelper(context);
+        SQLiteDatabase db = infoHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("idForm", Info.get("idForm").toString());
-        values.put("nameForm", Info.get("nameForm").toString());
-        values.put("containerSize", Info.get("containerSize").toString());
-        values.put("wormsWeight", Info.get("wormsWeight").toString());
-        values.put("humidity", Info.get("humidity").toString());
-        values.put("amountOfWaste", Info.get("amountOfWaste").toString());
-        values.put("collectedHumus", Info.get("collectedHumus").toString());
-        values.put("amountLeached", Info.get("amountLeached").toString());
+        values.put("idForm", Integer.parseInt(info.get("idForm").toString()));
+        values.put("nameForm", info.get("nameForm").toString());
+        values.put("containerSize", info.get("containerSize").toString());
+        values.put("wormsWeight", info.get("wormsWeight").toString());
+        values.put("humidity", info.get("humidity").toString());
+        values.put("amountOfWaste", info.get("amountOfWaste").toString());
+        values.put("collectedHumus", info.get("collectedHumus").toString());
+        values.put("amountLeached", info.get("amountLeached").toString());
         db.insert(TABLE_RCC, null, values);
         db.close();
     }
 
-    public void insertInto_RE(Map<String, Object> Info){
-        DatabaseFormsHelper info = new DatabaseFormsHelper(context);
-        SQLiteDatabase db = info.getWritableDatabase();
+    public void insertInto_RE(Map<String, Object> info) {
+        DatabaseFormsHelper Info = new DatabaseFormsHelper(context);
+        SQLiteDatabase db = Info.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("idForm", (Integer) Info.get("idForm"));
-        values.put("nameForm", (String) Info.get("nameForm"));
-        values.put("date", (String) Info.get("date"));
-        values.put("eventName", (String) Info.get("eventName"));
-        values.put("totalPerson", (Integer) Info.get("totalPerson"));
-        values.put("womenNumber", (Integer) Info.get("womenNumber"));
-        values.put("menNumber", (Integer) Info.get("menNumber"));
-        values.put("noSpcNumber", (Integer) Info.get("noSpcNumber"));
-        values.put("infantNumber", (Integer) Info.get("infantNumber"));
-        values.put("childhoodNumber", (Integer) Info.get("childhoodNumber"));
-        values.put("teenNumber", (Integer) Info.get("teenNumber"));
-        values.put("youthNumber", (Integer) Info.get("youthNumber"));
-        values.put("adultNumber", (Integer) Info.get("adultNumber"));
-        values.put("elderlyNumber", (Integer) Info.get("elderlyNumber"));
-        values.put("afroNumber", (Integer) Info.get("afroNumber"));
-        values.put("nativeNumber", (Integer) Info.get("nativeNumber"));
-        values.put("lgtbiNumber", (Integer) Info.get("lgtbiNumber"));
-        values.put("romNumber", (Integer) Info.get("romNumber"));
-        values.put("victimNumber", (Integer) Info.get("victimNumber"));
-        values.put("disabilityNumber", (Integer) Info.get("disabilityNumber"));
-        values.put("demobilizedNumber", (Integer) Info.get("demobilizedNumber"));
-        values.put("mongrelNumber", (Integer) Info.get("mongrelNumber"));
-        values.put("foreignNumber", (Integer) Info.get("foreignNumber"));
-        values.put("peasantNumber", (Integer) Info.get("peasantNumber"));
-        values.put("otherNumber", (Integer) Info.get("otherNumber"));
+        values.put("idForm", Integer.parseInt(info.get("idForm").toString()));
+        values.put("nameForm", info.get("nameForm").toString());
+        values.put("date", info.get("date").toString());
+        values.put("eventName", info.get("eventName").toString());
+        values.put("totalPerson", Integer.parseInt(info.get("totalPerson").toString()));
+        values.put("womenNumber", Integer.parseInt(info.get("womenNumber").toString()));
+        values.put("menNumber", Integer.parseInt(info.get("menNumber").toString()));
+        values.put("noSpcNumber", Integer.parseInt(info.get("noSpcNumber").toString()));
+        values.put("infantNumber", Integer.parseInt(info.get("infantNumber").toString()));
+        values.put("childhoodNumber", Integer.parseInt(info.get("childhoodNumber").toString()));
+        values.put("teenNumber", Integer.parseInt(info.get("teenNumber").toString()));
+        values.put("youthNumber", Integer.parseInt(info.get("youthNumber").toString()));
+        values.put("adultNumber", Integer.parseInt(info.get("adultNumber").toString()));
+        values.put("elderlyNumber", Integer.parseInt(info.get("elderlyNumber").toString()));
+        values.put("afroNumber", Integer.parseInt(info.get("afroNumber").toString()));
+        values.put("nativeNumber", Integer.parseInt(info.get("nativeNumber").toString()));
+        values.put("lgtbiNumber", Integer.parseInt(info.get("lgtbiNumber").toString()));
+        values.put("romNumber", Integer.parseInt(info.get("romNumber").toString()));
+        values.put("victimNumber", Integer.parseInt(info.get("victimNumber").toString()));
+        values.put("disabilityNumber", Integer.parseInt(info.get("disabilityNumber").toString()));
+        values.put("demobilizedNumber", Integer.parseInt(info.get("demobilizedNumber").toString()));
+        values.put("mongrelNumber", Integer.parseInt(info.get("mongrelNumber").toString()));
+        values.put("foreignNumber", Integer.parseInt(info.get("foreignNumber").toString()));
+        values.put("peasantNumber", Integer.parseInt(info.get("peasantNumber").toString()));
+        values.put("otherNumber", Integer.parseInt(info.get("otherNumber").toString()));
         db.insert(TABLE_RE, null, values);
         db.close();
     }
 
-
-    public void insertInto_RHC(Map<String, Object> Info){
-        DatabaseFormsHelper info = new DatabaseFormsHelper(context);
-        SQLiteDatabase db = info.getWritableDatabase();
+    public void insertInto_RHC(Map<String, Object> info) {
+        DatabaseFormsHelper dbHelper = new DatabaseFormsHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("idForm", Info.get("idForm").toString());
-        values.put("nameForm", Info.get("nameForm").toString());
-        values.put("responsable", Info.get("responsable").toString());
-        values.put("incomeExpense", Info.get("incomeExpense").toString());
-        values.put("type", Info.get("type").toString());
-        values.put("code", Info.get("code").toString());
-        values.put("itemName", Info.get("itemName").toString());
-        values.put("measurement", Info.get("measurement").toString());
-        values.put("totalCost", Info.get("totalCost").toString());
-        values.put("comments", Info.get("comments").toString());
-        values.put("units", Info.get("units").toString());
-        values.put("state", Info.get("state").toString());
+        values.put("idForm", Integer.parseInt(info.get("idForm").toString()));
+        values.put("nameForm", info.get("nameForm").toString());
+        values.put("responsable", info.get("responsable").toString());
+        values.put("incomeExpense", info.get("incomeExpense").toString());
+        values.put("type", info.get("type").toString());
+        values.put("code", info.get("code").toString());
+        values.put("itemName", info.get("itemName").toString());
+        values.put("measurement", info.get("measurement").toString());
+        values.put("totalCost", Integer.parseInt(info.get("totalCost").toString()));
+        values.put("comments", info.get("comments").toString());
+        values.put("units", info.get("units").toString());
+        values.put("state", info.get("state").toString());
         db.insert(TABLE_RHC, null, values);
         db.close();
     }
 
-    public void insertInto_RRH(Map<String, Object> Info){
-        DatabaseFormsHelper info = new DatabaseFormsHelper(context);
-        SQLiteDatabase db = info.getWritableDatabase();
+    public void insertInto_RRH(Map<String, Object> info) {
+        DatabaseFormsHelper Info = new DatabaseFormsHelper(context);
+        SQLiteDatabase db = Info.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("idForm", (Integer)Info.get("idForm"));
-        values.put("nameForm", (String)Info.get("nameForm"));
-        values.put("description", (String)Info.get("description"));
-        values.put("toolQuantity", (Integer)Info.get("toolQuantity"));
-        values.put("concept", (String)Info.get("concept"));
-        values.put("performedBy", (String)Info.get("performedBy"));
-        values.put("toolStatus", (String)Info.get("toolStatus"));
+        values.put("idForm", Integer.parseInt(info.get("idForm").toString()));
+        values.put("nameFormRRH", info.get("nameForm").toString());
+        values.put("description", info.get("description").toString());
+        values.put("toolQuantityRRH", Integer.parseInt(info.get("toolQuantity").toString()));
+        values.put("concept", info.get("concept").toString());
+        values.put("performedBy", info.get("performedBy").toString());
+        values.put("toolStatus", info.get("toolStatus").toString());
         db.insert(TABLE_RRH, null, values);
         db.close();
     }
 
     public void insertInto_SCMPH(Map<String, Object> info) {
-        DatabaseFormsHelper dbHelper = new DatabaseFormsHelper(context);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // Obtener instancia de la base de datos y crear objeto ContentValues
+        DatabaseFormsHelper Info = new DatabaseFormsHelper(context);
+        SQLiteDatabase db = Info.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("idForm", (int) info.get("idForm"));
-        values.put("nameForm", (String) info.get("nameForm"));
-        values.put("itemName", (String) info.get("itemName"));
-        values.put("item", (String) info.get("item"));
-        values.put("units", (String) info.get("units"));
-        values.put("quantity", (int) info.get("quantity"));
-        values.put("total", (double) info.get("total"));
+
+        // Agregar los valores de los campos a ContentValues
+        values.put("idForm", Integer.parseInt(info.get("idForm").toString()));
+        values.put("nameForm", info.get("nameForm").toString());
+        values.put("itemName", info.get("itemName").toString());
+        values.put("item", info.get("item").toString());
+        values.put("units", info.get("units").toString());
+        values.put("quantity", Integer.parseInt(info.get("quantity").toString()));
+        values.put("total", Double.parseDouble(info.get("total").toString()));
+
+        // Insertar los valores en la tabla
         db.insert(TABLE_SCMPH, null, values);
+
+        // Cerrar la conexión de la base de datos
         db.close();
     }
+
 
     public void insertInto_RSMP(Map<String, Object> Info) {
         DatabaseFormsHelper info = new DatabaseFormsHelper(context);

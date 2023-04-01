@@ -19,7 +19,9 @@ import com.example.opcv.MapsActivity;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.HomeActivity;
 import com.example.opcv.R;
+import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.FormsUtilities;
+import com.example.opcv.localDatabase.DB_InsertForms;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -156,7 +158,14 @@ public class Form_RHC extends AppCompatActivity {
                     infoForm.put("comments",commentsC);
                     infoForm.put("units",unitsC);
                     if(validateField(personResponsable, codeC, itemNameC, unitsC, measurementC, totalCostC, commentsC, conceptSelectedItem, selectedType)){
-                        formsUtilities.createForm(Form_RHC.this,infoForm,idGardenFb);
+                        NetworkMonitorService connection = new NetworkMonitorService(Form_RHC.this);
+
+                        if(connection.isOnline(Form_RHC.this)){
+                            formsUtilities.createForm(Form_RHC.this,infoForm,idGardenFb);
+                        }
+
+                        DB_InsertForms newForm = new DB_InsertForms(Form_RHC.this);
+                        newForm.insertInto_RHC(infoForm);
                         Toast.makeText(Form_RHC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Form_RHC.this, HomeActivity.class));
                         finish();

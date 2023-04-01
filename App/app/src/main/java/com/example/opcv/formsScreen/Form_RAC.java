@@ -14,8 +14,10 @@ import android.widget.Toast;
 
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.FormsUtilities;
 import com.example.opcv.*;
+import com.example.opcv.localDatabase.DB_InsertForms;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -143,7 +145,14 @@ public class Form_RAC extends AppCompatActivity {
                     infoForm.put("collected humus",humus);
                     infoForm.put("amount leached",leached);
                     if(validateField(container, worms, humidity, waste, humus, leached)){
-                        formsUtilities.createForm(Form_RAC.this,infoForm,idGardenFb);
+                        NetworkMonitorService connection = new NetworkMonitorService(Form_RAC.this);
+
+                        if(connection.isOnline(Form_RAC.this)){
+                            formsUtilities.createForm(Form_RAC.this,infoForm,idGardenFb);
+                        }
+
+                        DB_InsertForms newForm = new DB_InsertForms(Form_RAC.this);
+                        newForm.insertInto_RAC(infoForm);
                         Toast.makeText(Form_RAC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Form_RAC.this, HomeActivity.class));
                         finish();

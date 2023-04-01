@@ -100,6 +100,15 @@ public class GardenActivity extends AppCompatActivity {
         }
         NetworkMonitorService test = new NetworkMonitorService(GardenActivity.this);
         test.syncFirestore_CIH(gardenID);
+        test.syncFirestore_CPS(gardenID);
+        test.syncFirestore_IMP(gardenID);
+        test.syncFirestore_RAC(gardenID);
+        test.syncFirestore_RCC(gardenID);
+        test.syncFirestore_RE(gardenID);
+        test.syncFirestore_RRH(gardenID);
+        test.syncFirestore_SCMPH(gardenID);
+        test.syncFirestore_RSMP(gardenID);
+        test.syncFirestore_RHC(gardenID);
 
         if(!Objects.equals(owner, "true")){
             editGarden.setVisibility(View.INVISIBLE);
