@@ -339,10 +339,16 @@ public class GardenActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if(task.isSuccessful()){
-                            String link = task.getResult().get("Garden_Chat_Link").toString();
-                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setData(Uri.parse(link));
-                            startActivity(intent);
+                            String link = (String) task.getResult().get("Garden_Chat_Link");
+                            if(link != null){
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                intent.setData(Uri.parse(link));
+                                startActivity(intent);
+                            }
+                            else{
+                                Toast.makeText(GardenActivity.this, "Esta huerta no tiene chat grupal", Toast.LENGTH_SHORT).show();
+                            }
+
                         }
                     }
                 });
