@@ -123,7 +123,8 @@
             android:exported="false" />
         <activity
             android:name=".auth.RegisterProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".gardens.GardenForms"
             android:exported="false" />

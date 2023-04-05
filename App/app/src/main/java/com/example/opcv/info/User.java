@@ -10,16 +10,14 @@ public class User implements Serializable {
     String email;
     String id;
     String phoneNumber;
-    String UriPath;
     String gender;
 
-    public User(String name, String lastName, String email, String id, String phoneNumber, String uriPath, String gender) {
+    public User(String name, String lastName, String email, String id, String phoneNumber, String gender) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         this.id = id;
         this.phoneNumber = phoneNumber;
-        UriPath = uriPath;
         this.gender = gender;
     }
 
@@ -63,14 +61,6 @@ public class User implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getUriPath() {
-        return UriPath;
-    }
-
-    public void setUriPath(String uriPath) {
-        UriPath = uriPath;
-    }
-
     public String getGender() {
         return gender;
     }
@@ -86,7 +76,6 @@ public class User implements Serializable {
         map.put("ID", id);
         map.put("Email",email);
         map.put("PhoneNumber", phoneNumber);
-        map.put("UriPath",UriPath);
         map.put("Gender",gender);
         return map;
     }

@@ -70,7 +70,7 @@
                 android:ems="10"
                 android:hint="@string/nombre1"
                 android:inputType="text"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textColorHint="@color/editTextBackground"/>
 
@@ -83,7 +83,7 @@
                 android:ems="10"
                 android:hint="@string/apellido"
                 android:inputType="text"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textColorHint="@color/editTextBackground"/>
 
@@ -103,7 +103,7 @@
                 android:ems="10"
                 android:hint="@string/correo_electronico1"
                 android:inputType="textEmailAddress"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textColorHint="@color/editTextBackground"/>
 
@@ -116,7 +116,7 @@
                 android:ems="10"
                 android:hint="@string/contrase_ia"
                 android:inputType="textPassword"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textColorHint="@color/editTextBackground" />
 
@@ -129,7 +129,7 @@
                 android:ems="10"
                 android:hint="@string/repetir_contrase_a"
                 android:inputType="textPassword"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textColorHint="@color/editTextBackground" />
 

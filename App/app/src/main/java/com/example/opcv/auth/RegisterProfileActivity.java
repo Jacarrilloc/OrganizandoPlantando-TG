@@ -20,6 +20,8 @@ import android.widget.Toast;
 import com.example.opcv.R;
 import com.example.opcv.TermsAndConditionsActivity;
 import com.example.opcv.adapter.SpinnerAdapter;
+import com.example.opcv.database.DataBaseFormsHelper;
+import com.example.opcv.database.UserDataBase;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.info.User;
 import com.example.opcv.info.ValidateRegisterInfo;
@@ -86,12 +88,22 @@ public class RegisterProfileActivity extends AppCompatActivity {
 
                 ValidateRegisterInfo validate = new ValidateRegisterInfo();
                 if(validate.validateFirstRegisterInfo(nameString,lastNameString,emailString,passwordString,confirmPasswordString,termsBool,RegisterProfileActivity.this)) {
-                    newUser = new User(nameString, lastNameString, emailString, null, null,null,gender);
-
-                    Intent intent = new Intent(RegisterProfileActivity.this, RegisterMobilePhone.class);
-                    intent.putExtra("mapUser", (Serializable) newUser);
-                    intent.putExtra("password",passwordString);
-                    startActivity(intent);
+                    newUser = new User(nameString, lastNameString, emailString, null, null,gender);
+                    AuthUtilities newUserFirebase = new AuthUtilities();
+                    if(newUserFirebase.createUser(newUser.getEmail(),passwordString)){
+                        UserDataBase newInfoDatabase = new UserDataBase(RegisterProfileActivity.this);
+                        newUser.setId(newUserFirebase.getCurrentUserUid());
+                        if(newInfoDatabase.insertUserInfo(newUser)){
+                            Intent intent = new Intent(RegisterProfileActivity.this, RegisterMobilePhone.class);
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(RegisterProfileActivity.this, "No fue posible crear localmente la información", Toast.LENGTH_SHORT).show();
+                        }
+                    }else{
+                        Toast.makeText(RegisterProfileActivity.this, "No fue posible crear el usuario en Firebase", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(RegisterProfileActivity.this, "Hay un error, por favor revise que los campos estén correctos", Toast.LENGTH_SHORT).show();
                 }
             }
         });

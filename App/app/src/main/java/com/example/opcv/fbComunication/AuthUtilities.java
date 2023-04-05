@@ -73,7 +73,7 @@ public class AuthUtilities implements Serializable {
                         String phoneNumber = document.getString("phoneNumber");
                         String uriPath = document.getString("UriPath");
                         String gender = document.getString("Gender");
-                        User user = new User(name,lastName,email,id,phoneNumber,uriPath,gender);
+                        User user = new User(name,lastName,email,id,phoneNumber,gender);
                         callback.onSuccess(user);
                         return;
                     }
@@ -158,7 +158,6 @@ public class AuthUtilities implements Serializable {
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                 newUserInfo.setId(user.getUid().toString());
                                 String dataPatch = addProfilePhoto(image,user.getUid().toString());
-                                newUserInfo.setUriPath(dataPatch);
                                 addtoDataBase(newUserInfo.toMap());
                                 isUserCreated[0] = true;
                             }
@@ -171,6 +170,22 @@ public class AuthUtilities implements Serializable {
             return false;
         }
     }
+
+    public boolean createUser(String email,String password){
+        final boolean[] isUserCreated = {false};
+        try{
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
+                if(task.isSuccessful()){
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    isUserCreated[0] = true;
+                }
+            });
+        }catch (Exception e){
+
+        }
+        return isUserCreated[0];
+    }
+
 
     private boolean addtoDataBase(Map<String, Object> newUserInfo){
         final boolean[] result = {false};
