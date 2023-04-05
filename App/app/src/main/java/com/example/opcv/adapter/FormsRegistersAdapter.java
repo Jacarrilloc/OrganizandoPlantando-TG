@@ -57,6 +57,7 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
         ItemRegistersList IRL = new ItemRegistersList(item.getIdGarden(), item.getFormName(), item.getIdFormCollection(), item.getDate());
         FormsUtilities FU = new FormsUtilities();
         dateText.setText(item.getDate());
+
         seeMoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
