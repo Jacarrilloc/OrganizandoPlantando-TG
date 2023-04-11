@@ -8,12 +8,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:focusableInTouchMode="true"
     tools:context=".HomeActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5sp"
+        android:layout_margin="@dimen/_5sdp"
         android:layout_weight="0"
         android:orientation="horizontal">
 
@@ -21,19 +22,20 @@
             android:id="@+id/misHuertasText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20sp"
+            android:layout_margin="@dimen/_20sdp"
             android:layout_weight="0.6"
             android:text="Mis Huertas"
             android:textColor="#070707"
-            android:textSize="25sp"
+            android:textSize="@dimen/_25sdp"
             android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_103sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.3"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginRight="@dimen/_7sdp">
 
 
             <ImageButton
@@ -49,9 +51,10 @@
 
             <TextView
                 android:id="@+id/reportText"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_96sdp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textSize="@dimen/_13sdp"
                 android:text="@string/generalReport"
                 android:textColor="#090909"
                 android:textStyle="normal|italic" />
@@ -68,7 +71,7 @@
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/addButton"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_85sdp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5sp"
@@ -81,7 +84,7 @@
                 android:tint="@color/white"
                 android:tintMode="multiply"
                 app:backgroundTintMode="src_in"
-                app:maxImageSize="60dp"
+                app:maxImageSize="@dimen/_60sdp"
                 app:rippleColor="@color/white"
                 app:srcCompat="@drawable/dr_add_button" />
 
@@ -91,63 +94,71 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Añadir"
+                android:textSize="@dimen/_13sdp"
                 android:textColor="#090909"
                 android:textStyle="normal|italic" />
         </LinearLayout>
 
     </LinearLayout>
 
-    <FrameLayout
+
+    <ListView
+        android:id="@+id/listAviableGardens"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_margin="@dimen/_10sdp"
+        android:layout_weight="0.9">
 
-        <ListView
-            android:id="@+id/listAviableGardens"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="20sp"
-            android:layout_weight="0.9"
-            android:background="@color/white" >
+    </ListView>
 
-        </ListView>
+    <LinearLayout
+        android:id="@+id/linearLayout11"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_55sdp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/_1sdp"
+        >
 
         <Button
             android:id="@+id/otherGardensButton"
-            android:layout_width="181dp"
+            android:layout_width="@dimen/_151sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
-            android:layout_margin="16dp"
+            android:layout_marginLeft="@dimen/_20sdp"
             android:background="@drawable/dr_green_button"
-            android:textAllCaps="false"
             android:backgroundTint="#91BF63"
-
-            android:textSize="16sp"
             android:text="@string/seeOtherGardens"
-            android:textColor="@color/white" />
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/collaboratorGardens"
-            android:layout_width="150dp"
+            android:layout_width="@dimen/_130sdp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_gravity="start|bottom"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/_1sdp"
             android:background="@drawable/dr_green_button"
             android:backgroundTint="#91BF63"
             android:textAllCaps="false"
             android:text="@string/collaboratorGardens"
             android:textSize="16sp"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            />
 
-    </FrameLayout>
+    </LinearLayout>
+
+
+
 
     <LinearLayout
         android:id="@+id/linearLayout8"
-        android:layout_width="411dp"
-        android:layout_height="122dp"
+        android:layout_width="wrap_content"
+        android:layout_height="110dp"
         android:background="@drawable/dr_shadow_top"
         android:orientation="horizontal"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -155,14 +166,15 @@
 
         <Button
             android:id="@+id/ludification"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="20dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
@@ -170,14 +182,16 @@
 
         <Button
             android:id="@+id/gardens"
-            android:layout_width="77dp"
+            android:layout_width="@dimen/_79sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
             android:padding="10dp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
             android:textAllCaps="false"
@@ -185,14 +199,16 @@
 
         <Button
             android:id="@+id/myGardens"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_107sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
             android:padding="10dp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Gardens"
             android:textAllCaps="false"
@@ -200,15 +216,16 @@
 
         <Button
             android:id="@+id/profile"
-            android:layout_width="78dp"
+            android:layout_width="@dimen/_60sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
             android:padding="5dp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"
             android:textAllCaps="false"

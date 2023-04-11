@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
+    android:layout_height="@dimen/_90sdp"
     android:layout_gravity="center_horizontal"
-    android:layout_marginHorizontal="5sp"
+    android:layout_marginHorizontal="@dimen/_5sdp"
     android:background="@drawable/dr_green_button">
 
     <TextView
         android:id="@+id/textForms"
-        android:layout_height="54dp"
-        android:layout_width="340dp"
+        android:layout_height="@dimen/_60sdp"
+        android:layout_width="@dimen/_280sdp"
         android:layout_gravity="center"
         android:textColor="@color/white"
-        android:layout_margin="15dp"
-        android:textSize="22sp"
+        android:layout_margin="@dimen/_15sdp"
+        android:textSize="@dimen/_18sdp"
         android:text="formsName" />
 </LinearLayout>

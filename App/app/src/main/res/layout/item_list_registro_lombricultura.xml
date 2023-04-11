@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
+    android:layout_margin="@dimen/_20sdp"
     android:backgroundTint="#F2F2F2">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="306dp"
+            android:layout_width="@dimen/_230sdp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -21,8 +21,8 @@
                 android:id="@+id/dateRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:text="Fecha: 01/11/2022"
                 android:textColor="#000000"
                 android:textStyle="bold"
@@ -33,8 +33,8 @@
                 android:id="@+id/processMade"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:text="Proceso: se hizo..."
                 android:textColor="#000000"
                 android:visibility="invisible"
@@ -45,13 +45,13 @@
                 android:id="@+id/seeMorButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginStart="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_2sdp"
                 android:backgroundTint="#91BF63"
                 android:text="Ver más"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                app:cornerRadius="50dp"
+                app:cornerRadius="@dimen/_50sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/processMade" />
         </LinearLayout>
@@ -63,10 +63,10 @@
 
                 <ImageButton
                     android:id="@+id/deleteButton"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="48dp"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_48sdp"
                     android:backgroundTint="@color/lightgray"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -74,9 +74,9 @@
 
                 <ImageButton
                     android:id="@+id/editButton"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="50dp"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginEnd="@dimen/_50sdp"
                     android:backgroundTint="@color/lightgray"
                     android:contentDescription="Boton de editar"
                     app:layout_constraintEnd_toEndOf="parent"

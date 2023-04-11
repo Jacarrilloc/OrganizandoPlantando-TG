@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
+    android:focusableInTouchMode="true"
     tools:context=".formsScreen.Form_RE">
 
     <LinearLayout
@@ -18,8 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:layout_marginStart="20dp"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_20sdp"
             android:clickable="true"
             android:contentDescription="@string/boton_para_regresar"
             android:tint="#F8F5F5"
@@ -38,10 +39,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="@dimen/_20sdp"
             android:text="@string/registro_de_evento"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="@dimen/_20sdp"
             android:textStyle="bold" />
 
 
@@ -57,15 +58,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@color/white"
-            android:layout_margin="20sp">
+            android:layout_margin="@dimen/_20sdp">
 
             <TextView
                 android:id="@+id/info1"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:textSize="15sp"
+                android:layout_margin="@dimen/_2sdp"
+                android:textSize="@dimen/_15sdp"
                 android:text="@string/fecha" />
 
             <EditText
@@ -83,8 +84,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textSize="15sp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:textSize="@dimen/_15sdp"
                 android:textColor="@color/black"
                 android:text="@string/nombre_del_evento" />
 
@@ -94,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:layout_margin="2sp"
+                android:layout_margin="@dimen/_2sdp"
                 android:textColor="@color/black"
                 android:background="@drawable/dr_white_input_text"
                 tools:ignore="TextFields" />
@@ -102,18 +103,18 @@
 
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/personas_que_asistieron" />
 
                 <EditText
@@ -122,7 +123,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
@@ -130,25 +131,25 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="@dimen/_18sdp"
                 android:gravity="center"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:textColor="@color/black"
                 android:text="@string/asistencia_seg_n_el_g_nero" />
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/mujeres" />
 
                 <EditText
@@ -156,24 +157,24 @@
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/hombres" />
 
                 <EditText
@@ -181,24 +182,24 @@
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/no_especificado" />
 
                 <EditText
@@ -206,7 +207,7 @@
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
@@ -214,25 +215,25 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="@dimen/_18sdp"
                 android:gravity="center"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:textColor="@color/black"
                 android:text="@string/asistencia_seg_n_el_rango_de_edad" />
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/primera_infancia_0_5_a_os" />
 
                 <EditText
@@ -240,24 +241,24 @@
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/infancia_6_11_a_os" />
 
                 <EditText
@@ -265,24 +266,24 @@
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/adolescencia_12_18_a_os" />
 
                 <EditText
@@ -290,24 +291,24 @@
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/juventud_19_26_a_os" />
 
                 <EditText
@@ -315,7 +316,7 @@
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
@@ -327,12 +328,12 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/adultez_27_59_a_os" />
 
                 <EditText
@@ -340,24 +341,24 @@
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/persona_mayor_60_a_os_o_m_s" />
 
                 <EditText
@@ -365,7 +366,7 @@
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
@@ -374,26 +375,26 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="@dimen/_18sdp"
                 android:gravity="center"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:textColor="@color/black"
                 android:text="@string/asistencia_de_personas" />
 
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/poblaci_n_afro" />
 
                 <EditText
@@ -401,24 +402,24 @@
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/poblaci_n_ind_gena" />
 
                 <EditText
@@ -426,25 +427,25 @@
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/poblaci_n_lgbti" />
 
                 <EditText
@@ -452,24 +453,24 @@
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/poblaci_n_rom" />
 
                 <EditText
@@ -482,27 +483,27 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/poblaci_n_v_ctima_del_conflicto_armado"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_15sdp" />
 
                 <EditText
                     android:id="@+id/victimPoblation"
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
@@ -510,24 +511,24 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/poblaci_n_en_condici_n_de_discapacidad"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_15sdp" />
 
                 <EditText
                     android:id="@+id/disabilityPoblation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:background="@drawable/dr_white_input_text"
                     android:inputType="number"
                     android:textColor="@color/black" />
@@ -536,24 +537,24 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/poblaci_n_desmovilizada"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_15sdp" />
 
                 <EditText
                     android:id="@+id/demobilizedPoblation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:background="@drawable/dr_white_input_text"
                     android:inputType="number"
                     android:textColor="@color/black" />
@@ -562,24 +563,24 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/poblaci_n_mestiza"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_15sdp" />
 
                 <EditText
                     android:id="@+id/mongrelPoblation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:background="@drawable/dr_white_input_text"
                     android:inputType="number"
                     android:textColor="@color/black" />
@@ -588,24 +589,24 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/extranjero_a"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_15sdp" />
 
                 <EditText
                     android:id="@+id/foreignPoblation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:background="@drawable/dr_white_input_text"
                     android:inputType="number"
                     android:textColor="@color/black" />
@@ -614,24 +615,24 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/campesino_a"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_15sdp" />
 
                 <EditText
                     android:id="@+id/peasantPoblation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:background="@drawable/dr_white_input_text"
                     android:inputType="number"
                     android:textColor="@color/black" />
@@ -640,24 +641,24 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="@dimen/_227sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="Otros"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_15sdp" />
 
                 <EditText
                     android:id="@+id/otherPoblation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:background="@drawable/dr_white_input_text"
                     android:inputType="number"
                     android:textColor="@color/black" />
@@ -669,11 +670,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
-                android:textSize="20sp"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:textSize="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_40sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
                 android:background="@drawable/dr_green_button"
                 android:text="@string/agregar_formulario"
                 />
@@ -683,7 +684,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout8"
-        android:layout_width="411dp"
+        android:layout_width="wrap_content"
         android:layout_height="122dp"
         android:background="@drawable/dr_shadow_top"
         android:orientation="horizontal"
@@ -694,14 +695,15 @@
 
         <Button
             android:id="@+id/ludification"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="20dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
@@ -709,14 +711,16 @@
 
         <Button
             android:id="@+id/gardens"
-            android:layout_width="77dp"
+            android:layout_width="@dimen/_79sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
             android:padding="10dp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
             android:textAllCaps="false"
@@ -724,14 +728,16 @@
 
         <Button
             android:id="@+id/myGardens"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_107sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
             android:padding="10dp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Gardens"
             android:textAllCaps="false"
@@ -739,15 +745,16 @@
 
         <Button
             android:id="@+id/profile"
-            android:layout_width="78dp"
+            android:layout_width="@dimen/_60sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
             android:padding="5dp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"
             android:textAllCaps="false"

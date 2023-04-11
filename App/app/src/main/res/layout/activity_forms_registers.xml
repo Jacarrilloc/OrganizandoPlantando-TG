@@ -9,9 +9,9 @@
 
     <LinearLayout
         android:id="@+id/linearLayout10"
-        android:layout_width="412dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="@dimen/_332sdp"
+        android:layout_height="@dimen/_66sdp"
+        android:layout_marginTop="@dimen/_32sdp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -22,7 +22,7 @@
             android:id="@+id/returnArrowButtonFormsToGarden"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="@dimen/_20sdp"
             android:layout_gravity="center"
             android:clickable="true"
             android:contentDescription="@string/boton_para_regresar"
@@ -41,8 +41,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:textSize="20sp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:textSize="@dimen/_20sdp"
             android:textColor="@color/black"/>
 
     </LinearLayout>
@@ -51,7 +51,7 @@
         android:id="@+id/imageView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/_16sdp"
         android:background="@drawable/im_gray_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -60,10 +60,10 @@
 
     <ListView
         android:id="@+id/ListViewRegisters"
-        android:layout_width="371dp"
-        android:layout_height="584dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="@dimen/_311sdp"
+        android:layout_height="@dimen/_384sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

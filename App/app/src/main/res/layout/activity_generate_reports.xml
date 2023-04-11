@@ -8,8 +8,8 @@
     android:background="@color/green">
 
     <LinearLayout
-        android:layout_width="411dp"
-        android:layout_height="679dp"
+        android:layout_width="@dimen/_320sdp"
+        android:layout_height="@dimen/_500sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -18,21 +18,20 @@
         android:orientation="vertical">
 
         <View
-            android:layout_width="270dp"
-            android:layout_height="132dp"
+            android:layout_width="@dimen/_260sdp"
+            android:layout_height="@dimen/_132sdp"
             android:background="@drawable/im_logo_ceres"
             android:layout_gravity="center"/>
 
         <TextView
             android:id="@+id/generateReport"
-            android:layout_width="258dp"
-            android:layout_height="73dp"
+            android:layout_width="@dimen/_259sdp"
+            android:layout_height="@dimen/_50sdp"
             android:layout_gravity="center"
             android:text="@string/Report"
             android:textAlignment="center"
-            android:textFontWeight="900"
             android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textSize="@dimen/_30sdp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,15 +40,15 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:layout_gravity="center"
-            android:textSize="20dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginBottom="150dp"/>
+            android:textSize="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_60sdp"/>
 
         <Button
             android:id="@+id/generateReportButton"
-            android:layout_width="240dp"
-            android:layout_height="38dp"
-            android:textSize="18sp"
+            android:layout_width="@dimen/_240sdp"
+            android:layout_height="@dimen/_38sdp"
+            android:textSize="@dimen/_18sdp"
             android:layout_gravity="center"
             android:background="@drawable/dr_white_button"
             android:text="@string/Report"
@@ -58,11 +57,11 @@
 
         <Button
             android:id="@+id/cancelReport"
-            android:layout_width="240dp"
-            android:layout_height="38dp"
-            android:textSize="18sp"
+            android:layout_width="@dimen/_240sdp"
+            android:layout_height="@dimen/_38sdp"
+            android:textSize="@dimen/_18sdp"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:background="@drawable/dr_white_button"
             android:backgroundTint="@color/red"
             android:text="@string/cancel"
