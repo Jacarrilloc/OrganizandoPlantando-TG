@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
     tools:context=".auth.RegisterProfileActivity"
     android:background="@color/white">
 
     <ImageView
         android:id="@+id/logoDecoration"
-        android:layout_width="532dp"
-        android:layout_height="457dp"
+        android:layout_width="@dimen/_532sdp"
+        android:layout_height="@dimen/_457sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.371"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,12 +33,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_margin="30sp"
+            android:layout_margin="@dimen/_30sdp"
             android:autoSizeTextType="uniform"
             android:gravity="center"
             android:text="Registrarse"
             android:textColor="@color/black"
-            android:textSize="25sp" />
+            android:textSize="@dimen/_25sdp" />
 
     </LinearLayout>
 
@@ -65,7 +66,7 @@
                 android:id="@+id/imputNameRegisterActivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10sp"
+                android:layout_margin="@dimen/_10sdp"
                 android:background="@drawable/dr_white_input_text"
                 android:ems="10"
                 android:hint="@string/nombre1"
@@ -78,7 +79,7 @@
                 android:id="@+id/imputLastNameRegisterActivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10sp"
+                android:layout_margin="@dimen/_10sdp"
                 android:background="@drawable/dr_white_input_text"
                 android:ems="10"
                 android:hint="@string/apellido"
@@ -91,14 +92,14 @@
                 android:id="@+id/spinnerGenderRegisterActivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10sp"
+                android:layout_margin="@dimen/_10sdp"
                 android:background="@drawable/dr_white_input_text"/>
 
             <EditText
                 android:id="@+id/imputEmailRegisterActivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10sp"
+                android:layout_margin="@dimen/_10sdp"
                 android:background="@drawable/dr_white_input_text"
                 android:ems="10"
                 android:hint="@string/correo_electronico1"
@@ -111,7 +112,7 @@
                 android:id="@+id/imputPasswordRegisterActivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10sp"
+                android:layout_margin="@dimen/_10sdp"
                 android:background="@drawable/dr_white_input_text"
                 android:ems="10"
                 android:hint="@string/contrase_ia"
@@ -124,7 +125,7 @@
                 android:id="@+id/imputConfirmPaswordRegisterActivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10sp"
+                android:layout_margin="@dimen/_10sdp"
                 android:background="@drawable/dr_white_input_text"
                 android:ems="10"
                 android:hint="@string/repetir_contrase_a"
@@ -143,7 +144,7 @@
                     android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5sp"
+                    android:layout_margin="@dimen/_5sdp"
                     android:layout_weight="1"
                     android:text="He leido los"
                     android:textColor="@color/black"/>
@@ -152,7 +153,7 @@
                     android:id="@+id/terms_condition_buttom_registerProfileActivity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5sp"
+                    android:layout_margin="@dimen/_5sdp"
                     android:layout_weight="1"
                     android:background="@null"
                     android:text="Terminos y Condiciones"
@@ -163,7 +164,7 @@
                     android:id="@+id/okSignalTermsRegisterActivity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5sp"
+                    android:layout_margin="@dimen/_5sdp"
                     android:layout_weight="1"
                     android:buttonTint="@color/lightgray" />
             </LinearLayout>
@@ -173,11 +174,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="20sp"
+                android:layout_margin="@dimen/_20sdp"
                 android:background="@drawable/dr_green_button"
                 android:backgroundTint="@null"
                 android:textAllCaps="false"
-                android:textSize="20sp"
+                android:textSize="@dimen/_20sdp"
                 android:gravity="center"
                 android:text="@string/crear_cuenta"/>
 

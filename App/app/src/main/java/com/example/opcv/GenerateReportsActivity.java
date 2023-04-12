@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -30,7 +31,9 @@ import android.print.PrintAttributes;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -290,7 +293,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                         collection3 = new HashMap<>();
                                         String name = document.getString("eventName");
                                         String lgbt = document.getString("lgtbiNumber");
-                                        String dateEvent = document.getString("date");
+                                        String dateEvent = document.getString("Date");
                                         String adults = document.getString("adultNumber");
                                         String afros = document.getString("afroNumber");
                                         String childs = document.getString("childhoodNumber");
@@ -946,7 +949,29 @@ public class GenerateReportsActivity extends AppCompatActivity {
 
 
         }
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        final Configuration override = new Configuration(newBase.getResources().getConfiguration());
+        override.fontScale = 1.0f;
+        applyOverrideConfiguration(override);
+        super.attachBaseContext(newBase);
+    }
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Configuration config = new Configuration(newConfig);
+        adjustFontScale(getApplicationContext(), config);
+    }
+    public static void adjustFontScale(Context context, Configuration configuration) {
+        if (configuration.fontScale != 1) {
+            configuration.fontScale = 1;
+            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            wm.getDefaultDisplay().getMetrics(metrics);
+            metrics.scaledDensity = configuration.fontScale * metrics.density;
+            context.getResources().updateConfiguration(configuration, metrics);
+        }
+    }
 
 
 }

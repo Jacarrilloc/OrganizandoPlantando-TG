@@ -6,9 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -293,34 +297,39 @@ public class Form_RE extends AppCompatActivity {
     }
 
     private void showInfo(String idGarden, String idCollection, String status) {
+
         CollectionReference ref = database.collection("Gardens").document(idGarden).collection("Forms");
 
         ref.document(idCollection).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                date.setText(Objects.requireNonNull(task.getResult().get("date")).toString());
-                eventName.setText(Objects.requireNonNull(task.getResult().get("eventName")).toString());
-                totalPerson.setText(Objects.requireNonNull(task.getResult().get("totalPerson")).toString());
-                femaleNumber.setText(Objects.requireNonNull(task.getResult().get("womenNumber")).toString());
-                maleNumber.setText(Objects.requireNonNull(task.getResult().get("menNumber")).toString());
-                noSpcNumber.setText(Objects.requireNonNull(task.getResult().get("noSpcNumber")).toString());
-                infantNumber.setText(Objects.requireNonNull(task.getResult().get("infantNumber")).toString());
-                chilhoodNumber.setText(Objects.requireNonNull(task.getResult().get("childhoodNumber")).toString());
-                teenNumber.setText(Objects.requireNonNull(task.getResult().get("teenNumber")).toString());
-                youthNumber.setText(Objects.requireNonNull(task.getResult().get("youthNumber")).toString());
-                adultNumber.setText(Objects.requireNonNull(task.getResult().get("adultNumber")).toString());
-                elderlyNumber.setText(Objects.requireNonNull(task.getResult().get("elderlyNumber")).toString());
-                afroNumber.setText(Objects.requireNonNull(task.getResult().get("afroNumber")).toString());
-                nativeNumber.setText(Objects.requireNonNull(task.getResult().get("nativeNumber")).toString());
-                lgtbiNumber.setText(Objects.requireNonNull(task.getResult().get("lgtbiNumber")).toString());
-                romNumber.setText(Objects.requireNonNull(task.getResult().get("romNumber")).toString());
-                victimNumber.setText(Objects.requireNonNull(task.getResult().get("victimNumber")).toString());
-                disabilityNumber.setText(Objects.requireNonNull(task.getResult().get("disabilityNumber")).toString());
-                desmobilizedNumber.setText(Objects.requireNonNull(task.getResult().get("demobilizedNumber")).toString());
-                mongrelNumber.setText(Objects.requireNonNull(task.getResult().get("mongrelNumber")).toString());
-                foreignNumber.setText(Objects.requireNonNull(task.getResult().get("foreignNumber")).toString());
-                peasantNumber.setText(Objects.requireNonNull(task.getResult().get("peasantNumber")).toString());
-                otherNumber.setText(Objects.requireNonNull(task.getResult().get("otherNumber")).toString());
+                try {
+                    date.setText(Objects.requireNonNull(task.getResult().get("date")).toString());
+                    eventName.setText(Objects.requireNonNull(task.getResult().get("eventName")).toString());
+                    totalPerson.setText(Objects.requireNonNull(task.getResult().get("totalPerson")).toString());
+                    femaleNumber.setText(Objects.requireNonNull(task.getResult().get("womenNumber")).toString());
+                    maleNumber.setText(Objects.requireNonNull(task.getResult().get("menNumber")).toString());
+                    noSpcNumber.setText(Objects.requireNonNull(task.getResult().get("noSpcNumber")).toString());
+                    infantNumber.setText(Objects.requireNonNull(task.getResult().get("infantNumber")).toString());
+                    chilhoodNumber.setText(Objects.requireNonNull(task.getResult().get("childhoodNumber")).toString());
+                    teenNumber.setText(Objects.requireNonNull(task.getResult().get("teenNumber")).toString());
+                    youthNumber.setText(Objects.requireNonNull(task.getResult().get("youthNumber")).toString());
+                    adultNumber.setText(Objects.requireNonNull(task.getResult().get("adultNumber")).toString());
+                    elderlyNumber.setText(Objects.requireNonNull(task.getResult().get("elderlyNumber")).toString());
+                    afroNumber.setText(Objects.requireNonNull(task.getResult().get("afroNumber")).toString());
+                    nativeNumber.setText(Objects.requireNonNull(task.getResult().get("nativeNumber")).toString());
+                    lgtbiNumber.setText(Objects.requireNonNull(task.getResult().get("lgtbiNumber")).toString());
+                    romNumber.setText(Objects.requireNonNull(task.getResult().get("romNumber")).toString());
+                    victimNumber.setText(Objects.requireNonNull(task.getResult().get("victimNumber")).toString());
+                    disabilityNumber.setText(Objects.requireNonNull(task.getResult().get("disabilityNumber")).toString());
+                    desmobilizedNumber.setText(Objects.requireNonNull(task.getResult().get("demobilizedNumber")).toString());
+                    mongrelNumber.setText(Objects.requireNonNull(task.getResult().get("mongrelNumber")).toString());
+                    foreignNumber.setText(Objects.requireNonNull(task.getResult().get("foreignNumber")).toString());
+                    peasantNumber.setText(Objects.requireNonNull(task.getResult().get("peasantNumber")).toString());
+                    otherNumber.setText(Objects.requireNonNull(task.getResult().get("otherNumber")).toString());
+                }catch (Exception e){
+                    Toast.makeText(Form_RE.this, "Ocurrió un error al cargar los datos", Toast.LENGTH_LONG).show();
+                }
             }
         });
         addFormButtom.setOnClickListener(new View.OnClickListener() {
@@ -356,6 +365,28 @@ public class Form_RE extends AppCompatActivity {
         });
     }
 
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        final Configuration override = new Configuration(newBase.getResources().getConfiguration());
+        override.fontScale = 1.0f;
+        applyOverrideConfiguration(override);
+        super.attachBaseContext(newBase);
+    }
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Configuration config = new Configuration(newConfig);
+        adjustFontScale(getApplicationContext(), config);
+    }
+    public static void adjustFontScale(Context context, Configuration configuration) {
+        if (configuration.fontScale != 1) {
+            configuration.fontScale = 1;
+            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            wm.getDefaultDisplay().getMetrics(metrics);
+            metrics.scaledDensity = configuration.fontScale * metrics.density;
+            context.getResources().updateConfiguration(configuration, metrics);
+        }
+    }
 
 }

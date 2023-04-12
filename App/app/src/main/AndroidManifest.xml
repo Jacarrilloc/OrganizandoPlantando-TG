@@ -138,7 +138,8 @@
             android:exported="false" />
         <activity
             android:name=".auth.EditUserActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".GenerateReportsActivity"
             android:exported="false" />

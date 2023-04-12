@@ -4,162 +4,175 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
     tools:context=".gardens.CreateGardenActivity"
     android:background="@color/white">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="382dp"
-        android:layout_height="563dp"
-        android:layout_marginTop="28dp"
-        android:orientation="vertical"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:layout_weight="194"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="183dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:autoSizeTextType="uniform"
-            android:text="@string/createGarden"
-            android:textColor="@color/black"
-            android:textFontWeight="700"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="293dp" />
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="192dp">
-
-            <ImageView
-                android:id="@+id/imageGardenCreate"
-                android:layout_width="288dp"
-                android:layout_height="146dp"
-                android:layout_gravity="center"
-                android:background="#CCD99C"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.496"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/SelectImageCreateGarden"
-                android:layout_width="46dp"
-                android:layout_height="48dp"
-                android:background="@drawable/im_add_image"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.866"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.888" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="@string/questionGardenName"
-            android:textColor="@color/black" />
-
-        <EditText
-            android:id="@+id/gardenName"
-            android:layout_width="335dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:maxLines="1"
-            android:background="@drawable/dr_gray_input_text"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/gardenInfo"
-            android:textColor="@color/black" />
-
-        <EditText
-            android:id="@+id/gardenInfo"
-            android:layout_width="336dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/dr_gray_input_text"
-            android:maxLines="3"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/gardenType"
-
-            android:textColor="@color/black" />
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
+            android:id="@+id/linearLayout2"
+            android:layout_width="@dimen/_305sdp"
+            android:layout_height="@dimen/_403sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <Switch
-                android:id="@+id/switchGardenType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:thumbTint="@color/green"
-                android:trackTint="@color/gray"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:text="Publica"/>
+            app:layout_constraintHorizontal_bias="0.482"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/textView14"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
+                android:layout_width="183dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Privada"
-                android:textColor="@color/black"/>
+                android:layout_marginStart="20dp"
+                android:autoSizeTextType="uniform"
+                android:text="@string/createGarden"
+                android:textColor="@color/black"
+                android:textFontWeight="700"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="293dp" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_192sdp">
+
+                <ImageView
+                    android:id="@+id/imageGardenCreate"
+                    android:layout_width="@dimen/_288sdp"
+                    android:layout_height="@dimen/_146sdp"
+                    android:layout_gravity="center"
+                    android:background="#CCD99C"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.496"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/SelectImageCreateGarden"
+                    android:layout_width="@dimen/_46sdp"
+                    android:layout_height="@dimen/_48sdp"
+                    android:background="@drawable/im_add_image"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.866"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.888" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:text="@string/questionGardenName"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/gardenName"
+                android:layout_width="@dimen/_291sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/dr_gray_input_text"
+                android:maxLines="1"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="10dp"
+                android:text="@string/gardenInfo"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/gardenInfo"
+                android:layout_width="@dimen/_291sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/dr_gray_input_text"
+                android:maxLines="3"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="10dp"
+                android:text="@string/gardenType"
+
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <Switch
+                    android:id="@+id/switchGardenType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Publica"
+                    android:textColor="@color/black"
+                    android:thumbTint="@color/green"
+                    android:trackTint="@color/gray" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Privada"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/add_garden_button"
+                android:layout_width="167dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/dr_green_button"
+                android:text="@string/add"
+                android:textAllCaps="false" />
+
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/add_garden_button"
-            android:layout_width="167dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/dr_green_button"
-            android:text="@string/add"
-            android:textAllCaps="false" />
-
-
-    </LinearLayout>
+    </ScrollView>
 
 
     <LinearLayout
         android:id="@+id/linearLayout8"
-        android:layout_width="411dp"
+        android:layout_width="wrap_content"
         android:layout_height="122dp"
         android:background="@drawable/dr_shadow_top"
         android:orientation="horizontal"
@@ -170,14 +183,15 @@
 
         <Button
             android:id="@+id/ludification"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="20dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
@@ -185,14 +199,16 @@
 
         <Button
             android:id="@+id/gardens"
-            android:layout_width="77dp"
+            android:layout_width="@dimen/_79sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
             android:padding="10dp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
             android:textAllCaps="false"
@@ -200,14 +216,16 @@
 
         <Button
             android:id="@+id/myGardens"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_107sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
             android:padding="10dp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Gardens"
             android:textAllCaps="false"
@@ -215,15 +233,16 @@
 
         <Button
             android:id="@+id/profile"
-            android:layout_width="78dp"
+            android:layout_width="@dimen/_60sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
             android:padding="5dp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"
             android:textAllCaps="false"
