@@ -3,90 +3,107 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
-    android:focusableInTouchMode="true"
-    tools:context=".RegisterForms"
-    android:background="@color/white">
+    tools:context=".ludification.ShowDictionaryActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout10"
-        android:layout_width="@dimen/_332sdp"
-        android:layout_height="@dimen/_66sdp"
-        android:layout_marginTop="@dimen/_32sdp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/returnArrowButtonFormsToGarden"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_gravity="center"
-            android:clickable="true"
-            android:contentDescription="@string/boton_para_regresar"
-            android:tint="#F8F5F5"
-            app:backgroundTint="#91BF63"
-            app:layout_constraintBottom_toBottomOf="@+id/gardenProfilePicture"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.045"
-            app:layout_constraintStart_toStartOf="@+id/gardenProfilePicture"
-            app:layout_constraintTop_toTopOf="@+id/gardenProfilePicture"
-            app:layout_constraintVertical_bias="0.064"
-            app:srcCompat="@drawable/dr_return_arrow" />
-
-        <TextView
-            android:id="@+id/formsTittle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="text"
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:textSize="@dimen/_20sdp"
-            android:textColor="@color/black"/>
-
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:background="@drawable/im_gray_line"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout10" />
-
-    <ListView
-        android:id="@+id/forms"
-        android:layout_width="@dimen/_306sdp"
-        android:layout_height="@dimen/_250sdp"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:layout_marginBottom="@dimen/_16sdp"
+    <TextView
+        android:id="@+id/name"
+        android:text="@string/diccionario"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="35sp"
+        android:layout_width="@dimen/_300sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_1sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintHorizontal_bias="0.255"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.035"/>
 
-
-    <Button
-        android:id="@+id/addForm"
-        android:layout_width="@dimen/_190sdp"
-        android:layout_height="@dimen/_33sdp"
-        android:background="@drawable/dr_green_button"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/im_cirles_menu"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_1sdp"
+        android:layout_marginBottom="@dimen/_105sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forms"
-        app:layout_constraintVertical_bias="1.0"
-        android:text="@string/AddForm"
-        android:textAllCaps="false"/>
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:layout_constraintVertical_bias="0.01"/>
+
+    <EditText
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/dr_white_input_text"
+        android:ems="10"
+        android:hint="Buscar"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        android:layout_marginLeft="@dimen/_30sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_1sdp"
+        android:layout_marginBottom="@dimen/_105sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.05"/>
+
+    <ListView
+        android:id="@+id/plantsList"
+        android:layout_width="@dimen/_315sdp"
+        android:layout_height="@dimen/_410sdp"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:layout_marginBottom="@dimen/_105sdp"
+        app:layout_constraintTop_toBottomOf="@+id/search_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.235"
+        app:layout_constraintBottom_toBottomOf="parent">
+    </ListView>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/_100sdp"
+        android:layout_marginEnd="@dimen/_18sdp"
+        >
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addButton"
+            android:layout_width="@dimen/_85sdp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5sp"
+            android:backgroundTint="#91BF63"
+            android:clickable="true"
+            android:contentDescription="Añadir"
+            android:focusable="true"
+            android:foregroundTint="@color/green"
+            android:foregroundTintMode="multiply"
+            android:tint="@color/white"
+            android:tintMode="multiply"
+            app:backgroundTintMode="src_in"
+            app:maxImageSize="@dimen/_30sdp"
+            app:rippleColor="@color/white"
+            app:srcCompat="@drawable/dr_add_button" />
+
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout8"
@@ -168,5 +185,7 @@
 
 
     </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

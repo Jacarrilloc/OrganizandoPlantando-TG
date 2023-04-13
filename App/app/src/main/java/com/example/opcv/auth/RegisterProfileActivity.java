@@ -66,7 +66,7 @@ public class RegisterProfileActivity extends AppCompatActivity {
         genders.add("Mujer");
         genders.add("Otro");
 
-        SpinnerAdapter adatperSpinner = new SpinnerAdapter(this, android.R.layout.simple_spinner_item,genders,textColor);
+        SpinnerAdapter adatperSpinner = new SpinnerAdapter(this, R.layout.item_spinner_adapter,genders,textColor);
         spinnerGender.setAdapter(adatperSpinner);
         /*ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(this,R.array.gendersElements, android.R.layout.simple_spinner_item);
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

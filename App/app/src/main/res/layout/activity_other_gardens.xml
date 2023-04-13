@@ -144,7 +144,7 @@
     <LinearLayout
         android:id="@+id/linearLayout8"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_122sdp"
+        android:layout_height="@dimen/_99sdp"
         android:background="@drawable/dr_shadow_top"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"

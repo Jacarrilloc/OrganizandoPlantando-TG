@@ -18,4 +18,11 @@
     <color name="red">#CB3234</color>
     <color name="GreenBackgroung">#91BF63</color>
     <color name="DarkGreen">#315012</color>
+    <color name="lightgray2">#F0F3F6</color>
+    <color name="graylight3">#CED4DA</color>
+    <color name="blueblue">#17A2B8</color>
+    <color name="yellow">#FFFED2</color>
+    <color name="lightOrange">#FDC4B6</color>
+    <color name="lightGreen2">#EEFAEB</color>
+    <color name="lightPurple">#E9D6ED</color>
 </resources>

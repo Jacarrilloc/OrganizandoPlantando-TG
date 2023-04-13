@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="@color/black"
+            android:gravity="center"
             android:textSize="@dimen/_25sdp"
             android:autoSizeTextType="uniform"
             android:text="@string/bienvenido_a_de_nuevo" />
