@@ -37,6 +37,7 @@ import com.example.opcv.gardens.GardensAvailableActivity;
 import com.example.opcv.info.User;
 import com.example.opcv.item_list.ItemGardenHomeList;
 import com.example.opcv.localDatabase.DatabaseHelper;
+import com.example.opcv.ludification.DictionaryHome;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -53,7 +54,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
-    private Button otherGardensButton, profile, myGardens, collaboration;
+    private Button otherGardensButton, profile, myGardens, collaboration, ludification;
     private ImageButton generateReport;
     private ListView listAviableGardensInfo;
     private FloatingActionButton nextArrow, addButton;
@@ -146,6 +147,7 @@ public class HomeActivity extends AppCompatActivity {
         myGardens = (Button) findViewById(R.id.myGardens);
         gardensMap = (Button) findViewById(R.id.gardens);
         generateReport = (ImageButton) findViewById(R.id.generalReport);
+        ludification = (Button) findViewById(R.id.ludification);
 
         userId = getIntent().getStringExtra("userID");
         DatabaseHelper dbHelper = new DatabaseHelper(this);
@@ -190,6 +192,13 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomeActivity.this, GardensAvailableActivity.class));
+            }
+        });
+
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, DictionaryHome.class));
             }
         });
 

@@ -168,4 +168,26 @@
     <string name="finalizar_registro">Finalizar Registro</string>
     <string name="c_mara">Cámara</string>
     <string name="seleccionar_foto">Seleccionar Foto</string>
+    <string name="dicccionarios">Diccionarios</string>
+    <string name="plantas">Plantas</string>
+    <string name="herramientas">Herramientas</string>
+    <string name="plantas2">Plantas</string>
+    <string name="diccionario">Diccionario</string>
+    <string name="nombre5">Nombre</string>
+    <string name="description23">Description</string>
+    <string name="carater_sticas">Caraterísticas:</string>
+    <string name="dar_flor">Dar flor</string>
+    <string name="da_fruto">Da fruto</string>
+    <string name="comestible">Comestible</string>
+    <string name="medicinal">Medicinal</string>
+    <string name="precausi_n">Precausión</string>
+    <string name="descripci_n_">Descripción:</string>
+    <string name="agregar_planta">Agregar Planta</string>
+    <string name="mascota_amigable">Mascota amigable</string>
+    <string name="agregar_elemento">Agregar Elemento</string>
+    <string name="cuidado">Cuidado</string>
+    <string name="fertilizante">Fertilizante</string>
+    <string name="herramienta">Herramienta</string>
+    <string name="tool">tool</string>
+    <string name="plant">plant</string>
 </resources>

@@ -88,7 +88,6 @@ public class GardenMembersActivity extends AppCompatActivity {
     }
 
     private void fillGardenMembers(){
-        //DocumentReference gardenRef = database.collection("Gardens").document(idGarden);
         CollectionReference collaboratorsRef = database.collection("Gardens").document(idGarden).collection("Collaborators");
         System.out.println("xd: "+collaboratorsRef);
 

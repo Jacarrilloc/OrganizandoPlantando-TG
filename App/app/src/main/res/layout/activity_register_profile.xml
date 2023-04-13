@@ -90,10 +90,15 @@
 
             <Spinner
                 android:id="@+id/spinnerGenderRegisterActivity"
-                android:layout_width="match_parent"
+                android:layout_margin="@dimen/_15sdp"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@drawable/dr_white_input_text"/>
+                android:textColor="@color/black"
+                android:spinnerMode="dropdown"
+                android:backgroundTint="@color/black"
+                android:overlapAnchor="false"
+                android:textAlignment="inherit"
+                android:textStyle="bold"/>
 
             <EditText
                 android:id="@+id/imputEmailRegisterActivity"
@@ -166,7 +171,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_5sdp"
                     android:layout_weight="1"
-                    android:buttonTint="@color/lightgray" />
+                    android:buttonTint="@drawable/dr_checkbox_select"/>
             </LinearLayout>
 
             <Button
