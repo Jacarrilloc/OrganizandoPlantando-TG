@@ -27,6 +27,10 @@
         android:gravity="center"
         android:text="@string/tool"
         android:textColor="@color/black"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingRight="@dimen/_8sdp"
+        android:paddingLeft="@dimen/_8sdp"
         android:textSize="@dimen/_14sdp" />
 
 </androidx.cardview.widget.CardView>
