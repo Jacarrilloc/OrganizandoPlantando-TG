@@ -190,4 +190,6 @@
     <string name="herramienta">Herramienta</string>
     <string name="tool">tool</string>
     <string name="plant">plant</string>
+    <string name="level">level #</string>
+    <string name="anlevel">level</string>
 </resources>
