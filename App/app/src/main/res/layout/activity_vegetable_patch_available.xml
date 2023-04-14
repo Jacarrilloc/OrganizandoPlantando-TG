@@ -1,87 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gardens.GardensAvailableActivity"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".gardens.GardensAvailableActivity">
 
-    <ImageView
-        android:id="@+id/backImage"
-        android:layout_width="@dimen/_352sdp"
-        android:layout_height="@dimen/_600sdp"
-        android:layout_marginTop="@dimen/_72sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/im_cloud_bck" />
-
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="@dimen/_362sdp"
-        android:layout_height="@dimen/_84sdp"
-        android:layout_marginTop="@dimen/_1sdp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.255"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.035">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="@dimen/_183sdp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/_30sdp"
-            android:autoSizeTextType="uniform"
-            android:text="@string/GardenAvTittle"
-            android:textColor="@color/black"
-            android:textFontWeight="700"
-            android:textSize="@dimen/_20sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="@dimen/_293sdp" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9">
 
         <ImageView
-            android:id="@+id/mapIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginBottom="@dimen/_20sdp"
-            app:srcCompat="@drawable/im_map_icon" />
+            android:id="@+id/backImage"
+            android:layout_width="@dimen/_352sdp"
+            android:layout_height="@dimen/_600sdp"
+            android:layout_marginTop="@dimen/_72sdp"
+            app:srcCompat="@drawable/im_cloud_bck" />
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="@dimen/_362sdp"
+            android:layout_height="@dimen/_84sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:orientation="horizontal">
 
-    <ListView
-        android:id="@+id/gardenList"
-        android:layout_width="@dimen/_315sdp"
-        android:layout_height="@dimen/_430sdp"
-        android:orientation="vertical"
-        android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:layout_marginBottom="@dimen/_105sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.235">
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="@dimen/_183sdp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/_30sdp"
+                android:autoSizeTextType="uniform"
+                android:text="@string/GardenAvTittle"
+                android:textColor="@color/black"
+                android:textFontWeight="700"
+                android:textSize="@dimen/_20sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="@dimen/_293sdp" />
 
-    </ListView>
+            <ImageView
+                android:id="@+id/mapIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:padding="@dimen/_20sdp"
+                app:srcCompat="@drawable/im_map_icon" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/gardenList"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_430sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_90sdp"
+            android:layout_marginRight="@dimen/_5sdp">
+
+        </ListView>
+
+    </FrameLayout>
+
 
     <LinearLayout
         android:id="@+id/linearLayout8"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_99sdp"
+        android:layout_height="@dimen/_122sdp"
         android:background="@drawable/dr_shadow_top"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/ludification"
@@ -89,15 +78,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginBottom="7dp"
+            android:layout_weight="1"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
-            android:layout_weight="1"
-            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="@color/grayLetters"
+            android:textSize="@dimen/_13sdp" />
 
         <Button
             android:id="@+id/gardens"
@@ -106,15 +95,15 @@
             android:layout_gravity="bottom"
             android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
+            android:layout_weight="1"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
             android:padding="10dp"
-            android:layout_weight="1"
-            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="@color/grayLetters"
+            android:textSize="@dimen/_13sdp" />
 
         <Button
             android:id="@+id/myGardens"
@@ -123,15 +112,15 @@
             android:layout_gravity="bottom"
             android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
+            android:layout_weight="1"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
             android:padding="10dp"
-            android:layout_weight="1"
-            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Gardens"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="@color/grayLetters"
+            android:textSize="@dimen/_13sdp" />
 
         <Button
             android:id="@+id/profile"
@@ -140,18 +129,18 @@
             android:layout_gravity="bottom"
             android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
+            android:layout_weight="1"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
             android:padding="5dp"
-            android:layout_weight="1"
-            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="@color/grayLetters"
+            android:textSize="@dimen/_13sdp" />
 
 
     </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

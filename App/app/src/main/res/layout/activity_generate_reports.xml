@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GenerateReportsActivity"
-    android:background="@color/green">
+    android:background="@color/green"
+    android:orientation="vertical"
+    tools:context=".GenerateReportsActivity">
 
     <LinearLayout
         android:layout_width="@dimen/_320sdp"
         android:layout_height="@dimen/_500sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:orientation="vertical">
 
         <View
             android:layout_width="@dimen/_260sdp"
             android:layout_height="@dimen/_132sdp"
-            android:background="@drawable/im_logo_ceres"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:background="@drawable/im_logo_ceres" />
 
         <TextView
             android:id="@+id/generateReport"
@@ -36,40 +32,38 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_60sdp"
             android:text="@string/questionReport"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:layout_gravity="center"
-            android:textSize="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_60sdp"/>
+            android:textSize="@dimen/_20sdp" />
 
         <Button
             android:id="@+id/generateReportButton"
             android:layout_width="@dimen/_240sdp"
             android:layout_height="@dimen/_38sdp"
-            android:textSize="@dimen/_18sdp"
             android:layout_gravity="center"
             android:background="@drawable/dr_white_button"
             android:text="@string/Report"
             android:textAllCaps="false"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="@dimen/_18sdp" />
 
         <Button
             android:id="@+id/cancelReport"
             android:layout_width="@dimen/_240sdp"
             android:layout_height="@dimen/_38sdp"
-            android:textSize="@dimen/_18sdp"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_20sdp"
             android:background="@drawable/dr_white_button"
             android:backgroundTint="@color/red"
             android:text="@string/cancel"
-            android:textAllCaps="false" />
-
-
+            android:textAllCaps="false"
+            android:textSize="@dimen/_18sdp" />
 
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
