@@ -1,215 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
     tools:context=".ludification.CreateToolActivity">
 
-    <TextView
-        android:id="@+id/name"
-        android:text="@string/agregar_elemento"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="35sp"
-        android:layout_width="@dimen/_300sdp"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_marginTop="@dimen/_1sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.255"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.035"/>
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/im_cirles_menu"
-        android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_1sdp"
-        android:layout_marginBottom="@dimen/_105sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name"
-        app:layout_constraintVertical_bias="0.01"/>
-
-    <ImageView
-        android:id="@+id/addImage"
-        android:layout_width="132dp"
-        android:layout_height="126dp"
-        android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_1sdp"
-        android:layout_marginRight="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_105sdp"
-        android:background="@drawable/im_image_s"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.01" />
-
-    <EditText
-        android:id="@+id/nameTool"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:hint="@string/nombre1"
-        android:backgroundTint="@color/black"
-        android:textColorHint="@color/gray"
-        android:textSize="@dimen/_20sdp"
-        android:layout_marginStart="@dimen/_58sdp"
-        android:layout_marginEnd="@dimen/_58sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addImage"
-        />
-
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/carater_sticas"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_14sdp"
-        android:layout_marginStart="@dimen/_18sdp"
-        android:layout_marginEnd="@dimen/_18sdp"
-        android:layout_marginTop="@dimen/_12sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameTool"
-        />
-
-    <GridLayout
-        android:id="@+id/gridLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:rowCount="2"
-        android:layout_marginStart="@dimen/_38sdp"
-        android:layout_marginEnd="@dimen/_38sdp"
-        android:layout_marginTop="@dimen/_6sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text">
-
-        <CheckBox
-            android:id="@+id/toolOption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_marginEnd="@dimen/_36sdp"
-            android:buttonTint="@drawable/dr_checkbox_select"
-            android:text="@string/herramienta" />
-
-        <CheckBox
-            android:id="@+id/careOption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:buttonTint="@drawable/dr_checkbox_select"
-            android:text="@string/cuidado" />
-
-        <CheckBox
-            android:id="@+id/fertilizerOption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:buttonTint="@drawable/dr_checkbox_select"
-            android:text="@string/fertilizante" />
-
-
-
-    </GridLayout>
-
-    <TextView
-        android:id="@+id/descriptiontext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/descripci_n_"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_14sdp"
-        android:layout_marginStart="@dimen/_18sdp"
-        android:layout_marginEnd="@dimen/_18sdp"
-        android:layout_marginTop="@dimen/_12sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayout"
-        />
-
-
-    <EditText
-        android:id="@+id/description"
-        android:layout_width="match_parent"
-        android:layout_height="89dp"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:layout_marginBottom="@dimen/_12sdp"
-        android:background="@drawable/dr_white_input_text"
-        android:ems="10"
-        android:inputType="text"
-        android:textColor="@color/black"
-        android:textColorHint="@color/editTextBackground"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.222"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptiontext"
-        app:layout_constraintVertical_bias="0.10" />
-
     <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="@dimen/_90sdp"
-        android:layout_marginEnd="@dimen/_18sdp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addButton"
-            android:layout_width="@dimen/_85sdp"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/agregar_elemento"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="35sp" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_100sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/im_cirles_menu" />
+
+                <ImageView
+                    android:id="@+id/addImage"
+                    android:layout_width="132dp"
+                    android:layout_height="126dp"
+                    android:layout_marginStart="@dimen/_80sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/im_image_s" />
+
+                <EditText
+                    android:id="@+id/nameTool"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_38sdp"
+                    android:layout_marginEnd="@dimen/_58sdp"
+                    android:backgroundTint="@color/black"
+                    android:hint="@string/nombre1"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray"
+                    android:textSize="@dimen/_20sdp" />
+
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_18sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_18sdp"
+                    android:text="@string/carater_sticas"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />
+
+                <GridLayout
+                    android:id="@+id/gridLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_38sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_38sdp"
+                    android:columnCount="2"
+                    android:rowCount="2">
+
+                    <CheckBox
+                        android:id="@+id/toolOption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_36sdp"
+                        android:buttonTint="@drawable/dr_checkbox_select"
+                        android:text="@string/herramienta"
+                        android:textColor="@color/black" />
+
+                    <CheckBox
+                        android:id="@+id/careOption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@drawable/dr_checkbox_select"
+                        android:text="@string/cuidado"
+                        android:textColor="@color/black" />
+
+                    <CheckBox
+                        android:id="@+id/fertilizerOption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@drawable/dr_checkbox_select"
+                        android:text="@string/fertilizante"
+                        android:textColor="@color/black" />
+
+
+                </GridLayout>
+
+                <TextView
+                    android:id="@+id/descriptiontext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_18sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_18sdp"
+                    android:text="@string/descripci_n_"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />
+
+                <EditText
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="89dp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_12sdp"
+                    android:background="@drawable/dr_white_input_text"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/editTextBackground" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5sp"
-            android:backgroundTint="#91BF63"
-            android:clickable="true"
-            android:contentDescription="Añadir"
-            android:focusable="true"
-            android:foregroundTint="@color/green"
-            android:foregroundTintMode="multiply"
-            android:tint="@color/white"
-            android:tintMode="multiply"
-            app:backgroundTintMode="src_in"
-            app:maxImageSize="@dimen/_30sdp"
-            app:rippleColor="@color/white"
-            app:srcCompat="@drawable/im_paper_airplane" />
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_gravity="bottom|end">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/addButton"
+                android:layout_width="@dimen/_85sdp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                android:backgroundTint="#91BF63"
+                android:clickable="true"
+                android:contentDescription="Añadir"
+                android:focusable="true"
+                android:foregroundTint="@color/green"
+                android:foregroundTintMode="multiply"
+                android:tint="@color/white"
+                android:tintMode="multiply"
+                app:backgroundTintMode="src_in"
+                app:maxImageSize="@dimen/_30sdp"
+                app:rippleColor="@color/white"
+                app:srcCompat="@drawable/im_paper_airplane" />
+
+        </FrameLayout>
 
     </FrameLayout>
 
+
     <LinearLayout
         android:id="@+id/linearLayout8"
-        android:layout_width="411dp"
-        android:layout_height="122dp"
+        android:layout_width="wrap_content"
+        android:layout_height="110dp"
         android:background="@drawable/dr_shadow_top"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/ludification"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginStart="20dp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
@@ -217,14 +191,16 @@
 
         <Button
             android:id="@+id/gardens"
-            android:layout_width="77dp"
+            android:layout_width="@dimen/_79sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
             android:padding="10dp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
             android:textAllCaps="false"
@@ -232,14 +208,16 @@
 
         <Button
             android:id="@+id/myGardens"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_107sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
             android:padding="10dp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Gardens"
             android:textAllCaps="false"
@@ -247,15 +225,16 @@
 
         <Button
             android:id="@+id/profile"
-            android:layout_width="78dp"
+            android:layout_width="@dimen/_60sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
             android:padding="5dp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"
             android:textAllCaps="false"
@@ -264,4 +243,4 @@
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

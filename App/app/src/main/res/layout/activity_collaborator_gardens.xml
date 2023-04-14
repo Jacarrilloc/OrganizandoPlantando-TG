@@ -1,73 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gardens.GardensAvailableActivity"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".gardens.GardensAvailableActivity">
 
-    <ImageView
-        android:id="@+id/backImage"
-        android:layout_width="@dimen/_393sdp"
-        android:layout_height="@dimen/_561sdp"
-        android:layout_marginTop="@dimen/_72sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/im_cloud_bck" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="362dp"
-        android:layout_height="84dp"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.092">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="@dimen/_183sdp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/_30sdp"
-            android:autoSizeTextType="uniform"
-            android:text="@string/MyCollaborations"
-            android:textColor="@color/black"
-            android:textFontWeight="700"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="293dp" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9">
 
         <ImageView
-            android:id="@+id/mapIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:padding="20dp"
-            app:srcCompat="@drawable/im_map_icon" />
+            android:id="@+id/backImage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_561sdp"
+            android:layout_marginTop="@dimen/_72sdp"
+            app:srcCompat="@drawable/im_cloud_bck" />
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="362dp"
+            android:layout_height="84dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="@dimen/_183sdp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_30sdp"
+                android:autoSizeTextType="uniform"
+                android:text="@string/MyCollaborations"
+                android:textColor="@color/black"
+                android:textFontWeight="700"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="293dp" />
 
-    <ListView
-        android:id="@+id/collaborationGardenList"
-        android:layout_width="365dp"
-        android:layout_height="430dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.235">
+            <ImageView
+                android:id="@+id/mapIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:padding="20dp"
+                app:srcCompat="@drawable/im_map_icon" />
 
-    </ListView>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/collaborationGardenList"
+            android:layout_width="365dp"
+            android:layout_height="430dp">
+
+        </ListView>
+
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout8"
@@ -75,10 +67,7 @@
         android:layout_height="122dp"
         android:background="@drawable/dr_shadow_top"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_weight="0.1">
 
         <Button
             android:id="@+id/ludification"
@@ -86,15 +75,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginBottom="7dp"
+            android:layout_weight="1"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
-            android:layout_weight="1"
-            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="@color/grayLetters"
+            android:textSize="@dimen/_13sdp" />
 
         <Button
             android:id="@+id/gardens"
@@ -103,15 +92,15 @@
             android:layout_gravity="bottom"
             android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
+            android:layout_weight="1"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
             android:padding="10dp"
-            android:layout_weight="1"
-            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="@color/grayLetters"
+            android:textSize="@dimen/_13sdp" />
 
         <Button
             android:id="@+id/myGardens"
@@ -120,15 +109,15 @@
             android:layout_gravity="bottom"
             android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
+            android:layout_weight="1"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
             android:padding="10dp"
-            android:layout_weight="1"
-            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Gardens"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="@color/grayLetters"
+            android:textSize="@dimen/_13sdp" />
 
         <Button
             android:id="@+id/profile"
@@ -137,18 +126,18 @@
             android:layout_gravity="bottom"
             android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
+            android:layout_weight="1"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
             android:padding="5dp"
-            android:layout_weight="1"
-            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="@color/grayLetters"
+            android:textSize="@dimen/_13sdp" />
 
 
     </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -1,78 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TermsAndConditionsActivity"
-    android:background="#91BF63">
+    android:background="#91BF63"
+    android:orientation="vertical"
+    tools:context=".TermsAndConditionsActivity">
 
-    <ImageView
-        android:id="@+id/logoCeres2"
-        android:layout_width="229dp"
-        android:layout_height="121dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.142"
-        app:srcCompat="@drawable/im_logo_ceres" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/_10sdp">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="@dimen/_312sdp"
-        android:layout_height="@dimen/_333sdp"
-        android:layout_marginBottom="40dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:autoSizeTextType="uniform"
-            android:text="Términos y condiciones"
-            android:textColor="@color/black"
-            android:textFontWeight="700"
-            android:textSize="@dimen/_20sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="@dimen/_293sdp" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="@dimen/_320sdp"
-            android:layout_height="@dimen/_240sdp"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/_5sdp"
-            android:autoSizeTextType="uniform"
-            android:text="Última actualización: 30 de noviembre de 2022 Lea estos términos y condiciones detenidamente antes de utilizar Nuestro Servicio. Nuestro Interpretación y Definiciones Interpretación Las palabras cuya letra inicial está en mayúscula tienen significados definidos bajo las siguientes condiciones. Las siguientes definiciones tendrán el mismo significado independientemente de que aparezcan en singular o en plural. Definiciones A los efectos de estos Términos y Condiciones • Aplicación significa el programa de software proporcionado por la Compañía descargado por Usted en cualquier dispositivo electrónico, llamado Ceres • Tienda de aplicaciones significa el servicio de distribución digital operado y desarrollado por  Google Inc. (Google Play Store) en el que se ha descargado la Aplicación. "
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textFontWeight="800"
-            android:textSize="@dimen/_20sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="@dimen/_283sdp" />
-
-        <Button
-            android:id="@+id/termsAndConditionsActivity"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/_60sdp"
-            android:layout_marginRight="@dimen/_60sdp"
-            android:background="@drawable/dr_white_button"
-            android:backgroundTint="@color/white"
-            android:gravity="center"
-            android:padding="@dimen/_10sdp"
-            android:text="Aceptar"
-            android:textColor="@android:color/black" />
+            android:layout_height="match_parent">
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/logoCeres2"
+                    android:layout_width="229dp"
+                    android:layout_height="121dp"
+                    android:layout_marginStart="@dimen/_53sdp"
+                    app:srcCompat="@drawable/im_logo_ceres" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:autoSizeTextType="uniform"
+                    android:text="Términos y condiciones"
+                    android:textColor="@color/black"
+                    android:textFontWeight="700"
+                    android:textSize="@dimen/_20sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="@dimen/_293sdp" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:autoSizeTextType="uniform"
+                            android:foregroundGravity="fill_vertical"
+                            android:text="Última actualización: 30 de noviembre de 2022 Lea estos términos y condiciones detenidamente antes de utilizar Nuestro Servicio. Nuestro Interpretación y Definiciones Interpretación Las palabras cuya letra inicial está en mayúscula tienen significados definidos bajo las siguientes condiciones. Las siguientes definiciones tendrán el mismo significado independientemente de que aparezcan en singular o en plural. Definiciones A los efectos de estos Términos y Condiciones • Aplicación significa el programa de software proporcionado por la Compañía descargado por Usted en cualquier dispositivo electrónico, llamado Ceres • Tienda de aplicaciones significa el servicio de distribución digital operado y desarrollado por  Google Inc. (Google Play Store) en el que se ha descargado la Aplicación. "
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textFontWeight="800"
+                            android:textSize="@dimen/_20sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:layout_editor_absoluteY="@dimen/_283sdp" />
+                    </LinearLayout>
+                </ScrollView>
+
+                <Button
+                    android:id="@+id/termsAndConditionsActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_60sdp"
+                    android:layout_marginRight="@dimen/_60sdp"
+                    android:background="@drawable/dr_white_button"
+                    android:backgroundTint="@color/white"
+                    android:gravity="center"
+                    android:padding="@dimen/_10sdp"
+                    android:text="Aceptar"
+                    android:textColor="@android:color/black" />
+            </LinearLayout>
+        </ScrollView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+
+</LinearLayout>

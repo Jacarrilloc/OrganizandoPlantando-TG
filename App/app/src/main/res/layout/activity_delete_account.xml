@@ -1,83 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".auth.DeleteAccountActivity">
 
-    <ImageView
-        android:id="@+id/logoDecoration"
-        android:layout_width="@dimen/_532sdp"
-        android:layout_height="@dimen/_457sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.38"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/im_lines_decoration" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9">
 
+        <ImageView
+            android:id="@+id/logoDecoration"
+            android:layout_width="@dimen/_413sdp"
+            android:layout_height="@dimen/_361sdp"
+            android:layout_marginEnd="@dimen/_100sdp"
+            app:srcCompat="@drawable/im_lines_decoration" />
 
-    <ImageView
-        android:id="@+id/logoCeres2"
-        android:layout_width="@dimen/_388sdp"
-        android:layout_height="@dimen/_205sdp"
-        android:layout_marginLeft="@dimen/_160sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/logoDecoration"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.794"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/logoDecoration"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/im_logo_ceres_green" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/deleteAccountText"
-        android:layout_width="@dimen/_300sdp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_4sdp"
-        android:fontFamily="sans-serif"
-        android:gravity="center"
-        android:text="@string/esta_seguro_de_eliminar_cuenta"
-        android:textColor="#050505"
-        android:textSize="@dimen/_27sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.445"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logoCeres2" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/returnButton2"
-        android:layout_width="@dimen/_131sdp"
-        android:layout_height="@dimen/_52sdp"
-        android:layout_marginStart="@dimen/_22sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:background="@drawable/dr_green_button"
-        android:backgroundTint="#91BF63"
-        android:text="@string/volver"
-        android:textAllCaps="false"
-        android:textSize="@dimen/_20sdp"
-        app:cornerRadius="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deleteAccountText" />
+                    <ImageView
+                        android:id="@+id/logoCeres2"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_185sdp"
+                        app:srcCompat="@drawable/im_logo_ceres_green" />
 
-    <Button
-        android:id="@+id/deleteButton"
-        android:layout_width="@dimen/_131sdp"
-        android:layout_height="@dimen/_52sdp"
-        android:layout_marginEnd="@dimen/_22sdp"
-        android:background="@drawable/dr_cancel_button"
-        android:text="@string/eliminar"
-        android:textAllCaps="false"
-        android:textSize="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        app:cornerRadius="@dimen/_50sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.543"
-        app:layout_constraintStart_toEndOf="@+id/returnButton2"
-        app:layout_constraintTop_toBottomOf="@+id/deleteAccountText" />
+                    <TextView
+                        android:id="@+id/deleteAccountText"
+                        android:layout_width="@dimen/_300sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_150sdp"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center"
+                        android:text="@string/esta_seguro_de_eliminar_cuenta"
+                        android:textColor="#050505"
+                        android:textSize="@dimen/_27sdp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_250sdp">
+
+                        <Button
+                            android:id="@+id/returnButton2"
+                            android:layout_width="@dimen/_131sdp"
+                            android:layout_height="@dimen/_52sdp"
+                            android:layout_marginStart="@dimen/_15sdp"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:background="@drawable/dr_green_button"
+                            android:backgroundTint="#91BF63"
+                            android:text="@string/volver"
+                            android:textAllCaps="false"
+                            android:textSize="@dimen/_20sdp" />
+
+                        <Button
+                            android:id="@+id/deleteButton"
+                            android:layout_width="@dimen/_131sdp"
+                            android:layout_height="@dimen/_52sdp"
+                            android:layout_marginStart="@dimen/_20sdp"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:background="@drawable/dr_cancel_button"
+                            android:text="@string/eliminar"
+                            android:textAllCaps="false"
+                            android:textSize="@dimen/_20sdp" />
+                    </LinearLayout>
+                </FrameLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </FrameLayout>
+
 
     <LinearLayout
         android:id="@+id/linearLayout8"
@@ -85,10 +93,7 @@
         android:layout_height="@dimen/_122sdp"
         android:background="@drawable/dr_shadow_top"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_weight="0.1">
 
         <Button
             android:id="@+id/ludification"
@@ -96,15 +101,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginBottom="7dp"
+            android:layout_weight="1"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
-            android:layout_weight="1"
-            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="@color/grayLetters"
+            android:textSize="@dimen/_13sdp" />
 
         <Button
             android:id="@+id/gardens"
@@ -113,15 +118,15 @@
             android:layout_gravity="bottom"
             android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
+            android:layout_weight="1"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
             android:padding="10dp"
-            android:layout_weight="1"
-            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="@color/grayLetters"
+            android:textSize="@dimen/_13sdp" />
 
         <Button
             android:id="@+id/myGardens"
@@ -130,15 +135,15 @@
             android:layout_gravity="bottom"
             android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
+            android:layout_weight="1"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
             android:padding="10dp"
-            android:layout_weight="1"
-            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Gardens"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="@color/grayLetters"
+            android:textSize="@dimen/_13sdp" />
 
         <Button
             android:id="@+id/profile"
@@ -147,16 +152,16 @@
             android:layout_gravity="bottom"
             android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
+            android:layout_weight="1"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
             android:padding="5dp"
-            android:layout_weight="1"
-            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="@color/grayLetters"
+            android:textSize="@dimen/_13sdp" />
 
 
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

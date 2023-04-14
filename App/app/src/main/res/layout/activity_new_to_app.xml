@@ -1,112 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:focusableInTouchMode="true"
-    tools:context=".NewToAppActivity"
-    android:background="@color/white">
+    android:orientation="vertical"
+    tools:context=".NewToAppActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="@dimen/_411sdp"
-        android:layout_height="@dimen/_501sdp"
-        android:background="@drawable/im_back_1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/im_back_2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.656" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/im_back_3"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="@dimen/_229sdp"
-        android:layout_height="@dimen/_230sdp"
-        android:background="@drawable/im_gardener"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="@dimen/_411sdp"
+                    android:layout_height="@dimen/_501sdp"
+                    android:background="@drawable/im_back_1" />
 
-    <ImageView
-        android:layout_width="@dimen/_345sdp"
-        android:layout_height="@dimen/_218sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:background="@drawable/im_logo_ceres_green"
-        app:layout_constraintBottom_toTopOf="@+id/imageView5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.761" />
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/im_back_2" />
 
-    <Button
-        android:id="@+id/createProfileNewToAppActivity"
-        android:layout_width="@dimen/_263sdp"
-        android:layout_height="@dimen/_43sdp"
-        android:background="@drawable/dr_green_button"
-        android:text="@string/CreateProfile"
-        android:textAllCaps="false"
-        android:textSize="@dimen/_18sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.25" />
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/im_back_3" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_77sdp"
-        android:text="@string/question1"
-        android:textColor="@color/gray"
-        android:textSize="@dimen/_16sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/createProfileNewToAppActivity"
-        app:layout_constraintVertical_bias="0.0" />
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="@dimen/_229sdp"
+                    android:layout_height="@dimen/_230sdp"
+                    android:layout_marginTop="@dimen/_140sdp"
+                    android:layout_marginStart="@dimen/_50sdp"
+                    android:background="@drawable/im_gardener" />
 
-    <TextView
-        android:id="@+id/loginTextNewOnMapActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_77sdp"
-        android:text="@string/login_text1"
-        android:textAllCaps="true"
-        android:textColor="@color/green"
-        android:textSize="@dimen/_16sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.26"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toTopOf="@+id/createProfileNewToAppActivity"
-        app:layout_constraintVertical_bias="0.0" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="186dp"
+                    android:layout_marginTop="@dimen/_1sdp"
+                    android:background="@drawable/im_logo_ceres_green" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <Button
+                    android:id="@+id/createProfileNewToAppActivity"
+                    android:layout_width="@dimen/_263sdp"
+                    android:layout_height="@dimen/_43sdp"
+                    android:background="@drawable/dr_green_button"
+                    android:layout_marginTop="@dimen/_400sdp"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:text="@string/CreateProfile"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/_18sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_380sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_24sdp"
+                        android:layout_marginTop="@dimen/_77sdp"
+                        android:text="@string/question1"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/_16sdp" />
+
+                    <TextView
+                        android:id="@+id/loginTextNewOnMapActivity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_77sdp"
+                        android:text="@string/login_text1"
+                        android:textAllCaps="true"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/_16sdp" />
+                </LinearLayout>
+
+            </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
