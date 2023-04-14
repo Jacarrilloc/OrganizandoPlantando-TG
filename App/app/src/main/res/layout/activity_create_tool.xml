@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:layout_marginEnd="@dimen/_36sdp"
-            android:buttonTint="@drawable/dr_checkbox_select"
+            android:buttonTint="@color/blueblue"
             android:text="@string/herramienta" />
 
         <CheckBox
@@ -111,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:buttonTint="@drawable/dr_checkbox_select"
+            android:buttonTint="@color/blueblue"
             android:text="@string/cuidado" />
 
         <CheckBox
@@ -119,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:buttonTint="@drawable/dr_checkbox_select"
+            android:buttonTint="@color/blueblue"
             android:text="@string/fertilizante" />
 
 

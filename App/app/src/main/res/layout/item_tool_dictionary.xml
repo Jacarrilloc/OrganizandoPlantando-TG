@@ -15,7 +15,6 @@
         android:background="@drawable/dr_image_border"
         android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_80sdp"
-
         />
 
     <TextView
