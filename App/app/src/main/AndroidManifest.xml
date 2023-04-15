@@ -28,19 +28,19 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".ludification.CreateToolActivity"
+            android:name=".ludificationScreens.CreateToolActivity"
             android:exported="false" />
         <activity
-            android:name=".ludification.CreatePlantActivity"
+            android:name=".ludificationScreens.CreatePlantActivity"
             android:exported="false" />
         <activity
-            android:name=".ludification.ShowDictionaryItemActivity"
+            android:name=".ludificationScreens.ShowDictionaryItemActivity"
             android:exported="false" />
         <activity
-            android:name=".ludification.ShowDictionaryActivity"
+            android:name=".ludificationScreens.ShowDictionaryActivity"
             android:exported="false" />
         <activity
-            android:name=".ludification.DictionaryHome"
+            android:name=".ludificationScreens.DictionaryHome"
             android:exported="false" />
         <activity
             android:name=".formsScreen.FormsRegistersActivity"
