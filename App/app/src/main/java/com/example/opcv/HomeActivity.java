@@ -10,9 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -37,7 +35,7 @@ import com.example.opcv.gardens.GardensAvailableActivity;
 import com.example.opcv.info.User;
 import com.example.opcv.item_list.ItemGardenHomeList;
 import com.example.opcv.localDatabase.DatabaseHelper;
-import com.example.opcv.ludification.DictionaryHome;
+import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -49,7 +47,6 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -198,7 +195,8 @@ public class HomeActivity extends AppCompatActivity {
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, DictionaryHome.class));
+                Intent edit = new Intent(HomeActivity.this, DictionaryHome.class);
+                startActivity(edit);
             }
         });
 

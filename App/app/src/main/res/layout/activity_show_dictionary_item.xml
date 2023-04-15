@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context=".ludification.ShowDictionaryItemActivity">
+    tools:context=".ludificationScreens.ShowDictionaryItemActivity">
 
     <FrameLayout
         android:layout_width="match_parent"

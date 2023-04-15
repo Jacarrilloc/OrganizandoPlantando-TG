@@ -33,6 +33,7 @@ import com.google.firebase.storage.UploadTask;*/
 import java.io.Serializable;
 import java.text.Collator;
 import java.util.Map;
+import java.util.Objects;
 
 public class AuthUtilities implements Serializable {
 
@@ -92,6 +93,29 @@ public class AuthUtilities implements Serializable {
         } else {
             return null;
         }
+    }
+
+    public void getUserDocumentId(String userId, final GetUserDocument callback){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("UserInfo").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    String idCollection;
+                    for(QueryDocumentSnapshot doc : task.getResult()){
+                        if(Objects.equals(doc.getString("ID"), userId)){
+                            idCollection = doc.getId();
+                            callback.onComplete(idCollection);
+                            return;
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    public interface GetUserDocument{
+        void onComplete(String idDocu);
     }
 
     public void loginUserVerify(String email, String password, Context context, final LoginCallback callback) {
