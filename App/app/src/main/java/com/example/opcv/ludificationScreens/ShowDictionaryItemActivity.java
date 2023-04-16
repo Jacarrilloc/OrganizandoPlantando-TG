@@ -11,16 +11,20 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TableLayout;
 
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.GardensAvailableActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ShowDictionaryItemActivity extends AppCompatActivity {
 
     private Button profile, myGardens, gardensMap, ludification;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         myGardens = (Button) findViewById(R.id.myGardens);
         gardensMap = (Button) findViewById(R.id.gardens);
         ludification = (Button) findViewById(R.id.ludification);
+
 
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override

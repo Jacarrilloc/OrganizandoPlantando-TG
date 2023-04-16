@@ -3,9 +3,11 @@ package com.example.opcv.business.ludificationLogic;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.opcv.item_list.ItemPlantsTools;
 import com.example.opcv.persistance.ludificationPersistance.LudificationPersistance;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class LudificationLogic {
@@ -41,5 +43,9 @@ public class LudificationLogic {
             return false;
         }
         return true;
+    }
+
+    public void fillPlantsToolsAvailable(Map<String, String> map){
+
     }
 }

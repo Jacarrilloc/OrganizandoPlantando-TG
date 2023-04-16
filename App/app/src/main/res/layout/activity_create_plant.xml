@@ -153,7 +153,7 @@
                     android:layout_marginBottom="@dimen/_12sdp"
                     android:background="@drawable/dr_white_input_text"
                     android:ems="10"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
                     android:textColor="@color/black"
                     android:textColorHint="@color/editTextBackground" />
 

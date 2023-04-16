@@ -137,7 +137,7 @@
                 android:layout_margin="@dimen/_2sdp"
                 android:background="@drawable/dr_white_input_text"
                 android:ems="10"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:textColor="@color/black"
                 android:textColorHint="@color/lightgray" />
 
@@ -156,7 +156,7 @@
                 android:layout_margin="2sp"
                 android:background="@drawable/dr_white_input_text"
                 android:ems="10"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:textColor="@color/black"
                 android:textColorHint="@color/lightgray" />
 

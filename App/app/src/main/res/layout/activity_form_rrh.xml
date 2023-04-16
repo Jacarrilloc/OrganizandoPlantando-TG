@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:layout_margin="@dimen/_2sdp"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:background="@drawable/dr_white_input_text"
                 android:textColor="@color/black"/>
 

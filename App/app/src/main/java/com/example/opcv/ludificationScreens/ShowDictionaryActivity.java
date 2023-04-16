@@ -2,6 +2,7 @@ package com.example.opcv.ludificationScreens;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,15 +11,30 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
+import com.example.opcv.adapter.PlantsToolsAdapter;
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.business.ludificationLogic.LudificationLogic;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.GardensAvailableActivity;
+import com.example.opcv.item_list.ItemPlantsTools;
+import com.example.opcv.persistance.ludificationPersistance.LudificationPersistance;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class ShowDictionaryActivity extends AppCompatActivity {
 
@@ -26,6 +42,8 @@ public class ShowDictionaryActivity extends AppCompatActivity {
     private FloatingActionButton add;
     private String element, idUser;
     private Button profile, myGardens, gardensMap, ludification;
+    private EditText search;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +56,33 @@ public class ShowDictionaryActivity extends AppCompatActivity {
         myGardens = (Button) findViewById(R.id.myGardens);
         gardensMap = (Button) findViewById(R.id.gardens);
         ludification = (Button) findViewById(R.id.ludification);
+        search = (EditText) findViewById(R.id.search);
+        listView = (ListView) findViewById(R.id.plantsList);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             idUser = extras.getString("userInfo");
             element = extras.getString("element");
         }
+
         if(element.equals("Plants")){
             name.setText("Plantas");
+            LudificationPersistance persistance = new LudificationPersistance();
+            persistance.getPlantElements(new LudificationPersistance.GetPlants() {
+                @Override
+                public void onComplete(Map<String, String> map) {
+                    //String name, id;
+                    //System.out.println("el map: "+map);
+                    List<ItemPlantsTools> plantsTools = new ArrayList<>();
+                    for(Map.Entry<String, String> entry : map.entrySet()){
+
+                        ItemPlantsTools newItem = new ItemPlantsTools(entry.getValue(), entry.getKey());
+                        plantsTools.add(newItem);
+                        fillList(plantsTools);
+                    }
+
+                }
+            });
             add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -57,6 +94,20 @@ public class ShowDictionaryActivity extends AppCompatActivity {
         }
         else if(element.equals("Tools")){
             name.setText("Herramientas");
+            LudificationPersistance persistance = new LudificationPersistance();
+            persistance.getToolElements(new LudificationPersistance.GetPlants() {
+                @Override
+                public void onComplete(Map<String, String> map) {
+                    List<ItemPlantsTools> plantsTools = new ArrayList<>();
+                    for(Map.Entry<String, String> entry : map.entrySet()){
+
+                        ItemPlantsTools newItem = new ItemPlantsTools(entry.getValue(), entry.getKey());
+                        plantsTools.add(newItem);
+                        fillList(plantsTools);
+                    }
+                }
+            });
+
             add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -102,6 +153,19 @@ public class ShowDictionaryActivity extends AppCompatActivity {
             }
         });
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Object selectedItem = adapterView.getItemAtPosition(i);
+                String formsName = ((ItemPlantsTools) selectedItem).getId();//se obtiene el id de ese elemento
+            }
+        });
+
+    }
+    public void fillList(List<ItemPlantsTools> requestDocument){
+        PlantsToolsAdapter adapter = new PlantsToolsAdapter(this, requestDocument);
+        listView.setAdapter(adapter);
+        listView.setDividerHeight(15);
     }
     @Override
     protected void attachBaseContext(Context newBase) {

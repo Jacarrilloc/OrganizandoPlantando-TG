@@ -3,12 +3,20 @@ package com.example.opcv.persistance.ludificationPersistance;
 import android.content.Context;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.example.opcv.fbComunication.AuthUtilities;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class LudificationPersistance implements Serializable {
@@ -51,4 +59,58 @@ public class LudificationPersistance implements Serializable {
             Toast.makeText(context, "Ocurrio un error al subir la información", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void getPlantElements(final GetPlants callback){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference ref = db.collection("Plants");
+        ref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    Map<String, String> list = new HashMap<>();
+                    String plantId, plantName;
+                    for(QueryDocumentSnapshot doc : task.getResult()){
+                        plantId = doc.getId();
+                        plantName = doc.getString("PlantName");
+                        list.put( plantId, plantName);
+                        //list.put("plantName", plantName);
+                        callback.onComplete(list);
+                    }
+                    return;
+                }
+            }
+        });
+    }
+
+    public interface GetPlants{
+        void onComplete(Map<String, String> map);
+    }
+
+    public void getToolElements(final GetPlants callback){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference ref = db.collection("Tools");
+
+        ref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    HashMap<String, String> list = new HashMap<>();
+                    String toolId, toolName;
+                    for(QueryDocumentSnapshot doc : task.getResult()){
+                        toolId = doc.getId();
+                        toolName = doc.getString("ToolName");
+                        list.put( toolId, toolName);
+                        //list.put("plantName", plantName);
+                        callback.onComplete(list);
+                    }
+
+                    return;
+                }
+            }
+        });
+    }
+/*
+    public interface GetTools{
+        void onComplete(HashMap<String, String> map);
+    }*/
 }
