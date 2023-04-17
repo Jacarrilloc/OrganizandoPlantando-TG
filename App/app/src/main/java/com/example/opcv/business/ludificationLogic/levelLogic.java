@@ -12,7 +12,6 @@ public class levelLogic {
     final static int levelComment =3;
     final static int levelPublish =7;
     final static int levelDislikes =1;
-    int dislikePlants=0;
 
     public void addLevel(String idUser, Boolean gains){//va a recibir una variable booleana si es true es que realizo una publicacion de lo contrario es un comentario
         LudificationPersistance persistance = new LudificationPersistance();
@@ -26,8 +25,8 @@ public class levelLogic {
             persistance.addLevelUser(idUser, map);
         }
     }
-    public void deductLevel(String idPublisher, String element, String docRef, Context context){//se llama en el boton de dar dislike
+    public void deductLevel(String docRef, String element){//se llama en el boton de dar dislike
         LudificationPersistance persistance = new LudificationPersistance();
-
+        persistance.deductUserPoints(docRef, levelDislikes, element);
     }
 }

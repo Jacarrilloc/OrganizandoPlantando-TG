@@ -51,4 +51,14 @@ public class LudificationLogic {
         return true;
     }
 
+    public void likesDislikes(String docRef, boolean isLike, String element){
+        LudificationPersistance persistance = new LudificationPersistance();
+        if(isLike){//si es true es porque es de likes
+            persistance.addLikesFirebase(docRef, element);
+        }
+        else{
+            persistance.addDislikesFirebase(docRef, element);
+        }
+    }
+
 }

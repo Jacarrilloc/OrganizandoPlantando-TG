@@ -22,6 +22,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -238,6 +239,84 @@ public class LudificationPersistance implements Serializable {
             @Override
             public void onSuccess(Void unused) {
                 Log.d(TAG, "Nivel actualizado exitosamente!");//en el futuro cambiar a notificacion
+            }
+        });
+    }
+
+    public void addLikesFirebase(String docRef, String element){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference ref = db.collection(element).document(docRef);
+        ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(documentSnapshot.exists()){
+                    double likeNumber = documentSnapshot.getDouble("Likes");
+                    DecimalFormat df = new DecimalFormat("#");
+                    likeNumber++;
+                    String formated = df.format(likeNumber);
+                    ref.update("Likes", Integer.parseInt(formated)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Log.d(TAG, "Likes actualizados exitosamente!");//en el futuro cambiar a notificacion
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    public void addDislikesFirebase(String docRef, String element){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference ref = db.collection(element).document(docRef);
+        ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(documentSnapshot.exists()) {
+                    double dislikeNumber = documentSnapshot.getDouble("DisLikes");
+                    DecimalFormat df = new DecimalFormat("#");
+                    dislikeNumber++;
+                    String formated = df.format(dislikeNumber);
+                    ref.update("DisLikes", Integer.parseInt(formated)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Log.d(TAG, "Dislikes actualizados exitosamente!");//en el futuro cambiar a notificacion
+                        }
+                    });
+                }
+            }
+        });
+    }
+    public void deductUserPoints(String docRef, int points, String element){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference ref = db.collection(element).document(docRef);
+        CollectionReference ref2 = db.collection("UserInfo");
+        ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    String idPublisher = task.getResult().getString("Publisher");
+                    if(idPublisher != null){
+                        ref2.document(idPublisher).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()){
+                                    double levelUser = task.getResult().getDouble("Level");
+                                    DecimalFormat df = new DecimalFormat("#");
+                                    if(levelUser > 1){
+                                        levelUser--;
+                                        String formated = df.format(levelUser);
+                                        ref2.document(idPublisher).update("Level", Integer.parseInt(formated)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                Log.d(TAG, "Nivel actualizado exitosamente!");//en el futuro cambiar a notificacion
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
             }
         });
     }

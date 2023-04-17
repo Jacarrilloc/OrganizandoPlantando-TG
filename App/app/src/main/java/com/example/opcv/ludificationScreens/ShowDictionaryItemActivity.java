@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.business.ludificationLogic.LudificationLogic;
+import com.example.opcv.business.ludificationLogic.levelLogic;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.GardensAvailableActivity;
 import com.example.opcv.persistance.ludificationPersistance.LudificationPersistance;
@@ -82,6 +84,14 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //se llama a metodo que recibe element, docref, true (es decir que es de like) y se suma a variable likes
+                LudificationLogic logic = new LudificationLogic();
+                logic.likesDislikes(docRef, true, element);
+                likeButton.setEnabled(false);
+                dislikeButton.setEnabled(false);
+                int number = Integer.parseInt(likeNumber.getText().toString());
+                number++;
+                String numberText = String.valueOf(number);
+                likeNumber.setText(numberText);
             }
         });
         dislikeButton.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +99,16 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //se llama a metodo que recibe element, docref, false (es decir que es de dislike) y se suma a variable dislikes
                 //llama a metodo de levelLogic deductlevel
+                LudificationLogic logic = new LudificationLogic();
+                levelLogic level = new levelLogic();
+                level.deductLevel(docRef, element);
+                logic.likesDislikes(docRef, false, element);
+                likeButton.setEnabled(false);
+                dislikeButton.setEnabled(false);
+                int number = Integer.parseInt(dislikeNumber.getText().toString());
+                number++;
+                String numberText = String.valueOf(number);
+                dislikeNumber.setText(numberText);
             }
         });
 
