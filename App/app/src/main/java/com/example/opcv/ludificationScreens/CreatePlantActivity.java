@@ -19,6 +19,7 @@ import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.business.ludificationLogic.LudificationLogic;
+import com.example.opcv.business.ludificationLogic.levelLogic;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.GardensAvailableActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -60,6 +61,7 @@ public class CreatePlantActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 LudificationLogic logic = new LudificationLogic();
+                levelLogic level = new levelLogic();
                 plantName = name.getText().toString();
                 plantDescription = descr.getText().toString();
                 flowerCheck = flower.isChecked();
@@ -70,6 +72,7 @@ public class CreatePlantActivity extends AppCompatActivity {
                 precautionCheck = precaution.isChecked();
                 if(logic.validateField(plantName, plantDescription, CreatePlantActivity.this)){
                     logic.addPlantElementsMap(plantName, plantDescription, flowerCheck, fruitCheck, edibleCheck, medicineCheck, petCheck, precautionCheck, CreatePlantActivity.this, idUser);
+                    level.addLevel(idUser, true);
                     Intent edit = new Intent(CreatePlantActivity.this, DictionaryHome.class);
                     edit.putExtra("userInfo", idUser);
                     startActivity(edit);

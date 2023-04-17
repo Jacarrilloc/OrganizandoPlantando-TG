@@ -3,9 +3,11 @@ package com.example.opcv.business.ludificationLogic;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.opcv.item_list.ItemPlantsTools;
 import com.example.opcv.persistance.ludificationPersistance.LudificationPersistance;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class LudificationLogic {
@@ -21,6 +23,9 @@ public class LudificationLogic {
         plantInfo.put("PetFriendly", petFriendly);
         plantInfo.put("Precaution", precaution);
         plantInfo.put("PlantDescription", description);
+        plantInfo.put("DisLikes", 0);
+        plantInfo.put("Likes", 0);
+        plantInfo.put("Publisher", idUser);
         persistance.addPlantDictionary(plantInfo, context, idUser);
     }
 
@@ -32,6 +37,9 @@ public class LudificationLogic {
         toolInfo.put("Fertilizer", fertilizer);
         toolInfo.put("Care", care);
         toolInfo.put("ToolDescription", description);
+        toolInfo.put("DisLikes", 0);
+        toolInfo.put("Likes", 0);
+        toolInfo.put("Publisher", idUser);
         persistance.addToolDictionary(toolInfo, context, idUser);
     }
 
@@ -42,4 +50,5 @@ public class LudificationLogic {
         }
         return true;
     }
+
 }

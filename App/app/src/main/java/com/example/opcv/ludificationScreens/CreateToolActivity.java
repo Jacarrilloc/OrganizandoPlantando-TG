@@ -18,6 +18,7 @@ import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.business.ludificationLogic.LudificationLogic;
+import com.example.opcv.business.ludificationLogic.levelLogic;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.GardensAvailableActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -55,6 +56,7 @@ public class CreateToolActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 LudificationLogic logic = new LudificationLogic();
+                levelLogic level = new levelLogic();
                 toolName = name.getText().toString();
                 toolDescription = descr.getText().toString();
                 toolCheck = tool.isChecked();
@@ -62,6 +64,7 @@ public class CreateToolActivity extends AppCompatActivity {
                 careCheck = care.isChecked();
                 if(logic.validateField(toolName, toolDescription, CreateToolActivity.this)){
                     logic.addToolElementsMap(toolName, toolDescription, toolCheck, fertilizerCheck, careCheck, CreateToolActivity.this, idUser);
+                    level.addLevel(idUser, true);
                     Intent edit = new Intent(CreateToolActivity.this, DictionaryHome.class);
                     edit.putExtra("userInfo", idUser);
                     startActivity(edit);
