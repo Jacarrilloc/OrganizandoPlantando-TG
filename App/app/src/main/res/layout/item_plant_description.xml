@@ -12,7 +12,6 @@
         android:layout_margin="@dimen/_14sdp"
         android:src="@drawable/im_logo_ceres"
         android:scaleType="centerCrop"
-        android:background="@drawable/dr_image_border"
         android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_80sdp" />
 
@@ -24,6 +23,10 @@
         android:background="@drawable/dr_rectangle_item"
         android:backgroundTint="@color/lightPurple"
         android:gravity="center"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingRight="@dimen/_8sdp"
+        android:paddingLeft="@dimen/_8sdp"
         android:text="@string/plant"
         android:textColor="@color/black"
         android:textSize="@dimen/_14sdp" />

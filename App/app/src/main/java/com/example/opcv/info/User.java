@@ -12,8 +12,9 @@ public class User implements Serializable {
     String phoneNumber;
     String UriPath;
     String gender;
+    int level;
 
-    public User(String name, String lastName, String email, String id, String phoneNumber, String uriPath, String gender) {
+    public User(String name, String lastName, String email, String id, String phoneNumber, String uriPath, String gender, int level) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -21,6 +22,7 @@ public class User implements Serializable {
         this.phoneNumber = phoneNumber;
         UriPath = uriPath;
         this.gender = gender;
+        this.level = level;
     }
 
     public String getName() {
@@ -79,6 +81,14 @@ public class User implements Serializable {
         this.gender = gender;
     }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("Name", name);
@@ -88,6 +98,7 @@ public class User implements Serializable {
         map.put("PhoneNumber", phoneNumber);
         map.put("UriPath",UriPath);
         map.put("Gender",gender);
+        map.put("Level",level);
         return map;
     }
 }

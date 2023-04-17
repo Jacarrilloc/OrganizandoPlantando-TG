@@ -33,6 +33,7 @@ import com.google.firebase.storage.UploadTask;*/
 import java.io.Serializable;
 import java.text.Collator;
 import java.util.Map;
+import java.util.Objects;
 
 public class AuthUtilities implements Serializable {
 
@@ -73,7 +74,8 @@ public class AuthUtilities implements Serializable {
                         String phoneNumber = document.getString("phoneNumber");
                         String uriPath = document.getString("UriPath");
                         String gender = document.getString("Gender");
-                        User user = new User(name,lastName,email,id,phoneNumber,uriPath,gender);
+                        int level = Integer.parseInt(Objects.requireNonNull(document.getString("Level")));
+                        User user = new User(name,lastName,email,id,phoneNumber,uriPath,gender, level);
                         callback.onSuccess(user);
                         return;
                     }
@@ -92,6 +94,29 @@ public class AuthUtilities implements Serializable {
         } else {
             return null;
         }
+    }
+
+    public void getUserDocumentId(String userId, final GetUserDocument callback){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("UserInfo").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    String idCollection;
+                    for(QueryDocumentSnapshot doc : task.getResult()){
+                        if(Objects.equals(doc.getString("ID"), userId)){
+                            idCollection = doc.getId();
+                            callback.onComplete(idCollection);
+                            return;
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    public interface GetUserDocument{
+        void onComplete(String idDocu);
     }
 
     public void loginUserVerify(String email, String password, Context context, final LoginCallback callback) {
@@ -175,13 +200,24 @@ public class AuthUtilities implements Serializable {
     private boolean addtoDataBase(Map<String, Object> newUserInfo){
         final boolean[] result = {false};
         FirebaseFirestore database = FirebaseFirestore.getInstance();
-        CollectionReference collectionReference = database.collection("UserInfo");
-        collectionReference.add(newUserInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        DocumentReference collectionReference = database.collection("UserInfo").document(user.getUid());
+        collectionReference.set(newUserInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                result[0] = true;
+            }
+        });
+
+
+        //Lo siguiente era como se creaba el user antes->ahora asigna el id del documento igual al id del auth
+       /* collectionReference.add(newUserInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 result[0] = true;
             }
-        });
+        });*/
         return result[0];
     }
 

@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gardens.GardenRequestsActivity"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".gardens.GardenRequestsActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout10"
         android:layout_width="@dimen/_318sdp"
         android:layout_height="@dimen/_65sdp"
         android:layout_marginTop="@dimen/_16sdp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="horizontal">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/returnArrowButtonFormsToGarden"
@@ -55,24 +52,14 @@
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginBottom="@dimen/_14sdp"
         android:background="@drawable/im_gray_line"
-        android:contentDescription="La imagen"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout10"
-        app:layout_constraintVertical_bias="0.0" />
+        android:contentDescription="La imagen" />
 
     <ListView
         android:id="@+id/listViewCollabs"
-        android:layout_width="@dimen/_299sdp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/_400sdp"
         android:layout_marginBottom="@dimen/_10sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6"
         android:clickable="false"
         android:focusable="false" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

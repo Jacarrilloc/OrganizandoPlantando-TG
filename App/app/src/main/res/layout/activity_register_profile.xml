@@ -1,193 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:focusableInTouchMode="true"
-    tools:context=".auth.RegisterProfileActivity"
-    android:background="@color/white">
+    android:orientation="vertical"
+    tools:context=".auth.RegisterProfileActivity">
 
-    <ImageView
-        android:id="@+id/logoDecoration"
-        android:layout_width="@dimen/_532sdp"
-        android:layout_height="@dimen/_457sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.371"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/im_lines_decoration" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout8"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent">
 
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/_30sdp"
-            android:autoSizeTextType="uniform"
-            android:gravity="center"
-            android:text="Registrarse"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_25sdp" />
-
-    </LinearLayout>
-
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
+        <ImageView
+            android:id="@+id/logoDecoration"
+            android:layout_width="@dimen/_413sdp"
+            android:layout_height="@dimen/_361sdp"
+            android:layout_marginEnd="@dimen/_100sdp"
+            app:srcCompat="@drawable/im_lines_decoration" />
 
         <LinearLayout
+            android:id="@+id/linearLayout8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+        </LinearLayout>
 
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/imputNameRegisterActivity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@drawable/dr_white_input_text"
-                android:ems="10"
-                android:hint="@string/nombre1"
-                android:inputType="text"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textColorHint="@color/editTextBackground"/>
-
-            <EditText
-                android:id="@+id/imputLastNameRegisterActivity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@drawable/dr_white_input_text"
-                android:ems="10"
-                android:hint="@string/apellido"
-                android:inputType="text"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textColorHint="@color/editTextBackground"/>
-
-            <Spinner
-                android:id="@+id/spinnerGenderRegisterActivity"
-                android:layout_margin="@dimen/_15sdp"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:spinnerMode="dropdown"
-                android:backgroundTint="@color/black"
-                android:overlapAnchor="false"
-                android:textAlignment="inherit"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/imputEmailRegisterActivity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@drawable/dr_white_input_text"
-                android:ems="10"
-                android:hint="@string/correo_electronico1"
-                android:inputType="textEmailAddress"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textColorHint="@color/editTextBackground"/>
-
-            <EditText
-                android:id="@+id/imputPasswordRegisterActivity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@drawable/dr_white_input_text"
-                android:ems="10"
-                android:hint="@string/contrase_ia"
-                android:inputType="textPassword"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textColorHint="@color/editTextBackground" />
-
-            <EditText
-                android:id="@+id/imputConfirmPaswordRegisterActivity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@drawable/dr_white_input_text"
-                android:ems="10"
-                android:hint="@string/repetir_contrase_a"
-                android:inputType="textPassword"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textColorHint="@color/editTextBackground" />
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_1sdp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_30sdp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:text="Registrarse"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_25sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/imputNameRegisterActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:background="@drawable/dr_white_input_text"
+                    android:ems="10"
+                    android:hint="@string/nombre1"
+                    android:inputType="text"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/editTextBackground" />
+
+                <EditText
+                    android:id="@+id/imputLastNameRegisterActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:background="@drawable/dr_white_input_text"
+                    android:ems="10"
+                    android:hint="@string/apellido"
+                    android:inputType="text"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/editTextBackground" />
+
+                <Spinner
+                    android:id="@+id/spinnerGenderRegisterActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:background="@drawable/dr_white_input_text" />
+
+                <EditText
+                    android:id="@+id/imputEmailRegisterActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:background="@drawable/dr_white_input_text"
+                    android:ems="10"
+                    android:hint="@string/correo_electronico1"
+                    android:inputType="textEmailAddress"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/editTextBackground" />
+
+                <EditText
+                    android:id="@+id/imputPasswordRegisterActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:background="@drawable/dr_white_input_text"
+                    android:ems="10"
+                    android:hint="@string/contrase_ia"
+                    android:inputType="textPassword"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/editTextBackground" />
+
+                <EditText
+                    android:id="@+id/imputConfirmPaswordRegisterActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:background="@drawable/dr_white_input_text"
+                    android:ems="10"
+                    android:hint="@string/repetir_contrase_a"
+                    android:inputType="textPassword"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/editTextBackground" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:text="He leido los"
-                    android:textColor="@color/black"/>
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:text="He leido los"
+                        android:textColor="@color/black" />
+
+                    <Button
+                        android:id="@+id/terms_condition_buttom_registerProfileActivity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:text="Terminos y Condiciones"
+                        android:textAllCaps="false"
+                        android:textColor="@color/mainButtonColor" />
+
+                    <CheckBox
+                        android:id="@+id/okSignalTermsRegisterActivity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/lightgray" />
+                </LinearLayout>
 
                 <Button
-                    android:id="@+id/terms_condition_buttom_registerProfileActivity"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/createAcountButtomRegisterActivity"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:text="Terminos y Condiciones"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_20sdp"
+                    android:background="@drawable/dr_green_button"
+                    android:backgroundTint="@null"
+                    android:gravity="center"
+                    android:text="@string/crear_cuenta"
                     android:textAllCaps="false"
-                    android:textColor="@color/mainButtonColor"/>
+                    android:textSize="@dimen/_20sdp" />
 
-                <CheckBox
-                    android:id="@+id/okSignalTermsRegisterActivity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:buttonTint="@drawable/dr_checkbox_select"/>
             </LinearLayout>
+        </ScrollView>
 
-            <Button
-                android:id="@+id/createAcountButtomRegisterActivity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/_20sdp"
-                android:background="@drawable/dr_green_button"
-                android:backgroundTint="@null"
-                android:textAllCaps="false"
-                android:textSize="@dimen/_20sdp"
-                android:gravity="center"
-                android:text="@string/crear_cuenta"/>
+    </FrameLayout>
 
-        </LinearLayout>
-    </ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -71,10 +71,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_2sdp"
+                android:background="@drawable/dr_white_input_text"
                 android:ems="10"
-                android:inputType="number"
-                android:textColor="@color/black"
-                android:background="@drawable/dr_white_input_text"/>
+                android:inputType="numberDecimal"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -88,12 +88,12 @@
                 android:id="@+id/worrmsWeightInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="number"
                 android:layout_margin="@dimen/_2sdp"
-                android:textColor="@color/black"
+                android:background="@drawable/dr_white_input_text"
+                android:ems="10"
+                android:inputType="numberDecimal"
                 android:text=""
-                android:background="@drawable/dr_white_input_text"/>
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/textView9"
@@ -125,11 +125,11 @@
                 android:id="@+id/amount_of_waste_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="number"
                 android:layout_margin="@dimen/_2sdp"
-                android:textColor="@color/black"
-                android:background="@drawable/dr_white_input_text" />
+                android:background="@drawable/dr_white_input_text"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -144,7 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:layout_margin="@dimen/_2sdp"
                 android:background="@drawable/dr_white_input_text"
                 android:textColor="@color/black" />
@@ -164,7 +164,7 @@
                 android:background="@drawable/dr_white_input_text"
                 android:layout_margin="@dimen/_2sdp"
                 android:ems="10"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:textColor="@color/black" />
 
             <Button

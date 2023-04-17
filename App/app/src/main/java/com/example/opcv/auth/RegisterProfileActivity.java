@@ -88,10 +88,11 @@ public class RegisterProfileActivity extends AppCompatActivity {
                 String confirmPasswordString = confirmPassword.getText().toString();
                 String gender = spinnerGender.getSelectedItem().toString();
                 Boolean termsBool = terms.isChecked();
+                int level = 0;
 
                 ValidateRegisterInfo validate = new ValidateRegisterInfo();
                 if(validate.validateFirstRegisterInfo(nameString,lastNameString,emailString,passwordString,confirmPasswordString,termsBool,RegisterProfileActivity.this)) {
-                    newUser = new User(nameString, lastNameString, emailString, null, null,null,gender);
+                    newUser = new User(nameString, lastNameString, emailString, null, null,null,gender, level);
 
                     Intent intent = new Intent(RegisterProfileActivity.this, RegisterMobilePhone.class);
                     intent.putExtra("mapUser", (Serializable) newUser);
