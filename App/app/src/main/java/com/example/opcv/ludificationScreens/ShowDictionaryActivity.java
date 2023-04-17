@@ -157,7 +157,12 @@ public class ShowDictionaryActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Object selectedItem = adapterView.getItemAtPosition(i);
-                String formsName = ((ItemPlantsTools) selectedItem).getId();//se obtiene el id de ese elemento
+                String docRef = ((ItemPlantsTools) selectedItem).getId();//se obtiene el id de ese elemento
+                Intent edit = new Intent(ShowDictionaryActivity.this, ShowDictionaryItemActivity.class);
+                edit.putExtra("userInfo", idUser);
+                edit.putExtra("element", element);
+                edit.putExtra("idDoc", docRef);
+                startActivity(edit);
             }
         });
 

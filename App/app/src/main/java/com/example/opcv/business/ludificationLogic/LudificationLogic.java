@@ -23,6 +23,9 @@ public class LudificationLogic {
         plantInfo.put("PetFriendly", petFriendly);
         plantInfo.put("Precaution", precaution);
         plantInfo.put("PlantDescription", description);
+        plantInfo.put("DisLikes", 0);
+        plantInfo.put("Likes", 0);
+        plantInfo.put("Publisher", idUser);
         persistance.addPlantDictionary(plantInfo, context, idUser);
     }
 
@@ -34,6 +37,9 @@ public class LudificationLogic {
         toolInfo.put("Fertilizer", fertilizer);
         toolInfo.put("Care", care);
         toolInfo.put("ToolDescription", description);
+        toolInfo.put("DisLikes", 0);
+        toolInfo.put("Likes", 0);
+        toolInfo.put("Publisher", idUser);
         persistance.addToolDictionary(toolInfo, context, idUser);
     }
 
@@ -45,7 +51,4 @@ public class LudificationLogic {
         return true;
     }
 
-    public void fillPlantsToolsAvailable(Map<String, String> map){
-
-    }
 }

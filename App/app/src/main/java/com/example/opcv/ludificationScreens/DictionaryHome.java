@@ -17,6 +17,7 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.business.ludificationLogic.levelLogic;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.GardensAvailableActivity;
 
@@ -37,7 +38,11 @@ public class DictionaryHome extends AppCompatActivity {
         plants = (ImageButton) findViewById(R.id.plants);
         tools = (ImageButton) findViewById(R.id.tools);
         AuthUtilities auth = new AuthUtilities();
+        levelLogic level = new levelLogic();
         idUser = auth.getCurrentUserUid();
+
+
+
         plants.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
