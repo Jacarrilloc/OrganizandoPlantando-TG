@@ -68,4 +68,6 @@ dependencies {
     implementation 'androidx.sqlite:sqlite:2.1.0'
     implementation 'com.intuit.sdp:sdp-android:1.1.0'//para la unidad escalable
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation "androidx.room:room-runtime:2.4.0"
+    annotationProcessor "androidx.room:room-compiler:2.4.0"
 }
