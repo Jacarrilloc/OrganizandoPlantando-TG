@@ -303,7 +303,7 @@ public class LudificationPersistance implements Serializable {
                                     double levelUser = task.getResult().getDouble("Level");
                                     DecimalFormat df = new DecimalFormat("#");
                                     if(levelUser > 1){
-                                        levelUser--;
+                                        levelUser = levelUser-points;
                                         String formated = df.format(levelUser);
                                         ref2.document(idPublisher).update("Level", Integer.parseInt(formated)).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
@@ -319,6 +319,99 @@ public class LudificationPersistance implements Serializable {
                 }
             }
         });
+    }
+
+    public void tags(String element, String docRef, final GetTagsList callback){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference ref = db.collection(element).document(docRef);
+        ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    ArrayList<String> list = new ArrayList<>();
+                    if(element.equals("Tools")){
+                        String tag1, tag2, tag3;
+                        boolean care, fertilizer, tool;
+                        care = (boolean) task.getResult().get("Care");
+                        fertilizer = (boolean) task.getResult().get("Fertilizer");
+                        tool = (boolean) task.getResult().get("Tool");
+                        if(care){
+                            tag1 = "Ciudado";
+                            list.add(tag1);
+                        }
+                        if(fertilizer){
+                            tag2 = "Fertilizante";
+                            list.add(tag2);
+                        }
+                        if(tool){
+                            tag3 = "Herramienta";
+                            list.add(tag3);
+                        }
+                    }
+                    else if(element.equals("Plants")){
+                        String tag1, tag2, tag3, tag4, tag5, tag6;
+                        boolean edible, flower, fruit, medicine, petFriendly, precaution;
+                        edible = (boolean) task.getResult().get("Edible");
+                        flower = (boolean) task.getResult().get("GivesFlower");
+                        fruit = (boolean) task.getResult().get("GivesFruit");
+                        medicine = (boolean) task.getResult().get("Medicinal");
+                        petFriendly = (boolean) task.getResult().get("PetFriendly");
+                        precaution = (boolean) task.getResult().get("Precaution");
+                        if(edible){
+                            tag1 = "Comestible";
+                            list.add(tag1);
+                        }
+                        if(flower){
+                            tag2 = "Da flor";
+                            list.add(tag2);
+                        }
+                        if(fruit){
+                            tag3 = "Da fruto";
+                            list.add(tag3);
+                        }
+                        if(medicine){
+                            tag4 = "Medicinal";
+                            list.add(tag4);
+                        }
+                        if(petFriendly){
+                            tag5 = "Pet Friendly";
+                            list.add(tag5);
+                        }
+                        if(precaution){
+                            tag6 = "Precaución";
+                            list.add(tag6);
+                        }
+                    }
+                    callback.onComplete(list);
+                }
+            }
+        });
+    }
+
+    public interface GetTagsList{
+        void onComplete(ArrayList<String> list);
+    }
+
+    public void addComments(String element, String docRef, Map<String, Object> commentsInfo){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference ref = db.collection(element).document(docRef);
+        ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    ref.collection("Comments").add(commentsInfo);
+                }
+            }
+        });
+    }
+
+    public void retrieveComments(String element, String docRef, final GetComments callback){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference ref = db.collection(element).document(docRef);
+    }
+
+    public interface GetComments{
+        void onComplete(Map<String, String> mapComments);
     }
 /*
     public void getDislikesUser(String idUser, final DeductLevel callback){

@@ -18,7 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_10sdp"
-            android:layout_gravity="bottom|end">
+            android:layout_gravity="bottom|end"
+            android:elevation="150dp">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/addButton"
@@ -33,16 +34,38 @@
                 android:foregroundTintMode="multiply"
                 android:tint="@color/white"
                 android:tintMode="multiply"
+
                 app:backgroundTintMode="src_in"
                 app:maxImageSize="@dimen/_30sdp"
                 app:rippleColor="@color/white"
                 app:srcCompat="@drawable/dr_add_button" />
 
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/sendButton"
+                android:layout_width="@dimen/_85sdp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                android:backgroundTint="#D0A9D7"
+                android:contentDescription="Añadir Comentario"
+                android:foregroundTint="@color/green"
+                android:foregroundTintMode="multiply"
+                android:tint="@color/white"
+                android:tintMode="multiply"
+                android:visibility="invisible"
+                android:clickable="false"
+                android:focusable="false"
+                android:translationZ="10dp"
+                app:backgroundTintMode="src_in"
+                app:maxImageSize="@dimen/_30sdp"
+                app:rippleColor="@color/white"
+                app:srcCompat="@drawable/im_paper_airplane" />
+
         </FrameLayout>
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:translationZ="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -60,7 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/_19sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_1sdp">
 
                         <!-- Vista de imagen con borde -->
@@ -90,7 +113,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_16sdp"
-                            android:layout_marginTop="@dimen/_22sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
                             android:layout_marginEnd="@dimen/_16sdp"
                             android:text="@string/nombre5"
                             android:textColor="@color/black"
@@ -107,12 +130,116 @@
                             android:textColor="@color/gray"
                             android:textSize="@dimen/_12sdp" />
 
-                        <ListView
+                        <FrameLayout
                             android:id="@+id/tags"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_16sdp"
-                            android:layout_marginEnd="@dimen/_5sdp" />
+                            android:layout_marginStart="@dimen/_1sdp"
+                            android:layout_marginEnd="@dimen/_5sdp" >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/tag1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/dr_gray_rectangle"
+                                        android:backgroundTint="@color/lightgray2"
+                                        android:gravity="center"
+                                        android:padding="@dimen/_1sdp"
+                                        android:text="@string/gardenName"
+                                        android:textColor="@color/black"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:id="@+id/tag2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/dr_gray_rectangle"
+                                        android:backgroundTint="@color/lightgray2"
+                                        android:gravity="center"
+                                        android:padding="@dimen/_1sdp"
+                                        android:text="@string/gardenName"
+                                        android:textColor="@color/black"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:id="@+id/tag3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/dr_gray_rectangle"
+                                        android:backgroundTint="@color/lightgray2"
+                                        android:gravity="center"
+                                        android:padding="@dimen/_1sdp"
+                                        android:text="@string/gardenName"
+                                        android:textColor="@color/black"
+                                        android:textSize="12sp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+                                    <TextView
+                                        android:id="@+id/tag4"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/dr_gray_rectangle"
+                                        android:backgroundTint="@color/lightgray2"
+                                        android:gravity="center"
+                                        android:padding="@dimen/_1sdp"
+                                        android:text="@string/gardenName"
+                                        android:textColor="@color/black"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:id="@+id/tag5"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/dr_gray_rectangle"
+                                        android:backgroundTint="@color/lightgray2"
+                                        android:gravity="center"
+                                        android:padding="@dimen/_1sdp"
+                                        android:text="@string/gardenName"
+                                        android:textColor="@color/black"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:id="@+id/tag6"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/dr_gray_rectangle"
+                                        android:backgroundTint="@color/lightgray2"
+                                        android:gravity="center"
+                                        android:padding="@dimen/_1sdp"
+                                        android:text="@string/gardenName"
+                                        android:textColor="@color/black"
+                                        android:textSize="12sp" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </FrameLayout>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -175,14 +302,13 @@
 
                 </LinearLayout>
 
-                <LinearLayout
+                <ListView
+                    android:id="@+id/listViewComments"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/_40sdp"
-                    android:layout_marginTop="@dimen/_200sdp"
-                    android:layout_marginEnd="@dimen/_20sdp"
-                    android:layout_marginBottom="@dimen/_90sdp"
-                    android:orientation="vertical" />
+                    android:layout_height="@dimen/_600sdp"
+                    android:layout_marginStart="@dimen/_1sdp"
+                    android:layout_marginTop="@dimen/_25sdp" />
+
 
             </LinearLayout>
         </ScrollView>

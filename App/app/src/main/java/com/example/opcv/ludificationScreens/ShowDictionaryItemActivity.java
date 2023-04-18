@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -13,28 +14,35 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
+import com.example.opcv.adapter.CommentsAdapter;
+import com.example.opcv.adapter.PlantsToolsAdapter;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.business.ludificationLogic.LudificationLogic;
 import com.example.opcv.business.ludificationLogic.levelLogic;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.GardensAvailableActivity;
+import com.example.opcv.item_list.ItemComments;
 import com.example.opcv.persistance.ludificationPersistance.LudificationPersistance;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ShowDictionaryItemActivity extends AppCompatActivity {
 
     private Button profile, myGardens, gardensMap, ludification;
     private String idUser, element, docRef;
-    private TextView authorName, elementName, likeNumber, dislikeNumber, description;
-    private FloatingActionButton add;
+    private TextView authorName, elementName, likeNumber, dislikeNumber, description, tag1, tag2,tag3, tag4, tag5, tag6;
+    private FloatingActionButton add, sendComment;
     private ImageButton likeButton, dislikeButton;
+    private ListView listView;
 
 
     @Override
@@ -54,8 +62,17 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         add = (FloatingActionButton) findViewById(R.id.addButton);
         likeButton = (ImageButton) findViewById(R.id.likebutton);
         dislikeButton = (ImageButton) findViewById(R.id.dislikebutton);
+        sendComment = (FloatingActionButton) findViewById(R.id.sendButton);
+        tag1 = (TextView) findViewById(R.id.tag1);
+        tag2 = (TextView) findViewById(R.id.tag2);
+        tag3 = (TextView) findViewById(R.id.tag3);
+        tag4 = (TextView) findViewById(R.id.tag4);
+        tag5 = (TextView) findViewById(R.id.tag5);
+        tag6 = (TextView) findViewById(R.id.tag6);
+        listView = (ListView) findViewById(R.id.listViewComments);
 
         LudificationPersistance persistance = new LudificationPersistance();
+        LudificationLogic logic = new LudificationLogic();
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             idUser = extras.getString("userInfo");//user loggeado
@@ -70,6 +87,69 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                     elementName.setText(name);
                 }
             });
+            persistance.tags(element, docRef, new LudificationPersistance.GetTagsList() {
+                @Override
+                public void onComplete(ArrayList<String> list) {
+                    int size = list.size();
+                    switch (size){
+                        case 0:
+                            tag1.setVisibility(View.INVISIBLE);
+                            tag2.setVisibility(View.INVISIBLE);
+                            tag3.setVisibility(View.INVISIBLE);
+                            tag5.setVisibility(View.INVISIBLE);
+                            tag6.setVisibility(View.INVISIBLE);
+                            tag4.setVisibility(View.INVISIBLE);
+                            break;
+                        case 1:
+                            tag1.setText(list.get(0));
+                            tag2.setVisibility(View.INVISIBLE);
+                            tag3.setVisibility(View.INVISIBLE);
+                            tag5.setVisibility(View.INVISIBLE);
+                            tag6.setVisibility(View.INVISIBLE);
+                            tag4.setVisibility(View.INVISIBLE);
+                            break;
+                        case 2:
+                            tag1.setText(list.get(0));
+                            tag2.setText(list.get(1));
+                            tag3.setVisibility(View.INVISIBLE);
+                            tag5.setVisibility(View.INVISIBLE);
+                            tag6.setVisibility(View.INVISIBLE);
+                            tag4.setVisibility(View.INVISIBLE);
+                            break;
+                        case 3:
+                            tag1.setText(list.get(0));
+                            tag2.setText(list.get(1));
+                            tag3.setText(list.get(2));
+                            tag5.setVisibility(View.INVISIBLE);
+                            tag6.setVisibility(View.INVISIBLE);
+                            tag4.setVisibility(View.INVISIBLE);
+                            break;
+                        case 4:
+                            tag1.setText(list.get(0));
+                            tag2.setText(list.get(1));
+                            tag3.setText(list.get(2));
+                            tag4.setText(list.get(3));
+                            tag5.setVisibility(View.INVISIBLE);
+                            tag6.setVisibility(View.INVISIBLE);
+                            break;
+                        case 5:
+                            tag1.setText(list.get(0));
+                            tag2.setText(list.get(1));
+                            tag3.setText(list.get(2));
+                            tag4.setText(list.get(3));
+                            tag5.setText(list.get(4));
+                            tag6.setVisibility(View.INVISIBLE);
+                            break;
+                        case 6: tag1.setText(list.get(0));
+                            tag2.setText(list.get(1));
+                            tag3.setText(list.get(2));
+                            tag4.setText(list.get(3));
+                            tag5.setText(list.get(4));
+                            tag6.setText(list.get(5));
+                            break;
+                    }
+                }
+            });
         }
         else if(element.equals("Tools")){
             persistance.searchToolName(docRef, new LudificationPersistance.GetToolName() {
@@ -78,8 +158,62 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                     elementName.setText(name);
                 }
             });
+            tag1.setVisibility(View.INVISIBLE);
+            tag2.setVisibility(View.INVISIBLE);
+            tag3.setVisibility(View.INVISIBLE);
+            persistance.tags(element, docRef, new LudificationPersistance.GetTagsList() {
+                @Override
+                public void onComplete(ArrayList<String> list) {
+                    int size = list.size();
+                    switch (size){
+                        case 0:
+                            tag5.setVisibility(View.INVISIBLE);
+                            tag6.setVisibility(View.INVISIBLE);
+                            tag4.setVisibility(View.INVISIBLE);
+                            break;
+                        case 1:
+                            tag5.setVisibility(View.INVISIBLE);
+                            tag6.setVisibility(View.INVISIBLE);
+                            tag4.setText(list.get(0));
+                            break;
+                        case 2:
+                            tag4.setText(list.get(0));
+                            tag5.setText(list.get(1));
+                            tag6.setVisibility(View.INVISIBLE);
+                            break;
+                        case 3:
+                            tag4.setText(list.get(0));
+                            tag5.setText(list.get(1));
+                            tag6.setText(list.get(2));
+                            break;
+                    }
+                }
+            });
         }
-
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                add.setVisibility(View.INVISIBLE);
+                add.setClickable(false);
+                add.setFocusable(false);
+                sendComment.setVisibility(View.VISIBLE);
+                sendComment.setClickable(true);
+                sendComment.setFocusable(true);
+            }
+        });
+        sendComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                add.setVisibility(View.VISIBLE);
+                add.setClickable(true);
+                add.setFocusable(true);
+                sendComment.setVisibility(View.INVISIBLE);
+                sendComment.setClickable(false);
+                sendComment.setFocusable(false);
+                //añadir la logica para recibir de un edittext
+                logic.addComments(element, idUser, "Este esotro comentario comentario", docRef);
+            }
+        });
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,6 +226,8 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 number++;
                 String numberText = String.valueOf(number);
                 likeNumber.setText(numberText);
+                //likeButton.setImageResource(R.drawable.im_like_gray);
+                //dislikeButton.setImageResource(R.drawable.im_dislike_gray);
             }
         });
         dislikeButton.setOnClickListener(new View.OnClickListener() {
@@ -109,9 +245,25 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 number++;
                 String numberText = String.valueOf(number);
                 dislikeNumber.setText(numberText);
+                //dislikeButton.setImageResource(R.drawable.im_dislike_gray);
+                //likeButton.setImageResource(R.drawable.im_like_gray);
             }
         });
 
+        //a continuacion se hace para mostrar los comentarios
+        persistance.retrieveComments(element, docRef, new LudificationPersistance.GetComments() {
+            @Override
+            public void onComplete(Map<String, String> mapComments) {
+                List<ItemComments> list = new ArrayList<>();
+                System.out.println("el map: "+mapComments);
+                for(Map.Entry<String, String> entry : mapComments.entrySet()){
+                    ItemComments com = new ItemComments(entry.getKey(), entry.getValue());
+                    list.add(com);
+                    fillList(list);
+                }
+
+            }
+        });
 
         persistance.getLikesDislikes(docRef, element, this, new LudificationPersistance.GetLikesDislikes() {
             @Override
@@ -127,6 +279,8 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 authorName.setText("Por "+name);
             }
         });
+
+
 
 
         myGardens.setOnClickListener(new View.OnClickListener() {
@@ -163,6 +317,12 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 startActivity(edit);
             }
         });
+    }
+
+    private void fillList(List<ItemComments> comments){
+        CommentsAdapter adapter = new CommentsAdapter(this, comments);
+        listView.setAdapter(adapter);
+        listView.setDividerHeight(15);
     }
     @Override
     protected void attachBaseContext(Context newBase) {
