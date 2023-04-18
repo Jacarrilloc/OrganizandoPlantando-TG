@@ -41,6 +41,8 @@ public class CommentsAdapter extends ArrayAdapter<ItemComments> {
 
         comment = convertView.findViewById(R.id.description);
         commentator = convertView.findViewById(R.id.author);
+        comment.setText(item.getComment());
+        commentator.setText(item.getNameCommentator());
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_right_to_left);
         animation.setStartOffset(position * 100);
         convertView.startAnimation(animation);
@@ -50,6 +52,7 @@ public class CommentsAdapter extends ArrayAdapter<ItemComments> {
             @Override
             public void onClick(View view) {
                 //hacer logica para cuando se da click al nombre del autor
+                System.out.println("el publisher: "+item.getNameCommentator());
             }
         });
 

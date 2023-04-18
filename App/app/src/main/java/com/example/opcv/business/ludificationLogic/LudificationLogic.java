@@ -62,12 +62,17 @@ public class LudificationLogic {
         }
     }
 
-    public void addComments(String element, String idPublisher, String comment, String docRef){
+    public void addComments(String element, String idPublisher, String comment, String docRef, Context context){
         LudificationPersistance persistance = new LudificationPersistance();
         Map<String, Object> commentsMap = new HashMap<>();
         commentsMap.put("Comment", comment);
         commentsMap.put("PublisherID", idPublisher);
-        persistance.addComments(element, docRef, commentsMap);
+        try{
+            persistance.addComments(element, docRef, commentsMap);
+            Toast.makeText(context, "Se añadió el comentario con exito.", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            Toast.makeText(context, "Ocurrió un error al subir el comentario, intente de nuevo.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

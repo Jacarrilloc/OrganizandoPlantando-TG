@@ -73,6 +73,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
 
         LudificationPersistance persistance = new LudificationPersistance();
         LudificationLogic logic = new LudificationLogic();
+        levelLogic level = new levelLogic();
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             idUser = extras.getString("userInfo");//user loggeado
@@ -211,14 +212,16 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 sendComment.setClickable(false);
                 sendComment.setFocusable(false);
                 //añadir la logica para recibir de un edittext
-                logic.addComments(element, idUser, "Este esotro comentario comentario", docRef);
+                logic.addComments(element, idUser,  "Comentario minimo", docRef, ShowDictionaryItemActivity.this);
+                level.addLevel(idUser, false);
+                recreate();
             }
         });
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //se llama a metodo que recibe element, docref, true (es decir que es de like) y se suma a variable likes
-                LudificationLogic logic = new LudificationLogic();
+                //LudificationLogic logic = new LudificationLogic();
                 logic.likesDislikes(docRef, true, element);
                 likeButton.setEnabled(false);
                 dislikeButton.setEnabled(false);
@@ -235,8 +238,8 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //se llama a metodo que recibe element, docref, false (es decir que es de dislike) y se suma a variable dislikes
                 //llama a metodo de levelLogic deductlevel
-                LudificationLogic logic = new LudificationLogic();
-                levelLogic level = new levelLogic();
+                //LudificationLogic logic = new LudificationLogic();
+                //levelLogic level = new levelLogic();
                 level.deductLevel(docRef, element);
                 logic.likesDislikes(docRef, false, element);
                 likeButton.setEnabled(false);
@@ -255,11 +258,16 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
             @Override
             public void onComplete(Map<String, String> mapComments) {
                 List<ItemComments> list = new ArrayList<>();
-                System.out.println("el map: "+mapComments);
                 for(Map.Entry<String, String> entry : mapComments.entrySet()){
-                    ItemComments com = new ItemComments(entry.getKey(), entry.getValue());
-                    list.add(com);
-                    fillList(list);
+                    persistance.getPublisherName(entry.getValue(), new LudificationPersistance.GetPublisher() {
+                        @Override
+                        public void onComplete(String name) {
+                            ItemComments com = new ItemComments(entry.getKey(), name);
+                            list.add(com);
+                            fillList(list);
+                        }
+                    });
+
                 }
 
             }

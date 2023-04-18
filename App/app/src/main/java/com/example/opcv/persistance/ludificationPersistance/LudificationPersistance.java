@@ -408,10 +408,41 @@ public class LudificationPersistance implements Serializable {
     public void retrieveComments(String element, String docRef, final GetComments callback){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference ref = db.collection(element).document(docRef);
+        ref.collection("Comments").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    HashMap<String, String> list = new HashMap<>();
+                    String comments, publisherId;
+                    for(QueryDocumentSnapshot doc : task.getResult()){
+                        comments = doc.getString("Comment");
+                        publisherId = doc.getString("PublisherID");
+                        list.put(comments,publisherId);
+                    }
+                    callback.onComplete(list);
+                }
+            }
+        });
     }
 
     public interface GetComments{
         void onComplete(Map<String, String> mapComments);
+    }
+
+    public void getPublisherName(String idPublisher, final GetPublisher callback){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference ref = db.collection("UserInfo").document(idPublisher);
+        ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+               if (task.isSuccessful()){
+                   callback.onComplete(task.getResult().getString("Name"));
+               }
+            }
+        });
+    }
+    public interface GetPublisher{
+        void onComplete(String name);
     }
 /*
     public void getDislikesUser(String idUser, final DeductLevel callback){
