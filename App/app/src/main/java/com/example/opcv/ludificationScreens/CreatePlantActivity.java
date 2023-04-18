@@ -72,7 +72,7 @@ public class CreatePlantActivity extends AppCompatActivity {
                 precautionCheck = precaution.isChecked();
                 if(logic.validateField(plantName, plantDescription, CreatePlantActivity.this)){
                     logic.addPlantElementsMap(plantName, plantDescription, flowerCheck, fruitCheck, edibleCheck, medicineCheck, petCheck, precautionCheck, CreatePlantActivity.this, idUser);
-                    level.addLevel(idUser, true);
+                    level.addLevel(idUser, true, CreatePlantActivity.this);
                     Intent edit = new Intent(CreatePlantActivity.this, DictionaryHome.class);
                     edit.putExtra("userInfo", idUser);
                     startActivity(edit);

@@ -40,6 +40,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
     private Button profile, myGardens, gardensMap, ludification;
     private String idUser, element, docRef;
     private TextView authorName, elementName, likeNumber, dislikeNumber, description, tag1, tag2,tag3, tag4, tag5, tag6;
+    private EditText input;
     private FloatingActionButton add, sendComment;
     private ImageButton likeButton, dislikeButton;
     private ListView listView;
@@ -70,6 +71,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         tag5 = (TextView) findViewById(R.id.tag5);
         tag6 = (TextView) findViewById(R.id.tag6);
         listView = (ListView) findViewById(R.id.listViewComments);
+        input = (EditText) findViewById(R.id.inputText);
 
         LudificationPersistance persistance = new LudificationPersistance();
         LudificationLogic logic = new LudificationLogic();
@@ -200,6 +202,12 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 sendComment.setVisibility(View.VISIBLE);
                 sendComment.setClickable(true);
                 sendComment.setFocusable(true);
+                input.setVisibility(View.VISIBLE);
+                input.setClickable(true);
+                input.setFocusable(true);
+                input.setEnabled(true);
+                input.setText("");
+                input.setHint("Ingrese comentario");
             }
         });
         sendComment.setOnClickListener(new View.OnClickListener() {
@@ -212,8 +220,9 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 sendComment.setClickable(false);
                 sendComment.setFocusable(false);
                 //añadir la logica para recibir de un edittext
-                logic.addComments(element, idUser,  "Comentario minimo", docRef, ShowDictionaryItemActivity.this);
-                level.addLevel(idUser, false);
+                String textInput = String.valueOf(input.getText());
+                logic.addComments(element, idUser,  textInput, docRef, ShowDictionaryItemActivity.this);
+                level.addLevel(idUser, false, ShowDictionaryItemActivity.this);
                 recreate();
             }
         });

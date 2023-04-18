@@ -64,7 +64,7 @@ public class CreateToolActivity extends AppCompatActivity {
                 careCheck = care.isChecked();
                 if(logic.validateField(toolName, toolDescription, CreateToolActivity.this)){
                     logic.addToolElementsMap(toolName, toolDescription, toolCheck, fertilizerCheck, careCheck, CreateToolActivity.this, idUser);
-                    level.addLevel(idUser, true);
+                    level.addLevel(idUser, true, CreateToolActivity.this);
                     Intent edit = new Intent(CreateToolActivity.this, DictionaryHome.class);
                     edit.putExtra("userInfo", idUser);
                     startActivity(edit);

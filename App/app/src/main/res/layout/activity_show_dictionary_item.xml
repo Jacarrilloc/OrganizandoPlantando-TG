@@ -14,6 +14,25 @@
         android:layout_height="match_parent"
         android:layout_weight="0.9">
 
+        <EditText
+            android:id="@+id/inputText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_150sdp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginTop="@dimen/_120sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:background="@drawable/im_input"
+            android:clickable="false"
+            android:elevation="150dp"
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_70sdp"
+            android:gravity="start|left"
+            android:hint="Ingrese comentario"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"
+            android:textSize="@dimen/_20sdp"
+            android:visibility="invisible" />
+
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
