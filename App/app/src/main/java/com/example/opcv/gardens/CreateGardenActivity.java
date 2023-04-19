@@ -1,5 +1,7 @@
 package com.example.opcv.gardens;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
@@ -206,22 +209,26 @@ public class CreateGardenActivity extends AppCompatActivity {
     }
 
     private void uploadPhotoGarden(String idGarden){
-        Bitmap bitmap = ((BitmapDrawable) photo.getDrawable()).getBitmap();
-        if(bitmap != null){
-            StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-            StorageReference gardenRef = storageRef.child("gardenMainPhoto");
-            String imageName = idGarden + ".jpg";
-            StorageReference imageRef = gardenRef.child(imageName);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] data = baos.toByteArray();
-            UploadTask uploadTask = imageRef.putBytes(data);
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Log.i("IMG","Image uploaded to Storage");
-                }
-            });
+        try{
+            Bitmap bitmap = ((BitmapDrawable) photo.getDrawable()).getBitmap();
+            if(bitmap != null){
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                StorageReference gardenRef = storageRef.child("gardenMainPhoto");
+                String imageName = idGarden + ".jpg";
+                StorageReference imageRef = gardenRef.child(imageName);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] data = baos.toByteArray();
+                UploadTask uploadTask = imageRef.putBytes(data);
+                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Log.i("IMG","Image uploaded to Storage");
+                    }
+                });
+            }
+        }catch (Exception e){
+            Log.d(TAG, "Error con la foto: ", e);
         }
     }
     
