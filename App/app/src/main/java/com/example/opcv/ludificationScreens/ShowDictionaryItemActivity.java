@@ -290,7 +290,8 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 description.setText(publicLikes.get("Description"));
             }
         });
-        persistance.searchPublisher(idUser, new LudificationPersistance.GetUserId() {
+
+        persistance.searchPublisher(element, docRef, new LudificationPersistance.GetUserId() {
             @Override
             public void onSuccess(String name) {
                 authorName.setText("Por "+name);

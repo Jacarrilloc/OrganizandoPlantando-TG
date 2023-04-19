@@ -159,16 +159,26 @@ public class LudificationPersistance implements Serializable {
         void onSuccess(String name);
     }
 
-    public void searchPublisher(String id, final GetUserId callback){
+    public void searchPublisher(String element, String docRef, final GetUserId callback){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference ref = db.collection("UserInfo").document(id);
+        DocumentReference ref = db.collection(element).document(docRef);
+
         ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(documentSnapshot.exists()){
-                    String name;
-                    name = documentSnapshot.getString("Name")+ " "+documentSnapshot.getString("LastName");
-                    callback.onSuccess(name);
+                    String idPublisher;
+                    idPublisher = documentSnapshot.getString("Publisher");
+                    DocumentReference ref2 = db.collection("UserInfo").document(idPublisher);
+                    ref2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            if(documentSnapshot.exists()){
+                                String name = documentSnapshot.getString("Name")+" "+documentSnapshot.getString("LastName");
+                                callback.onSuccess(name);
+                            }
+                        }
+                    });
                 }
             }
         });
