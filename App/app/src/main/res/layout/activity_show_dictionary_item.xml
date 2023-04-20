@@ -31,7 +31,11 @@
             android:textColor="@color/black"
             android:textColorHint="@color/gray"
             android:textSize="@dimen/_20sdp"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            android:paddingBottom="@dimen/_40sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp"/>
 
         <FrameLayout
             android:layout_width="wrap_content"
