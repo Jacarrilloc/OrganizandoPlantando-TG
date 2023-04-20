@@ -58,7 +58,6 @@ public class PlantsToolsAdapter extends ArrayAdapter<ItemPlantsTools> {
             image = convertView.findViewById(R.id.image);
             image.setVisibility(View.VISIBLE);
         }
-
         return convertView;
     }
 }
