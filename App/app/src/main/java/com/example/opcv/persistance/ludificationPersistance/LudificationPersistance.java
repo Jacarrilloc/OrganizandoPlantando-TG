@@ -65,7 +65,7 @@ public class LudificationPersistance implements Serializable {
         auth.getUserDocumentId(idUser, new AuthUtilities.GetUserDocument() {
             @Override
             public void onComplete(String idDocu) {
-                System.out.println("xd: "+idDocu);
+                //System.out.println("xd: "+idDocu);
                 DocumentReference documentReference = db.collection("UserInfo").document(idDocu);//Esto sera para añadir el nivel al usuario cuando se implemente
             }
         });
@@ -254,10 +254,23 @@ public class LudificationPersistance implements Serializable {
     public void addLevelUser(String idUser, Map<String, Object> map){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference ref = db.collection("UserInfo").document(idUser);
-        ref.update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+        ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(Void unused) {
-                Log.d(TAG, "Nivel actualizado exitosamente!");//en el futuro cambiar a notificacion
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(documentSnapshot.exists()){
+                    double likeNumber = documentSnapshot.getDouble("Level");
+                    int points = (int) map.get("Level");
+                    DecimalFormat df = new DecimalFormat("#");
+                    likeNumber = likeNumber+points;
+                    String formated = df.format(likeNumber);
+                    ref.update("Level", Integer.parseInt(formated)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Log.d(TAG, "likes actualizados exitosamente!");//en el futuro cambiar a notificacion
+                        }
+                    });
+                }
             }
         });
     }
