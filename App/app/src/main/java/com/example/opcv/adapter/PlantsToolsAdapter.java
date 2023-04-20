@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.example.opcv.R;
 import com.example.opcv.item_list.ItemPlantsTools;
 
@@ -47,10 +48,17 @@ public class PlantsToolsAdapter extends ArrayAdapter<ItemPlantsTools> {
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_right_to_left);
         animation.setStartOffset(position * 100);
         convertView.startAnimation(animation);
-        ItemPlantsTools IPT = new ItemPlantsTools(item.getName(), item.getId());
+        //ItemPlantsTools IPT = new ItemPlantsTools(item.getName(), item.getId());
+        if(item.getUri() != null){
+            image = convertView.findViewById(R.id.image);
+            Glide.with(context).load(item.getUri()).into(image);
+            image.setVisibility(View.VISIBLE);
+        }
+        else{
+            image = convertView.findViewById(R.id.image);
+            image.setVisibility(View.VISIBLE);
+        }
 
-        image = convertView.findViewById(R.id.image);
-        image.setVisibility(View.VISIBLE);
         return convertView;
     }
 }
