@@ -31,8 +31,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.opcv.HomeActivity;
+import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -58,7 +60,7 @@ import java.io.InputStream;
 
 public class GardenEditActivity extends AppCompatActivity {
     private EditText gardenName, comunity, description;
-    private Button acceptChanges, gardens, myGardens, profile, deleteGarden, addForm, changeImage;
+    private Button acceptChanges, gardens, myGardens, profile, deleteGarden, addForm, changeImage, ludification;
     private ImageView addParticipants,gardenImage;
     private Switch switchGardenTypeModified;
     private CheckBox publicGarden, privateGarden;
@@ -131,6 +133,16 @@ public class GardenEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+            }
+        });
+
+        ludification = (Button) findViewById(R.id.ludification);
+
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent edit = new Intent(GardenEditActivity.this, DictionaryHome.class);
+                startActivity(edit);
             }
         });
 

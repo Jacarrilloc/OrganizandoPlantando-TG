@@ -30,6 +30,7 @@ import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.fbComunication.CollaboratorUtilities;
 import com.example.opcv.info.GardenInfo;
 import com.example.opcv.item_list.ItemCollaboratorsRequest;
+import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,7 +47,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CollaboratorGardensActivity extends AppCompatActivity {
-    private Button gardensMap, profile, myGardens;
+    private Button gardensMap, profile, myGardens, ludification;
     private String userId;
     private ListView listGardens;
     private FirebaseAuth autentication;
@@ -128,6 +129,16 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
                 start.putExtra("owner", "false");
                 startActivity(start);
                 finish();
+            }
+        });
+
+        ludification = (Button) findViewById(R.id.ludification);
+
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent edit = new Intent(CollaboratorGardensActivity.this, DictionaryHome.class);
+                startActivity(edit);
             }
         });
     }

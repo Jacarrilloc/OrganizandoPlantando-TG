@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -43,7 +44,7 @@ public class ShowDictionaryActivity extends AppCompatActivity {
     private String element, idUser;
     private Button profile, myGardens, gardensMap, ludification;
     private EditText search;
-    private ListView listView;
+    private GridView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class ShowDictionaryActivity extends AppCompatActivity {
         gardensMap = (Button) findViewById(R.id.gardens);
         ludification = (Button) findViewById(R.id.ludification);
         search = (EditText) findViewById(R.id.search);
-        listView = (ListView) findViewById(R.id.plantsList);
+        listView = (GridView) findViewById(R.id.plantsList);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
@@ -178,9 +179,9 @@ public class ShowDictionaryActivity extends AppCompatActivity {
 
     }
     public void fillList(List<ItemPlantsTools> requestDocument){
-        PlantsToolsAdapter adapter = new PlantsToolsAdapter(this, requestDocument);
+        PlantsToolsAdapter adapter = new PlantsToolsAdapter(this, requestDocument, element);
         listView.setAdapter(adapter);
-        listView.setDividerHeight(15);
+        listView.setVerticalSpacing(15);
     }
     @Override
     protected void attachBaseContext(Context newBase) {
