@@ -34,6 +34,7 @@ import com.example.opcv.formsScreen.Form_CPS;
 import com.example.opcv.formsScreen.Form_RAC;
 import com.example.opcv.info.GardenInfo;
 import com.example.opcv.localDatabase.DatabaseFormsHelper;
+import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -55,7 +56,7 @@ import java.util.Objects;
 
 public class GardenActivity extends AppCompatActivity {
 
-    private Button formsRegister, gardens, myGardens, profile;
+    private Button formsRegister, gardens, myGardens, profile, ludification;
     private ImageButton editGarden, seedTime, toolsButton, worm, collaboratorGardens, messages, generateReport;
 
     private ImageView moreFormsButtom,gardenImage;
@@ -272,7 +273,6 @@ public class GardenActivity extends AppCompatActivity {
                 requests.putExtra("idGardenFirebase",idGardenFirebase);
                 startActivity(requests);
                 finish();
-                //cU.acceptRequest("ZEhfjQHgINTIVTWtwxTMj2MWEbe2", idGardenFirebase, true);
             }
         });
 
@@ -302,6 +302,16 @@ public class GardenActivity extends AppCompatActivity {
                 });
 
 
+            }
+        });
+
+        ludification = (Button) findViewById(R.id.ludification);
+
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent edit = new Intent(GardenActivity.this, DictionaryHome.class);
+                startActivity(edit);
             }
         });
 

@@ -32,4 +32,19 @@ public class levelLogic {
         LudificationPersistance persistance = new LudificationPersistance();
         persistance.deductUserPoints(docRef, levelDislikes, element);
     }
+
+    public String levelName(int lv){
+        if(lv >= 0 && lv<10){
+            return "Aprendiz Verde";
+        } else if (lv>= 10 && lv <30) {
+            return "Jardinero(a) Novato(a)";
+        } else if (lv>=30 && lv <60) {
+            return "Maestro(a) de Jardinería";
+        } else if (lv >= 60 && lv <100) {
+            return "Genio Botánico(a)";
+        } else if (lv >= 100) {
+            return "Señor(a) de las Plantas";
+        }
+        return "Error";
+    }
 }

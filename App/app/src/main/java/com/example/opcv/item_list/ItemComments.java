@@ -1,11 +1,20 @@
 package com.example.opcv.item_list;
 
 public class ItemComments {
-    private String comment, nameCommentator;
+    private String comment, nameCommentator, idUSer;
 
-    public ItemComments(String comment, String nameCommentator) {
+    public ItemComments(String comment, String nameCommentator, String idUSer) {
         this.comment = comment;
         this.nameCommentator = nameCommentator;
+        this.idUSer = idUSer;
+    }
+
+    public String getIdUSer() {
+        return idUSer;
+    }
+
+    public void setIdUSer(String idUSer) {
+        this.idUSer = idUSer;
     }
 
     public String getComment() {

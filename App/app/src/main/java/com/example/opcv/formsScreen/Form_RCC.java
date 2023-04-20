@@ -23,6 +23,7 @@ import com.example.opcv.R;
 import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.FormsUtilities;
 import com.example.opcv.localDatabase.DB_InsertForms;
+import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -38,7 +39,7 @@ import java.util.Map;
 public class Form_RCC extends AppCompatActivity {
     private FloatingActionButton backButtom;
     private FormsUtilities formsUtilities;
-    private Button addFormButtom, gardens, myGardens, profile;
+    private Button addFormButtom, gardens, myGardens, profile, ludification;
     private EditText recipientArea, description, residueQuant, fertilizer, leached;
     private TextView formName;
     private String watch, idGarden, idCollection;
@@ -79,6 +80,16 @@ public class Form_RCC extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Form_RCC.this, EditUserActivity.class));
+            }
+        });
+
+        ludification = (Button) findViewById(R.id.ludification);
+
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent edit = new Intent(Form_RCC.this, DictionaryHome.class);
+                startActivity(edit);
             }
         });
 

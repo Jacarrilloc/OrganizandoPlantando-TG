@@ -25,10 +25,11 @@ import android.widget.ImageView;
 
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.gardens.GardensAvailableActivity;
+import com.example.opcv.ludificationScreens.DictionaryHome;
 
 public class MapsActivity extends AppCompatActivity {
     private MapView map;
-    private Button profile, myGardens, gardensMap;
+    private Button profile, myGardens, gardensMap, ludification;
     private MapController myMapController;
     private ImageView gardens;
     GeoPoint bogota = new GeoPoint(4.62, -74.07);
@@ -82,6 +83,16 @@ public class MapsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MapsActivity.this, GardensAvailableActivity.class));
+            }
+        });
+
+        ludification = (Button) findViewById(R.id.ludification);
+
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent edit = new Intent(MapsActivity.this, DictionaryHome.class);
+                startActivity(edit);
             }
         });
 

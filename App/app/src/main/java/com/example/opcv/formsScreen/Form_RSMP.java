@@ -26,6 +26,7 @@ import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.FormsUtilities;
 import com.example.opcv.localDatabase.DB_InsertForms;
+import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -42,7 +43,7 @@ public class Form_RSMP extends AppCompatActivity {
 
     private FloatingActionButton backButtom;
     private FormsUtilities formsUtilities;
-    private Button addFormButtom, gardens, myGardens, profile;
+    private Button addFormButtom, gardens, myGardens, profile, ludification;
 
     private Spinner spinnerUnits, spinnerConcept;
     private String unitSelectedItem, conceptSelectedItem, watch, idGarden, idCollection;
@@ -85,6 +86,16 @@ public class Form_RSMP extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Form_RSMP.this, EditUserActivity.class));
+            }
+        });
+
+        ludification = (Button) findViewById(R.id.ludification);
+
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent edit = new Intent(Form_RSMP.this, DictionaryHome.class);
+                startActivity(edit);
             }
         });
 
