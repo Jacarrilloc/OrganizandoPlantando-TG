@@ -1,9 +1,11 @@
 package com.example.opcv.persistance.ludificationPersistance;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -20,6 +22,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
@@ -27,8 +32,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 public class LudificationPersistance implements Serializable {
+
+    private static final int COD_STORAGE = 200;
+    private static final int COD_IMAGE = 300;
 
     public void addPlantDictionary(Map<String, Object> plantInfo, Context context, String idUser){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -453,6 +462,51 @@ public class LudificationPersistance implements Serializable {
     }
     public interface GetPublisher{
         void onComplete(String name);
+    }
+
+    //a continuacion se hace el manejo de las fotos
+    public void addPhoto(String name, byte[] bytes, final GetURi callback){
+        StorageReference storage = FirebaseStorage.getInstance().getReference();
+        String path = "plantPhoto/";
+        Uri imageUrl;
+        String photo = "photo";
+        String idd;
+
+        StorageReference ref = storage.child("images/"+ UUID.randomUUID().toString());
+        UploadTask uploadTask = ref.putBytes(bytes);
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        String url = uri.toString();
+                        callback.onSuccess(url);
+                    }
+                });
+            }
+        });
+    }
+    public interface GetURi{
+        void onSuccess(String uri);
+    }
+
+    public void getImage(String element, String docRef, final GetURi callback){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference ref = db.collection(element).document(docRef);
+        ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(documentSnapshot.exists()){
+                    if(element.equals("Plants")){
+                        callback.onSuccess(documentSnapshot.getString("PlantImage"));
+                    }
+                    else{
+                        callback.onSuccess(documentSnapshot.getString("ToolImage"));
+                    }
+                }
+            }
+        });
     }
 /*
     public void getDislikesUser(String idUser, final DeductLevel callback){
