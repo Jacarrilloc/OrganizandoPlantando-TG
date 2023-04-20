@@ -23,6 +23,7 @@ import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.fbComunication.CollaboratorUtilities;
 import com.example.opcv.info.GardenInfo;
+import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,7 +33,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class OtherGardensActivity extends AppCompatActivity {
-    private Button otherGardensButton, profile, myGardens, join, visit;
+    private Button otherGardensButton, profile, myGardens, join, visit, ludification;
     private TextView nameGarden,descriptionGarden;
     private FirebaseFirestore database;
     private CollectionReference gardensRef;
@@ -101,6 +102,16 @@ public class OtherGardensActivity extends AppCompatActivity {
                 Toast.makeText(OtherGardensActivity.this, "Se envio la solicitud al dueño de la huerta", Toast.LENGTH_SHORT).show();
                 join.setVisibility(View.INVISIBLE);
                 join.setClickable(false);
+            }
+        });
+
+        ludification = (Button) findViewById(R.id.ludification);
+
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent edit = new Intent(OtherGardensActivity.this, DictionaryHome.class);
+                startActivity(edit);
             }
         });
     }

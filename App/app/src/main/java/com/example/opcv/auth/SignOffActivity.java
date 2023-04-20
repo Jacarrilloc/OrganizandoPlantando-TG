@@ -16,11 +16,12 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.NewToAppActivity;
 import com.example.opcv.R;
+import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SignOffActivity extends AppCompatActivity {
-    private Button returnScreen, signOff, gardensMap, profile, myGarden;
+    private Button returnScreen, signOff, gardensMap, profile, myGarden, ludification;
 
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
@@ -73,6 +74,16 @@ public class SignOffActivity extends AppCompatActivity {
                 Intent intent = new Intent(SignOffActivity.this, NewToAppActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+            }
+        });
+
+        ludification = (Button) findViewById(R.id.ludification);
+
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent edit = new Intent(SignOffActivity.this, DictionaryHome.class);
+                startActivity(edit);
             }
         });
     }
