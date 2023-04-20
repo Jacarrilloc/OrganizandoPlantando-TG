@@ -94,8 +94,9 @@ public class DeleteAccountActivity extends AppCompatActivity {
                     public void onSuccess(Void unused) {
                         Toast.makeText(DeleteAccountActivity.this, "Cuenta eliminada", Toast.LENGTH_SHORT).show();
                         autentication.signOut();
-                        Intent start = new Intent(DeleteAccountActivity.this, NewToAppActivity.class);
-                        startActivity(start);
+                        Intent intent = new Intent(DeleteAccountActivity.this, NewToAppActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                     }
                 });
             }

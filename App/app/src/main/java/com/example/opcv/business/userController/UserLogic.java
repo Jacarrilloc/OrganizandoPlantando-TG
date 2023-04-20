@@ -31,4 +31,6 @@ public class UserLogic {
         User newUser = new User(oldUser.getId(), name,lastName,email,phoneNumber,level,gender);
         userDao.updateUser(newUser);
     }
+
+    //manejo de fotos
 }

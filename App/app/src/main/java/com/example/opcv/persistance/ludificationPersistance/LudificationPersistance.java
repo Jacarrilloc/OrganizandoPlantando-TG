@@ -485,7 +485,7 @@ public class LudificationPersistance implements Serializable {
         String photo = "photo";
         String idd;
 
-        StorageReference ref = storage.child("images/"+ UUID.randomUUID().toString());
+        StorageReference ref = storage.child("ludificationImages/"+ UUID.randomUUID().toString());
         UploadTask uploadTask = ref.putBytes(bytes);
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override

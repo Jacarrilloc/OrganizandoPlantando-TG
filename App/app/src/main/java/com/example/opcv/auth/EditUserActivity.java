@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
+import com.example.opcv.NewToAppActivity;
 import com.example.opcv.R;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.CreateGardenActivity;

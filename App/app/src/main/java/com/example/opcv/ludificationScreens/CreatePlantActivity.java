@@ -43,6 +43,7 @@ public class CreatePlantActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_SELECT_IMAGE = 100;
     private Uri selectImageUri;
     private byte[] bytes;
+    private boolean imageSelected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,8 @@ public class CreatePlantActivity extends AppCompatActivity {
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                image.setBackground(null);
+                image.setBackgroundColor(getResources().getColor(R.color.lightGreen2));
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
                 startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE);
@@ -168,9 +171,12 @@ public class CreatePlantActivity extends AppCompatActivity {
 
         if(requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == RESULT_OK && data != null && data.getData() !=null){
             Uri selectedImage = data.getData();
-
+            // image.setImageURI(null);
             image.setImageURI(selectedImage);
 
+            imageSelected = true;
+        }
+        if(imageSelected){
             image.setDrawingCacheEnabled(true);
             image.buildDrawingCache();
             Bitmap bitmap = image.getDrawingCache();
@@ -179,8 +185,7 @@ public class CreatePlantActivity extends AppCompatActivity {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
                 bytes = baos.toByteArray();
             }
-
-
         }
     }
+
 }

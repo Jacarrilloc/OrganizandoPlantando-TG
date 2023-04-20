@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.adapter.CommentsAdapter;
@@ -35,16 +36,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ShowDictionaryItemActivity extends AppCompatActivity {
 
     private Button profile, myGardens, gardensMap, ludification;
-    private String idUser, element, docRef;
+    private String idUser, element, docRef, imageUri;
     private TextView authorName, elementName, likeNumber, dislikeNumber, description, tag1, tag2,tag3, tag4, tag5, tag6;
     private EditText input;
     private FloatingActionButton add, sendComment;
     private ImageButton likeButton, dislikeButton;
     private ListView listView;
-
+    private CircleImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         tag6 = (TextView) findViewById(R.id.tag6);
         listView = (ListView) findViewById(R.id.listViewComments);
         input = (EditText) findViewById(R.id.inputText);
+        image = (CircleImageView) findViewById(R.id.imageItem);
 
         LudificationPersistance persistance = new LudificationPersistance();
         LudificationLogic logic = new LudificationLogic();
@@ -82,6 +86,14 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
             element = extras.getString("element");
             docRef = extras.getString("idDoc");
         }
+        persistance.getImage(element, docRef, new LudificationPersistance.GetURi() {
+            @Override
+            public void onSuccess(String uri) {
+                if(uri != null){
+                    Glide.with(ShowDictionaryItemActivity.this).load(uri).into(image);
+                }
+            }
+        });
 
         if(element.equals("Plants")){
             persistance.searchPlantName(docRef, new LudificationPersistance.GetPlantName() {
@@ -221,8 +233,11 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 sendComment.setFocusable(false);
                 //añadir la logica para recibir de un edittext
                 String textInput = String.valueOf(input.getText());
-                logic.addComments(element, idUser,  textInput, docRef, ShowDictionaryItemActivity.this);
-                level.addLevel(idUser, false, ShowDictionaryItemActivity.this);
+                if(!textInput.isEmpty()){
+                    logic.addComments(element, idUser,  textInput, docRef, ShowDictionaryItemActivity.this);
+                    level.addLevel(idUser, false, ShowDictionaryItemActivity.this);
+
+                }
                 recreate();
             }
         });

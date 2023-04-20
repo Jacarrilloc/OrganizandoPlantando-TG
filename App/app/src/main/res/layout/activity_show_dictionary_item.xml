@@ -108,16 +108,16 @@
                         <!-- Vista de imagen con borde -->
                         <ImageView
                             android:id="@+id/border"
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
+                            android:layout_width="@dimen/_120sdp"
+                            android:layout_height="@dimen/_120sdp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/im_circle_border_purple" />
 
                         <!-- Vista de imagen circular -->
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/imageItem"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_100sdp"
                             android:layout_gravity="center"
                             android:src="@drawable/im_logo_ceres" />
                     </FrameLayout>
