@@ -307,7 +307,12 @@ public class GardenActivity extends AppCompatActivity {
 
     }
 
-    private void SearchInfoGardenSreen(String idUser,String name){
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    private void SearchInfoGardenSreen(String idUser, String name){
         DocumentReference ref = gardensRef.document(gardenID);
 
         ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {

@@ -75,10 +75,16 @@ public class ShowDictionaryActivity extends AppCompatActivity {
                     //System.out.println("el map: "+map);
                     List<ItemPlantsTools> plantsTools = new ArrayList<>();
                     for(Map.Entry<String, String> entry : map.entrySet()){
+                        persistance.getImage(element, entry.getKey(), new LudificationPersistance.GetURi() {
+                            @Override
+                            public void onSuccess(String uri) {
 
-                        ItemPlantsTools newItem = new ItemPlantsTools(entry.getValue(), entry.getKey());
-                        plantsTools.add(newItem);
-                        fillList(plantsTools);
+                                ItemPlantsTools newItem = new ItemPlantsTools(entry.getValue(), entry.getKey(), uri);
+                                plantsTools.add(newItem);
+                                fillList(plantsTools);
+                            }
+                        });
+
                     }
 
                 }
@@ -100,10 +106,14 @@ public class ShowDictionaryActivity extends AppCompatActivity {
                 public void onComplete(Map<String, String> map) {
                     List<ItemPlantsTools> plantsTools = new ArrayList<>();
                     for(Map.Entry<String, String> entry : map.entrySet()){
-
-                        ItemPlantsTools newItem = new ItemPlantsTools(entry.getValue(), entry.getKey());
-                        plantsTools.add(newItem);
-                        fillList(plantsTools);
+                        persistance.getImage(element, entry.getKey(), new LudificationPersistance.GetURi() {
+                            @Override
+                            public void onSuccess(String uri) {
+                                ItemPlantsTools newItem = new ItemPlantsTools(entry.getValue(), entry.getKey(), uri);
+                                plantsTools.add(newItem);
+                                fillList(plantsTools);
+                            }
+                        });
                     }
                 }
             });

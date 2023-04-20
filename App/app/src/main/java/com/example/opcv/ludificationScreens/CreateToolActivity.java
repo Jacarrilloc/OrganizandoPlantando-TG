@@ -1,11 +1,14 @@
 package com.example.opcv.ludificationScreens;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
@@ -23,6 +27,8 @@ import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.GardensAvailableActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.ByteArrayOutputStream;
+
 public class CreateToolActivity extends AppCompatActivity {
 
     private CheckBox tool, fertilizer, care;
@@ -31,6 +37,10 @@ public class CreateToolActivity extends AppCompatActivity {
     private Boolean toolCheck, fertilizerCheck, careCheck;
     private FloatingActionButton add;
     private Button profile, myGardens, gardensMap, ludification;
+    private ImageView image;
+    private static final int REQUEST_CODE_SELECT_IMAGE = 100;
+    private Uri selectImageUri;
+    private byte[] bytes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +57,22 @@ public class CreateToolActivity extends AppCompatActivity {
         gardensMap = (Button) findViewById(R.id.gardens);
         ludification = (Button) findViewById(R.id.ludification);
         add = (FloatingActionButton) findViewById(R.id.addButton);
+        image = (ImageView) findViewById(R.id.addImage);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             idUser = extras.getString("userInfo");
         }
+
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE);
+            }
+        });
+
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,9 +83,9 @@ public class CreateToolActivity extends AppCompatActivity {
                 toolCheck = tool.isChecked();
                 fertilizerCheck = fertilizer.isChecked();
                 careCheck = care.isChecked();
-                if(logic.validateField(toolName, toolDescription, CreateToolActivity.this)){
-                    logic.addToolElementsMap(toolName, toolDescription, toolCheck, fertilizerCheck, careCheck, CreateToolActivity.this, idUser);
-                    level.addLevel(idUser, true);
+                if(logic.validateField(toolName, toolDescription, CreateToolActivity.this, bytes)){
+                    logic.addToolElementsMap(toolName, toolDescription, toolCheck, fertilizerCheck, careCheck, CreateToolActivity.this, idUser, bytes);
+                    level.addLevel(idUser, true, CreateToolActivity.this);
                     Intent edit = new Intent(CreateToolActivity.this, DictionaryHome.class);
                     edit.putExtra("userInfo", idUser);
                     startActivity(edit);
@@ -129,6 +150,27 @@ public class CreateToolActivity extends AppCompatActivity {
             wm.getDefaultDisplay().getMetrics(metrics);
             metrics.scaledDensity = configuration.fontScale * metrics.density;
             context.getResources().updateConfiguration(configuration, metrics);
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == RESULT_OK && data != null && data.getData() !=null){
+            Uri selectedImage = data.getData();
+
+            image.setImageURI(selectedImage);
+
+            image.setDrawingCacheEnabled(true);
+            image.buildDrawingCache();
+            Bitmap bitmap = image.getDrawingCache();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            if(bitmap != null){
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+                bytes = baos.toByteArray();
+            }
+
+
         }
     }
 }
