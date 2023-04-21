@@ -3,7 +3,6 @@ package com.example.opcv.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +14,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.bumptech.glide.Glide;
 import com.example.opcv.R;
 import com.example.opcv.item_list.ItemGardenHomeList;
-import com.example.opcv.persistance.gardenPersistance.GardenPersistance;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -45,7 +42,6 @@ public class GardenListAdapter extends ArrayAdapter<ItemGardenHomeList> {
 
         ItemGardenHomeList item = getItem(position);
 
-
         gardenName = convertView.findViewById(R.id.garden_name_list_item);
         gardenName.setText(item.getName());
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_right_to_left);
@@ -54,35 +50,24 @@ public class GardenListAdapter extends ArrayAdapter<ItemGardenHomeList> {
 
         image = convertView.findViewById(R.id.garden_imagen_list_item);
         image.setVisibility(View.VISIBLE);
-        GardenPersistance persistance = new GardenPersistance();
-        String id = item.getIdGarden();
 
-        if(item.getUri() != null){
-            image = convertView.findViewById(R.id.garden_imagen_list_item);
-            Glide.with(context).load(item.getUri()).into(image);
-            image.setVisibility(View.VISIBLE);
-        }
-        else{
-            image = convertView.findViewById(R.id.garden_imagen_list_item);
-            image.setVisibility(View.VISIBLE);
-        }
-        /*
+        String id = item.getIdGarden();
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+
+        StorageReference imageRef = storageRef.child("gardenMainPhoto/" +id + ".jpg");
         final long ONE_MEGABYTE = 1024 * 1024;
         imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
-                Glide.with(image.getContext())
-                        .load(imageRef)
-                        .into(image);
-                //Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                //image.setImageBitmap(bitmap);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                image.setImageBitmap(bitmap);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 image.setImageResource(R.drawable.im_logo_ceres_green);
             }
-        });*/
+        });
         return convertView;
     }
 }

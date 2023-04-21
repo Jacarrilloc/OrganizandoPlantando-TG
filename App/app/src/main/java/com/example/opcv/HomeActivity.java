@@ -14,7 +14,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -42,9 +41,12 @@ import com.example.opcv.info.User;
 import com.example.opcv.item_list.ItemGardenHomeList;
 import com.example.opcv.localDatabase.DatabaseHelper;
 import com.example.opcv.ludificationScreens.DictionaryHome;
+<<<<<<< HEAD
 import com.example.opcv.persistance.gardenPersistance.GardenPersistance;
 import com.example.opcv.repository.GardenRepository;
 import com.example.opcv.repository.local_db.Garden;
+=======
+>>>>>>> parent of 0679807 (Manejo de imagenes listo)
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -217,13 +219,6 @@ public class HomeActivity extends AppCompatActivity {
                     edit.putExtra("userInfo", userId);
                     startActivity(edit);
                 }
-                else{
-                    AuthUtilities auth = new AuthUtilities();
-                    userId = auth.getCurrentUserUid();
-                    Intent edit = new Intent(HomeActivity.this, EditUserActivity.class);
-                    edit.putExtra("userInfo", userId);
-                    startActivity(edit);
-                }
             }
         });
 
@@ -279,20 +274,21 @@ public class HomeActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : value) {
                             String name = document.getString("GardenName");
                             String gardenId = document.getId();
-                            GardenPersistance persistance = new GardenPersistance();
-                            persistance.getGardenPicture(gardenId, new GardenPersistance.GetUri() {
-                                @Override
-                                public void onSuccess(String uri) {
-                                    ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);
-                                    gardenNames.add(newItem);
-                                    fillListGardens(gardenNames);
-                                }
-                            });
 
-
+                            ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId);
+                            gardenNames.add(newItem);
                         }
+                    /*String newString;
+                    Bundle extras = getIntent().getExtras();
+                    if(extras==null){
+                        newString = null;
+                    }
+                    else {
+                        newString = extras.getString("idGarden");
+                    }
+                    idHuerta = newString;*/
 
-                        //fillListGardens(gardenNames);
+                        fillListGardens(gardenNames);
                     } else {
                         Toast.makeText(HomeActivity.this, "Error al obtener los documentos", Toast.LENGTH_SHORT).show();
                     }
