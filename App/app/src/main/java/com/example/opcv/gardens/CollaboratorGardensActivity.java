@@ -186,11 +186,10 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
                                                                     idGarden = document.getData().get("idGardenCollab").toString();
 
                                                                     ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(name, userId, idGarden);
-                                                                    //System.out.println("EL id es "+newItem.getName());
+                                                                    System.out.println("EL id es "+newItem.getName());
                                                                     gardenNames.add(newItem);
-                                                                    fillListGardens(gardenNames);
                                                                 }
-
+                                                                fillListGardens(gardenNames);
                                                             }
 
                                                         }

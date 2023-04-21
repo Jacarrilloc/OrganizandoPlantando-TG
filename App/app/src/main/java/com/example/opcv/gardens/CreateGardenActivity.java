@@ -34,11 +34,9 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
-import com.example.opcv.auth.SelectPhotoActivity;
 import com.example.opcv.business.gardenController.GardenLogic;
 import com.example.opcv.info.GardenInfo;
 import com.example.opcv.ludificationScreens.DictionaryHome;
-import com.example.opcv.persistance.gardenPersistance.GardenPersistance;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -71,9 +69,6 @@ public class CreateGardenActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_STORAGE = 1000;
 
     private static final int GALLERY_REQUEST_CODE = 100;
-
-    private Boolean IsChangedPhoto = false;
-    private byte[] bytes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,9 +134,7 @@ public class CreateGardenActivity extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(validateFieldPhoto(CreateGardenActivity.this, bytes)){
-                    createGarden();
-                }
+                createGarden();
             }
         });
 
@@ -154,13 +147,6 @@ public class CreateGardenActivity extends AppCompatActivity {
                 startActivity(edit);
             }
         });
-    }
-    public boolean validateFieldPhoto(Context context, byte[] bytes){
-        if(bytes == null){
-            Toast.makeText(context, "Es necesario Ingresar una imagen", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
     }
 
     private void createGarden(){
@@ -188,8 +174,6 @@ public class CreateGardenActivity extends AppCompatActivity {
                 newInfo = new GardenInfo(user.getUid(),nameGarden.getText().toString(),infoGarden.getText().toString(),"Private");
             }
 
-
-
             Map<String, Object> gardenInfo = new HashMap<>();
             gardenInfo.put("ID_Owner",newInfo.getID_Owner());
             gardenInfo.put("GardenName",newInfo.getName());
@@ -200,17 +184,9 @@ public class CreateGardenActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
                     String idGarden = documentReference.getId();
-                    GardenPersistance persistance = new GardenPersistance();
-                    persistance.addGardenPhoto(bytes, idGarden, new GardenPersistance.GetUriGarden() {
-                        @Override
-                        public void onSuccess(String uri) {
-                            //descomentar la siguiente linea si se necesita poner la uri en firestore
-                            collectionRef.document(idGarden).update("UriPath", uri);
-                            Toast.makeText(CreateGardenActivity.this, "Se Creó exitosamente la Huerta", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(CreateGardenActivity.this, HomeActivity.class).putExtra("idGarden", documentReference.getId().toString()));
-                        }
-                    });
-
+                    uploadPhotoGarden(idGarden);
+                    Toast.makeText(CreateGardenActivity.this, "Se Creó exitosamente la Huerta", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(CreateGardenActivity.this, HomeActivity.class).putExtra("idGarden", documentReference.getId().toString()));
                 }
             });
         }
@@ -223,7 +199,6 @@ public class CreateGardenActivity extends AppCompatActivity {
             PackageManager pm = getPackageManager();
             if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
                 openCamaraAndTakePhoto();
-                IsChangedPhoto = true;
             } else {
                 Toast.makeText(this, "No hay una Camara en tu Dispositivo", Toast.LENGTH_SHORT).show();
             }
@@ -236,8 +211,7 @@ public class CreateGardenActivity extends AppCompatActivity {
         if(ContextCompat.checkSelfPermission(CreateGardenActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(CreateGardenActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_STORAGE);
         }else{
-            Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            IsChangedPhoto = true;
+            Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
         }
     }
@@ -270,42 +244,17 @@ public class CreateGardenActivity extends AppCompatActivity {
             Log.d(TAG, "Error con la foto: ", e);
         }
     }
-
-    public interface GetGardenUri{
-        void onSuccess(String uri);
-    }
     
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 0){
+        if (resultCode == RESULT_OK) {
             Bitmap photoI = (Bitmap) data.getExtras().get("data");
             photo.setImageBitmap(photoI);
-            photo.setDrawingCacheEnabled(true);
-            photo.buildDrawingCache();
-            Bitmap bitmap = photo.getDrawingCache();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            if(bitmap != null){
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-                bytes = baos.toByteArray();
-            }
         }
-        if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() !=null){
-            Uri selectedImage = data.getData();
-            // image.setImageURI(null);
-            photo.setImageURI(selectedImage);
-
-            IsChangedPhoto = true;
-            if(IsChangedPhoto){
-                photo.setDrawingCacheEnabled(true);
-                photo.buildDrawingCache();
-                Bitmap bitmap = photo.getDrawingCache();
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                if(bitmap != null){
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-                    bytes = baos.toByteArray();
-                }
-            }
+        if (resultCode == RESULT_OK && requestCode == GALLERY_REQUEST_CODE && data != null) {
+            Uri imageUri = data.getData();
+            photo.setImageURI(imageUri);
         }
     }
     @Override
