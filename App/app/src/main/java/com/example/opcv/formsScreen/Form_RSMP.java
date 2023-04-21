@@ -162,7 +162,7 @@ public class Form_RSMP extends AppCompatActivity {
                         }
 
                         DB_InsertForms newForm = new DB_InsertForms(Form_RSMP.this);
-                        newForm.insertInto_RSMP(infoForm);
+                        //newForm.insertInto_RSMP(infoForm);
                         Toast.makeText(Form_RSMP.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Form_RSMP.this, HomeActivity.class));
                         finish();

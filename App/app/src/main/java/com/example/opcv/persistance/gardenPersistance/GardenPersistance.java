@@ -40,7 +40,6 @@ public class GardenPersistance {
 
     public void getGardenPicture(String id, final GetUri callback){/*
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-
         StorageReference imageRef = storageRef.child("gardenMainPhoto/" +id + ".jpg");
         imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override

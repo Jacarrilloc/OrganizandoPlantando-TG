@@ -144,7 +144,7 @@ public class Form_CPS extends AppCompatActivity {
                             formsUtilities.createForm(Form_CPS.this,infoForm,idGardenFb);
                         }
                         DB_InsertForms newForm = new DB_InsertForms(Form_CPS.this);
-                        newForm.insertInto_CPS(infoForm);
+                        //newForm.insertInto_CPS(infoForm);
 
                         Toast.makeText(Form_CPS.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Form_CPS.this, HomeActivity.class));

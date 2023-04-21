@@ -157,7 +157,7 @@ public class Form_SCMPH extends AppCompatActivity {
                         }
 
                         DB_InsertForms newForm = new DB_InsertForms(Form_SCMPH.this);
-                        newForm.insertInto_SCMPH(infoForm);
+                       // newForm.insertInto_SCMPH(infoForm);
                         Toast.makeText(Form_SCMPH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Form_SCMPH.this, HomeActivity.class));
                         finish();

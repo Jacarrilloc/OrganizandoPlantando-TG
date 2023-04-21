@@ -181,7 +181,7 @@ public class Form_RHC extends AppCompatActivity {
                         }
 
                         DB_InsertForms newForm = new DB_InsertForms(Form_RHC.this);
-                        newForm.insertInto_RHC(infoForm);
+                        //newForm.insertInto_RHC(infoForm);
                         Toast.makeText(Form_RHC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Form_RHC.this, HomeActivity.class));
                         finish();

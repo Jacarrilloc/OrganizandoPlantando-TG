@@ -150,7 +150,6 @@ public class GardensAvailableActivity extends AppCompatActivity {
                                 }
                             });
 
-
                         }
 
                     } else {

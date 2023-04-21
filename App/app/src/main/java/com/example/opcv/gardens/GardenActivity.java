@@ -4,7 +4,6 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 
 import android.content.Context;
 import android.content.Intent;
@@ -28,7 +27,6 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
-import com.example.opcv.business.gardenController.GardenLogic;
 import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.CollaboratorUtilities;
 import com.example.opcv.formsScreen.Form_CIH;
@@ -36,7 +34,7 @@ import com.example.opcv.formsScreen.Form_CPS;
 import com.example.opcv.formsScreen.Form_RAC;
 import com.example.opcv.info.GardenInfo;
 import com.example.opcv.localDatabase.DatabaseFormsHelper;
-import com.example.opcv.repository.local_db.Garden;
+import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -98,9 +96,13 @@ public class GardenActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
-            id = extras.getString("ID_garden");
-            //SearchInfoGardenSreen(id);
-            fillGardenInfo(id);
+            id = extras.getString("ID");
+            garden = extras.getString("gardenName");
+            gardenID = extras.getString("idGarden");
+            groupLink = extras.getString("GroupLink");
+            owner = extras.getString("owner");
+            //System.out.println("El que es "+ owner);
+            SearchInfoGardenSreen(id,garden);
         }
 
         NetworkMonitorService test = new NetworkMonitorService(GardenActivity.this);
@@ -298,6 +300,8 @@ public class GardenActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+
             }
         });
 
@@ -316,18 +320,6 @@ public class GardenActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-    }
-
-
-    private void fillGardenInfo(String id){
-        GardenLogic logic = new GardenLogic(getApplication());
-        LiveData<Garden> gardenLiveData = logic.getGarden(id);
-        gardenLiveData.observe(this, garden -> {
-            if (garden != null) {
-                nameGarden.setText(garden.getGardenName());
-                descriptionGarden.setText(garden.getInfoGarden());
-            }
-        });
     }
 
     private void SearchInfoGardenSreen(String idUser, String name){

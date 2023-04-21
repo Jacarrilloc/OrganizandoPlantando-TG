@@ -6,9 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -30,8 +27,6 @@ import android.widget.Toast;
 
 import com.example.opcv.adapter.GardenListAdapter;
 import com.example.opcv.auth.EditUserActivity;
-import com.example.opcv.business.gardenController.GardenLogic;
-import com.example.opcv.business.gardenController.GardenViewModel;
 import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.CollaboratorGardensActivity;
@@ -43,8 +38,6 @@ import com.example.opcv.item_list.ItemGardenHomeList;
 import com.example.opcv.localDatabase.DatabaseHelper;
 import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.example.opcv.persistance.gardenPersistance.GardenPersistance;
-import com.example.opcv.repository.GardenRepository;
-import com.example.opcv.repository.local_db.Garden;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -64,13 +57,17 @@ public class HomeActivity extends AppCompatActivity {
     private ImageButton generateReport;
     private ListView listAviableGardensInfo;
     private FloatingActionButton nextArrow, addButton;
+    private FirebaseAuth autentication;
+    private FirebaseFirestore database;
     private Animation animSlideUp;
 
     private  Button gardensMap;
-    private String userId;
-    private GardenRepository gardenRepository;
-    private AuthUtilities authUtilities;
 
+    private String idHuerta;
+    private User userInfo;
+    private String userId;
+
+    private Intent serviceIntent;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -98,17 +95,20 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        fillGardenUser();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        //Detiene el servicio NetworkMonitorService
+        stopService(serviceIntent);
     }
 
     @Override
     protected void onResume() {
+        fillGardenUser();
         super.onResume();
-        fillListGardens();
     }
 
     @Override
@@ -129,9 +129,12 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        gardenRepository = new GardenRepository(getApplication());
-        authUtilities = new AuthUtilities();
-        fillListGardens();
+        //Metodos para sicronizacion entre Firestore (Servidor) y  SQL Lite ( Base de Datos Local )
+        serviceIntent = new Intent(this, NetworkMonitorService.class);
+        startService(serviceIntent);
+
+        autentication = FirebaseAuth.getInstance();
+        database = FirebaseFirestore.getInstance();
 
         //Declaracion metodos de navegacion
         listAviableGardensInfo = findViewById(R.id.listAviableGardens);
@@ -153,20 +156,11 @@ public class HomeActivity extends AppCompatActivity {
             userId = auth.getCurrentUserUid();
         }
 
+        fillGardenUser();
 
         listAviableGardensInfo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                Object selectedItem = adapterView.getItemAtPosition(i);
-                String dbID = ((ItemGardenHomeList) selectedItem).getIdGarden();
-                Intent start = new Intent(HomeActivity.this, GardenActivity.class);
-                start.putExtra("ID_garden",dbID);
-                startActivity(start);
-
-                /*
-                Intent start = new Intent(HomeActivity.this, GardenActivity.class);
-                startActivity(start);
 
                 Object selectedItem = adapterView.getItemAtPosition(i);
                 String itemName = ((ItemGardenHomeList) selectedItem).getName();
@@ -180,7 +174,7 @@ public class HomeActivity extends AppCompatActivity {
                 start.putExtra("idGardenFirebaseDoc",idGarden);
                 start.putExtra("owner", "true");
                 startActivity(start);
-                finish();*/
+                finish();
             }
         });
 
@@ -259,8 +253,6 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-
-    /*
     private void fillGardenUser(){
         //startActivity(new Intent(HomeActivity.this, HomeActivity.class));
         CollectionReference Ref = database.collection("Gardens");
@@ -299,6 +291,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     private void fillListGardens( List<ItemGardenHomeList> gardenInfoDocument){
@@ -306,26 +299,5 @@ public class HomeActivity extends AppCompatActivity {
         listAviableGardensInfo.setAdapter(adapter);
         listAviableGardensInfo.setDividerHeight(5);
     }
-    */
 
-    private void fillListGardens() {
-        GardenLogic gardenLogic = new GardenLogic(getApplication());
-        gardenLogic.getGardensUser().observe(this, new Observer<List<Garden>>() {
-            @Override
-            public void onChanged(List<Garden> gardens) {
-                // Crea una lista de objetos ItemGardenHomeList a partir de la lista de jardines devuelta
-                List<ItemGardenHomeList> gardenInfoDocument = new ArrayList<>();
-
-                for (Garden garden : gardens) {
-                    ItemGardenHomeList item = new ItemGardenHomeList(garden.getGardenName(),garden.getId());
-                    gardenInfoDocument.add(item);
-                }
-
-                // Crea un adaptador para la ListView y actualiza su contenido
-                GardenListAdapter adapter = new GardenListAdapter(HomeActivity.this, gardenInfoDocument);
-                listAviableGardensInfo.setAdapter(adapter);
-                listAviableGardensInfo.setDividerHeight(5);
-            }
-        });
-    }
 }

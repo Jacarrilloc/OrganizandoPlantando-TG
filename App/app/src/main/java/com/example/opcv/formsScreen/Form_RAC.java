@@ -168,7 +168,7 @@ public class Form_RAC extends AppCompatActivity {
                         }
 
                         DB_InsertForms newForm = new DB_InsertForms(Form_RAC.this);
-                        newForm.insertInto_RAC(infoForm);
+                        //newForm.insertInto_RAC(infoForm);
                         Toast.makeText(Form_RAC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Form_RAC.this, HomeActivity.class));
                         finish();

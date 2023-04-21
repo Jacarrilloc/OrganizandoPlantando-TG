@@ -163,7 +163,7 @@ public class Form_IMP extends AppCompatActivity {
                     }
 
                     DB_InsertForms newForm = new DB_InsertForms(Form_IMP.this);
-                    newForm.insertInto_IMP(infoForm);
+                    //newForm.insertInto_IMP(infoForm);
                     Toast.makeText(Form_IMP.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Form_IMP.this, HomeActivity.class));
                     finish();
