@@ -290,7 +290,7 @@ public class Form_RE extends AppCompatActivity {
                     }
 
                     DB_InsertForms newForm = new DB_InsertForms(Form_RE.this);
-                    newForm.insertInto_RE(infoForm);
+                    //newForm.insertInto_RE(infoForm);
                     Toast.makeText(Form_RE.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Form_RE.this, HomeActivity.class));
                     finish();

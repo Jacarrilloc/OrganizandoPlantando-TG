@@ -31,6 +31,7 @@ import com.example.opcv.fbComunication.CollaboratorUtilities;
 import com.example.opcv.info.GardenInfo;
 import com.example.opcv.item_list.ItemCollaboratorsRequest;
 import com.example.opcv.ludificationScreens.DictionaryHome;
+import com.example.opcv.persistance.gardenPersistance.GardenPersistance;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -178,18 +179,26 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
 
                                                                 for(QueryDocumentSnapshot documen:value){
                                                                     GardenInfo idSearch;
-                                                                    name = task.getResult().get("GardenName").toString();
+                                                                    String nameUser = task.getResult().get("GardenName").toString();
                                                                     idOwner = task.getResult().get("ID_Owner").toString();
                                                                     info = task.getResult().get("InfoGarden").toString();
                                                                     gardenType = task.getResult().get("GardenType").toString();
-                                                                    idSearch = new GardenInfo(idOwner, name, info, gardenType);
-                                                                    idGarden = document.getData().get("idGardenCollab").toString();
+                                                                    //idSearch = new GardenInfo(idOwner, name, info, gardenType);
+                                                                    String idGarde = document.getData().get("idGardenCollab").toString();
+                                                                    GardenPersistance persistance = new GardenPersistance();
+                                                                    persistance.getGardenPicture(idGarde, new GardenPersistance.GetUri() {
+                                                                        @Override
+                                                                        public void onSuccess(String uri) {
+                                                                            ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(nameUser, userId, idGarde, uri);
+                                                                            //System.out.println("EL id es "+newItem.getName());
+                                                                            gardenNames.add(newItem);
+                                                                            fillListGardens(gardenNames);
+                                                                        }
+                                                                    });
 
-                                                                    ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(name, userId, idGarden);
-                                                                    System.out.println("EL id es "+newItem.getName());
-                                                                    gardenNames.add(newItem);
+
                                                                 }
-                                                                fillListGardens(gardenNames);
+
                                                             }
 
                                                         }

@@ -8,12 +8,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +34,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class OtherGardensActivity extends AppCompatActivity {
     private Button otherGardensButton, profile, myGardens, join, visit, ludification;
@@ -39,6 +44,7 @@ public class OtherGardensActivity extends AppCompatActivity {
     private CollectionReference gardensRef;
     private String gardenID, garden, infoGarden, id;
     private FloatingActionButton returnButton;
+    private ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +55,7 @@ public class OtherGardensActivity extends AppCompatActivity {
         nameGarden = (TextView) findViewById(R.id.gardenNameText);
         descriptionGarden = (TextView) findViewById(R.id.descriptionGarden);
         returnButton = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
+        image = (ImageView) findViewById(R.id.gardenProfilePicture);
 
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +100,7 @@ public class OtherGardensActivity extends AppCompatActivity {
             gardenID = extras.getString("idGarden");
             SearchInfoGardenSreen(id,garden);
         }
+        getImageGarden(gardenID);
 
         join.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +120,24 @@ public class OtherGardensActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent edit = new Intent(OtherGardensActivity.this, DictionaryHome.class);
                 startActivity(edit);
+            }
+        });
+    }
+    private void getImageGarden(String idGarden){
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        String imageName = idGarden + ".jpg";
+        StorageReference imageRef = storageRef.child("gardenMainPhoto/" + imageName);
+        final long ONE_MEGABYTE = 1024 * 1024;
+        imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                image.setImageBitmap(bitmap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                image.setImageResource(R.drawable.im_logo_ceres_green);
             }
         });
     }

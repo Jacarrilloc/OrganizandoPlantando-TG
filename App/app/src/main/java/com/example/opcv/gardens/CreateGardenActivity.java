@@ -34,11 +34,8 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
-<<<<<<< HEAD
 import com.example.opcv.auth.SelectPhotoActivity;
 import com.example.opcv.business.gardenController.GardenLogic;
-=======
->>>>>>> parent of 0679807 (Manejo de imagenes listo)
 import com.example.opcv.info.GardenInfo;
 import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnSuccessListener;

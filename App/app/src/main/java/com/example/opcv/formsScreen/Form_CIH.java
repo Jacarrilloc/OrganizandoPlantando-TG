@@ -148,7 +148,7 @@ public class Form_CIH extends AppCompatActivity {
                         }
 
                         DB_InsertForms newForm = new DB_InsertForms(Form_CIH.this);
-                        newForm.insertInto_CIH(infoForm);
+                        //newForm.insertInto_CIH(infoForm);
 
                         Toast.makeText(Form_CIH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Form_CIH.this, HomeActivity.class));

@@ -9,7 +9,7 @@ public class ItemCollaboratorsRequest {
         this.name = name;
     }
 
-    private String name, idUser, idGarden;
+    private String name, idUser, idGarden, uri;
 
     public String getIdUser() {
         return idUser;
@@ -29,9 +29,18 @@ public class ItemCollaboratorsRequest {
         this.idUser = idUser;
     }
 
-    public ItemCollaboratorsRequest(String name, String idUser, String idGarden) {
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    public ItemCollaboratorsRequest(String name, String idUser, String idGarden, String uri) {
         this.name = name;
         this.idUser = idUser;
         this.idGarden = idGarden;
+        this.uri = uri;
     }
 }

@@ -27,7 +27,7 @@ public class DB_InsertForms extends DatabaseFormsHelper {
         super(context);
         this.context = context;
     }
-
+/*
     public void insertInto_CIH(Map<String, Object> info) {
         DatabaseFormsHelper Info = new DatabaseFormsHelper(context);
         SQLiteDatabase db = Info.getWritableDatabase();
@@ -211,5 +211,5 @@ public class DB_InsertForms extends DatabaseFormsHelper {
         values.put("state", (String) Info.get("state"));
         db.insert(TABLE_RSMP, null, values);
         db.close();
-    }
+    }*/
 }
