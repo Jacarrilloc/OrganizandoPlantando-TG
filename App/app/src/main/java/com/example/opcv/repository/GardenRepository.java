@@ -15,7 +15,6 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -52,30 +51,7 @@ public class GardenRepository {
     }
 
     public LiveData<List<Garden>> getGardensById(String ownerId) {
-        if (isNetworkConnected.getValue()) {
-            gardenCollection.whereEqualTo("ID_Owner", ownerId).get().addOnSuccessListener((QuerySnapshot queryDocumentSnapshots) -> {
-                List<Garden> gardensFirebase = queryDocumentSnapshots.toObjects(Garden.class);
-
-                LiveData<List<Garden>> gardensLiveData = gardenDao.getGardensById(ownerId);
-                List<Garden> gardensOff = gardensLiveData.getValue();
-
-                List<Garden> gardensToUpdate = new ArrayList<>();
-                if (gardensFirebase == null) {
-                    for (Garden garden : gardensToUpdate) {
-                        gardenCollection.add(garden);
-                    }
-                }else{
-                    for (Garden garden : gardensOff) {
-                        if (!gardens.contains(garden)) {
-                            gardensToUpdate.add(garden);
-                        }
-                    }
-                    for (Garden garden : gardensToUpdate) {
-                        gardenCollection.add(garden);
-                    }
-                }
-            /*
-            updateFirebaseFromLocal(ownerId);
+        /*if (isNetworkConnected.getValue()) {
             // Si hay conexión a internet, obtener los datos de Firebase Firestore
             gardenCollection.whereEqualTo("ID_Owner", ownerId).get().addOnSuccessListener((QuerySnapshot queryDocumentSnapshots) -> {
                 List<Garden> gardens = queryDocumentSnapshots.toObjects(Garden.class);
@@ -84,23 +60,11 @@ public class GardenRepository {
                     gardenDao.deleteAll();
                     gardenDao.insertAll(gardens);
                 });
-            });*/
             });
-        }
+        }*/
         // Devolver los datos de la base de datos local
         return gardenDao.getGardensById(ownerId);
     }
-
-    public void updateFirebaseFromLocal(String ownerId) {
-        // Obtener los jardines de la base de datos local
-        List<Garden> localGardens = gardenDao.getGardensById(ownerId).getValue();
-
-        // Actualizar los jardines en Firebase Firestore
-        for (Garden garden : localGardens) {
-            gardenCollection.document(String.valueOf(garden.getId())).set(garden);
-        }
-    }
-
 
     public LiveData<Garden> getGarden(String gardenId) {
         MutableLiveData<Garden> resultLiveData = new MutableLiveData<>();

@@ -160,9 +160,9 @@ public class GardenActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent start = new Intent(GardenActivity.this, GardenEditActivity.class);
-                start.putExtra("idGarden", id);
-                start.putExtra("gardenName", nameGarden.getText());
-                start.putExtra("infoGarden", descriptionGarden.getText());
+                start.putExtra("idGarden", gardenID);
+                start.putExtra("gardenName", garden);
+                start.putExtra("infoGarden", infoGarden);
                 startActivity(start);
             }
         });
