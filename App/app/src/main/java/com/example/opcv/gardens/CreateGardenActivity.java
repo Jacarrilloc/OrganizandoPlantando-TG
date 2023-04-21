@@ -17,7 +17,6 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
@@ -34,8 +33,6 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
-import com.example.opcv.auth.SelectPhotoActivity;
-import com.example.opcv.business.gardenController.GardenLogic;
 import com.example.opcv.info.GardenInfo;
 import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -150,16 +147,7 @@ public class CreateGardenActivity extends AppCompatActivity {
         });
     }
 
-    private void createGarden(){
-        String name = nameGarden.getText().toString();
-        String info = infoGarden.getText().toString();
-        Boolean gardenPrivateOrPublic = gardenType.isChecked();
-        GardenLogic newGarden = new GardenLogic(this.getApplication());
-        newGarden.createGarden(name,info,gardenPrivateOrPublic);
-        Toast.makeText(CreateGardenActivity.this, "Se Creó exitosamente la Huerta", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(CreateGardenActivity.this, HomeActivity.class));
-    }
-    /*
+
     private void createGarden(){
         String name = nameGarden.getText().toString();
         String info = infoGarden.getText().toString();
@@ -192,7 +180,16 @@ public class CreateGardenActivity extends AppCompatActivity {
             });
         }
     }
-*/
+
+    private boolean validateField(String name,String info){
+
+        if(name.isEmpty() || info.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar el nombre y la información de la Huerta", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
     private void takePhoto(){
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
