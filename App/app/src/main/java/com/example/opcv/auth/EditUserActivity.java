@@ -377,26 +377,10 @@ public class EditUserActivity extends AppCompatActivity {
             Uri imageUri = data.getData();
             profilePhoto.setImageURI(imageUri);
         }*/
-        if(requestCode == 0){
-            Bitmap photoI = (Bitmap) data.getExtras().get("data");
-            profilePhoto.setImageBitmap(photoI);
-            profilePhoto.setDrawingCacheEnabled(true);
-            profilePhoto.buildDrawingCache();
-            Bitmap bitmap = profilePhoto.getDrawingCache();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            if(bitmap != null){
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-                //bytes = baos.toByteArray();
-            }
-        }
-
-        if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() !=null){
-            Uri selectedImage = data.getData();
-            // image.setImageURI(null);
-            profilePhoto.setImageURI(selectedImage);
-
-            imageSelected = true;
-            if(imageSelected){
+        try{
+            if(requestCode == 0){
+                Bitmap photoI = (Bitmap) data.getExtras().get("data");
+                profilePhoto.setImageBitmap(photoI);
                 profilePhoto.setDrawingCacheEnabled(true);
                 profilePhoto.buildDrawingCache();
                 Bitmap bitmap = profilePhoto.getDrawingCache();
@@ -406,6 +390,26 @@ public class EditUserActivity extends AppCompatActivity {
                     //bytes = baos.toByteArray();
                 }
             }
+
+            if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() !=null){
+                Uri selectedImage = data.getData();
+                // image.setImageURI(null);
+                profilePhoto.setImageURI(selectedImage);
+
+                imageSelected = true;
+                if(imageSelected){
+                    profilePhoto.setDrawingCacheEnabled(true);
+                    profilePhoto.buildDrawingCache();
+                    Bitmap bitmap = profilePhoto.getDrawingCache();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    if(bitmap != null){
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+                        //bytes = baos.toByteArray();
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
     }

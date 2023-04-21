@@ -249,13 +249,17 @@ public class CreateGardenActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            Bitmap photoI = (Bitmap) data.getExtras().get("data");
-            photo.setImageBitmap(photoI);
-        }
-        if (resultCode == RESULT_OK && requestCode == GALLERY_REQUEST_CODE && data != null) {
-            Uri imageUri = data.getData();
-            photo.setImageURI(imageUri);
+        try{
+            if (resultCode == RESULT_OK) {
+                Bitmap photoI = (Bitmap) data.getExtras().get("data");
+                photo.setImageBitmap(photoI);
+            }
+            if (resultCode == RESULT_OK && requestCode == GALLERY_REQUEST_CODE && data != null) {
+                Uri imageUri = data.getData();
+                photo.setImageURI(imageUri);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
     @Override

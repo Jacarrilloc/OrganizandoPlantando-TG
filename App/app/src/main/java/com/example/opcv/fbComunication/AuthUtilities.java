@@ -173,7 +173,7 @@ public class AuthUtilities implements Serializable {
         return isValid;
     }
 
-    public boolean createUser(String emailRegister, String passwordRegister, User newUserInfo,Uri image, Context context) {
+    public boolean createUser(String emailRegister, String passwordRegister, User newUserInfo,byte[] bytes, Context context) {
         if (ValidateInfo(emailRegister, passwordRegister,context)) {
             final boolean[] isUserCreated = {false};
             try{
@@ -181,11 +181,18 @@ public class AuthUtilities implements Serializable {
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()){
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                newUserInfo.setId(user.getUid().toString());
-                                String dataPatch = addProfilePhoto(image,user.getUid().toString());
-                                newUserInfo.setUriPath(dataPatch);
-                                addtoDataBase(newUserInfo.toMap());
-                                isUserCreated[0] = true;
+
+
+                                addProfilePhoto(bytes, user.getUid().toString(), new GetUriUser() {
+                                    @Override
+                                    public void onSuccess(String uri) {
+                                        newUserInfo.setId(user.getUid().toString());
+                                        newUserInfo.setUriPath(uri);
+                                        addtoDataBase(newUserInfo.toMap());
+                                        isUserCreated[0] = true;
+                                    }
+                                });
+
                             }
                         });
             }catch (Exception e){
@@ -221,16 +228,50 @@ public class AuthUtilities implements Serializable {
         return result[0];
     }
 
-    public String addProfilePhoto(Uri imageProfile, String userID) {
-        String status = "";
-        if(imageProfile == null){
-            return status;
-        }
-
+    public void addProfilePhoto(byte[] bytes, String userID, final GetUriUser callback) {
+        StorageReference storage = FirebaseStorage.getInstance().getReference();
         String imageName = userID + ".jpg";
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("userProfilePhoto/" + imageName);
-        UploadTask uploadTask = storageRef.putFile(imageProfile);
-        return status;
+        StorageReference ref = storage.child("userProfilePhoto/" + imageName);
+        UploadTask uploadTask = ref.putBytes(bytes);
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        String url = uri.toString();
+                        callback.onSuccess(url);
+                    }
+                });
+            }
+        });
+
+        /*String status = "";
+        if(imageProfile == null){
+            callback.onSuccess(status);
+        }
+        else{
+            String imageName = userID + ".jpg";
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("userProfilePhoto/" + imageName);
+            UploadTask uploadTask = storageRef.putFile(imageProfile);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String url = uri.toString();
+                            callback.onSuccess(url);
+                        }
+                    });
+                }
+            });
+        }*/
+
+
+    }
+    public interface GetUriUser{
+        void onSuccess(String uri);
     }
 
     private boolean validateEmail(String email){
