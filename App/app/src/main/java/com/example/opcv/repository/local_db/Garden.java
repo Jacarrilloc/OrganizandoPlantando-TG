@@ -1,63 +1,88 @@
 package com.example.opcv.repository.local_db;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Entity(tableName = "Gardens")
 public class Garden {
-    @PrimaryKey
-    @NonNull
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
+    @ColumnInfo(name = "ID_Owner")
     private String ID_Owner;
 
-    @ColumnInfo(name = "name")
-    private String name;
+    @ColumnInfo(name = "GardenName")
+    private String GardenName;
 
-    @ColumnInfo(name = "info")
-    private String info;
+    @ColumnInfo(name = "InfoGarden")
+    private String InfoGarden;
 
-    @ColumnInfo(name = "gardenType")
-    private String gardenType;
+    @ColumnInfo(name = "GardenType")
+    private String GardenType;
+
+    public Garden() {}
 
     public Garden(String ID_Owner, String name, String info, String gardenType) {
         this.ID_Owner = ID_Owner;
-        this.name = name;
-        this.info = info;
-        this.gardenType = gardenType;
+        this.GardenName = name;
+        this.InfoGarden = info;
+        this.GardenType = gardenType;
     }
 
-    @NonNull
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getID_Owner() {
         return ID_Owner;
     }
 
-    public void setID_Owner(@NonNull String ID_Owner) {
+    public void setID_Owner(String ID_Owner) {
         this.ID_Owner = ID_Owner;
     }
 
-    public String getName() {
-        return name;
+    public String getGardenName() {
+        return GardenName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGardenName(String gardenName) {
+        GardenName = gardenName;
     }
 
-    public String getInfo() {
-        return info;
+    public String getInfoGarden() {
+        return InfoGarden;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
+    public void setInfoGarden(String infoGarden) {
+        InfoGarden = infoGarden;
     }
 
     public String getGardenType() {
-        return gardenType;
+        return GardenType;
     }
 
     public void setGardenType(String gardenType) {
-        this.gardenType = gardenType;
+        GardenType = gardenType;
     }
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("ID_Owner", ID_Owner);
+        map.put("GardenName", GardenName);
+        map.put("InfoGarden", InfoGarden);
+        map.put("GardenType", GardenType);
+        return map;
+    }
+
 }
 

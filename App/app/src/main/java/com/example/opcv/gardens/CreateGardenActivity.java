@@ -34,6 +34,7 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.business.gardenController.GardenLogic;
 import com.example.opcv.info.GardenInfo;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -141,6 +142,16 @@ public class CreateGardenActivity extends AppCompatActivity {
         String name = nameGarden.getText().toString();
         String info = infoGarden.getText().toString();
         Boolean gardenPrivateOrPublic = gardenType.isChecked();
+        GardenLogic newGarden = new GardenLogic(this.getApplication());
+        newGarden.createGarden(name,info,gardenPrivateOrPublic);
+        Toast.makeText(CreateGardenActivity.this, "Se Creó exitosamente la Huerta", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(CreateGardenActivity.this, HomeActivity.class));
+    }
+    /*
+    private void createGarden(){
+        String name = nameGarden.getText().toString();
+        String info = infoGarden.getText().toString();
+        Boolean gardenPrivateOrPublic = gardenType.isChecked();
         if(validateField(name,info)){
             FirebaseUser user = autentication.getCurrentUser();
             CollectionReference collectionRef = database.collection("Gardens");
@@ -169,16 +180,7 @@ public class CreateGardenActivity extends AppCompatActivity {
             });
         }
     }
-
-    private boolean validateField(String name,String info){
-
-        if(name.isEmpty() || info.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar el nombre y la información de la Huerta", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
-    }
-
+*/
     private void takePhoto(){
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {

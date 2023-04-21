@@ -25,4 +25,8 @@ public class ItemGardenHomeList {
         this.name = name;
         this.idGarden = idGarden;
     }
+    public ItemGardenHomeList(String name,int id){
+        this.name = name;
+        this.idGarden = String.valueOf(id);
+    }
 }
