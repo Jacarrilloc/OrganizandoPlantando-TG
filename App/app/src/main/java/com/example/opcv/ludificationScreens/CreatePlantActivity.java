@@ -27,6 +27,7 @@ import com.example.opcv.business.ludificationLogic.LudificationLogic;
 import com.example.opcv.business.ludificationLogic.levelLogic;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.GardensAvailableActivity;
+import com.example.opcv.notifications.Notifications;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.ByteArrayOutputStream;
@@ -99,6 +100,8 @@ public class CreatePlantActivity extends AppCompatActivity {
                 if(logic.validateField(plantName, plantDescription, CreatePlantActivity.this, bytes)){
                     logic.addPlantElementsMap(plantName, plantDescription, flowerCheck, fruitCheck, edibleCheck, medicineCheck, petCheck, precautionCheck, CreatePlantActivity.this, idUser, bytes);
                     level.addLevel(idUser, true, CreatePlantActivity.this);
+                    Notifications  notifications = new Notifications();
+                    notifications.notification("Has creado la planta", "Felicidades por crear la planta", CreatePlantActivity.this);
                     Intent edit = new Intent(CreatePlantActivity.this, DictionaryHome.class);
                     edit.putExtra("userInfo", idUser);
                     startActivity(edit);
