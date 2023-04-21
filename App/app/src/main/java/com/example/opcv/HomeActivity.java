@@ -1,9 +1,14 @@
 package com.example.opcv;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,6 +17,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -20,15 +26,19 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.opcv.adapter.GardenListAdapter;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.business.gardenController.GardenLogic;
+import com.example.opcv.business.gardenController.GardenViewModel;
+import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.CollaboratorGardensActivity;
 import com.example.opcv.gardens.CreateGardenActivity;
 import com.example.opcv.gardens.GardenActivity;
 import com.example.opcv.gardens.GardensAvailableActivity;
+import com.example.opcv.info.User;
 import com.example.opcv.item_list.ItemGardenHomeList;
 import com.example.opcv.localDatabase.DatabaseHelper;
 import com.example.opcv.ludificationScreens.DictionaryHome;
@@ -36,6 +46,15 @@ import com.example.opcv.persistance.gardenPersistance.GardenPersistance;
 import com.example.opcv.repository.GardenRepository;
 import com.example.opcv.repository.local_db.Garden;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -143,7 +162,6 @@ public class HomeActivity extends AppCompatActivity {
                 String dbID = ((ItemGardenHomeList) selectedItem).getIdGarden();
                 Intent start = new Intent(HomeActivity.this, GardenActivity.class);
                 start.putExtra("ID_garden",dbID);
-                start.putExtra("owner", "true");
                 startActivity(start);
 
                 /*

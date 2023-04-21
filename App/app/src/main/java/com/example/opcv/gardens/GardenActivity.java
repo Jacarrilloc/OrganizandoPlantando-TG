@@ -100,7 +100,6 @@ public class GardenActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             id = extras.getString("ID_garden");
-            owner = extras.getString("owner");
             //SearchInfoGardenSreen(id);
             fillGardenInfo(id);
         }
