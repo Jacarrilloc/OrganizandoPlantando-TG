@@ -22,7 +22,7 @@
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
+            android:layout_width="362dp"
             android:layout_height="84dp"
             android:layout_marginBottom="20dp"
             android:orientation="horizontal">
@@ -54,10 +54,8 @@
 
         <ListView
             android:id="@+id/collaborationGardenList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_100sdp"
-            android:layout_weight="0.9">
+            android:layout_width="365dp"
+            android:layout_height="430dp">
 
         </ListView>
 

@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 
 import com.example.opcv.HomeActivity;
 import com.example.opcv.item_list.ItemGardenHomeList;
-import com.example.opcv.persistance.gardenPersistance.GardenPersistance;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -47,16 +46,9 @@ public class GardenUtilities {
                     if(documentSnapshot.exists()){
                         String name = documentSnapshot.getString("GardenName");
                         String gardenId = documentSnapshot.getId();
-                        GardenPersistance persistance = new GardenPersistance();
-                        persistance.getGardenPicture(gardenId, new GardenPersistance.GetUri() {
-                            @Override
-                            public void onSuccess(String uri) {
-                                ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);
-                                gardenNames.add(newItem);
-                            }
-                        });
 
-
+                        ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId);
+                        gardenNames.add(newItem);
                     } else {
 
                     }
