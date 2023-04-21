@@ -34,4 +34,8 @@ public class ItemGardenHomeList {
         this.idGarden = idGarden;
         this.uri = uri;
     }
+    public ItemGardenHomeList(String name,int id){
+        this.name = name;
+        this.idGarden = String.valueOf(id);
+    }
 }
