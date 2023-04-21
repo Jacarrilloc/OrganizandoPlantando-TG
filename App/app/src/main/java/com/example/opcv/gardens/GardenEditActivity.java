@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LiveData;
 
 import android.Manifest;
 import android.content.Context;
@@ -34,7 +35,9 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.business.gardenController.GardenLogic;
 import com.example.opcv.ludificationScreens.DictionaryHome;
+import com.example.opcv.repository.local_db.Garden;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -114,6 +117,10 @@ public class GardenEditActivity extends AppCompatActivity {
 
         getImageGarden(idGarden);
 
+        fillGardenInfo(idGarden);
+
+
+
         changeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -162,7 +169,9 @@ public class GardenEditActivity extends AppCompatActivity {
             }
         });
 
-        gardensRef.document(idGarden).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+
+        /*gardensRef.document(idGarden).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 nameGarden = documentSnapshot.getString("GardenName");
@@ -176,7 +185,7 @@ public class GardenEditActivity extends AppCompatActivity {
                     switchGardenTypeModified.setChecked(true);
                 }
             }
-        });
+        });*/
 
         gardens.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -459,6 +468,22 @@ public class GardenEditActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    private void fillGardenInfo(String id){
+        GardenLogic logic = new GardenLogic(getApplication());
+        LiveData<Garden> gardenLiveData = logic.getGarden(id);
+        gardenLiveData.observe(this, garden -> {
+            if (garden != null) {
+                gardenName.setText(garden.getGardenName());
+                description.setText(garden.getInfoGarden());
+                if(garden.getGardenType().equals("Public")) {
+                    switchGardenTypeModified.setChecked(false);
+                }else{
+                    switchGardenTypeModified.setChecked(true);
+                }
+            }
+        });
     }
 
     private void changePhoto(){
