@@ -47,6 +47,7 @@
                     android:layout_height="126dp"
                     android:layout_marginStart="@dimen/_80sdp"
                     android:layout_marginTop="@dimen/_5sdp"
+                    android:scaleType="centerCrop"
                     android:background="@drawable/im_image_s" />
 
                 <EditText

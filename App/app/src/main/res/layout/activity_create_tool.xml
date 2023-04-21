@@ -47,7 +47,8 @@
                     android:layout_height="@dimen/_126sdp"
                     android:layout_marginStart="@dimen/_80sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@drawable/im_image_s" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/im_image_s" />
 
                 <EditText
                     android:id="@+id/nameTool"

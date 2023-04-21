@@ -55,12 +55,18 @@
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray" />
 
-                <ListView
+
+                <GridView
                     android:id="@+id/plantsList"
                     android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/_25sdp"
                     android:layout_height="@dimen/_600sdp"
-                    android:layout_marginStart="@dimen/_1sdp"
-                    android:layout_marginTop="@dimen/_25sdp"></ListView>
+                    android:numColumns="2"
+                    android:horizontalSpacing="@dimen/_10sdp"
+                    android:verticalSpacing="@dimen/_10sdp"
+                    android:stretchMode="columnWidth"
+                    android:gravity="center"
+                    />
 
             </LinearLayout>
         </ScrollView>

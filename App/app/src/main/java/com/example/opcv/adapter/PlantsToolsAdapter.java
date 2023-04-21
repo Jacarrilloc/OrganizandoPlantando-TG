@@ -20,25 +20,35 @@ import com.example.opcv.item_list.ItemPlantsTools;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class PlantsToolsAdapter extends ArrayAdapter<ItemPlantsTools> {
 
     private Context context;
     private TextView name;
     private ImageView image;
+    private String element;
 
 
-    public PlantsToolsAdapter(Context context, List<ItemPlantsTools> items) {
+    public PlantsToolsAdapter(Context context, List<ItemPlantsTools> items, String element) {
         super(context, 0, items);
         this.context = context;
+        this.element = element;
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        if(convertView == null){
-            convertView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_tool_dictionary, parent, false);
+        if (Objects.equals(element, "Plants")) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_plant_description, parent, false);
+            }
+        } else if (Objects.equals(element, "Tools")) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_tool_dictionary, parent, false);
+            }
         }
 
         ItemPlantsTools item = getItem(position);
@@ -58,7 +68,6 @@ public class PlantsToolsAdapter extends ArrayAdapter<ItemPlantsTools> {
             image = convertView.findViewById(R.id.image);
             image.setVisibility(View.VISIBLE);
         }
-
         return convertView;
     }
 }

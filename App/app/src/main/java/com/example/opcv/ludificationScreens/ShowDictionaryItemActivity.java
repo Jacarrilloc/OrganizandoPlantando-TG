@@ -2,22 +2,33 @@ package com.example.opcv.ludificationScreens;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.adapter.CommentsAdapter;
@@ -29,22 +40,29 @@ import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.GardensAvailableActivity;
 import com.example.opcv.item_list.ItemComments;
 import com.example.opcv.persistance.ludificationPersistance.LudificationPersistance;
+import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ShowDictionaryItemActivity extends AppCompatActivity {
 
     private Button profile, myGardens, gardensMap, ludification;
-    private String idUser, element, docRef;
-    private TextView authorName, elementName, likeNumber, dislikeNumber, description, tag1, tag2,tag3, tag4, tag5, tag6;
+    private String idUser, element, docRef, imageUri;
+    private TextView authorName, elementName, likeNumber, dislikeNumber, description, tag1, tag2,tag3, tag4, tag5, tag6, author, publisherLevel, namelevel;
     private EditText input;
     private FloatingActionButton add, sendComment;
     private ImageButton likeButton, dislikeButton;
     private ListView listView;
+    private FrameLayout authorLayout;
+    private ImageView borderImage, dotborderImage;
 
+    private CircleImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,14 +82,24 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         likeButton = (ImageButton) findViewById(R.id.likebutton);
         dislikeButton = (ImageButton) findViewById(R.id.dislikebutton);
         sendComment = (FloatingActionButton) findViewById(R.id.sendButton);
+        /*
         tag1 = (TextView) findViewById(R.id.tag1);
         tag2 = (TextView) findViewById(R.id.tag2);
         tag3 = (TextView) findViewById(R.id.tag3);
         tag4 = (TextView) findViewById(R.id.tag4);
         tag5 = (TextView) findViewById(R.id.tag5);
-        tag6 = (TextView) findViewById(R.id.tag6);
+        tag6 = (TextView) findViewById(R.id.tag6);*/
         listView = (ListView) findViewById(R.id.listViewComments);
         input = (EditText) findViewById(R.id.inputText);
+        image = (CircleImageView) findViewById(R.id.imageItem);
+        dotborderImage = (ImageView) findViewById(R.id.border);
+
+        //Vista del autor de la descripción
+        authorLayout = (FrameLayout) findViewById(R.id.authorCard);
+        author = (TextView) findViewById(R.id.name);
+        publisherLevel = (TextView) findViewById(R.id.level);
+        namelevel = (TextView) findViewById(R.id.nameLevel);
+        borderImage = (ImageView) findViewById(R.id.imageLevel);
 
         LudificationPersistance persistance = new LudificationPersistance();
         LudificationLogic logic = new LudificationLogic();
@@ -82,8 +110,17 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
             element = extras.getString("element");
             docRef = extras.getString("idDoc");
         }
+        persistance.getImage(element, docRef, new LudificationPersistance.GetURi() {
+            @Override
+            public void onSuccess(String uri) {
+                if(uri != null){
+                    Glide.with(ShowDictionaryItemActivity.this).load(uri).into(image);
+                }
+            }
+        });
 
         if(element.equals("Plants")){
+            dotborderImage.setImageResource(R.drawable.im_circle_border_purple);
             persistance.searchPlantName(docRef, new LudificationPersistance.GetPlantName() {
                 @Override
                 public void onSuccess(String name) {
@@ -93,102 +130,35 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
             persistance.tags(element, docRef, new LudificationPersistance.GetTagsList() {
                 @Override
                 public void onComplete(ArrayList<String> list) {
-                    int size = list.size();
-                    switch (size){
-                        case 0:
-                            tag1.setVisibility(View.INVISIBLE);
-                            tag2.setVisibility(View.INVISIBLE);
-                            tag3.setVisibility(View.INVISIBLE);
-                            tag5.setVisibility(View.INVISIBLE);
-                            tag6.setVisibility(View.INVISIBLE);
-                            tag4.setVisibility(View.INVISIBLE);
-                            break;
-                        case 1:
-                            tag1.setText(list.get(0));
-                            tag2.setVisibility(View.INVISIBLE);
-                            tag3.setVisibility(View.INVISIBLE);
-                            tag5.setVisibility(View.INVISIBLE);
-                            tag6.setVisibility(View.INVISIBLE);
-                            tag4.setVisibility(View.INVISIBLE);
-                            break;
-                        case 2:
-                            tag1.setText(list.get(0));
-                            tag2.setText(list.get(1));
-                            tag3.setVisibility(View.INVISIBLE);
-                            tag5.setVisibility(View.INVISIBLE);
-                            tag6.setVisibility(View.INVISIBLE);
-                            tag4.setVisibility(View.INVISIBLE);
-                            break;
-                        case 3:
-                            tag1.setText(list.get(0));
-                            tag2.setText(list.get(1));
-                            tag3.setText(list.get(2));
-                            tag5.setVisibility(View.INVISIBLE);
-                            tag6.setVisibility(View.INVISIBLE);
-                            tag4.setVisibility(View.INVISIBLE);
-                            break;
-                        case 4:
-                            tag1.setText(list.get(0));
-                            tag2.setText(list.get(1));
-                            tag3.setText(list.get(2));
-                            tag4.setText(list.get(3));
-                            tag5.setVisibility(View.INVISIBLE);
-                            tag6.setVisibility(View.INVISIBLE);
-                            break;
-                        case 5:
-                            tag1.setText(list.get(0));
-                            tag2.setText(list.get(1));
-                            tag3.setText(list.get(2));
-                            tag4.setText(list.get(3));
-                            tag5.setText(list.get(4));
-                            tag6.setVisibility(View.INVISIBLE);
-                            break;
-                        case 6: tag1.setText(list.get(0));
-                            tag2.setText(list.get(1));
-                            tag3.setText(list.get(2));
-                            tag4.setText(list.get(3));
-                            tag5.setText(list.get(4));
-                            tag6.setText(list.get(5));
-                            break;
+                    FlexboxLayout tagsLayout = findViewById(R.id.tags_layout);
+
+                    for (String tag : list) {
+                        View cardView = LayoutInflater.from(ShowDictionaryItemActivity.this).inflate(R.layout.item_tag, tagsLayout, false);
+                        TextView textView = cardView.findViewById(R.id.formsTittle);
+                        textView.setText(tag);
+                        tagsLayout.addView(cardView);
                     }
                 }
             });
         }
         else if(element.equals("Tools")){
+            dotborderImage.setImageResource(R.drawable.im_circle_border_blue);
             persistance.searchToolName(docRef, new LudificationPersistance.GetToolName() {
                 @Override
                 public void onSuccess(String name) {
                     elementName.setText(name);
                 }
             });
-            tag1.setVisibility(View.INVISIBLE);
-            tag2.setVisibility(View.INVISIBLE);
-            tag3.setVisibility(View.INVISIBLE);
             persistance.tags(element, docRef, new LudificationPersistance.GetTagsList() {
                 @Override
                 public void onComplete(ArrayList<String> list) {
-                    int size = list.size();
-                    switch (size){
-                        case 0:
-                            tag5.setVisibility(View.INVISIBLE);
-                            tag6.setVisibility(View.INVISIBLE);
-                            tag4.setVisibility(View.INVISIBLE);
-                            break;
-                        case 1:
-                            tag5.setVisibility(View.INVISIBLE);
-                            tag6.setVisibility(View.INVISIBLE);
-                            tag4.setText(list.get(0));
-                            break;
-                        case 2:
-                            tag4.setText(list.get(0));
-                            tag5.setText(list.get(1));
-                            tag6.setVisibility(View.INVISIBLE);
-                            break;
-                        case 3:
-                            tag4.setText(list.get(0));
-                            tag5.setText(list.get(1));
-                            tag6.setText(list.get(2));
-                            break;
+                    FlexboxLayout tagsLayout = findViewById(R.id.tags_layout);
+
+                    for (String tag : list) {
+                        View cardView = LayoutInflater.from(ShowDictionaryItemActivity.this).inflate(R.layout.item_tag, tagsLayout, false);
+                        TextView textView = cardView.findViewById(R.id.formsTittle);
+                        textView.setText(tag);
+                        tagsLayout.addView(cardView);
                     }
                 }
             });
@@ -210,6 +180,74 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 input.setHint("Ingrese comentario");
             }
         });
+
+        authorName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (authorLayout.getVisibility() == View.GONE) {
+                    author.setText(authorName.getText());
+                    persistance.searchPublisherLevel(element, docRef, new LudificationPersistance.GetLevel() {
+                        @Override
+                        public void onSuccess(String leveli) {
+                            publisherLevel.setText(leveli);
+
+                            System.out.println(publisherLevel.getText().toString());
+                            double lvDouble = Double.parseDouble(publisherLevel.getText().toString().trim().replace("#", ""));
+                            int lv = Double.valueOf(lvDouble).intValue();
+                            namelevel.setText(level.levelName(lv));
+
+                            if (lv >=0 && lv <10){
+                                borderImage.setImageResource(R.drawable.im_level_1);
+                            }else if (lv>= 10 && lv <30) {
+                                borderImage.setImageResource(R.drawable.im_level_2);
+                            } else if (lv>=30 && lv <60) {
+                                borderImage.setImageResource(R.drawable.im_level_3);
+                            } else if (lv >= 60 && lv <100) {
+                                borderImage.setImageResource(R.drawable.im_level_4);
+                            } else if (lv >= 100) {
+                                borderImage.setImageResource(R.drawable.im_level_5);
+                            }
+
+                            Animation fadeIn = new AlphaAnimation(0, 1);
+                            fadeIn.setInterpolator(new DecelerateInterpolator());
+                            fadeIn.setDuration(1000);
+
+                            authorLayout.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    authorLayout.setVisibility(View.VISIBLE);
+                                    authorLayout.startAnimation(fadeIn);
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    Animation fadeOut = new AlphaAnimation(1, 0);
+                    fadeOut.setInterpolator(new AccelerateInterpolator());
+                    fadeOut.setDuration(1000);
+
+                    fadeOut.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {}
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            authorLayout.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {}
+                    });
+
+                    authorLayout.startAnimation(fadeOut);
+                }
+            }
+        });
+
+
+
+
+
         sendComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -221,8 +259,11 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 sendComment.setFocusable(false);
                 //añadir la logica para recibir de un edittext
                 String textInput = String.valueOf(input.getText());
-                logic.addComments(element, idUser,  textInput, docRef, ShowDictionaryItemActivity.this);
-                level.addLevel(idUser, false, ShowDictionaryItemActivity.this);
+                if(!textInput.isEmpty()){
+                    logic.addComments(element, idUser,  textInput, docRef, ShowDictionaryItemActivity.this);
+                    level.addLevel(idUser, false, ShowDictionaryItemActivity.this);
+
+                }
                 recreate();
             }
         });
@@ -258,6 +299,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 String numberText = String.valueOf(number);
                 dislikeNumber.setText(numberText);
                 //dislikeButton.setImageResource(R.drawable.im_dislike_gray);
+
                 //likeButton.setImageResource(R.drawable.im_like_gray);
             }
         });
@@ -271,7 +313,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                     persistance.getPublisherName(entry.getValue(), new LudificationPersistance.GetPublisher() {
                         @Override
                         public void onComplete(String name) {
-                            ItemComments com = new ItemComments(entry.getKey(), name);
+                            ItemComments com = new ItemComments(entry.getKey(), name, entry.getValue());
                             list.add(com);
                             fillList(list);
                         }
@@ -292,6 +334,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         });
 
         persistance.searchPublisher(element, docRef, new LudificationPersistance.GetUserId() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onSuccess(String name) {
                 authorName.setText("Por "+name);
@@ -340,7 +383,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
     private void fillList(List<ItemComments> comments){
         CommentsAdapter adapter = new CommentsAdapter(this, comments);
         listView.setAdapter(adapter);
-        listView.setDividerHeight(15);
+        listView.setDividerHeight(10);
     }
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -365,4 +408,42 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
             context.getResources().updateConfiguration(configuration, metrics);
         }
     }
+
+    private void addTagsToLayout(List<String> tags, LinearLayout tagsLayout) {
+        int screenWidth = getResources().getDisplayMetrics().widthPixels;
+        int currentRowWidth = 0;
+        LinearLayout currentRow = createNewRow();
+
+        for (String tag : tags) {
+            View cardView = LayoutInflater.from(this).inflate(R.layout.item_tag, tagsLayout, false);
+            TextView textView = cardView.findViewById(R.id.formsTittle);
+            textView.setText(tag);
+
+            cardView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+            int cardViewWidth = cardView.getMeasuredWidth();
+
+            if (currentRowWidth + cardViewWidth > screenWidth) {
+                tagsLayout.addView(currentRow);
+                currentRow = createNewRow();
+                currentRowWidth = 0;
+            }
+
+            currentRow.addView(cardView);
+            currentRowWidth += cardViewWidth;
+        }
+
+        if (currentRow.getChildCount() > 0) {
+            tagsLayout.addView(currentRow);
+        }
+    }
+
+    private LinearLayout createNewRow() {
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        return row;
+    }
+
 }

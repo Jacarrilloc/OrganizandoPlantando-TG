@@ -36,6 +36,7 @@ import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.business.gardenController.GardenLogic;
 import com.example.opcv.info.GardenInfo;
+import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,7 +59,7 @@ public class CreateGardenActivity extends AppCompatActivity {
     private Button selectPhoto;
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
-    private Button create, otherGardensButton, profile, myGardens;
+    private Button create, otherGardensButton, profile, myGardens, ludification;
     private Switch gardenType;
     private GardenInfo newInfo;
 
@@ -134,6 +135,16 @@ public class CreateGardenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 createGarden();
+            }
+        });
+
+        ludification = (Button) findViewById(R.id.ludification);
+
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent edit = new Intent(CreateGardenActivity.this, DictionaryHome.class);
+                startActivity(edit);
             }
         });
     }

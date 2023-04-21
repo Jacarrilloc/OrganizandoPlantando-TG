@@ -20,6 +20,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -178,6 +179,7 @@ public class LudificationPersistance implements Serializable {
                 if(documentSnapshot.exists()){
                     String idPublisher;
                     idPublisher = documentSnapshot.getString("Publisher");
+                    assert idPublisher != null;
                     DocumentReference ref2 = db.collection("UserInfo").document(idPublisher);
                     ref2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
@@ -192,6 +194,35 @@ public class LudificationPersistance implements Serializable {
             }
         });
     }
+
+
+    public void searchPublisherLevel(String element, String docRef, final GetLevel callback){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference ref = db.collection(element).document(docRef);
+
+        ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(documentSnapshot.exists()){
+                    String idPublisher;
+                    idPublisher = documentSnapshot.getString("Publisher");
+                    assert idPublisher != null;
+                    DocumentReference ref2 = db.collection("UserInfo").document(idPublisher);
+                    ref2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            if(documentSnapshot.exists()){
+                                String level = String.valueOf(Objects.requireNonNull(documentSnapshot.getDouble("Level")).intValue());
+                                callback.onSuccess(level);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+
 
     public interface GetUserId{
         void onSuccess(String name);
@@ -477,6 +508,24 @@ public class LudificationPersistance implements Serializable {
         void onComplete(String name);
     }
 
+    public void getPublisherLevel(String idPublisher, final getPublisherLevel callback){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference ref = db.collection("UserInfo").document(idPublisher);
+        ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    String level = String.valueOf(Objects.requireNonNull(task.getResult().getDouble("Level")).intValue());
+                    callback.onComplete(level);
+                }
+            }
+        });
+    }
+
+    public interface getPublisherLevel{
+        void onComplete(String name);
+    }
+
     //a continuacion se hace el manejo de las fotos
     public void addPhoto(String name, byte[] bytes, final GetURi callback){
         StorageReference storage = FirebaseStorage.getInstance().getReference();
@@ -485,7 +534,7 @@ public class LudificationPersistance implements Serializable {
         String photo = "photo";
         String idd;
 
-        StorageReference ref = storage.child("images/"+ UUID.randomUUID().toString());
+        StorageReference ref = storage.child("ludificationImages/"+ UUID.randomUUID().toString());
         UploadTask uploadTask = ref.putBytes(bytes);
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -520,6 +569,10 @@ public class LudificationPersistance implements Serializable {
                 }
             }
         });
+    }
+
+    public interface GetLevel{
+        void onSuccess(String level);
     }
 /*
     public void getDislikesUser(String idUser, final DeductLevel callback){

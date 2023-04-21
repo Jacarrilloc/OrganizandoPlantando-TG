@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
+import com.example.opcv.NewToAppActivity;
 import com.example.opcv.R;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.CreateGardenActivity;
@@ -37,6 +38,8 @@ import com.example.opcv.gardens.GardenEditActivity;
 import com.example.opcv.info.User;
 import com.example.opcv.localDatabase.DB_User;
 import com.example.opcv.localDatabase.DatabaseHelper;
+import com.example.opcv.ludificationScreens.DictionaryHome;
+import com.example.opcv.ludificationScreens.ShowDictionaryItemActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -62,7 +65,7 @@ import java.util.Map;
 
 public class EditUserActivity extends AppCompatActivity {
     private Button signOff, delete;
-    private Button gardensMap, profile, myGardens, acceptChanges, changePhoto;
+    private Button gardensMap, profile, myGardens, acceptChanges, changePhoto, ludification;
     private TextView userNameTV, close, deleteP;
     private EditText userName, userLastName, userEmail, userPhone;
     private ImageView profilePhoto;
@@ -87,14 +90,14 @@ public class EditUserActivity extends AppCompatActivity {
 
         userID_Recived = getIntent().getStringExtra("userInfo");
 
-        if (userID_Recived == null){
+        if (userID_Recived == null) {
             AuthUtilities info = new AuthUtilities();
             userID_Recived = info.getCurrentUserUid();
         }
         changePhoto = findViewById(R.id.ChangeImageEditUser);
         profilePhoto = findViewById(R.id.userImageEditUserActivity);
         userNameTV = (TextView) findViewById(R.id.userName);
-        userName =(EditText) findViewById(R.id.userName2);
+        userName = (EditText) findViewById(R.id.userName2);
         userLastName = (EditText) findViewById(R.id.lastNameInfo);
         userEmail = (EditText) findViewById(R.id.gardenName);
         userPhone = (EditText) findViewById(R.id.address);
@@ -107,6 +110,7 @@ public class EditUserActivity extends AppCompatActivity {
         myGardens = (Button) findViewById(R.id.myGardens);
         gardensMap = (Button) findViewById(R.id.gardens);
         acceptChanges = (Button) findViewById(R.id.editUser);
+        ludification = (Button) findViewById(R.id.ludification);
 
         searchUserInfo();
 
@@ -168,6 +172,15 @@ public class EditUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(EditUserActivity.this, MapsActivity.class));
+            }
+        });
+
+
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent edit = new Intent(EditUserActivity.this, DictionaryHome.class);
+                startActivity(edit);
             }
         });
 

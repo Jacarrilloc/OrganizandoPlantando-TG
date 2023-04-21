@@ -27,6 +27,7 @@ import com.example.opcv.R;
 import com.example.opcv.adapter.GardenListAdapter;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.item_list.ItemGardenHomeList;
+import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -42,7 +43,7 @@ import java.util.List;
 
 public class GardensAvailableActivity extends AppCompatActivity {
 
-    private Button gardensMap, profile, myGardens;
+    private Button gardensMap, profile, myGardens, ludification;
     private FirebaseAuth autentication;
     private ListView listGardens;
     private FirebaseFirestore database;
@@ -107,6 +108,16 @@ public class GardensAvailableActivity extends AppCompatActivity {
                 start.putExtra("idGardenFirebaseDoc",idGarden);
                 startActivity(start);
                 finish();
+            }
+        });
+
+        ludification = (Button) findViewById(R.id.ludification);
+
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent edit = new Intent(GardensAvailableActivity.this, DictionaryHome.class);
+                startActivity(edit);
             }
         });
     }
