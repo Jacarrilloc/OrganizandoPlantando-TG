@@ -51,4 +51,14 @@ public class GardenLogic {
         }
         return true;
     }
+
+    public Map<String, Object> getGardenInfo(String id) {
+        GardenRepository gardenRepository = new GardenRepository(application);
+        return gardenRepository.getGarden(id).getValue().toMap();
+    }
+
+    public LiveData<Garden> getGarden(String gardenId) {
+        GardenRepository gardenRepository = new GardenRepository(application);
+        return gardenRepository.gardenDao.getGarden(gardenId);
+    }
 }

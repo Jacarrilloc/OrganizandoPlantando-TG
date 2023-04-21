@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 
 import android.content.Context;
 import android.content.Intent;
@@ -311,11 +312,14 @@ public class GardenActivity extends AppCompatActivity {
 
     private void fillGardenInfo(String id){
         GardenLogic logic = new GardenLogic(getApplication());
-        Map<String,Object> info = logic.getGardenInfo(id);
-        nameGarden.setText((CharSequence) info.get("GardenName"));
+        LiveData<Garden> gardenLiveData = logic.getGarden(id);
+        gardenLiveData.observe(this, garden -> {
+            if (garden != null) {
+                nameGarden.setText(garden.getGardenName());
+                descriptionGarden.setText(garden.getInfoGarden());
+            }
+        });
     }
-
-
 
     private void SearchInfoGardenSreen(String idUser, String name){
         DocumentReference ref = gardensRef.document(gardenID);

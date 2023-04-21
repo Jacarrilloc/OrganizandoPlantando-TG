@@ -3,6 +3,7 @@ package com.example.opcv.repository;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -15,10 +16,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class GardenRepository {
 
-    private GardenDao gardenDao;
+    public GardenDao gardenDao;
     private CollectionReference gardenCollection;
     private MutableLiveData<Boolean> isNetworkConnected = new MutableLiveData<>();
 
@@ -65,8 +67,24 @@ public class GardenRepository {
     }
 
     public LiveData<Garden> getGarden(String gardenId) {
-        return gardenDao.getGarden(gardenId);
+        MutableLiveData<Garden> resultLiveData = new MutableLiveData<>();
+        AsyncTask<Void, Void, Garden> task = new AsyncTask<Void, Void, Garden>() {
+            @Override
+            protected Garden doInBackground(Void... voids) {
+                return gardenDao.getGarden(gardenId).getValue();
+            }
+
+            @Override
+            protected void onPostExecute(Garden garden) {
+                resultLiveData.setValue(garden);
+            }
+        };
+        task.execute();
+        return resultLiveData;
     }
+
+
+
 
     public void addGarden(Garden garden) {
         /*if (isNetworkConnected.getValue()) {

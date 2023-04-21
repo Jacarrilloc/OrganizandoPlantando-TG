@@ -22,7 +22,8 @@ public interface GardenDao {
 
     /*
     @Query("SELECT * FROM Gardens WHERE ID_Owner = :ID_Owner")
-    Garden getGarden(String ID_Owner);*/
+    Garden getGarden(String ID_Owner);
+    */
 
     @Query("SELECT * FROM Gardens")
     LiveData<List<Garden>> getAllGardens();
