@@ -56,6 +56,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.InputStream;
 
 public class GardenEditActivity extends AppCompatActivity {
@@ -69,13 +70,16 @@ public class GardenEditActivity extends AppCompatActivity {
     private FirebaseFirestore database, database2;
     private FirebaseUser userLog;
 
-    private Boolean IsChangedPhoto = false;
+    private Boolean IsChangedPhoto = false, imageSelected = false;;
     private TextView adminMembersGarden;
 
     private CollectionReference gardensRef;
     private String idUser, idGarden, nameGarden, infoGarden, name;
     private static final int GALLERY_REQUEST_CODE = 100;
     private static final int PERMISSION_REQUEST_STORAGE = 1000;
+    private File photoFile;
+    private byte[] bytes;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,7 +204,7 @@ public class GardenEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(editGardenInfo()){
+                if(editGardenInfo(bytes)){
                     if(IsChangedPhoto){
                         changePhoto();
                     }
@@ -291,7 +295,7 @@ public class GardenEditActivity extends AppCompatActivity {
 
     }
 
-    private Boolean editGardenInfo(){
+    private Boolean editGardenInfo(byte[] bytes){
         name = gardenName.getText().toString();
         String info = description.getText().toString();
         Boolean gardenType = switchGardenTypeModified.isChecked();
@@ -300,7 +304,7 @@ public class GardenEditActivity extends AppCompatActivity {
             //CollectionReference collectionRef = database.collection("Gardens");
 
             idUser = user.getUid();
-            searchGarden(idUser, name, info, gardenType);
+            searchGarden(idUser, name, info, gardenType, bytes);
             Toast.makeText(GardenEditActivity.this, "Se modificó exitosamente tu huerta", Toast.LENGTH_SHORT).show();
             return true;
 
@@ -311,7 +315,7 @@ public class GardenEditActivity extends AppCompatActivity {
         }
     }
 
-    private void searchGarden(String idUser, String name, String info, Boolean gardenType) {
+    private void searchGarden(String idUser, String name, String info, Boolean gardenType, byte[] bytes) {
         database.collection("Gardens")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -320,8 +324,8 @@ public class GardenEditActivity extends AppCompatActivity {
                         String userId;
                         if(task.isSuccessful()){
                             for(QueryDocumentSnapshot document : task.getResult()){
-                                userId = document.getData().get("ID_Owner").toString();
-                                if(userId.equals(idUser) ){
+                                userId = (String) document.getData().get("ID_Owner");
+                                if(userId == (idUser) ){
                                     //String idCollection = document.getId().toString();
                                     final DocumentReference docRef = database.collection("Gardens").document(idGarden);
                                     database.runTransaction(new Transaction.Function<Void>() {
@@ -409,7 +413,7 @@ public class GardenEditActivity extends AppCompatActivity {
         if(ContextCompat.checkSelfPermission(GardenEditActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(GardenEditActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_STORAGE);
         }else{
-            Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             IsChangedPhoto = true;
             startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
         }
@@ -417,13 +421,43 @@ public class GardenEditActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
+        /*if (resultCode == RESULT_OK) {
             Bitmap photoI = (Bitmap) data.getExtras().get("data");
             gardenImage.setImageBitmap(photoI);
         }
         if (resultCode == RESULT_OK && requestCode == GALLERY_REQUEST_CODE && data != null) {
             Uri imageUri = data.getData();
             gardenImage.setImageURI(imageUri);
+        }*/
+        if(requestCode == 0){
+            Bitmap photoI = (Bitmap) data.getExtras().get("data");
+            gardenImage.setImageBitmap(photoI);
+            gardenImage.setDrawingCacheEnabled(true);
+            gardenImage.buildDrawingCache();
+            Bitmap bitmap = gardenImage.getDrawingCache();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            if(bitmap != null){
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+                bytes = baos.toByteArray();
+            }
+        }
+
+        if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() !=null){
+            Uri selectedImage = data.getData();
+            // image.setImageURI(null);
+            gardenImage.setImageURI(selectedImage);
+
+            imageSelected = true;
+            if(imageSelected){
+                gardenImage.setDrawingCacheEnabled(true);
+                gardenImage.buildDrawingCache();
+                Bitmap bitmap = gardenImage.getDrawingCache();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                if(bitmap != null){
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+                    bytes = baos.toByteArray();
+                }
+            }
         }
     }
 
