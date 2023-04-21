@@ -28,6 +28,7 @@ import com.example.opcv.adapter.GardenListAdapter;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.item_list.ItemGardenHomeList;
 import com.example.opcv.ludificationScreens.DictionaryHome;
+import com.example.opcv.persistance.gardenPersistance.GardenPersistance;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -139,11 +140,19 @@ public class GardensAvailableActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : value) {
                             String name = document.getString("GardenName");
                             String gardenId = document.getId();
+                            GardenPersistance persistance = new GardenPersistance();
+                            persistance.getGardenPicture(gardenId, new GardenPersistance.GetUri() {
+                                @Override
+                                public void onSuccess(String uri) {
+                                    ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);
+                                    gardenNames.add(newItem);
+                                    fillListGardens(gardenNames);
+                                }
+                            });
 
-                            ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId);
-                            gardenNames.add(newItem);
+
                         }
-                        fillListGardens(gardenNames);
+
                     } else {
                         Toast.makeText(GardensAvailableActivity.this, "Error al obtener los documentos", Toast.LENGTH_SHORT).show();
                     }
