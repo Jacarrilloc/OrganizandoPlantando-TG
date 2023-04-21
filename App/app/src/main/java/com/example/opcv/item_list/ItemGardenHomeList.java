@@ -19,11 +19,20 @@ public class ItemGardenHomeList {
         this.idGarden = idGarden;
     }
 
-    private String idGarden;
+    private String idGarden, uri;
 
-    public ItemGardenHomeList(String name, String idGarden) {
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    public ItemGardenHomeList(String name, String idGarden, String uri) {
         this.name = name;
         this.idGarden = idGarden;
+        this.uri = uri;
     }
     public ItemGardenHomeList(String name,int id){
         this.name = name;

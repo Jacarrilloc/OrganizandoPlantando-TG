@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -31,6 +32,7 @@ import com.example.opcv.localDatabase.DB_User;
 import com.example.opcv.localDatabase.DatabaseHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -51,7 +53,9 @@ public class SelectPhotoActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 2;
     private static final int PERMISSION_REQUEST_STORAGE = 1000;
     private static final int REQUEST_SELECT_PHOTO = 2000;
-
+    private static final int GALLERY_REQUEST_CODE = 100;
+    private Boolean IsChangedPhoto = false;
+    private byte[] bytes;
 
 
     @Override
@@ -104,8 +108,9 @@ public class SelectPhotoActivity extends AppCompatActivity {
         if(ContextCompat.checkSelfPermission(SelectPhotoActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(SelectPhotoActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_STORAGE);
         }else{
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent, REQUEST_SELECT_PHOTO);
+            Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            IsChangedPhoto = true;
+            startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
         }
     }
 
@@ -115,8 +120,8 @@ public class SelectPhotoActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSION_REQUEST_STORAGE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, REQUEST_SELECT_PHOTO);
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, GALLERY_REQUEST_CODE);
             } else {
                 Toast.makeText(SelectPhotoActivity.this, "Permiso denegado", Toast.LENGTH_SHORT).show();
             }
@@ -124,18 +129,40 @@ public class SelectPhotoActivity extends AppCompatActivity {
     }
 
     private void createUserInDatabase(){
-        if(authUtilities.createUser(newUserInfo.getEmail(),password,newUserInfo,imageUri,SelectPhotoActivity.this)){
-            Toast.makeText(this, "Usuario Creado Exitosamente", Toast.LENGTH_SHORT).show();
+        if(validateField(this, bytes)){
+            if(authUtilities.createUser(newUserInfo.getEmail(),password,newUserInfo,bytes,SelectPhotoActivity.this)){
+                Toast.makeText(this, "Usuario Creado Exitosamente", Toast.LENGTH_SHORT).show();
+            }
+            addToSQL(newUserInfo);
         }
-        addToSQL(newUserInfo);
+    }
+
+    public boolean validateField(Context context, byte[] bytes){
+        if(bytes == null){
+            Toast.makeText(context, "Es necesario Ingresar una imagen", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     private void takePhotoUser(){
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            dispatchTakePictureIntent();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+
+            PackageManager pm = getPackageManager();
+            if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+                openCamaraAndTakePhoto();
+                IsChangedPhoto = true;
+            } else {
+                Toast.makeText(this, "No hay una Camara en tu Dispositivo", Toast.LENGTH_SHORT).show();
+            }
         } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
+    }
+    private void openCamaraAndTakePhoto() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 0);
     }
 
     private File createImageFile() throws IOException {
@@ -165,17 +192,40 @@ public class SelectPhotoActivity extends AppCompatActivity {
             }
         }
     }
-/*
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            ImageSource.setImageURI(imageUri);
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 0){
+            Bitmap photoI = (Bitmap) data.getExtras().get("data");
+            ImageSource.setImageBitmap(photoI);
+            ImageSource.setDrawingCacheEnabled(true);
+            ImageSource.buildDrawingCache();
+            Bitmap bitmap = ImageSource.getDrawingCache();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            if(bitmap != null){
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+                bytes = baos.toByteArray();
+            }
         }
-        if (requestCode == REQUEST_SELECT_PHOTO && resultCode == RESULT_OK) {
-            imageUri = data.getData();
-            ImageSource.setImageURI(imageUri);
+        if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() !=null){
+            Uri selectedImage = data.getData();
+            // image.setImageURI(null);
+            ImageSource.setImageURI(selectedImage);
+
+            IsChangedPhoto = true;
+            if(IsChangedPhoto){
+                ImageSource.setDrawingCacheEnabled(true);
+                ImageSource.buildDrawingCache();
+                Bitmap bitmap = ImageSource.getDrawingCache();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                if(bitmap != null){
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+                    bytes = baos.toByteArray();
+                }
+            }
         }
-    }*/
+    }
 
     private void addToSQL(User newUserInfo){
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
