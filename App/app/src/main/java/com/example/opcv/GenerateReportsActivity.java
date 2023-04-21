@@ -454,8 +454,15 @@ public class GenerateReportsActivity extends AppCompatActivity {
         page.getCanvas().drawText("Fecha: "+day+" de "+monthU+" del "+year, x+130, y, paintDate);
         String firstPart, secondpart;
         int index = 23, len=info.length();
-        firstPart = info.substring(0, index);
-        secondpart = info.substring(index);
+        if(len>index){
+            firstPart = info.substring(0, index);
+            secondpart = info.substring(index);
+        }
+        else{
+            firstPart = info.substring(0, len);
+            secondpart = "";
+        }
+
         page.getCanvas().drawText("Reporte de Huerta: "+name, x, y+20, paintBold);
         page.getCanvas().drawText("Dueño de la huerta: "+ownerName, x, y+40, paint);
         page.getCanvas().drawText("Tipo de huerta: "+type, x, y+60, paint);
@@ -687,79 +694,84 @@ public class GenerateReportsActivity extends AppCompatActivity {
 
                     for(QueryDocumentSnapshot q : task.getResult()){
 
-                        name = q.getData().get("GardenName").toString();
-                        contColl.add(q.getId());
-                        gardensNames.add(name);
-                        countGardens++;
-                        collectionRef.document(q.getId()).collection("Forms").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if(task.isSuccessful()){
-
-                                    String field, nameCrop, date, idR;
-                                    int cont = 0;
-                                    Calendar calendar = Calendar.getInstance();
-                                    calendar.add(Calendar.MONTH, -1);
-                                    Date startDate = calendar.getTime();
-                                    Date endDate = new Date();
-                                    collectionCols = new HashMap<>();
-
-                                    for(QueryDocumentSnapshot document : task.getResult()){
-
-                                        field = document.getString("nameForm");
-                                        date = document.getString("Date");
-                                        idR= document.getString("Gardenid");
-                                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                        try{
-                                            Date createForm = formatter.parse(date);
-                                            calendar.setTime(createForm);
-                                            if(createForm.after(startDate) && createForm.before(endDate)){
-                                                countForms++;
-                                            }
-                                        } catch (Exception e) {
-                                            throw new RuntimeException(e);
-                                        }
-
-                                        if(field.equals("Control de Procesos de Siembra")){
-                                            List<String> listCrop = new ArrayList<>();
-
-                                            nameCrop = document.getString("plants or seeds");
-                                            listCrop.add(nameCrop);
-                                            crops.add(nameCrop);
-                                            collectionCols.put("name", listCrop);
-                                            count1++;
-
-                                        }
-                                        if(field.equals("Control de Procesos de Siembra") && count1 == 1){
-                                            countGardens++;
-                                        }
-
-                                        count2++;
-                                    }
-                                   // System.out.println("el contador: "+countEvents);
-                                    countEvents++;
-                                }
-
-                                collectionRef.document(q.getId()).collection("Collaborators").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if(task.isSuccessful()){
-                                            int cont=task.getResult().size();
-                                            //System.out.println("el tamano "+task.getResult().size());
-                                            conts.add(cont);
-                                            //collectionCols.put(name, cont);
-                                        }
-                                        NUM_DOCUMENTS_RETRIEVED[0]++;
-                                        try {
-                                            checkIfAllGeneralDataRetrieved(NUM_DOCUMENTS_TO_RETRIEVE[0], NUM_DOCUMENTS_RETRIEVED[0]);
-                                        } catch (IOException e) {
-                                            throw new RuntimeException(e);
-                                        }
-                                    }
-                                });
+                        if(q != null ){
+                            if(q.get("GardenName") != null){
+                                name = q.getData().get("GardenName").toString();
                             }
-                        });
+                            else{
+                                name = q.getData().get("gardenName").toString();
+                            }
+                            contColl.add(q.getId());
+                            gardensNames.add(name);
+                            countGardens++;
+                            collectionRef.document(q.getId()).collection("Forms").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if(task.isSuccessful()){
+                                        String field, nameCrop, date, idR;
+                                        int cont = 0;
+                                        Calendar calendar = Calendar.getInstance();
+                                        calendar.add(Calendar.MONTH, -1);
+                                        Date startDate = calendar.getTime();
+                                        Date endDate = new Date();
+                                        collectionCols = new HashMap<>();
 
+                                        for(QueryDocumentSnapshot document : task.getResult()){
+
+                                            field = document.getString("nameForm");
+                                            date = document.getString("Date");
+                                            idR= document.getString("Gardenid");
+                                            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                                            try{
+                                                Date createForm = formatter.parse(date);
+                                                calendar.setTime(createForm);
+                                                if(createForm.after(startDate) && createForm.before(endDate)){
+                                                    countForms++;
+                                                }
+                                            } catch (Exception e) {
+                                                throw new RuntimeException(e);
+                                            }
+
+                                            if(field.equals("Control de Procesos de Siembra")){
+                                                List<String> listCrop = new ArrayList<>();
+
+                                                nameCrop = document.getString("plants or seeds");
+                                                listCrop.add(nameCrop);
+                                                crops.add(nameCrop);
+                                                collectionCols.put("name", listCrop);
+                                                count1++;
+
+                                            }
+                                            if(field.equals("Control de Procesos de Siembra") && count1 == 1){
+                                                countGardens++;
+                                            }
+
+                                            count2++;
+                                        }
+                                        // System.out.println("el contador: "+countEvents);
+                                        countEvents++;
+                                    }
+
+                                    collectionRef.document(q.getId()).collection("Collaborators").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if(task.isSuccessful()){
+                                                int cont=task.getResult().size();
+                                                //System.out.println("el tamano "+task.getResult().size());
+                                                conts.add(cont);
+                                                //collectionCols.put(name, cont);
+                                            }
+                                            NUM_DOCUMENTS_RETRIEVED[0]++;
+                                            try {
+                                                checkIfAllGeneralDataRetrieved(NUM_DOCUMENTS_TO_RETRIEVE[0], NUM_DOCUMENTS_RETRIEVED[0]);
+                                            } catch (IOException e) {
+                                                throw new RuntimeException(e);
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        }
 
                     }
                 }

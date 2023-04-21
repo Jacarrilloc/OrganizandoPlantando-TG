@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.opcv.R;
 import com.example.opcv.item_list.ItemCollaboratorsRequest;
 
@@ -41,10 +42,16 @@ public class MyCollaborationsListAdapter extends ArrayAdapter<ItemCollaboratorsR
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_right_to_left);
         animation.setStartOffset(position * 100);
         convertView.startAnimation(animation);
+        if(item.getUri() != null){
+            image = convertView.findViewById(R.id.garden_imagen_list_item);
+            Glide.with(context).load(item.getUri()).into(image);
+            image.setVisibility(View.VISIBLE);
+        }
+        else{
+            image = convertView.findViewById(R.id.garden_imagen_list_item);
+            image.setVisibility(View.VISIBLE);
+        }
 
-
-        image = convertView.findViewById(R.id.garden_imagen_list_item);
-        image.setVisibility(View.VISIBLE);
         return convertView;
     }
 }

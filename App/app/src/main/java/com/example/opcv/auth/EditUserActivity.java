@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.Manifest;
 import android.content.Context;
@@ -36,10 +37,7 @@ import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.CreateGardenActivity;
 import com.example.opcv.gardens.GardenEditActivity;
 import com.example.opcv.info.User;
-import com.example.opcv.localDatabase.DB_User;
-import com.example.opcv.localDatabase.DatabaseHelper;
-import com.example.opcv.ludificationScreens.DictionaryHome;
-import com.example.opcv.ludificationScreens.ShowDictionaryItemActivity;
+import com.example.opcv.persistance.userPersistance.UserPersistance;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -59,23 +57,24 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Objects;
 
 public class EditUserActivity extends AppCompatActivity {
     private Button signOff, delete;
-    private Button gardensMap, profile, myGardens, acceptChanges, changePhoto, ludification;
+    private Button gardensMap, profile, myGardens, acceptChanges, changePhoto;
     private TextView userNameTV, close, deleteP;
     private EditText userName, userLastName, userEmail, userPhone;
     private ImageView profilePhoto;
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
     private User userActive;
-    private String userID_Recived;
+    private String userID_Recived, photoUri;
     private static final int GALLERY_REQUEST_CODE = 100;
     private static final int PERMISSION_REQUEST_STORAGE = 1000;
-    private Boolean IsChangedPhoto = false;
+    private Boolean IsChangedPhoto = false, imageSelected = false;
+    private File photoFile;
 
     @Override
     protected void onStart() {
@@ -90,14 +89,14 @@ public class EditUserActivity extends AppCompatActivity {
 
         userID_Recived = getIntent().getStringExtra("userInfo");
 
-        if (userID_Recived == null) {
+        if (userID_Recived == null){
             AuthUtilities info = new AuthUtilities();
             userID_Recived = info.getCurrentUserUid();
         }
         changePhoto = findViewById(R.id.ChangeImageEditUser);
         profilePhoto = findViewById(R.id.userImageEditUserActivity);
         userNameTV = (TextView) findViewById(R.id.userName);
-        userName = (EditText) findViewById(R.id.userName2);
+        userName =(EditText) findViewById(R.id.userName2);
         userLastName = (EditText) findViewById(R.id.lastNameInfo);
         userEmail = (EditText) findViewById(R.id.gardenName);
         userPhone = (EditText) findViewById(R.id.address);
@@ -110,9 +109,23 @@ public class EditUserActivity extends AppCompatActivity {
         myGardens = (Button) findViewById(R.id.myGardens);
         gardensMap = (Button) findViewById(R.id.gardens);
         acceptChanges = (Button) findViewById(R.id.editUser);
-        ludification = (Button) findViewById(R.id.ludification);
+        UserPersistance persistance = new UserPersistance();
 
         searchUserInfo();
+        persistance.getProfilePicture(userID_Recived, new UserPersistance.GetUriUser() {
+            @Override
+            public void onComplete(String uri) {
+                if(!Objects.equals(uri, "")){
+
+                    Glide.with(EditUserActivity.this).load(uri).into(profilePhoto);
+                }
+                else{
+                    profilePhoto.setImageResource(R.drawable.im_logo_ceres);
+                }
+            }
+        });
+
+
 
         changePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,15 +188,6 @@ public class EditUserActivity extends AppCompatActivity {
             }
         });
 
-
-        ludification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent edit = new Intent(EditUserActivity.this, DictionaryHome.class);
-                startActivity(edit);
-            }
-        });
-
         acceptChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,7 +196,7 @@ public class EditUserActivity extends AppCompatActivity {
                 Lastname = userLastName.getText().toString();
                 Name = userName.getText().toString();
                 PhoneNumber = userPhone.getText().toString();
-                editUserInfo(Name, Lastname, PhoneNumber);
+                //editUserInfo(Name, Lastname, PhoneNumber);
                 if(validateField(Name, Lastname)){
                     editUserInfo(Name, Lastname, PhoneNumber);
                     //Intent start = new Intent(EditUserActivity.this,HomeActivity.class);
@@ -249,7 +253,8 @@ public class EditUserActivity extends AppCompatActivity {
                         userLastName.setText(userActive.getLastName());
                         userEmail.setText("Comabaquinta");
                         userPhone.setText(userActive.getPhoneNumber());
-                        getPhotoProfileUser(userActive.getId());
+                        //getPhotoProfileUser(userActive.getId());
+
                     }
                 }
             }
@@ -276,10 +281,6 @@ public class EditUserActivity extends AppCompatActivity {
 
     }
 
-    private User returnUser (User userP){
-        return userP;
-    }
-
     /*private void editUserInfo(String name, String lastName, String phoneNumber){
         changePhoto();
         DB_User changed = new DB_User(this);
@@ -290,35 +291,41 @@ public class EditUserActivity extends AppCompatActivity {
     private void editUserInfo(String name, String lastName, String phoneNumber){
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
-        changePhoto();
-        String userID=autentication.getCurrentUser().getUid().toString();
-        database.collection("UserInfo")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            String idSearch;
-                            for(QueryDocumentSnapshot document : task.getResult()){
-                                idSearch = (String) document.getData().get("ID");
-                                if(idSearch == null){
-                                    idSearch = (String) document.getData().get("id");
-                                }
-                                if(idSearch.equals(userID)){
-                                    final DocumentReference docRef = database.collection("UserInfo").document(document.getId().toString());
-                                    database.runTransaction(new Transaction.Function<Void>() {
-                                        @Nullable
-                                        @Override
-                                        public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
-                                            transaction.update(docRef, "LastName", lastName, "Name", name, "PhoneNumber", phoneNumber);
-                                            return null;
+        changePhoto(new GetImageUri() {
+            @Override
+            public void onSuccess(String uri) {
+
+                String userID=autentication.getCurrentUser().getUid().toString();
+                database.collection("UserInfo")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.isSuccessful()){
+                                    String idSearch;
+                                    for(QueryDocumentSnapshot document : task.getResult()){
+                                        idSearch = (String) document.getData().get("ID");
+                                        if(idSearch == null){
+                                            idSearch = (String) document.getData().get("id");
                                         }
-                                    });
+                                        if(idSearch.equals(userID)){
+                                            final DocumentReference docRef = database.collection("UserInfo").document(document.getId().toString());
+                                            database.runTransaction(new Transaction.Function<Void>() {
+                                                @Nullable
+                                                @Override
+                                                public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                                                    transaction.update(docRef, "LastName", lastName, "Name", name, "PhoneNumber", phoneNumber, "UriPath", uri);
+                                                    return null;
+                                                }
+                                            });
+                                        }
+                                    }
                                 }
                             }
-                        }
-                    }
-                });
+                        });
+            }
+        });
+
     }
     private boolean validateField(String name,String lastName){
 
@@ -354,7 +361,7 @@ public class EditUserActivity extends AppCompatActivity {
         if(ContextCompat.checkSelfPermission(EditUserActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(EditUserActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_STORAGE);
         }else{
-            Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             IsChangedPhoto = true;
             startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
         }
@@ -362,17 +369,52 @@ public class EditUserActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
+        /*if (requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK) {
             Bitmap photoI = (Bitmap) data.getExtras().get("data");
             profilePhoto.setImageBitmap(photoI);
         }
         if (resultCode == RESULT_OK && requestCode == GALLERY_REQUEST_CODE && data != null) {
             Uri imageUri = data.getData();
             profilePhoto.setImageURI(imageUri);
+        }*/
+        try{
+            if(requestCode == 0){
+                Bitmap photoI = (Bitmap) data.getExtras().get("data");
+                profilePhoto.setImageBitmap(photoI);
+                profilePhoto.setDrawingCacheEnabled(true);
+                profilePhoto.buildDrawingCache();
+                Bitmap bitmap = profilePhoto.getDrawingCache();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                if(bitmap != null){
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+                    //bytes = baos.toByteArray();
+                }
+            }
+
+            if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() !=null){
+                Uri selectedImage = data.getData();
+                // image.setImageURI(null);
+                profilePhoto.setImageURI(selectedImage);
+
+                imageSelected = true;
+                if(imageSelected){
+                    profilePhoto.setDrawingCacheEnabled(true);
+                    profilePhoto.buildDrawingCache();
+                    Bitmap bitmap = profilePhoto.getDrawingCache();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    if(bitmap != null){
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+                        //bytes = baos.toByteArray();
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
     }
 
-    private void changePhoto(){
+    private void changePhoto(final GetImageUri callback){
         if(IsChangedPhoto) {
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference().child("userProfilePhoto/" + userID_Recived + ".jpg");
@@ -385,7 +427,14 @@ public class EditUserActivity extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(EditUserActivity.this, "Se Cambio la Foto de Perfil Exitosamente", Toast.LENGTH_SHORT).show();
+                    storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String url = uri.toString();
+                            callback.onSuccess(url);
+                            Toast.makeText(EditUserActivity.this, "Se Cambio la Foto de Perfil Exitosamente", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -394,6 +443,9 @@ public class EditUserActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+    public interface GetImageUri{
+        void onSuccess(String uri);
     }
     @Override
     protected void attachBaseContext(Context newBase) {

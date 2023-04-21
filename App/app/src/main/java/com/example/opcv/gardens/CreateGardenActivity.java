@@ -34,6 +34,7 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.auth.SelectPhotoActivity;
 import com.example.opcv.business.gardenController.GardenLogic;
 import com.example.opcv.info.GardenInfo;
 import com.example.opcv.ludificationScreens.DictionaryHome;
@@ -248,13 +249,17 @@ public class CreateGardenActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            Bitmap photoI = (Bitmap) data.getExtras().get("data");
-            photo.setImageBitmap(photoI);
-        }
-        if (resultCode == RESULT_OK && requestCode == GALLERY_REQUEST_CODE && data != null) {
-            Uri imageUri = data.getData();
-            photo.setImageURI(imageUri);
+        try{
+            if (resultCode == RESULT_OK) {
+                Bitmap photoI = (Bitmap) data.getExtras().get("data");
+                photo.setImageBitmap(photoI);
+            }
+            if (resultCode == RESULT_OK && requestCode == GALLERY_REQUEST_CODE && data != null) {
+                Uri imageUri = data.getData();
+                photo.setImageURI(imageUri);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
     @Override

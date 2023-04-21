@@ -417,13 +417,17 @@ public class GardenEditActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            Bitmap photoI = (Bitmap) data.getExtras().get("data");
-            gardenImage.setImageBitmap(photoI);
-        }
-        if (resultCode == RESULT_OK && requestCode == GALLERY_REQUEST_CODE && data != null) {
-            Uri imageUri = data.getData();
-            gardenImage.setImageURI(imageUri);
+        try{
+            if (resultCode == RESULT_OK) {
+                Bitmap photoI = (Bitmap) data.getExtras().get("data");
+                gardenImage.setImageBitmap(photoI);
+            }
+            if (resultCode == RESULT_OK && requestCode == GALLERY_REQUEST_CODE && data != null) {
+                Uri imageUri = data.getData();
+                gardenImage.setImageURI(imageUri);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

@@ -155,7 +155,7 @@ public class Form_RCC extends AppCompatActivity {
                         }
 
                         DB_InsertForms newForm = new DB_InsertForms(Form_RCC.this);
-                        newForm.insertInto_RCC(infoForm);
+                        //newForm.insertInto_RCC(infoForm);
                         Toast.makeText(Form_RCC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Form_RCC.this, HomeActivity.class));
                         finish();

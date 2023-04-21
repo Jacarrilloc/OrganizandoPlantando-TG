@@ -16,11 +16,11 @@
 
         <ImageView
             android:id="@+id/gardenProfilePicture"
-            android:layout_width="@dimen/_408sdp"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/_185sdp"
             android:layout_gravity="center"
             android:background="@drawable/im_garden_pic"
-            android:scaleType="fitCenter" />
+            android:scaleType="centerCrop" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/returnArrowButtonToHome"

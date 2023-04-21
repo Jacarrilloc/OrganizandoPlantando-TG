@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.opcv.R;
 import com.example.opcv.adapter.CollaboratorListAdapter;
 import com.example.opcv.item_list.ItemCollaboratorsRequest;
+import com.example.opcv.persistance.gardenPersistance.GardenPersistance;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -110,9 +111,16 @@ public class GardenRequestsActivity extends AppCompatActivity {
                                                     if(idSearch.equals(idUser)){
                                                         name = (String) document.getData().get("Name");
                                                         //Si se necesita mas informacion usar la clase User
-                                                        ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(name, idUser, gardenId);
-                                                        gardenNames.add(newItem);
-                                                        fillListRequests(gardenNames);
+                                                        GardenPersistance persistance = new GardenPersistance();
+                                                        persistance.getGardenPicture(gardenId, new GardenPersistance.GetUri() {
+                                                            @Override
+                                                            public void onSuccess(String uri) {
+                                                                ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(name, idUser, gardenId, uri);
+                                                                gardenNames.add(newItem);
+                                                                fillListRequests(gardenNames);
+                                                            }
+                                                        });
+
                                                         break;
                                                     }
                                                 }

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.opcv.R;
 import com.example.opcv.fbComunication.CollaboratorUtilities;
 import com.example.opcv.item_list.ItemCollaboratorsRequest;
@@ -45,7 +46,7 @@ public class CollaboratorListAdapter extends ArrayAdapter<ItemCollaboratorsReque
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_right_to_left);
         animation.setStartOffset(position * 100);
         convertView.startAnimation(animation);
-        ItemCollaboratorsRequest ICR = new ItemCollaboratorsRequest(item.getName(), item.getIdUser(), item.getIdGarden());
+        ItemCollaboratorsRequest ICR = new ItemCollaboratorsRequest(item.getName(), item.getIdUser(), item.getIdGarden(), item.getUri());
         CollaboratorUtilities CRU = new CollaboratorUtilities();
         accept = convertView.findViewById(R.id.acceptedButton);
         accept.setOnClickListener(new View.OnClickListener() {
@@ -67,9 +68,15 @@ public class CollaboratorListAdapter extends ArrayAdapter<ItemCollaboratorsReque
                 Toast.makeText(context, "Se rechazó con éxito al usuario ", Toast.LENGTH_SHORT).show();
             }
         });
-
-        image = convertView.findViewById(R.id.UserImage);
-        image.setVisibility(View.VISIBLE);
+        if(item.getUri() != null){
+            image = convertView.findViewById(R.id.UserImage);
+            Glide.with(context).load(item.getUri()).into(image);
+            image.setVisibility(View.VISIBLE);
+        }
+        else{
+            image = convertView.findViewById(R.id.UserImage);
+            image.setVisibility(View.VISIBLE);
+        }
         return convertView;
     }
 }

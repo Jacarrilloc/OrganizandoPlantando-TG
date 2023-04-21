@@ -159,22 +159,26 @@ public class CreateToolActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == RESULT_OK && data != null && data.getData() !=null){
-            Uri selectedImage = data.getData();
-           // image.setImageURI(null);
-            image.setImageURI(selectedImage);
+        try{
+            if(requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == RESULT_OK && data != null && data.getData() !=null){
+                Uri selectedImage = data.getData();
+                // image.setImageURI(null);
+                image.setImageURI(selectedImage);
 
-            imageSelected = true;
-        }
-        if(imageSelected){
-            image.setDrawingCacheEnabled(true);
-            image.buildDrawingCache();
-            Bitmap bitmap = image.getDrawingCache();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            if(bitmap != null){
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-                bytes = baos.toByteArray();
+                imageSelected = true;
             }
+            if(imageSelected){
+                image.setDrawingCacheEnabled(true);
+                image.buildDrawingCache();
+                Bitmap bitmap = image.getDrawingCache();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                if(bitmap != null){
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+                    bytes = baos.toByteArray();
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }
