@@ -28,8 +28,6 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.info.User;
-import com.example.opcv.localDatabase.DB_User;
-import com.example.opcv.localDatabase.DatabaseHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.ByteArrayOutputStream;
@@ -133,7 +131,6 @@ public class SelectPhotoActivity extends AppCompatActivity {
             if(authUtilities.createUser(newUserInfo.getEmail(),password,newUserInfo,bytes,SelectPhotoActivity.this)){
                 Toast.makeText(this, "Usuario Creado Exitosamente", Toast.LENGTH_SHORT).show();
             }
-            addToSQL(newUserInfo);
         }
     }
 
@@ -229,23 +226,6 @@ public class SelectPhotoActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
-
-    private void addToSQL(User newUserInfo){
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
-        SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        if(db != null){
-            Toast.makeText(this, "Se crea la base de Datos", Toast.LENGTH_SHORT).show();
-            Map<String,Object> info = newUserInfo.toMap();
-            DB_User newI = new DB_User(this);
-            long i = newI.insertUserInfo(info);
-            if(i > 0){
-                Toast.makeText(this, "REGISTRO GUARDADO", Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
-            }
-        }
-        callHome(newUserInfo);
     }
     private void callHome(User newUserInfo){
         Intent intent = new Intent(SelectPhotoActivity.this, HomeActivity.class);
