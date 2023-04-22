@@ -55,6 +55,7 @@ public class SelectPhotoActivity extends AppCompatActivity {
     private static final int REQUEST_SELECT_PHOTO = 2000;
     private static final int GALLERY_REQUEST_CODE = 100;
     private Boolean IsChangedPhoto = false;
+    private byte[] bytes;
 
 
     @Override
@@ -128,10 +129,20 @@ public class SelectPhotoActivity extends AppCompatActivity {
     }
 
     private void createUserInDatabase(){
-        if(authUtilities.createUser(newUserInfo.getEmail(),password,newUserInfo,imageUri,SelectPhotoActivity.this)){
-            Toast.makeText(this, "Usuario Creado Exitosamente", Toast.LENGTH_SHORT).show();
+        if(validateField(this, bytes)){
+            if(authUtilities.createUser(newUserInfo.getEmail(),password,newUserInfo,bytes,SelectPhotoActivity.this)){
+                Toast.makeText(this, "Usuario Creado Exitosamente", Toast.LENGTH_SHORT).show();
+            }
+            addToSQL(newUserInfo);
         }
-        addToSQL(newUserInfo);
+    }
+
+    public boolean validateField(Context context, byte[] bytes){
+        if(bytes == null){
+            Toast.makeText(context, "Es necesario Ingresar una imagen", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     private void takePhotoUser(){
@@ -139,7 +150,7 @@ public class SelectPhotoActivity extends AppCompatActivity {
                 ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
             PackageManager pm = getPackageManager();
-            if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+            if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
                 openCamaraAndTakePhoto();
                 IsChangedPhoto = true;
             } else {
@@ -185,34 +196,38 @@ public class SelectPhotoActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 0){
-            Bitmap photoI = (Bitmap) data.getExtras().get("data");
-            ImageSource.setImageBitmap(photoI);
-            ImageSource.setDrawingCacheEnabled(true);
-            ImageSource.buildDrawingCache();
-            Bitmap bitmap = ImageSource.getDrawingCache();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            if(bitmap != null){
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-                //bytes = baos.toByteArray();
-            }
-        }
-        if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() !=null){
-            Uri selectedImage = data.getData();
-            // image.setImageURI(null);
-            ImageSource.setImageURI(selectedImage);
-
-            IsChangedPhoto = true;
-            if(IsChangedPhoto){
+        try{
+            if(requestCode == 0){
+                Bitmap photoI = (Bitmap) data.getExtras().get("data");
+                ImageSource.setImageBitmap(photoI);
                 ImageSource.setDrawingCacheEnabled(true);
                 ImageSource.buildDrawingCache();
                 Bitmap bitmap = ImageSource.getDrawingCache();
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 if(bitmap != null){
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-                    //bytes = baos.toByteArray();
+                    bytes = baos.toByteArray();
                 }
             }
+            if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() !=null){
+                Uri selectedImage = data.getData();
+                // image.setImageURI(null);
+                ImageSource.setImageURI(selectedImage);
+
+                IsChangedPhoto = true;
+                if(IsChangedPhoto){
+                    ImageSource.setDrawingCacheEnabled(true);
+                    ImageSource.buildDrawingCache();
+                    Bitmap bitmap = ImageSource.getDrawingCache();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    if(bitmap != null){
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+                        bytes = baos.toByteArray();
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
