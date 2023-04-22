@@ -5,8 +5,7 @@ import android.util.Log;
 
 import com.example.opcv.repository.FormsRepository;
 import com.example.opcv.repository.interfaces.OnFormInsertedListener;
-import com.example.opcv.repository.localForms.CIH;
-import com.example.opcv.repository.localForms.CPS;
+import com.example.opcv.repository.localForms.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,11 +23,18 @@ public class FormsLogic {
     public void createForm(Map<String,Object> infoForm, String idGraden){
         int type = (int) infoForm.get("idForm");
         switch (type){
+            case 1:
+                createRACForm(infoForm,idGraden);
+                break;
             case 10:
                 createCIHForm(infoForm,idGraden);
                 break;
             case 7:
                 createCPSForm(infoForm,idGraden);
+                break;
+            case 3:
+                createIMPForm(infoForm,idGraden);
+                break;
         }
     }
 
@@ -84,6 +90,60 @@ public class FormsLogic {
             @Override
             public void onFormInsertionError(Exception e) {
                 Log.i("INSERTAR_FORM_CPS","ERROR, NO SE INGRESÓ:" + e.getMessage().toString());
+            }
+        });
+    }
+
+    private void createIMPForm(Map<String, Object> infoForm, String idGraden){
+        int id = (int) infoForm.get("idForm");
+        String name = (String) infoForm.get("nameForm");
+        String rawMaterial = (String) infoForm.get("rawMaterial");
+        String concept = (String) infoForm.get("concept");
+        String movement = (String) infoForm.get("movement");
+        String quantityRawMaterial = (String) infoForm.get("quantityRawMaterial");
+        String units = (String) infoForm.get("units");
+        String existenceQuantity = (String) infoForm.get("existenceQuantity");
+        String date = getDateNow();
+
+        infoForm.put("Date",date);
+        IMP imp = new IMP(id,name,rawMaterial,concept,movement,quantityRawMaterial,units,existenceQuantity,date);
+        FormsRepository info = new FormsRepository(context);
+        info.insertFormIMP(imp, infoForm, idGraden, new OnFormInsertedListener() {
+            @Override
+            public void onFormInserted(String formId) {
+                Log.i("INSERTAR_FORM_IMP","SE AGREGÓ");
+            }
+
+            @Override
+            public void onFormInsertionError(Exception e) {
+                Log.i("INSERTAR_FORM_IMP","ERROR, NO SE INGRESÓ:" + e.getMessage().toString());
+            }
+        });
+    }
+
+    public void createRACForm(Map<String,Object> infoForm,String idGraden){
+        int id = (int) infoForm.get("idForm");
+        String name = (String) infoForm.get("nameForm");
+        String containerSize = (String) infoForm.get("containerSize");
+        String wormsWeight = (String) infoForm.get("wormsWeight");
+        String humidity = (String) infoForm.get("humidity");
+        String amount_of_waste = (String) infoForm.get("amount of waste");
+        String collected_humus = (String) infoForm.get("collected humus");
+        String amount_leached = (String) infoForm.get("amount leached");
+        String date = getDateNow();
+
+        infoForm.put("Date",date);
+        RAC rac = new RAC(id,name,containerSize,wormsWeight,humidity,amount_of_waste,collected_humus,amount_leached,date);
+        FormsRepository info = new FormsRepository(context);
+        info.insertFormRAC(rac, infoForm, idGraden, new OnFormInsertedListener() {
+            @Override
+            public void onFormInserted(String formId) {
+                Log.i("INSERTAR_FORM_RAC","SE AGREGÓ");
+            }
+
+            @Override
+            public void onFormInsertionError(Exception e) {
+                Log.i("INSERTAR_FORM_RAC","ERROR, NO SE INGRESÓ:" + e.getMessage().toString());
             }
         });
     }

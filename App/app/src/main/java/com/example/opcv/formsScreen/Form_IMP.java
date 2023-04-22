@@ -23,6 +23,7 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.business.formsLogic.FormsLogic;
 import com.example.opcv.fbComunication.FormsUtilities;
 import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -153,6 +154,9 @@ public class Form_IMP extends AppCompatActivity {
                     infoForm.put("quantityRawMaterial",quantityMaterial);
                     infoForm.put("units",unitSelectedItem);
                     infoForm.put("existenceQuantity",existance);
+
+                    FormsLogic newForm = new FormsLogic(Form_IMP.this);
+                    newForm.createForm(infoForm,idGardenFb);
 
                     //newForm.insertInto_IMP(infoForm);
                     Toast.makeText(Form_IMP.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
@@ -349,20 +353,6 @@ public class Form_IMP extends AppCompatActivity {
                         spinnerUnits.setAdapter(adap3);
                     }
                 }
-            }
-        });
-        addFormButtom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String rawMaterial, quantityMaterial, existance, concept, movement, units;
-                rawMaterial = rawMatirial.getText().toString();
-                quantityMaterial = quantity.getText().toString();
-                existance = existingTool.getText().toString();
-                movement = movementSelectedItem;
-                concept = conceptSelectedItem;
-                units = unitSelectedItem;
-                formsUtilities.editInfoIMP(Form_IMP.this, idGarden, idCollection, rawMaterial, concept,movement, quantityMaterial, units, existance);
-                Toast.makeText(Form_IMP.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.business.formsLogic.FormsLogic;
 import com.example.opcv.fbComunication.FormsUtilities;
 import com.example.opcv.*;
 import com.example.opcv.ludificationScreens.DictionaryHome;
@@ -159,6 +160,9 @@ public class Form_RAC extends AppCompatActivity {
                     infoForm.put("collected humus",humus);
                     infoForm.put("amount leached",leached);
                     if(validateField(container, worms, humidity, waste, humus, leached)){
+
+                        FormsLogic newForm = new FormsLogic(Form_RAC.this);
+                        newForm.createForm(infoForm,idGardenFb);
 
                         //newForm.insertInto_RAC(infoForm);
                         Toast.makeText(Form_RAC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();

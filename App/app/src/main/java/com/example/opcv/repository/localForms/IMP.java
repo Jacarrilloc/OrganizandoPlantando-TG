@@ -16,20 +16,23 @@ public class IMP {
     @ColumnInfo(name = "nameForm")
     public String nameForm;
 
-    @ColumnInfo(name = "personResponsable")
-    public String personResponsable;
+    @ColumnInfo(name = "rawMaterial")
+    public String rawMaterial;
 
-    @ColumnInfo(name = "processPhase")
-    public String processPhase;
+    @ColumnInfo(name = "concept")
+    public String concept;
 
-    @ColumnInfo(name = "phaseDuration")
-    public String phaseDuration;
+    @ColumnInfo(name = "movement")
+    public String movement;
 
-    @ColumnInfo(name = "commentsObservations")
-    public String commentsObservations;
+    @ColumnInfo(name = "quantityRawMaterial")
+    public String quantityRawMaterial;
 
-    @ColumnInfo(name = "plantsOrSeeds")
-    public String plantsOrSeeds;
+    @ColumnInfo(name = "units")
+    public String units;
+
+    @ColumnInfo(name = "existenceQuantity")
+    public String existenceQuantity;
 
     @ColumnInfo(name = "Date")
     public String Date;
@@ -37,15 +40,24 @@ public class IMP {
     public IMP() {
     }
 
-    public IMP(int idForm, String nameForm, String personResponsable, String processPhase, String phaseDuration, String commentsObservations, String plantsOrSeeds, String date) {
+    public IMP(int idForm, String nameForm, String rawMaterial, String concept, String movement, String quantityRawMaterial, String units, String existenceQuantity, String date) {
         this.idForm = idForm;
         this.nameForm = nameForm;
-        this.personResponsable = personResponsable;
-        this.processPhase = processPhase;
-        this.phaseDuration = phaseDuration;
-        this.commentsObservations = commentsObservations;
-        this.plantsOrSeeds = plantsOrSeeds;
+        this.rawMaterial = rawMaterial;
+        this.concept = concept;
+        this.movement = movement;
+        this.quantityRawMaterial = quantityRawMaterial;
+        this.units = units;
+        this.existenceQuantity = existenceQuantity;
         Date = date;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getIdForm() {
@@ -64,44 +76,52 @@ public class IMP {
         this.nameForm = nameForm;
     }
 
-    public String getPersonResponsable() {
-        return personResponsable;
+    public String getRawMaterial() {
+        return rawMaterial;
     }
 
-    public void setPersonResponsable(String personResponsable) {
-        this.personResponsable = personResponsable;
+    public void setRawMaterial(String rawMaterial) {
+        this.rawMaterial = rawMaterial;
     }
 
-    public String getProcessPhase() {
-        return processPhase;
+    public String getConcept() {
+        return concept;
     }
 
-    public void setProcessPhase(String processPhase) {
-        this.processPhase = processPhase;
+    public void setConcept(String concept) {
+        this.concept = concept;
     }
 
-    public String getPhaseDuration() {
-        return phaseDuration;
+    public String getMovement() {
+        return movement;
     }
 
-    public void setPhaseDuration(String phaseDuration) {
-        this.phaseDuration = phaseDuration;
+    public void setMovement(String movement) {
+        this.movement = movement;
     }
 
-    public String getCommentsObservations() {
-        return commentsObservations;
+    public String getQuantityRawMaterial() {
+        return quantityRawMaterial;
     }
 
-    public void setCommentsObservations(String commentsObservations) {
-        this.commentsObservations = commentsObservations;
+    public void setQuantityRawMaterial(String quantityRawMaterial) {
+        this.quantityRawMaterial = quantityRawMaterial;
     }
 
-    public String getPlantsOrSeeds() {
-        return plantsOrSeeds;
+    public String getUnits() {
+        return units;
     }
 
-    public void setPlantsOrSeeds(String plantsOrSeeds) {
-        this.plantsOrSeeds = plantsOrSeeds;
+    public void setUnits(String units) {
+        this.units = units;
+    }
+
+    public String getExistenceQuantity() {
+        return existenceQuantity;
+    }
+
+    public void setExistenceQuantity(String existenceQuantity) {
+        this.existenceQuantity = existenceQuantity;
     }
 
     public String getDate() {
