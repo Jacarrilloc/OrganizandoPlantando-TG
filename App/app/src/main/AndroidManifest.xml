@@ -42,7 +42,8 @@
             android:exported="false" />
         <activity
             android:name=".ludificationScreens.ShowDictionaryItemActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".ludificationScreens.ShowDictionaryActivity"
             android:exported="false" />

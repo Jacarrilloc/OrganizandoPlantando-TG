@@ -27,6 +27,7 @@ import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.FormsUtilities;
 import com.example.opcv.localDatabase.DB_InsertForms;
 import com.example.opcv.ludificationScreens.DictionaryHome;
+import com.example.opcv.notifications.Notifications;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -164,7 +165,9 @@ public class Form_IMP extends AppCompatActivity {
 
                     DB_InsertForms newForm = new DB_InsertForms(Form_IMP.this);
                     //newForm.insertInto_IMP(infoForm);
-                    Toast.makeText(Form_IMP.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+                    Notifications notifications = new Notifications();
+                    notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_IMP.this);
+                    //Toast.makeText(Form_IMP.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Form_IMP.this, HomeActivity.class));
                     finish();
                 }
