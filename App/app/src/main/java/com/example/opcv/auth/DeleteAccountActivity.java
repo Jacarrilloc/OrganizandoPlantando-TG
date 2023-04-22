@@ -105,7 +105,8 @@ public class DeleteAccountActivity extends AppCompatActivity {
 
     private void deleteUser(String id, FirebaseUser auth){
 
-
+        database.collection("UserInfo").document(id).delete();
+/*
         database.collection("UserInfo")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -136,7 +137,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
                     Log.d(TAG, "User account deleted.");
                 }
             }
-        });
+        });*/
         //Toast.makeText(this, idUser, Toast.LENGTH_SHORT).show();
     }
 

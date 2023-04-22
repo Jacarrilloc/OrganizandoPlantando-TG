@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -129,12 +130,21 @@ public class SelectPhotoActivity extends AppCompatActivity {
     }
 
     private void createUserInDatabase(){
-        if(validateField(this, bytes)){
+        //if(validateField(this, bytes)){
+        if(bytes == null){
+            int drawableId = R.drawable.im_logo_ceres_green;
+
+            //Drawable drawable = getResources().getDrawable(R.drawable.im_logo_ceres);
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), drawableId);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
+            bytes = stream.toByteArray();
+        }
             if(authUtilities.createUser(newUserInfo.getEmail(),password,newUserInfo,bytes,SelectPhotoActivity.this)){
                 Toast.makeText(this, "Usuario Creado Exitosamente", Toast.LENGTH_SHORT).show();
             }
             addToSQL(newUserInfo);
-        }
+        //}
     }
 
     public boolean validateField(Context context, byte[] bytes){
