@@ -38,6 +38,9 @@ public class FormsLogic {
             case 10:
                 createCIHForm(infoForm,idGraden);
                 break;
+            case 12:
+                createREForm(infoForm,idGraden);
+                break;
         }
     }
 
@@ -173,6 +176,50 @@ public class FormsLogic {
             @Override
             public void onFormInsertionError(Exception e) {
                 Log.i("INSERTAR_FORM_RCC","ERROR, NO SE INGRESÓ:" + e.getMessage().toString());
+            }
+        });
+    }
+
+    public void createREForm(Map<String,Object> infoForm,String idGraden){
+        int id = (int) infoForm.get("idForm");
+        String name = (String) infoForm.get("nameForm");
+        String date = (String) infoForm.get("date");
+        String eventName = (String) infoForm.get("eventName");
+        String totalPerson = (String) infoForm.get("totalPerson");
+        String womenNumber = (String) infoForm.get("womenNumber");
+        String menNumber = (String) infoForm.get("menNumber");
+        String noSpcNumber = (String) infoForm.get("noSpcNumber");
+        String infantNumber = (String) infoForm.get("infantNumber");
+        String childhoodNumber = (String) infoForm.get("childhoodNumber");
+        String teenNumber = (String) infoForm.get("teenNumber");
+        String youthNumber = (String) infoForm.get("youthNumber");
+        String adultNumber = (String) infoForm.get("adultNumber");
+        String elderlyNumber = (String) infoForm.get("elderlyNumber");
+        String afroNumber = (String) infoForm.get("afroNumber");
+        String nativeNumber = (String) infoForm.get("nativeNumber");
+        String lgtbiNumber = (String) infoForm.get("lgtbiNumber");
+        String romNumber = (String) infoForm.get("romNumber");
+        String victimNumber = (String) infoForm.get("victimNumber");
+        String disabilityNumber = (String) infoForm.get("disabilityNumber");
+        String demobilizedNumber = (String) infoForm.get("demobilizedNumber");
+        String mongrelNumber = (String) infoForm.get("mongrelNumber");
+        String foreignNumber = (String) infoForm.get("foreignNumber");
+        String peasantNumber = (String) infoForm.get("peasantNumber");
+        String otherNumber = (String) infoForm.get("otherNumber");
+        String dateCreated = getDateNow();
+
+        infoForm.put("Date",date);
+        RE re = new RE(id,name,date,eventName,totalPerson,womenNumber,menNumber,noSpcNumber,infantNumber,childhoodNumber,teenNumber,youthNumber,adultNumber,elderlyNumber,afroNumber,nativeNumber,lgtbiNumber,romNumber,victimNumber,disabilityNumber,demobilizedNumber,mongrelNumber,foreignNumber,peasantNumber,otherNumber,dateCreated);
+        FormsRepository info = new FormsRepository(context);
+        info.insertFormRE(re, infoForm, idGraden, new OnFormInsertedListener() {
+            @Override
+            public void onFormInserted(String formId) {
+                Log.i("INSERTAR_FORM_RE","SE AGREGÓ");
+            }
+
+            @Override
+            public void onFormInsertionError(Exception e) {
+                Log.i("INSERTAR_FORM_RE","ERROR, NO SE INGRESÓ:" + e.getMessage().toString());
             }
         });
     }

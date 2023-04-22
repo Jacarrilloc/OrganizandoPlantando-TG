@@ -23,6 +23,7 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.business.formsLogic.FormsLogic;
 import com.example.opcv.fbComunication.FormsUtilities;
 import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -282,6 +283,9 @@ public class Form_RE extends AppCompatActivity {
                     infoForm.put("peasantNumber", peasantNumber.getText().toString());
                     infoForm.put("otherNumber", otherNumber.getText().toString());
 
+                    FormsLogic newForm = new FormsLogic(Form_RE.this);
+                    newForm.createForm(infoForm,idGardenFb);
+
                     //newForm.insertInto_RE(infoForm);
                     Toast.makeText(Form_RE.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Form_RE.this, HomeActivity.class));
@@ -335,6 +339,8 @@ public class Form_RE extends AppCompatActivity {
                 }
             }
         });
+
+        /*
         addFormButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -366,6 +372,8 @@ public class Form_RE extends AppCompatActivity {
                 Toast.makeText(Form_RE.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
             }
         });
+
+         */
     }
 
     @Override
