@@ -2,9 +2,13 @@ package com.example.opcv.repository.localForms;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 @Entity(tableName = "RAC")
 public class RAC {
+
+    @PrimaryKey(autoGenerate = true)
+    public int id;
 
     @ColumnInfo(name = "idForm")
     public int idForm;
@@ -32,6 +36,9 @@ public class RAC {
 
     @ColumnInfo(name = "Date")
     public String Date;
+
+    public RAC() {
+    }
 
     public RAC(int idForm, String nameForm, String containerSize, String wormsWeight, String humidity, String amountOfWaste, String collectedHumus, String amountLeached, String date) {
         this.idForm = idForm;

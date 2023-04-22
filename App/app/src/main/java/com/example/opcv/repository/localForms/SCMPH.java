@@ -2,9 +2,13 @@ package com.example.opcv.repository.localForms;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 @Entity(tableName = "SCMPH")
 public class SCMPH {
+
+    @PrimaryKey(autoGenerate = true)
+    public int id;
 
     @ColumnInfo(name = "idForm")
     public int idForm;
@@ -29,6 +33,9 @@ public class SCMPH {
 
     @ColumnInfo(name = "Date")
     public String Date;
+
+    public SCMPH() {
+    }
 
     public SCMPH(int idForm, String nameForm, String itemName, String item, String units, String total, int quantity, String date) {
         this.idForm = idForm;

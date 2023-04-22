@@ -2,9 +2,13 @@ package com.example.opcv.repository.localForms;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 @Entity(tableName = "CIH")
 public class CIH {
+    @PrimaryKey(autoGenerate = true)
+    public int id;
+
     @ColumnInfo(name = "idForm")
     public int idForm;
 
@@ -32,6 +36,7 @@ public class CIH {
     @ColumnInfo(name = "Date")
     public String Date;
 
+    public CIH() {}
     public CIH(int idForm, String nameForm, String tool, String concept, String incomingOutgoing, int toolQuantity, String toolStatus, int existenceQuantity, String date) {
         this.idForm = idForm;
         this.nameForm = nameForm;

@@ -2,9 +2,13 @@ package com.example.opcv.repository.localForms;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 @Entity(tableName = "RE")
 public class RE {
+
+    @PrimaryKey(autoGenerate = true)
+    public int id;
 
     @ColumnInfo(name = "idForm")
     public int idForm;
@@ -81,8 +85,11 @@ public class RE {
     @ColumnInfo(name = "otherNumber")
     public String otherNumber;
 
-    @ColumnInfo(name = "Date")
-    public String Date;
+    @ColumnInfo(name = "DateCreated")
+    public String DateCreated;
+
+    public RE() {
+    }
 
     public RE(int idForm, String nameForm, String date, String eventName, String totalPerson, String womenNumber, String menNumber, String noSpcNumber, String infantNumber, String childhoodNumber, String teenNumber, String youthNumber, String adultNumber, String elderlyNumber, String afroNumber, String nativeNumber, String lgtbiNumber, String romNumber, String victimNumber, String disabilityNumber, String demobilizedNumber, String mongrelNumber, String foreignNumber, String peasantNumber, String otherNumber, String date1) {
         this.idForm = idForm;
@@ -110,7 +117,7 @@ public class RE {
         this.foreignNumber = foreignNumber;
         this.peasantNumber = peasantNumber;
         this.otherNumber = otherNumber;
-        Date = date1;
+        DateCreated = date1;
     }
 
     public int getIdForm() {

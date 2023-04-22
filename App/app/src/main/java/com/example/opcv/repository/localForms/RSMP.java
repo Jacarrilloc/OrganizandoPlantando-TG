@@ -2,9 +2,13 @@ package com.example.opcv.repository.localForms;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 @Entity(tableName = "RSMP")
 public class RSMP {
+
+    @PrimaryKey(autoGenerate = true)
+    public int id;
 
     @ColumnInfo(name = "idForm")
     public int idForm;
@@ -32,6 +36,9 @@ public class RSMP {
 
     @ColumnInfo(name = "Date")
     public String Date;
+
+    public RSMP() {
+    }
 
     public RSMP(int idForm, String nameForm, String description, String units, String concept, String state, int quantity, int total, String date) {
         this.idForm = idForm;
