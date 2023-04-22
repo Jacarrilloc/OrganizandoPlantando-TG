@@ -373,6 +373,7 @@ public class Form_RE extends AppCompatActivity {
                 foreignN = foreignNumber.getText().toString();
                 peasantN = peasantNumber.getText().toString();
                 otherN = otherNumber.getText().toString();
+                formsUtilities = new FormsUtilities();
                 formsUtilities.editInfoRE(Form_RE.this, idGarden, idCollection, datex, eventN, totalP, femaleN, maleN, noSpcN, infantN, childhoodN, teenN, youthN, adultN, elderlyN, afroN, nativeN, lgtbiN, romN, victimN, disabilityN, desmobilizedN, mongrelN, foreignN, peasantN, otherN);
                 Toast.makeText(Form_RE.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
             }
