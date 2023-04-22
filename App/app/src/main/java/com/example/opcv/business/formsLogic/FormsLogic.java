@@ -26,6 +26,9 @@ public class FormsLogic {
             case 1:
                 createRACForm(infoForm,idGraden);
                 break;
+            case 2:
+                createSCMPHForm(infoForm,idGraden);
+                break;
             case 3:
                 createIMPForm(infoForm,idGraden);
                 break;
@@ -314,6 +317,33 @@ public class FormsLogic {
                 Log.i("INSERTAR_FORM_RSMP","ERROR, NO SE INGRESÓ:" + e.getMessage().toString());
             }
         });
+    }
+
+    public void createSCMPHForm(Map<String,Object> infoForm,String idGraden){
+        int id = (int) infoForm.get("idForm");
+        String name = (String) infoForm.get("nameForm");
+        String itemName = (String) infoForm.get("itemName");
+        String item = (String) infoForm.get("item");
+        String units = (String) infoForm.get("units");
+        String quantity = (String) infoForm.get("quantity");
+        String total = (String) infoForm.get("total");
+        String date = getDateNow();
+
+        infoForm.put("Date",date);
+        SCMPH scmph = new SCMPH(id,name,itemName,item,units,total,Integer.parseInt(quantity),date);
+        FormsRepository info = new FormsRepository(context);
+        info.insertFormSCMPH(scmph, infoForm, idGraden, new OnFormInsertedListener() {
+            @Override
+            public void onFormInserted(String formId) {
+                Log.i("INSERTAR_FORM_SCMPH","SE AGREGÓ");
+            }
+
+            @Override
+            public void onFormInsertionError(Exception e) {
+                Log.i("INSERTAR_FORM_SCMPH","ERROR, NO SE INGRESÓ:" + e.getMessage().toString());
+            }
+        });
+
     }
 
     public static String getDateNow() {

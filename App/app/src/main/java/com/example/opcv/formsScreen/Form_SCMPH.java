@@ -23,6 +23,7 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.business.formsLogic.FormsLogic;
 import com.example.opcv.fbComunication.FormsUtilities;
 import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -140,7 +141,7 @@ public class Form_SCMPH extends AppCompatActivity {
                     idGardenFb = getIntent().getStringExtra("idGardenFirebase");
 
                     Map<String,Object> infoForm = new HashMap<>();
-                    infoForm.put("idForm",3);
+                    infoForm.put("idForm",2);
                     infoForm.put("nameForm",nameForm);
                     infoForm.put("itemName",itemR);
                     infoForm.put("item",itemSelectedItem);
@@ -148,6 +149,9 @@ public class Form_SCMPH extends AppCompatActivity {
                     infoForm.put("quantity",quantityR);
                     infoForm.put("total",totalR);
                     if(validateField(itemR, quantityR, totalR, itemSelectedItem, unitSelectedItem)){
+
+                        FormsLogic newForm = new FormsLogic(Form_SCMPH.this);
+                        newForm.createForm(infoForm,idGardenFb);
 
                        // newForm.insertInto_SCMPH(infoForm);
                         Toast.makeText(Form_SCMPH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
@@ -312,6 +316,7 @@ public class Form_SCMPH extends AppCompatActivity {
                 }
             }
         });
+        /*
         addFormButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -327,6 +332,8 @@ public class Form_SCMPH extends AppCompatActivity {
                 }
             }
         });
+
+         */
     }
     private boolean validateField(String itemR,String quantityR, String totalR, String item, String units){
 
