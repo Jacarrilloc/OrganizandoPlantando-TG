@@ -35,6 +35,9 @@ public class FormsLogic {
             case 8:
                 createRCCForm(infoForm,idGraden);
                 break;
+            case 9:
+                createRRHForm(infoForm,idGraden);
+                break;
             case 10:
                 createCIHForm(infoForm,idGraden);
                 break;
@@ -253,6 +256,32 @@ public class FormsLogic {
             @Override
             public void onFormInsertionError(Exception e) {
                 Log.i("INSERTAR_FORM_RHC","ERROR, NO SE INGRESÓ:" + e.getMessage().toString());
+            }
+        });
+    }
+
+    public void createRRHForm(Map<String,Object> infoForm,String idGraden){
+        int id = (int) infoForm.get("idForm");
+        String name = (String) infoForm.get("nameForm");
+        String description = (String) infoForm.get("description");
+        String toolQuantity = (String) infoForm.get("toolQuantity");
+        String concept = (String) infoForm.get("concept");
+        String performedBy = (String) infoForm.get("performedBy");
+        String toolStatus = (String) infoForm.get("toolStatus");
+        String date = getDateNow();
+
+        infoForm.put("Date",date);
+        RRH rrh = new RRH(id,name,description,concept,performedBy,toolStatus,toolQuantity,date);
+        FormsRepository info = new FormsRepository(context);
+        info.insertFormRRH(rrh, infoForm, idGraden, new OnFormInsertedListener() {
+            @Override
+            public void onFormInserted(String formId) {
+                Log.i("INSERTAR_FORM_RRH","SE AGREGÓ");
+            }
+
+            @Override
+            public void onFormInsertionError(Exception e) {
+                Log.i("INSERTAR_FORM_RRH","ERROR, NO SE INGRESÓ:" + e.getMessage().toString());
             }
         });
     }
