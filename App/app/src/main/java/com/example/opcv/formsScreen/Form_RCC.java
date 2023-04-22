@@ -20,6 +20,7 @@ import com.example.opcv.MapsActivity;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.HomeActivity;
 import com.example.opcv.R;
+import com.example.opcv.business.formsLogic.FormsLogic;
 import com.example.opcv.fbComunication.FormsUtilities;
 import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -146,6 +147,9 @@ public class Form_RCC extends AppCompatActivity {
                     infoForm.put("fertilizerQuantity",fertilizerQuantity);
                     infoForm.put("leachedQuantity",quantityLeached);
                     if(validateField(areaRecipient, descriptionProc, quantityResidue, fertilizerQuantity, quantityLeached)){
+
+                        FormsLogic newForm = new FormsLogic(Form_RCC.this);
+                        newForm.createForm(infoForm,idGardenFb);
 
                         //newForm.insertInto_RCC(infoForm);
                         Toast.makeText(Form_RCC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();

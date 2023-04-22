@@ -26,14 +26,17 @@ public class FormsLogic {
             case 1:
                 createRACForm(infoForm,idGraden);
                 break;
-            case 10:
-                createCIHForm(infoForm,idGraden);
+            case 3:
+                createIMPForm(infoForm,idGraden);
                 break;
             case 7:
                 createCPSForm(infoForm,idGraden);
                 break;
-            case 3:
-                createIMPForm(infoForm,idGraden);
+            case 8:
+                createRCCForm(infoForm,idGraden);
+                break;
+            case 10:
+                createCIHForm(infoForm,idGraden);
                 break;
         }
     }
@@ -144,6 +147,32 @@ public class FormsLogic {
             @Override
             public void onFormInsertionError(Exception e) {
                 Log.i("INSERTAR_FORM_RAC","ERROR, NO SE INGRESÓ:" + e.getMessage().toString());
+            }
+        });
+    }
+
+    public void createRCCForm(Map<String,Object> infoForm,String idGraden){
+        int id = (int) infoForm.get("idForm");
+        String name = (String) infoForm.get("nameForm");
+        String areaRecipient = (String) infoForm.get("areaRecipient");
+        String areaDescription = (String) infoForm.get("areaDescription");
+        String residueQuantity = (String) infoForm.get("residueQuantity");
+        String fertilizerQuantity = (String) infoForm.get("fertilizerQuantity");
+        String leachedQuantity = (String) infoForm.get("leachedQuantity");
+        String date = getDateNow();
+
+        infoForm.put("Date",date);
+        RCC rcc = new RCC(id,name,areaRecipient,areaDescription,residueQuantity,fertilizerQuantity,leachedQuantity,date);
+        FormsRepository info = new FormsRepository(context);
+        info.insertFormRCC(rcc, infoForm, idGraden, new OnFormInsertedListener() {
+            @Override
+            public void onFormInserted(String formId) {
+                Log.i("INSERTAR_FORM_RCC","SE AGREGÓ");
+            }
+
+            @Override
+            public void onFormInsertionError(Exception e) {
+                Log.i("INSERTAR_FORM_RCC","ERROR, NO SE INGRESÓ:" + e.getMessage().toString());
             }
         });
     }
