@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.opcv.adapter.GardenListAdapter;
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.CollaboratorGardensActivity;
 import com.example.opcv.gardens.CreateGardenActivity;
@@ -34,6 +35,7 @@ import com.example.opcv.gardens.GardenActivity;
 import com.example.opcv.gardens.GardensAvailableActivity;
 import com.example.opcv.info.User;
 import com.example.opcv.item_list.ItemGardenHomeList;
+import com.example.opcv.localDatabase.DatabaseHelper;
 import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.example.opcv.persistance.gardenPersistance.GardenPersistance;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -99,6 +101,8 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        //Detiene el servicio NetworkMonitorService
+        stopService(serviceIntent);
     }
 
     @Override
@@ -125,6 +129,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        //Metodos para sicronizacion entre Firestore (Servidor) y  SQL Lite ( Base de Datos Local )
+        serviceIntent = new Intent(this, NetworkMonitorService.class);
+        startService(serviceIntent);
+
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
 
@@ -141,6 +149,7 @@ public class HomeActivity extends AppCompatActivity {
         ludification = (Button) findViewById(R.id.ludification);
 
         userId = getIntent().getStringExtra("userID");
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
 
         if (userId == null){
             AuthUtilities auth = new AuthUtilities();

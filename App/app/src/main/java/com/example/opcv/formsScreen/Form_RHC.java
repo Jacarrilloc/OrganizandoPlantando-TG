@@ -393,6 +393,7 @@ public class Form_RHC extends AppCompatActivity {
                 }
             }
         });
+        /*
         addFormButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -412,6 +413,7 @@ public class Form_RHC extends AppCompatActivity {
                 }
             }
         });
+         */
     }
     private boolean validateField(String personResponsable,String codeC, String itemNameC, String unitsC, String measurementC, String totalCostC, String commentsC, String incomeExpense, String type){
 

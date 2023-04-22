@@ -355,6 +355,21 @@ public class Form_IMP extends AppCompatActivity {
                 }
             }
         });
+        /*
+        addFormButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String rawMaterial, quantityMaterial, existance, concept, movement, units;
+                rawMaterial = rawMatirial.getText().toString();
+                quantityMaterial = quantity.getText().toString();
+                existance = existingTool.getText().toString();
+                movement = movementSelectedItem;
+                concept = conceptSelectedItem;
+                units = unitSelectedItem;
+                formsUtilities.editInfoIMP(Form_IMP.this, idGarden, idCollection, rawMaterial, concept,movement, quantityMaterial, units, existance);
+                Toast.makeText(Form_IMP.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
+            }
+        });*/
     }
     @Override
     protected void attachBaseContext(Context newBase) {
