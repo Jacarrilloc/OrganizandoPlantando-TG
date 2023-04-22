@@ -29,6 +29,9 @@ public class FormsLogic {
             case 3:
                 createIMPForm(infoForm,idGraden);
                 break;
+            case 4:
+                createRSMPForm(infoForm,idGraden);
+                break;
             case 7:
                 createCPSForm(infoForm,idGraden);
                 break;
@@ -282,6 +285,33 @@ public class FormsLogic {
             @Override
             public void onFormInsertionError(Exception e) {
                 Log.i("INSERTAR_FORM_RRH","ERROR, NO SE INGRESÓ:" + e.getMessage().toString());
+            }
+        });
+    }
+
+    public void createRSMPForm(Map<String,Object> infoForm,String idGraden){
+        int id = (int) infoForm.get("idForm");
+        String name = (String) infoForm.get("nameForm");
+        String description = (String) infoForm.get("description");
+        String units = (String) infoForm.get("units");
+        String quantity = (String) infoForm.get("quantity");
+        String total = (String) infoForm.get("total");
+        String concept = (String) infoForm.get("concept");
+        String state = (String) infoForm.get("state");
+        String date = getDateNow();
+
+        infoForm.put("Date",date);
+        RSMP rsmp = new RSMP(id,name,description,units,concept,state,Integer.parseInt(quantity),Integer.parseInt(total),date);
+        FormsRepository info = new FormsRepository(context);
+        info.insertFormRSMP(rsmp, infoForm, idGraden, new OnFormInsertedListener() {
+            @Override
+            public void onFormInserted(String formId) {
+                Log.i("INSERTAR_FORM_RSMP","SE AGREGÓ");
+            }
+
+            @Override
+            public void onFormInsertionError(Exception e) {
+                Log.i("INSERTAR_FORM_RSMP","ERROR, NO SE INGRESÓ:" + e.getMessage().toString());
             }
         });
     }
