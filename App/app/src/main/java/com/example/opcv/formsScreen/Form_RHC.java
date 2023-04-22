@@ -23,6 +23,7 @@ import com.example.opcv.MapsActivity;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.HomeActivity;
 import com.example.opcv.R;
+import com.example.opcv.business.formsLogic.FormsLogic;
 import com.example.opcv.fbComunication.FormsUtilities;
 import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -173,6 +174,8 @@ public class Form_RHC extends AppCompatActivity {
                     infoForm.put("units",unitsC);
                     if(validateField(personResponsable, codeC, itemNameC, unitsC, measurementC, totalCostC, commentsC, conceptSelectedItem, selectedType)){
 
+                        FormsLogic newForm = new FormsLogic(Form_RHC.this);
+                        newForm.createForm(infoForm,idGardenFb);
                         //newForm.insertInto_RHC(infoForm);
                         Toast.makeText(Form_RHC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Form_RHC.this, HomeActivity.class));

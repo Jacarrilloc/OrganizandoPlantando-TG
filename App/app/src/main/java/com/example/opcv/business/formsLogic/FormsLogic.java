@@ -38,6 +38,9 @@ public class FormsLogic {
             case 10:
                 createCIHForm(infoForm,idGraden);
                 break;
+            case 11:
+                createRHCForm(infoForm,idGraden);
+                break;
             case 12:
                 createREForm(infoForm,idGraden);
                 break;
@@ -208,7 +211,7 @@ public class FormsLogic {
         String otherNumber = (String) infoForm.get("otherNumber");
         String dateCreated = getDateNow();
 
-        infoForm.put("Date",date);
+        infoForm.put("Date",dateCreated);
         RE re = new RE(id,name,date,eventName,totalPerson,womenNumber,menNumber,noSpcNumber,infantNumber,childhoodNumber,teenNumber,youthNumber,adultNumber,elderlyNumber,afroNumber,nativeNumber,lgtbiNumber,romNumber,victimNumber,disabilityNumber,demobilizedNumber,mongrelNumber,foreignNumber,peasantNumber,otherNumber,dateCreated);
         FormsRepository info = new FormsRepository(context);
         info.insertFormRE(re, infoForm, idGraden, new OnFormInsertedListener() {
@@ -220,6 +223,36 @@ public class FormsLogic {
             @Override
             public void onFormInsertionError(Exception e) {
                 Log.i("INSERTAR_FORM_RE","ERROR, NO SE INGRESÓ:" + e.getMessage().toString());
+            }
+        });
+    }
+
+    public void createRHCForm(Map<String,Object> infoForm,String idGraden){
+        int id = (int) infoForm.get("idForm");
+        String name = (String) infoForm.get("nameForm");
+        String responsable = (String) infoForm.get("responsable");
+        String incomeExpense = (String) infoForm.get("incomeExpense");
+        String type = (String) infoForm.get("type");
+        String code = (String) infoForm.get("code");
+        String itemName = (String) infoForm.get("itemName");
+        String measurement = (String) infoForm.get("measurement");
+        String totalCost = (String) infoForm.get("totalCost");
+        String comments = (String) infoForm.get("comments");
+        String units = (String) infoForm.get("units");
+        String date = getDateNow();
+
+        infoForm.put("Date",date);
+        RHC rhc = new RHC(id,name,responsable,incomeExpense,type,code,itemName,measurement,comments,units,"",Integer.parseInt(totalCost),date);
+        FormsRepository info = new FormsRepository(context);
+        info.insertFormRHC(rhc, infoForm, idGraden, new OnFormInsertedListener() {
+            @Override
+            public void onFormInserted(String formId) {
+                Log.i("INSERTAR_FORM_RHC","SE AGREGÓ");
+            }
+
+            @Override
+            public void onFormInsertionError(Exception e) {
+                Log.i("INSERTAR_FORM_RHC","ERROR, NO SE INGRESÓ:" + e.getMessage().toString());
             }
         });
     }
