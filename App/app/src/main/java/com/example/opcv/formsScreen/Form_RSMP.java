@@ -23,9 +23,7 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
-import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.FormsUtilities;
-import com.example.opcv.localDatabase.DB_InsertForms;
 import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -155,13 +153,7 @@ public class Form_RSMP extends AppCompatActivity {
                     infoForm.put("concept",conceptSelectedItem);
                     infoForm.put("state",stateR);
                     if(validateField(descriptionR, quantityR, totalR, stateR, conceptSelectedItem, unitSelectedItem)){
-                        NetworkMonitorService connection = new NetworkMonitorService(Form_RSMP.this);
 
-                        if(connection.isOnline(Form_RSMP.this)){
-                            formsUtilities.createForm(Form_RSMP.this,infoForm,idGardenFb);
-                        }
-
-                        DB_InsertForms newForm = new DB_InsertForms(Form_RSMP.this);
                         //newForm.insertInto_RSMP(infoForm);
                         Toast.makeText(Form_RSMP.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Form_RSMP.this, HomeActivity.class));

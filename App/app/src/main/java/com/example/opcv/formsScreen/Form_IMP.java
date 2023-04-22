@@ -23,9 +23,7 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
-import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.FormsUtilities;
-import com.example.opcv.localDatabase.DB_InsertForms;
 import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -156,13 +154,6 @@ public class Form_IMP extends AppCompatActivity {
                     infoForm.put("units",unitSelectedItem);
                     infoForm.put("existenceQuantity",existance);
 
-                    NetworkMonitorService connection = new NetworkMonitorService(Form_IMP.this);
-
-                    if(connection.isOnline(Form_IMP.this)){
-                        formsUtilities.createForm(Form_IMP.this,infoForm,idGardenFb);
-                    }
-
-                    DB_InsertForms newForm = new DB_InsertForms(Form_IMP.this);
                     //newForm.insertInto_IMP(infoForm);
                     Toast.makeText(Form_IMP.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Form_IMP.this, HomeActivity.class));

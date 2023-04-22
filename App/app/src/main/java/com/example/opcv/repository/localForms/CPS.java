@@ -9,6 +9,9 @@ public class CPS {
     @PrimaryKey(autoGenerate = true)
     public int id;
 
+    @ColumnInfo(name = "idForm")
+    public int idForm;
+
     @ColumnInfo(name = "nameForm")
     public String nameForm;
 
@@ -33,7 +36,8 @@ public class CPS {
     public CPS() {
     }
 
-    public CPS(String nameForm, String personResponsable, String processPhase, String phaseDuration, String commentsObservations, String plantsOrSeeds, String date) {
+    public CPS(int idForm,String nameForm, String personResponsable, String processPhase, String phaseDuration, String commentsObservations, String plantsOrSeeds, String date) {
+        this.idForm = idForm;
         this.nameForm = nameForm;
         this.personResponsable = personResponsable;
         this.processPhase = processPhase;
@@ -41,6 +45,22 @@ public class CPS {
         this.commentsObservations = commentsObservations;
         this.plantsOrSeeds = plantsOrSeeds;
         Date = date;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getIdForm() {
+        return idForm;
+    }
+
+    public void setIdForm(int idForm) {
+        this.idForm = idForm;
     }
 
     public String getNameForm() {

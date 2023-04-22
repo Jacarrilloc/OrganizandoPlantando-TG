@@ -20,9 +20,7 @@ import com.example.opcv.MapsActivity;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.HomeActivity;
 import com.example.opcv.R;
-import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.FormsUtilities;
-import com.example.opcv.localDatabase.DB_InsertForms;
 import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -148,13 +146,7 @@ public class Form_RCC extends AppCompatActivity {
                     infoForm.put("fertilizerQuantity",fertilizerQuantity);
                     infoForm.put("leachedQuantity",quantityLeached);
                     if(validateField(areaRecipient, descriptionProc, quantityResidue, fertilizerQuantity, quantityLeached)){
-                        NetworkMonitorService connection = new NetworkMonitorService(Form_RCC.this);
 
-                        if(connection.isOnline(Form_RCC.this)){
-                            formsUtilities.createForm(Form_RCC.this,infoForm,idGardenFb);
-                        }
-
-                        DB_InsertForms newForm = new DB_InsertForms(Form_RCC.this);
                         //newForm.insertInto_RCC(infoForm);
                         Toast.makeText(Form_RCC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Form_RCC.this, HomeActivity.class));

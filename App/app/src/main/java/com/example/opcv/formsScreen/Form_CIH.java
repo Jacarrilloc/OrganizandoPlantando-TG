@@ -24,10 +24,8 @@ import com.example.opcv.MapsActivity;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.HomeActivity;
 import com.example.opcv.R;
-import com.example.opcv.conectionInfo.NetworkMonitorService;
+import com.example.opcv.business.formsLogic.FormsLogic;
 import com.example.opcv.fbComunication.FormsUtilities;
-import com.example.opcv.localDatabase.DB_InsertForms;
-import com.example.opcv.localDatabase.DatabaseFormsHelper;
 import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -131,8 +129,10 @@ public class Form_CIH extends AppCompatActivity {
 
                         idGardenFb = getIntent().getStringExtra("idGardenFirebase");
 
+                        int idForm = 10;
+
                         Map<String,Object> infoForm = new HashMap<>();
-                        infoForm.put("idForm",10);
+                        infoForm.put("idForm",idForm);
                         infoForm.put("nameForm",nameForm);
                         infoForm.put("tool",tools);
                         infoForm.put("concept",conceptSelectedItem);
@@ -141,13 +141,10 @@ public class Form_CIH extends AppCompatActivity {
                         infoForm.put("toolStatus",statusTools);
                         infoForm.put("existenceQuantity",toolExistance);
 
-                        NetworkMonitorService connection = new NetworkMonitorService(Form_CIH.this);
+                        FormsLogic newForm = new FormsLogic(Form_CIH.this);
+                        newForm.createForm(infoForm,idGardenFb);
 
-                        if(connection.isOnline(Form_CIH.this)){
-                            formsUtilities.createForm(Form_CIH.this,infoForm,idGardenFb);
-                        }
-
-                        DB_InsertForms newForm = new DB_InsertForms(Form_CIH.this);
+                        //DB_InsertForms newForm = new DB_InsertForms(Form_CIH.this);
                         //newForm.insertInto_CIH(infoForm);
 
                         Toast.makeText(Form_CIH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
