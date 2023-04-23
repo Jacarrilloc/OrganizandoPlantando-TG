@@ -262,18 +262,16 @@ public class HomeActivity extends AppCompatActivity {
                             String name = document.getString("GardenName");
                             String gardenId = document.getId();
                             GardenPersistance persistance = new GardenPersistance();
-                            persistance.getGardenPicture(gardenId, new GardenPersistance.GetUri() {
+                            persistance.getGardenPicture(gardenId, HomeActivity.this, new GardenPersistance.GetUri() {
                                 @Override
                                 public void onSuccess(String uri) {
                                     ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);
                                     gardenNames.add(newItem);
                                     fillListGardens(gardenNames);
+
                                 }
                             });
-
-
                         }
-
                         //fillListGardens(gardenNames);
                     } else {
                         Toast.makeText(HomeActivity.this, "Error al obtener los documentos", Toast.LENGTH_SHORT).show();
@@ -285,9 +283,15 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void fillListGardens( List<ItemGardenHomeList> gardenInfoDocument){
-        GardenListAdapter adapter = new GardenListAdapter(this, gardenInfoDocument);
-        listAviableGardensInfo.setAdapter(adapter);
-        listAviableGardensInfo.setDividerHeight(5);
+        try {
+            Thread.sleep(65);
+            GardenListAdapter adapter = new GardenListAdapter(this, gardenInfoDocument);
+            listAviableGardensInfo.setAdapter(adapter);
+            listAviableGardensInfo.setDividerHeight(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }

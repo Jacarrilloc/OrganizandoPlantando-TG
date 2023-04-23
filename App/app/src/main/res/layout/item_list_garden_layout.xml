@@ -9,11 +9,11 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/view2"
-        android:layout_width="@dimen/_42sdp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/_60sdp"
         android:layout_gravity="center"
         android:layout_margin="@dimen/_5sdp"
-        android:layout_weight="1"
+        android:layout_weight="1.2"
         android:elevation="@dimen/_12sdp"
         android:foregroundGravity="center"
         app:cardCornerRadius="@dimen/_10sdp">
@@ -29,17 +29,22 @@
 
     <TextView
         android:id="@+id/garden_name_list_item"
-        android:layout_width="@dimen/_97sdp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="@dimen/_10sdp"
+        android:fontFamily="@font/manropemedium"
+        android:layout_marginEnd="@dimen/_5sdp"
         android:layout_weight="1"
-        android:text="Garden Name"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="@string/gardenName"
         android:textColor="@color/black"
         android:textSize="@dimen/_17sdp" />
 
     <ImageView
-        android:layout_width="@dimen/_40sdp"
+        android:layout_width="match_parent"
+        android:layout_weight="1.6"
         android:layout_height="@dimen/_40sdp"
         android:layout_gravity="center"
         android:scaleType="fitCenter"

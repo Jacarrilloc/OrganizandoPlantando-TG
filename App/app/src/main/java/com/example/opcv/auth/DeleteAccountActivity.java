@@ -20,6 +20,7 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.NewToAppActivity;
 import com.example.opcv.R;
+import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -32,7 +33,7 @@ import com.itextpdf.io.util.SystemUtil;
 
 public class DeleteAccountActivity extends AppCompatActivity {
 
-    private Button delete, returnButton, gardensMap, profile, myGardens;
+    private Button delete, returnButton, gardensMap, profile, myGardens, ludification;
 
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
@@ -49,6 +50,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
         gardensMap = (Button) findViewById(R.id.gardens);
+        ludification = (Button) findViewById(R.id.ludification);
         returnButton = (Button) findViewById(R.id.returnButton2);
         delete = (Button) findViewById(R.id.deleteButton);
 
@@ -71,6 +73,14 @@ public class DeleteAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(DeleteAccountActivity.this, MapsActivity.class));
+            }
+        });
+
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent edit = new Intent(DeleteAccountActivity.this, DictionaryHome.class);
+                startActivity(edit);
             }
         });
 
@@ -105,7 +115,8 @@ public class DeleteAccountActivity extends AppCompatActivity {
 
     private void deleteUser(String id, FirebaseUser auth){
 
-
+        database.collection("UserInfo").document(id).delete();
+/*
         database.collection("UserInfo")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -136,7 +147,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
                     Log.d(TAG, "User account deleted.");
                 }
             }
-        });
+        });*/
         //Toast.makeText(this, idUser, Toast.LENGTH_SHORT).show();
     }
 

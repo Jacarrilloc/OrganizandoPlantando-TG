@@ -19,8 +19,9 @@
             android:layout_width="wrap_content"
             android:layout_gravity="end"
             android:gravity="end"
+            android:fontFamily="@font/manroperegular"
             android:textColor="@color/black"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="@dimen/_15sdp"
             android:text="@string/description2"
             android:layout_marginEnd="@dimen/_30sdp"/>
         <TextView
@@ -29,10 +30,11 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:gravity="end"
+            android:fontFamily="@font/manroperegular"
             android:textStyle="italic"
             android:layout_marginEnd="@dimen/_20sdp"
             android:textColor="@color/gray"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_13sdp"
             android:text="@string/description2" />
     </LinearLayout>
 
@@ -82,7 +84,7 @@
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_45sdp"
             android:layout_gravity="start"
-
+            android:fontFamily="@font/manropemedium"
             android:text="@string/nombre"
             android:textColor="@color/black"
             android:gravity="center"
@@ -100,6 +102,7 @@
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_45sdp"
             android:textColor="@color/gray"
+            android:fontFamily="@font/manroperegular"
             android:gravity="center"
             android:ellipsize="end"
             android:maxLines="1"
@@ -112,6 +115,7 @@
             android:id="@+id/level"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/manroperegular"
             android:layout_gravity="start"
             android:layout_marginTop="@dimen/_148sdp"
             android:layout_marginStart="@dimen/_12sdp"

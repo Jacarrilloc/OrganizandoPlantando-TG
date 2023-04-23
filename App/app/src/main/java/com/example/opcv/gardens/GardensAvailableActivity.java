@@ -122,39 +122,43 @@ public class GardensAvailableActivity extends AppCompatActivity {
             }
         });
     }
-    private void fillGardenAvaliable(){
+    private void fillGardenAvaliable() {
         CollectionReference Ref = database.collection("Gardens");
-
-
-        Query query = Ref.whereEqualTo("GardenType", "Public");//.whereNotEqualTo("ID_Owner", autentication.getCurrentUser().getUid())
+        String currentUserId = autentication.getCurrentUser().getUid();
+        Query query = Ref.whereEqualTo("GardenType", "Public").whereNotEqualTo("ID_Owner", currentUserId);
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
 
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException e) {
-                if(e != null){
+                if (e != null) {
                     Log.d(TAG, "Se generó error: ", e);
                     return;
                 }
-                for(DocumentSnapshot documentSnapshot : value){
-                    if(documentSnapshot.exists()){
-                        List<ItemGardenHomeList> gardenNames = new ArrayList<>();
-                        for (QueryDocumentSnapshot document : value) {
-                            String name = document.getString("GardenName");
-                            String gardenId = document.getId();
-                            GardenPersistance persistance = new GardenPersistance();
-                            persistance.getGardenPicture(gardenId, new GardenPersistance.GetUri() {
-                                @Override
-                                public void onSuccess(String uri) {
-                                    ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);
-                                    gardenNames.add(newItem);
-                                    fillListGardens(gardenNames);
+
+                List<ItemGardenHomeList> gardenNames = new ArrayList<>();
+                for (QueryDocumentSnapshot document : value) {
+                    String name = document.getString("GardenName");
+                    String gardenId = document.getId();
+                    // Check if user is not a collaborator
+                    document.getReference().collection("Collaborators")
+                            .whereEqualTo("idCollaborator", currentUserId)
+                            .get()
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    if (task.getResult().isEmpty()) { // User is not a collaborator
+                                        GardenPersistance persistance = new GardenPersistance();
+                                        persistance.getGardenPicture(gardenId, GardensAvailableActivity.this, new GardenPersistance.GetUri() {
+                                            @Override
+                                            public void onSuccess(String uri) {
+                                                ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);
+                                                gardenNames.add(newItem);
+                                                fillListGardens(gardenNames);
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    Log.d(TAG, "Error al verificar colaboradores: ", task.getException());
                                 }
                             });
-
-                        }
-
-                    } else {
-                        Toast.makeText(GardensAvailableActivity.this, "Error al obtener los documentos", Toast.LENGTH_SHORT).show();
-                    }
                 }
             }
         });
@@ -162,9 +166,15 @@ public class GardensAvailableActivity extends AppCompatActivity {
     }
 
     private void fillListGardens( List<ItemGardenHomeList> gardenInfoDocument){
-        GardenListAdapter  adapter = new GardenListAdapter(this, gardenInfoDocument);
-        listGardens.setAdapter(adapter);
-        listGardens.setDividerHeight(15);
+        try{
+            Thread.sleep(65);
+            GardenListAdapter  adapter = new GardenListAdapter(this, gardenInfoDocument);
+            listGardens.setAdapter(adapter);
+            listGardens.setDividerHeight(15);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override

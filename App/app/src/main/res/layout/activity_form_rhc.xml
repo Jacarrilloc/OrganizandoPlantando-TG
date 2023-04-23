@@ -34,21 +34,22 @@
 
         <TextView
             android:id="@+id/form_RHC_name"
+            android:text="@string/RHC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:text="@string/RHC"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:fontFamily="@font/manropesemibold"
             android:textColor="@color/black"
-            android:textSize="@dimen/_20sdp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_17sdp" />
 
 
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1">
 
         <LinearLayout
@@ -56,6 +57,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@color/white"
+            android:paddingBottom="@dimen/_15sdp"
             android:layout_margin="@dimen/_20sdp">
 
             <TextView
@@ -63,8 +65,9 @@
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manropemedium"
                 android:layout_margin="@dimen/_2sdp"
-                android:text="Responsable" />
+                android:text="@string/responsable" />
 
             <EditText
                 android:id="@+id/responsable"
@@ -73,6 +76,7 @@
                 android:layout_margin="@dimen/_2sdp"
                 android:ems="10"
                 android:inputType="textPersonName"
+                android:fontFamily="@font/manroperegular"
                 android:textColor="@color/black"
                 android:background="@drawable/dr_white_input_text"/>
 
@@ -80,9 +84,10 @@
                 android:id="@+id/textView8"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
+                android:fontFamily="@font/manropemedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ingreso/Egreso" />
+                android:text="@string/ingreso_egreso" />
 
             <Spinner
                 android:id="@+id/spinner1"
@@ -90,6 +95,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/red"
                 android:spinnerMode="dropdown"
+                android:fontFamily="@font/manroperegular"
                 android:backgroundTint="@color/black"
                 android:overlapAnchor="false"
                 android:textAlignment="inherit"
@@ -100,15 +106,17 @@
                 android:id="@+id/textView10"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
+                android:fontFamily="@font/manropemedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tipo" />
+                android:text="@string/tipo" />
 
             <Spinner
                 android:id="@+id/spinnerType"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/red"
+                android:fontFamily="@font/manroperegular"
                 android:spinnerMode="dropdown"
                 android:backgroundTint="@color/black"
                 android:overlapAnchor="false"
@@ -120,9 +128,10 @@
                 android:id="@+id/textView9"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
+                android:fontFamily="@font/manropemedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Código" />
+                android:text="@string/c_digo" />
 
             <EditText
                 android:id="@+id/code"
@@ -131,6 +140,7 @@
                 android:ems="10"
                 android:layout_margin="@dimen/_2sdp"
                 android:inputType="text"
+                android:fontFamily="@font/manroperegular"
                 android:background="@drawable/dr_white_input_text"
                 android:textColor="@color/black"/>
 
@@ -138,9 +148,10 @@
                 android:id="@+id/textView15"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
+                android:fontFamily="@font/manropemedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre Item" />
+                android:text="@string/nombre_item" />
 
             <EditText
                 android:id="@+id/itemName"
@@ -149,6 +160,7 @@
                 android:ems="10"
                 android:layout_margin="@dimen/_2sdp"
                 android:inputType="text"
+                android:fontFamily="@font/manroperegular"
                 android:background="@drawable/dr_white_input_text"
                 android:textColor="@color/black"/>
 
@@ -159,8 +171,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
+                android:fontFamily="@font/manropemedium"
                 android:textColor="@color/black"
-                android:text="Unidades de ingreso o egreso (kg, lts, hrs, etc)" />
+                android:text="@string/unidades_de_ingreso_o_egreso_kg_lts_hrs_etc" />
 
             <EditText
                 android:id="@+id/units"
@@ -168,6 +181,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="text"
+                android:fontFamily="@font/manroperegular"
                 android:layout_margin="@dimen/_2sdp"
                 android:background="@drawable/dr_white_input_text"
                 android:textColor="@color/black" />
@@ -177,8 +191,9 @@
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manropemedium"
                 android:layout_margin="@dimen/_2sdp"
-                android:text="Medidas del ingreso o egreso " />
+                android:text="@string/medidas_del_ingreso_o_egreso" />
 
             <EditText
                 android:id="@+id/measurement"
@@ -187,6 +202,7 @@
                 android:layout_margin="@dimen/_2sdp"
                 android:ems="10"
                 android:inputType="numberDecimal"
+                android:fontFamily="@font/manroperegular"
                 android:textColor="@color/black"
                 android:background="@drawable/dr_white_input_text"/>
 
@@ -195,8 +211,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
+                android:fontFamily="@font/manropemedium"
                 android:textColor="@color/black"
-                android:text="Valor Total (COP)" />
+                android:text="@string/valor_total_cop" />
 
             <EditText
                 android:id="@+id/cost"
@@ -205,20 +222,23 @@
                 android:ems="10"
                 android:inputType="numberDecimal"
                 android:layout_margin="@dimen/_2sdp"
+                android:fontFamily="@font/manroperegular"
                 android:background="@drawable/dr_white_input_text"
                 android:textColor="@color/black" />
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manropemedium"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
-                android:text="Comentarios" />
+                android:text="@string/comentarios" />
 
             <EditText
                 android:id="@+id/comments"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manroperegular"
                 android:ems="10"
                 android:inputType="text"
                 android:layout_margin="@dimen/_2sdp"
@@ -229,14 +249,10 @@
                 android:id="@+id/create_forms1_buttom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
-                android:textSize="@dimen/_10sdp"
-                android:layout_marginStart="@dimen/_40sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_20sdp"
-                android:background="@drawable/dr_green_button"
-                android:text="@string/agregar_formulario"/>
+                android:layout_margin="@dimen/_10sdp"
+                android:fontFamily="@font/manropemedium"
+                android:text="@string/agregar_formulario"
+                android:background="@drawable/dr_green_button"/>
 
         </LinearLayout>
     </ScrollView>
@@ -244,25 +260,24 @@
     <LinearLayout
         android:id="@+id/linearLayout8"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_122sdp"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/dr_shadow_top"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/ludification"
             android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="7dp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
@@ -273,12 +288,15 @@
             android:layout_width="@dimen/_79sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
-            android:padding="10dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
@@ -290,11 +308,14 @@
             android:layout_width="@dimen/_107sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
@@ -307,12 +328,15 @@
             android:layout_width="@dimen/_60sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:fontFamily="@font/manropemedium"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"

@@ -7,43 +7,45 @@ android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:background="@drawable/dr_white_input_text">
 
-<androidx.cardview.widget.CardView
-    android:id="@+id/view2"
-    android:layout_width="@dimen/_62sdp"
-    android:layout_height="@dimen/_60sdp"
-    android:layout_gravity="center"
-    android:layout_margin="@dimen/_5sdp"
-    android:layout_weight="1"
-    android:elevation="@dimen/_12sdp"
-    android:foregroundGravity="center"
-    app:cardCornerRadius="@dimen/_10sdp">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/view2"
+        android:layout_width="@dimen/_62sdp"
+        android:layout_height="@dimen/_60sdp"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_5sdp"
+        android:layout_weight="1"
+        android:elevation="@dimen/_12sdp"
+        android:foregroundGravity="center"
+        app:cardCornerRadius="@dimen/_10sdp">
 
-    <ImageView
-        android:id="@+id/gardenImageEditActivity"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/im_logo_ceres"
-        android:visibility="visible" />
-</androidx.cardview.widget.CardView>
+        <ImageView
+            android:id="@+id/gardenImageEditActivity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/im_logo_ceres"
+            android:visibility="visible" />
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/gardenName"
         android:layout_width="@dimen/_90sdp"
         android:layout_height="@dimen/_63sdp"
         android:layout_gravity="center"
-        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_5sdp"
         android:gravity="center"
         android:layout_weight="1"
-        android:text="Garden Name"
+        android:text="@string/gardenName"
+        android:fontFamily="@font/manropesemibold"
         android:textColor="@color/black"
         android:textSize="@dimen/_17sdp" />
 
-<ImageView
-    android:layout_width="@dimen/_40sdp"
-    android:layout_height="@dimen/_40sdp"
-    android:layout_gravity="center"
-    android:scaleType="fitCenter"
-    android:visibility="visible"
-    android:src="@drawable/dr_arrow_next"/>
+    <ImageView
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_gravity="center"
+        android:layout_weight="0.3"
+        android:scaleType="fitCenter"
+        android:visibility="visible"
+        android:src="@drawable/dr_arrow_next"/>
 </LinearLayout>

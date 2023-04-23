@@ -15,7 +15,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -52,6 +54,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -140,9 +143,9 @@ public class CreateGardenActivity extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(validateFieldPhoto(CreateGardenActivity.this, bytes)){
-                    createGarden();
-                }
+                //if(validateFieldPhoto(CreateGardenActivity.this, bytes)){
+                createGarden();
+
             }
         });
 
@@ -192,6 +195,15 @@ public class CreateGardenActivity extends AppCompatActivity {
                 public void onSuccess(DocumentReference documentReference) {
                     String idGarden = documentReference.getId();
                     GardenPersistance persistance = new GardenPersistance();
+                    if(bytes == null){
+                        int drawableId = R.drawable.im_logo_ceres_green;
+
+                        //Drawable drawable = getResources().getDrawable(R.drawable.im_logo_ceres);
+                        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), drawableId);
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                        bytes = stream.toByteArray();
+                    }
                     persistance.addGardenPhoto(bytes, idGarden, new GardenPersistance.GetUriGarden() {
                         @Override
                         public void onSuccess(String uri) {
@@ -280,25 +292,10 @@ public class CreateGardenActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 0){
-            Bitmap photoI = (Bitmap) data.getExtras().get("data");
-            photo.setImageBitmap(photoI);
-            photo.setDrawingCacheEnabled(true);
-            photo.buildDrawingCache();
-            Bitmap bitmap = photo.getDrawingCache();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            if(bitmap != null){
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-                bytes = baos.toByteArray();
-            }
-        }
-        if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() !=null){
-            Uri selectedImage = data.getData();
-            // image.setImageURI(null);
-            photo.setImageURI(selectedImage);
-
-            IsChangedPhoto = true;
-            if(IsChangedPhoto){
+        try{
+            if(requestCode == 0){
+                Bitmap photoI = (Bitmap) data.getExtras().get("data");
+                photo.setImageBitmap(photoI);
                 photo.setDrawingCacheEnabled(true);
                 photo.buildDrawingCache();
                 Bitmap bitmap = photo.getDrawingCache();
@@ -308,6 +305,25 @@ public class CreateGardenActivity extends AppCompatActivity {
                     bytes = baos.toByteArray();
                 }
             }
+            if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() !=null){
+                Uri selectedImage = data.getData();
+                photo.setImageURI(null);
+                photo.setImageURI(selectedImage);
+
+                IsChangedPhoto = true;
+                if(IsChangedPhoto){
+                    photo.setDrawingCacheEnabled(true);
+                    photo.buildDrawingCache();
+                    Bitmap bitmap = photo.getDrawingCache();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    if(bitmap != null){
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+                        bytes = baos.toByteArray();
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
     @Override

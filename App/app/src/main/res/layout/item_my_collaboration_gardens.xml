@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="@dimen/_20sdp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/dr_white_input_text">
@@ -9,14 +10,14 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/view2"
-        android:layout_width="@dimen/_15sdp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/_60sdp"
         android:layout_gravity="center"
-        android:layout_margin="5dp"
-        android:layout_weight="1"
-        android:elevation="12dp"
+        android:layout_margin="@dimen/_5sdp"
+        android:layout_weight="1.2"
+        android:elevation="@dimen/_12sdp"
         android:foregroundGravity="center"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="@dimen/_10sdp">
 
         <ImageView
             android:id="@+id/garden_imagen_list_item"
@@ -29,17 +30,22 @@
 
     <TextView
         android:id="@+id/garden_name_list_item"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="@dimen/_10sdp"
+        android:fontFamily="@font/manropemedium"
+        android:layout_marginEnd="@dimen/_5sdp"
         android:layout_weight="1"
-        android:text="@string/garden_name"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="@string/gardenName"
         android:textColor="@color/black"
         android:textSize="@dimen/_17sdp" />
 
     <ImageView
-        android:layout_width="@dimen/_40sdp"
+        android:layout_width="match_parent"
+        android:layout_weight="1.6"
         android:layout_height="@dimen/_40sdp"
         android:layout_gravity="center"
         android:scaleType="fitCenter"
