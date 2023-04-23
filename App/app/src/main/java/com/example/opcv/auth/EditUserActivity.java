@@ -210,7 +210,6 @@ public class EditUserActivity extends AppCompatActivity {
     /*private void searchUserInfo() {
         DB_User info = new DB_User(this);
         Map<String, Object> userInfo = info.getUserInfo();
-
         if (userInfo != null) {
             AuthUtilities userFB = new AuthUtilities();
             String name = userInfo.get("Name").toString();

@@ -144,7 +144,7 @@ public class CreateGardenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //if(validateFieldPhoto(CreateGardenActivity.this, bytes)){
-                    createGarden();
+                createGarden();
 
             }
         });
@@ -307,7 +307,7 @@ public class CreateGardenActivity extends AppCompatActivity {
             }
             if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() !=null){
                 Uri selectedImage = data.getData();
-                // image.setImageURI(null);
+                photo.setImageURI(null);
                 photo.setImageURI(selectedImage);
 
                 IsChangedPhoto = true;

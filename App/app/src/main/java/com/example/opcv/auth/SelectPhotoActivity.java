@@ -15,6 +15,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -156,19 +157,22 @@ public class SelectPhotoActivity extends AppCompatActivity {
     }
 
     private void takePhotoUser(){
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
-            PackageManager pm = getPackageManager();
-            if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
-                openCamaraAndTakePhoto();
-                IsChangedPhoto = true;
+                PackageManager pm = getPackageManager();
+                if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
+                    openCamaraAndTakePhoto();
+                    IsChangedPhoto = true;
+                } else {
+                    Toast.makeText(this, "No hay una Camara en tu Dispositivo", Toast.LENGTH_SHORT).show();
+                }
             } else {
-                Toast.makeText(this, "No hay una Camara en tu Dispositivo", Toast.LENGTH_SHORT).show();
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             }
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
+
     }
     private void openCamaraAndTakePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -207,7 +211,7 @@ public class SelectPhotoActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try{
-            if(requestCode == 0){
+            if(requestCode == 0 && resultCode == RESULT_OK){
                 Bitmap photoI = (Bitmap) data.getExtras().get("data");
                 ImageSource.setImageBitmap(photoI);
                 ImageSource.setDrawingCacheEnabled(true);

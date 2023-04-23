@@ -112,7 +112,7 @@ public class GardenRequestsActivity extends AppCompatActivity {
                                                         name = (String) document.getData().get("Name");
                                                         //Si se necesita mas informacion usar la clase User
                                                         GardenPersistance persistance = new GardenPersistance();
-                                                        persistance.getGardenPicture(gardenId, new GardenPersistance.GetUri() {
+                                                        persistance.getGardenPicture(gardenId, GardenRequestsActivity.this, new GardenPersistance.GetUri() {
                                                             @Override
                                                             public void onSuccess(String uri) {
                                                                 ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(name, idUser, gardenId, uri);

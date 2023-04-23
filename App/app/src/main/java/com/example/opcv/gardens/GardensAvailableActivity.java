@@ -141,7 +141,7 @@ public class GardensAvailableActivity extends AppCompatActivity {
                             String name = document.getString("GardenName");
                             String gardenId = document.getId();
                             GardenPersistance persistance = new GardenPersistance();
-                            persistance.getGardenPicture(gardenId, new GardenPersistance.GetUri() {
+                            persistance.getGardenPicture(gardenId, GardensAvailableActivity.this, new GardenPersistance.GetUri() {
                                 @Override
                                 public void onSuccess(String uri) {
                                     ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);
@@ -162,9 +162,15 @@ public class GardensAvailableActivity extends AppCompatActivity {
     }
 
     private void fillListGardens( List<ItemGardenHomeList> gardenInfoDocument){
-        GardenListAdapter  adapter = new GardenListAdapter(this, gardenInfoDocument);
-        listGardens.setAdapter(adapter);
-        listGardens.setDividerHeight(15);
+        try{
+            Thread.sleep(65);
+            GardenListAdapter  adapter = new GardenListAdapter(this, gardenInfoDocument);
+            listGardens.setAdapter(adapter);
+            listGardens.setDividerHeight(15);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override
