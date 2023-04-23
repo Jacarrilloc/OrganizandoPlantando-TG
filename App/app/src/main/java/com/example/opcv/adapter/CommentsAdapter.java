@@ -19,14 +19,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.example.opcv.R;
+import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.business.ludificationLogic.levelLogic;
 import com.example.opcv.fbComunication.CollaboratorUtilities;
 import com.example.opcv.item_list.ItemCollaboratorsRequest;
 import com.example.opcv.item_list.ItemComments;
 import com.example.opcv.persistance.ludificationPersistance.LudificationPersistance;
+import com.example.opcv.persistance.userPersistance.UserPersistance;
 
 import java.util.List;
+import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CommentsAdapter extends ArrayAdapter<ItemComments> {
 
@@ -39,6 +45,7 @@ public class CommentsAdapter extends ArrayAdapter<ItemComments> {
     private SparseArray<TextView> publisherLevelArray = new SparseArray<>();
     private SparseArray<TextView> nameLevelArray = new SparseArray<>();
     private SparseArray<ImageView> borderImageArray = new SparseArray<>();
+    private SparseArray<CircleImageView> imageArray = new SparseArray<>();
 
     public CommentsAdapter(Context context, List<ItemComments> items) {
         super(context, 0, items);
@@ -65,6 +72,7 @@ public class CommentsAdapter extends ArrayAdapter<ItemComments> {
         convertView.startAnimation(animation);
         levelLogic level = new levelLogic();
         LudificationPersistance persistance = new LudificationPersistance();
+        UserPersistance persistanceuser = new UserPersistance();
         levelLayout = convertView.findViewById(R.id.showLevel);
         levelLayoutArray.put(position, levelLayout);
         TextView author = convertView.findViewById(R.id.name);
@@ -75,6 +83,8 @@ public class CommentsAdapter extends ArrayAdapter<ItemComments> {
         nameLevelArray.put(position, namelevel);
         ImageView borderImage = convertView.findViewById(R.id.imageLevel);
         borderImageArray.put(position, borderImage);
+        CircleImageView image = convertView.findViewById(R.id.image);
+        imageArray.put(position, image);
 
         ItemComments IC = new ItemComments(item.getComment(), item.getNameCommentator(), item.getIdUSer());
 
@@ -86,18 +96,29 @@ public class CommentsAdapter extends ArrayAdapter<ItemComments> {
                 TextView currentPublisherLevel = publisherLevelArray.get(position);
                 TextView currentNameLevel = nameLevelArray.get(position);
                 ImageView currentBorderImage = borderImageArray.get(position);
+                CircleImageView currentImage =imageArray.get(position);
                 if (currentLevelLayout.getVisibility() == View.GONE) {
                     currentAuthor.setText(item.getNameCommentator());
-
                     persistance.getPublisherLevel(IC.getIdUSer(), new LudificationPersistance.getPublisherLevel() {
                         @Override
                         public void onComplete(String leveli) {
                             currentPublisherLevel.setText(leveli);
 
-                            System.out.println(publisherLevel.getText().toString());
-                            double lvDouble = Double.parseDouble(publisherLevel.getText().toString().trim().replace("#", ""));
+                            double lvDouble = Double.parseDouble(publisherLevel.getText().toString());
                             int lv = Double.valueOf(lvDouble).intValue();
                             currentNameLevel.setText(level.levelName(lv));
+
+                            persistanceuser.getProfilePicture(IC.getIdUSer(), new UserPersistance.GetUriUser() {
+                                @Override
+                                public void onComplete(String uri) {
+                                    if(!Objects.equals(uri, "")){
+                                        Glide.with(context).load(uri).into(currentImage);
+                                    }
+                                    else{
+                                        currentImage.setImageResource(R.drawable.im_logo_ceres);
+                                    }
+                                }
+                            });
 
                             if (lv >=0 && lv <10){
                                 currentBorderImage.setImageResource(R.drawable.im_level_1);
