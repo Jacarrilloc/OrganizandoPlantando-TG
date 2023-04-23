@@ -6,7 +6,6 @@
             <corners android:radius="0dp" />
             <gradient
                 android:angle="90"
-                android:endColor="@color/white"
                 android:gradientRadius="360"
                 android:startColor="#BDBDBD"
                 android:type="linear"

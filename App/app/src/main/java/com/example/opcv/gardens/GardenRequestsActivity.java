@@ -2,12 +2,17 @@ package com.example.opcv.gardens;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -17,6 +22,7 @@ import android.widget.Toast;
 import com.example.opcv.R;
 import com.example.opcv.adapter.CollaboratorListAdapter;
 import com.example.opcv.item_list.ItemCollaboratorsRequest;
+import com.example.opcv.persistance.gardenPersistance.GardenPersistance;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -105,9 +111,16 @@ public class GardenRequestsActivity extends AppCompatActivity {
                                                     if(idSearch.equals(idUser)){
                                                         name = (String) document.getData().get("Name");
                                                         //Si se necesita mas informacion usar la clase User
-                                                        ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(name, idUser, gardenId);
-                                                        gardenNames.add(newItem);
-                                                        fillListRequests(gardenNames);
+                                                        GardenPersistance persistance = new GardenPersistance();
+                                                        persistance.getGardenPicture(gardenId, GardenRequestsActivity.this, new GardenPersistance.GetUri() {
+                                                            @Override
+                                                            public void onSuccess(String uri) {
+                                                                ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(name, idUser, gardenId, uri);
+                                                                gardenNames.add(newItem);
+                                                                fillListRequests(gardenNames);
+                                                            }
+                                                        });
+
                                                         break;
                                                     }
                                                 }
@@ -151,5 +164,28 @@ public class GardenRequestsActivity extends AppCompatActivity {
         listGardens.setDividerHeight(15);
     }
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        final Configuration override = new Configuration(newBase.getResources().getConfiguration());
+        override.fontScale = 1.0f;
+        applyOverrideConfiguration(override);
+        super.attachBaseContext(newBase);
+    }
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Configuration config = new Configuration(newConfig);
+        adjustFontScale(getApplicationContext(), config);
+    }
+    public static void adjustFontScale(Context context, Configuration configuration) {
+        if (configuration.fontScale != 1) {
+            configuration.fontScale = 1;
+            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            wm.getDefaultDisplay().getMetrics(metrics);
+            metrics.scaledDensity = configuration.fontScale * metrics.density;
+            context.getResources().updateConfiguration(configuration, metrics);
+        }
+    }
 
 }

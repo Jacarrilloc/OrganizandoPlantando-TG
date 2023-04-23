@@ -8,15 +8,19 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -27,8 +31,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.opcv.HomeActivity;
+import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
+import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -54,7 +60,7 @@ import java.io.InputStream;
 
 public class GardenEditActivity extends AppCompatActivity {
     private EditText gardenName, comunity, description;
-    private Button acceptChanges, gardens, myGardens, profile, deleteGarden, addForm, changeImage;
+    private Button acceptChanges, gardens, myGardens, profile, deleteGarden, addForm, changeImage, ludification;
     private ImageView addParticipants,gardenImage;
     private Switch switchGardenTypeModified;
     private CheckBox publicGarden, privateGarden;
@@ -127,6 +133,16 @@ public class GardenEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+            }
+        });
+
+        ludification = (Button) findViewById(R.id.ludification);
+
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent edit = new Intent(GardenEditActivity.this, DictionaryHome.class);
+                startActivity(edit);
             }
         });
 
@@ -243,7 +259,7 @@ public class GardenEditActivity extends AppCompatActivity {
         database2.collection("Gardens")
                 .document(idGarden)
                 .collection("Forms")
-                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
@@ -401,13 +417,38 @@ public class GardenEditActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            Bitmap photoI = (Bitmap) data.getExtras().get("data");
-            gardenImage.setImageBitmap(photoI);
-        }
-        if (resultCode == RESULT_OK && requestCode == GALLERY_REQUEST_CODE && data != null) {
-            Uri imageUri = data.getData();
-            gardenImage.setImageURI(imageUri);
+        try{
+            if(requestCode == 0){
+                Bitmap photoI = (Bitmap) data.getExtras().get("data");
+                gardenImage.setImageBitmap(photoI);
+                gardenImage.setDrawingCacheEnabled(true);
+                gardenImage.buildDrawingCache();
+                Bitmap bitmap = gardenImage.getDrawingCache();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                if(bitmap != null){
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+                    //bytes = baos.toByteArray();
+                }
+            }
+            if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() !=null){
+                Uri selectedImage = data.getData();
+                gardenImage.setImageURI(null);
+                gardenImage.setImageURI(selectedImage);
+
+                IsChangedPhoto = true;
+                if(IsChangedPhoto){
+                    gardenImage.setDrawingCacheEnabled(true);
+                    gardenImage.buildDrawingCache();
+                    Bitmap bitmap = gardenImage.getDrawingCache();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    if(bitmap != null){
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+                        //bytes = baos.toByteArray();
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -431,5 +472,28 @@ public class GardenEditActivity extends AppCompatActivity {
                 // La carga de la foto ha fallado, manejar el error aquí
             }
         });
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        final Configuration override = new Configuration(newBase.getResources().getConfiguration());
+        override.fontScale = 1.0f;
+        applyOverrideConfiguration(override);
+        super.attachBaseContext(newBase);
+    }
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Configuration config = new Configuration(newConfig);
+        adjustFontScale(getApplicationContext(), config);
+    }
+    public static void adjustFontScale(Context context, Configuration configuration) {
+        if (configuration.fontScale != 1) {
+            configuration.fontScale = 1;
+            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            wm.getDefaultDisplay().getMetrics(metrics);
+            metrics.scaledDensity = configuration.fontScale * metrics.density;
+            context.getResources().updateConfiguration(configuration, metrics);
+        }
     }
 }

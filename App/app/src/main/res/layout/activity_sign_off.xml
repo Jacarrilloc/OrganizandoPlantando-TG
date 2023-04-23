@@ -1,101 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".auth.SignOffActivity">
 
 
-    <ImageView
-        android:id="@+id/decorationLogo"
-        android:layout_width="533dp"
-        android:layout_height="448dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/im_lines_decoration" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9">
 
-    <ImageView
-        android:id="@+id/ceresLogo2"
-        android:layout_width="386dp"
-        android:layout_height="212dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.44"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/decorationLogo"
-        app:srcCompat="@drawable/im_logo_ceres_green" />
+        <ImageView
+            android:id="@+id/decorationLogo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16sdp"
+            app:srcCompat="@drawable/im_lines_decoration" />
 
-    <TextView
-        android:id="@+id/signOffText"
-        android:layout_width="348dp"
-        android:layout_height="40dp"
-        android:contextClickable="false"
-        android:fontFamily="sans-serif"
-        android:text="¿Esta seguro de cerrar sesión?"
-        android:textAlignment="center"
-        android:textColor="#0B0A0A"
-        android:textSize="28sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ceresLogo2" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-    <Button
-        android:id="@+id/returnButton2"
-        android:layout_width="126dp"
-        android:layout_height="51dp"
-        android:background="@drawable/dr_green_button"
-        android:backgroundTint="#91BF63"
-        android:fontFamily="sans-serif"
-        android:text="@string/regresar"
-        android:textAllCaps="false"
-        android:textSize="20sp"
-        android:textStyle="normal"
-        app:cornerRadius="50dp"
-        app:layout_constraintEnd_toStartOf="@+id/closeButton"
-        app:layout_constraintHorizontal_bias="0.737"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/decorationLogo" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/closeButton"
-        android:layout_width="131dp"
-        android:layout_height="52dp"
-        android:layout_marginEnd="56dp"
-        android:background="@drawable/dr_cancel_button"
-        android:fontFamily="sans-serif"
-        android:text="@string/cerrar"
-        android:textSize="20sp"
-        android:textAllCaps="false"
-        app:cornerRadius="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/decorationLogo"
-        app:layout_constraintVertical_bias="0.0" />
+                <ImageView
+                    android:id="@+id/ceresLogo2"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_165sdp"
+                    app:srcCompat="@drawable/im_logo_ceres_green" />
+
+                <TextView
+                    android:id="@+id/signOffText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contextClickable="false"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:fontFamily="@font/manropemedium"
+                    android:text="@string/esta_seguro_de_cerrar_sesi_n"
+                    android:textAlignment="center"
+                    android:textColor="#0B0A0A"
+                    android:textSize="@dimen/_28sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/_50sdp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/returnButton2"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:background="@drawable/dr_green_button"
+                        android:backgroundTint="#91BF63"
+                        android:fontFamily="@font/manropemedium"
+                        android:text="@string/regresar"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/_18sdp"
+                        android:textStyle="normal" />
+
+                    <Button
+                        android:id="@+id/closeButton"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/_40sdp"
+                        android:background="@drawable/dr_cancel_button"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:fontFamily="@font/manropemedium"
+                        android:text="@string/cerrar"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/_18sdp" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout8"
-        android:layout_width="411dp"
-        android:layout_height="122dp"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/dr_shadow_top"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/ludification"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
@@ -103,14 +119,19 @@
 
         <Button
             android:id="@+id/gardens"
-            android:layout_width="77dp"
+            android:layout_width="@dimen/_79sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
-            android:padding="10dp"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
             android:textAllCaps="false"
@@ -118,14 +139,19 @@
 
         <Button
             android:id="@+id/myGardens"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_107sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="7dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Gardens"
             android:textAllCaps="false"
@@ -133,15 +159,19 @@
 
         <Button
             android:id="@+id/profile"
-            android:layout_width="78dp"
+            android:layout_width="@dimen/_60sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:fontFamily="@font/manropemedium"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"
             android:textAllCaps="false"
@@ -149,4 +179,5 @@
 
 
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

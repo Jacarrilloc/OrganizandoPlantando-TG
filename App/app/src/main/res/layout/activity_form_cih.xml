@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
+    android:focusableInTouchMode="true"
     tools:context=".formsScreen.Form_RAC">
 
     <LinearLayout
@@ -18,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/_10sdp"
             android:clickable="true"
             android:contentDescription="@string/boton_para_regresar"
             android:tint="#F8F5F5"
@@ -33,21 +34,22 @@
 
         <TextView
             android:id="@+id/form_CIH_name"
+            android:text="@string/CIH"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:text="@string/CIH"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:fontFamily="@font/manropesemibold"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_17sdp" />
 
 
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1">
 
         <LinearLayout
@@ -55,39 +57,43 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@color/white"
-            android:layout_margin="20sp">
+            android:layout_margin="@dimen/_20sdp">
 
             <TextView
                 android:id="@+id/info1"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="2sp"
-                android:text="Herramienta" />
+                android:layout_margin="@dimen/_2sdp"
+                android:fontFamily="@font/manropemedium"
+                android:text="@string/herramienta23" />
 
             <EditText
                 android:id="@+id/tool"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="2sp"
+                android:layout_margin="@dimen/_2sdp"
                 android:ems="10"
+                android:fontFamily="@font/manroperegular"
                 android:inputType="textPersonName"
                 android:textColor="@color/black"
                 android:background="@drawable/dr_white_input_text"/>
 
             <TextView
                 android:id="@+id/textView8"
-                android:layout_marginTop="5sp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Concepto" />
+                android:fontFamily="@font/manropemedium"
+                android:text="@string/concepto" />
 
             <Spinner
                 android:id="@+id/spinnerConcept"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:spinnerMode="dropdown"
+                android:fontFamily="@font/manroperegular"
                 android:backgroundTint="@color/black"
                 android:overlapAnchor="false"
                 android:textAlignment="inherit"
@@ -96,11 +102,12 @@
 
             <TextView
                 android:id="@+id/textView10"
-                android:layout_marginTop="5sp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Es herramienta de entrada o salida" />
+                android:fontFamily="@font/manropemedium"
+                android:text="@string/es_herramienta_de_entrada_o_salida" />
 
             <Spinner
                 android:id="@+id/spinnerChoice"
@@ -108,6 +115,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:spinnerMode="dropdown"
+                android:fontFamily="@font/manroperegular"
                 android:backgroundTint="@color/black"
                 android:overlapAnchor="false"
                 android:textAlignment="inherit"
@@ -117,19 +125,21 @@
 
             <TextView
                 android:id="@+id/textView9"
-                android:layout_marginTop="5sp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
+                android:fontFamily="@font/manropemedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cantidad herramienta" />
+                android:text="@string/cantidad_herramienta" />
 
             <EditText
                 android:id="@+id/quantity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:layout_margin="2sp"
+                android:layout_margin="@dimen/_5sdp"
                 android:inputType="number"
+                android:fontFamily="@font/manroperegular"
                 android:background="@drawable/dr_white_input_text"
                 android:textColor="@color/black"/>
 
@@ -139,9 +149,10 @@
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
+                android:fontFamily="@font/manropemedium"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
-                android:text="Estado herramienta" />
+                android:text="@string/estado_herramienta" />
 
             <EditText
                 android:id="@+id/toolStatus"
@@ -149,7 +160,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="text"
-                android:layout_margin="2sp"
+                android:fontFamily="@font/manroperegular"
+                android:layout_margin="@dimen/_2sdp"
                 android:background="@drawable/dr_white_input_text"
                 android:textColor="@color/black" />
 
@@ -158,14 +170,16 @@
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="2sp"
-                android:text="Cantidad Existencias" />
+                android:fontFamily="@font/manropemedium"
+                android:layout_margin="@dimen/_2sdp"
+                android:text="@string/cantidad_existencias" />
 
             <EditText
                 android:id="@+id/existanceTool"
                 android:layout_width="match_parent"
+                android:fontFamily="@font/manroperegular"
                 android:layout_height="wrap_content"
-                android:layout_margin="2sp"
+                android:layout_margin="@dimen/_2sdp"
                 android:ems="10"
                 android:inputType="number"
                 android:textColor="@color/black"
@@ -177,8 +191,9 @@
                 android:id="@+id/create_forms1_buttom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10sp"
-                android:text="Agregar Formulario"
+                android:fontFamily="@font/manropemedium"
+                android:layout_margin="@dimen/_20sdp"
+                android:text="@string/agregar_formulario"
                 android:background="@drawable/dr_green_button"/>
 
         </LinearLayout>
@@ -186,25 +201,25 @@
 
     <LinearLayout
         android:id="@+id/linearLayout8"
-        android:layout_width="411dp"
-        android:layout_height="122dp"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/dr_shadow_top"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/ludification"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
@@ -212,14 +227,19 @@
 
         <Button
             android:id="@+id/gardens"
-            android:layout_width="77dp"
+            android:layout_width="@dimen/_79sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
-            android:padding="10dp"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
             android:textAllCaps="false"
@@ -227,14 +247,19 @@
 
         <Button
             android:id="@+id/myGardens"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_107sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="7dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Gardens"
             android:textAllCaps="false"
@@ -242,15 +267,19 @@
 
         <Button
             android:id="@+id/profile"
-            android:layout_width="78dp"
+            android:layout_width="@dimen/_60sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:fontFamily="@font/manropemedium"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"
             android:textAllCaps="false"

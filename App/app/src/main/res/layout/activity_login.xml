@@ -1,135 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--PANTALLA INUTILIZADA-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
     tools:context=".auth.LoginActivity">
 
-    <ImageView
-        android:id="@+id/logoDecoration"
-        android:layout_width="532dp"
-        android:layout_height="457dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.38"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/im_lines_decoration" />
-
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="5sp"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_margin="50sp"
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            android:autoSizeTextType="uniform"
-            android:text="@string/bienvenido_a_de_nuevo" />
-
-        <LinearLayout
+        <ImageView
+            android:id="@+id/logoDecoration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            app:srcCompat="@drawable/im_lines_decoration" />
 
-            <EditText
-                android:layout_margin="10sp"
-                android:id="@+id/editTextTextEmailAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/correo_electronico"
-                android:textColor="@color/black"
-                android:textAlignment="center"
-                android:textColorHint="@color/editTextBackground"
-                android:backgroundTint="#F2F3F7"
-                android:inputType="textEmailAddress"
-                android:background="@drawable/dr_white_input_text"/>
-
-            <EditText
-                android:layout_margin="10sp"
-                android:id="@+id/editTextTextPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:hint="@string/contrase_a"
-                android:backgroundTint="#F2F3F7"
-                android:textColorHint="@color/editTextBackground"
-                android:inputType="textPassword"
-                android:background="@drawable/dr_white_input_text"/>
-
-            <Button
-                android:layout_margin="10sp"
-                android:id="@+id/buttonLoginActivity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/iniciar_sesi_n"
-                android:backgroundTint="@null"
-                android:background="@drawable/dr_green_button"/>
-
-            <Button
-                android:id="@+id/fotgotPasswordButtom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="italic"
-                android:textSize="18dp"
-                android:textAllCaps="false"
-                android:text="@string/olvidaste_tu_contrase_a"
-                android:layout_gravity="center"
-                android:textColor="@color/black"
-                android:background="@null"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/textView3"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_weight="0.7"
-            android:text="¿Aún no tienes una cuenta?"
-            android:textColor="@color/editTextBackground"
-            android:textSize="15sp"
-            android:textStyle="italic" />
+            android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/registerButtom"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
-            android:textAlignment="textStart"
-            android:gravity="center"
-            android:text="REGISTRATE"
-            android:textColor="@color/mainButtonColor"
-            android:textSize="18sp"
-            android:textStyle="italic"
-            tools:ignore="RtlCompat" />
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/_40sdp"
+                        android:gravity="center"
+                        android:fontFamily="@font/manropesemibold"
+                        android:autoSizeTextType="uniform"
+                        android:text="@string/bienvenido_a_de_nuevo"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_25sdp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/editTextTextEmailAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:fontFamily="@font/manroperegular"
+                            android:background="@drawable/dr_white_input_text"
+                            android:backgroundTint="#F2F3F7"
+                            android:ems="10"
+                            android:hint="@string/correo_electronico"
+                            android:inputType="textEmailAddress"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/editTextBackground" />
+
+                        <EditText
+                            android:id="@+id/editTextTextPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:background="@drawable/dr_white_input_text"
+                            android:backgroundTint="#F2F3F7"
+                            android:ems="10"
+                            android:fontFamily="@font/manroperegular"
+                            android:hint="@string/contrase_a"
+                            android:inputType="textPassword"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/editTextBackground" />
+
+                        <Button
+                            android:id="@+id/buttonLoginActivity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:background="@drawable/dr_green_button"
+                            android:backgroundTint="@null"
+                            android:gravity="center"
+                            android:textAllCaps="false"
+                            android:textSize="@dimen/_15sdp"
+                            android:fontFamily="@font/manropesemibold"
+                            android:text="@string/iniciar_sesi_n" />
+
+                        <Button
+                            android:id="@+id/fotgotPasswordButtom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/manroperegular"
+                            android:background="@null"
+                            android:text="@string/olvidaste_tu_contrase_a"
+                            android:textAllCaps="false"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15sdp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.7"
+                        android:fontFamily="@font/manroperegular"
+                        android:gravity="center"
+                        android:text="@string/a_n_no_tienes_una_cuenta"
+                        android:textColor="@color/editTextBackground"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <Button
+                        android:id="@+id/registerButtom"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.3"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:text="@string/reg_strate"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/mainButtonColor"
+                        android:textSize="@dimen/_18sdp"
+                        android:fontFamily="@font/manropemedium"
+                        tools:ignore="RtlCompat" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </FrameLayout>
+
+</LinearLayout>

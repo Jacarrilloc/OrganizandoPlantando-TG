@@ -1,138 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--PANTALLA QUE NO SE UTILIZA-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
     tools:context=".registroLombriculturaActivity">
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="397dp"
-        android:layout_height="91dp"
-        android:layout_marginBottom="24dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.011">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/returnBotton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:clickable="true"
-            android:contentDescription="Boton para regresar"
-            android:tint="#F8F5F5"
-            app:backgroundTint="#91BF63"
-            app:srcCompat="@drawable/dr_return_arrow" />
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="@dimen/_297sdp"
+            android:layout_height="@dimen/_81sdp"
+            android:layout_marginBottom="@dimen/_24sdp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/registrosText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
-            android:text="Registros de lombricultura"
-            android:textColor="#070707"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/returnBotton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:clickable="true"
+                android:contentDescription="Boton para regresar"
+                android:tint="#F8F5F5"
+                app:backgroundTint="#91BF63"
+                app:srcCompat="@drawable/dr_return_arrow" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/registrosText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:text="Registros de lombricultura"
+                android:textColor="#070707"
+                android:textSize="@dimen/_24sdp"
+                android:textStyle="bold" />
 
-    <LinearLayout
-        android:id="@+id/linearLayoutRegister"
-        android:layout_width="410dp"
-        android:layout_height="507dp"
-        android:layout_marginTop="120dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewRegister"
+        <LinearLayout
+            android:id="@+id/linearLayoutRegister"
             android:layout_width="match_parent"
-            android:layout_height="464dp" />
+            android:layout_height="@dimen/_297sdp"
+            android:layout_marginTop="@dimen/_90sdp"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewRegister"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_464sdp" />
+
+        </LinearLayout>
+
+    </FrameLayout>
 
     <LinearLayout
-        android:layout_width="410dp"
-        android:layout_height="122dp"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_120sdp"
         android:background="@drawable/dr_shadow_top"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutRegister">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/ludification"
-            android:layout_width="73dp"
+            android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="25dp"
             android:layout_marginBottom="7dp"
+            android:layout_weight="1"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
             android:padding="10dp"
             android:stateListAnimator="@null"
-            android:text="Ludi"
+            android:text="@string/Diccionary"
             android:textAllCaps="false"
-            android:textColor="#A0A3B1" />
+            android:textColor="@color/grayLetters"
+            android:textSize="@dimen/_13sdp" />
 
         <Button
             android:id="@+id/gardens"
-            android:layout_width="77dp"
+            android:layout_width="@dimen/_79sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
+            android:layout_weight="1"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
             android:padding="10dp"
             android:stateListAnimator="@null"
-            android:text="Huertas"
+            android:text="@string/Map"
             android:textAllCaps="false"
-            android:textColor="#A0A3B1" />
+            android:textColor="@color/grayLetters"
+            android:textSize="@dimen/_13sdp" />
 
         <Button
             android:id="@+id/myGardens"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_107sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
+            android:layout_weight="1"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
             android:padding="10dp"
             android:stateListAnimator="@null"
-            android:text="Mis huertas"
+            android:text="@string/Gardens"
             android:textAllCaps="false"
-            android:textColor="#A0A3B1" />
+            android:textColor="@color/grayLetters"
+            android:textSize="@dimen/_13sdp" />
 
         <Button
             android:id="@+id/profile"
-            android:layout_width="78dp"
-            android:layout_height="69dp"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginBottom="7dp"
+            android:layout_weight="1"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
             android:padding="5dp"
             android:stateListAnimator="@null"
-            android:text="Perfil"
+            android:text="@string/User"
             android:textAllCaps="false"
-            android:textColor="#A0A3B1" />
+            android:textColor="@color/grayLetters"
+            android:textSize="@dimen/_13sdp" />
 
 
     </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

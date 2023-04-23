@@ -1,29 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gardens.GardenRequestsActivity"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".gardens.GardenRequestsActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout10"
-        android:layout_width="388dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="@dimen/_318sdp"
+        android:layout_height="@dimen/_65sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:orientation="horizontal">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/returnArrowButtonFormsToGarden"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="@dimen/_20sdp"
             android:clickable="true"
             android:contentDescription="@string/boton_para_regresar"
             android:focusable="true"
@@ -41,10 +38,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="20dp"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginStart="@dimen/_20sdp"
             android:text="@string/solicitudes"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="@dimen/_20sdp" />
 
     </LinearLayout>
 
@@ -52,27 +50,19 @@
         android:id="@+id/imageView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="14dp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_14sdp"
         android:background="@drawable/im_gray_line"
-        android:contentDescription="La imagen"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout10"
-        app:layout_constraintVertical_bias="0.0" />
+        android:contentDescription="@string/la_imagen" />
 
     <ListView
         android:id="@+id/listViewCollabs"
-        android:layout_width="369dp"
-        android:layout_height="615dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:clickable="false"
         android:focusable="false" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

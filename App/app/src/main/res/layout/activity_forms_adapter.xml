@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/_10sdp"
             android:clickable="true"
             android:contentDescription="@string/boton_para_regresar"
             android:tint="#F8F5F5"
@@ -29,24 +29,25 @@
             app:layout_constraintStart_toStartOf="@+id/gardenProfilePicture"
             app:layout_constraintTop_toTopOf="@+id/gardenProfilePicture"
             app:layout_constraintVertical_bias="0.064"
-            app:srcCompat="@drawable/dr_return_arrow" />
+            app:srcCompat="@drawable/dr_return_arrow"
+            android:focusable="true" />
 
         <TextView
             android:id="@+id/formsOrRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:fontFamily="@font/manropesemibold"
             android:text="@string/formularios"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_20sdp"/>
 
     </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_gravity="center">
 
@@ -58,86 +59,13 @@
 
         <ListView
             android:id="@+id/gardenFormsList"
-            android:layout_marginTop="0sp"
-            android:layout_marginBottom="0sp"
-            android:layout_marginLeft="20sp"
-            android:layout_marginRight="20sp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/_15sdp" />
     </FrameLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout8"
-        android:layout_width="411dp"
-        android:layout_height="122dp"
-        android:background="@drawable/dr_shadow_top"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/ludification"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="7dp"
-            android:background="@color/white"
-            android:drawableTop="@drawable/im_dictionary"
-            android:padding="10dp"
-            android:stateListAnimator="@null"
-            android:text="@string/Diccionary"
-            android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
-
-        <Button
-            android:id="@+id/gardens"
-            android:layout_width="77dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="7dp"
-            android:background="@color/white"
-            android:drawableTop="@drawable/im_colombia"
-            android:padding="10dp"
-            android:stateListAnimator="@null"
-            android:text="@string/Map"
-            android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
-
-        <Button
-            android:id="@+id/myGardens"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="7dp"
-            android:background="@color/white"
-            android:drawableTop="@drawable/im_plant_icon"
-            android:padding="10dp"
-            android:stateListAnimator="@null"
-            android:text="@string/Gardens"
-            android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
-
-        <Button
-            android:id="@+id/profile"
-            android:layout_width="78dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="7dp"
-            android:background="@color/white"
-            android:drawableTop="@drawable/im_user_icon"
-            android:padding="5dp"
-            android:stateListAnimator="@null"
-            android:text="@string/User"
-            android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
-
-
-    </LinearLayout>
 </LinearLayout>

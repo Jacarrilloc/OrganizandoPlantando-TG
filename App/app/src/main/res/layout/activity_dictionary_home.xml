@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    tools:context=".ludificationScreens.DictionaryHome">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/manropemedium"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_gravity="center"
+                    android:text="@string/dicccionarios"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_35sdp" />
+
+                <ImageView
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="@dimen/_70sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:background="@drawable/im_top_circles" />
+
+
+                <Button
+                    android:id="@+id/plants"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:background="@color/white"
+                    android:drawableTop="@drawable/im_flower"
+                    android:fontFamily="@font/manroperegular"
+                    android:padding="@dimen/_10sdp"
+                    android:textSize="@dimen/_30sdp"
+                    android:stateListAnimator="@null"
+                    android:text="@string/plantas"
+                    android:textColor="@color/black"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/tools"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:background="@color/white"
+                    android:drawableTop="@drawable/im_shovel_dic"
+                    android:fontFamily="@font/manroperegular"
+                    android:padding="@dimen/_10sdp"
+                    android:textSize="@dimen/_30sdp"
+                    android:stateListAnimator="@null"
+                    android:text="@string/herramientas"
+                    android:textColor="@color/black"
+                    android:textAllCaps="false"/>
+
+
+
+                <ImageView
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="@dimen/_70sdp"
+                    android:layout_gravity="start|bottom"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:background="@drawable/im_bottom_circles" />
+
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_80sdp"
+        android:background="@drawable/dr_shadow_top"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/ludification"
+            android:layout_width="@dimen/_98sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/im_dictionary"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:stateListAnimator="@null"
+            android:text="@string/Diccionary"
+            android:textAllCaps="false"
+            android:textColor="@color/grayLetters" />
+
+        <Button
+            android:id="@+id/gardens"
+            android:layout_width="@dimen/_79sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/im_colombia"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/_13sdp"
+            android:stateListAnimator="@null"
+            android:text="@string/Map"
+            android:textAllCaps="false"
+            android:textColor="@color/grayLetters" />
+
+        <Button
+            android:id="@+id/myGardens"
+            android:layout_width="@dimen/_107sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/im_plant_icon"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
+            android:stateListAnimator="@null"
+            android:text="@string/Gardens"
+            android:textAllCaps="false"
+            android:textColor="@color/grayLetters" />
+
+        <Button
+            android:id="@+id/profile"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:fontFamily="@font/manropemedium"
+            android:background="@color/white"
+            android:drawableTop="@drawable/im_user_icon"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/_13sdp"
+            android:stateListAnimator="@null"
+            android:text="@string/User"
+            android:textAllCaps="false"
+            android:textColor="@color/grayLetters" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

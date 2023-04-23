@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--No se usaaaaaaaaaaaa-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_130sdp"
+    android:layout_height="@dimen/_180sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="20dp"
+    android:background="@drawable/im_show_author">
+
+    <FrameLayout
+        android:id="@+id/imagenCom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_30sdp"
+        app:layout_constraintTop_toTopOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_gravity="center_horizontal">
+
+        <!-- Vista de imagen circular -->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image"
+            android:layout_marginTop="@dimen/_7sdp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/im_logo_ceres"
+            android:layout_gravity="center_horizontal"/>
+
+        <!-- Vista de imagen con borde -->
+        <ImageView
+            android:layout_marginStart="@dimen/_2sdp"
+            android:id="@+id/imageLevel"
+            android:layout_width="124dp"
+            android:layout_height="120dp"
+            android:src="@drawable/im_level_1"
+            android:scaleType="centerCrop" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_43sdp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:layout_gravity="center"
+        android:text="@string/nombre"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="@dimen/_13sdp"
+        />
+
+    <TextView
+        android:id="@+id/nameLevel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_58sdp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:textColor="@color/gray"
+        android:gravity="center"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="@dimen/_11sdp"
+        android:text="@string/anlevel"
+        />
+
+    <TextView
+        android:id="@+id/level"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_80sdp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="@dimen/_11sdp"
+        android:text="@string/level"
+        />
+
+
+
+</FrameLayout>
+

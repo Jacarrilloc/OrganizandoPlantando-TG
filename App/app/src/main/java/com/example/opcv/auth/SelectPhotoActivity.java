@@ -7,14 +7,21 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -23,10 +30,9 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.info.User;
-import com.example.opcv.localDatabase.DB_User;
-import com.example.opcv.localDatabase.DatabaseHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -47,7 +53,9 @@ public class SelectPhotoActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 2;
     private static final int PERMISSION_REQUEST_STORAGE = 1000;
     private static final int REQUEST_SELECT_PHOTO = 2000;
-
+    private static final int GALLERY_REQUEST_CODE = 100;
+    private Boolean IsChangedPhoto = false;
+    private byte[] bytes;
 
 
     @Override
@@ -71,6 +79,7 @@ public class SelectPhotoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 createUserInDatabase();
+                callHome();
             }
         });
 
@@ -100,8 +109,9 @@ public class SelectPhotoActivity extends AppCompatActivity {
         if(ContextCompat.checkSelfPermission(SelectPhotoActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(SelectPhotoActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_STORAGE);
         }else{
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent, REQUEST_SELECT_PHOTO);
+            Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            IsChangedPhoto = true;
+            startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
         }
     }
 
@@ -111,8 +121,8 @@ public class SelectPhotoActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSION_REQUEST_STORAGE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, REQUEST_SELECT_PHOTO);
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, GALLERY_REQUEST_CODE);
             } else {
                 Toast.makeText(SelectPhotoActivity.this, "Permiso denegado", Toast.LENGTH_SHORT).show();
             }
@@ -120,18 +130,51 @@ public class SelectPhotoActivity extends AppCompatActivity {
     }
 
     private void createUserInDatabase(){
-        if(authUtilities.createUser(newUserInfo.getEmail(),password,newUserInfo,imageUri,SelectPhotoActivity.this)){
-            Toast.makeText(this, "Usuario Creado Exitosamente", Toast.LENGTH_SHORT).show();
+        if(validateField(this, bytes)){
+        if(bytes == null){
+            int drawableId = R.drawable.im_logo_ceres_green;
+
+            //Drawable drawable = getResources().getDrawable(R.drawable.im_logo_ceres);
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), drawableId);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
+            bytes = stream.toByteArray();
         }
-        addToSQL(newUserInfo);
+            if(authUtilities.createUser(newUserInfo.getEmail(),password,newUserInfo,bytes,SelectPhotoActivity.this)){
+
+            }
+        }
+    }
+
+    public boolean validateField(Context context, byte[] bytes){
+        if(bytes == null){
+            Toast.makeText(context, "Es necesario Ingresar una imagen", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     private void takePhotoUser(){
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            dispatchTakePictureIntent();
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+
+                PackageManager pm = getPackageManager();
+                if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
+                    openCamaraAndTakePhoto();
+                    IsChangedPhoto = true;
+                } else {
+                    Toast.makeText(this, "No hay una Camara en tu Dispositivo", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            }
         }
+
+    }
+    private void openCamaraAndTakePhoto() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 0);
     }
 
     private File createImageFile() throws IOException {
@@ -164,35 +207,67 @@ public class SelectPhotoActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            ImageSource.setImageURI(imageUri);
-        }
-        if (requestCode == REQUEST_SELECT_PHOTO && resultCode == RESULT_OK) {
-            imageUri = data.getData();
-            ImageSource.setImageURI(imageUri);
-        }
-    }
-
-    private void addToSQL(User newUserInfo){
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
-        SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        if(db != null){
-            Toast.makeText(this, "Se crea la base de Datos", Toast.LENGTH_SHORT).show();
-            Map<String,Object> info = newUserInfo.toMap();
-            DB_User newI = new DB_User(this);
-            long i = newI.insertUserInfo(info);
-            if(i > 0){
-                Toast.makeText(this, "REGISTRO GUARDADO", Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
+        super.onActivityResult(requestCode, resultCode, data);
+        try{
+            if(requestCode == 0 && resultCode == RESULT_OK){
+                Bitmap photoI = (Bitmap) data.getExtras().get("data");
+                ImageSource.setImageBitmap(photoI);
+                ImageSource.setDrawingCacheEnabled(true);
+                ImageSource.buildDrawingCache();
+                Bitmap bitmap = ImageSource.getDrawingCache();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                if(bitmap != null){
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+                    bytes = baos.toByteArray();
+                }
             }
+            if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() !=null){
+                Uri selectedImage = data.getData();
+                // image.setImageURI(null);
+                ImageSource.setImageURI(selectedImage);
+
+                IsChangedPhoto = true;
+                if(IsChangedPhoto){
+                    ImageSource.setDrawingCacheEnabled(true);
+                    ImageSource.buildDrawingCache();
+                    Bitmap bitmap = ImageSource.getDrawingCache();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    if(bitmap != null){
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+                        bytes = baos.toByteArray();
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        callHome(newUserInfo);
     }
-    private void callHome(User newUserInfo){
+    private void callHome(){
         Intent intent = new Intent(SelectPhotoActivity.this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("userID", authUtilities.getCurrentUserUid());
         startActivity(intent);
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        final Configuration override = new Configuration(newBase.getResources().getConfiguration());
+        override.fontScale = 1.0f;
+        applyOverrideConfiguration(override);
+        super.attachBaseContext(newBase);
+    }
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Configuration config = new Configuration(newConfig);
+        adjustFontScale(getApplicationContext(), config);
+    }
+    public static void adjustFontScale(Context context, Configuration configuration) {
+        if (configuration.fontScale != 1) {
+            configuration.fontScale = 1;
+            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            wm.getDefaultDisplay().getMetrics(metrics);
+            metrics.scaledDensity = configuration.fontScale * metrics.density;
+            context.getResources().updateConfiguration(configuration, metrics);
+        }
     }
 }

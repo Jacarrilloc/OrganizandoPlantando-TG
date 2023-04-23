@@ -3,10 +3,14 @@ package com.example.opcv.formsScreen;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,9 +23,10 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
-import com.example.opcv.conectionInfo.NetworkMonitorService;
+import com.example.opcv.business.formsLogic.FormsLogic;
 import com.example.opcv.fbComunication.FormsUtilities;
-import com.example.opcv.localDatabase.DB_InsertForms;
+import com.example.opcv.ludificationScreens.DictionaryHome;
+import com.example.opcv.notifications.Notifications;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,7 +44,7 @@ public class Form_SCMPH extends AppCompatActivity {
 
     private FormsUtilities formsUtilities;
     private FloatingActionButton backButtom;
-    private Button addFormButtom, gardens, myGardens, profile;
+    private Button addFormButtom, gardens, myGardens, profile, ludification;
     private EditText itemName, quantity, total;
     private Spinner spinnerUnits, spinnerItem;
     private String unitSelectedItem, itemSelectedItem, watch, idGarden, idCollection;
@@ -81,6 +86,16 @@ public class Form_SCMPH extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Form_SCMPH.this, EditUserActivity.class));
+            }
+        });
+
+        ludification = (Button) findViewById(R.id.ludification);
+
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent edit = new Intent(Form_SCMPH.this, DictionaryHome.class);
+                startActivity(edit);
             }
         });
 
@@ -127,7 +142,7 @@ public class Form_SCMPH extends AppCompatActivity {
                     idGardenFb = getIntent().getStringExtra("idGardenFirebase");
 
                     Map<String,Object> infoForm = new HashMap<>();
-                    infoForm.put("idForm",3);
+                    infoForm.put("idForm",2);
                     infoForm.put("nameForm",nameForm);
                     infoForm.put("itemName",itemR);
                     infoForm.put("item",itemSelectedItem);
@@ -135,14 +150,14 @@ public class Form_SCMPH extends AppCompatActivity {
                     infoForm.put("quantity",quantityR);
                     infoForm.put("total",totalR);
                     if(validateField(itemR, quantityR, totalR, itemSelectedItem, unitSelectedItem)){
-                        NetworkMonitorService connection = new NetworkMonitorService(Form_SCMPH.this);
 
-                        if(connection.isOnline(Form_SCMPH.this)){
-                            formsUtilities.createForm(Form_SCMPH.this,infoForm,idGardenFb);
-                        }
+                        FormsLogic newForm = new FormsLogic(Form_SCMPH.this);
+                        newForm.createForm(infoForm,idGardenFb);
 
-                        DB_InsertForms newForm = new DB_InsertForms(Form_SCMPH.this);
-                        newForm.insertInto_SCMPH(infoForm);
+                        Notifications notifications = new Notifications();
+                        notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_SCMPH.this);
+
+                       // newForm.insertInto_SCMPH(infoForm);
                         Toast.makeText(Form_SCMPH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Form_SCMPH.this, HomeActivity.class));
                         finish();
@@ -305,6 +320,7 @@ public class Form_SCMPH extends AppCompatActivity {
                 }
             }
         });
+        /*
         addFormButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -320,6 +336,8 @@ public class Form_SCMPH extends AppCompatActivity {
                 }
             }
         });
+
+         */
     }
     private boolean validateField(String itemR,String quantityR, String totalR, String item, String units){
 
@@ -344,5 +362,28 @@ public class Form_SCMPH extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        final Configuration override = new Configuration(newBase.getResources().getConfiguration());
+        override.fontScale = 1.0f;
+        applyOverrideConfiguration(override);
+        super.attachBaseContext(newBase);
+    }
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Configuration config = new Configuration(newConfig);
+        adjustFontScale(getApplicationContext(), config);
+    }
+    public static void adjustFontScale(Context context, Configuration configuration) {
+        if (configuration.fontScale != 1) {
+            configuration.fontScale = 1;
+            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            wm.getDefaultDisplay().getMetrics(metrics);
+            metrics.scaledDensity = configuration.fontScale * metrics.density;
+            context.getResources().updateConfiguration(configuration, metrics);
+        }
     }
 }

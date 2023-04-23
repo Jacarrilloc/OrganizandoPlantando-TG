@@ -6,12 +6,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -21,11 +25,12 @@ import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.adapter.MyCollaborationsListAdapter;
 import com.example.opcv.auth.EditUserActivity;
-import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.fbComunication.CollaboratorUtilities;
 import com.example.opcv.info.GardenInfo;
 import com.example.opcv.item_list.ItemCollaboratorsRequest;
+import com.example.opcv.ludificationScreens.DictionaryHome;
+import com.example.opcv.persistance.gardenPersistance.GardenPersistance;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,12 +47,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CollaboratorGardensActivity extends AppCompatActivity {
-    private Button gardensMap, profile, myGardens;
+    private Button gardensMap, profile, myGardens, ludification;
     private String userId;
     private ListView listGardens;
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
-    private NetworkMonitorService monitorService = new NetworkMonitorService(CollaboratorGardensActivity.this);
 
     @Override
     protected void onStart() {
@@ -126,6 +130,16 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        ludification = (Button) findViewById(R.id.ludification);
+
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent edit = new Intent(CollaboratorGardensActivity.this, DictionaryHome.class);
+                startActivity(edit);
+            }
+        });
     }
     private void fillGardenUser(){
         CollectionReference Ref = database.collection("UserInfo");
@@ -163,18 +177,26 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
 
                                                                 for(QueryDocumentSnapshot documen:value){
                                                                     GardenInfo idSearch;
-                                                                    name = task.getResult().get("GardenName").toString();
+                                                                    String nameUser = task.getResult().get("GardenName").toString();
                                                                     idOwner = task.getResult().get("ID_Owner").toString();
                                                                     info = task.getResult().get("InfoGarden").toString();
                                                                     gardenType = task.getResult().get("GardenType").toString();
-                                                                    idSearch = new GardenInfo(idOwner, name, info, gardenType);
-                                                                    idGarden = document.getData().get("idGardenCollab").toString();
+                                                                    //idSearch = new GardenInfo(idOwner, name, info, gardenType);
+                                                                    String idGarde = document.getData().get("idGardenCollab").toString();
+                                                                    GardenPersistance persistance = new GardenPersistance();
+                                                                    persistance.getGardenPicture(idGarde, CollaboratorGardensActivity.this, new GardenPersistance.GetUri() {
+                                                                        @Override
+                                                                        public void onSuccess(String uri) {
+                                                                            ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(nameUser, userId, idGarde, uri);
+                                                                            //System.out.println("EL id es "+newItem.getName());
+                                                                            gardenNames.add(newItem);
+                                                                            fillListGardens(gardenNames);
+                                                                        }
+                                                                    });
 
-                                                                    ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(name, userId, idGarden);
-                                                                    System.out.println("EL id es "+newItem.getName());
-                                                                    gardenNames.add(newItem);
+
                                                                 }
-                                                                fillListGardens(gardenNames);
+
                                                             }
 
                                                         }
@@ -193,10 +215,39 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
 
     }
     private void fillListGardens( List<ItemCollaboratorsRequest> gardenInfoDocument){
-        MyCollaborationsListAdapter adapter = new MyCollaborationsListAdapter(this, gardenInfoDocument);
-        listGardens.setAdapter(adapter);
-        listGardens.setDividerHeight(5);
+        try{
+            Thread.sleep(65);
+            MyCollaborationsListAdapter adapter = new MyCollaborationsListAdapter(this, gardenInfoDocument);
+            listGardens.setAdapter(adapter);
+            listGardens.setDividerHeight(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        final Configuration override = new Configuration(newBase.getResources().getConfiguration());
+        override.fontScale = 1.0f;
+        applyOverrideConfiguration(override);
+        super.attachBaseContext(newBase);
+    }
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Configuration config = new Configuration(newConfig);
+        adjustFontScale(getApplicationContext(), config);
+    }
+    public static void adjustFontScale(Context context, Configuration configuration) {
+        if (configuration.fontScale != 1) {
+            configuration.fontScale = 1;
+            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            wm.getDefaultDisplay().getMetrics(metrics);
+            metrics.scaledDensity = configuration.fontScale * metrics.density;
+            context.getResources().updateConfiguration(configuration, metrics);
+        }
+    }
 
 }

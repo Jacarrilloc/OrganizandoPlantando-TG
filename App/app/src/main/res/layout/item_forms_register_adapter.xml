@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--No se usa este adaptador-->
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".adapter.FormsRegisterAdapter"
-    android:layout_width="320dp"
-    android:layout_height="80dp"
-    android:layout_margin="20dp"
+    android:layout_width="@dimen/_290sdp"
+    android:layout_height="@dimen/_80sdp"
+    android:layout_margin="@dimen/_20sdp"
     android:backgroundTint="@color/white">
 
     <LinearLayout
@@ -15,21 +16,21 @@
 
         <TextView
             android:id="@+id/namefield"
-            android:layout_width="292dp"
+            android:layout_width="@dimen/_280sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="text"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="@dimen/_16sdp"
             android:layout_marginBottom="5dp"/>
 
         <EditText
-            android:layout_width="278dp"
+            android:layout_width="@dimen/_258sdp"
             android:layout_height="wrap_content"
             android:background="@drawable/dr_gray_input_text"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="@dimen/_20sdp"
             android:textColor="@color/black"
-            android:textSize="15sp"/>
+            android:textSize="@dimen/_15sdp"/>
 
 
 

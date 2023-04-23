@@ -1,14 +1,19 @@
 package com.example.opcv.auth;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -61,7 +66,7 @@ public class RegisterProfileActivity extends AppCompatActivity {
         genders.add("Mujer");
         genders.add("Otro");
 
-        SpinnerAdapter adatperSpinner = new SpinnerAdapter(this, android.R.layout.simple_spinner_item,genders,textColor);
+        SpinnerAdapter adatperSpinner = new SpinnerAdapter(this, R.layout.item_spinner_adapter,genders,textColor);
         spinnerGender.setAdapter(adatperSpinner);
         /*ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(this,R.array.gendersElements, android.R.layout.simple_spinner_item);
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -83,10 +88,11 @@ public class RegisterProfileActivity extends AppCompatActivity {
                 String confirmPasswordString = confirmPassword.getText().toString();
                 String gender = spinnerGender.getSelectedItem().toString();
                 Boolean termsBool = terms.isChecked();
+                int level = 0;
 
                 ValidateRegisterInfo validate = new ValidateRegisterInfo();
                 if(validate.validateFirstRegisterInfo(nameString,lastNameString,emailString,passwordString,confirmPasswordString,termsBool,RegisterProfileActivity.this)) {
-                    newUser = new User(nameString, lastNameString, emailString, null, null,null,gender);
+                    newUser = new User(nameString, lastNameString, emailString, null, null,null,gender, level);
 
                     Intent intent = new Intent(RegisterProfileActivity.this, RegisterMobilePhone.class);
                     intent.putExtra("mapUser", (Serializable) newUser);
@@ -95,5 +101,28 @@ public class RegisterProfileActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        final Configuration override = new Configuration(newBase.getResources().getConfiguration());
+        override.fontScale = 1.0f;
+        applyOverrideConfiguration(override);
+        super.attachBaseContext(newBase);
+    }
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Configuration config = new Configuration(newConfig);
+        adjustFontScale(getApplicationContext(), config);
+    }
+    public static void adjustFontScale(Context context, Configuration configuration) {
+        if (configuration.fontScale != 1) {
+            configuration.fontScale = 1;
+            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            wm.getDefaultDisplay().getMetrics(metrics);
+            metrics.scaledDensity = configuration.fontScale * metrics.density;
+            context.getResources().updateConfiguration(configuration, metrics);
+        }
     }
 }

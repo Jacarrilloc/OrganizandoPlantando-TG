@@ -2,17 +2,22 @@ package com.example.opcv;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -23,7 +28,6 @@ import android.widget.Toast;
 
 import com.example.opcv.adapter.GardenListAdapter;
 import com.example.opcv.auth.EditUserActivity;
-import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.CollaboratorGardensActivity;
 import com.example.opcv.gardens.CreateGardenActivity;
@@ -31,7 +35,8 @@ import com.example.opcv.gardens.GardenActivity;
 import com.example.opcv.gardens.GardensAvailableActivity;
 import com.example.opcv.info.User;
 import com.example.opcv.item_list.ItemGardenHomeList;
-import com.example.opcv.localDatabase.DatabaseHelper;
+import com.example.opcv.ludificationScreens.DictionaryHome;
+import com.example.opcv.persistance.gardenPersistance.GardenPersistance;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -39,16 +44,16 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
-    private Button otherGardensButton, profile, myGardens, collaboration;
+    private Button otherGardensButton, profile, myGardens, collaboration, ludification;
     private ImageButton generateReport;
     private ListView listAviableGardensInfo;
     private FloatingActionButton nextArrow, addButton;
@@ -65,6 +70,29 @@ public class HomeActivity extends AppCompatActivity {
     private Intent serviceIntent;
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        final Configuration override = new Configuration(newBase.getResources().getConfiguration());
+        override.fontScale = 1.0f;
+        applyOverrideConfiguration(override);
+        super.attachBaseContext(newBase);
+    }
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Configuration config = new Configuration(newConfig);
+        adjustFontScale(getApplicationContext(), config);
+    }
+    public static void adjustFontScale(Context context, Configuration configuration) {
+        if (configuration.fontScale != 1) {
+            configuration.fontScale = 1;
+            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            wm.getDefaultDisplay().getMetrics(metrics);
+            metrics.scaledDensity = configuration.fontScale * metrics.density;
+            context.getResources().updateConfiguration(configuration, metrics);
+        }
+    }
+    @Override
     protected void onStart() {
         super.onStart();
         fillGardenUser();
@@ -73,14 +101,12 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //Detiene el servicio NetworkMonitorService
-        stopService(serviceIntent);
     }
 
     @Override
     protected void onResume() {
-        fillGardenUser();
         super.onResume();
+        fillGardenUser();
     }
 
     @Override
@@ -101,12 +127,13 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        //Metodos para sicronizacion entre Firestore (Servidor) y  SQL Lite ( Base de Datos Local )
-        serviceIntent = new Intent(this, NetworkMonitorService.class);
-        startService(serviceIntent);
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(true)
+                .build();
 
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
+        database.setFirestoreSettings(settings);
 
         //Declaracion metodos de navegacion
         listAviableGardensInfo = findViewById(R.id.listAviableGardens);
@@ -118,9 +145,9 @@ public class HomeActivity extends AppCompatActivity {
         myGardens = (Button) findViewById(R.id.myGardens);
         gardensMap = (Button) findViewById(R.id.gardens);
         generateReport = (ImageButton) findViewById(R.id.generalReport);
+        ludification = (Button) findViewById(R.id.ludification);
 
         userId = getIntent().getStringExtra("userID");
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
 
         if (userId == null){
             AuthUtilities auth = new AuthUtilities();
@@ -165,11 +192,26 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent edit = new Intent(HomeActivity.this, DictionaryHome.class);
+                startActivity(edit);
+            }
+        });
+
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(userId != null) {
+                    Intent edit = new Intent(HomeActivity.this, EditUserActivity.class);
+                    edit.putExtra("userInfo", userId);
+                    startActivity(edit);
+                }
+                else{
+                    AuthUtilities auth = new AuthUtilities();
+                    userId = auth.getCurrentUserUid();
                     Intent edit = new Intent(HomeActivity.this, EditUserActivity.class);
                     edit.putExtra("userInfo", userId);
                     startActivity(edit);
@@ -227,21 +269,24 @@ public class HomeActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : value) {
                             String name = document.getString("GardenName");
                             String gardenId = document.getId();
+                            GardenPersistance persistance = new GardenPersistance();
+                            if(isOnline()) {
+                                persistance.getGardenPicture(gardenId, HomeActivity.this, new GardenPersistance.GetUri() {
+                                    @Override
+                                    public void onSuccess(String uri) {
+                                        ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);
+                                        gardenNames.add(newItem);
+                                        fillListGardens(gardenNames);
 
-                            ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId);
-                            gardenNames.add(newItem);
+                                    }
+                                });
+                            }else{
+                                ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, null);
+                                gardenNames.add(newItem);
+                                fillListGardens(gardenNames);
+                            }
                         }
-                    /*String newString;
-                    Bundle extras = getIntent().getExtras();
-                    if(extras==null){
-                        newString = null;
-                    }
-                    else {
-                        newString = extras.getString("idGarden");
-                    }
-                    idHuerta = newString;*/
-
-                        fillListGardens(gardenNames);
+                        //fillListGardens(gardenNames);
                     } else {
                         Toast.makeText(HomeActivity.this, "Error al obtener los documentos", Toast.LENGTH_SHORT).show();
                     }
@@ -252,9 +297,23 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void fillListGardens( List<ItemGardenHomeList> gardenInfoDocument){
-        GardenListAdapter adapter = new GardenListAdapter(this, gardenInfoDocument);
-        listAviableGardensInfo.setAdapter(adapter);
-        listAviableGardensInfo.setDividerHeight(5);
+        try {
+            if(isOnline()) {
+                Thread.sleep(65);
+            }
+            GardenListAdapter adapter = new GardenListAdapter(this, gardenInfoDocument);
+            listAviableGardensInfo.setAdapter(adapter);
+            listAviableGardensInfo.setDividerHeight(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
+    private boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
 }
