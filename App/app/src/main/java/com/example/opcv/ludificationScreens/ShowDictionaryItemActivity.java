@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.opcv.HomeActivity;
@@ -43,10 +44,18 @@ import com.example.opcv.item_list.ItemComments;
 import com.example.opcv.persistance.ludificationPersistance.LudificationPersistance;
 import com.example.opcv.persistance.userPersistance.UserPersistance;
 import com.google.android.flexbox.FlexboxLayout;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -267,6 +276,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
 
 
 
+
         sendComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -286,29 +296,54 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 recreate();
             }
         });
+
+        //Manejo de Likes y Dislikes
+        CollectionReference userActionsPoints = FirebaseFirestore.getInstance().collection("UserInfo").document(idUser).collection("UserActionsPoints");
+        Query query = userActionsPoints.whereEqualTo("idItem", docRef);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+               if (task.isSuccessful()){
+                   QuerySnapshot querySnapshot = task.getResult();
+                   if (querySnapshot.isEmpty()){
+                       likeButton.setEnabled(true);
+                       dislikeButton.setEnabled(true);
+                       likeButton.setBackgroundResource(R.drawable.im_like_green);
+                       dislikeButton.setBackgroundResource(R.drawable.im_dislike_red);
+                   }else{
+                       likeButton.setEnabled(false);
+                       dislikeButton.setEnabled(false);
+                       likeButton.setBackgroundResource(R.drawable.im_like_gray);
+                       dislikeButton.setBackgroundResource(R.drawable.im_dislike_gray);
+                   }
+
+               }
+            }
+        });
+
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //se llama a metodo que recibe element, docref, true (es decir que es de like) y se suma a variable likes
-                //LudificationLogic logic = new LudificationLogic();
                 logic.likesDislikes(docRef, true, element);
-                likeButton.setEnabled(false);
-                dislikeButton.setEnabled(false);
                 int number = Integer.parseInt(likeNumber.getText().toString());
                 number++;
                 String numberText = String.valueOf(number);
                 likeNumber.setText(numberText);
+                FirebaseFirestore database = FirebaseFirestore.getInstance();
+                Map<String, Object> like = new HashMap<>();
+                likeButton.setEnabled(false);
+                dislikeButton.setEnabled(false);
                 likeButton.setBackgroundResource(R.drawable.im_like_gray);
                 dislikeButton.setBackgroundResource(R.drawable.im_dislike_gray);
+                like.put("idItem", docRef);
+                like.put("like", true);
+                like.put("dislike", false);
+                database.collection("UserInfo").document(idUser).collection("UserActionsPoints").add(like);
             }
         });
         dislikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //se llama a metodo que recibe element, docref, false (es decir que es de dislike) y se suma a variable dislikes
-                //llama a metodo de levelLogic deductlevel
-                //LudificationLogic logic = new LudificationLogic();
-                //levelLogic level = new levelLogic();
                 level.deductLevel(docRef, element);
                 logic.likesDislikes(docRef, false, element);
                 likeButton.setEnabled(false);
@@ -319,6 +354,12 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 dislikeNumber.setText(numberText);
                 likeButton.setBackgroundResource(R.drawable.im_like_gray);
                 dislikeButton.setBackgroundResource(R.drawable.im_dislike_gray);
+                FirebaseFirestore database = FirebaseFirestore.getInstance();
+                Map<String, Object> like = new HashMap<>();
+                like.put("idItem", docRef);
+                like.put("like", false);
+                like.put("dislike", true);
+                database.collection("UserInfo").document(idUser).collection("UserActionsPoints").add(like);
             }
         });
 
