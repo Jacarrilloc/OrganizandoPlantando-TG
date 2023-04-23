@@ -508,6 +508,23 @@ public class LudificationPersistance implements Serializable {
         void onComplete(String name);
     }
 
+    public void getPublisherID(String element, String docRef, final GetPublisherId callback){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference ref = db.collection(element).document(docRef);
+        ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    callback.onComplete(task.getResult().getString("Publisher"));
+                }
+            }
+        });
+    }
+
+    public interface GetPublisherId{
+        void onComplete(String userID);
+    }
+
     public void getPublisherLevel(String idPublisher, final getPublisherLevel callback){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference ref = db.collection("UserInfo").document(idPublisher);
