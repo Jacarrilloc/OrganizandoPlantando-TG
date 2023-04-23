@@ -185,7 +185,8 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (authorLayout.getVisibility() == View.GONE) {
-                    author.setText(authorName.getText());
+                    String newText = removeFirstThreeLetters(authorName.getText().toString());
+                    author.setText(newText);
                     persistance.searchPublisherLevel(element, docRef, new LudificationPersistance.GetLevel() {
                         @Override
                         public void onSuccess(String leveli) {
@@ -444,6 +445,15 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
         return row;
+    }
+
+    public String removeFirstThreeLetters(String inputText) {
+        if (inputText.length() > 3) {
+            return inputText.substring(3);
+        } else {
+            // Si el texto tiene menos de 3 caracteres, devuelve una cadena vacía
+            return "";
+        }
     }
 
 }
