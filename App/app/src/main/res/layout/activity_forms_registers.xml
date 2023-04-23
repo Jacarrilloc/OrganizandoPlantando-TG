@@ -11,7 +11,7 @@
     <LinearLayout
         android:id="@+id/linearLayout10"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_66sdp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_32sdp"
         android:orientation="horizontal">
 
@@ -39,7 +39,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="@font/manropesemibold"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginEnd="@dimen/_12sdp"
             android:layout_marginStart="@dimen/_20sdp"
             android:textColor="@color/black"
             android:textSize="@dimen/_20sdp" />

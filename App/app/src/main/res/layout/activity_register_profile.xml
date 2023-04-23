@@ -148,7 +148,7 @@
                         android:layout_margin="@dimen/_5sdp"
                         android:layout_weight="1"
                         android:fontFamily="@font/manroperegular"
-                        android:text="@string/he_leido_los"
+                        android:text="@string/al_crear_una_cuenta_aceptas_los"
                         android:textColor="@color/black" />
 
                     <Button
@@ -163,13 +163,7 @@
                         android:textAllCaps="false"
                         android:textColor="@color/mainButtonColor" />
 
-                    <CheckBox
-                        android:id="@+id/okSignalTermsRegisterActivity"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_5sdp"
-                        android:layout_weight="1"
-                        android:buttonTint="@color/lightgray" />
+
                 </LinearLayout>
 
                 <Button
