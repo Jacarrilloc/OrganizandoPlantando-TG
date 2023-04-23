@@ -69,7 +69,7 @@ import java.util.Objects;
 public class EditUserActivity extends AppCompatActivity {
     private Button signOff, delete;
     private Button gardensMap, profile, myGardens, acceptChanges, changePhoto, ludification;
-    private TextView userNameTV, close, deleteP;
+    private TextView userNameTV, close, deleteP,levelInfo;
     private EditText userName, userLastName, userEmail, userPhone;
     private ImageView profilePhoto, borderImage;
     private FirebaseAuth autentication;
@@ -98,6 +98,7 @@ public class EditUserActivity extends AppCompatActivity {
             AuthUtilities info = new AuthUtilities();
             userID_Recived = info.getCurrentUserUid();
         }
+        levelInfo = findViewById(R.id.levelUser);
         changePhoto = findViewById(R.id.ChangeImageEditUser);
         profilePhoto = findViewById(R.id.userImageEditUserActivity);
         userNameTV = (TextView) findViewById(R.id.userName);
@@ -137,6 +138,7 @@ public class EditUserActivity extends AppCompatActivity {
 
                 double lvDouble = Double.parseDouble(leveli);
                 int lv = Double.valueOf(lvDouble).intValue();
+                levelInfo.setText("Nivel " + String.valueOf(lv));
 
                 if (lv >=0 && lv <10){
                     borderImage.setImageResource(R.drawable.im_level_1);
@@ -258,6 +260,7 @@ public class EditUserActivity extends AppCompatActivity {
                         String email = document.getData().get("Email").toString();
                         String lastname = document.getData().get("LastName").toString();
                         String phoneNumber = document.getData().get("PhoneNumber").toString();
+
                         int level;
                         try {
                             level = (int) document.getData().get("Level");

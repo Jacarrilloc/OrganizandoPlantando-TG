@@ -69,6 +69,15 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/levelUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/manroperegular"
+                    android:gravity="center"
+                    android:text="Nivel  " />
+
+                <TextView
                     android:id="@+id/userName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
