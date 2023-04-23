@@ -27,7 +27,6 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.adapter.FormsRegistersAdapter;
 import com.example.opcv.adapter.MyCollaborationsListAdapter;
-import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.gardens.GardenForms;
 import com.example.opcv.item_list.ItemCollaboratorsRequest;
 import com.example.opcv.item_list.ItemRegistersList;
@@ -53,7 +52,6 @@ public class FormsRegistersActivity extends AppCompatActivity {
     private FirebaseFirestore database;
     private FirebaseAuth autentication;
     private Button gardens, myGardens, profile;
-    private NetworkMonitorService monitorService = new NetworkMonitorService(FormsRegistersActivity.this);
 
     @Override
     protected void onStart() {

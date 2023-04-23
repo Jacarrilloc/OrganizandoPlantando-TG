@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 
 import android.content.Context;
 import android.content.Intent;
@@ -27,13 +28,11 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
-import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.CollaboratorUtilities;
 import com.example.opcv.formsScreen.Form_CIH;
 import com.example.opcv.formsScreen.Form_CPS;
 import com.example.opcv.formsScreen.Form_RAC;
 import com.example.opcv.info.GardenInfo;
-import com.example.opcv.localDatabase.DatabaseFormsHelper;
 import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -103,25 +102,6 @@ public class GardenActivity extends AppCompatActivity {
             owner = extras.getString("owner");
             //System.out.println("El que es "+ owner);
             SearchInfoGardenSreen(id,garden);
-        }
-
-        NetworkMonitorService test = new NetworkMonitorService(GardenActivity.this);
-        if(test.isOnline(GardenActivity.this)) {
-            DatabaseFormsHelper forms = new DatabaseFormsHelper(GardenActivity.this);
-            if(forms.checkDatabaseExists(GardenActivity.this)) {
-                if(forms.allTablesExist()) {
-                    test.syncFirestore_CIH(gardenID);
-                    test.syncFirestore_CPS(gardenID);
-                    test.syncFirestore_IMP(gardenID);
-                    test.syncFirestore_RAC(gardenID);
-                    test.syncFirestore_RCC(gardenID);
-                    test.syncFirestore_RE(gardenID);
-                    test.syncFirestore_RRH(gardenID);
-                    test.syncFirestore_SCMPH(gardenID);
-                    test.syncFirestore_RSMP(gardenID);
-                    test.syncFirestore_RHC(gardenID);
-                }
-            }
         }
 
         if(!Objects.equals(owner, "true")){
@@ -300,8 +280,6 @@ public class GardenActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-
             }
         });
 

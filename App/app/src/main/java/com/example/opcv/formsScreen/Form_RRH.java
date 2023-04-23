@@ -23,9 +23,8 @@ import com.example.opcv.MapsActivity;
 import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.HomeActivity;
 import com.example.opcv.R;
-import com.example.opcv.conectionInfo.NetworkMonitorService;
+import com.example.opcv.business.formsLogic.FormsLogic;
 import com.example.opcv.fbComunication.FormsUtilities;
-import com.example.opcv.localDatabase.DB_InsertForms;
 import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.example.opcv.notifications.Notifications;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -153,17 +152,15 @@ public class Form_RRH extends AppCompatActivity {
                     infoForm.put("performedBy",processPerformedBy);
                     infoForm.put("toolStatus",processStatus);
                     if(validateField(processDescription, toolQuantity, processPerformedBy, processStatus, conceptSelectedItem)){
-                        NetworkMonitorService connection = new NetworkMonitorService(Form_RRH.this);
 
-                        if(connection.isOnline(Form_RRH.this)){
-                            formsUtilities.createForm(Form_RRH.this,infoForm,idGardenFb);
-                        }
+                        FormsLogic newForm = new FormsLogic(Form_RRH.this);
+                        newForm.createForm(infoForm,idGardenFb);
 
-                        DB_InsertForms newForm = new DB_InsertForms(Form_RRH.this);
-                        //newForm.insertInto_RRH(infoForm);
                         Notifications notifications = new Notifications();
                         notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_RRH.this);
-                        //Toast.makeText(Form_RRH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+
+                        //newForm.insertInto_RRH(infoForm);
+                        Toast.makeText(Form_RRH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Form_RRH.this, HomeActivity.class));
                         finish();
                     }

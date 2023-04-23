@@ -23,9 +23,8 @@ import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
-import com.example.opcv.conectionInfo.NetworkMonitorService;
+import com.example.opcv.business.formsLogic.FormsLogic;
 import com.example.opcv.fbComunication.FormsUtilities;
-import com.example.opcv.localDatabase.DB_InsertForms;
 import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.example.opcv.notifications.Notifications;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -156,17 +155,15 @@ public class Form_RSMP extends AppCompatActivity {
                     infoForm.put("concept",conceptSelectedItem);
                     infoForm.put("state",stateR);
                     if(validateField(descriptionR, quantityR, totalR, stateR, conceptSelectedItem, unitSelectedItem)){
-                        NetworkMonitorService connection = new NetworkMonitorService(Form_RSMP.this);
 
-                        if(connection.isOnline(Form_RSMP.this)){
-                            formsUtilities.createForm(Form_RSMP.this,infoForm,idGardenFb);
-                        }
+                        FormsLogic newForm = new FormsLogic(Form_RSMP.this);
+                        newForm.createForm(infoForm,idGardenFb);
 
-                        DB_InsertForms newForm = new DB_InsertForms(Form_RSMP.this);
-                        //newForm.insertInto_RSMP(infoForm);
                         Notifications notifications = new Notifications();
                         notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_RSMP.this);
-                        //Toast.makeText(Form_RSMP.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+
+                        //newForm.insertInto_RSMP(infoForm);
+                        Toast.makeText(Form_RSMP.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Form_RSMP.this, HomeActivity.class));
                         finish();
                     }
@@ -313,6 +310,7 @@ public class Form_RSMP extends AppCompatActivity {
                 }
             }
         });
+        /*
         addFormButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -329,6 +327,8 @@ public class Form_RSMP extends AppCompatActivity {
                 }
             }
         });
+
+         */
     }
     private boolean validateField(String descriptionR,String quantityR, String totalR, String stateR, String concept, String units){
 

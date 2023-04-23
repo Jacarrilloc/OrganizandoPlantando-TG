@@ -18,10 +18,9 @@ import android.widget.Toast;
 
 import com.example.opcv.R;
 import com.example.opcv.auth.EditUserActivity;
-import com.example.opcv.conectionInfo.NetworkMonitorService;
+import com.example.opcv.business.formsLogic.FormsLogic;
 import com.example.opcv.fbComunication.FormsUtilities;
 import com.example.opcv.*;
-import com.example.opcv.localDatabase.DB_InsertForms;
 import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.example.opcv.notifications.Notifications;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -162,17 +161,15 @@ public class Form_RAC extends AppCompatActivity {
                     infoForm.put("collected humus",humus);
                     infoForm.put("amount leached",leached);
                     if(validateField(container, worms, humidity, waste, humus, leached)){
-                        NetworkMonitorService connection = new NetworkMonitorService(Form_RAC.this);
 
-                        if(connection.isOnline(Form_RAC.this)){
-                            formsUtilities.createForm(Form_RAC.this,infoForm,idGardenFb);
-                        }
+                        FormsLogic newForm = new FormsLogic(Form_RAC.this);
+                        newForm.createForm(infoForm,idGardenFb);
 
-                        DB_InsertForms newForm = new DB_InsertForms(Form_RAC.this);
-                        //newForm.insertInto_RAC(infoForm);
                         Notifications notifications = new Notifications();
                         notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_RAC.this);
-                        //Toast.makeText(Form_RAC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+
+                        //newForm.insertInto_RAC(infoForm);
+                        Toast.makeText(Form_RAC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Form_RAC.this, HomeActivity.class));
                         finish();
                     }
@@ -204,6 +201,7 @@ public class Form_RAC extends AppCompatActivity {
 
             }
         });
+        /*
         addFormButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -219,7 +217,7 @@ public class Form_RAC extends AppCompatActivity {
                     Toast.makeText(Form_RAC.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        });*/
     }
     private boolean validateField(String container,String worms, String humidity, String waste, String humus, String leached){
 

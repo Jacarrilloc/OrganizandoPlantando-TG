@@ -25,7 +25,6 @@ import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.adapter.MyCollaborationsListAdapter;
 import com.example.opcv.auth.EditUserActivity;
-import com.example.opcv.conectionInfo.NetworkMonitorService;
 import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.fbComunication.CollaboratorUtilities;
 import com.example.opcv.info.GardenInfo;
@@ -53,7 +52,6 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
     private ListView listGardens;
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
-    private NetworkMonitorService monitorService = new NetworkMonitorService(CollaboratorGardensActivity.this);
 
     @Override
     protected void onStart() {
