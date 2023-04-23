@@ -31,6 +31,7 @@ public class FormsRepository {
         mExecutor.execute(() -> {
             // Comprobar la conectividad a Internet
             boolean isOnline = isOnline();
+            /*
             if (isOnline) {
                 mFirestore.collection("Gardens").document(idGarden).collection("Forms").add(infoForm).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -43,7 +44,7 @@ public class FormsRepository {
                         }
                     }
                 });
-            }
+            }*/
 
             // Insertar en la base de datos local siempre
             mLocalDatabase.runInTransaction(() -> {
@@ -83,6 +84,7 @@ public class FormsRepository {
         mExecutor.execute(() -> {
             // Comprobar la conectividad a Internet
             boolean isOnline = isOnline();
+            /*
             if (isOnline) {
                 mFirestore.collection("Gardens").document(idGarden).collection("Forms").add(infoForm).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -95,7 +97,7 @@ public class FormsRepository {
                         }
                     }
                 });
-            }
+            }*/
 
             // Insertar en la base de datos local siempre
             mLocalDatabase.runInTransaction(() -> {
@@ -135,6 +137,7 @@ public class FormsRepository {
         mExecutor.execute(() -> {
             // Comprobar la conectividad a Internet
             boolean isOnline = isOnline();
+            /*
             if (isOnline) {
                 mFirestore.collection("Gardens").document(idGarden).collection("Forms").add(infoForm).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -147,7 +150,7 @@ public class FormsRepository {
                         }
                     }
                 });
-            }
+            }*/
 
             // Insertar en la base de datos local siempre
             mLocalDatabase.runInTransaction(() -> {
@@ -187,7 +190,7 @@ public class FormsRepository {
         mExecutor.execute(() -> {
             // Comprobar la conectividad a Internet
             boolean isOnline = isOnline();
-            if (isOnline) {
+            /*if (isOnline) {
                 mFirestore.collection("Gardens").document(idGarden).collection("Forms").add(infoForm).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         if (listener != null) {
@@ -199,7 +202,7 @@ public class FormsRepository {
                         }
                     }
                 });
-            }
+            }*/
 
             // Insertar en la base de datos local siempre
             mLocalDatabase.runInTransaction(() -> {
@@ -239,6 +242,7 @@ public class FormsRepository {
         mExecutor.execute(() -> {
             // Comprobar la conectividad a Internet
             boolean isOnline = isOnline();
+            /*
             if (isOnline) {
                 mFirestore.collection("Gardens").document(idGarden).collection("Forms").add(infoForm).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -251,7 +255,7 @@ public class FormsRepository {
                         }
                     }
                 });
-            }
+            }*/
 
             // Insertar en la base de datos local siempre
             mLocalDatabase.runInTransaction(() -> {
@@ -291,6 +295,7 @@ public class FormsRepository {
         mExecutor.execute(() -> {
             // Comprobar la conectividad a Internet
             boolean isOnline = isOnline();
+            /*
             if (isOnline) {
                 mFirestore.collection("Gardens").document(idGarden).collection("Forms").add(infoForm).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -303,7 +308,7 @@ public class FormsRepository {
                         }
                     }
                 });
-            }
+            }*/
 
             // Insertar en la base de datos local siempre
             mLocalDatabase.runInTransaction(() -> {
@@ -343,6 +348,7 @@ public class FormsRepository {
         mExecutor.execute(() -> {
             // Comprobar la conectividad a Internet
             boolean isOnline = isOnline();
+            /*
             if (isOnline) {
                 mFirestore.collection("Gardens").document(idGarden).collection("Forms").add(infoForm).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -358,7 +364,7 @@ public class FormsRepository {
 
                 Notifications notifications = new Notifications();
                 notifications.notification("Formulario creado", "Tienes Conexion, Formulario Subido", mContext);
-            }
+            }*/
 
             // Insertar en la base de datos local siempre
             mLocalDatabase.runInTransaction(() -> {
@@ -398,6 +404,7 @@ public class FormsRepository {
         mExecutor.execute(() -> {
             // Comprobar la conectividad a Internet
             boolean isOnline = isOnline();
+            /*
             if (isOnline) {
                 mFirestore.collection("Gardens").document(idGarden).collection("Forms").add(infoForm).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -410,7 +417,7 @@ public class FormsRepository {
                         }
                     }
                 });
-            }
+            }*/
 
             // Insertar en la base de datos local siempre
             mLocalDatabase.runInTransaction(() -> {
@@ -450,6 +457,7 @@ public class FormsRepository {
         mExecutor.execute(() -> {
             // Comprobar la conectividad a Internet
             boolean isOnline = isOnline();
+            /*
             if (isOnline) {
                 mFirestore.collection("Gardens").document(idGarden).collection("Forms").add(infoForm).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -462,7 +470,7 @@ public class FormsRepository {
                         }
                     }
                 });
-            }
+            }*/
 
             // Insertar en la base de datos local siempre
             mLocalDatabase.runInTransaction(() -> {
@@ -502,6 +510,7 @@ public class FormsRepository {
         mExecutor.execute(() -> {
             // Comprobar la conectividad a Internet
             boolean isOnline = isOnline();
+            /*
             if (isOnline) {
                 mFirestore.collection("Gardens").document(idGarden).collection("Forms").add(infoForm).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -514,7 +523,7 @@ public class FormsRepository {
                         }
                     }
                 });
-            }
+            }*/
 
             // Insertar en la base de datos local siempre
             mLocalDatabase.runInTransaction(() -> {

@@ -84,11 +84,12 @@
                     android:layout_marginRight="@dimen/_60sdp"
                     android:fontFamily="@font/manropemedium"
                     android:layout_marginBottom="@dimen/_20sdp"
+                    android:textAllCaps="false"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:background="@drawable/dr_white_button"
                     android:backgroundTint="@color/white"
                     android:gravity="center"
-                    android:textSize="@dimen/_15sdp"
+                    android:textSize="@dimen/_17sdp"
                     android:text="@string/aceptar"
                     android:textColor="@android:color/black" />
             </LinearLayout>
