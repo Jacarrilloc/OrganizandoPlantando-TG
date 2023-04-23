@@ -21,6 +21,9 @@ import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -38,6 +41,7 @@ import com.example.opcv.gardens.CreateGardenActivity;
 import com.example.opcv.gardens.GardenEditActivity;
 import com.example.opcv.info.User;
 import com.example.opcv.ludificationScreens.DictionaryHome;
+import com.example.opcv.persistance.ludificationPersistance.LudificationPersistance;
 import com.example.opcv.persistance.userPersistance.UserPersistance;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -67,7 +71,7 @@ public class EditUserActivity extends AppCompatActivity {
     private Button gardensMap, profile, myGardens, acceptChanges, changePhoto, ludification;
     private TextView userNameTV, close, deleteP;
     private EditText userName, userLastName, userEmail, userPhone;
-    private ImageView profilePhoto;
+    private ImageView profilePhoto, borderImage;
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
     private User userActive;
@@ -110,19 +114,42 @@ public class EditUserActivity extends AppCompatActivity {
         myGardens = (Button) findViewById(R.id.myGardens);
         gardensMap = (Button) findViewById(R.id.gardens);
         acceptChanges = (Button) findViewById(R.id.editUser);
+        borderImage = (ImageView) findViewById(R.id.imageLevel);
         UserPersistance persistance = new UserPersistance();
+        LudificationPersistance persistanceLudi = new LudificationPersistance();
 
         searchUserInfo();
         persistance.getProfilePicture(userID_Recived, new UserPersistance.GetUriUser() {
             @Override
             public void onComplete(String uri) {
                 if(!Objects.equals(uri, "")){
-
                     Glide.with(EditUserActivity.this).load(uri).into(profilePhoto);
                 }
                 else{
                     profilePhoto.setImageResource(R.drawable.im_logo_ceres);
                 }
+            }
+        });
+
+        persistance.getUserLevel(userID_Recived, new UserPersistance.GetUserLvl() {
+            @Override
+            public void onComplete(String leveli) {
+
+                double lvDouble = Double.parseDouble(leveli);
+                int lv = Double.valueOf(lvDouble).intValue();
+
+                if (lv >=0 && lv <10){
+                    borderImage.setImageResource(R.drawable.im_level_1);
+                }else if (lv>= 10 && lv <30) {
+                    borderImage.setImageResource(R.drawable.im_level_2);
+                } else if (lv>=30 && lv <60) {
+                    borderImage.setImageResource(R.drawable.im_level_3);
+                } else if (lv >= 60 && lv <100) {
+                    borderImage.setImageResource(R.drawable.im_level_4);
+                } else if (lv >= 100) {
+                    borderImage.setImageResource(R.drawable.im_level_5);
+                }
+
             }
         });
 

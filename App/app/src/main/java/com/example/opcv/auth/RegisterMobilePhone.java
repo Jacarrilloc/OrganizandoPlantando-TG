@@ -46,14 +46,6 @@ public class RegisterMobilePhone extends AppCompatActivity {
                 String PhoneNumberAdded = phone.getText().toString();
                 newUser.setPhoneNumber(PhoneNumberAdded);
                 callSelectPhoto(newUser);
-                /*
-                AuthUtilities authUtilities = new AuthUtilities();
-                if(!authUtilities.createUser(emailRegister,passwordRegister,newUserInfo,RegisterMobilePhone.this)){
-                    Intent intent = new Intent(RegisterMobilePhone.this, HomeActivity.class);
-                    intent.putExtra("authUtilities", authUtilities);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                }*/
             }
         });
 

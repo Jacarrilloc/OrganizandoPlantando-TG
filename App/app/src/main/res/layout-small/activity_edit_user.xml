@@ -61,7 +61,7 @@
                             android:id="@+id/ChangeImageEditUser"
                             android:layout_width="@dimen/_50sdp"
                             android:layout_height="@dimen/_50sdp"
-                            android:layout_gravity="start|bottom"
+                            android:layout_gravity="end|top"
                             android:background="@drawable/im_add_image" />
 
                     </FrameLayout>
