@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_90sdp"
     android:layout_gravity="center_horizontal"
-    android:layout_marginHorizontal="@dimen/_5sdp"
+    android:layout_marginTop="@dimen/_10sdp"
+    android:layout_marginBottom="@dimen/_5sdp"
     android:background="@drawable/dr_green_button">
 
     <TextView
         android:id="@+id/textForms"
-        android:layout_height="@dimen/_60sdp"
-        android:layout_width="@dimen/_280sdp"
-        android:layout_gravity="center"
+        android:layout_height="@dimen/_70sdp"
+        android:layout_width="match_parent"
+        android:gravity="left"
         android:textColor="@color/white"
+        android:fontFamily="@font/manroperegular"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:layout_margin="@dimen/_15sdp"
         android:textSize="@dimen/_18sdp"
-        android:text="formsName" />
+        android:text="@string/formsname"
+        tools:ignore="RtlHardcoded" />
 </LinearLayout>

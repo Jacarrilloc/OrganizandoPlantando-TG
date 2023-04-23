@@ -49,31 +49,30 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="@dimen/_122sdp"
+                        android:layout_width="@dimen/_140sdp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/gardenNameText"
-                            android:layout_width="108dp"
+                            android:layout_width="@dimen/_110sdp"
+                            android:fontFamily="@font/manropemedium"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_1sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
                             android:layout_marginTop="@dimen/_4sdp"
-                            android:fontFamily="sans-serif"
-                            android:text="Ozaín"
+                            android:text="@string/oza_n"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_20sdp" />
+                            android:textSize="@dimen/_25sdp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/_20sdp"
-                        android:layout_marginEnd="@dimen/_1sdp"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:layout_marginEnd="@dimen/_5sdp"
                         android:orientation="horizontal">
 
                         <ImageButton
@@ -82,7 +81,6 @@
                             android:layout_height="@dimen/_32sdp"
                             android:layout_gravity="center"
                             android:layout_margin="@dimen/_8sdp"
-                            android:layout_marginStart="@dimen/_400sdp"
                             android:background="@drawable/im_edit_icon"
                             android:contentDescription="@string/boton_para_a_adir_personas"
                             android:scaleType="centerInside" />
@@ -121,22 +119,25 @@
                 </LinearLayout>
 
                 <TextView
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:id="@+id/comabaquinta"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_4sdp"
+                    android:fontFamily="@font/manropemedium"
                     android:text="@string/informaci_n_de_huerta"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_18sdp"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/_18sdp" />
 
                 <TextView
                     android:id="@+id/descriptionGarden"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_4sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:layout_weight="1"
                     android:text="@string/description"
+                    android:fontFamily="@font/manroperegular"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_16sdp" />
 
@@ -155,7 +156,7 @@
                             android:layout_width="@dimen/_27sdp"
                             android:layout_height="@dimen/_27sdp"
                             android:layout_gravity="center"
-                            android:layout_margin="@dimen/_2sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
                             android:scaleType="centerCrop"
                             app:srcCompat="@drawable/im_user_icon2" />
 
@@ -163,11 +164,11 @@
                             android:id="@+id/gardenParticipants"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/_5sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:fontFamily="@font/manropemedium"
                             android:text="@string/participants1"
                             android:textColor="@color/gray"
-                            android:textSize="@dimen/_16sdp"
-                            android:textStyle="italic" />
+                            android:textSize="@dimen/_16sdp"/>
                     </LinearLayout>
 
 
@@ -178,9 +179,9 @@
                             android:layout_marginStart="@dimen/_5sdp"
                             android:layout_marginTop="@dimen/_20sdp"
                             android:text="@string/formularioss"
+                        android:fontFamily="@font/manropemedium"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_18sdp"
-                            android:textStyle="bold" />
+                            android:textSize="@dimen/_18sdp"/>
 
 
                     <ImageView
@@ -219,7 +220,7 @@
                                 android:layout_gravity="center"
                                 android:layout_margin="@dimen/_5sdp"
                                 android:background="@drawable/im_worm"
-                                android:contentDescription="Lombricultura"
+                                android:contentDescription="@string/lombricultura"
                                 android:padding="@dimen/_10sdp"
                                 android:scaleType="centerCrop" />
 
@@ -229,11 +230,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_margin="@dimen/_2sdp"
+                                android:fontFamily="@font/manropemedium"
                                 android:gravity="center"
-                                android:text="Lombricultura"
+                                android:text="@string/lombricultura"
                                 android:textColor="#040404"
-                                android:textSize="@dimen/_14sdp"
-                                android:textStyle="bold" />
+                                android:textSize="@dimen/_14sdp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -250,7 +251,7 @@
                                 android:layout_height="@dimen/_90sdp"
                                 android:layout_margin="@dimen/_5sdp"
                                 android:background="@drawable/im_shovel"
-                                android:contentDescription="Herramientas"
+                                android:contentDescription="@string/herramientas"
                                 android:padding="@dimen/_10sdp"
                                 android:scaleType="fitCenter" />
 
@@ -259,11 +260,11 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:fontFamily="@font/manropemedium"
                                 android:layout_margin="@dimen/_2sdp"
-                                android:text="Herramientas"
+                                android:text="@string/herramientas"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_14sdp"
-                                android:textStyle="bold" />
+                                android:textSize="@dimen/_14sdp"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -281,7 +282,7 @@
                                 android:layout_gravity="center"
                                 android:layout_margin="@dimen/_5sdp"
                                 android:background="@drawable/im_small_shovel"
-                                android:contentDescription="Proceso de siembra"
+                                android:contentDescription="@string/proceso_de_siembra"
                                 android:padding="@dimen/_10sdp"
                                 android:scaleType="centerCrop" />
 
@@ -291,10 +292,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_margin="@dimen/_2sdp"
-                                android:text="Proceso de siembra"
+                                android:fontFamily="@font/manropemedium"
+                                android:text="@string/proceso_de_siembra"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_14sdp"
-                                android:textStyle="bold" />
+                                android:textSize="@dimen/_14sdp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -321,10 +322,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_margin="@dimen/_2sdp"
-                                android:text="Ver más Formularios"
+                                android:text="@string/ver_m_s_formularios"
+                                android:fontFamily="@font/manropemedium"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_14sdp"
-                                android:textStyle="bold" />
+                                android:textSize="@dimen/_14sdp"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -332,11 +333,13 @@
 
                 <Button
                     android:id="@+id/formsRegister"
-                    android:layout_width="@dimen/_290sdp"
-                    android:layout_height="@dimen/_47sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:layout_marginEnd="@dimen/_30sdp"
                     android:background="@drawable/dr_green_button"
                     android:backgroundTint="#91BF63"
                     android:gravity="center"
@@ -355,25 +358,24 @@
     <LinearLayout
         android:id="@+id/linearLayout8"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_100sdp"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/dr_shadow_top"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/ludification"
             android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="@dimen/_3sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
@@ -384,12 +386,15 @@
             android:layout_width="@dimen/_79sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="@dimen/_3sdp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
-            android:padding="10dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
@@ -401,11 +406,14 @@
             android:layout_width="@dimen/_107sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="@dimen/_3sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
@@ -418,12 +426,15 @@
             android:layout_width="@dimen/_60sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
+            android:layout_marginStart="@dimen/_1sdp"
             android:layout_marginBottom="@dimen/_2sdp"
+            android:fontFamily="@font/manropemedium"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"

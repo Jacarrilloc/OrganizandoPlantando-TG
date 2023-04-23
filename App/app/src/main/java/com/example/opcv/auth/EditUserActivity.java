@@ -21,6 +21,9 @@ import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,6 +40,8 @@ import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.CreateGardenActivity;
 import com.example.opcv.gardens.GardenEditActivity;
 import com.example.opcv.info.User;
+import com.example.opcv.ludificationScreens.DictionaryHome;
+import com.example.opcv.persistance.ludificationPersistance.LudificationPersistance;
 import com.example.opcv.persistance.userPersistance.UserPersistance;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -63,10 +68,10 @@ import java.util.Objects;
 
 public class EditUserActivity extends AppCompatActivity {
     private Button signOff, delete;
-    private Button gardensMap, profile, myGardens, acceptChanges, changePhoto;
+    private Button gardensMap, profile, myGardens, acceptChanges, changePhoto, ludification;
     private TextView userNameTV, close, deleteP;
     private EditText userName, userLastName, userEmail, userPhone;
-    private ImageView profilePhoto;
+    private ImageView profilePhoto, borderImage;
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
     private User userActive;
@@ -100,7 +105,7 @@ public class EditUserActivity extends AppCompatActivity {
         userLastName = (EditText) findViewById(R.id.lastNameInfo);
         userEmail = (EditText) findViewById(R.id.gardenName);
         userPhone = (EditText) findViewById(R.id.address);
-
+        ludification = (Button) findViewById(R.id.ludification);
         signOff = (Button) findViewById(R.id.options);
         delete = (Button) findViewById(R.id.options3);
         close = (TextView) findViewById(R.id.options2);
@@ -109,19 +114,42 @@ public class EditUserActivity extends AppCompatActivity {
         myGardens = (Button) findViewById(R.id.myGardens);
         gardensMap = (Button) findViewById(R.id.gardens);
         acceptChanges = (Button) findViewById(R.id.editUser);
+        borderImage = (ImageView) findViewById(R.id.imageLevel);
         UserPersistance persistance = new UserPersistance();
+        LudificationPersistance persistanceLudi = new LudificationPersistance();
 
         searchUserInfo();
         persistance.getProfilePicture(userID_Recived, new UserPersistance.GetUriUser() {
             @Override
             public void onComplete(String uri) {
                 if(!Objects.equals(uri, "")){
-
                     Glide.with(EditUserActivity.this).load(uri).into(profilePhoto);
                 }
                 else{
                     profilePhoto.setImageResource(R.drawable.im_logo_ceres);
                 }
+            }
+        });
+
+        persistance.getUserLevel(userID_Recived, new UserPersistance.GetUserLvl() {
+            @Override
+            public void onComplete(String leveli) {
+
+                double lvDouble = Double.parseDouble(leveli);
+                int lv = Double.valueOf(lvDouble).intValue();
+
+                if (lv >=0 && lv <10){
+                    borderImage.setImageResource(R.drawable.im_level_1);
+                }else if (lv>= 10 && lv <30) {
+                    borderImage.setImageResource(R.drawable.im_level_2);
+                } else if (lv>=30 && lv <60) {
+                    borderImage.setImageResource(R.drawable.im_level_3);
+                } else if (lv >= 60 && lv <100) {
+                    borderImage.setImageResource(R.drawable.im_level_4);
+                } else if (lv >= 100) {
+                    borderImage.setImageResource(R.drawable.im_level_5);
+                }
+
             }
         });
 
@@ -205,25 +233,16 @@ public class EditUserActivity extends AppCompatActivity {
                 }
             }
         });
+
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent edit = new Intent(EditUserActivity.this, DictionaryHome.class);
+                startActivity(edit);
+            }
+        });
     }
 
-    /*private void searchUserInfo() {
-        DB_User info = new DB_User(this);
-        Map<String, Object> userInfo = info.getUserInfo();
-        if (userInfo != null) {
-            AuthUtilities userFB = new AuthUtilities();
-            String name = userInfo.get("Name").toString();
-            String email = userInfo.get("Email").toString();
-            String lastname = userInfo.get("LastName").toString();
-            String phoneNumber = userInfo.get("PhoneNumber").toString();
-            userNameTV.setText(name);
-            userName.setText(name);
-            userLastName.setText(lastname);
-            userEmail.setText("Comabaquinta");
-            userPhone.setText(phoneNumber);
-            getPhotoProfileUser(userFB.getCurrentUserUid());
-        }
-    }*/
 
 
     private void searchUserInfo(){

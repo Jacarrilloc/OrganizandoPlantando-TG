@@ -2,44 +2,51 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_20sdp"
     android:backgroundTint="@color/white">
 
     <LinearLayout
-        android:layout_width="@dimen/_280sdp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="@dimen/_280sdp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/UserImage"
-                android:layout_width="@dimen/_95sdp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
                 android:layout_height="@dimen/_60sdp"
                 android:layout_margin="@dimen/_5sdp"
                 android:padding="@dimen/_10sdp" />
 
             <TextView
                 android:id="@+id/userName"
+                android:layout_weight="1"
                 android:textSize="@dimen/_18sdp"
-                android:layout_width="@dimen/_140sdp"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/manropemedium"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="@string/nombre_usuario"
                 android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/deleteButton"
-                android:layout_width="@dimen/_31sdp"
+                android:layout_width="match_parent"
+                android:layout_weight="1.35"
                 android:layout_height="@dimen/_26sdp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_2sdp"
-                android:layout_marginRight="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
                 android:background="@drawable/im_delete_icon" />
 
         </LinearLayout>

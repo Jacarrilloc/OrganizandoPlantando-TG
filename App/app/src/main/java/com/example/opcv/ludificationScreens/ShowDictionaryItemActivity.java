@@ -63,7 +63,6 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
     private ImageView borderImage, dotborderImage;
 
     private CircleImageView image;
-    private LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +93,6 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         input = (EditText) findViewById(R.id.inputText);
         image = (CircleImageView) findViewById(R.id.imageItem);
         dotborderImage = (ImageView) findViewById(R.id.border);
-        linearLayout = (LinearLayout) findViewById(R.id.linearLayout8);
 
         //Vista del autor de la descripción
         authorLayout = (FrameLayout) findViewById(R.id.authorCard);
@@ -168,14 +166,12 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                linearLayout.setVisibility(View.INVISIBLE);
                 add.setVisibility(View.INVISIBLE);
                 add.setClickable(false);
                 add.setFocusable(false);
                 sendComment.setVisibility(View.VISIBLE);
                 sendComment.setClickable(true);
                 sendComment.setFocusable(true);
-
                 input.setVisibility(View.VISIBLE);
                 input.setClickable(true);
                 input.setFocusable(true);
@@ -189,7 +185,8 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (authorLayout.getVisibility() == View.GONE) {
-                    author.setText(authorName.getText());
+                    String newText = removeFirstThreeLetters(authorName.getText().toString());
+                    author.setText(newText);
                     persistance.searchPublisherLevel(element, docRef, new LudificationPersistance.GetLevel() {
                         @Override
                         public void onSuccess(String leveli) {
@@ -265,10 +262,9 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 String textInput = String.valueOf(input.getText());
                 if(!textInput.isEmpty()){
                     logic.addComments(element, idUser,  textInput, docRef, ShowDictionaryItemActivity.this);
-                    level.addLevel(idUser, false, ShowDictionaryItemActivity.this, element);
+                    //level.addLevel(idUser, false, ShowDictionaryItemActivity.this);
 
                 }
-                linearLayout.setVisibility(View.VISIBLE);
                 recreate();
             }
         });
@@ -449,6 +445,15 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
         return row;
+    }
+
+    public String removeFirstThreeLetters(String inputText) {
+        if (inputText.length() > 3) {
+            return inputText.substring(3);
+        } else {
+            // Si el texto tiene menos de 3 caracteres, devuelve una cadena vacía
+            return "";
+        }
     }
 
 }

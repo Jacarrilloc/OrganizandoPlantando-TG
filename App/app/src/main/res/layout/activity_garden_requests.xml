@@ -38,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:fontFamily="@font/manropemedium"
             android:layout_marginStart="@dimen/_20sdp"
             android:text="@string/solicitudes"
             android:textColor="@color/black"
@@ -52,12 +53,14 @@
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginBottom="@dimen/_14sdp"
         android:background="@drawable/im_gray_line"
-        android:contentDescription="La imagen" />
+        android:contentDescription="@string/la_imagen" />
 
     <ListView
         android:id="@+id/listViewCollabs"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_400sdp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:clickable="false"
         android:focusable="false" />

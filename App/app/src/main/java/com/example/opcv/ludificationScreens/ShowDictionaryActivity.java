@@ -20,6 +20,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.adapter.PlantsToolsAdapter;
@@ -132,7 +133,7 @@ public class ShowDictionaryActivity extends AppCompatActivity {
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ShowDictionaryActivity.this, GardensAvailableActivity.class));
+                startActivity(new Intent(ShowDictionaryActivity.this, HomeActivity.class));
             }
         });
 

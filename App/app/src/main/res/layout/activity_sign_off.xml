@@ -16,14 +16,15 @@
 
         <ImageView
             android:id="@+id/decorationLogo"
-            android:layout_width="@dimen/_403sdp"
-            android:layout_height="@dimen/_348sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_16sdp"
             app:srcCompat="@drawable/im_lines_decoration" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -32,50 +33,58 @@
 
                 <ImageView
                     android:id="@+id/ceresLogo2"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_165sdp"
                     app:srcCompat="@drawable/im_logo_ceres_green" />
 
                 <TextView
                     android:id="@+id/signOffText"
-                    android:layout_width="@dimen/_348sdp"
-                    android:layout_height="@dimen/_80sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:contextClickable="false"
-                    android:fontFamily="sans-serif"
-                    android:text="¿Esta seguro de cerrar sesión?"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:fontFamily="@font/manropemedium"
+                    android:text="@string/esta_seguro_de_cerrar_sesi_n"
                     android:textAlignment="center"
                     android:textColor="#0B0A0A"
                     android:textSize="@dimen/_28sdp" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_30sdp"
+                    android:gravity="center"
                     android:layout_marginTop="@dimen/_50sdp"
                     android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/returnButton2"
-                        android:layout_width="@dimen/_126sdp"
-                        android:layout_height="@dimen/_51sdp"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
                         android:background="@drawable/dr_green_button"
                         android:backgroundTint="#91BF63"
-                        android:fontFamily="sans-serif"
+                        android:fontFamily="@font/manropemedium"
                         android:text="@string/regresar"
                         android:textAllCaps="false"
-                        android:textSize="@dimen/_20sdp"
+                        android:textSize="@dimen/_18sdp"
                         android:textStyle="normal" />
 
                     <Button
                         android:id="@+id/closeButton"
-                        android:layout_width="@dimen/_126sdp"
-                        android:layout_height="@dimen/_51sdp"
-                        android:layout_marginEnd="@dimen/_36sdp"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/_40sdp"
                         android:background="@drawable/dr_cancel_button"
-                        android:fontFamily="sans-serif"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:fontFamily="@font/manropemedium"
                         android:text="@string/cerrar"
                         android:textAllCaps="false"
-                        android:textSize="@dimen/_20sdp" />
+                        android:textSize="@dimen/_18sdp" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
@@ -85,8 +94,7 @@
     <LinearLayout
         android:id="@+id/linearLayout8"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_122sdp"
-
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/dr_shadow_top"
         android:orientation="horizontal">
 
@@ -95,67 +103,79 @@
             android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="7dp"
-            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters"
-            android:textSize="@dimen/_13sdp" />
+            android:textColor="@color/grayLetters" />
 
         <Button
             android:id="@+id/gardens"
             android:layout_width="@dimen/_79sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
-            android:layout_weight="1"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
-            android:padding="10dp"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters"
-            android:textSize="@dimen/_13sdp" />
+            android:textColor="@color/grayLetters" />
 
         <Button
             android:id="@+id/myGardens"
             android:layout_width="@dimen/_107sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
-            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Gardens"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters"
-            android:textSize="@dimen/_13sdp" />
+            android:textColor="@color/grayLetters" />
 
         <Button
             android:id="@+id/profile"
             android:layout_width="@dimen/_60sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
-            android:layout_weight="1"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:fontFamily="@font/manropemedium"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters"
-            android:textSize="@dimen/_13sdp" />
+            android:textColor="@color/grayLetters" />
 
 
     </LinearLayout>

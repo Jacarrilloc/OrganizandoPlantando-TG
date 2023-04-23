@@ -25,6 +25,7 @@
         android:gravity="center"
         android:ellipsize="end"
         android:maxLines="1"
+        android:fontFamily="@font/manroperegular"
         android:paddingRight="@dimen/_8sdp"
         android:paddingLeft="@dimen/_8sdp"
         android:text="@string/plant"
