@@ -34,16 +34,19 @@
             app:srcCompat="@drawable/dr_return_arrow"
             android:focusable="true" />
 
+
+
         <TextView
             android:id="@+id/form_RE_name"
+            android:text="@string/registro_de_evento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:text="@string/registro_de_evento"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:fontFamily="@font/manropesemibold"
             android:textColor="@color/black"
-            android:textSize="@dimen/_20sdp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_17sdp" />
 
 
     </LinearLayout>
@@ -57,6 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingBottom="@dimen/_15sdp"
             android:background="@color/white"
             android:layout_margin="@dimen/_20sdp">
 
@@ -65,6 +69,7 @@
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manropemedium"
                 android:layout_margin="@dimen/_2sdp"
                 android:textSize="@dimen/_15sdp"
                 android:text="@string/fecha" />
@@ -84,6 +89,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manropemedium"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textSize="@dimen/_15sdp"
                 android:textColor="@color/black"
@@ -106,20 +112,24 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/manroperegular"
                     android:textSize="@dimen/_15sdp"
+                    android:layout_weight="1"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:text="@string/personas_que_asistieron" />
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:text="@string/personas_que_asistieron"
+                    android:layout_marginBottom="@dimen/_10sdp"/>
 
                 <EditText
                     android:id="@+id/totalPerson"
                     android:inputType="number"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -132,6 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_18sdp"
+                android:fontFamily="@font/manropemedium"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:textColor="@color/black"
@@ -144,16 +155,20 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:textSize="@dimen/_15sdp"
+                    android:layout_weight="1"
                     android:textColor="@color/black"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/mujeres" />
 
                 <EditText
                     android:id="@+id/female"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/manroperegular"
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -169,10 +184,12 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:textSize="@dimen/_15sdp"
+                    android:layout_weight="1"
                     android:textColor="@color/black"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/hombres" />
@@ -180,8 +197,10 @@
                 <EditText
                     android:id="@+id/male"
                     android:inputType="number"
+                    android:layout_weight="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
@@ -194,20 +213,24 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:textSize="@dimen/_15sdp"
+                    android:fontFamily="@font/manroperegular"
                     android:textColor="@color/black"
+                    android:layout_weight="1"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/no_especificado" />
 
                 <EditText
                     android:id="@+id/noSpecificated"
                     android:inputType="number"
+                    android:layout_weight="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_2sdp"
+                    android:fontFamily="@font/manroperegular"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
@@ -217,6 +240,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_18sdp"
                 android:gravity="center"
+                android:fontFamily="@font/manropemedium"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:textColor="@color/black"
                 android:text="@string/asistencia_seg_n_el_rango_de_edad" />
@@ -228,17 +252,21 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/manroperegular"
                     android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
+                    android:layout_weight="1"
                     android:layout_marginEnd="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
                     android:text="@string/primera_infancia_0_5_a_os" />
 
                 <EditText
                     android:id="@+id/infant"
                     android:inputType="number"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_weight="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_2sdp"
@@ -253,10 +281,12 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
                     android:textSize="@dimen/_15sdp"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_weight="1"
+                    android:paddingBottom="@dimen/_10sdp"
                     android:textColor="@color/black"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/infancia_6_11_a_os" />
@@ -264,6 +294,8 @@
                 <EditText
                     android:id="@+id/childhood"
                     android:inputType="number"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_weight="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_2sdp"
@@ -278,19 +310,23 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/manroperegular"
                     android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
                     android:layout_marginEnd="@dimen/_10sdp"
-                    android:text="@string/adolescencia_12_18_a_os" />
+                    android:text="@string/adolescencia_12_18_a_os"
+                    android:paddingBottom="@dimen/_10sdp"/>
 
                 <EditText
                     android:id="@+id/teen"
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_weight="2"
                     android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
@@ -303,18 +339,22 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/manroperegular"
                     android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
                     android:layout_marginEnd="@dimen/_10sdp"
-                    android:text="@string/juventud_19_26_a_os" />
+                    android:text="@string/juventud_19_26_a_os"
+                    android:paddingBottom="@dimen/_10sdp"/>
 
                 <EditText
                     android:id="@+id/youth"
+                    android:layout_weight="2"
                     android:inputType="number"
                     android:layout_width="match_parent"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
@@ -322,15 +362,17 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_weight="1"
+                    android:paddingBottom="@dimen/_10sdp"
                     android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
                     android:layout_marginEnd="@dimen/_10sdp"
@@ -338,6 +380,7 @@
 
                 <EditText
                     android:id="@+id/adult"
+                    android:layout_weight="2"
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -353,9 +396,11 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/manroperegular"
                     android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
                     android:layout_marginEnd="@dimen/_10sdp"
@@ -363,8 +408,10 @@
 
                 <EditText
                     android:id="@+id/elderly"
+                    android:layout_weight="2"
                     android:inputType="number"
                     android:layout_width="match_parent"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
@@ -377,6 +424,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_18sdp"
                 android:gravity="center"
+                android:fontFamily="@font/manropemedium"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:textColor="@color/black"
                 android:text="@string/asistencia_de_personas" />
@@ -389,9 +437,11 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
                     android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
                     android:layout_marginEnd="@dimen/_10sdp"
@@ -399,6 +449,8 @@
 
                 <EditText
                     android:id="@+id/afroPoblation"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_weight="2"
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -414,9 +466,11 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
                     android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
                     android:layout_marginEnd="@dimen/_10sdp"
@@ -425,6 +479,8 @@
                 <EditText
                     android:id="@+id/nativePoblation"
                     android:inputType="number"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_2sdp"
@@ -440,9 +496,11 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
                     android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
                     android:layout_marginEnd="@dimen/_10sdp"
@@ -451,6 +509,8 @@
                 <EditText
                     android:id="@+id/LGBTIPoblation"
                     android:inputType="number"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_2sdp"
@@ -465,9 +525,11 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
                     android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
                     android:layout_marginEnd="@dimen/_10sdp"
@@ -476,6 +538,8 @@
                 <EditText
                     android:id="@+id/RomPoblation"
                     android:inputType="number"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -490,9 +554,11 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/poblaci_n_v_ctima_del_conflicto_armado"
                     android:textColor="@color/black"
@@ -501,6 +567,8 @@
                 <EditText
                     android:id="@+id/victimPoblation"
                     android:inputType="number"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_2sdp"
@@ -516,9 +584,11 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/poblaci_n_en_condici_n_de_discapacidad"
                     android:textColor="@color/black"
@@ -527,6 +597,8 @@
                 <EditText
                     android:id="@+id/disabilityPoblation"
                     android:layout_width="match_parent"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_2sdp"
                     android:background="@drawable/dr_white_input_text"
@@ -542,9 +614,11 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/poblaci_n_desmovilizada"
                     android:textColor="@color/black"
@@ -552,6 +626,8 @@
 
                 <EditText
                     android:id="@+id/demobilizedPoblation"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_2sdp"
@@ -568,9 +644,11 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/poblaci_n_mestiza"
                     android:textColor="@color/black"
@@ -580,6 +658,8 @@
                     android:id="@+id/mongrelPoblation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_weight="2"
                     android:layout_margin="@dimen/_2sdp"
                     android:background="@drawable/dr_white_input_text"
                     android:inputType="number"
@@ -594,9 +674,11 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/extranjero_a"
                     android:textColor="@color/black"
@@ -604,6 +686,8 @@
 
                 <EditText
                     android:id="@+id/foreignPoblation"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_weight="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_2sdp"
@@ -620,9 +704,11 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/campesino_a"
                     android:textColor="@color/black"
@@ -630,6 +716,8 @@
 
                 <EditText
                     android:id="@+id/peasantPoblation"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_2sdp"
@@ -646,16 +734,20 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="@dimen/_227sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
                     android:layout_marginEnd="@dimen/_10sdp"
-                    android:text="Otros"
+                    android:text="@string/otros"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_15sdp" />
 
                 <EditText
                     android:id="@+id/otherPoblation"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_2sdp"
@@ -664,19 +756,14 @@
                     android:textColor="@color/black" />
             </LinearLayout>
 
-
             <Button
                 android:id="@+id/create_forms1_buttom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
-                android:textSize="@dimen/_10sdp"
-                android:layout_marginStart="@dimen/_40sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_20sdp"
-                android:background="@drawable/dr_green_button"
+                android:layout_margin="@dimen/_10sdp"
+                android:fontFamily="@font/manropemedium"
                 android:text="@string/agregar_formulario"
+                android:background="@drawable/dr_green_button"
                 />
 
         </LinearLayout>
@@ -685,25 +772,24 @@
     <LinearLayout
         android:id="@+id/linearLayout8"
         android:layout_width="wrap_content"
-        android:layout_height="122dp"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/dr_shadow_top"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/ludification"
             android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="7dp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
@@ -714,12 +800,15 @@
             android:layout_width="@dimen/_79sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
-            android:padding="10dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
@@ -731,11 +820,14 @@
             android:layout_width="@dimen/_107sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
@@ -748,12 +840,15 @@
             android:layout_width="@dimen/_60sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:fontFamily="@font/manropemedium"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"

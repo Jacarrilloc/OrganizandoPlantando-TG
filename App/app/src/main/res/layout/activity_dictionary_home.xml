@@ -27,58 +27,61 @@
                     android:id="@+id/textView16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/manropemedium"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginStart="@dimen/_60sdp"
+                    android:layout_gravity="center"
                     android:text="@string/dicccionarios"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_35sdp" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_13sdp"
-                    android:layout_marginStart="@dimen/_200sdp"
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="@dimen/_70sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:background="@drawable/im_top_circles" />
 
-                <ImageButton
+
+                <Button
                     android:id="@+id/plants"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_100sdp"
-                    android:background="@drawable/im_flower" />
-
-                <TextView
-                    android:id="@+id/textView17"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_110sdp"
-                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:background="@color/white"
+                    android:drawableTop="@drawable/im_flower"
+                    android:fontFamily="@font/manroperegular"
+                    android:padding="@dimen/_10sdp"
+                    android:textSize="@dimen/_30sdp"
+                    android:stateListAnimator="@null"
                     android:text="@string/plantas"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_30sdp" />
+                    android:textAllCaps="false"/>
 
-                <ImageButton
+                <Button
                     android:id="@+id/tools"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_100sdp"
-                    android:layout_marginBottom="@dimen/_4sdp"
-                    android:background="@drawable/im_shovel_dic" />
-
-                <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_75sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:background="@color/white"
+                    android:drawableTop="@drawable/im_shovel_dic"
+                    android:fontFamily="@font/manroperegular"
+                    android:padding="@dimen/_10sdp"
+                    android:textSize="@dimen/_30sdp"
+                    android:stateListAnimator="@null"
                     android:text="@string/herramientas"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_30sdp" />
+                    android:textAllCaps="false"/>
+
+
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_1sdp"
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="@dimen/_70sdp"
+                    android:layout_gravity="start|bottom"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_3sdp"
                     android:background="@drawable/im_bottom_circles" />
 
@@ -90,7 +93,7 @@
     <LinearLayout
         android:id="@+id/linearLayout8"
         android:layout_width="wrap_content"
-        android:layout_height="110dp"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/dr_shadow_top"
         android:orientation="horizontal">
 
@@ -99,12 +102,15 @@
             android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="7dp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
@@ -115,12 +121,15 @@
             android:layout_width="@dimen/_79sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
-            android:padding="10dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
@@ -132,11 +141,14 @@
             android:layout_width="@dimen/_107sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
@@ -149,12 +161,15 @@
             android:layout_width="@dimen/_60sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:fontFamily="@font/manropemedium"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"

@@ -33,30 +33,32 @@
             app:layout_constraintVertical_bias="0.064"
             app:srcCompat="@drawable/dr_return_arrow" />
 
+
         <TextView
             android:id="@+id/form_RSMP_name"
+            android:text="@string/recepci_n_y_requesici_n_de_materia_prima"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/_1sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:text="@string/recepci_n_y_requesici_n_de_materia_prima"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:fontFamily="@font/manropesemibold"
             android:textColor="@color/black"
-            android:textSize="@dimen/_20sdp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_17sdp" />
 
 
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingBottom="@dimen/_15sdp"
             android:background="@color/white"
             android:layout_margin="@dimen/_20sdp">
 
@@ -65,6 +67,7 @@
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manropemedium"
                 android:layout_margin="@dimen/_2sdp"
                 android:text="@string/descripci_n" />
 
@@ -74,6 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_2sdp"
                 android:ems="10"
+                android:fontFamily="@font/manroperegular"
                 android:inputType="textPersonName"
                 android:textColor="@color/black"
                 android:background="@drawable/dr_white_input_text"/>
@@ -81,6 +85,7 @@
             <TextView
                 android:id="@+id/textView9"
                 android:layout_marginTop="@dimen/_5sdp"
+                android:fontFamily="@font/manropemedium"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -94,6 +99,7 @@
                 android:backgroundTint="@color/black"
                 android:overlapAnchor="false"
                 android:spinnerMode="dropdown"
+                android:fontFamily="@font/manroperegular"
                 android:textAlignment="inherit"
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -103,6 +109,7 @@
             <TextView
                 android:id="@+id/textView8"
                 android:layout_marginTop="@dimen/_5sdp"
+                android:fontFamily="@font/manropemedium"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -112,6 +119,7 @@
                 android:id="@+id/amount_of_Mp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manroperegular"
                 android:layout_margin="@dimen/_2sdp"
                 android:ems="10"
                 android:inputType="numberDecimal"
@@ -124,6 +132,7 @@
 
                 android:id="@+id/textView10"
                 android:layout_width="match_parent"
+                android:fontFamily="@font/manropemedium"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
@@ -133,6 +142,7 @@
                 android:id="@+id/total_Mp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manroperegular"
                 android:layout_margin="@dimen/_2sdp"
                 android:ems="10"
                 android:inputType="number"
@@ -143,6 +153,7 @@
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manropemedium"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
                 android:text="@string/concepto" />
@@ -152,18 +163,19 @@
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/_39sdp"
                 android:backgroundTint="@color/black"
+                android:fontFamily="@font/manroperegular"
                 android:overlapAnchor="false"
                 android:spinnerMode="dropdown"
                 android:textAlignment="inherit"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-
                 />
 
 
             <TextView
                 android:id="@+id/textView12"
                 android:layout_width="match_parent"
+                android:fontFamily="@font/manropemedium"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
@@ -173,6 +185,7 @@
                 android:id="@+id/state"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manroperegular"
                 android:layout_margin="@dimen/_2sdp"
                 android:ems="10"
                 android:inputType="textMultiLine"
@@ -180,21 +193,14 @@
                 android:background="@drawable/dr_white_input_text" />
 
 
-
-
-
             <Button
                 android:id="@+id/create_forms4_buttom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
-                android:textSize="@dimen/_16sdp"
-                android:layout_marginStart="@dimen/_40sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_20sdp"
-                android:background="@drawable/dr_green_button"
-                android:text="@string/agregar_formulario" />
+                android:layout_margin="@dimen/_10sdp"
+                android:fontFamily="@font/manropemedium"
+                android:text="@string/agregar_formulario"
+                android:background="@drawable/dr_green_button"/>
 
         </LinearLayout>
     </ScrollView>
@@ -202,25 +208,24 @@
     <LinearLayout
         android:id="@+id/linearLayout8"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_122sdp"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/dr_shadow_top"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/ludification"
             android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="7dp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
@@ -231,12 +236,15 @@
             android:layout_width="@dimen/_79sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
-            android:padding="10dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
@@ -248,11 +256,14 @@
             android:layout_width="@dimen/_107sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
@@ -265,12 +276,15 @@
             android:layout_width="@dimen/_60sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:fontFamily="@font/manropemedium"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"

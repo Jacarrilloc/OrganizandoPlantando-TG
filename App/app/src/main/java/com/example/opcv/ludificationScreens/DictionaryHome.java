@@ -23,7 +23,7 @@ import com.example.opcv.gardens.GardensAvailableActivity;
 
 public class DictionaryHome extends AppCompatActivity {
 
-    private ImageButton plants, tools;
+    private Button plants, tools;
     private Button profile, myGardens, gardensMap;
     private String idUser, idDocUSer;
 
@@ -35,8 +35,8 @@ public class DictionaryHome extends AppCompatActivity {
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
         gardensMap = (Button) findViewById(R.id.gardens);
-        plants = (ImageButton) findViewById(R.id.plants);
-        tools = (ImageButton) findViewById(R.id.tools);
+        plants = (Button) findViewById(R.id.plants);
+        tools = (Button) findViewById(R.id.tools);
         AuthUtilities auth = new AuthUtilities();
         levelLogic level = new levelLogic();
         idUser = auth.getCurrentUserUid();
@@ -67,7 +67,7 @@ public class DictionaryHome extends AppCompatActivity {
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(DictionaryHome.this, GardensAvailableActivity.class));
+                startActivity(new Intent(DictionaryHome.this, HomeActivity.class));
             }
         });
 

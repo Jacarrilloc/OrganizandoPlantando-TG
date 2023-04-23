@@ -20,8 +20,8 @@
 
         <LinearLayout
             android:id="@+id/linearLayout2"
-            android:layout_width="@dimen/_305sdp"
-            android:layout_height="@dimen/_403sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_490sdp"
             android:layout_marginTop="@dimen/_1sdp"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
@@ -33,11 +33,11 @@
             <TextView
                 android:layout_width="183dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:layout_gravity="center"
                 android:text="@string/createGarden"
                 android:textColor="@color/black"
-                android:textFontWeight="700"
+                android:fontFamily="@font/manropebold"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,7 @@
 
                 <ImageView
                     android:id="@+id/imageGardenCreate"
-                    android:layout_width="@dimen/_288sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="@dimen/_146sdp"
                     android:layout_gravity="center"
                     android:background="#CCD99C"
@@ -67,11 +67,11 @@
                     android:layout_height="@dimen/_48sdp"
                     android:background="@drawable/im_add_image"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="1"
+                    app:layout_constraintVertical_bias="1"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.866"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.888" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -81,15 +81,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:text="@string/questionGardenName"
+                android:fontFamily="@font/manroperegular"
                 android:textColor="@color/black" />
 
             <EditText
                 android:id="@+id/gardenName"
-                android:layout_width="@dimen/_291sdp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:fontFamily="@font/manroperegular"
                 android:background="@drawable/dr_gray_input_text"
                 android:maxLines="1"
                 android:textColor="@color/black" />
@@ -98,17 +100,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8sdp"
+                android:fontFamily="@font/manroperegular"
                 android:layout_marginTop="10dp"
                 android:text="@string/gardenInfo"
                 android:textColor="@color/black" />
 
             <EditText
                 android:id="@+id/gardenInfo"
-                android:layout_width="@dimen/_291sdp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:fontFamily="@font/manroperegular"
                 android:background="@drawable/dr_gray_input_text"
                 android:maxLines="3"
                 android:textColor="@color/black" />
@@ -119,7 +123,7 @@
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginTop="10dp"
                 android:text="@string/gardenType"
-
+                android:fontFamily="@font/manroperegular"
                 android:textColor="@color/black" />
 
             <LinearLayout
@@ -138,10 +142,12 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Publica"
+                    android:fontFamily="@font/manroperegular"
+                    android:text="@string/publica"
                     android:textColor="@color/black"
                     android:thumbTint="@color/green"
-                    android:trackTint="@color/gray" />
+                    android:trackTint="@color/gray"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
 
                 <TextView
                     android:id="@+id/textView14"
@@ -150,7 +156,8 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Privada"
+                    android:fontFamily="@font/manroperegular"
+                    android:text="@string/privada"
                     android:textColor="@color/black" />
 
             </LinearLayout>
@@ -161,7 +168,9 @@
                 android:layout_height="35dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
+                android:fontFamily="@font/manropesemibold"
                 android:background="@drawable/dr_green_button"
+                android:layout_marginBottom="@dimen/_15sdp"
                 android:text="@string/add"
                 android:textAllCaps="false" />
 
@@ -174,7 +183,7 @@
     <LinearLayout
         android:id="@+id/linearLayout8"
         android:layout_width="wrap_content"
-        android:layout_height="122dp"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/dr_shadow_top"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -187,11 +196,14 @@
             android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="7dp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
-            android:padding="10dp"
+            android:padding="@dimen/_5sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:layout_weight="1"
+            android:fontFamily="@font/manropemedium"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
@@ -203,12 +215,15 @@
             android:layout_width="@dimen/_79sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
+            android:fontFamily="@font/manropemedium"
             android:drawableTop="@drawable/im_colombia"
-            android:padding="10dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
@@ -220,12 +235,15 @@
             android:layout_width="@dimen/_107sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
-            android:padding="10dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Gardens"
@@ -236,12 +254,15 @@
             android:id="@+id/profile"
             android:layout_width="@dimen/_60sdp"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
+            android:fontFamily="@font/manropemedium"
             android:drawableTop="@drawable/im_user_icon"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"

@@ -18,26 +18,26 @@
             android:id="@+id/returnArrowButtomEditToGarden"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:clickable="true"
             android:contentDescription="@string/boton_para_regresar"
             android:tint="@color/white"
             app:backgroundTint="@color/GreenBackgroung"
-            app:srcCompat="@drawable/dr_return_arrow"/>
+            app:srcCompat="@drawable/dr_return_arrow"
+            android:focusable="true" />
 
         <ScrollView
             android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:focusable="true"
             android:focusableInTouchMode="true">
 
             <LinearLayout
                 android:id="@+id/linearLayout7"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
 
@@ -57,7 +57,8 @@
                         android:layout_width="@dimen/_66sdp"
                         android:layout_height="@dimen/_63sdp"
                         android:layout_gravity="bottom|end"
-                        android:layout_margin="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
                         android:background="@drawable/im_add_image" />
                 </FrameLayout>
 
@@ -67,20 +68,23 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="@dimen/_109sdp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
                         android:layout_marginStart="@dimen/_10sdp"
+                        android:fontFamily="@font/manropemedium"
                         android:text="@string/gardenName"
                         android:textColor="@color/black" />
 
                     <EditText
                         android:id="@+id/gardenName"
-                        android:layout_width="@dimen/_170sdp"
+                        android:layout_width="match_parent"
                         android:layout_height="@dimen/_39sdp"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/_15sdp"
-                        android:layout_marginRight="@dimen/_20sdp"
+                        android:layout_weight="0.8"
+                        android:fontFamily="@font/manroperegular"
+                        android:layout_marginEnd="@dimen/_10sdp"
                         android:background="@drawable/dr_gray_input_text"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_14sdp" />
@@ -93,20 +97,23 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="@dimen/_109sdp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
                         android:layout_marginStart="@dimen/_10sdp"
+                        android:fontFamily="@font/manropemedium"
                         android:text="@string/Comunity"
                         android:textColor="@color/black" />
 
                     <EditText
                         android:id="@+id/gardenInfo"
-                        android:layout_width="@dimen/_170sdp"
+                        android:layout_width="match_parent"
                         android:layout_height="@dimen/_39sdp"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/_15sdp"
-                        android:layout_marginRight="@dimen/_20sdp"
+                        android:layout_weight="0.8"
+                        android:fontFamily="@font/manroperegular"
+                        android:layout_marginEnd="@dimen/_10sdp"
                         android:background="@drawable/dr_gray_input_text"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_14sdp" />
@@ -115,23 +122,27 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_height="@dimen/_62sdp">
 
                     <TextView
-                        android:layout_width="@dimen/_109sdp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_gravity="center"
+                        android:fontFamily="@font/manropemedium"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:text="@string/Caption"
                         android:textColor="@color/black" />
 
                     <EditText
                         android:id="@+id/gardenDescription"
-                        android:layout_width="@dimen/_170sdp"
+                        android:layout_weight="0.8"
+                        android:layout_width="match_parent"
                         android:layout_height="@dimen/_49sdp"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/_15sdp"
-                        android:layout_marginRight="@dimen/_20sdp"
+                        android:fontFamily="@font/manroperegular"
+                        android:layout_marginEnd="@dimen/_10sdp"
                         android:background="@drawable/dr_gray_input_text"
                         android:maxLines="3"
                         android:textColor="@color/black"
@@ -150,28 +161,32 @@
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:text="@string/gardenType"
+                        android:fontFamily="@font/manropemedium"
                         android:textColor="@color/black" />
 
                     <Switch
                         android:id="@+id/switchGardenTypeModified"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/manroperegular"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Publica"
+                        android:text="@string/publica"
                         android:textColor="@color/black"
                         android:thumbTint="@color/green"
-                        android:trackTint="@color/gray" />
+                        android:trackTint="@color/gray"
+                        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
                     <TextView
                         android:id="@+id/textView14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/manroperegular"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Privada"
+                        android:text="@string/privada"
                         android:textColor="@color/black" />
 
 
@@ -179,6 +194,7 @@
 
                 <LinearLayout
                     android:id="@+id/addPerson"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_39sdp"
                     android:orientation="horizontal">
@@ -196,6 +212,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:fontFamily="@font/manroperegular"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:text="@string/Team"
                         android:textColor="@color/black" />
@@ -213,8 +230,11 @@
                         android:layout_width="@dimen/_170sdp"
                         android:layout_height="@dimen/_35sdp"
                         android:layout_gravity="center"
+                        android:textSize="@dimen/_14sdp"
+                        android:fontFamily="@font/manropemedium"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:background="@drawable/dr_green_button"
+                        android:backgroundTint="@color/blueblue"
                         android:text="@string/acceptChanges"
                         android:textAllCaps="false" />
 
@@ -223,6 +243,8 @@
                         android:layout_width="@dimen/_170sdp"
                         android:layout_height="@dimen/_35sdp"
                         android:layout_gravity="center"
+                        android:fontFamily="@font/manropemedium"
+                        android:textSize="@dimen/_14sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_10sdp"
                         android:background="@drawable/dr_green_button"
@@ -234,6 +256,8 @@
                         android:layout_width="@dimen/_170sdp"
                         android:layout_height="@dimen/_35sdp"
                         android:layout_gravity="center"
+                        android:fontFamily="@font/manropemedium"
+                        android:textSize="@dimen/_14sdp"
                         android:layout_marginBottom="@dimen/_10sdp"
                         android:background="@drawable/dr_cancel_button"
                         android:text="@string/deleteGarden"
@@ -251,8 +275,7 @@
     <LinearLayout
         android:id="@+id/linearLayout8"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_110sdp"
-        android:layout_weight="0.1"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/dr_shadow_top"
         android:orientation="horizontal">
 
@@ -261,12 +284,15 @@
             android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="1dp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
@@ -277,12 +303,15 @@
             android:layout_width="@dimen/_79sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="1dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
-            android:padding="10dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
@@ -294,11 +323,14 @@
             android:layout_width="@dimen/_107sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="1dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
@@ -311,12 +343,15 @@
             android:layout_width="@dimen/_60sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="1dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:fontFamily="@font/manropemedium"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"

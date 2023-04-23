@@ -29,7 +29,8 @@
             app:layout_constraintStart_toStartOf="@+id/gardenProfilePicture"
             app:layout_constraintTop_toTopOf="@+id/gardenProfilePicture"
             app:layout_constraintVertical_bias="0.064"
-            app:srcCompat="@drawable/dr_return_arrow" />
+            app:srcCompat="@drawable/dr_return_arrow"
+            android:focusable="true" />
 
         <TextView
             android:id="@+id/form_CIH_name"
@@ -38,15 +39,16 @@
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/_20sdp"
             android:layout_marginStart="@dimen/_20sdp"
-            android:text="Para Finalizar, selecciona tu foto de perfil"
+            android:text="@string/para_finalizar_selecciona_tu_foto_de_perfil"
+            android:fontFamily="@font/manropemedium"
             android:textColor="@color/black"
-            android:textSize="@dimen/_20sdp" />
+            android:textSize="@dimen/_18sdp" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/profileImageSelected"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_margin="@dimen/_20sdp"
         android:layout_weight="1"
         android:scaleType="centerCrop"
@@ -67,6 +69,7 @@
             android:backgroundTint="#F4EEE5"
             android:layout_weight="1"
             android:textSize="@dimen/_18sdp"
+            android:fontFamily="@font/manropemedium"
             android:background="@drawable/dr_green_button"
             android:text="@string/c_mara"
             android:textAllCaps="false"/>
@@ -78,6 +81,7 @@
             android:textColor="@color/black"
             android:backgroundTint="#F4EEE5"
             android:layout_margin="@dimen/_5sdp"
+            android:fontFamily="@font/manropemedium"
             android:layout_weight="1"
             android:textAllCaps="false"
             android:textSize="@dimen/_18sdp"
@@ -90,7 +94,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_25sdp"
-
+        android:fontFamily="@font/manropemedium"
         android:textAllCaps="false"
         android:textSize="@dimen/_20sdp"
         android:background="@drawable/dr_green_button"

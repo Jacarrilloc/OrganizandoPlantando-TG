@@ -32,6 +32,9 @@ public class FormsListAdapter extends ArrayAdapter<String> {
         String text = getItem(position);
         formName.setText(text);
 
+        // Establece el ancho del TextView al ancho del padre
+        formName.setWidth(parent.getWidth());
+
         view.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT));
         if(view != null){
             view.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -40,3 +43,4 @@ public class FormsListAdapter extends ArrayAdapter<String> {
         return view;
     }
 }
+

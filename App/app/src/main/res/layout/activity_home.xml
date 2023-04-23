@@ -20,71 +20,75 @@
 
         <TextView
             android:id="@+id/misHuertasText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_20sdp"
-            android:layout_weight="0.6"
-            android:text="Mis Huertas"
+            android:fontFamily="@font/manropemedium"
+            android:layout_weight="1.2"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:text="@string/mis_huertas"
+            android:layout_gravity="center_vertical"
             android:textColor="#070707"
             android:textSize="@dimen/_25sdp"
-            android:textStyle="bold" />
+            tools:ignore="NestedWeights" />
 
         <LinearLayout
-            android:layout_width="@dimen/_103sdp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0.3"
+            android:layout_weight="2"
             android:orientation="vertical"
-            android:layout_marginRight="@dimen/_7sdp">
+            android:layout_marginEnd="@dimen/_7sdp">
 
 
             <ImageButton
                 android:id="@+id/generalReport"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:layout_gravity="center"
                 android:layout_margin="4sp"
-                android:layout_weight="0.25"
                 android:background="@drawable/im_download_icon"
-                android:contentDescription="Boton de descargar"
+                android:contentDescription="@string/boton_de_descargar"
+                android:layout_marginBottom="@dimen/_20sdp"
                 android:scaleType="centerInside" />
 
             <TextView
                 android:id="@+id/reportText"
-                android:layout_width="@dimen/_96sdp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:gravity="center"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:textSize="@dimen/_13sdp"
                 android:text="@string/generalReport"
-                android:textColor="#090909"
-                android:textStyle="normal|italic" />
+                android:fontFamily="@font/manropemedium"
+                android:textColor="#090909" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0.3"
+            android:layout_weight="2"
             android:orientation="vertical">
-
-
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/addButton"
                 android:layout_width="@dimen/_85sdp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="5sp"
+                android:layout_margin="@dimen/_15sdp"
                 android:backgroundTint="#91BF63"
                 android:clickable="true"
-                android:contentDescription="Añadir"
+                android:contentDescription="@string/a_adir"
                 android:focusable="true"
                 android:foregroundTint="@color/green"
                 android:foregroundTintMode="multiply"
                 android:tint="@color/white"
                 android:tintMode="multiply"
                 app:backgroundTintMode="src_in"
-                app:maxImageSize="@dimen/_60sdp"
+                app:maxImageSize="@dimen/_30sdp"
                 app:rippleColor="@color/white"
                 app:srcCompat="@drawable/dr_add_button" />
 
@@ -93,10 +97,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Añadir"
+                android:text="@string/a_adir"
+                android:fontFamily="@font/manropemedium"
                 android:textSize="@dimen/_13sdp"
-                android:textColor="#090909"
-                android:textStyle="normal|italic" />
+                android:textColor="#090909" />
         </LinearLayout>
 
     </LinearLayout>
@@ -113,32 +117,39 @@
 
     <LinearLayout
         android:id="@+id/linearLayout11"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_55sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="@dimen/_1sdp"
-        >
+        android:layout_marginBottom="@dimen/_5sdp">
 
         <Button
             android:id="@+id/otherGardensButton"
-            android:layout_width="@dimen/_151sdp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
-            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:background="@drawable/dr_green_button"
             android:backgroundTint="#91BF63"
+            android:layout_weight="1"
             android:text="@string/seeOtherGardens"
+            android:fontFamily="@font/manropemedium"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
         <Button
             android:id="@+id/collaboratorGardens"
-            android:layout_width="@dimen/_130sdp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_gravity="start|bottom"
-            android:layout_margin="@dimen/_1sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:fontFamily="@font/manropemedium"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_weight="1"
             android:background="@drawable/dr_green_button"
             android:backgroundTint="#91BF63"
             android:textAllCaps="false"
@@ -155,26 +166,24 @@
     <LinearLayout
         android:id="@+id/linearLayout8"
         android:layout_width="wrap_content"
-        android:layout_height="110dp"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/dr_shadow_top"
-        android:orientation="horizontal"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/ludification"
             android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="7dp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
@@ -185,12 +194,15 @@
             android:layout_width="@dimen/_79sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
-            android:padding="10dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
@@ -202,11 +214,14 @@
             android:layout_width="@dimen/_107sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
@@ -219,12 +234,15 @@
             android:layout_width="@dimen/_60sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:fontFamily="@font/manropemedium"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"

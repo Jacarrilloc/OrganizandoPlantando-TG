@@ -37,6 +37,7 @@ import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.CreateGardenActivity;
 import com.example.opcv.gardens.GardenEditActivity;
 import com.example.opcv.info.User;
+import com.example.opcv.ludificationScreens.DictionaryHome;
 import com.example.opcv.persistance.userPersistance.UserPersistance;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -63,7 +64,7 @@ import java.util.Objects;
 
 public class EditUserActivity extends AppCompatActivity {
     private Button signOff, delete;
-    private Button gardensMap, profile, myGardens, acceptChanges, changePhoto;
+    private Button gardensMap, profile, myGardens, acceptChanges, changePhoto, ludification;
     private TextView userNameTV, close, deleteP;
     private EditText userName, userLastName, userEmail, userPhone;
     private ImageView profilePhoto;
@@ -100,7 +101,7 @@ public class EditUserActivity extends AppCompatActivity {
         userLastName = (EditText) findViewById(R.id.lastNameInfo);
         userEmail = (EditText) findViewById(R.id.gardenName);
         userPhone = (EditText) findViewById(R.id.address);
-
+        ludification = (Button) findViewById(R.id.ludification);
         signOff = (Button) findViewById(R.id.options);
         delete = (Button) findViewById(R.id.options3);
         close = (TextView) findViewById(R.id.options2);
@@ -205,26 +206,16 @@ public class EditUserActivity extends AppCompatActivity {
                 }
             }
         });
+
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent edit = new Intent(EditUserActivity.this, DictionaryHome.class);
+                startActivity(edit);
+            }
+        });
     }
 
-    /*private void searchUserInfo() {
-        DB_User info = new DB_User(this);
-        Map<String, Object> userInfo = info.getUserInfo();
-
-        if (userInfo != null) {
-            AuthUtilities userFB = new AuthUtilities();
-            String name = userInfo.get("Name").toString();
-            String email = userInfo.get("Email").toString();
-            String lastname = userInfo.get("LastName").toString();
-            String phoneNumber = userInfo.get("PhoneNumber").toString();
-            userNameTV.setText(name);
-            userName.setText(name);
-            userLastName.setText(lastname);
-            userEmail.setText("Comabaquinta");
-            userPhone.setText(phoneNumber);
-            getPhotoProfileUser(userFB.getCurrentUserUid());
-        }
-    }*/
 
 
     private void searchUserInfo(){
