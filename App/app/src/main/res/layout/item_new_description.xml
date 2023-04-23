@@ -125,7 +125,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="@dimen/_11sdp"
-            android:text="@string/level"
+            android:text=""
             />
 
 

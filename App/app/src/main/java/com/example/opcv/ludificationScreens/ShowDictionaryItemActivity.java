@@ -40,6 +40,7 @@ import com.example.opcv.fbComunication.AuthUtilities;
 import com.example.opcv.gardens.GardensAvailableActivity;
 import com.example.opcv.item_list.ItemComments;
 import com.example.opcv.persistance.ludificationPersistance.LudificationPersistance;
+import com.example.opcv.persistance.userPersistance.UserPersistance;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -47,6 +48,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -62,7 +64,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
     private FrameLayout authorLayout;
     private ImageView borderImage, dotborderImage;
 
-    private CircleImageView image;
+    private CircleImageView image, imagePusblisher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,13 +84,6 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         likeButton = (ImageButton) findViewById(R.id.likebutton);
         dislikeButton = (ImageButton) findViewById(R.id.dislikebutton);
         sendComment = (FloatingActionButton) findViewById(R.id.sendButton);
-        /*
-        tag1 = (TextView) findViewById(R.id.tag1);
-        tag2 = (TextView) findViewById(R.id.tag2);
-        tag3 = (TextView) findViewById(R.id.tag3);
-        tag4 = (TextView) findViewById(R.id.tag4);
-        tag5 = (TextView) findViewById(R.id.tag5);
-        tag6 = (TextView) findViewById(R.id.tag6);*/
         listView = (ListView) findViewById(R.id.listViewComments);
         input = (EditText) findViewById(R.id.inputText);
         image = (CircleImageView) findViewById(R.id.imageItem);
@@ -100,8 +95,10 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         publisherLevel = (TextView) findViewById(R.id.level);
         namelevel = (TextView) findViewById(R.id.nameLevel);
         borderImage = (ImageView) findViewById(R.id.imageLevel);
+        imagePusblisher = (CircleImageView) findViewById(R.id.image);
 
         LudificationPersistance persistance = new LudificationPersistance();
+        UserPersistance userPersistance = new UserPersistance();
         LudificationLogic logic = new LudificationLogic();
         levelLogic level = new levelLogic();
         Bundle extras = getIntent().getExtras();
@@ -191,35 +188,55 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(String leveli) {
                             publisherLevel.setText(leveli);
-
-                            System.out.println(publisherLevel.getText().toString());
                             double lvDouble = Double.parseDouble(publisherLevel.getText().toString().trim().replace("#", ""));
                             int lv = Double.valueOf(lvDouble).intValue();
                             namelevel.setText(level.levelName(lv));
 
-                            if (lv >=0 && lv <10){
-                                borderImage.setImageResource(R.drawable.im_level_1);
-                            }else if (lv>= 10 && lv <30) {
-                                borderImage.setImageResource(R.drawable.im_level_2);
-                            } else if (lv>=30 && lv <60) {
-                                borderImage.setImageResource(R.drawable.im_level_3);
-                            } else if (lv >= 60 && lv <100) {
-                                borderImage.setImageResource(R.drawable.im_level_4);
-                            } else if (lv >= 100) {
-                                borderImage.setImageResource(R.drawable.im_level_5);
-                            }
-
-                            Animation fadeIn = new AlphaAnimation(0, 1);
-                            fadeIn.setInterpolator(new DecelerateInterpolator());
-                            fadeIn.setDuration(1000);
-
-                            authorLayout.post(new Runnable() {
+                            persistance.getPublisherID(element, docRef, new LudificationPersistance.GetPublisherId() {
                                 @Override
-                                public void run() {
-                                    authorLayout.setVisibility(View.VISIBLE);
-                                    authorLayout.startAnimation(fadeIn);
+                                public void onComplete(String userID) {
+                                    userPersistance.getProfilePicture(userID, new UserPersistance.GetUriUser() {
+                                        @Override
+                                        public void onComplete(String uri) {
+                                            if(!Objects.equals(uri, "")){
+                                                Glide.with(ShowDictionaryItemActivity.this).load(uri).into(imagePusblisher);
+                                            }
+                                            else{
+                                                imagePusblisher.setImageResource(R.drawable.im_logo_ceres);
+                                            }
+
+                                            if (lv >=0 && lv <10){
+                                                borderImage.setImageResource(R.drawable.im_level_1);
+                                            }else if (lv>= 10 && lv <30) {
+                                                borderImage.setImageResource(R.drawable.im_level_2);
+                                            } else if (lv>=30 && lv <60) {
+                                                borderImage.setImageResource(R.drawable.im_level_3);
+                                            } else if (lv >= 60 && lv <100) {
+                                                borderImage.setImageResource(R.drawable.im_level_4);
+                                            } else if (lv >= 100) {
+                                                borderImage.setImageResource(R.drawable.im_level_5);
+                                            }
+
+                                            Animation fadeIn = new AlphaAnimation(0, 1);
+                                            fadeIn.setInterpolator(new DecelerateInterpolator());
+                                            fadeIn.setDuration(1000);
+
+                                            authorLayout.post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    authorLayout.setVisibility(View.VISIBLE);
+                                                    authorLayout.startAnimation(fadeIn);
+                                                }
+                                            });
+                                        }
+                                    });
+
+
+
                                 }
                             });
+
+
                         }
                     });
                 } else {
@@ -280,8 +297,8 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 number++;
                 String numberText = String.valueOf(number);
                 likeNumber.setText(numberText);
-                //likeButton.setImageResource(R.drawable.im_like_gray);
-                //dislikeButton.setImageResource(R.drawable.im_dislike_gray);
+                likeButton.setBackgroundResource(R.drawable.im_like_gray);
+                dislikeButton.setBackgroundResource(R.drawable.im_dislike_gray);
             }
         });
         dislikeButton.setOnClickListener(new View.OnClickListener() {
@@ -299,9 +316,8 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 number++;
                 String numberText = String.valueOf(number);
                 dislikeNumber.setText(numberText);
-                //dislikeButton.setImageResource(R.drawable.im_dislike_gray);
-
-                //likeButton.setImageResource(R.drawable.im_like_gray);
+                likeButton.setBackgroundResource(R.drawable.im_like_gray);
+                dislikeButton.setBackgroundResource(R.drawable.im_dislike_gray);
             }
         });
 
