@@ -129,7 +129,7 @@ public class SelectPhotoActivity extends AppCompatActivity {
     }
 
     private void createUserInDatabase(){
-        //if(validateField(this, bytes)){
+        if(validateField(this, bytes)){
         if(bytes == null){
             int drawableId = R.drawable.im_logo_ceres_green;
 

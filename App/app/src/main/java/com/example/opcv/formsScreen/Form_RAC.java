@@ -197,6 +197,7 @@ public class Form_RAC extends AppCompatActivity {
 
             }
         });
+        /*
         addFormButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -212,7 +213,7 @@ public class Form_RAC extends AppCompatActivity {
                     Toast.makeText(Form_RAC.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        });*/
     }
     private boolean validateField(String container,String worms, String humidity, String waste, String humus, String leached){
 
