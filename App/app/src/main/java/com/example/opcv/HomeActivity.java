@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -42,6 +44,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -102,8 +105,8 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        fillGardenUser();
         super.onResume();
+        fillGardenUser();
     }
 
     @Override
@@ -124,8 +127,13 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(true)
+                .build();
+
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
+        database.setFirestoreSettings(settings);
 
         //Declaracion metodos de navegacion
         listAviableGardensInfo = findViewById(R.id.listAviableGardens);
@@ -262,15 +270,21 @@ public class HomeActivity extends AppCompatActivity {
                             String name = document.getString("GardenName");
                             String gardenId = document.getId();
                             GardenPersistance persistance = new GardenPersistance();
-                            persistance.getGardenPicture(gardenId, HomeActivity.this, new GardenPersistance.GetUri() {
-                                @Override
-                                public void onSuccess(String uri) {
-                                    ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);
-                                    gardenNames.add(newItem);
-                                    fillListGardens(gardenNames);
+                            if(isOnline()) {
+                                persistance.getGardenPicture(gardenId, HomeActivity.this, new GardenPersistance.GetUri() {
+                                    @Override
+                                    public void onSuccess(String uri) {
+                                        ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);
+                                        gardenNames.add(newItem);
+                                        fillListGardens(gardenNames);
 
-                                }
-                            });
+                                    }
+                                });
+                            }else{
+                                ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, null);
+                                gardenNames.add(newItem);
+                                fillListGardens(gardenNames);
+                            }
                         }
                         //fillListGardens(gardenNames);
                     } else {
@@ -284,7 +298,9 @@ public class HomeActivity extends AppCompatActivity {
 
     private void fillListGardens( List<ItemGardenHomeList> gardenInfoDocument){
         try {
-            Thread.sleep(65);
+            if(isOnline()) {
+                Thread.sleep(65);
+            }
             GardenListAdapter adapter = new GardenListAdapter(this, gardenInfoDocument);
             listAviableGardensInfo.setAdapter(adapter);
             listAviableGardensInfo.setDividerHeight(5);
@@ -294,4 +310,10 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    private boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
 }
