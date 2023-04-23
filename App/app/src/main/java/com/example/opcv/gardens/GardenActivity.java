@@ -297,7 +297,10 @@ public class GardenActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+
+        Intent toHome = new Intent(GardenActivity.this,HomeActivity.class);
+        toHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(toHome);
     }
 
     private void SearchInfoGardenSreen(String idUser, String name){
