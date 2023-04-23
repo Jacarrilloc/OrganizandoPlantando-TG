@@ -79,6 +79,7 @@ public class SelectPhotoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 createUserInDatabase();
+                callHome();
             }
         });
 
@@ -140,7 +141,7 @@ public class SelectPhotoActivity extends AppCompatActivity {
             bytes = stream.toByteArray();
         }
             if(authUtilities.createUser(newUserInfo.getEmail(),password,newUserInfo,bytes,SelectPhotoActivity.this)){
-                Toast.makeText(this, "Usuario Creado Exitosamente", Toast.LENGTH_SHORT).show();
+
             }
         }
     }
@@ -241,10 +242,9 @@ public class SelectPhotoActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    private void callHome(User newUserInfo){
+    private void callHome(){
         Intent intent = new Intent(SelectPhotoActivity.this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("userID", authUtilities.getCurrentUserUid());
         startActivity(intent);
     }
     @Override
