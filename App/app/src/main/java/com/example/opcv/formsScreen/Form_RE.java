@@ -344,7 +344,7 @@ public class Form_RE extends AppCompatActivity {
             }
         });
 
-        /*
+
         addFormButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -378,7 +378,6 @@ public class Form_RE extends AppCompatActivity {
             }
         });
 
-         */
     }
 
     @Override

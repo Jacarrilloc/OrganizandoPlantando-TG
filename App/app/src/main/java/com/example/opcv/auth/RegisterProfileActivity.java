@@ -55,7 +55,6 @@ public class RegisterProfileActivity extends AppCompatActivity {
         email = findViewById(R.id.imputEmailRegisterActivity);
         password = findViewById(R.id.imputPasswordRegisterActivity);
         confirmPassword = findViewById(R.id.imputConfirmPaswordRegisterActivity);
-        terms = findViewById(R.id.okSignalTermsRegisterActivity);
         register = findViewById(R.id.createAcountButtomRegisterActivity);
         termsConditions = findViewById(R.id.terms_condition_buttom_registerProfileActivity);
 
@@ -87,7 +86,7 @@ public class RegisterProfileActivity extends AppCompatActivity {
                 String passwordString = password.getText().toString();
                 String confirmPasswordString = confirmPassword.getText().toString();
                 String gender = spinnerGender.getSelectedItem().toString();
-                Boolean termsBool = terms.isChecked();
+                Boolean termsBool = true;
                 int level = 0;
 
                 ValidateRegisterInfo validate = new ValidateRegisterInfo();
