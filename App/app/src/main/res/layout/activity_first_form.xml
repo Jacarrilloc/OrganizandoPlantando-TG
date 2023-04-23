@@ -37,11 +37,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:fontFamily="@font/manropesemibold"
             android:text="@string/RAC"
             android:textColor="@color/black"
-            android:textSize="@dimen/_20sdp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_17sdp" />
 
 
     </LinearLayout>
@@ -49,6 +50,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:fillViewport="true"
         android:layout_weight="1">
 
         <LinearLayout
@@ -56,6 +58,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@color/white"
+            android:paddingBottom="@dimen/_10sdp"
             android:layout_margin="@dimen/_15sdp">
 
             <TextView
@@ -64,12 +67,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_2sdp"
-                android:text="Area del Recipiente (m2)" />
+                android:fontFamily="@font/manropemedium"
+                android:text="@string/area_del_recipiente_m2" />
 
             <EditText
                 android:id="@+id/containerSizeInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manroperegular"
                 android:layout_margin="@dimen/_2sdp"
                 android:background="@drawable/dr_white_input_text"
                 android:ems="10"
@@ -82,13 +87,15 @@
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cantidad de Lombrices (Kg)" />
+                android:fontFamily="@font/manropemedium"
+                android:text="@string/cantidad_de_lombrices_kg" />
 
             <EditText
                 android:id="@+id/worrmsWeightInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_2sdp"
+                android:fontFamily="@font/manroperegular"
                 android:background="@drawable/dr_white_input_text"
                 android:ems="10"
                 android:inputType="numberDecimal"
@@ -96,17 +103,19 @@
                 android:textColor="@color/black" />
 
             <TextView
+                android:fontFamily="@font/manropemedium"
                 android:id="@+id/textView9"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Humedad" />
+                android:text="@string/humedad" />
 
             <EditText
                 android:id="@+id/humidityInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manroperegular"
                 android:ems="10"
                 android:layout_margin="@dimen/_2sdp"
                 android:inputType="textPersonName"
@@ -116,15 +125,17 @@
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="match_parent"
+                android:fontFamily="@font/manropemedium"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
-                android:text="Cantidad de Residuos (Kg)" />
+                android:text="@string/cantidad_de_residuos_kg" />
 
             <EditText
                 android:id="@+id/amount_of_waste_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manroperegular"
                 android:layout_margin="@dimen/_2sdp"
                 android:background="@drawable/dr_white_input_text"
                 android:ems="10"
@@ -134,19 +145,21 @@
             <TextView
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
+                android:fontFamily="@font/manropemedium"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
-                android:text="Cantidad de Humus Recogida (Kg)" />
+                android:text="@string/cantidad_de_humus_recogida_kg" />
 
             <EditText
                 android:id="@+id/collected_humus_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="numberDecimal"
                 android:layout_margin="@dimen/_2sdp"
                 android:background="@drawable/dr_white_input_text"
+                android:ems="10"
+                android:fontFamily="@font/manroperegular"
+                android:inputType="numberDecimal"
                 android:textColor="@color/black" />
 
             <TextView
@@ -155,12 +168,14 @@
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cantidad Lixiviado(L)" />
+                android:fontFamily="@font/manropemedium"
+                android:text="@string/cantidad_lixiviado_l" />
 
             <EditText
                 android:id="@+id/amount_leached_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manroperegular"
                 android:background="@drawable/dr_white_input_text"
                 android:layout_margin="@dimen/_2sdp"
                 android:ems="10"
@@ -172,7 +187,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_10sdp"
-                android:text="Agregar Formulario"
+                android:layout_gravity="bottom"
+                android:fontFamily="@font/manropemedium"
+                android:text="@string/agregar_formulario"
                 android:background="@drawable/dr_green_button"/>
 
         </LinearLayout>
@@ -181,25 +198,24 @@
     <LinearLayout
         android:id="@+id/linearLayout8"
         android:layout_width="wrap_content"
-        android:layout_height="122dp"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/dr_shadow_top"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/ludification"
             android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="7dp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
@@ -210,12 +226,15 @@
             android:layout_width="@dimen/_79sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
-            android:padding="10dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
@@ -227,11 +246,14 @@
             android:layout_width="@dimen/_107sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
@@ -244,12 +266,15 @@
             android:layout_width="@dimen/_60sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:fontFamily="@font/manropemedium"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"

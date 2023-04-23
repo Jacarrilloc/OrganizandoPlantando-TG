@@ -2,69 +2,81 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/_290sdp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_15sdp"
     android:backgroundTint="#F2F2F2">
 
     <LinearLayout
-        android:layout_width="@dimen/_290sdp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <LinearLayout
-            android:layout_width="@dimen/_290sdp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/UserImage"
-                android:layout_width="@dimen/_80sdp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
                 android:layout_height="@dimen/_60sdp"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:scaleType="centerCrop"
                 android:padding="@dimen/_10sdp" />
 
             <TextView
                 android:id="@+id/userName"
-                android:layout_width="@dimen/_102sdp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textSize="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:fontFamily="@font/manropemedium"
                 android:text="@string/nombre_usuario"
                 android:textColor="@color/black" />
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <Button
                     android:id="@+id/acceptedButton"
-                    android:layout_width="@dimen/_88sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="@dimen/_35sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/_10sdp"
                     android:background="@drawable/dr_green_button"
                     android:gravity="center"
-                    android:text="Aceptar"
+                    android:text="@string/aceptar"
                     android:textAllCaps="false"
                     android:textStyle="normal"
                     android:clickable="true"
-                    android:focusable="false"/>
+                    android:focusable="true"
+                    android:fontFamily="@font/manropemedium"/>
 
                 <Button
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:id="@+id/rejectedButton"
-                    android:layout_width="@dimen/_88sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="@dimen/_35sdp"
                     android:layout_gravity="center"
                     android:background="@drawable/dr_green_button"
                     android:backgroundTint="@color/red"
-                    android:text="Rechazar"
+                    android:text="@string/rechazar"
                     android:textAllCaps="false"
                     android:textStyle="normal"
                     android:clickable="true"
-                    android:focusable="false"/>
+                    android:focusable="true"
+                    android:fontFamily="@font/manropemedium"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -73,12 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/im_gray_line"
-            android:contentDescription="La imagen"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout10"
-            app:layout_constraintVertical_bias="0.0" />
+            android:contentDescription="@string/la_imagen" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

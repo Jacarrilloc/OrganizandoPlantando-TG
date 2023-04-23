@@ -27,17 +27,18 @@
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/_1sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
                     android:text="@string/agregar_planta"
+                    android:fontFamily="@font/manropemedium"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="35sp" />
+                    android:textSize="30sp" />
 
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_100sdp"
+                    android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/im_cirles_menu" />
 
@@ -45,7 +46,7 @@
                     android:id="@+id/addImage"
                     android:layout_width="132dp"
                     android:layout_height="126dp"
-                    android:layout_marginStart="@dimen/_80sdp"
+                    android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:scaleType="centerCrop"
                     android:background="@drawable/im_image_s" />
@@ -54,10 +55,12 @@
                     android:id="@+id/namePlant"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_38sdp"
-                    android:layout_marginEnd="@dimen/_58sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_45sdp"
+                    android:layout_marginEnd="@dimen/_45sdp"
                     android:backgroundTint="@color/black"
                     android:hint="@string/nombre1"
+                    android:fontFamily="@font/manroperegular"
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray"
                     android:textSize="@dimen/_20sdp" />
@@ -69,6 +72,7 @@
                     android:layout_marginStart="@dimen/_18sdp"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:layout_marginEnd="@dimen/_18sdp"
+                    android:fontFamily="@font/manropemedium"
                     android:text="@string/carater_sticas"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp" />
@@ -85,6 +89,7 @@
 
                     <CheckBox
                         android:id="@+id/option1"
+                        android:fontFamily="@font/manroperegular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/_36sdp"
@@ -97,6 +102,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/blueblue"
+                        android:fontFamily="@font/manroperegular"
                         android:text="@string/medicinal"
                         android:textColor="@color/black" />
 
@@ -104,6 +110,7 @@
                         android:id="@+id/option3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/manroperegular"
                         android:buttonTint="@color/blueblue"
                         android:text="@string/comestible"
                         android:textColor="@color/black" />
@@ -111,6 +118,7 @@
                     <CheckBox
                         android:id="@+id/option4"
                         android:layout_width="wrap_content"
+                        android:fontFamily="@font/manroperegular"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/blueblue"
                         android:text="@string/mascota_amigable"
@@ -119,6 +127,7 @@
                     <CheckBox
                         android:id="@+id/option5"
                         android:layout_width="wrap_content"
+                        android:fontFamily="@font/manroperegular"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/blueblue"
                         android:text="@string/da_fruto"
@@ -128,6 +137,7 @@
                         android:id="@+id/option6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/manroperegular"
                         android:buttonTint="@color/blueblue"
                         android:text="@string/precausi_n"
                         android:textColor="@color/black" />
@@ -138,12 +148,14 @@
                     android:id="@+id/descriptiontext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/manropemedium"
                     android:layout_marginStart="@dimen/_18sdp"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:layout_marginEnd="@dimen/_18sdp"
                     android:text="@string/descripci_n_"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_14sdp" />
+                    android:textSize="@dimen/_14sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"/>
 
                 <EditText
                     android:id="@+id/description"
@@ -152,6 +164,7 @@
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:layout_marginBottom="@dimen/_12sdp"
+                    android:fontFamily="@font/manroperegular"
                     android:background="@drawable/dr_white_input_text"
                     android:ems="10"
                     android:inputType="textMultiLine"
@@ -193,7 +206,7 @@
     <LinearLayout
         android:id="@+id/linearLayout8"
         android:layout_width="wrap_content"
-        android:layout_height="110dp"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/dr_shadow_top"
         android:orientation="horizontal">
 
@@ -202,12 +215,15 @@
             android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="7dp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
@@ -218,12 +234,15 @@
             android:layout_width="@dimen/_79sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
-            android:padding="10dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
@@ -235,11 +254,14 @@
             android:layout_width="@dimen/_107sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
@@ -252,12 +274,15 @@
             android:layout_width="@dimen/_60sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:fontFamily="@font/manropemedium"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"

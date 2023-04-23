@@ -25,6 +25,7 @@
         android:background="@drawable/dr_rectangle_item"
         android:gravity="center"
         android:text="@string/tool"
+        android:fontFamily="@font/manroperegular"
         android:textColor="@color/black"
         android:ellipsize="end"
         android:maxLines="1"

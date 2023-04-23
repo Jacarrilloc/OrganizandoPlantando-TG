@@ -15,16 +15,14 @@
 
         <ImageView
             android:id="@+id/logoDecoration"
-            android:layout_width="@dimen/_413sdp"
-            android:layout_height="@dimen/_361sdp"
-            android:layout_marginEnd="@dimen/_100sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:srcCompat="@drawable/im_lines_decoration" />
 
         <LinearLayout
             android:id="@+id/linearLayout8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="vertical">
 
         </LinearLayout>
@@ -46,9 +44,10 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/_30sdp"
+                    android:fontFamily="@font/manroperegular"
                     android:autoSizeTextType="uniform"
                     android:gravity="center"
-                    android:text="Registrarse"
+                    android:text="@string/registrarse"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_25sdp" />
 
@@ -63,6 +62,7 @@
                     android:id="@+id/imputNameRegisterActivity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_margin="@dimen/_10sdp"
                     android:background="@drawable/dr_white_input_text"
                     android:ems="10"
@@ -77,6 +77,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_10sdp"
+                    android:fontFamily="@font/manroperegular"
                     android:background="@drawable/dr_white_input_text"
                     android:ems="10"
                     android:hint="@string/apellido"
@@ -94,6 +95,7 @@
 
                 <EditText
                     android:id="@+id/imputEmailRegisterActivity"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_10sdp"
@@ -107,6 +109,7 @@
 
                 <EditText
                     android:id="@+id/imputPasswordRegisterActivity"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_10sdp"
@@ -121,6 +124,7 @@
                 <EditText
                     android:id="@+id/imputConfirmPaswordRegisterActivity"
                     android:layout_width="match_parent"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_10sdp"
                     android:background="@drawable/dr_white_input_text"
@@ -143,7 +147,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_5sdp"
                         android:layout_weight="1"
-                        android:text="He leido los"
+                        android:fontFamily="@font/manroperegular"
+                        android:text="@string/he_leido_los"
                         android:textColor="@color/black" />
 
                     <Button
@@ -153,7 +158,8 @@
                         android:layout_margin="@dimen/_5sdp"
                         android:layout_weight="1"
                         android:background="@null"
-                        android:text="Terminos y Condiciones"
+                        android:fontFamily="@font/manroperegular"
+                        android:text="@string/t_rminos_y_condiciones2"
                         android:textAllCaps="false"
                         android:textColor="@color/mainButtonColor" />
 
@@ -170,6 +176,7 @@
                     android:id="@+id/createAcountButtomRegisterActivity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/manropesemibold"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/_20sdp"
                     android:background="@drawable/dr_green_button"
@@ -177,7 +184,7 @@
                     android:gravity="center"
                     android:text="@string/crear_cuenta"
                     android:textAllCaps="false"
-                    android:textSize="@dimen/_20sdp" />
+                    android:textSize="@dimen/_16sdp" />
 
             </LinearLayout>
         </ScrollView>

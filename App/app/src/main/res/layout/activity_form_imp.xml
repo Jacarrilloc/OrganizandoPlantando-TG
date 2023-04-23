@@ -33,17 +33,19 @@
             app:layout_constraintVertical_bias="0.064"
             app:srcCompat="@drawable/dr_return_arrow" />
 
+
+
         <TextView
             android:id="@+id/form_IMP_name"
+            android:text="@string/control_de_inventario_de_materia_prima"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:text="Control de inventario de Materia Prima"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:fontFamily="@font/manropesemibold"
             android:textColor="@color/black"
-            android:textSize="@dimen/_20sdp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_17sdp" />
 
 
     </LinearLayout>
@@ -58,12 +60,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@color/white"
+            android:paddingBottom="@dimen/_15sdp"
             android:layout_margin="@dimen/_20sdp">
 
             <TextView
                 android:id="@+id/info1"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
+                android:fontFamily="@font/manropemedium"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_2sdp"
                 android:text="@string/descripci_n_materia_prima" />
@@ -74,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_2sdp"
                 android:ems="10"
+                android:fontFamily="@font/manroperegular"
                 android:inputType="textPersonName"
                 android:textColor="@color/black"
                 android:background="@drawable/dr_white_input_text"/>
@@ -82,9 +87,10 @@
                 android:id="@+id/textView8"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
+                android:fontFamily="@font/manropemedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Concepto" />
+                android:text="@string/concepto" />
 
             <Spinner
                 android:id="@+id/conceptChoice"
@@ -93,6 +99,7 @@
                 android:backgroundTint="@color/black"
                 android:overlapAnchor="false"
                 android:spinnerMode="dropdown"
+                android:fontFamily="@font/manroperegular"
                 android:textAlignment="inherit"
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -104,8 +111,9 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
+                android:fontFamily="@font/manropemedium"
                 android:layout_height="wrap_content"
-                android:text="Movimiento de la materia prima" />
+                android:text="@string/movimiento_de_la_materia_prima" />
 
             <Spinner
                 android:id="@+id/spinnerChoice"
@@ -115,6 +123,7 @@
                 android:overlapAnchor="false"
                 android:spinnerMode="dropdown"
                 android:textAlignment="inherit"
+                android:fontFamily="@font/manroperegular"
                 android:textColor="@color/black"
                 android:textStyle="bold"
 
@@ -126,7 +135,8 @@
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cantidad materia prima" />
+                android:fontFamily="@font/manropemedium"
+                android:text="@string/cantidad_materia_prima" />
 
             <EditText
                 android:id="@+id/quantity"
@@ -135,6 +145,7 @@
                 android:ems="10"
                 android:layout_margin="@dimen/_2sdp"
                 android:inputType="numberDecimal"
+                android:fontFamily="@font/manroperegular"
                 android:background="@drawable/dr_white_input_text"
                 android:textColor="@color/black"/>
 
@@ -144,9 +155,10 @@
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manropemedium"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
-                android:text="Unidad" />
+                android:text="@string/unidad" />
 
             <Spinner
                 android:id="@+id/spinnerUnits"
@@ -155,6 +167,7 @@
                 android:backgroundTint="@color/black"
                 android:overlapAnchor="false"
                 android:spinnerMode="dropdown"
+                android:fontFamily="@font/manroperegular"
                 android:textAlignment="inherit"
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -167,7 +180,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_2sdp"
-                android:text="Cantidad Existencias" />
+                android:fontFamily="@font/manropemedium"
+                android:text="@string/cantidad_existencias" />
 
             <EditText
                 android:id="@+id/existanceTool"
@@ -175,24 +189,23 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_2sdp"
                 android:ems="10"
+                android:fontFamily="@font/manroperegular"
                 android:inputType="number"
                 android:textColor="@color/black"
                 android:background="@drawable/dr_white_input_text"/>
 
 
 
-
-
             <Button
                 android:id="@+id/create_forms2_buttom"
-                android:layout_width="@dimen/_212sdp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_30sdp"
-                android:layout_marginEnd="@dimen/_40sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_20sdp"
-                android:background="@drawable/dr_green_button"
-                android:text="Agregar Formulario" />
+                android:layout_margin="@dimen/_10sdp"
+                android:fontFamily="@font/manropemedium"
+                android:text="@string/agregar_formulario"
+                android:background="@drawable/dr_green_button"/>
+
+
 
         </LinearLayout>
     </ScrollView>
@@ -200,25 +213,24 @@
     <LinearLayout
         android:id="@+id/linearLayout8"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_112sdp"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/dr_shadow_top"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/ludification"
             android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="7dp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
@@ -229,12 +241,15 @@
             android:layout_width="@dimen/_79sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
-            android:padding="10dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
@@ -246,11 +261,14 @@
             android:layout_width="@dimen/_107sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
@@ -263,12 +281,15 @@
             android:layout_width="@dimen/_60sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="@dimen/_1sdp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:fontFamily="@font/manropemedium"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"
