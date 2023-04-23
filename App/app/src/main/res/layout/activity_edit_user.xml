@@ -69,15 +69,24 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/levelUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/manroperegular"
+                    android:gravity="center"
+                    android:text="Nivel  " />
+
+                <TextView
                     android:id="@+id/userName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_gravity="center"
-                    android:text="@string/nameUsr"
                     android:fontFamily="@font/manropemedium"
+                    android:text="@string/nameUsr"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_20sdp" />
