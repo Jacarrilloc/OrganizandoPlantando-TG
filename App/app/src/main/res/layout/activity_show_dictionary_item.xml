@@ -22,6 +22,7 @@
             android:layout_marginTop="@dimen/_120sdp"
             android:layout_marginStart="@dimen/_10sdp"
             android:background="@drawable/im_input"
+            android:fontFamily="@font/manroperegular"
             android:paddingBottom="@dimen/_35sdp"
             android:paddingTop="@dimen/_10sdp"
             android:paddingStart="@dimen/_10sdp"

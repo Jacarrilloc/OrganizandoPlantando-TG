@@ -29,6 +29,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.opcv.HomeActivity;
 import com.example.opcv.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.adapter.CommentsAdapter;
@@ -279,7 +280,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 String textInput = String.valueOf(input.getText());
                 if(!textInput.isEmpty()){
                     logic.addComments(element, idUser,  textInput, docRef, ShowDictionaryItemActivity.this);
-                    //level.addLevel(idUser, false, ShowDictionaryItemActivity.this);
+                    level.addLevel(idUser, false, ShowDictionaryItemActivity.this, element);
 
                 }
                 recreate();
@@ -364,7 +365,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ShowDictionaryItemActivity.this, GardensAvailableActivity.class));
+                startActivity(new Intent(ShowDictionaryItemActivity.this, HomeActivity.class));
             }
         });
 

@@ -29,12 +29,14 @@ public class levelLogic {
         if(gains){
             map.put("Level", levelPublish);
             persistance.addLevelUser(idUser, map);
+            Toast.makeText(context, "Has ganado puntos .Felicidades! Ganaste 7 puntos por crear tu "+translate, Toast.LENGTH_SHORT).show();
             Notifications notifications = new Notifications();
             notifications.notification("Has ganado puntos", "Felicidades! Ganaste 7 puntos por crear tu "+translate, context);
         }
         else {
             map.put("Level", levelComment);
             persistance.addLevelUser(idUser, map);
+            Toast.makeText(context, "Felicidades! Ganaste 3 puntos por hacer un comentario.", Toast.LENGTH_SHORT).show();
             Notifications notifications = new Notifications();
             notifications.notification("Has ganado puntos", "Felicidades! Ganaste 3 puntos por hacer un comentario.", context);
         }
