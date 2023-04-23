@@ -259,7 +259,7 @@ public class GardenEditActivity extends AppCompatActivity {
         database2.collection("Gardens")
                 .document(idGarden)
                 .collection("Forms")
-                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
@@ -418,13 +418,34 @@ public class GardenEditActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try{
-            if (resultCode == RESULT_OK) {
+            if(requestCode == 0){
                 Bitmap photoI = (Bitmap) data.getExtras().get("data");
                 gardenImage.setImageBitmap(photoI);
+                gardenImage.setDrawingCacheEnabled(true);
+                gardenImage.buildDrawingCache();
+                Bitmap bitmap = gardenImage.getDrawingCache();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                if(bitmap != null){
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+                    //bytes = baos.toByteArray();
+                }
             }
-            if (resultCode == RESULT_OK && requestCode == GALLERY_REQUEST_CODE && data != null) {
-                Uri imageUri = data.getData();
-                gardenImage.setImageURI(imageUri);
+            if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() !=null){
+                Uri selectedImage = data.getData();
+                gardenImage.setImageURI(null);
+                gardenImage.setImageURI(selectedImage);
+
+                IsChangedPhoto = true;
+                if(IsChangedPhoto){
+                    gardenImage.setDrawingCacheEnabled(true);
+                    gardenImage.buildDrawingCache();
+                    Bitmap bitmap = gardenImage.getDrawingCache();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    if(bitmap != null){
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+                        //bytes = baos.toByteArray();
+                    }
+                }
             }
         }catch (Exception e){
             e.printStackTrace();

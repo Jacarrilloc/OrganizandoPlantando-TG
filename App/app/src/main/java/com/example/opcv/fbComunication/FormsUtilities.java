@@ -105,7 +105,7 @@ public class FormsUtilities {
                                 @Nullable
                                 @Override
                                 public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
-                                    transaction.update(docRef, "date", date, "eventName", eventN, "totalPerson", totalP, "womenNumber", femaleN, "menNumber", maleN,
+                                    transaction.update(docRef, "Date", date, "eventName", eventN, "totalPerson", totalP, "womenNumber", femaleN, "menNumber", maleN,
                                             "noSpcNumber", noSpcN, "infantNumber", infantN, "childhoodNumber", childhoodN, "teenNumber", teenN, "youthNumber", youthN,
                                             "adultNumber", adultN, "elderlyNumber", elderlyN, "afroNumber", afroN, "nativeNumber", nativeN, "lgtbiNumber", lgtbiN,
                                             "romNumber", romN,"victimNumber", victimN, "disabilityNumber", disabilityN, "demobilizedNumber", demobilizedN,

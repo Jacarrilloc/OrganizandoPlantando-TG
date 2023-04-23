@@ -186,7 +186,7 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
                                                                     //idSearch = new GardenInfo(idOwner, name, info, gardenType);
                                                                     String idGarde = document.getData().get("idGardenCollab").toString();
                                                                     GardenPersistance persistance = new GardenPersistance();
-                                                                    persistance.getGardenPicture(idGarde, new GardenPersistance.GetUri() {
+                                                                    persistance.getGardenPicture(idGarde, CollaboratorGardensActivity.this, new GardenPersistance.GetUri() {
                                                                         @Override
                                                                         public void onSuccess(String uri) {
                                                                             ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(nameUser, userId, idGarde, uri);
@@ -217,9 +217,15 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
 
     }
     private void fillListGardens( List<ItemCollaboratorsRequest> gardenInfoDocument){
-        MyCollaborationsListAdapter adapter = new MyCollaborationsListAdapter(this, gardenInfoDocument);
-        listGardens.setAdapter(adapter);
-        listGardens.setDividerHeight(5);
+        try{
+            Thread.sleep(65);
+            MyCollaborationsListAdapter adapter = new MyCollaborationsListAdapter(this, gardenInfoDocument);
+            listGardens.setAdapter(adapter);
+            listGardens.setDividerHeight(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override

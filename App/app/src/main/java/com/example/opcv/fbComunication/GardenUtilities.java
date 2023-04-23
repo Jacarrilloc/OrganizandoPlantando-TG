@@ -48,13 +48,13 @@ public class GardenUtilities {
                         String name = documentSnapshot.getString("GardenName");
                         String gardenId = documentSnapshot.getId();
                         GardenPersistance persistance = new GardenPersistance();
-                        persistance.getGardenPicture(gardenId, new GardenPersistance.GetUri() {
+                        /*persistance.getGardenPicture(gardenId, this, new GardenPersistance.GetUri() {
                             @Override
                             public void onSuccess(String uri) {
                                 ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);
                                 gardenNames.add(newItem);
                             }
-                        });
+                        });*/
 
 
                     } else {
