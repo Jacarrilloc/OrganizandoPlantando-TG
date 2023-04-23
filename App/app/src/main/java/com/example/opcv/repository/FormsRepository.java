@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.example.opcv.formsScreen.Form_SCMPH;
+import com.example.opcv.notifications.Notifications;
 import com.example.opcv.repository.interfaces.OnFormInsertedListener;
 import com.example.opcv.repository.localForms.*;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -70,6 +72,9 @@ public class FormsRepository {
                         }
                     }
                 });
+                Notifications notifications = new Notifications();
+                notifications.notification("Formulario creado", "Tienes Conexion, Formulario Subido", mContext);
+
             }).start();
         });
     }
@@ -119,6 +124,9 @@ public class FormsRepository {
                         }
                     }
                 });
+
+                Notifications notifications = new Notifications();
+                notifications.notification("Formulario creado", "Tienes Conexion, Formulario Subido", mContext);
             }).start();
         });
     }
@@ -168,6 +176,9 @@ public class FormsRepository {
                         }
                     }
                 });
+
+                Notifications notifications = new Notifications();
+                notifications.notification("Formulario creado", "Tienes Conexion, Formulario Subido", mContext);
             }).start();
         });
     }
@@ -217,6 +228,9 @@ public class FormsRepository {
                         }
                     }
                 });
+
+                Notifications notifications = new Notifications();
+                notifications.notification("Formulario creado", "Tienes Conexion, Formulario Subido", mContext);
             }).start();
         });
     }
@@ -266,6 +280,9 @@ public class FormsRepository {
                         }
                     }
                 });
+
+                Notifications notifications = new Notifications();
+                notifications.notification("Formulario creado", "Tienes Conexion, Formulario Subido", mContext);
             }).start();
         });
     }
@@ -315,6 +332,9 @@ public class FormsRepository {
                         }
                     }
                 });
+
+                Notifications notifications = new Notifications();
+                notifications.notification("Formulario creado", "Tienes Conexion, Formulario Subido", mContext);
             }).start();
         });
     }
@@ -335,6 +355,9 @@ public class FormsRepository {
                         }
                     }
                 });
+
+                Notifications notifications = new Notifications();
+                notifications.notification("Formulario creado", "Tienes Conexion, Formulario Subido", mContext);
             }
 
             // Insertar en la base de datos local siempre
@@ -364,6 +387,9 @@ public class FormsRepository {
                         }
                     }
                 });
+
+                Notifications notifications = new Notifications();
+                notifications.notification("Formulario creado", "Tienes Conexion, Formulario Subido", mContext);
             }).start();
         });
     }
@@ -413,6 +439,9 @@ public class FormsRepository {
                         }
                     }
                 });
+
+                Notifications notifications = new Notifications();
+                notifications.notification("Formulario creado", "Tienes Conexion, Formulario Subido", mContext);
             }).start();
         });
     }
@@ -462,6 +491,9 @@ public class FormsRepository {
                         }
                     }
                 });
+
+                Notifications notifications = new Notifications();
+                notifications.notification("Formulario creado", "Tienes Conexion, Formulario Subido", mContext);
             }).start();
         });
     }
@@ -511,6 +543,9 @@ public class FormsRepository {
                         }
                     }
                 });
+
+                Notifications notifications = new Notifications();
+                notifications.notification("Formulario creado", "Tienes Conexion, Formulario Subido", mContext);
             }).start();
         });
     }

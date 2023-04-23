@@ -26,6 +26,7 @@ import com.example.opcv.auth.EditUserActivity;
 import com.example.opcv.business.formsLogic.FormsLogic;
 import com.example.opcv.fbComunication.FormsUtilities;
 import com.example.opcv.ludificationScreens.DictionaryHome;
+import com.example.opcv.notifications.Notifications;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -285,6 +286,9 @@ public class Form_RE extends AppCompatActivity {
 
                     FormsLogic newForm = new FormsLogic(Form_RE.this);
                     newForm.createForm(infoForm,idGardenFb);
+
+                    Notifications notifications = new Notifications();
+                    notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_RE.this);
 
                     //newForm.insertInto_RE(infoForm);
                     Toast.makeText(Form_RE.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
