@@ -146,7 +146,7 @@ public class GardensAvailableActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     if (task.getResult().isEmpty()) { // User is not a collaborator
                                         GardenPersistance persistance = new GardenPersistance();
-                                        persistance.getGardenPicture(gardenId, new GardenPersistance.GetUri() {
+                                        persistance.getGardenPicture(gardenId, GardensAvailableActivity.this, new GardenPersistance.GetUri() {
                                             @Override
                                             public void onSuccess(String uri) {
                                                 ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);
