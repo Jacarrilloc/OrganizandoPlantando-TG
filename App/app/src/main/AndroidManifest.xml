@@ -37,29 +37,29 @@
         android:requestLegacyExternalStorage="true"
         tools:targetApi="31">
         <activity
-            android:name=".ludificationScreens.CreateToolActivity"
+            android:name=".view.ludification.CreateToolActivity"
             android:exported="false" />
         <activity
-            android:name=".ludificationScreens.CreatePlantActivity"
+            android:name=".view.ludification.CreatePlantActivity"
             android:exported="false" />
         <activity
-            android:name=".ludificationScreens.ShowDictionaryItemActivity"
+            android:name=".view.ludification.ShowDictionaryItemActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize"/>
         <activity
-            android:name=".ludificationScreens.ShowDictionaryActivity"
+            android:name=".view.ludification.ShowDictionaryActivity"
             android:exported="false" />
         <activity
-            android:name=".ludificationScreens.DictionaryHome"
+            android:name=".view.ludification.DictionaryHomeActivity"
             android:exported="false" />
         <activity
-            android:name=".formsScreen.FormsRegistersActivity"
+            android:name=".view.forms.FormsRegistersActivity"
             android:exported="false" />
         <activity
-            android:name=".gardens.WhatsappActivity"
+            android:name=".view.gardens.WhatsappActivity"
             android:exported="false" />
         <activity
-            android:name=".gardens.CollaboratorGardensActivity"
+            android:name=".view.gardens.CollaboratorGardensActivity"
             android:exported="false" />
 
         <provider
@@ -73,49 +73,45 @@
         </provider>
 
         <activity
-            android:name=".gardens.OtherGardensActivity"
+            android:name=".view.gardens.OtherGardensActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".view.auth.SelectPhotoActivity"
             android:exported="false" />
         <activity
-            android:name=".adapter.GardenAvailableListAdapter"
+            android:name=".view.forms.Form_RSMP"
             android:exported="false" />
         <activity
-            android:name=".auth.SelectPhotoActivity"
+            android:name=".view.forms.Form_SCMPH"
             android:exported="false" />
         <activity
-            android:name=".formsScreen.Form_RSMP"
+            android:name=".view.forms.Form_IMP"
             android:exported="false" />
         <activity
-            android:name=".formsScreen.Form_SCMPH"
+            android:name=".view.forms.Form_RE"
             android:exported="false" />
         <activity
-            android:name=".formsScreen.Form_IMP"
+            android:name=".view.forms.Form_RHC"
             android:exported="false" />
         <activity
-            android:name=".formsScreen.Form_RE"
+            android:name=".view.forms.Form_CIH"
             android:exported="false" />
         <activity
-            android:name=".formsScreen.Form_RHC"
+            android:name=".view.forms.Form_RRH"
             android:exported="false" />
         <activity
-            android:name=".formsScreen.Form_CIH"
+            android:name=".view.forms.Form_RCC"
             android:exported="false" />
         <activity
-            android:name=".formsScreen.Form_RRH"
+            android:name=".view.forms.Form_CPS"
             android:exported="false" />
         <activity
-            android:name=".formsScreen.Form_RCC"
+            android:name=".view.forms.Form_RAC"
             android:exported="false" />
+
         <activity
-            android:name=".formsScreen.Form_CPS"
-            android:exported="false" />
-        <activity
-            android:name=".formsScreen.Form_RAC"
-            android:exported="false" />
-        <activity
-            android:name=".FormsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".auth.RegisterMobilePhone"
+            android:name=".view.auth.RegisterMobilePhone"
             android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
@@ -135,82 +131,71 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
 
+
         <activity
-            android:name=".MapsActivityFragment"
-            android:exported="false"
-            android:label="@string/title_activity_maps_fragment" />
+            android:name=".view.gardens.MapsActivity"
+            android:exported="false" />
+
+
         <activity
-            android:name=".MapsActivity"
+            android:name=".view.auth.RegisterProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".adapter.FormsRegisterAdapter"
+            android:name=".view.gardens.GardenFormsActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterForms"
+            android:name=".view.gardens.GardenRequestsActivity"
             android:exported="false" />
         <activity
-            android:name=".auth.RegisterProfileActivity"
+            android:name=".view.adapter.GardenMembersAdapter"
             android:exported="false" />
         <activity
-            android:name=".gardens.GardenForms"
+            android:name=".view.gardens.GardenMembersActivity"
             android:exported="false" />
         <activity
-            android:name=".gardens.GardenRequestsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".adapter.GardenMembersAdapter"
-            android:exported="false" />
-        <activity
-            android:name=".gardens.GardenMembersActivity"
-            android:exported="false" />
-        <activity
-            android:name=".auth.EditUserActivity"
+            android:name=".view.auth.EditUserActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".GenerateReportsActivity"
+            android:name=".view.gardens.GenerateReportsActivity"
             android:exported="false" />
         <activity
-            android:name=".gardens.GardenEditActivity"
+            android:name=".view.gardens.GardenEditActivity"
             android:exported="false" />
         <activity
-            android:name=".guestLoginActivity"
+            android:name=".view.auth.guestLoginActivity"
             android:exported="false" />
         <activity
-            android:name=".NewToAppActivity"
+            android:name=".view.auth.NewToAppActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".view.gardens.CreateGardenActivity"
             android:exported="false" />
         <activity
-            android:name=".registroLombriculturaActivity"
+            android:name=".view.gardens.GardensAvailableActivity"
             android:exported="false" />
         <activity
-            android:name=".gardens.CreateGardenActivity"
+            android:name=".view.auth.TermsAndConditionsActivity"
             android:exported="false" />
         <activity
-            android:name=".gardens.GardensAvailableActivity"
+            android:name=".view.gardens.GardenActivity"
             android:exported="false" />
         <activity
-            android:name=".TermsAndConditionsActivity"
+            android:name=".view.auth.DeleteAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".gardens.GardenActivity"
+            android:name=".view.auth.SignOffActivity"
             android:exported="false" />
         <activity
-            android:name=".auth.DeleteAccountActivity"
+            android:name=".view.base.HomeActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".view.auth.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".auth.SignOffActivity"
-            android:exported="false" />
-        <activity
-            android:name=".HomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".WelcomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".auth.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".view.base.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

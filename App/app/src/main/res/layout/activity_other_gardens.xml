@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:focusableInTouchMode="true"
-    tools:context=".gardens.GardenActivity">
+    tools:context=".view.gardens.GardenActivity">
 
 
     <FrameLayout

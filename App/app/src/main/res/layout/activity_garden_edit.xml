@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:focusableInTouchMode="true"
-    tools:context=".gardens.GardenEditActivity"
+    tools:context=".view.gardens.GardenEditActivity"
     android:orientation="vertical">
 
     <FrameLayout

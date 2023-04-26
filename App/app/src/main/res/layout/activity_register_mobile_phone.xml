@@ -7,7 +7,7 @@
     android:background="@color/GreenBackgroung"
     android:orientation="vertical"
     android:focusableInTouchMode="true"
-    tools:context=".auth.RegisterMobilePhone">
+    tools:context=".view.auth.RegisterMobilePhone">
 
     <FrameLayout
         android:layout_width="match_parent"

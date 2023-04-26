@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#91BF63"
     android:orientation="vertical"
-    tools:context=".TermsAndConditionsActivity">
+    tools:context=".view.auth.TermsAndConditionsActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
