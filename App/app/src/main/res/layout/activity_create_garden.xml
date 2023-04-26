@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
-    tools:context=".gardens.CreateGardenActivity"
+    tools:context=".view.gardens.CreateGardenActivity"
     android:background="@color/white">
 
     <ScrollView

@@ -8,7 +8,7 @@
     android:background="@color/white"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context=".auth.LoginActivity">
+    tools:context=".view.auth.LoginActivity">
 
     <FrameLayout
         android:layout_width="match_parent"

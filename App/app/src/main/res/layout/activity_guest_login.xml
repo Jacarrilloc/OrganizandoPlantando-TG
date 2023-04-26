@@ -8,7 +8,7 @@
     android:background="@color/white"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context=".guestLoginActivity">
+    tools:context=".view.auth.guestLoginActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/returnBotton"
