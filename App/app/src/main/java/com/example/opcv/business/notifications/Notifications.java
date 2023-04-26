@@ -1,4 +1,4 @@
-package com.example.opcv.notifications;
+package com.example.opcv.business.notifications;
 
 import static androidx.core.content.ContextCompat.getSystemService;
 
@@ -44,7 +44,6 @@ public class Notifications {
             // Mostrar la notificación
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-
                 // here to request the missing permissions, and then overriding
                 //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
                 //                                          int[] grantResults)
