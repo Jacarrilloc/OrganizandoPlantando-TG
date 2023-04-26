@@ -21,7 +21,7 @@ import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.business.persistance.firebase.FormsCommunication;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
-import com.example.opcv.business.notifications.Notifications;
+import com.example.opcv.notifications.Notifications;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

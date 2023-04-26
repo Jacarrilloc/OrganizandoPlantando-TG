@@ -4,7 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.example.opcv.business.notifications.Notifications;
+import com.example.opcv.notifications.Notifications;
 import com.example.opcv.business.persistance.repository.interfaces.OnFormInsertedListener;
 import com.example.opcv.business.persistance.repository.localForms.CIH;
 import com.example.opcv.business.persistance.repository.localForms.CPS;

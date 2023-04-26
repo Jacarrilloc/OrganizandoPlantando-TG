@@ -3,7 +3,7 @@ package com.example.opcv.business.ludification;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.example.opcv.business.notifications.Notifications;
+import com.example.opcv.notifications.Notifications;
 import com.example.opcv.business.persistance.firebase.LudificationCommunication;
 
 import java.util.HashMap;
