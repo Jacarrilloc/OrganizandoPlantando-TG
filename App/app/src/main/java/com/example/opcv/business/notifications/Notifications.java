@@ -1,4 +1,4 @@
-package com.example.opcv.notifications;
+package com.example.opcv.business.notifications;
 
 import static androidx.core.content.ContextCompat.getSystemService;
 
