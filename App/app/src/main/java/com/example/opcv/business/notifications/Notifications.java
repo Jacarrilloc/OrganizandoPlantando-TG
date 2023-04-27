@@ -25,10 +25,10 @@ import java.security.Permissions;
 public class Notifications {
     public void notification(String title, String text, Context context) {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ) {
             CharSequence name = "Ceres Channel";
             String description = "Ceres app notifications";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel("channel_id", name, importance);
             channel.setDescription(description);
             NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
@@ -78,7 +78,6 @@ public class Notifications {
             int notificationId = 1;
             notificationManager.notify(notificationId, builder.build());
         }
-
 
     }
     public void notification1(String title, String text, Context context){
