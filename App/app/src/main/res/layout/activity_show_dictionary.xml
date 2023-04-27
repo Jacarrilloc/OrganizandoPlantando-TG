@@ -44,21 +44,15 @@
                     android:layout_gravity="center"
                     android:background="@drawable/im_cirles_menu" />
 
-                <EditText
-                    android:id="@+id/search"
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/searchView"
+                    android:theme="@style/SearchView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="@dimen/_30sdp"
-                    android:layout_marginStart="@dimen/_30sdp"
-                    android:fontFamily="@font/manroperegular"
+                    android:iconifiedByDefault="false"
                     android:background="@drawable/dr_white_input_text"
-                    android:ems="10"
-                    android:hint="@string/buscar"
-                    android:inputType="text"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gray" />
+                    android:layout_margin="@dimen/_15sdp"
+                    app:iconifiedByDefault="false" />
 
 
                 <GridView

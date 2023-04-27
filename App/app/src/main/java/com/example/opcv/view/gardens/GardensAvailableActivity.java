@@ -26,7 +26,7 @@ import com.example.opcv.view.adapter.GardenListAdapter;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.model.items.ItemGardenHomeList;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
-import com.example.opcv.business.persistance.garden.GardenPersistance;
+import com.example.opcv.business.persistance.firebase.GardenCommunication;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
@@ -142,8 +142,8 @@ public class GardensAvailableActivity extends AppCompatActivity {
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     if (task.getResult().isEmpty()) { // User is not a collaborator
-                                        GardenPersistance persistance = new GardenPersistance();
-                                        persistance.getGardenPicture(gardenId, GardensAvailableActivity.this, new GardenPersistance.GetUri() {
+                                        GardenCommunication persistance = new GardenCommunication();
+                                        persistance.getGardenPicture(gardenId, GardensAvailableActivity.this, new GardenCommunication.GetUri() {
                                             @Override
                                             public void onSuccess(String uri) {
                                                 ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);

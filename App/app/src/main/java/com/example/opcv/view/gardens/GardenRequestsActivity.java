@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.example.opcv.R;
 import com.example.opcv.view.adapter.CollaboratorListAdapter;
 import com.example.opcv.model.items.ItemCollaboratorsRequest;
-import com.example.opcv.business.persistance.garden.GardenPersistance;
+import com.example.opcv.business.persistance.firebase.GardenCommunication;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -111,8 +111,8 @@ public class GardenRequestsActivity extends AppCompatActivity {
                                                     if(idSearch.equals(idUser)){
                                                         name = (String) document.getData().get("Name");
                                                         //Si se necesita mas informacion usar la clase User
-                                                        GardenPersistance persistance = new GardenPersistance();
-                                                        persistance.getGardenPicture(gardenId, GardenRequestsActivity.this, new GardenPersistance.GetUri() {
+                                                        GardenCommunication persistance = new GardenCommunication();
+                                                        persistance.getGardenPicture(gardenId, GardenRequestsActivity.this, new GardenCommunication.GetUri() {
                                                             @Override
                                                             public void onSuccess(String uri) {
                                                                 ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(name, idUser, gardenId, uri);

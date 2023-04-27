@@ -2,7 +2,9 @@ package com.example.opcv.view.ludification;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -36,7 +38,7 @@ public class ShowDictionaryActivity extends AppCompatActivity {
     private FloatingActionButton add;
     private String element, idUser;
     private Button profile, myGardens, gardensMap, ludification;
-    private EditText search;
+    private androidx.appcompat.widget.SearchView searchView;
     private GridView listView;
 
     @Override
@@ -50,7 +52,7 @@ public class ShowDictionaryActivity extends AppCompatActivity {
         myGardens = (Button) findViewById(R.id.myGardens);
         gardensMap = (Button) findViewById(R.id.gardens);
         ludification = (Button) findViewById(R.id.ludification);
-        search = (EditText) findViewById(R.id.search);
+        searchView = (androidx.appcompat.widget.SearchView) findViewById(R.id.searchView);
         listView = (GridView) findViewById(R.id.plantsList);
 
         Bundle extras = getIntent().getExtras();
@@ -175,6 +177,22 @@ public class ShowDictionaryActivity extends AppCompatActivity {
         PlantsToolsAdapter adapter = new PlantsToolsAdapter(this, requestDocument, element);
         listView.setAdapter(adapter);
         listView.setVerticalSpacing(15);
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                adapter.getFilter().filter(query);
+                return true;
+            }
+        });
+
     }
     @Override
     protected void attachBaseContext(Context newBase) {

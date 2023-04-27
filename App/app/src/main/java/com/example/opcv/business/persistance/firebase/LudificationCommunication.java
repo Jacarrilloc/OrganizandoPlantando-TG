@@ -586,6 +586,11 @@ public class LudificationCommunication implements Serializable {
     public interface GetLevel{
         void onSuccess(String level);
     }
+
+    public void addUserActionsPoints(String idUser, Map<String, Object> map){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("UserInfo").document(idUser).collection("UserActionsPoints").add(map);
+    }
 /*
     public void getDislikesUser(String idUser, final DeductLevel callback){
 

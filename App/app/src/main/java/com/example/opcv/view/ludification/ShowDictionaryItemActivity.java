@@ -321,7 +321,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 number++;
                 String numberText = String.valueOf(number);
                 likeNumber.setText(numberText);
-                FirebaseFirestore database = FirebaseFirestore.getInstance();
+                //LudificationCommunication persistance = new LudificationCommunication();
                 Map<String, Object> like = new HashMap<>();
                 likeButton.setEnabled(false);
                 dislikeButton.setEnabled(false);
@@ -330,7 +330,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 like.put("idItem", docRef);
                 like.put("like", true);
                 like.put("dislike", false);
-                database.collection("UserInfo").document(idUser).collection("UserActionsPoints").add(like);
+                persistance.addUserActionsPoints(idUser, like);
             }
         });
         dislikeButton.setOnClickListener(new View.OnClickListener() {
@@ -346,12 +346,12 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 dislikeNumber.setText(numberText);
                 likeButton.setBackgroundResource(R.drawable.im_like_gray);
                 dislikeButton.setBackgroundResource(R.drawable.im_dislike_gray);
-                FirebaseFirestore database = FirebaseFirestore.getInstance();
+                //LudificationCommunication persistance = new LudificationCommunication();
                 Map<String, Object> like = new HashMap<>();
                 like.put("idItem", docRef);
                 like.put("like", false);
                 like.put("dislike", true);
-                database.collection("UserInfo").document(idUser).collection("UserActionsPoints").add(like);
+                persistance.addUserActionsPoints(idUser, like);
             }
         });
 

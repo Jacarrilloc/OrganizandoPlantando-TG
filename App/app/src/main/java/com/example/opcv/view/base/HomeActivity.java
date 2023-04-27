@@ -39,7 +39,7 @@ import com.example.opcv.model.items.ItemGardenHomeList;
 import com.example.opcv.view.gardens.GenerateReportsActivity;
 import com.example.opcv.view.gardens.MapsActivity;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
-import com.example.opcv.business.persistance.garden.GardenPersistance;
+import com.example.opcv.business.persistance.firebase.GardenCommunication;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -272,9 +272,9 @@ public class HomeActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : value) {
                             String name = document.getString("GardenName");
                             String gardenId = document.getId();
-                            GardenPersistance persistance = new GardenPersistance();
+                            GardenCommunication persistance = new GardenCommunication();
                             if(isOnline()) {
-                                persistance.getGardenPicture(gardenId, HomeActivity.this, new GardenPersistance.GetUri() {
+                                persistance.getGardenPicture(gardenId, HomeActivity.this, new GardenCommunication.GetUri() {
                                     @Override
                                     public void onSuccess(String uri) {
                                         ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);

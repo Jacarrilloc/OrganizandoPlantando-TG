@@ -36,7 +36,7 @@ import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.model.entity.GardenInfo;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.business.notifications.Notifications;
-import com.example.opcv.business.persistance.garden.GardenPersistance;
+import com.example.opcv.business.persistance.firebase.GardenCommunication;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -188,7 +188,7 @@ public class CreateGardenActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
                     String idGarden = documentReference.getId();
-                    GardenPersistance persistance = new GardenPersistance();
+                    GardenCommunication persistance = new GardenCommunication();
                     if(bytes == null){
                         int drawableId = R.drawable.im_logo_ceres_green;
 
@@ -198,7 +198,7 @@ public class CreateGardenActivity extends AppCompatActivity {
                         bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
                         bytes = stream.toByteArray();
                     }
-                    persistance.addGardenPhoto(bytes, idGarden, new GardenPersistance.GetUriGarden() {
+                    persistance.addGardenPhoto(bytes, idGarden, new GardenCommunication.GetUriGarden() {
                         @Override
                         public void onSuccess(String uri) {
                             //descomentar la siguiente linea si se necesita poner la uri en firestore

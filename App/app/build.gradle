@@ -72,6 +72,7 @@ dependencies {
     implementation "androidx.room:room-runtime:2.4.0"
     annotationProcessor "androidx.room:room-compiler:2.4.0"
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
     //permisos
     implementation 'androidx.activity:activity:1.3.1'
     implementation 'androidx.fragment:fragment:1.3.6'
