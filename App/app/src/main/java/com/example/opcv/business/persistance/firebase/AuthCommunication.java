@@ -178,24 +178,28 @@ public class AuthCommunication implements Serializable {
             try{
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailRegister,passwordRegister)
                         .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-
-                                addProfilePhoto(bytes, user.getUid().toString(), new GetUriUser() {
-                                    @Override
-                                    public void onSuccess(String uri) {
-                                        newUserInfo.setId(user.getUid().toString());
-                                        newUserInfo.setUriPath(uri);
-                                        addtoDataBase(newUserInfo.toMap());
-                                        isUserCreated[0] = true;
-                                    }
-                                });
-
+                                if (bytes != null){
+                                        addProfilePhoto(bytes, user.getUid().toString(), new GetUriUser() {
+                                            @Override
+                                            public void onSuccess(String uri) {
+                                                newUserInfo.setId(user.getUid().toString());
+                                                newUserInfo.setUriPath(uri);
+                                                addtoDataBase(newUserInfo.toMap());
+                                                isUserCreated[0] = true;
+                                            }
+                                        });
+                                }else{
+                                    newUserInfo.setId(user.getUid().toString());
+                                    newUserInfo.setUriPath(null);
+                                    addtoDataBase(newUserInfo.toMap());
+                                    isUserCreated[0] = true;
+                                }
                             }
                         });
             }catch (Exception e){
-
+                Log.i("ERROR CREAR CUENTA: ",e.getMessage().toString());
             }
             return isUserCreated[0];
         } else {

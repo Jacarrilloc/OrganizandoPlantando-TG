@@ -116,10 +116,9 @@ public class EditUserActivity extends AppCompatActivity {
         persistance.getProfilePicture(userID_Recived, new UserCommunication.GetUriUser() {
             @Override
             public void onComplete(String uri) {
-                if(!Objects.equals(uri, "")){
+                if(!Objects.equals(uri, null)){
                     Glide.with(EditUserActivity.this).load(uri).into(profilePhoto);
-                }
-                else{
+                }else{
                     profilePhoto.setImageResource(R.drawable.im_logo_ceres);
                 }
             }

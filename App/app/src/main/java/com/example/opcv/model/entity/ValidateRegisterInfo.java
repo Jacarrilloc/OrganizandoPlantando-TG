@@ -42,7 +42,7 @@ public class ValidateRegisterInfo {
     }
 
     private boolean validatePassword(String password){
-        if(password.length() < 4)
+        if(password.length() < 6)
             return false;
         return true;
     }
