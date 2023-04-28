@@ -119,6 +119,13 @@ public class GardenRequestsActivity extends AppCompatActivity {
                                                                 gardenNames.add(newItem);
                                                                 fillListRequests(gardenNames);
                                                             }
+
+                                                            @Override
+                                                            public void onFailure(String imageString) {
+                                                                ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(name, idUser, gardenId, imageString);
+                                                                gardenNames.add(newItem);
+                                                                fillListRequests(gardenNames);
+                                                            }
                                                         });
 
                                                         break;
@@ -127,25 +134,6 @@ public class GardenRequestsActivity extends AppCompatActivity {
                                             }
                                         }
                                     });
-                                    /*.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            if(task.isSuccessful()){
-                                                String idSearch;
-                                                for(QueryDocumentSnapshot document : task.getResult()) {
-                                                    idSearch = (String) document.getData().get("ID");
-                                                    if (idSearch == null) {
-                                                        idSearch = (String) document.getData().get("id");
-                                                    }
-                                                    //System.out.println("El id es: "+idSearch+"y el otro es: "+idUser);
-                                                    if(idSearch.equals(idUser)){
-                                                        name = (String) document.getData().get("Name");
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    });*/
 
                         }
 

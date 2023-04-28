@@ -409,25 +409,6 @@ public class EditUserActivity extends AppCompatActivity {
         }
     }
 
-    public void addProfilePhoto(byte[] bytes, String userID, final GetUriUser callback) {
-        StorageReference storage = FirebaseStorage.getInstance().getReference();
-        String imageName = userID + ".jpg";
-        StorageReference ref = storage.child("userProfilePhoto/" + imageName);
-        UploadTask uploadTask = ref.putBytes(bytes);
-        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        String url = uri.toString();
-                        callback.onSuccess(url);
-                    }
-                });
-            }
-        });
-    }
-
     public interface GetImageUri{
         void onSuccess(String uri);
     }
