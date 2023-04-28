@@ -1,5 +1,8 @@
 package com.example.opcv.view.auth;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,6 +54,9 @@ public class SelectPhotoActivity extends AppCompatActivity {
     private FloatingActionButton backButtom;
     private String password;
     private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int CAMERA_PERMISSION_CODE = 100;
+
+    private Uri uriCamera;
 
     private Boolean IsChangedPhoto = false;
     private byte[] bytes;
@@ -91,7 +97,7 @@ public class SelectPhotoActivity extends AppCompatActivity {
         takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //takePhotoUser();
+                takePhotoUser();
             }
         });
 
@@ -117,6 +123,44 @@ public class SelectPhotoActivity extends AppCompatActivity {
 
             }
     }
+
+    private void takePhotoUser() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+        } else {
+            launchCamera();
+        }
+    }
+
+    private void launchCamera() {
+        uriCamera = null;
+        ImageSource.setImageURI(null);
+        File file = new File(getFilesDir(), "picFromCamera");
+        uriCamera = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", file);
+        mGetContentCamera.launch(uriCamera);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CAMERA_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                launchCamera();
+            } else {
+                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    ActivityResultLauncher<Uri> mGetContentCamera = registerForActivityResult(new ActivityResultContracts.TakePicture(),
+            new ActivityResultCallback<Boolean>() {
+                @Override
+                public void onActivityResult(Boolean result){
+                    if(result){
+                        ImageSource.setImageURI(uriCamera);
+                    }
+                }
+            });
 
     private void selectPhotoUser(){
         Intent pickImage = new Intent(Intent.ACTION_PICK);
