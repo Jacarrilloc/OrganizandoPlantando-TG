@@ -1,11 +1,15 @@
 package com.example.opcv.view.auth;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.content.Context;
@@ -14,10 +18,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -50,12 +56,14 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Transaction;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Objects;
 
@@ -69,8 +77,10 @@ public class EditUserActivity extends AppCompatActivity {
     private FirebaseFirestore database;
     private User userActive;
     private String userID_Recived, photoUri;
-    private static final int GALLERY_REQUEST_CODE = 100;
-    private static final int PERMISSION_REQUEST_STORAGE = 1000;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int CAMERA_PERMISSION_CODE = 100;
+
+    private Uri uriCamera;
     private Boolean IsChangedPhoto = false, imageSelected = false;
     private File photoFile;
 
@@ -156,7 +166,7 @@ public class EditUserActivity extends AppCompatActivity {
                         .setMessage("¿Deseas Tomar una foto o elegir desde la galeria?")
                         .setNegativeButton("Tomar Foto", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface arg0, int arg1) {
-                                takePhoto();
+                                takePhotoUser();
                             }
                         })
                         .setPositiveButton("Seleccionar desde la Galeria", new DialogInterface.OnClickListener() {
@@ -214,15 +224,11 @@ public class EditUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String email, Lastname, Name, PhoneNumber;
-                //email=userEmail.getText().toString();
                 Lastname = userLastName.getText().toString();
                 Name = userName.getText().toString();
                 PhoneNumber = userPhone.getText().toString();
-                //editUserInfo(Name, Lastname, PhoneNumber);
                 if(validateField(Name, Lastname)){
                     editUserInfo(Name, Lastname, PhoneNumber);
-                    //Intent start = new Intent(EditUserActivity.this,HomeActivity.class);
-                    //startActivity(start);
                     Toast.makeText(EditUserActivity.this, "Se guardarón los cambios con exito", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -266,49 +272,20 @@ public class EditUserActivity extends AppCompatActivity {
                         userLastName.setText(userActive.getLastName());
                         userEmail.setText("Comabaquinta");
                         userPhone.setText(userActive.getPhoneNumber());
-                        //getPhotoProfileUser(userActive.getId());
-
                     }
                 }
             }
         });
     }
-
-
-    private void getPhotoProfileUser(String id){
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        String pathImage = "userProfilePhoto/" + id + ".jpg";
-        StorageReference storageRef = storage.getReference().child(pathImage);
-
-        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(getApplicationContext()).load(uri).into(profilePhoto);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                profilePhoto.setImageResource(R.drawable.im_logo_ceres_green);
-            }
-        });
-
-    }
-
-    /*private void editUserInfo(String name, String lastName, String phoneNumber){
-        changePhoto();
-        DB_User changed = new DB_User(this);
-        changed.updateUserInfo(name,lastName,phoneNumber);
-    }*/
-
-
+    
     private void editUserInfo(String name, String lastName, String phoneNumber){
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
-        changePhoto(new GetImageUri() {
+        changePhotoProfile(new GetImageUri() {
             @Override
             public void onSuccess(String uri) {
 
-                String userID=autentication.getCurrentUser().getUid().toString();
+                String userID = autentication.getCurrentUser().getUid().toString();
                 database.collection("UserInfo")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -349,85 +326,59 @@ public class EditUserActivity extends AppCompatActivity {
         return true;
     }
 
-    private void takePhoto(){
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-
-            PackageManager pm = getPackageManager();
-            if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-                openCamaraAndTakePhoto();
-                IsChangedPhoto = true;
-            } else {
-                Toast.makeText(this, "No hay una Camara en tu Dispositivo", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        }
-    }
-
-    private void openCamaraAndTakePhoto() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 0);
-    }
-
     private void selectInGalery(){
-        if(ContextCompat.checkSelfPermission(EditUserActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(EditUserActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_STORAGE);
-        }else{
-            Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            IsChangedPhoto = true;
-            startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
-        }
+        Intent pickImage = new Intent(Intent.ACTION_PICK);
+        pickImage.setType("image/*");
+        startActivityForResult(pickImage,PICK_IMAGE_REQUEST);
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /*if (requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Bitmap photoI = (Bitmap) data.getExtras().get("data");
-            profilePhoto.setImageBitmap(photoI);
-        }
-        if (resultCode == RESULT_OK && requestCode == GALLERY_REQUEST_CODE && data != null) {
-            Uri imageUri = data.getData();
-            profilePhoto.setImageURI(imageUri);
-        }*/
-        try{
-            if(requestCode == 0){
-                Bitmap photoI = (Bitmap) data.getExtras().get("data");
-                profilePhoto.setImageBitmap(photoI);
-                profilePhoto.setDrawingCacheEnabled(true);
-                profilePhoto.buildDrawingCache();
-                Bitmap bitmap = profilePhoto.getDrawingCache();
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                if(bitmap != null){
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-                    //bytes = baos.toByteArray();
-                }
-            }
-
-            if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() !=null){
-                Uri selectedImage = data.getData();
-                // image.setImageURI(null);
-                profilePhoto.setImageURI(selectedImage);
-
-                imageSelected = true;
-                if(imageSelected){
-                    profilePhoto.setDrawingCacheEnabled(true);
-                    profilePhoto.buildDrawingCache();
-                    Bitmap bitmap = profilePhoto.getDrawingCache();
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    if(bitmap != null){
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-                        //bytes = baos.toByteArray();
+        switch (requestCode){
+            case PICK_IMAGE_REQUEST:
+                if(resultCode == RESULT_OK){
+                    try {
+                        final Uri imageUri = data.getData();
+                        final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        profilePhoto.setImageBitmap(selectedImage);
+                        IsChangedPhoto = true;
+                    }catch(FileNotFoundException e){
+                        Log.i("Galery","ERROR:"+e.toString());
                     }
                 }
-            }
-        }catch (Exception e){
-            e.printStackTrace();
         }
-
     }
 
-    private void changePhoto(final GetImageUri callback){
+    private void takePhotoUser() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+        } else {
+            launchCamera();
+        }
+    }
+
+    private void launchCamera() {
+        uriCamera = null;
+        profilePhoto.setImageURI(null);
+        File file = new File(getFilesDir(), "picFromCamera");
+        uriCamera = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", file);
+        mGetContentCamera.launch(uriCamera);
+    }
+
+    ActivityResultLauncher<Uri> mGetContentCamera = registerForActivityResult(new ActivityResultContracts.TakePicture(),
+            new ActivityResultCallback<Boolean>() {
+                @Override
+                public void onActivityResult(Boolean result){
+                    if(result){
+                        profilePhoto.setImageURI(uriCamera);
+                        IsChangedPhoto = true;
+                    }
+                }
+            });
+
+    private void changePhotoProfile(final GetImageUri callback){
         if(IsChangedPhoto) {
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference().child("userProfilePhoto/" + userID_Recived + ".jpg");
@@ -457,7 +408,30 @@ public class EditUserActivity extends AppCompatActivity {
             });
         }
     }
+
+    public void addProfilePhoto(byte[] bytes, String userID, final GetUriUser callback) {
+        StorageReference storage = FirebaseStorage.getInstance().getReference();
+        String imageName = userID + ".jpg";
+        StorageReference ref = storage.child("userProfilePhoto/" + imageName);
+        UploadTask uploadTask = ref.putBytes(bytes);
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        String url = uri.toString();
+                        callback.onSuccess(url);
+                    }
+                });
+            }
+        });
+    }
+
     public interface GetImageUri{
+        void onSuccess(String uri);
+    }
+    public interface GetUriUser{
         void onSuccess(String uri);
     }
     @Override

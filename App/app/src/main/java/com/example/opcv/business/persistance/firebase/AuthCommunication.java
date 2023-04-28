@@ -248,30 +248,6 @@ public class AuthCommunication implements Serializable {
                 });
             }
         });
-
-        /*String status = "";
-        if(imageProfile == null){
-            callback.onSuccess(status);
-        }
-        else{
-            String imageName = userID + ".jpg";
-            StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("userProfilePhoto/" + imageName);
-            UploadTask uploadTask = storageRef.putFile(imageProfile);
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            String url = uri.toString();
-                            callback.onSuccess(url);
-                        }
-                    });
-                }
-            });
-        }*/
-
-
     }
     public interface GetUriUser{
         void onSuccess(String uri);
