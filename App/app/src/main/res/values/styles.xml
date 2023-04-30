@@ -3,4 +3,12 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:screenOrientation">portrait</item>
     </style>
+
+    <style name="ProgressBarStyleGreen" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/dr_progress_bar_green</item>
+        <item name="android:minHeight">20dp</item>
+        <item name="android:maxHeight">20dp</item>
+        <item name="android:background">@color/black</item>
+    </style>
+
 </resources>

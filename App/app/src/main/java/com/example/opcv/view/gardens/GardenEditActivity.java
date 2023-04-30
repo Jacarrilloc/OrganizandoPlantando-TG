@@ -1,11 +1,15 @@
 package com.example.opcv.view.gardens;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.content.Context;
@@ -19,6 +23,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -54,6 +59,8 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class GardenEditActivity extends AppCompatActivity {
@@ -72,8 +79,10 @@ public class GardenEditActivity extends AppCompatActivity {
 
     private CollectionReference gardensRef;
     private String idUser, idGarden, nameGarden, infoGarden, name;
-    private static final int GALLERY_REQUEST_CODE = 100;
-    private static final int PERMISSION_REQUEST_STORAGE = 1000;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int CAMERA_PERMISSION_CODE = 100;
+
+    private Uri uriCamera;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +113,7 @@ public class GardenEditActivity extends AppCompatActivity {
         deleteGarden = (Button) findViewById(R.id.deleteGarden);
         addForm = (Button) findViewById(R.id.addForm);
 
-        IsChangedPhoto = true;
+        IsChangedPhoto = false;
 
         getImageGarden(idGarden);
 
@@ -120,7 +129,7 @@ public class GardenEditActivity extends AppCompatActivity {
                         })
                         .setPositiveButton("Seleccionar desde la Galeria", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface arg0, int arg1) {
-                                selectInGalery();
+                                selectPhoto();
                             }
                         })
                         .show();
@@ -252,6 +261,25 @@ public class GardenEditActivity extends AppCompatActivity {
         });
     }
 
+    private void getImageGarden(String idGarden){
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        String imageName = idGarden + ".jpg";
+        StorageReference imageRef = storageRef.child("gardenMainPhoto/" + imageName);
+        final long ONE_MEGABYTE = 1024 * 1024;
+        imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                gardenImage.setImageBitmap(bitmap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                gardenImage.setImageResource(R.drawable.im_logo_ceres_green);
+            }
+        });
+    }
+
     private void deleteGarden(String idGarden) {
         database2 = FirebaseFirestore.getInstance();
         database2.collection("Gardens")
@@ -363,92 +391,70 @@ public class GardenEditActivity extends AppCompatActivity {
         return true;
     }
 
-    private void getImageGarden(String idGarden){
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        String imageName = idGarden + ".jpg";
-        StorageReference imageRef = storageRef.child("gardenMainPhoto/" + imageName);
-        final long ONE_MEGABYTE = 1024 * 1024;
-        imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                gardenImage.setImageBitmap(bitmap);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                gardenImage.setImageResource(R.drawable.im_logo_ceres_green);
-            }
-        });
+
+    private void selectPhoto(){
+        Intent pickImage = new Intent(Intent.ACTION_PICK);
+        pickImage.setType("image/*");
+        startActivityForResult(pickImage,PICK_IMAGE_REQUEST);
     }
 
-    private void takePhoto(){
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-
-            PackageManager pm = getPackageManager();
-            if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-                openCamaraAndTakePhoto();
-                IsChangedPhoto = true;
-            } else {
-                Toast.makeText(this, "No hay una Camara en tu Dispositivo", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        }
-    }
-
-    private void openCamaraAndTakePhoto() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 0);
-    }
-
-    private void selectInGalery(){
-        if(ContextCompat.checkSelfPermission(GardenEditActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(GardenEditActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_STORAGE);
-        }else{
-            Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            IsChangedPhoto = true;
-            startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
-        }
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        try{
-            if(requestCode == 0){
-                Bitmap photoI = (Bitmap) data.getExtras().get("data");
-                gardenImage.setImageBitmap(photoI);
-                gardenImage.setDrawingCacheEnabled(true);
-                gardenImage.buildDrawingCache();
-                Bitmap bitmap = gardenImage.getDrawingCache();
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                if(bitmap != null){
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-                    //bytes = baos.toByteArray();
-                }
-            }
-            if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() !=null){
-                Uri selectedImage = data.getData();
-                gardenImage.setImageURI(null);
-                gardenImage.setImageURI(selectedImage);
-
-                IsChangedPhoto = true;
-                if(IsChangedPhoto){
-                    gardenImage.setDrawingCacheEnabled(true);
-                    gardenImage.buildDrawingCache();
-                    Bitmap bitmap = gardenImage.getDrawingCache();
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    if(bitmap != null){
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-                        //bytes = baos.toByteArray();
+        switch (requestCode){
+            case PICK_IMAGE_REQUEST:
+                if(resultCode == RESULT_OK){
+                    try {
+                        final Uri imageUri = data.getData();
+                        final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        gardenImage.setImageBitmap(selectedImage);
+                        IsChangedPhoto = true;
+                    }catch(FileNotFoundException e){
+                        Log.i("Galery","ERROR:"+e.toString());
                     }
                 }
-            }
-        }catch (Exception e){
-            e.printStackTrace();
         }
     }
+
+    private void takePhoto() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+        } else {
+            launchCamera();
+        }
+    }
+
+    private void launchCamera() {
+        uriCamera = null;
+        gardenImage.setImageURI(null);
+        File file = new File(getFilesDir(), "picFromCamera");
+        uriCamera = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", file);
+        mGetContentCamera.launch(uriCamera);
+        IsChangedPhoto = true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CAMERA_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                launchCamera();
+            } else {
+                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    ActivityResultLauncher<Uri> mGetContentCamera = registerForActivityResult(new ActivityResultContracts.TakePicture(),
+            new ActivityResultCallback<Boolean>() {
+                @Override
+                public void onActivityResult(Boolean result){
+                    if(result){
+                        gardenImage.setImageURI(uriCamera);
+                    }
+                }
+            });
 
     private void changePhoto(){
         FirebaseStorage storage = FirebaseStorage.getInstance();

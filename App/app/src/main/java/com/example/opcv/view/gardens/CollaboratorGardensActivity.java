@@ -188,9 +188,15 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
                                                                             gardenNames.add(newItem);
                                                                             fillListGardens(gardenNames);
                                                                         }
+
+                                                                        @Override
+                                                                        public void onFailure(String imageString) {
+                                                                            ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(nameUser, userId, idGarde, imageString);
+                                                                            //System.out.println("EL id es "+newItem.getName());
+                                                                            gardenNames.add(newItem);
+                                                                            fillListGardens(gardenNames);
+                                                                        }
                                                                     });
-
-
                                                                 }
 
                                                             }

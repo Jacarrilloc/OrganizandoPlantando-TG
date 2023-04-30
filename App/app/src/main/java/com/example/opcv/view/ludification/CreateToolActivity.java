@@ -8,9 +8,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -28,6 +32,8 @@ import com.example.opcv.view.gardens.GardensAvailableActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class CreateToolActivity extends AppCompatActivity {
 
@@ -38,7 +44,7 @@ public class CreateToolActivity extends AppCompatActivity {
     private FloatingActionButton add;
     private Button profile, myGardens, gardensMap, ludification;
     private ImageView image;
-    private static final int REQUEST_CODE_SELECT_IMAGE = 100;
+    private static final int PICK_IMAGE_REQUEST = 1;
     private Uri selectImageUri;
     private byte[] bytes;
     private boolean imageSelected = false;
@@ -68,11 +74,7 @@ public class CreateToolActivity extends AppCompatActivity {
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                image.setBackground(null);
-                image.setBackgroundColor(getResources().getColor(R.color.yellow));
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE);
+                selectPhoto();
             }
         });
 
@@ -86,6 +88,11 @@ public class CreateToolActivity extends AppCompatActivity {
                 toolCheck = tool.isChecked();
                 fertilizerCheck = fertilizer.isChecked();
                 careCheck = care.isChecked();
+                Drawable drawable = image.getDrawable();
+                Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                bytes = stream.toByteArray();
                 if(logic.validateField(toolName, toolDescription, CreateToolActivity.this, bytes)){
                     logic.addToolElementsMap(toolName, toolDescription, toolCheck, fertilizerCheck, careCheck, CreateToolActivity.this, idUser, bytes);
                     level.addLevel(idUser, true, CreateToolActivity.this, "Tools");
@@ -157,30 +164,28 @@ public class CreateToolActivity extends AppCompatActivity {
             context.getResources().updateConfiguration(configuration, metrics);
         }
     }
+    private void selectPhoto(){
+        Intent pickImage = new Intent(Intent.ACTION_PICK);
+        pickImage.setType("image/*");
+        startActivityForResult(pickImage,PICK_IMAGE_REQUEST);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        try{
-            if(requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == RESULT_OK && data != null && data.getData() !=null){
-                Uri selectedImage = data.getData();
-                // image.setImageURI(null);
-                image.setImageURI(selectedImage);
-
-                imageSelected = true;
-            }
-            if(imageSelected){
-                image.setDrawingCacheEnabled(true);
-                image.buildDrawingCache();
-                Bitmap bitmap = image.getDrawingCache();
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                if(bitmap != null){
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-                    bytes = baos.toByteArray();
+        switch (requestCode){
+            case PICK_IMAGE_REQUEST:
+                if(resultCode == RESULT_OK){
+                    try {
+                        final Uri imageUri = data.getData();
+                        final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        image.setImageBitmap(selectedImage);
+                        imageSelected = true;
+                    }catch(FileNotFoundException e){
+                        Log.i("Galery","ERROR:"+e.toString());
+                    }
                 }
-            }
-        }catch (Exception e){
-            e.printStackTrace();
         }
     }
 }
