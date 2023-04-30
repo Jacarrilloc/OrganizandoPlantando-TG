@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.opcv.business.persistance.garden.GardenPersistance;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.adapter.MyCollaborationsListAdapter;
@@ -179,8 +180,8 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
                                                                     gardenType = task.getResult().get("GardenType").toString();
                                                                     //idSearch = new GardenInfo(idOwner, name, info, gardenType);
                                                                     String idGarde = document.getData().get("idGardenCollab").toString();
-                                                                    GardenCommunication persistance = new GardenCommunication();
-                                                                    persistance.getGardenPicture(idGarde, CollaboratorGardensActivity.this, new GardenCommunication.GetUri() {
+                                                                    GardenPersistance persistance = new GardenPersistance();
+                                                                    persistance.getGardenPicture(idGarde, CollaboratorGardensActivity.this, new GardenPersistance.GetUri() {
                                                                         @Override
                                                                         public void onSuccess(String uri) {
                                                                             ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(nameUser, userId, idGarde, uri);
@@ -197,6 +198,7 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
                                                                             fillListGardens(gardenNames);
                                                                         }
                                                                     });
+
                                                                 }
 
                                                             }

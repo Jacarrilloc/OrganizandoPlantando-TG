@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.opcv.business.persistance.garden.GardenPersistance;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.adapter.GardenListAdapter;
@@ -142,8 +143,8 @@ public class GardensAvailableActivity extends AppCompatActivity {
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     if (task.getResult().isEmpty()) { // User is not a collaborator
-                                        GardenCommunication persistance = new GardenCommunication();
-                                        persistance.getGardenPicture(gardenId, GardensAvailableActivity.this, new GardenCommunication.GetUri() {
+                                        GardenPersistance persistance = new GardenPersistance();
+                                        persistance.getGardenPicture(gardenId, GardensAvailableActivity.this, new GardenPersistance.GetUri() {
                                             @Override
                                             public void onSuccess(String uri) {
                                                 ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);
@@ -158,6 +159,8 @@ public class GardensAvailableActivity extends AppCompatActivity {
                                                 fillListGardens(gardenNames);
                                             }
                                         });
+
+
                                     }
                                 } else {
                                     Log.d(TAG, "Error al verificar colaboradores: ", task.getException());
@@ -170,14 +173,9 @@ public class GardensAvailableActivity extends AppCompatActivity {
     }
 
     private void fillListGardens( List<ItemGardenHomeList> gardenInfoDocument){
-        try{
-            Thread.sleep(65);
-            GardenListAdapter  adapter = new GardenListAdapter(this, gardenInfoDocument);
-            listGardens.setAdapter(adapter);
-            listGardens.setDividerHeight(15);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        GardenListAdapter  adapter = new GardenListAdapter(this, gardenInfoDocument);
+        listGardens.setAdapter(adapter);
+        listGardens.setDividerHeight(15);
 
     }
 

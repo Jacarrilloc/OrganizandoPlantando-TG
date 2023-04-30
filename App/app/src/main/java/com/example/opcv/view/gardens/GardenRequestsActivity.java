@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.opcv.R;
+import com.example.opcv.business.persistance.garden.GardenPersistance;
 import com.example.opcv.view.adapter.CollaboratorListAdapter;
 import com.example.opcv.model.items.ItemCollaboratorsRequest;
 import com.example.opcv.business.persistance.firebase.GardenCommunication;
@@ -111,8 +112,8 @@ public class GardenRequestsActivity extends AppCompatActivity {
                                                     if(idSearch.equals(idUser)){
                                                         name = (String) document.getData().get("Name");
                                                         //Si se necesita mas informacion usar la clase User
-                                                        GardenCommunication persistance = new GardenCommunication();
-                                                        persistance.getGardenPicture(gardenId, GardenRequestsActivity.this, new GardenCommunication.GetUri() {
+                                                        GardenPersistance persistance = new GardenPersistance();
+                                                        persistance.getGardenPicture(gardenId, GardenRequestsActivity.this, new GardenPersistance.GetUri() {
                                                             @Override
                                                             public void onSuccess(String uri) {
                                                                 ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(name, idUser, gardenId, uri);
@@ -127,7 +128,6 @@ public class GardenRequestsActivity extends AppCompatActivity {
                                                                 fillListRequests(gardenNames);
                                                             }
                                                         });
-
                                                         break;
                                                     }
                                                 }

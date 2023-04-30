@@ -191,6 +191,7 @@ public class CreateGardenActivity extends AppCompatActivity {
             gardenInfo.put("GardenName",newInfo.getName());
             gardenInfo.put("InfoGarden",newInfo.getInfo());
             gardenInfo.put("GardenType", newInfo.getGardenType());
+            gardenInfo.put("UriPath", null);
 
             collectionRef.add(gardenInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
@@ -202,7 +203,9 @@ public class CreateGardenActivity extends AppCompatActivity {
                         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                        bytes = stream.toByteArray();
+                        bytes = stream.toByteArray();Notifications notifications = new Notifications();
+                        notifications.notification("Huerta creada", "Felicidades! Tu huerta ha sido creada.", CreateGardenActivity.this);
+                        startActivity(new Intent(CreateGardenActivity.this, HomeActivity.class).putExtra("idGarden", documentReference.getId().toString()));
                     }else{
                         bytes = null;
                         Notifications notifications = new Notifications();

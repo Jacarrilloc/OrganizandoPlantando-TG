@@ -34,6 +34,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.opcv.business.persistance.garden.GardenPersistance;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.auth.EditUserActivity;
@@ -208,17 +210,21 @@ public class GardenEditActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if(editGardenInfo()){
-                    if(IsChangedPhoto){
-                        changePhoto();
-                    }
-                    Intent start = new Intent(GardenEditActivity.this,HomeActivity.class);
-                    String id = autentication.getCurrentUser().getUid().toString();
-                    //System.out.println("El id es:.  "+id);
-                    start.putExtra("ID", id);
-                    start.putExtra("idGarden", idGarden);
-                    start.putExtra("gardenName", name);
 
-                    startActivity(start);
+                    try {
+                        Thread.sleep(50);
+                        Intent start = new Intent(GardenEditActivity.this,HomeActivity.class);
+                        String id = autentication.getCurrentUser().getUid().toString();
+                        //System.out.println("El id es:.  "+id);
+                        start.putExtra("ID", id);
+                        start.putExtra("idGarden", idGarden);
+                        start.putExtra("gardenName", name);
+
+                        startActivity(start);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
                 }
 
             }
@@ -262,6 +268,19 @@ public class GardenEditActivity extends AppCompatActivity {
     }
 
     private void getImageGarden(String idGarden){
+        //se supone que con esto no deberia dar StorageException, pero si :(
+        /*FirebaseFirestore database = FirebaseFirestore.getInstance();
+        DocumentReference Ref = database.collection("Gardens").document(idGarden);
+        Ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    String uri = task.getResult().getString("UriPath");
+                    Glide.with(GardenEditActivity.this).load(uri).into(gardenImage);
+                }
+            }
+        });*/
+
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
         String imageName = idGarden + ".jpg";
         StorageReference imageRef = storageRef.child("gardenMainPhoto/" + imageName);
@@ -281,7 +300,24 @@ public class GardenEditActivity extends AppCompatActivity {
     }
 
     private void deleteGarden(String idGarden) {
+        GardenPersistance persistance = new GardenPersistance();
+        persistance.deletePhotoGarden(idGarden);
         database2 = FirebaseFirestore.getInstance();
+        database2.collection("Gardens").document(idGarden).collection("Requests")
+                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                database2.collection("Gardens")
+                                        .document(idGarden)
+                                        .collection("Requests")
+                                        .document(document.getId())
+                                        .delete();
+                            }
+                        }
+                    }
+                });
         database2.collection("Gardens")
                 .document(idGarden)
                 .collection("Forms")
@@ -324,7 +360,9 @@ public class GardenEditActivity extends AppCompatActivity {
         if(validateField(name, info)){
             FirebaseUser user = autentication.getCurrentUser();
             //CollectionReference collectionRef = database.collection("Gardens");
-
+            if(IsChangedPhoto){
+                changePhoto();
+            }
             idUser = user.getUid();
             searchGarden(idUser, name, info, gardenType);
             Toast.makeText(GardenEditActivity.this, "Se modificó exitosamente tu huerta", Toast.LENGTH_SHORT).show();
@@ -459,6 +497,9 @@ public class GardenEditActivity extends AppCompatActivity {
     private void changePhoto(){
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference().child("gardenMainPhoto/" + idGarden + ".jpg");
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        final DocumentReference Ref = database.collection("Gardens").document(idGarden);
+
         gardenImage.setDrawingCacheEnabled(true);
         Bitmap bitmap = gardenImage.getDrawingCache();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -468,7 +509,15 @@ public class GardenEditActivity extends AppCompatActivity {
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(GardenEditActivity.this, "Se Cambio la Imagen de la Huerta Exitosamente", Toast.LENGTH_SHORT).show();
+                //taskSnapshot.getUploadSessionUri()
+                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Ref.update("UriPath", uri);
+                        Toast.makeText(GardenEditActivity.this, "Se Cambio la Imagen de la Huerta Exitosamente", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
