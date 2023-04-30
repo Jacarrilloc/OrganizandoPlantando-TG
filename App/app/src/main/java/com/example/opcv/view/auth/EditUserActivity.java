@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -26,9 +28,11 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -119,8 +123,8 @@ public class EditUserActivity extends AppCompatActivity {
         gardensMap = (Button) findViewById(R.id.gardens);
         acceptChanges = (Button) findViewById(R.id.editUser);
         borderImage = (ImageView) findViewById(R.id.imageLevel);
+
         UserCommunication persistance = new UserCommunication();
-        LudificationCommunication persistanceLudi = new LudificationCommunication();
 
         searchUserInfo();
         persistance.getProfilePicture(userID_Recived, new UserCommunication.GetUriUser() {
@@ -140,8 +144,15 @@ public class EditUserActivity extends AppCompatActivity {
 
                 double lvDouble = Double.parseDouble(leveli);
                 int lv = Double.valueOf(lvDouble).intValue();
-                levelInfo.setText("Nivel " + String.valueOf(lv));
 
+                ProgressBar progressBar = findViewById(R.id.progressBarUserLevel);
+                progressBar.setMax(100);
+                ObjectAnimator animation = ObjectAnimator.ofInt(progressBar, "progress", 0, lv);
+                animation.setDuration(2000); // 2 seconds
+                animation.setInterpolator(new DecelerateInterpolator());
+                animation.start();
+
+                levelInfo.setText("Nivel " + String.valueOf(lv));
                 if (lv >=0 && lv <10){
                     borderImage.setImageResource(R.drawable.im_level_1);
                 }else if (lv>= 10 && lv <30) {
