@@ -35,30 +35,14 @@ public class FormsRepository {
         mExecutor = Executors.newSingleThreadExecutor();
     }
 
-    public void insertFormCIH(final CIH cih, Map<String,Object> infoForm, String idGarden, final OnFormInsertedListener listener) {
+    public void insertFormCIH(Map<String,Object> infoForm, String idGarden, final OnFormInsertedListener listener) {
         mExecutor.execute(() -> {
-            // Comprobar la conectividad a Internet
-            boolean isOnline = isOnline();
-            /*
-            if (isOnline) {
-                mFirestore.collection("Gardens").document(idGarden).collection("Forms").add(infoForm).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        if (listener != null) {
-                            listener.onFormInserted(task.getResult().getId());
-                        }
-                    } else {
-                        if (listener != null) {
-                            listener.onFormInsertionError(task.getException());
-                        }
-                    }
-                });
-            }*/
+            // Crear la base de datos local si no existe
+            LocalDatabase localDb = new LocalDatabase(mContext);
+            localDb.createJsonForm(idGarden,infoForm);
 
             // Insertar en la base de datos local siempre
-            mLocalDatabase.runInTransaction(() -> {
-                mLocalDatabase.cihDao().insert(cih);
-            });
-
+/*
             // Ejecutar un hilo en segundo plano para verificar la conectividad a Internet
             new Thread(() -> {
                 while (!isOnline()) {
@@ -85,6 +69,7 @@ public class FormsRepository {
                 notifications.notification("Formulario creado", "Tienes Conexion, Formulario Subido", mContext);
 
             }).start();
+            */
         });
     }
 

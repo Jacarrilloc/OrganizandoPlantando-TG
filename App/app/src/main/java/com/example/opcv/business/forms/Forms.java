@@ -76,17 +76,14 @@ public class Forms {
         String existenceQuantityS = (String) infoForm.get("existenceQuantity");
         int existenceQuantity = Integer.parseInt(existenceQuantityS);
         String date = getDateNow();
-
         infoForm.put("Date",date);
-        CIH cihForm = new CIH(id,name,tool,concept,incomingOutgoing,toolQuantity,toolStatus,existenceQuantity,date);
 
         FormsRepository info = new FormsRepository(context);
-        info.insertFormCIH(cihForm,infoForm,idGraden, new OnFormInsertedListener() {
+        info.insertFormCIH(infoForm,idGraden, new OnFormInsertedListener() {
             @Override
             public void onFormInserted(String formId) {
                 Log.i("INSERTAR_FORM_CIH","SE AGREGÓ");
             }
-
             @Override
             public void onFormInsertionError(Exception e) {
                 Log.i("INSERTAR_FORM_CIH","ERROR, NO SE INGRESÓ:" + e.getMessage().toString());
@@ -355,8 +352,8 @@ public class Forms {
     }
 
     public static String getDateNow() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Define el formato de la fecha
-        Date date = new Date(); // Obtiene la fecha actual
-        return dateFormat.format(date); // Convierte la fecha a string con el formato definido
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 }
