@@ -91,8 +91,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout8"
-        android:layout_width="wrap_content"
-        android:layout_height="110dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/dr_shadow_top"
         android:orientation="horizontal">
 
@@ -102,16 +102,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginBottom="@dimen/_2sdp"
+            android:layout_weight="1"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
+            android:ellipsize="end"
             android:fontFamily="@font/manropemedium"
-            android:padding="@dimen/_10sdp"
-            android:layout_weight="1"
-            android:textSize="@dimen/_13sdp"
+            android:maxLines="1"
+            android:padding="@dimen/_5sdp"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="@color/grayLetters"
+            android:textSize="@dimen/_13sdp" />
 
         <Button
             android:id="@+id/gardens"
@@ -119,17 +121,19 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginStart="@dimen/_1sdp"
-            android:fontFamily="@font/manropemedium"
             android:layout_marginBottom="@dimen/_2sdp"
+            android:layout_weight="1"
             android:background="@color/white"
             android:drawableTop="@drawable/im_colombia"
-            android:padding="@dimen/_10sdp"
-            android:layout_weight="1"
-            android:textSize="@dimen/_13sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/manropemedium"
+            android:maxLines="1"
+            android:padding="@dimen/_5sdp"
             android:stateListAnimator="@null"
             android:text="@string/Map"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="@color/grayLetters"
+            android:textSize="@dimen/_13sdp" />
 
         <Button
             android:id="@+id/myGardens"
@@ -138,16 +142,18 @@
             android:layout_gravity="bottom"
             android:layout_marginStart="@dimen/_1sdp"
             android:layout_marginBottom="@dimen/_2sdp"
+            android:layout_weight="1"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
+            android:ellipsize="end"
             android:fontFamily="@font/manropemedium"
-            android:padding="@dimen/_10sdp"
-            android:layout_weight="1"
-            android:textSize="@dimen/_13sdp"
+            android:maxLines="1"
+            android:padding="@dimen/_5sdp"
             android:stateListAnimator="@null"
             android:text="@string/Gardens"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="@color/grayLetters"
+            android:textSize="@dimen/_13sdp" />
 
         <Button
             android:id="@+id/profile"
@@ -156,16 +162,18 @@
             android:layout_gravity="bottom"
             android:layout_marginStart="@dimen/_1sdp"
             android:layout_marginBottom="@dimen/_2sdp"
-            android:fontFamily="@font/manropemedium"
+            android:layout_weight="1"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
-            android:padding="@dimen/_10sdp"
-            android:layout_weight="1"
-            android:textSize="@dimen/_13sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/manropemedium"
+            android:maxLines="1"
+            android:padding="@dimen/_5sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="@color/grayLetters"
+            android:textSize="@dimen/_13sdp" />
 
 
     </LinearLayout>

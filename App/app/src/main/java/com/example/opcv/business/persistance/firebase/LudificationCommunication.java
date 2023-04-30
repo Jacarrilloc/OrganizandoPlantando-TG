@@ -289,6 +289,9 @@ public class LudificationCommunication implements Serializable {
                     int points = (int) map.get("Level");
                     DecimalFormat df = new DecimalFormat("#");
                     likeNumber = likeNumber+points;
+                    if(likeNumber > 100){
+                        likeNumber = 100;
+                    }
                     String formated = df.format(likeNumber);
                     ref.update("Level", Integer.parseInt(formated)).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -591,6 +594,7 @@ public class LudificationCommunication implements Serializable {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("UserInfo").document(idUser).collection("UserActionsPoints").add(map);
     }
+
 /*
     public void getDislikesUser(String idUser, final DeductLevel callback){
 

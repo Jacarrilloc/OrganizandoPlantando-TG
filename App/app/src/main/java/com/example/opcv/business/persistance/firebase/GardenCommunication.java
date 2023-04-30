@@ -85,6 +85,8 @@ public class GardenCommunication {
     }
     public interface GetUri{
         void onSuccess(String uri);
+
+        void onFailure(String imageString);
     }
 
     public interface OnGardenUserFilledListener {
