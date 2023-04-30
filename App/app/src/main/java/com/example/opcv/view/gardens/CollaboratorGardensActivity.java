@@ -26,7 +26,7 @@ import com.example.opcv.business.persistance.firebase.AuthCommunication;
 import com.example.opcv.model.entity.GardenInfo;
 import com.example.opcv.model.items.ItemCollaboratorsRequest;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
-import com.example.opcv.business.persistance.garden.GardenPersistance;
+import com.example.opcv.business.persistance.firebase.GardenCommunication;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -179,8 +179,8 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
                                                                     gardenType = task.getResult().get("GardenType").toString();
                                                                     //idSearch = new GardenInfo(idOwner, name, info, gardenType);
                                                                     String idGarde = document.getData().get("idGardenCollab").toString();
-                                                                    GardenPersistance persistance = new GardenPersistance();
-                                                                    persistance.getGardenPicture(idGarde, CollaboratorGardensActivity.this, new GardenPersistance.GetUri() {
+                                                                    GardenCommunication persistance = new GardenCommunication();
+                                                                    persistance.getGardenPicture(idGarde, CollaboratorGardensActivity.this, new GardenCommunication.GetUri() {
                                                                         @Override
                                                                         public void onSuccess(String uri) {
                                                                             ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(nameUser, userId, idGarde, uri);

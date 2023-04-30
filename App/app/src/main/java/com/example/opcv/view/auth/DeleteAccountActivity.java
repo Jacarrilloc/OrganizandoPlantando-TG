@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.opcv.business.persistance.firebase.UserCommunication;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.view.gardens.MapsActivity;
 import com.example.opcv.R;
@@ -27,7 +28,6 @@ public class DeleteAccountActivity extends AppCompatActivity {
     private Button delete, returnButton, gardensMap, profile, myGardens, ludification;
 
     private FirebaseAuth autentication;
-    private FirebaseFirestore database;
     private String idUser;
 
     @Override
@@ -36,7 +36,6 @@ public class DeleteAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_delete_account);
 
         autentication = FirebaseAuth.getInstance();
-        database = FirebaseFirestore.getInstance();
 
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
@@ -87,60 +86,17 @@ public class DeleteAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseUser user = autentication.getCurrentUser();
+                UserCommunication userCom = new UserCommunication();
                 idUser = user.getUid();
-                deletePhoto(idUser);
-                deleteUser(idUser, user);
-                user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(DeleteAccountActivity.this, "Cuenta eliminada", Toast.LENGTH_SHORT).show();
-                        autentication.signOut();
-                        Intent intent = new Intent(DeleteAccountActivity.this, NewToAppActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                    }
-                });
+                userCom.deleteUser(idUser);
+                Toast.makeText(DeleteAccountActivity.this, "Cuenta eliminada", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(DeleteAccountActivity.this, NewToAppActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
     }
 
-    private void deleteUser(String id, FirebaseUser auth){
-
-        database.collection("UserInfo").document(id).delete();
-/*
-        database.collection("UserInfo")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                String userId;
-                if(task.isSuccessful()){
-                    for(QueryDocumentSnapshot document : task.getResult()){
-                        userId = (String) document.getData().get("ID");
-                        if (userId == null) {
-                            userId = (String) document.getData().get("id");
-                        }
-                        if(userId.equals(id)){
-                            String idCollection = document.getId().toString();
-                            database.collection("UserInfo")
-                                    .document(idCollection)
-                                    .delete();
-
-                        }
-                    }
-                }
-            }
-        });
-        auth.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Log.d(TAG, "User account deleted.");
-                }
-            }
-        });*/
-        //Toast.makeText(this, idUser, Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -167,8 +123,6 @@ public class DeleteAccountActivity extends AppCompatActivity {
         }
     }
 
-    private void deletePhoto(String idUser){
 
-    }
 
 }

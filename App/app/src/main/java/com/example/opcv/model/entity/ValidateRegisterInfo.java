@@ -12,7 +12,8 @@ public class ValidateRegisterInfo {
         }
 
         if (!validatePassword(passwordString)) {
-            Toast.makeText(context, "La contraseña ingresada no es válida", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "La contraseña no es válida", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Debe contener letras, numeros y tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -44,6 +45,11 @@ public class ValidateRegisterInfo {
     private boolean validatePassword(String password){
         if(password.length() < 6)
             return false;
+
+        String regex = "^(?=.*[A-Za-z])(?=.*\\d).+$";
+        if(!password.matches(regex)){
+            return false;
+        }
         return true;
     }
 }

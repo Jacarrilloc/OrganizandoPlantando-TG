@@ -307,6 +307,7 @@ public class HomeActivity extends AppCompatActivity {
                                 fillListGardens(gardenNames);
                             }
                         }
+                        //fillListGardens(gardenNames);
                     } else {
                         Toast.makeText(HomeActivity.this, "Error al obtener los documentos", Toast.LENGTH_SHORT).show();
                     }

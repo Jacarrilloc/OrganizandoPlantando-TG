@@ -1,12 +1,22 @@
 package com.example.opcv.business.persistance.firebase;
 
+import android.net.Uri;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageException;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.Objects;
 
@@ -47,5 +57,40 @@ public class UserCommunication {
 
     public interface GetUserLvl{
         void onComplete(String lvl);
+    }
+    public void deleteUser(String idUser){
+        //eliminar del authentication
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        mAuth.signOut();
+        if(user != null){
+            user.delete();
+        }
+        //eliminar primero la foto del storage
+        String uri = idUser+".jpg";
+
+        try{
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference("userProfilePhoto/"+uri);
+            storageReference.getDownloadUrl().addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    if(e instanceof StorageException && ((StorageException) e).getErrorCode() == StorageException.ERROR_OBJECT_NOT_FOUND){
+                        Log.i("No hay foto", e.getMessage());
+                    }
+                }
+            }).addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    storageReference.delete();
+                }
+            });
+        }catch(Exception e){
+            Log.i("No hay foto", e.getMessage());
+        }
+
+        //eliminar coleccion en firestore
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        database.collection("UserInfo").document(idUser).delete();
+
     }
 }
