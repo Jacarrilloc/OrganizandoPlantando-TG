@@ -1,6 +1,10 @@
 package com.example.opcv.view.auth;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -13,12 +17,15 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -33,7 +40,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -43,15 +52,14 @@ public class SelectPhotoActivity extends AppCompatActivity {
     private ImageView ImageSource;
     private AuthCommunication authUtilities;
     private User newUserInfo;
-    private Uri imageUri;
     private String currentPhotoPath;
     private FloatingActionButton backButtom;
     private String password;
-    private static final int REQUEST_CAMERA_PERMISSION = 1;
-    private static final int REQUEST_IMAGE_CAPTURE = 2;
-    private static final int PERMISSION_REQUEST_STORAGE = 1000;
-    private static final int REQUEST_SELECT_PHOTO = 2000;
-    private static final int GALLERY_REQUEST_CODE = 100;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int CAMERA_PERMISSION_CODE = 100;
+
+    private Uri uriCamera;
+
     private Boolean IsChangedPhoto = false;
     private byte[] bytes;
 
@@ -103,143 +111,85 @@ public class SelectPhotoActivity extends AppCompatActivity {
         });
     }
 
-    private void selectPhotoUser(){
-        if(ContextCompat.checkSelfPermission(SelectPhotoActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(SelectPhotoActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_STORAGE);
-        }else{
-            Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            IsChangedPhoto = true;
-            startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMISSION_REQUEST_STORAGE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, GALLERY_REQUEST_CODE);
-            } else {
-                Toast.makeText(SelectPhotoActivity.this, "Permiso denegado", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
     private void createUserInDatabase(){
-        if(validateField(this, bytes)){
-        if(bytes == null){
-            int drawableId = R.drawable.im_logo_ceres_green;
-
-            //Drawable drawable = getResources().getDrawable(R.drawable.im_logo_ceres);
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), drawableId);
+        Drawable drawable = ImageSource.getDrawable();
+        if(drawable == null){
+            if (authUtilities.createUser(newUserInfo.getEmail(), password, newUserInfo, null, SelectPhotoActivity.this)){
+                callHome();
+            }
+        }else{
+            Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             bytes = stream.toByteArray();
-        }
-            if(authUtilities.createUser(newUserInfo.getEmail(),password,newUserInfo,bytes,SelectPhotoActivity.this)){
-
+            if (authUtilities.createUser(newUserInfo.getEmail(), password, newUserInfo, bytes, SelectPhotoActivity.this)) {
+                callHome();
             }
         }
     }
 
-    public boolean validateField(Context context, byte[] bytes){
-        if(bytes == null){
-            Toast.makeText(context, "Es necesario Ingresar una imagen", Toast.LENGTH_SHORT).show();
-            return false;
+    private void takePhotoUser() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+        } else {
+            launchCamera();
         }
-        return true;
     }
 
-    private void takePhotoUser(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-
-                PackageManager pm = getPackageManager();
-                if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
-                    openCamaraAndTakePhoto();
-                    IsChangedPhoto = true;
-                } else {
-                    Toast.makeText(this, "No hay una Camara en tu Dispositivo", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-            }
-        }
-
-    }
-    private void openCamaraAndTakePhoto() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 0);
-    }
-
-    private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(imageFileName,".jpg",storageDir);
-        currentPhotoPath = image.getAbsolutePath();
-        return image;
-    }
-
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-            }
-
-            if (photoFile != null) {
-                imageUri = FileProvider.getUriForFile(this,
-                        "com.example.opcv.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            }
-        }
+    private void launchCamera() {
+        uriCamera = null;
+        ImageSource.setImageURI(null);
+        File file = new File(getFilesDir(), "picFromCamera");
+        uriCamera = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", file);
+        mGetContentCamera.launch(uriCamera);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        try{
-            if(requestCode == 0 && resultCode == RESULT_OK){
-                Bitmap photoI = (Bitmap) data.getExtras().get("data");
-                ImageSource.setImageBitmap(photoI);
-                ImageSource.setDrawingCacheEnabled(true);
-                ImageSource.buildDrawingCache();
-                Bitmap bitmap = ImageSource.getDrawingCache();
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                if(bitmap != null){
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-                    bytes = baos.toByteArray();
-                }
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CAMERA_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                launchCamera();
+            } else {
+                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show();
             }
-            if(requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() !=null){
-                Uri selectedImage = data.getData();
-                // image.setImageURI(null);
-                ImageSource.setImageURI(selectedImage);
+        }
+    }
 
-                IsChangedPhoto = true;
-                if(IsChangedPhoto){
-                    ImageSource.setDrawingCacheEnabled(true);
-                    ImageSource.buildDrawingCache();
-                    Bitmap bitmap = ImageSource.getDrawingCache();
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    if(bitmap != null){
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-                        bytes = baos.toByteArray();
+    ActivityResultLauncher<Uri> mGetContentCamera = registerForActivityResult(new ActivityResultContracts.TakePicture(),
+            new ActivityResultCallback<Boolean>() {
+                @Override
+                public void onActivityResult(Boolean result){
+                    if(result){
+                        ImageSource.setImageURI(uriCamera);
                     }
                 }
-            }
-        }catch (Exception e){
-            e.printStackTrace();
+            });
+
+    private void selectPhotoUser(){
+        Intent pickImage = new Intent(Intent.ACTION_PICK);
+        pickImage.setType("image/*");
+        startActivityForResult(pickImage,PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case PICK_IMAGE_REQUEST:
+                if(resultCode == RESULT_OK){
+                    try {
+                        final Uri imageUri = data.getData();
+                        final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        ImageSource.setImageBitmap(selectedImage);
+                    }catch(FileNotFoundException e){
+                        Log.i("Galery","ERROR:"+e.toString());
+                    }
+                }
         }
     }
+
     private void callHome(){
         Intent intent = new Intent(SelectPhotoActivity.this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

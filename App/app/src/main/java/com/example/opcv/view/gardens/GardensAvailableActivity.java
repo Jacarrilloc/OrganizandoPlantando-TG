@@ -150,6 +150,13 @@ public class GardensAvailableActivity extends AppCompatActivity {
                                                 gardenNames.add(newItem);
                                                 fillListGardens(gardenNames);
                                             }
+
+                                            @Override
+                                            public void onFailure(String imageString) {
+                                                ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, imageString);
+                                                gardenNames.add(newItem);
+                                                fillListGardens(gardenNames);
+                                            }
                                         });
                                     }
                                 } else {

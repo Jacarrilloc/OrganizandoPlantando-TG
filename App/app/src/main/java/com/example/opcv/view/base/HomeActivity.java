@@ -13,7 +13,9 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.TrafficStats;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -24,8 +26,10 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.opcv.BuildConfig;
 import com.example.opcv.R;
 import com.example.opcv.view.adapter.GardenListAdapter;
 import com.example.opcv.view.auth.EditUserActivity;
@@ -39,7 +43,7 @@ import com.example.opcv.model.items.ItemGardenHomeList;
 import com.example.opcv.view.gardens.GenerateReportsActivity;
 import com.example.opcv.view.gardens.MapsActivity;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
-import com.example.opcv.business.persistance.firebase.GardenCommunication;
+import com.example.opcv.business.persistance.garden.GardenPersistance;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -53,6 +57,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
@@ -65,6 +71,8 @@ public class HomeActivity extends AppCompatActivity {
     private Animation animSlideUp;
 
     private  Button gardensMap;
+
+    private ProgressBar progressBar;
 
     private String idHuerta;
     private User userInfo;
@@ -272,17 +280,27 @@ public class HomeActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : value) {
                             String name = document.getString("GardenName");
                             String gardenId = document.getId();
-                            GardenCommunication persistance = new GardenCommunication();
+                            GardenPersistance persistance = new GardenPersistance();
                             if(isOnline()) {
-                                persistance.getGardenPicture(gardenId, HomeActivity.this, new GardenCommunication.GetUri() {
-                                    @Override
-                                    public void onSuccess(String uri) {
-                                        ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);
-                                        gardenNames.add(newItem);
-                                        fillListGardens(gardenNames);
+                                try {
+                                    persistance.getGardenPicture(gardenId, HomeActivity.this, new GardenPersistance.GetUri() {
+                                        @Override
+                                        public void onSuccess(String uri) {
+                                            ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);
+                                            gardenNames.add(newItem);
+                                            fillListGardens(gardenNames);
+                                        }
 
-                                    }
-                                });
+                                        @Override
+                                        public void onFailure(String imageString) {
+                                            ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, imageString);
+                                            gardenNames.add(newItem);
+                                            fillListGardens(gardenNames);
+                                        }
+                                    });
+                                }catch (Exception a){
+                                    Log.i("HOME-ERROR","Error: " + a.getMessage().toString());
+                                }
                             }else{
                                 ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, null);
                                 gardenNames.add(newItem);
@@ -299,19 +317,41 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    private void fillListGardens( List<ItemGardenHomeList> gardenInfoDocument){
+    private void fillListGardens(List<ItemGardenHomeList> gardenInfoDocument) {
+
         try {
+
+            //listAviableGardensInfo.setVisibility(View.GONE);
+            //progressBar.setVisibility(View.VISIBLE);
+
+
             if(isOnline()) {
                 Thread.sleep(65);
             }
+
+            //progressBar.setVisibility(View.GONE);
+            //listAviableGardensInfo.setVisibility(View.VISIBLE);
+
+            // Crear un comparador que compare los objetos por nombre
+            Comparator<ItemGardenHomeList> nameComparator = new Comparator<ItemGardenHomeList>() {
+                @Override
+                public int compare(ItemGardenHomeList item1, ItemGardenHomeList item2) {
+                    return item1.getName().compareTo(item2.getName());
+                }
+            };
+
+            // Ordenar la lista usando el comparador
+            Collections.sort(gardenInfoDocument, nameComparator);
+
             GardenListAdapter adapter = new GardenListAdapter(this, gardenInfoDocument);
             listAviableGardensInfo.setAdapter(adapter);
             listAviableGardensInfo.setDividerHeight(5);
+
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
     }
+
 
     private boolean isOnline() {
         ConnectivityManager cm =

@@ -77,6 +77,15 @@
                     android:gravity="center"
                     android:text="Nivel  " />
 
+                <ProgressBar
+                    android:id="@+id/progressBarUserLevel"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_marginLeft="@dimen/_30sdp"
+                    android:layout_marginRight="@dimen/_30sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:progressDrawable="@drawable/dr_progress_bar_green" />
+
                 <TextView
                     android:id="@+id/userName"
                     android:layout_width="match_parent"
