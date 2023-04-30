@@ -148,7 +148,7 @@ public class EditUserActivity extends AppCompatActivity {
                 ProgressBar progressBar = findViewById(R.id.progressBarUserLevel);
                 progressBar.setMax(100);
                 ObjectAnimator animation = ObjectAnimator.ofInt(progressBar, "progress", 0, lv);
-                animation.setDuration(2000); // 2 seconds
+                animation.setDuration(2000);
                 animation.setInterpolator(new DecelerateInterpolator());
                 animation.start();
 
