@@ -184,6 +184,7 @@
                         android:fontFamily="@font/manroperegular"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginEnd="@dimen/_20sdp"
+                        android:text="Comabaquinta"
                         android:background="@drawable/dr_gray_input_text"
                         android:textColor="@color/black"
                         android:textSize="14sp" />

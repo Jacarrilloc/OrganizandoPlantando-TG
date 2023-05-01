@@ -326,7 +326,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
             if(isOnline()) {
-                Thread.sleep(65);
+                Thread.sleep(15);
             }
 
             //progressBar.setVisibility(View.GONE);
