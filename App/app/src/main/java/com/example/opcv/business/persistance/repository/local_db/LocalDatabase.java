@@ -1,7 +1,6 @@
-package com.example.opcv.business.persistance.repository;
+package com.example.opcv.business.persistance.repository.local_db;
 
 import android.content.Context;
-import android.os.FileUtils;
 import android.util.JsonWriter;
 import android.util.Log;
 
@@ -12,17 +11,15 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
 import java.io.InputStreamReader;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 
-public class LocalDatabase implements LocalDatabaseI{
+public class LocalDatabase implements LocalDatabaseI {
     private Context context;
 
     public LocalDatabase(Context mContext) {

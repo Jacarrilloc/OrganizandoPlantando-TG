@@ -1,4 +1,4 @@
-package com.example.opcv.business.persistance.repository;
+package com.example.opcv.business.persistance.repository.local_db;
 
 import java.util.Map;
 
