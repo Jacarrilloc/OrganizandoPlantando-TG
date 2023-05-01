@@ -40,6 +40,24 @@ public class UserCommunication {
         });
     }
 
+    public String getUserFullName() {
+        AuthCommunication info = new AuthCommunication();
+        String idUser = info.getCurrentUserUid();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference ref = db.collection("UserInfo").document(idUser);
+        Task<DocumentSnapshot> task = ref.get();
+        while (!task.isComplete()) {
+            // Espera hasta que se complete la tarea
+        }
+        if (task.isSuccessful()) {
+            String firstName = task.getResult().getString("Name");
+            String lastName = task.getResult().getString("LastName");
+            String fullName = firstName + " " + lastName;
+            return fullName;
+        } else {
+            return "";
+        }
+    }
 
     public interface GetUriUser{
         void onComplete(String uri);
