@@ -42,7 +42,7 @@ public class Forms {
                 createFormInfo(infoForm,idGraden);
                 break;
             case 4:
-                createRSMPForm(infoForm,idGraden);
+                createFormInfo(infoForm,idGraden);
                 break;
             case 7:
                 createFormInfo(infoForm,idGraden);
