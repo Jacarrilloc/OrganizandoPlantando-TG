@@ -48,7 +48,7 @@ public class Forms {
                 createFormInfo(infoForm,idGraden);
                 break;
             case 8:
-                createRCCForm(infoForm,idGraden);
+                createFormInfo(infoForm,idGraden);
                 break;
             case 9:
                 createRRHForm(infoForm,idGraden);

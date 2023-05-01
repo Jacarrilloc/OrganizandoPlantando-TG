@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.opcv.R;
+import com.example.opcv.business.forms.Forms;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.business.persistance.firebase.FormsCommunication;
 import com.example.opcv.view.base.HomeActivity;
@@ -247,8 +248,8 @@ public class Form_RAC extends AppCompatActivity {
         infoForm.put("amount leached",leached);
         if(validateField(container, worms, humidity, waste, humus, leached)){
 
-            com.example.opcv.business.forms.Forms newForm = new com.example.opcv.business.forms.Forms(Form_RAC.this);
-            newForm.createForm(infoForm,idGardenFb);
+            Forms newForm = new com.example.opcv.business.forms.Forms(Form_RAC.this);
+            newForm.createForm(infoForm, idGardenFb);
 
             Notifications notifications = new Notifications();
             notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_RAC.this);
