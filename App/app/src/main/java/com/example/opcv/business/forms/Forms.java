@@ -36,7 +36,7 @@ public class Forms {
                 createFormInfo(infoForm,idGraden);
                 break;
             case 2:
-                createSCMPHForm(infoForm,idGraden);
+                createFormInfo(infoForm,idGraden);
                 break;
             case 3:
                 createFormInfo(infoForm,idGraden);
