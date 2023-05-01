@@ -33,7 +33,7 @@ public class Forms {
         int type = (int) infoForm.get("idForm");
         switch (type){
             case 1:
-                createRACForm(infoForm,idGraden);
+                createFormInfo(infoForm,idGraden);
                 break;
             case 2:
                 createSCMPHForm(infoForm,idGraden);

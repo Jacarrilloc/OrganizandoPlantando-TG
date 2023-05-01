@@ -2,9 +2,12 @@ package com.example.opcv.view.forms;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -43,6 +46,7 @@ public class Form_RAC extends AppCompatActivity {
     private EditText containerSize,worrmsWeightInfo,humidityInfo,amount_of_waste_info,collected_humus_info,amount_leached_info;
     private String name, watch, idGarden, idCollection;
     private FirebaseFirestore database;
+    private static final int REQUEST_STORAGE_PERMISSION = 1;
 
 
     @Override
@@ -136,40 +140,15 @@ public class Form_RAC extends AppCompatActivity {
             addFormButtom.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    formsUtilities = new FormsCommunication();
-                    String container, worms, humidity, waste, humus, nameForm, leached, idGardenFb;
-                    container = containerSize.getText().toString();
-                    worms = worrmsWeightInfo.getText().toString();
-                    humidity = humidityInfo.getText().toString();
-                    waste = amount_of_waste_info.getText().toString();
-                    humus = collected_humus_info.getText().toString();
-                    leached = amount_leached_info.getText().toString();
-                    nameForm = formsName.getText().toString();
-
-                    idGardenFb = getIntent().getStringExtra("idGardenFirebase");
-
-                    Map<String,Object> infoForm = new HashMap<>();
-                    infoForm.put("idForm",1);
-                    infoForm.put("nameForm",nameForm);
-                    infoForm.put("containerSize",container);
-                    infoForm.put("wormsWeight",worms);
-                    infoForm.put("humidity",humidity);
-                    infoForm.put("amount of waste",waste);
-                    infoForm.put("collected humus",humus);
-                    infoForm.put("amount leached",leached);
-                    if(validateField(container, worms, humidity, waste, humus, leached)){
-
-                        com.example.opcv.business.forms.Forms newForm = new com.example.opcv.business.forms.Forms(Form_RAC.this);
-                        newForm.createForm(infoForm,idGardenFb);
-
-                        Notifications notifications = new Notifications();
-                        notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_RAC.this);
-
-                        //newForm.insertInto_RAC(infoForm);
-                        Toast.makeText(Form_RAC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Form_RAC.this, HomeActivity.class));
-                        finish();
+                    if (ContextCompat.checkSelfPermission(Form_RAC.this,
+                            Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                            ContextCompat.checkSelfPermission(Form_RAC.this,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        // Si no se han otorgado los permisos, solicítalos.
+                        requestStoragePermission();
+                    } else {
+                        // El permiso ya ha sido concedido, crea la instancia de la clase Forms
+                        createNewForm();
                     }
                 }
             });
@@ -243,6 +222,65 @@ public class Form_RAC extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    private void createNewForm(){
+        String container, worms, humidity, waste, humus, nameForm, leached, idGardenFb;
+        container = containerSize.getText().toString();
+        worms = worrmsWeightInfo.getText().toString();
+        humidity = humidityInfo.getText().toString();
+        waste = amount_of_waste_info.getText().toString();
+        humus = collected_humus_info.getText().toString();
+        leached = amount_leached_info.getText().toString();
+        nameForm = formsName.getText().toString();
+
+        idGardenFb = getIntent().getStringExtra("idGardenFirebase");
+
+        Map<String,Object> infoForm = new HashMap<>();
+        infoForm.put("idForm",1);
+        infoForm.put("nameForm",nameForm);
+        infoForm.put("containerSize",container);
+        infoForm.put("wormsWeight",worms);
+        infoForm.put("humidity",humidity);
+        infoForm.put("amount of waste",waste);
+        infoForm.put("collected humus",humus);
+        infoForm.put("amount leached",leached);
+        if(validateField(container, worms, humidity, waste, humus, leached)){
+
+            com.example.opcv.business.forms.Forms newForm = new com.example.opcv.business.forms.Forms(Form_RAC.this);
+            newForm.createForm(infoForm,idGardenFb);
+
+            Notifications notifications = new Notifications();
+            notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_RAC.this);
+
+            //newForm.insertInto_RAC(infoForm);
+            Toast.makeText(Form_RAC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Form_RAC.this, HomeActivity.class));
+            finish();
+        }
+    }
+
+    private void requestStoragePermission() {
+        if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            // Aquí puedes proporcionar una explicación al usuario sobre por qué necesitas el permiso.
+            // Esta explicación solo se mostrará si el usuario ha denegado previamente los permisos.
+        }
+        requestPermissions(new String[] {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_STORAGE_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                // El usuario concedió los permisos, continúa con la ejecución de la aplicación.
+                createNewForm();
+            } else {
+                // El usuario denegó los permisos, muestra un mensaje apropiado.
+                // También puedes proporcionar una opción para que
+            }
+        }
     }
 
     @Override
