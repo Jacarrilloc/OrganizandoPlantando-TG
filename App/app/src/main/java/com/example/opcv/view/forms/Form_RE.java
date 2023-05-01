@@ -4,10 +4,13 @@ import static android.app.PendingIntent.getActivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -19,6 +22,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.opcv.business.forms.Forms;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.view.gardens.MapsActivity;
 import com.example.opcv.R;
@@ -48,6 +52,7 @@ public class Form_RE extends AppCompatActivity {
     private FormsCommunication formsUtilities;
     private TextView formName;
     private FloatingActionButton backButtom;
+    private static final int REQUEST_STORAGE_PERMISSION = 1;
 
 
     @Override
@@ -253,47 +258,16 @@ public class Form_RE extends AppCompatActivity {
                     }
 
                     // Crear el formulario
-                    formsUtilities = new FormsCommunication();
-                    String idGardenFb;
-                    idGardenFb = getIntent().getStringExtra("idGardenFirebase");
-                    Map<String,Object> infoForm = new HashMap<>();
-                    infoForm.put("idForm",12);
-                    infoForm.put("nameForm", formName.getText().toString());
-                    infoForm.put("date",date.getText().toString());
-                    infoForm.put("eventName", eventName.getText().toString());
-                    infoForm.put("totalPerson", totalPerson.getText().toString());
-                    infoForm.put("womenNumber", femaleNumber.getText().toString());
-                    infoForm.put("menNumber", maleNumber.getText().toString());
-                    infoForm.put("noSpcNumber", noSpcNumber.getText().toString());
-                    infoForm.put("infantNumber", infantNumber.getText().toString());
-                    infoForm.put("childhoodNumber",chilhoodNumber.getText().toString());
-                    infoForm.put("teenNumber",teenNumber.getText().toString());
-                    infoForm.put("youthNumber", youthNumber.getText().toString());
-                    infoForm.put("adultNumber",adultNumber.getText().toString());
-                    infoForm.put("elderlyNumber", elderlyNumber.getText().toString());
-                    infoForm.put("afroNumber", afroNumber.getText().toString());
-                    infoForm.put("nativeNumber", nativeNumber.getText().toString());
-                    infoForm.put("lgtbiNumber", lgtbiNumber.getText().toString());
-                    infoForm.put("romNumber",romNumber.getText().toString());
-                    infoForm.put("victimNumber", victimNumber.getText().toString());
-                    infoForm.put("disabilityNumber", disabilityNumber.getText().toString());
-                    infoForm.put("demobilizedNumber", desmobilizedNumber.getText().toString());
-                    infoForm.put("mongrelNumber",mongrelNumber.getText().toString());
-                    infoForm.put("foreignNumber",foreignNumber.getText().toString());
-                    infoForm.put("peasantNumber", peasantNumber.getText().toString());
-                    infoForm.put("otherNumber", otherNumber.getText().toString());
-
-                    com.example.opcv.business.forms.Forms newForm = new com.example.opcv.business.forms.Forms(Form_RE.this);
-                    newForm.createForm(infoForm,idGardenFb);
-
-                    Notifications notifications = new Notifications();
-                    notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_RE.this);
-
-                    //newForm.insertInto_RE(infoForm);
-                    Toast.makeText(Form_RE.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Form_RE.this, HomeActivity.class));
-                    finish();
-
+                    if (ContextCompat.checkSelfPermission(Form_RE.this,
+                            Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                            ContextCompat.checkSelfPermission(Form_RE.this,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        // Si no se han otorgado los permisos, solicítalos.
+                        requestStoragePermission();
+                    } else {
+                        // El permiso ya ha sido concedido, crea la instancia de la clase Forms
+                        createNewForm();
+                    }
                 }
             });
         }
@@ -377,6 +351,71 @@ public class Form_RE extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void createNewForm(){
+        String idGardenFb;
+        idGardenFb = getIntent().getStringExtra("idGardenFirebase");
+        Map<String,Object> infoForm = new HashMap<>();
+        infoForm.put("idForm",12);
+        infoForm.put("nameForm", formName.getText().toString());
+        infoForm.put("date",date.getText().toString());
+        infoForm.put("eventName", eventName.getText().toString());
+        infoForm.put("totalPerson", totalPerson.getText().toString());
+        infoForm.put("womenNumber", femaleNumber.getText().toString());
+        infoForm.put("menNumber", maleNumber.getText().toString());
+        infoForm.put("noSpcNumber", noSpcNumber.getText().toString());
+        infoForm.put("infantNumber", infantNumber.getText().toString());
+        infoForm.put("childhoodNumber",chilhoodNumber.getText().toString());
+        infoForm.put("teenNumber",teenNumber.getText().toString());
+        infoForm.put("youthNumber", youthNumber.getText().toString());
+        infoForm.put("adultNumber",adultNumber.getText().toString());
+        infoForm.put("elderlyNumber", elderlyNumber.getText().toString());
+        infoForm.put("afroNumber", afroNumber.getText().toString());
+        infoForm.put("nativeNumber", nativeNumber.getText().toString());
+        infoForm.put("lgtbiNumber", lgtbiNumber.getText().toString());
+        infoForm.put("romNumber",romNumber.getText().toString());
+        infoForm.put("victimNumber", victimNumber.getText().toString());
+        infoForm.put("disabilityNumber", disabilityNumber.getText().toString());
+        infoForm.put("demobilizedNumber", desmobilizedNumber.getText().toString());
+        infoForm.put("mongrelNumber",mongrelNumber.getText().toString());
+        infoForm.put("foreignNumber",foreignNumber.getText().toString());
+        infoForm.put("peasantNumber", peasantNumber.getText().toString());
+        infoForm.put("otherNumber", otherNumber.getText().toString());
+
+        Forms newForm = new com.example.opcv.business.forms.Forms(Form_RE.this);
+        newForm.createForm(infoForm, idGardenFb);
+
+        Notifications notifications = new Notifications();
+        notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_RE.this);
+
+        Toast.makeText(Form_RE.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(Form_RE.this, HomeActivity.class));
+        finish();
+
+    }
+
+    private void requestStoragePermission() {
+        if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            // Aquí puedes proporcionar una explicación al usuario sobre por qué necesitas el permiso.
+            // Esta explicación solo se mostrará si el usuario ha denegado previamente los permisos.
+        }
+        requestPermissions(new String[] {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_STORAGE_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                // El usuario concedió los permisos, continúa con la ejecución de la aplicación.
+                createNewForm();
+            } else {
+                // El usuario denegó los permisos, muestra un mensaje apropiado.
+                // También puedes proporcionar una opción para que
+            }
+        }
     }
 
     @Override

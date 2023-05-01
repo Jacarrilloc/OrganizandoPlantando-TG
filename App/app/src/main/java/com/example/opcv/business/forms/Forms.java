@@ -60,7 +60,7 @@ public class Forms {
                 createRHCForm(infoForm,idGraden);
                 break;
             case 12:
-                createREForm(infoForm,idGraden);
+                createFormInfo(infoForm,idGraden);
                 break;
         }
     }
