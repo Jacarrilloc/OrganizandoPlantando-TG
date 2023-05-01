@@ -331,10 +331,7 @@ public class Form_CIH extends AppCompatActivity {
         }
     }
 
-
-
-
-                private void requestStoragePermission() {
+    private void requestStoragePermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             // Aquí puedes proporcionar una explicación al usuario sobre por qué necesitas el permiso.
             // Esta explicación solo se mostrará si el usuario ha denegado previamente los permisos.

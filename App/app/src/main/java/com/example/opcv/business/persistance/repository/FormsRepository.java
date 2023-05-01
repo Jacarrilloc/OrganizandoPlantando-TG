@@ -35,7 +35,7 @@ public class FormsRepository {
         mExecutor = Executors.newSingleThreadExecutor();
     }
 
-    public void insertFormCIH(Map<String,Object> infoForm, String idGarden, final OnFormInsertedListener listener) {
+    public void insertForm(Map<String,Object> infoForm, String idGarden, final OnFormInsertedListener listener) {
         mExecutor.execute(() -> {
             // Crear la base de datos local si no existe
             LocalDatabase localDb = new LocalDatabase(mContext);

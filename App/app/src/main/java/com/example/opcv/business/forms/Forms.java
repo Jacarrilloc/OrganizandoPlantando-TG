@@ -44,7 +44,7 @@ public class Forms {
                 createRSMPForm(infoForm,idGraden);
                 break;
             case 7:
-                createCPSForm(infoForm,idGraden);
+                createFormInfo(infoForm,idGraden);
                 break;
             case 8:
                 createRCCForm(infoForm,idGraden);
@@ -53,7 +53,7 @@ public class Forms {
                 createRRHForm(infoForm,idGraden);
                 break;
             case 10:
-                createCIHForm(infoForm,idGraden);
+                createFormInfo(infoForm,idGraden);
                 break;
             case 11:
                 createRHCForm(infoForm,idGraden);
@@ -64,22 +64,12 @@ public class Forms {
         }
     }
 
-    public void createCIHForm(Map<String,Object> infoForm,String idGraden){
-        int id = (int) infoForm.get("idForm");
-        String name = (String) infoForm.get("nameForm");
-        String tool = (String) infoForm.get("tool");
-        String concept = (String) infoForm.get("concept");
-        String incomingOutgoing = (String) infoForm.get("incomingOutgoing");
-        String toolQuantityS = (String) infoForm.get("toolQuantity");
-        int toolQuantity = Integer.parseInt(toolQuantityS);
-        String toolStatus = (String) infoForm.get("toolStatus");
-        String existenceQuantityS = (String) infoForm.get("existenceQuantity");
-        int existenceQuantity = Integer.parseInt(existenceQuantityS);
+    public void createFormInfo(Map<String,Object> infoForm,String idGraden){
         String date = getDateNow();
         infoForm.put("Date",date);
 
         FormsRepository info = new FormsRepository(context);
-        info.insertFormCIH(infoForm,idGraden, new OnFormInsertedListener() {
+        info.insertForm(infoForm,idGraden, new OnFormInsertedListener() {
             @Override
             public void onFormInserted(String formId) {
                 Log.i("INSERTAR_FORM_CIH","SE AGREGÓ");
