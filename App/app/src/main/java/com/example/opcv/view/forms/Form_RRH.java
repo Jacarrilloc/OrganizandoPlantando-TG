@@ -2,9 +2,12 @@ package com.example.opcv.view.forms;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -19,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.opcv.business.forms.Forms;
 import com.example.opcv.view.gardens.MapsActivity;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.view.base.HomeActivity;
@@ -47,6 +51,7 @@ public class Form_RRH extends AppCompatActivity {
     private Spinner spinner;
     private String conceptSelectedItem, watch, idGarden, idCollection;
     private FirebaseFirestore database;
+    private static final int REQUEST_STORAGE_PERMISSION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,36 +137,15 @@ public class Form_RRH extends AppCompatActivity {
             addFormButtom.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    formsUtilities = new FormsCommunication();
-                    String processDescription, toolQuantity, processPerformedBy, processStatus, idGardenFb, nameForm;
-                    processDescription = description.getText().toString();
-                    toolQuantity = quantity.getText().toString();
-                    processPerformedBy = performedBy.getText().toString();
-                    processStatus = status.getText().toString();
-                    nameForm = formName.getText().toString();
-
-                    idGardenFb = getIntent().getStringExtra("idGardenFirebase");
-
-                    Map<String,Object> infoForm = new HashMap<>();
-                    infoForm.put("idForm",9);
-                    infoForm.put("nameForm",nameForm);
-                    infoForm.put("description",processDescription);
-                    infoForm.put("toolQuantity",toolQuantity);
-                    infoForm.put("concept",conceptSelectedItem);
-                    infoForm.put("performedBy",processPerformedBy);
-                    infoForm.put("toolStatus",processStatus);
-                    if(validateField(processDescription, toolQuantity, processPerformedBy, processStatus, conceptSelectedItem)){
-
-                        com.example.opcv.business.forms.Forms newForm = new com.example.opcv.business.forms.Forms(Form_RRH.this);
-                        newForm.createForm(infoForm,idGardenFb);
-
-                        Notifications notifications = new Notifications();
-                        notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_RRH.this);
-
-                        //newForm.insertInto_RRH(infoForm);
-                        Toast.makeText(Form_RRH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Form_RRH.this, HomeActivity.class));
-                        finish();
+                    if (ContextCompat.checkSelfPermission(Form_RRH.this,
+                            Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                            ContextCompat.checkSelfPermission(Form_RRH.this,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        // Si no se han otorgado los permisos, solicítalos.
+                        requestStoragePermission();
+                    } else {
+                        // El permiso ya ha sido concedido, crea la instancia de la clase Forms
+                        createNewForm();
                     }
                 }
             });
@@ -273,6 +257,62 @@ public class Form_RRH extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    private void createNewForm(){
+        String processDescription, toolQuantity, processPerformedBy, processStatus, idGardenFb, nameForm;
+        processDescription = description.getText().toString();
+        toolQuantity = quantity.getText().toString();
+        processPerformedBy = performedBy.getText().toString();
+        processStatus = status.getText().toString();
+        nameForm = formName.getText().toString();
+
+        idGardenFb = getIntent().getStringExtra("idGardenFirebase");
+
+        Map<String,Object> infoForm = new HashMap<>();
+        infoForm.put("idForm",9);
+        infoForm.put("nameForm",nameForm);
+        infoForm.put("description",processDescription);
+        infoForm.put("toolQuantity",toolQuantity);
+        infoForm.put("concept",conceptSelectedItem);
+        infoForm.put("performedBy",processPerformedBy);
+        infoForm.put("toolStatus",processStatus);
+        if(validateField(processDescription, toolQuantity, processPerformedBy, processStatus, conceptSelectedItem)){
+
+            Forms newForm = new com.example.opcv.business.forms.Forms(Form_RRH.this);
+            newForm.createForm(infoForm, idGardenFb);
+
+            Notifications notifications = new Notifications();
+            notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_RRH.this);
+
+            //newForm.insertInto_RRH(infoForm);
+            Toast.makeText(Form_RRH.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Form_RRH.this, HomeActivity.class));
+            finish();
+        }
+    }
+
+    private void requestStoragePermission() {
+        if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            // Aquí puedes proporcionar una explicación al usuario sobre por qué necesitas el permiso.
+            // Esta explicación solo se mostrará si el usuario ha denegado previamente los permisos.
+        }
+        requestPermissions(new String[] {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_STORAGE_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                // El usuario concedió los permisos, continúa con la ejecución de la aplicación.
+                createNewForm();
+            } else {
+                // El usuario denegó los permisos, muestra un mensaje apropiado.
+                // También puedes proporcionar una opción para que
+            }
+        }
     }
     @Override
     protected void attachBaseContext(Context newBase) {
