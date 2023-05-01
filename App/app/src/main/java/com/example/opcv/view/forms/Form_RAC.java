@@ -249,7 +249,7 @@ public class Form_RAC extends AppCompatActivity {
         if(validateField(container, worms, humidity, waste, humus, leached)){
 
             Forms newForm = new com.example.opcv.business.forms.Forms(Form_RAC.this);
-            newForm.createForm(infoForm, idGardenFb);
+            newForm.createFormInfo(infoForm, idGardenFb);
 
             Notifications notifications = new Notifications();
             notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_RAC.this);

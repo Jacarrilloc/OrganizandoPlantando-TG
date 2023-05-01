@@ -226,7 +226,7 @@ public class Form_RCC extends AppCompatActivity {
         if(validateField(areaRecipient, descriptionProc, quantityResidue, fertilizerQuantity, quantityLeached)){
 
             Forms newForm = new com.example.opcv.business.forms.Forms(Form_RCC.this);
-            newForm.createForm(infoForm, idGardenFb);
+            newForm.createFormInfo(infoForm, idGardenFb);
 
             Notifications notifications = new Notifications();
             notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_RCC.this);

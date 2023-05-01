@@ -29,42 +29,6 @@ public class Forms {
         this.context = context;
     }
 
-    public void createForm(Map<String,Object> infoForm, String idGraden){
-        int type = (int) infoForm.get("idForm");
-        switch (type){
-            case 1:
-                createFormInfo(infoForm,idGraden);
-                break;
-            case 2:
-                createFormInfo(infoForm,idGraden);
-                break;
-            case 3:
-                createFormInfo(infoForm,idGraden);
-                break;
-            case 4:
-                createFormInfo(infoForm,idGraden);
-                break;
-            case 7:
-                createFormInfo(infoForm,idGraden);
-                break;
-            case 8:
-                createFormInfo(infoForm,idGraden);
-                break;
-            case 9:
-                createFormInfo(infoForm,idGraden);
-                break;
-            case 10:
-                createFormInfo(infoForm,idGraden);
-                break;
-            case 11:
-                createFormInfo(infoForm,idGraden);
-                break;
-            case 12:
-                createFormInfo(infoForm,idGraden);
-                break;
-        }
-    }
-
     public void createFormInfo(Map<String,Object> infoForm,String idGraden){
         String date = getDateNow();
         infoForm.put("Date",date);

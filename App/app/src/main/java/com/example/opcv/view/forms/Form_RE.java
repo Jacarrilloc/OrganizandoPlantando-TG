@@ -384,7 +384,7 @@ public class Form_RE extends AppCompatActivity {
         infoForm.put("otherNumber", otherNumber.getText().toString());
 
         Forms newForm = new com.example.opcv.business.forms.Forms(Form_RE.this);
-        newForm.createForm(infoForm, idGardenFb);
+        newForm.createFormInfo(infoForm, idGardenFb);
 
         Notifications notifications = new Notifications();
         notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_RE.this);

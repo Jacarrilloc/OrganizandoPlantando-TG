@@ -280,7 +280,7 @@ public class Form_RRH extends AppCompatActivity {
         if(validateField(processDescription, toolQuantity, processPerformedBy, processStatus, conceptSelectedItem)){
 
             Forms newForm = new com.example.opcv.business.forms.Forms(Form_RRH.this);
-            newForm.createForm(infoForm, idGardenFb);
+            newForm.createFormInfo(infoForm, idGardenFb);
 
             Notifications notifications = new Notifications();
             notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_RRH.this);

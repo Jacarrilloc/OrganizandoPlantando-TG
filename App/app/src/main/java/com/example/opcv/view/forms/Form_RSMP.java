@@ -353,7 +353,7 @@ public class Form_RSMP extends AppCompatActivity {
         if(validateField(descriptionR, quantityR, totalR, stateR, conceptSelectedItem, unitSelectedItem)){
 
             Forms newForm = new com.example.opcv.business.forms.Forms(Form_RSMP.this);
-            newForm.createForm(infoForm, idGardenFb);
+            newForm.createFormInfo(infoForm, idGardenFb);
 
             Notifications notifications = new Notifications();
             notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_RSMP.this);

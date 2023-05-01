@@ -306,7 +306,7 @@ public class Form_CIH extends AppCompatActivity {
         infoForm.put("existenceQuantity",toolExistance);
 
         Forms newForm = new com.example.opcv.business.forms.Forms(Form_CIH.this);
-        newForm.createForm(infoForm, idGardenFb);
+        newForm.createFormInfo(infoForm, idGardenFb);
 
         Notifications notifications = new Notifications();
         notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_CIH.this);

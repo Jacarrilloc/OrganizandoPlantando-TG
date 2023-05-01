@@ -366,7 +366,7 @@ public class Form_IMP extends AppCompatActivity {
         infoForm.put("existenceQuantity",existance);
 
         Forms newForm = new com.example.opcv.business.forms.Forms(Form_IMP.this);
-        newForm.createForm(infoForm, idGardenFb);
+        newForm.createFormInfo(infoForm, idGardenFb);
 
         Notifications notifications = new Notifications();
         notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_IMP.this);

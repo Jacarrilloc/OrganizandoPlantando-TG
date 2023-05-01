@@ -350,7 +350,7 @@ public class Form_SCMPH extends AppCompatActivity {
         if(validateField(itemR, quantityR, totalR, itemSelectedItem, unitSelectedItem)){
 
             Forms newForm = new com.example.opcv.business.forms.Forms(Form_SCMPH.this);
-            newForm.createForm(infoForm, idGardenFb);
+            newForm.createFormInfo(infoForm, idGardenFb);
 
             Notifications notifications = new Notifications();
             notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_SCMPH.this);
