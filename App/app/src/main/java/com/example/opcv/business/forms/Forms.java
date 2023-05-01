@@ -57,7 +57,7 @@ public class Forms {
                 createFormInfo(infoForm,idGraden);
                 break;
             case 11:
-                createRHCForm(infoForm,idGraden);
+                createFormInfo(infoForm,idGraden);
                 break;
             case 12:
                 createFormInfo(infoForm,idGraden);
