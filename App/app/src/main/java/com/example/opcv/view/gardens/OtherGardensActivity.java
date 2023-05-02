@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.opcv.business.persistance.firebase.UserCommunication;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.auth.EditUserActivity;
@@ -35,6 +36,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class OtherGardensActivity extends AppCompatActivity {
     private Button otherGardensButton, profile, myGardens, join, visit, ludification;
@@ -55,6 +59,8 @@ public class OtherGardensActivity extends AppCompatActivity {
         descriptionGarden = (TextView) findViewById(R.id.descriptionGarden);
         returnButton = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
         image = (ImageView) findViewById(R.id.gardenProfilePicture);
+
+        UserCommunication communication = new UserCommunication();
 
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,10 +107,27 @@ public class OtherGardensActivity extends AppCompatActivity {
         }
         getImageGarden(gardenID);
 
+        communication.userAlreadyRequested(id, gardenID, new UserCommunication.GetUserRequest() {
+            @Override
+            public void onComplete(Boolean response) {
+                //si es true significa que el usuario ya hizo el request y toca inhabilitar el boton
+                if(response){
+                    join.setClickable(false);
+                    join.setVisibility(View.INVISIBLE);
+                    join.setEnabled(false);
+                }
+            }
+        });
+
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 CollaboratorCommunication cU = new CollaboratorCommunication();
+                //Para que si le da click a unirse ya ese boton quede deshabilitado
+                Map<String, Object> request = new HashMap<>();
+                request.put("Garden", gardenID);
+                communication.addUserRequests(id, request);
+
                 cU.addRequests(OtherGardensActivity.this, id, gardenID);
                 Toast.makeText(OtherGardensActivity.this, "Se envio la solicitud al dueño de la huerta", Toast.LENGTH_SHORT).show();
                 join.setVisibility(View.INVISIBLE);

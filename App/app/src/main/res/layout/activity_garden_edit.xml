@@ -116,6 +116,7 @@
                         android:layout_marginEnd="@dimen/_10sdp"
                         android:background="@drawable/dr_gray_input_text"
                         android:textColor="@color/black"
+                        android:text="Comabaquinta"
                         android:textSize="@dimen/_14sdp" />
 
                 </LinearLayout>
