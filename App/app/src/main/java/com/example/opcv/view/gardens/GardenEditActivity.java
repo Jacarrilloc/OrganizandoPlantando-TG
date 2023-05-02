@@ -35,6 +35,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.opcv.business.ludification.Level;
+import com.example.opcv.business.persistance.firebase.UserCommunication;
 import com.example.opcv.business.persistance.garden.GardenPersistance;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
@@ -80,7 +82,7 @@ public class GardenEditActivity extends AppCompatActivity {
     private TextView adminMembersGarden;
 
     private CollectionReference gardensRef;
-    private String idUser, idGarden, nameGarden, infoGarden, name;
+    private String idUser, idGarden, nameGarden, infoGarden, name, id;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int CAMERA_PERMISSION_CODE = 100;
 
@@ -114,10 +116,20 @@ public class GardenEditActivity extends AppCompatActivity {
         acceptChanges = (Button) findViewById(R.id.acceptChanges);
         deleteGarden = (Button) findViewById(R.id.deleteGarden);
         addForm = (Button) findViewById(R.id.addForm);
+        idUser = autentication.getCurrentUser().getUid().toString();
 
         IsChangedPhoto = false;
-
+        UserCommunication com = new UserCommunication();
+        Level levelLogic = new Level();
+        com.getUserLevel(idUser, new UserCommunication.GetUserLvl() {
+            @Override
+            public void onComplete(String lvl) {
+                boolean isLevelTwo = levelLogic.levelTwoReward(lvl);
+                System.out.println("es "+isLevelTwo);
+            }
+        });
         getImageGarden(idGarden);
+
 
         changeImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -269,19 +281,25 @@ public class GardenEditActivity extends AppCompatActivity {
 
     private void getImageGarden(String idGarden){
         //se supone que con esto no deberia dar StorageException, pero si :(
-        /*FirebaseFirestore database = FirebaseFirestore.getInstance();
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
         DocumentReference Ref = database.collection("Gardens").document(idGarden);
         Ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
                     String uri = task.getResult().getString("UriPath");
-                    Glide.with(GardenEditActivity.this).load(uri).into(gardenImage);
+                    if(uri != null){
+                        Glide.with(GardenEditActivity.this).load(uri).into(gardenImage);
+                    }
+                    else{
+                        gardenImage.setImageResource(R.drawable.im_logo_ceres_green);
+                    }
+
                 }
             }
-        });*/
+        });
 
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        /*StorageReference storageRef = FirebaseStorage.getInstance().getReference();
         String imageName = idGarden + ".jpg";
         StorageReference imageRef = storageRef.child("gardenMainPhoto/" + imageName);
         final long ONE_MEGABYTE = 1024 * 1024;
@@ -296,7 +314,7 @@ public class GardenEditActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 gardenImage.setImageResource(R.drawable.im_logo_ceres_green);
             }
-        });
+        });*/
     }
 
     private void deleteGarden(String idGarden) {

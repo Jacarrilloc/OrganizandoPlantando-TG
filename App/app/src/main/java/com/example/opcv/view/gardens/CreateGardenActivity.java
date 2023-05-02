@@ -36,6 +36,8 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.example.opcv.business.ludification.Level;
+import com.example.opcv.business.persistance.firebase.UserCommunication;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.auth.EditUserActivity;
@@ -64,6 +66,7 @@ import java.util.Map;
 public class CreateGardenActivity extends AppCompatActivity {
 
     private EditText nameGarden,infoGarden;
+    private String idUser;
     private ImageView photo;
     private Button selectPhoto;
     private FirebaseAuth autentication;
@@ -100,6 +103,17 @@ public class CreateGardenActivity extends AppCompatActivity {
         otherGardensButton = (Button) findViewById(R.id.gardens);
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
+        idUser = autentication.getCurrentUser().getUid().toString();
+        UserCommunication com = new UserCommunication();
+        Level levelLogic = new Level();
+        com.getUserLevel(idUser, new UserCommunication.GetUserLvl() {
+            @Override
+            public void onComplete(String lvl) {
+                boolean isLevelTwo = levelLogic.levelTwoReward(lvl);
+                System.out.println("es "+isLevelTwo);
+            }
+        });
+
 
         selectPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,13 +174,6 @@ public class CreateGardenActivity extends AppCompatActivity {
                 startActivity(edit);
             }
         });
-    }
-    public boolean validateFieldPhoto(Context context, byte[] bytes){
-        if(bytes == null){
-            Toast.makeText(context, "Es necesario Ingresar una imagen", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
     }
 
     private void createGarden(){

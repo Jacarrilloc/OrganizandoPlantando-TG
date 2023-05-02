@@ -22,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.opcv.business.persistance.garden.GardenPersistance;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.auth.EditUserActivity;
@@ -89,6 +91,7 @@ public class GardenActivity extends AppCompatActivity {
         database = FirebaseFirestore.getInstance();
         gardensRef = database.collection("Gardens");
         gardenImage = findViewById(R.id.gardenProfilePicture);
+        GardenPersistance gardenPersistance = new GardenPersistance();
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
@@ -113,7 +116,19 @@ public class GardenActivity extends AppCompatActivity {
             }
         }
 
-        getImageGarden(extras.getString("idGarden"));
+        gardenPersistance.getGardenPicture(gardenID, this, new GardenPersistance.GetUri() {
+            @Override
+            public void onSuccess(String uri) {
+                Glide.with(GardenActivity.this).load(uri).into(gardenImage);
+            }
+
+            @Override
+            public void onFailure(String imageString) {
+                Glide.with(GardenActivity.this).load(imageString).into(gardenImage);
+            }
+        });
+
+        //getImageGarden(extras.getString("idGarden"));
         backButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
