@@ -3,6 +3,7 @@ package com.example.opcv.view.adapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -28,14 +30,17 @@ import com.example.opcv.view.forms.Form_SCMPH;
 import com.example.opcv.view.forms.Form_RE;
 import com.example.opcv.model.items.ItemRegistersList;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
-    private TextView dateText;
+    private TextView dateText,procesName;
     private Button seeMoreButton;
     private ImageButton edit, delete;
     private Context context;
+
+    //private static int idsForms = {};
 
     public FormsRegistersAdapter(Context context, List<ItemRegistersList> objects) {
         super(context, 0, objects);
@@ -49,18 +54,36 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
             view = inflater.inflate(R.layout.item_list_registro_lombricultura, parent, false);
         }
         dateText = (TextView) view.findViewById(R.id.dateRegister);
+        procesName = (TextView) view.findViewById(R.id.processMade);
         seeMoreButton = (Button) view.findViewById(R.id.seeMorButton);
         edit = (ImageButton) view.findViewById(R.id.editButton);
         delete = (ImageButton) view.findViewById(R.id.deleteButton);
 
         ItemRegistersList item = getItem(position);
-        ItemRegistersList IRL = new ItemRegistersList(item.getIdGarden(), item.getFormName(), item.getIdFormCollection(), item.getDate());
-        FormsCommunication FU = new FormsCommunication();
+        ItemRegistersList IRL = new ItemRegistersList(item.getIdGarden(), item.getFormName(), item.getInfo(), item.getDate());
+        String nameByForm = "Creado por: " + item.getInfo().get("CreatedBy").toString();
+        procesName.setText(nameByForm);
         dateText.setText(item.getDate());
 
+        //Boton para ver la Información del Formulario
         seeMoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int formType = Integer.parseInt((String) item.getInfo().get("idForm"));
+                switch (formType){
+                    case 10:
+                        Intent newForm = new Intent(context, Form_CIH.class);
+                        newForm.putExtra("watch","true");
+                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
+                        newForm.putExtra("idCollecion", (Serializable) item.getInfo());
+                        newForm.putExtra("Name",item.getFormName());
+                        context.startActivity(newForm);
+                        break;
+                    default:
+                        Log.i("LOCALFORM","NO SE RECONOCE EL ID DE ESTE FORM");
+                        break;
+                }
+                /*
                 int form;
                 if(Objects.equals(item.getFormName(), "Registro y Actualización de Compostaje")){
                     form = 1;
@@ -156,12 +179,16 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                     newForm.putExtra("Name",item.getFormName());
                     context.startActivity(newForm);
                 }
+                */
             }
         });
+
+        //Boton para editar la Informacion del Formulario
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //FU.editForms(item.idGarden, item.idFormCollection, item.getFormName());
+                /*
                 int form;
                 if(Objects.equals(item.getFormName(), "Registro y Actualización de Compostaje")){
                     form = 1;
@@ -257,8 +284,11 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                     newForm.putExtra("Name",item.getFormName());
                     context.startActivity(newForm);
                 }
+                */
             }
         });
+
+        //Boton para eliminar el Formulario
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -267,21 +297,23 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                         .setNegativeButton(android.R.string.no, null)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface arg0, int arg1) {
+                                /*
+                                // Aqui se Borra el Formulario
                                 remove(item);
                                 FU.deleteForm(item.getIdGarden(), item.getIdFormCollection());
                                 notifyDataSetChanged();
+
+                                 */
                             }
                         }).create().show();
             }
         });
 
 
-
         view.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT));
         if(view != null){
             view.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
-
         return view;
     }
 }

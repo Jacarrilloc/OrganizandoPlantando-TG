@@ -95,17 +95,11 @@ public class Form_CIH extends AppCompatActivity {
         watch = getIntent().getStringExtra("watch");
 
         if(watch.equals("true")){
-            idGarden = getIntent().getStringExtra("idGardenFirebase");
-            idCollection = getIntent().getStringExtra("idCollecion");
-            addFormButtom.setVisibility(View.INVISIBLE);
-            addFormButtom.setClickable(false);
-            spinner2.setEnabled(false);
-            spinnerConcept.setEnabled(false);
-            tool.setEnabled(false);
-            toolQuantity.setEnabled(false);
-            toolStatus.setEnabled(false);
-            preexistingTool.setEnabled(false);
-            showInfo(idGarden, idCollection, "true");
+
+            //Aqui es cuando solo se quiere ver la informción del formulario
+            Map<String, Object> infoForm = (Map<String, Object>) getIntent().getSerializableExtra("idCollecion");
+            showMapInfo(infoForm,watch);
+
         } else if (watch.equals("edit")) {
             formsUtilities = new FormsCommunication();
 
@@ -198,6 +192,38 @@ public class Form_CIH extends AppCompatActivity {
         });
 
     }
+
+    private void showMapInfo(Map<String, Object> info,String status){
+        addFormButtom.setVisibility(View.INVISIBLE);
+        addFormButtom.setClickable(false);
+        spinner2.setEnabled(false);
+        spinnerConcept.setEnabled(false);
+        tool.setEnabled(false);
+        toolQuantity.setEnabled(false);
+        toolStatus.setEnabled(false);
+        preexistingTool.setEnabled(false);
+        tool.setText((CharSequence) info.get("tool"));
+        toolQuantity.setText((CharSequence) info.get("toolQuantity"));
+        toolStatus.setText((CharSequence) info.get("toolQuantity"));
+        preexistingTool.setText((CharSequence) info.get("existenceQuantity"));
+        if(status.equals("true")){
+            spinnerConcept.setVisibility(View.GONE);
+            spinner2.setVisibility(View.GONE);
+
+            TextView infoConcetSpinner = findViewById(R.id.spinnerConceptElementView);
+            TextView infoToolSpinner = findViewById(R.id.toolSpinnerInfo);
+
+            infoConcetSpinner.setVisibility(View.VISIBLE);
+            infoToolSpinner.setVisibility(View.VISIBLE);
+
+            String incomingOutgoingData = (String) info.get("incomingOutgoing");
+            String conceptData = (String) info.get("concept");
+
+            infoConcetSpinner.setText(conceptData);
+            infoToolSpinner.setText(incomingOutgoingData);
+        }
+    }
+
     private void showInfo(String idGarden, String idCollection, String status){
 
         CollectionReference ref = database.collection("Gardens").document(idGarden).collection("Forms");

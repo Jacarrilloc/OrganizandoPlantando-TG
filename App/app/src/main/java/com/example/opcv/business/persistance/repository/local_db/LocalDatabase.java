@@ -3,20 +3,27 @@ package com.example.opcv.business.persistance.repository.local_db;
 import android.content.Context;
 import android.util.JsonWriter;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 
 public class LocalDatabase implements LocalDatabaseI {
@@ -88,4 +95,32 @@ public class LocalDatabase implements LocalDatabaseI {
         }
     }
 
+    public List<Map<String,Object>> getInfoJsonForms(String idGarden, String formName) throws FileNotFoundException, JSONException {
+
+        File gardenDir = new File(context.getExternalFilesDir(null), "Gardenforms/" + idGarden);
+        if(gardenDir.exists()){
+            File infoFormFile = new File(gardenDir, "infoForm.json");
+            if(infoFormFile.exists()){
+                FileInputStream inputStream = new FileInputStream(infoFormFile);
+                String jsonString = new Scanner(inputStream).useDelimiter("\\A").next();
+                JSONArray jsonArray = new JSONArray(new JSONTokener(jsonString));
+                List<Map<String,Object>> formsListResult = new ArrayList<>();
+                for( int i = 0 ;  i < jsonArray.length() ; i++){
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    if(jsonObject.getString("nameForm").equals(formName)){
+                        Map<String, Object> formMap = new HashMap<>();
+                        Iterator<String> iterator = jsonObject.keys();
+                        while( iterator.hasNext() ){
+                            String key = iterator.next();
+                            Object value = jsonObject.get(key);
+                            formMap.put(key,value);
+                        }
+                        formsListResult.add(formMap);
+                    }
+                }
+                return formsListResult;
+            }
+        }
+        return null;
+    }
 }

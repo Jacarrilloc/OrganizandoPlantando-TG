@@ -6,9 +6,14 @@ import android.net.NetworkInfo;
 
 import com.example.opcv.business.notifications.Notifications;
 import com.example.opcv.business.persistance.repository.local_db.LocalDatabase;
+import com.example.opcv.business.persistance.repository.local_db.LocalDatabaseI;
 import com.example.opcv.business.persistance.repository.remote_db.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONException;
+
+import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -44,6 +49,14 @@ public class FormsRepository {
                 notifications.notification("Formulario creado", "Tienes Conexion, Formulario Subido", mContext);
             }).start();
         });
+    }
+
+    public List<Map<String,Object>> getInfoForms(String idGarden, String formName) throws FileNotFoundException, JSONException {
+        if(isOnline()){
+            //Aqui debe ir el llamado a un metodo que actualice los datos del json con la informacion de Firebase
+        }
+        LocalDatabase infoForm = new LocalDatabase(mContext);
+        return infoForm.getInfoJsonForms(idGarden,formName);
     }
 
     private boolean isOnline() {
