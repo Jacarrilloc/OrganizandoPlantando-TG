@@ -30,6 +30,7 @@ import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.business.persistance.firebase.FormsCommunication;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.business.notifications.Notifications;
+import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,7 +48,7 @@ public class Form_SCMPH extends AppCompatActivity {
 
     private FormsCommunication formsUtilities;
     private FloatingActionButton backButtom;
-    private Button addFormButtom, gardens, myGardens, profile, ludification;
+    private Button addFormButtom, rewards, myGardens, profile, ludification;
     private EditText itemName, quantity, total;
     private Spinner spinnerUnits, spinnerItem;
     private String unitSelectedItem, itemSelectedItem, watch, idGarden, idCollection;
@@ -64,18 +65,19 @@ public class Form_SCMPH extends AppCompatActivity {
         itemName = (EditText) findViewById(R.id.nameItem);
         quantity = (EditText) findViewById(R.id.amount_of_Mp);
         total = (EditText) findViewById(R.id.total_Mp);
-        gardens = (Button) findViewById(R.id.gardens);
+        rewards = (Button) findViewById(R.id.rewards);
         myGardens = (Button) findViewById(R.id.myGardens);
         profile = (Button) findViewById(R.id.profile);
         backButtom = (FloatingActionButton) findViewById(R.id.returnArrowButtonFormOnetoFormListElement);
         spinnerItem = (Spinner) findViewById(R.id.itemChoice);
         spinnerUnits = (Spinner) findViewById(R.id.unitsChoice);
         addFormButtom = findViewById(R.id.create_forms3_buttom);
+        ludification = (Button) findViewById(R.id.ludification);
 
-        gardens.setOnClickListener(new View.OnClickListener() {
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Form_SCMPH.this, MapsActivity.class));
+                startActivity(new Intent(Form_SCMPH.this, RewardHomeActivity.class));
             }
         });
 
@@ -92,8 +94,6 @@ public class Form_SCMPH extends AppCompatActivity {
                 startActivity(new Intent(Form_SCMPH.this, EditUserActivity.class));
             }
         });
-
-        ludification = (Button) findViewById(R.id.ludification);
 
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override

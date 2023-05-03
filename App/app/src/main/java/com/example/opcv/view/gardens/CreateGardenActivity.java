@@ -48,6 +48,7 @@ import com.example.opcv.model.entity.GardenInfo;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.business.notifications.Notifications;
 import com.example.opcv.business.persistance.garden.GardenPersistance;
+import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -75,7 +76,7 @@ public class CreateGardenActivity extends AppCompatActivity {
     private Button selectPhoto;
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
-    private Button create, otherGardensButton, profile, myGardens, ludification;
+    private Button create, rewards, profile, myGardens, ludification;
     private Switch gardenType;
     private GardenInfo newInfo;
 
@@ -101,12 +102,11 @@ public class CreateGardenActivity extends AppCompatActivity {
         banner = (TextView) findViewById(R.id.alert);
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
-
         create = findViewById(R.id.add_garden_button);
-
-        otherGardensButton = (Button) findViewById(R.id.gardens);
+        rewards = (Button) findViewById(R.id.rewards);
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
+        ludification = (Button) findViewById(R.id.ludification);
         idUser = autentication.getCurrentUser().getUid().toString();
         UserCommunication com = new UserCommunication();
         Level levelLogic = new Level();
@@ -161,10 +161,10 @@ public class CreateGardenActivity extends AppCompatActivity {
             }
         });
 
-        otherGardensButton.setOnClickListener(new View.OnClickListener() {
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CreateGardenActivity.this, MapsActivity.class));
+                startActivity(new Intent(CreateGardenActivity.this, RewardHomeActivity.class));
             }
         });
 
@@ -192,7 +192,6 @@ public class CreateGardenActivity extends AppCompatActivity {
             }
         });
 
-        ludification = (Button) findViewById(R.id.ludification);
 
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override

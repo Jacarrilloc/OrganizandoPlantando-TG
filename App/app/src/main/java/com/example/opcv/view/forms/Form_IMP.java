@@ -30,6 +30,7 @@ import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.business.persistance.firebase.FormsCommunication;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.business.notifications.Notifications;
+import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -46,7 +47,7 @@ public class Form_IMP extends AppCompatActivity {
 
     private FloatingActionButton backButtom;
     private FormsCommunication formsUtilities;
-    private Button addFormButtom, gardens, myGardens, profile, ludification;
+    private Button addFormButtom, rewards, myGardens, profile, ludification;
     private Spinner spinnerMovement, spinnerUnits, spinnerConcept;
     private String movementSelectedItem, unitSelectedItem, conceptSelectedItem, watch, idGarden, idCollection;
     private EditText rawMatirial, quantity, existingTool;
@@ -66,18 +67,19 @@ public class Form_IMP extends AppCompatActivity {
         rawMatirial = (EditText) findViewById(R.id.rawMaterialContainer);
         quantity = (EditText) findViewById(R.id.quantity);
         existingTool = (EditText) findViewById(R.id.existanceTool);
-        gardens = (Button) findViewById(R.id.gardens);
+        rewards = (Button) findViewById(R.id.rewards);
         profile = (Button) findViewById(R.id.profile);
         backButtom = (FloatingActionButton) findViewById(R.id.returnArrowButtonFormOnetoFormListElement);
         spinnerConcept = (Spinner) findViewById(R.id.conceptChoice);
         spinnerMovement = (Spinner) findViewById(R.id.spinnerChoice);
         spinnerUnits = (Spinner) findViewById(R.id.spinnerUnits);
         addFormButtom = findViewById(R.id.create_forms2_buttom);
+        ludification = (Button) findViewById(R.id.ludification);
 
-        gardens.setOnClickListener(new View.OnClickListener() {
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Form_IMP.this, MapsActivity.class));
+                startActivity(new Intent(Form_IMP.this, RewardHomeActivity.class));
             }
         });
 
@@ -95,8 +97,6 @@ public class Form_IMP extends AppCompatActivity {
             }
         });
 
-        ludification = (Button) findViewById(R.id.ludification);
-
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,7 +106,6 @@ public class Form_IMP extends AppCompatActivity {
         });
 
         watch = getIntent().getStringExtra("watch");
-        System.out.println("es nulo"+watch);
 
         if(watch.equals("true")){
             idGarden = getIntent().getStringExtra("idGardenFirebase");

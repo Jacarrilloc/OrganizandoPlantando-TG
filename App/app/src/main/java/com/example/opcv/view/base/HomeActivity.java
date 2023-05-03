@@ -44,6 +44,7 @@ import com.example.opcv.view.gardens.GenerateReportsActivity;
 import com.example.opcv.view.gardens.MapsActivity;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.business.persistance.garden.GardenPersistance;
+import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -62,7 +63,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
-    private Button otherGardensButton, profile, myGardens, collaboration, ludification;
+    private Button otherGardensButton, profile, myGardens, collaboration, ludification, rewards;
     private ImageButton generateReport;
     private ListView listAviableGardensInfo;
     private FloatingActionButton nextArrow, addButton;
@@ -70,7 +71,6 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseFirestore database;
     private Animation animSlideUp;
 
-    private  Button gardensMap;
 
     private ProgressBar progressBar;
 
@@ -154,7 +154,7 @@ public class HomeActivity extends AppCompatActivity {
         otherGardensButton = (Button) findViewById(R.id.otherGardensButton);
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
-        gardensMap = (Button) findViewById(R.id.gardens);
+        rewards = (Button) findViewById(R.id.rewards);
         generateReport = (ImageButton) findViewById(R.id.generalReport);
         ludification = (Button) findViewById(R.id.ludification);
 
@@ -230,10 +230,10 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        gardensMap.setOnClickListener(new View.OnClickListener() {
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, MapsActivity.class));
+                startActivity(new Intent(HomeActivity.this, RewardHomeActivity.class));
             }
         });
 

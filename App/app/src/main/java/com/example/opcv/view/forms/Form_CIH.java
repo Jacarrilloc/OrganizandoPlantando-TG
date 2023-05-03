@@ -32,6 +32,7 @@ import com.example.opcv.R;
 import com.example.opcv.business.persistance.firebase.FormsCommunication;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.business.notifications.Notifications;
+import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,7 +48,7 @@ import java.util.Map;
 public class Form_CIH extends AppCompatActivity {
     private FloatingActionButton backButtom;
     private FormsCommunication formsUtilities;
-    private Button addFormButtom, gardens, myGardens, profile, ludification;
+    private Button addFormButtom, rewards, myGardens, profile, ludification;
     private EditText tool, toolQuantity, toolStatus, preexistingTool;
     private TextView formName;
     private Spinner spinnerConcept, spinner2;
@@ -61,7 +62,7 @@ public class Form_CIH extends AppCompatActivity {
         setContentView(R.layout.activity_form_cih);
 
         database = FirebaseFirestore.getInstance();
-        gardens = (Button) findViewById(R.id.gardens);
+        rewards = (Button) findViewById(R.id.rewards);
         addFormButtom = findViewById(R.id.create_forms1_buttom);
         myGardens = (Button) findViewById(R.id.myGardens);
         profile = (Button) findViewById(R.id.profile);
@@ -73,11 +74,12 @@ public class Form_CIH extends AppCompatActivity {
         preexistingTool = (EditText) findViewById(R.id.existanceTool);
         spinnerConcept = (Spinner) findViewById(R.id.spinnerConcept);
         spinner2 = (Spinner) findViewById(R.id.spinnerChoice);
+        ludification = (Button) findViewById(R.id.ludification);
 
-        gardens.setOnClickListener(new View.OnClickListener() {
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Form_CIH.this, MapsActivity.class));
+                startActivity(new Intent(Form_CIH.this, RewardHomeActivity.class));
             }
         });
         myGardens.setOnClickListener(new View.OnClickListener() {
@@ -187,7 +189,6 @@ public class Form_CIH extends AppCompatActivity {
             }
         });
 
-        ludification = (Button) findViewById(R.id.ludification);
 
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override

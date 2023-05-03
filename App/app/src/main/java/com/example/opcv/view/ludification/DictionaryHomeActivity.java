@@ -22,7 +22,7 @@ import com.example.opcv.business.persistance.firebase.AuthCommunication;
 public class DictionaryHomeActivity extends AppCompatActivity {
 
     private Button plants, tools;
-    private Button profile, myGardens, gardensMap;
+    private Button profile, myGardens, rewards;
     private String idUser, idDocUSer;
 
     @Override
@@ -32,7 +32,7 @@ public class DictionaryHomeActivity extends AppCompatActivity {
 
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
-        gardensMap = (Button) findViewById(R.id.gardens);
+        rewards = (Button) findViewById(R.id.rewards);
         plants = (Button) findViewById(R.id.plants);
         tools = (Button) findViewById(R.id.tools);
         AuthCommunication auth = new AuthCommunication();
@@ -83,10 +83,10 @@ public class DictionaryHomeActivity extends AppCompatActivity {
             }
         });
 
-        gardensMap.setOnClickListener(new View.OnClickListener() {
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(DictionaryHomeActivity.this, MapsActivity.class));
+                startActivity(new Intent(DictionaryHomeActivity.this, RewardHomeActivity.class));
             }
         });
 

@@ -18,6 +18,7 @@ import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.view.gardens.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
+import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,7 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DeleteAccountActivity extends AppCompatActivity {
 
-    private Button delete, returnButton, gardensMap, profile, myGardens, ludification;
+    private Button delete, returnButton, rewards, profile, myGardens, ludification;
 
     private FirebaseAuth autentication;
     private String idUser;
@@ -39,7 +40,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
 
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
-        gardensMap = (Button) findViewById(R.id.gardens);
+        rewards = (Button) findViewById(R.id.rewards);
         ludification = (Button) findViewById(R.id.ludification);
         returnButton = (Button) findViewById(R.id.returnButton2);
         delete = (Button) findViewById(R.id.deleteButton);
@@ -59,10 +60,10 @@ public class DeleteAccountActivity extends AppCompatActivity {
         });
 
 
-        gardensMap.setOnClickListener(new View.OnClickListener() {
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(DeleteAccountActivity.this, MapsActivity.class));
+                startActivity(new Intent(DeleteAccountActivity.this, RewardHomeActivity.class));
             }
         });
 

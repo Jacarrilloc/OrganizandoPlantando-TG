@@ -26,6 +26,7 @@ import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.view.gardens.MapsActivity;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.business.notifications.Notifications;
+import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -40,7 +41,7 @@ public class Form_RAC extends AppCompatActivity {
 
     private FloatingActionButton backButtom;
     private FormsCommunication formsUtilities;
-    private Button addFormButtom, gardens, myGardens, profile, ludification;
+    private Button addFormButtom, rewards, myGardens, profile, ludification;
 
     private TextView formsName;
 
@@ -65,15 +66,16 @@ public class Form_RAC extends AppCompatActivity {
         amount_of_waste_info = findViewById(R.id.amount_of_waste_info);
         collected_humus_info = findViewById(R.id.collected_humus_info);
         amount_leached_info = findViewById(R.id.amount_leached_info);
-        gardens = (Button) findViewById(R.id.gardens);
+        rewards = (Button) findViewById(R.id.rewards);
         myGardens = (Button) findViewById(R.id.myGardens);
         profile = (Button) findViewById(R.id.profile);
         addFormButtom = findViewById(R.id.create_forms1_buttom);
+        ludification = (Button) findViewById(R.id.ludification);
 
-        gardens.setOnClickListener(new View.OnClickListener() {
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Form_RAC.this, MapsActivity.class));
+                startActivity(new Intent(Form_RAC.this, RewardHomeActivity.class));
             }
         });
 
@@ -91,8 +93,6 @@ public class Form_RAC extends AppCompatActivity {
                 startActivity(new Intent(Form_RAC.this, EditUserActivity.class));
             }
         });
-
-        ludification = (Button) findViewById(R.id.ludification);
 
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,7 +155,6 @@ public class Form_RAC extends AppCompatActivity {
             });
 
         }
-
 
         backButtom.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -42,7 +42,7 @@ public class CreateToolActivity extends AppCompatActivity {
     private String toolName, toolDescription, idUser;
     private Boolean toolCheck, fertilizerCheck, careCheck;
     private FloatingActionButton add;
-    private Button profile, myGardens, gardensMap, ludification;
+    private Button profile, myGardens, rewards, ludification;
     private ImageView image;
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri selectImageUri;
@@ -61,7 +61,7 @@ public class CreateToolActivity extends AppCompatActivity {
         care = (CheckBox) findViewById(R.id.careOption);
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
-        gardensMap = (Button) findViewById(R.id.gardens);
+        rewards = (Button) findViewById(R.id.rewards);
         ludification = (Button) findViewById(R.id.ludification);
         add = (FloatingActionButton) findViewById(R.id.addButton);
         image = (ImageView) findViewById(R.id.addImage);
@@ -134,10 +134,10 @@ public class CreateToolActivity extends AppCompatActivity {
             }
         });
 
-        gardensMap.setOnClickListener(new View.OnClickListener() {
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CreateToolActivity.this, MapsActivity.class));
+                startActivity(new Intent(CreateToolActivity.this, RewardHomeActivity.class));
             }
         });
     }

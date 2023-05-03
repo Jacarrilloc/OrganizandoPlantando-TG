@@ -18,6 +18,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.opcv.business.persistance.garden.GardenPersistance;
@@ -28,6 +30,7 @@ import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.model.items.ItemGardenHomeList;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.business.persistance.firebase.GardenCommunication;
+import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
@@ -42,7 +45,8 @@ import java.util.List;
 
 public class GardensAvailableActivity extends AppCompatActivity {
 
-    private Button gardensMap, profile, myGardens, ludification;
+    private Button rewards, profile, myGardens, ludification;
+    private ImageView mapIcon;
     private FirebaseAuth autentication;
     private ListView listGardens;
     private FirebaseFirestore database;
@@ -64,15 +68,26 @@ public class GardensAvailableActivity extends AppCompatActivity {
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
         listGardens = findViewById(R.id.gardenList);
-
+        rewards = (Button) findViewById(R.id.rewards);
         profile = (Button) findViewById(R.id.profile);
+        myGardens = (Button) findViewById(R.id.myGardens);
+        ludification = (Button) findViewById(R.id.ludification);
+        mapIcon = (ImageView) findViewById(R.id.mapIcon);
+
+        mapIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(GardensAvailableActivity.this, MapsActivity.class));
+            }
+        });
+
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(GardensAvailableActivity.this, EditUserActivity.class));
             }
         });
-        myGardens = (Button) findViewById(R.id.myGardens);
+
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,11 +95,11 @@ public class GardensAvailableActivity extends AppCompatActivity {
             }
         });
 
-        gardensMap = (Button) findViewById(R.id.gardens);
-        gardensMap.setOnClickListener(new View.OnClickListener() {
+
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(GardensAvailableActivity.this, MapsActivity.class));
+                startActivity(new Intent(GardensAvailableActivity.this, RewardHomeActivity.class));
             }
         });
 
@@ -109,8 +124,6 @@ public class GardensAvailableActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        ludification = (Button) findViewById(R.id.ludification);
 
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override
