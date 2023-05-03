@@ -2,7 +2,7 @@
     <string name="app_name">OPCV</string>
     <string name="Diccionary">Diccionario</string>
     <string name="Map">Huertas</string>
-    <string name="Gardens">Mis Huertas</string>
+    <string name="Gardens">Huerta</string>
     <string name="User">Perfil</string>
     <string name="CreateProfile">Crea tu cuenta</string>
     <string name="question1">¿Ya tienes una cuenta?</string>
@@ -180,7 +180,7 @@
     <string name="da_fruto">Da fruto</string>
     <string name="comestible">Comestible</string>
     <string name="medicinal">Medicinal</string>
-    <string name="precausi_n">Precausión</string>
+    <string name="precausi_n">Precaución</string>
     <string name="descripci_n_">Descripción:</string>
     <string name="agregar_planta">Agregar Planta</string>
     <string name="mascota_amigable">Mascota amigable</string>
@@ -236,7 +236,7 @@
     <string name="solicitud_de_compra_de_materia_prima_y_herramientas">Solicitud de compra de materia prima y herramientas</string>
     <string name="formsname">FormsName</string>
     <string name="la_imagen">La imagen</string>
-    <string name="mis_huertas">Mis Huertas</string>
+    <string name="mis_huertas">Huerta</string>
     <string name="boton_de_descargar">Boton de descargar</string>
     <string name="oza_n">Ozaín</string>
     <string name="lombricultura">Lombricultura</string>
@@ -262,4 +262,7 @@
     <string name="t_rminos_y_condiciones2">Términos y Condiciones</string>
     <string name="al_crear_una_cuenta_aceptas_los">Al crear una cuenta aceptas los</string>
     <string name="debes_subir_nivel">Para poder ingresar una imagen a tu huerta debes primero subir a nivel 2.</string>
+    <string name="bonos">Bonos</string>
+    <string name="recompensas">Recompensas</string>
+    <string name="seg_n_el_nivel_que_tienes_actualmente_a_continuaci_n_est_n_tus_recompensas_disponibles">Según el nivel que tienes actualmente, a continuación están tus recompensas disponibles.</string>
 </resources>
