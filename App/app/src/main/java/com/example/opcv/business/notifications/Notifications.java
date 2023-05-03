@@ -35,7 +35,7 @@ public class Notifications {
             notificationManager.createNotificationChannel(channel);
             // Crear la notificación
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "channel_id")
-                    .setSmallIcon(R.drawable.im_logo_ceres_green)
+                    .setSmallIcon(R.drawable.im_ceres_brand)
                     .setContentTitle(title)
                     .setContentText(text)
                     .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
@@ -65,7 +65,7 @@ public class Notifications {
 
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default")
-                    .setSmallIcon(R.drawable.im_logo_ceres_green)
+                    .setSmallIcon(R.drawable.im_ceres_brand)
                     .setContentTitle(title)
                     .setContentText(text)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -90,7 +90,7 @@ public class Notifications {
 
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default")
-                .setSmallIcon(R.drawable.im_logo_ceres_green)
+                .setSmallIcon(R.drawable.im_ceres_brand)
                 .setContentTitle(title)
                 .setContentText(text)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
