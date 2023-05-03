@@ -17,22 +17,31 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Picture;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.print.PrintAttributes;
 import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.opcv.R;
+import com.example.opcv.view.gardens.GardenActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -43,12 +52,23 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.itextpdf.kernel.pdf.PdfReader;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.Style;
+import com.itextpdf.layout.element.Paragraph;
 
 import java.text.SimpleDateFormat;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -109,6 +129,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                         answer = "false";
                                         searchInfo(idGarden, id);
                                         searchInfoUser(idGarden, id);
+
                                         Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
                                         GenerateReportsActivity.super.onBackPressed();
                                         //finishAffinity();
@@ -343,9 +364,11 @@ public class GenerateReportsActivity extends AppCompatActivity {
     private void checkIfAllDataRetrieved(int numDocumentsToRetrieve, int numDocumentsRetrieved) throws IOException {
 
         if (numDocumentsRetrieved == numDocumentsToRetrieve) {
+            //createxd();
             createPDF(gardenU, ownerName, collection1Data, type, info, group, count, countForms, answer, mapsArray, collectionCrops);
         }
     }
+
 
     public void createPDF( String name, String nameUser, ArrayList<String> list, String type, String info, String group, int count, int countForms, String answer, List<HashMap<Object, String>> map, ArrayList<String> crops) throws IOException{
         PdfDocument document = new PdfDocument();
@@ -353,7 +376,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
         PdfDocument.Page page = document.startPage(pageInfo);
         Canvas canvas = page.getCanvas();
         Paint paint = new Paint();
-        int x = 10, y = 125, width=50;
+        int x = 10, y = 150, width=50;
         float left = 50, top = 50;
         //pa la imagen
         AssetManager assetManager = getAssets();
@@ -375,7 +398,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
             destWidth = (int) (maxHeight * aspectRatio);
         }
         int destLeft = 55;  // Left coordinate of the rectangle
-        int destTop = 20;   // Top coordinate of the rectangle
+        int destTop = 5;   // Top coordinate of the rectangle
         int destRight = destLeft + destWidth;   // Right coordinate of the rectangle
         int destBottom = destTop + destHeight;
         Rect destRect = new Rect(destLeft, destTop, destRight, destBottom);
@@ -432,7 +455,6 @@ public class GenerateReportsActivity extends AppCompatActivity {
         paintDate.setTypeface(italics);
         Typeface bold = Typeface.create(Typeface.DEFAULT, Typeface.BOLD);
         paintBold.setTypeface(bold);
-        page.getCanvas().drawText("Fecha: "+day+" de "+monthU+" del "+year, x+130, y, paintDate);
         String firstPart, secondpart;
         int index = 23, len=info.length();
         if(len>index){
@@ -590,7 +612,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
             }
         }
 
-        String path = Environment.getExternalStorageDirectory().getPath() + "/"+name+".pdf";
+        String path = Environment.getExternalStorageDirectory().getPath() + "/Download/"+name+".pdf";
         File file = new File(path);
         try {
             document.writeTo(new FileOutputStream(file));
@@ -727,6 +749,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                                 countGardens++;
                                             }
 
+
                                             count2++;
                                         }
                                         // System.out.println("el contador: "+countEvents);
@@ -790,7 +813,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
         PdfDocument.Page page = document.startPage(pageInfo);
         Canvas canvas = page.getCanvas();
         Paint paint = new Paint();
-        int x = 10, y = 135, width = 50;
+        int x = 10, y = 150, width = 50;
         float left = 50, top = 50;
         //pa la imagen
         AssetManager assetManager = getAssets();
@@ -879,12 +902,8 @@ public class GenerateReportsActivity extends AppCompatActivity {
             cont = cont + list2.get(i);
         }
         page.getCanvas().drawText("Numero total de colaboradores en Ceres: " + cont, x, y + 80, paint);
-        page.getCanvas().drawText("Actualmente se existen los siguientes cultivos: ", x, y + 100, paint);
-        int z=y+120;
-        for (int i = 0; i<crops.size(); i++){
-            page.getCanvas().drawText(i+1+": "+crops.get(i), x+10, z, paintDate);
-            z=z+20;
-        }
+
+
         int c1=countEvents-count2;
         int prove=0;
         if(c1%2!=0){
@@ -894,10 +913,24 @@ public class GenerateReportsActivity extends AppCompatActivity {
             prove=3;
         }
         //prove = prove*2;
-
+        int z=y+120;
         int c2=count1-c1-prove;
-        System.out.println("c1: "+count1+" c2: "+count2+" countevents: "+countEvents);
-        page.getCanvas().drawText("De las "+list.size()+" huertas "+c2+" estan trabajando en estos cultivos.", x, z , paintDate);
+        int c3 = countGardens-countEvents;
+        System.out.println("count1: "+count1+" count2: "+count2+" countevents: "+countEvents+" countgarden: "+countGardens+" countforms: "+countForms);
+        if(count1 ==0){
+            page.getCanvas().drawText("Actualmente no hay cultivos", x, y + 100, paint);
+        }
+        else{
+            page.getCanvas().drawText("Actualmente existen los siguientes cultivos: ", x, y + 100, paint);
+
+            for (int i = 0; i<crops.size(); i++){
+                page.getCanvas().drawText(i+1+": "+crops.get(i), x+10, z, paintDate);
+                z=z+20;
+            }
+            page.getCanvas().drawText("De las "+list.size()+" huertas "+c3+" estan trabajando en estos cultivos.", x, z , paintDate);
+        }
+
+
         //page.getCanvas().drawText("estos cultivos.", x, z + 10, paintDate);
         page.getCanvas().drawText("Se han realizado "+countForms+" registros de formularios en el ", x, z + 30, paint);
         page.getCanvas().drawText("último mes.", x, z + 40, paint);
@@ -919,29 +952,29 @@ public class GenerateReportsActivity extends AppCompatActivity {
         page.getCanvas().drawText("Fin del reporte", x, o+40, paintBold);
         document.finishPage(page);
 
-            String path = Environment.getExternalStorageDirectory().getPath() + "/ReporteGeneralCeres.pdf";
-            File file = new File(path);
-            try {
-                document.writeTo(new FileOutputStream(file));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            document.close();
-            if (answer.equals("true")) {
-                FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                FirebaseUser user = mAuth.getCurrentUser();
-                String userEmail = user.getEmail();
-
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                emailIntent.setData(Uri.parse("mailto:" + userEmail));
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Reporte General de Ceres " + name);
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "Mensaje del correo...");
-                emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-                startActivity(Intent.createChooser(emailIntent, "Send email"));
-            }
-
-
+        String path = Environment.getExternalStorageDirectory().getPath() + "/Download/ReporteGeneralCeres.pdf";
+        File file = new File(path);
+        try {
+            document.writeTo(new FileOutputStream(file));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        document.close();
+        if (answer.equals("true")) {
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            FirebaseUser user = mAuth.getCurrentUser();
+            String userEmail = user.getEmail();
+
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+            emailIntent.setData(Uri.parse("mailto:" + userEmail));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Reporte General de Ceres " + name);
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Mensaje del correo...");
+            emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+            startActivity(Intent.createChooser(emailIntent, "Send email"));
+        }
+
+
+    }
     @Override
     protected void attachBaseContext(Context newBase) {
         final Configuration override = new Configuration(newBase.getResources().getConfiguration());
