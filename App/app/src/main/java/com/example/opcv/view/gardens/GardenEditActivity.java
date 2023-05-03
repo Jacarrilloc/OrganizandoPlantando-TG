@@ -26,6 +26,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -78,8 +80,8 @@ public class GardenEditActivity extends AppCompatActivity {
     private FirebaseFirestore database, database2;
     private FirebaseUser userLog;
 
-    private Boolean IsChangedPhoto = false;
-    private TextView adminMembersGarden;
+    private Boolean IsChangedPhoto = false, isLevelTwo;
+    private TextView adminMembersGarden, banner;
 
     private CollectionReference gardensRef;
     private String idUser, idGarden, nameGarden, infoGarden, name, id;
@@ -101,7 +103,7 @@ public class GardenEditActivity extends AppCompatActivity {
 
         gardenImage = findViewById(R.id.gardenImageEditActivity);
         changeImage = findViewById(R.id.ChangeImageEditGarden);
-
+        banner = (TextView) findViewById(R.id.alert);
         switchGardenTypeModified = findViewById(R.id.switchGardenTypeModified);
         backButtom = findViewById(R.id.returnArrowButtomEditToGarden);
         adminMembersGarden = (TextView) findViewById(R.id.adminMembers);
@@ -124,8 +126,8 @@ public class GardenEditActivity extends AppCompatActivity {
         com.getUserLevel(idUser, new UserCommunication.GetUserLvl() {
             @Override
             public void onComplete(String lvl) {
-                boolean isLevelTwo = levelLogic.levelTwoReward(lvl);
-                System.out.println("es "+isLevelTwo);
+                isLevelTwo = levelLogic.levelTwoReward(lvl);
+
             }
         });
         getImageGarden(idGarden);
@@ -134,19 +136,44 @@ public class GardenEditActivity extends AppCompatActivity {
         changeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(GardenEditActivity.this)
-                        .setMessage("¿Deseas Tomar una foto o elegir desde la galeria?")
-                        .setNegativeButton("Tomar Foto", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                takePhoto();
-                            }
-                        })
-                        .setPositiveButton("Seleccionar desde la Galeria", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                selectPhoto();
-                            }
-                        })
-                        .show();
+                if(isLevelTwo){
+                    new AlertDialog.Builder(GardenEditActivity.this)
+                            .setMessage("¿Deseas Tomar una foto o elegir desde la galeria?")
+                            .setNegativeButton("Tomar Foto", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    takePhoto();
+                                }
+                            })
+                            .setPositiveButton("Seleccionar desde la Galeria", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    selectPhoto();
+                                }
+                            })
+                            .show();
+                }
+                else{
+                    banner.setVisibility(View.VISIBLE);
+                    AlphaAnimation animation = new AlphaAnimation(1f, 0f);
+                    animation.setDuration(5000);
+                    animation.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            banner.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    banner.startAnimation(animation);
+                }
+
             }
         });
 

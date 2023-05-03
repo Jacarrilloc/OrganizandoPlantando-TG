@@ -14,6 +14,29 @@
         android:layout_height="match_parent"
         android:layout_weight="0.9">
 
+        <TextView
+            android:id="@+id/alert"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_130sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:background="@drawable/im_comment"
+            android:fontFamily="@font/manroperegular"
+            android:paddingBottom="@dimen/_35sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:clickable="false"
+            android:elevation="@dimen/_580sdp"
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_70sdp"
+            android:gravity="start"
+            android:text="@string/debes_subir_nivel"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"
+            android:textSize="@dimen/_20sdp"
+            android:visibility="visible"/>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/returnArrowButtomEditToGarden"
             android:layout_width="wrap_content"

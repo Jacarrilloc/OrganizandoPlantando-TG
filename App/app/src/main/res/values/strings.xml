@@ -261,4 +261,5 @@
     <string name="he_leido_los">He leido los</string>
     <string name="t_rminos_y_condiciones2">Términos y Condiciones</string>
     <string name="al_crear_una_cuenta_aceptas_los">Al crear una cuenta aceptas los</string>
+    <string name="debes_subir_nivel">Para poder ingresar una imagen a tu huerta debes primero subir a nivel 2.</string>
 </resources>
