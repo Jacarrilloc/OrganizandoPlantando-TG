@@ -26,6 +26,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -35,6 +37,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.opcv.business.ludification.Level;
+import com.example.opcv.business.persistance.firebase.UserCommunication;
 import com.example.opcv.business.persistance.garden.GardenPersistance;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
@@ -76,11 +80,11 @@ public class GardenEditActivity extends AppCompatActivity {
     private FirebaseFirestore database, database2;
     private FirebaseUser userLog;
 
-    private Boolean IsChangedPhoto = false;
-    private TextView adminMembersGarden;
+    private Boolean IsChangedPhoto = false, isLevelTwo;
+    private TextView adminMembersGarden, banner;
 
     private CollectionReference gardensRef;
-    private String idUser, idGarden, nameGarden, infoGarden, name;
+    private String idUser, idGarden, nameGarden, infoGarden, name, id;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int CAMERA_PERMISSION_CODE = 100;
 
@@ -99,7 +103,7 @@ public class GardenEditActivity extends AppCompatActivity {
 
         gardenImage = findViewById(R.id.gardenImageEditActivity);
         changeImage = findViewById(R.id.ChangeImageEditGarden);
-
+        banner = (TextView) findViewById(R.id.alert);
         switchGardenTypeModified = findViewById(R.id.switchGardenTypeModified);
         backButtom = findViewById(R.id.returnArrowButtomEditToGarden);
         adminMembersGarden = (TextView) findViewById(R.id.adminMembers);
@@ -114,27 +118,62 @@ public class GardenEditActivity extends AppCompatActivity {
         acceptChanges = (Button) findViewById(R.id.acceptChanges);
         deleteGarden = (Button) findViewById(R.id.deleteGarden);
         addForm = (Button) findViewById(R.id.addForm);
+        idUser = autentication.getCurrentUser().getUid().toString();
 
         IsChangedPhoto = false;
+        UserCommunication com = new UserCommunication();
+        Level levelLogic = new Level();
+        com.getUserLevel(idUser, new UserCommunication.GetUserLvl() {
+            @Override
+            public void onComplete(String lvl) {
+                isLevelTwo = levelLogic.levelTwoReward(lvl);
 
+            }
+        });
         getImageGarden(idGarden);
+
 
         changeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(GardenEditActivity.this)
-                        .setMessage("¿Deseas Tomar una foto o elegir desde la galeria?")
-                        .setNegativeButton("Tomar Foto", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                takePhoto();
-                            }
-                        })
-                        .setPositiveButton("Seleccionar desde la Galeria", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                selectPhoto();
-                            }
-                        })
-                        .show();
+                if(isLevelTwo){
+                    new AlertDialog.Builder(GardenEditActivity.this)
+                            .setMessage("¿Deseas Tomar una foto o elegir desde la galeria?")
+                            .setNegativeButton("Tomar Foto", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    takePhoto();
+                                }
+                            })
+                            .setPositiveButton("Seleccionar desde la Galeria", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    selectPhoto();
+                                }
+                            })
+                            .show();
+                }
+                else{
+                    banner.setVisibility(View.VISIBLE);
+                    AlphaAnimation animation = new AlphaAnimation(1f, 0f);
+                    animation.setDuration(5000);
+                    animation.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            banner.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    banner.startAnimation(animation);
+                }
+
             }
         });
 
@@ -269,19 +308,25 @@ public class GardenEditActivity extends AppCompatActivity {
 
     private void getImageGarden(String idGarden){
         //se supone que con esto no deberia dar StorageException, pero si :(
-        /*FirebaseFirestore database = FirebaseFirestore.getInstance();
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
         DocumentReference Ref = database.collection("Gardens").document(idGarden);
         Ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
                     String uri = task.getResult().getString("UriPath");
-                    Glide.with(GardenEditActivity.this).load(uri).into(gardenImage);
+                    if(uri != null){
+                        Glide.with(GardenEditActivity.this).load(uri).into(gardenImage);
+                    }
+                    else{
+                        gardenImage.setImageResource(R.drawable.im_logo_ceres_green);
+                    }
+
                 }
             }
-        });*/
+        });
 
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        /*StorageReference storageRef = FirebaseStorage.getInstance().getReference();
         String imageName = idGarden + ".jpg";
         StorageReference imageRef = storageRef.child("gardenMainPhoto/" + imageName);
         final long ONE_MEGABYTE = 1024 * 1024;
@@ -296,7 +341,7 @@ public class GardenEditActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 gardenImage.setImageResource(R.drawable.im_logo_ceres_green);
             }
-        });
+        });*/
     }
 
     private void deleteGarden(String idGarden) {

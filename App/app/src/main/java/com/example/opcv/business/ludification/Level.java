@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.example.opcv.business.notifications.Notifications;
 import com.example.opcv.business.persistance.firebase.LudificationCommunication;
+import com.example.opcv.business.persistance.firebase.UserCommunication;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +14,12 @@ public class Level {
     final static int levelComment =3;
     final static int levelPublish =7;
     final static int levelDislikes =1;
+    final static int levelOne = 10;
+    final static int levelTwo = 30;
+    final static int levelThree = 60;
+    final static int levelFour = 100;
+    final static int levelFive = 10;
+
 
     public void addLevel(String idUser, Boolean gains, Context context, String element){//va a recibir una variable booleana si es true es que realizo una publicacion de lo contrario es un comentario
         LudificationCommunication persistance = new LudificationCommunication();
@@ -45,17 +52,28 @@ public class Level {
     }
 
     public String levelName(int lv){
-        if(lv >= 0 && lv<10){
+        if(lv >= 0 && lv<levelOne){
             return "Aprendiz Verde";
-        } else if (lv>= 10 && lv <30) {
+        } else if (lv>= levelOne && lv <levelTwo) {
             return "Jardinero(a) Novato(a)";
-        } else if (lv>=30 && lv <60) {
+        } else if (lv>=levelTwo && lv <levelThree) {
             return "Maestro(a) de Jardinería";
-        } else if (lv >= 60 && lv <100) {
+        } else if (lv >= levelThree && lv <levelFour) {
             return "Genio Botánico(a)";
-        } else if (lv >= 100) {
+        } else if (lv >= levelFour) {
             return "Señor(a) de las Plantas";
         }
         return "Error";
+    }
+
+    public boolean levelTwoReward(String level){
+        int resp = Integer.parseInt(level);
+
+        if(resp >= levelTwo){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

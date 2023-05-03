@@ -11,13 +11,17 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Map;
 import java.util.Objects;
 
 public class UserCommunication {
@@ -111,4 +115,34 @@ public class UserCommunication {
         database.collection("UserInfo").document(idUser).delete();
 
     }
+    //este metodo es para crear una coleccion en el usuario para que si le dio a 'unirse' a una huerta, se deshabilite esa opcion para despues
+    public void addUserRequests(String idUser, Map<String, Object> map){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("UserInfo").document(idUser).collection("UserGardenRequests").add(map);
+    }
+
+    public void userAlreadyRequested(String idUser, String idGarden, final GetUserRequest callback){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference ref = db.collection("UserInfo").document(idUser).collection("UserGardenRequests");
+
+        Query query = ref.whereEqualTo("Garden", idGarden);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if(querySnapshot.isEmpty()){
+                        callback.onComplete(false);
+                    }
+                    else{
+                        callback.onComplete(true);
+                    }
+                }
+            }
+        });
+    }
+    public interface GetUserRequest{
+        void onComplete(Boolean response);
+    }
+
 }

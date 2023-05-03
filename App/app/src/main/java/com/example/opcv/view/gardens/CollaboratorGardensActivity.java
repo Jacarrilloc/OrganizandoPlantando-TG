@@ -79,7 +79,7 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
             //gardenId = extras.getString("idGardenFirebase");
 
         }
-        System.out.println("el id xd "+userId);
+        //System.out.println("el id xd "+userId);
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override

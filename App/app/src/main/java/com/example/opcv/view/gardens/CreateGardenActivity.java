@@ -30,12 +30,17 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.opcv.business.ludification.Level;
+import com.example.opcv.business.persistance.firebase.UserCommunication;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.auth.EditUserActivity;
@@ -64,6 +69,8 @@ import java.util.Map;
 public class CreateGardenActivity extends AppCompatActivity {
 
     private EditText nameGarden,infoGarden;
+    private TextView banner;
+    private String idUser;
     private ImageView photo;
     private Button selectPhoto;
     private FirebaseAuth autentication;
@@ -78,7 +85,7 @@ public class CreateGardenActivity extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_CODE = 100;
     private Uri uriCamera;
 
-    private Boolean IsChangedPhoto = false;
+    private Boolean IsChangedPhoto = false, isLevelTwo;
     private byte[] bytes;
 
     @Override
@@ -91,7 +98,7 @@ public class CreateGardenActivity extends AppCompatActivity {
         gardenType = findViewById(R.id.switchGardenType);
         photo = findViewById(R.id.imageGardenCreate);
         selectPhoto = findViewById(R.id.SelectImageCreateGarden);
-
+        banner = (TextView) findViewById(R.id.alert);
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
 
@@ -100,23 +107,57 @@ public class CreateGardenActivity extends AppCompatActivity {
         otherGardensButton = (Button) findViewById(R.id.gardens);
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
+        idUser = autentication.getCurrentUser().getUid().toString();
+        UserCommunication com = new UserCommunication();
+        Level levelLogic = new Level();
+        com.getUserLevel(idUser, new UserCommunication.GetUserLvl() {
+            @Override
+            public void onComplete(String lvl) {
+                isLevelTwo = levelLogic.levelTwoReward(lvl);
+            }
+        });
+
 
         selectPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(CreateGardenActivity.this)
-                        .setMessage("¿Deseas Tomar una foto o elegir desde la galeria?")
-                        .setNegativeButton("Tomar Foto", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                takePhoto();
-                            }
-                        })
-                        .setPositiveButton("Seleccionar desde la Galeria", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                selectPhotoGallery();
-                            }
-                        })
-                        .show();
+                if(isLevelTwo){
+                    new AlertDialog.Builder(CreateGardenActivity.this)
+                            .setMessage("¿Deseas Tomar una foto o elegir desde la galeria?")
+                            .setNegativeButton("Tomar Foto", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    takePhoto();
+                                }
+                            })
+                            .setPositiveButton("Seleccionar desde la Galeria", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    selectPhotoGallery();
+                                }
+                            })
+                            .show();
+                }
+                else{
+                    banner.setVisibility(View.VISIBLE);
+                    AlphaAnimation animation = new AlphaAnimation(1f, 0f);
+                    animation.setDuration(5000);
+                    animation.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            banner.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    banner.startAnimation(animation);
+                }
             }
         });
 
@@ -160,13 +201,6 @@ public class CreateGardenActivity extends AppCompatActivity {
                 startActivity(edit);
             }
         });
-    }
-    public boolean validateFieldPhoto(Context context, byte[] bytes){
-        if(bytes == null){
-            Toast.makeText(context, "Es necesario Ingresar una imagen", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
     }
 
     private void createGarden(){
