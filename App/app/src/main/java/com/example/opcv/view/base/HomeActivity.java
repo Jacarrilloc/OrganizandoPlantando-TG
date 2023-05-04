@@ -34,6 +34,7 @@ import com.example.opcv.R;
 import com.example.opcv.view.adapter.GardenListAdapter;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.business.persistance.firebase.AuthCommunication;
+import com.example.opcv.view.auth.SignOffActivity;
 import com.example.opcv.view.gardens.CollaboratorGardensActivity;
 import com.example.opcv.view.gardens.CreateGardenActivity;
 import com.example.opcv.view.gardens.GardenActivity;
@@ -47,6 +48,7 @@ import com.example.opcv.business.persistance.garden.GardenPersistance;
 import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -106,12 +108,17 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null && currentUser.isAnonymous()) {
+            FirebaseAuth.getInstance().signOut();
+        }
         fillGardenUser();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        FirebaseAuth.getInstance().signOut();
     }
 
     @Override
@@ -159,6 +166,9 @@ public class HomeActivity extends AppCompatActivity {
         ludification = (Button) findViewById(R.id.ludification);
 
         userId = getIntent().getStringExtra("userID");
+        AuthCommunication authCommunication = new AuthCommunication();
+        FirebaseUser user = authCommunication.guestUser();
+
 
         if (userId == null){
             AuthCommunication auth = new AuthCommunication();
@@ -191,7 +201,12 @@ public class HomeActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, CreateGardenActivity.class));
+                if(user != null && !user.isAnonymous()){
+                    startActivity(new Intent(HomeActivity.this, CreateGardenActivity.class));
+                }
+                else{
+                    Toast.makeText(HomeActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -215,48 +230,68 @@ public class HomeActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(userId != null) {
-                    Intent edit = new Intent(HomeActivity.this, EditUserActivity.class);
-                    edit.putExtra("userInfo", userId);
-                    startActivity(edit);
+                if(user != null && !user.isAnonymous()){
+                    if(userId != null) {
+                        Intent edit = new Intent(HomeActivity.this, EditUserActivity.class);
+                        edit.putExtra("userInfo", userId);
+                        startActivity(edit);
+                    }
+                    else{
+                        AuthCommunication auth = new AuthCommunication();
+                        userId = auth.getCurrentUserUid();
+                        Intent edit = new Intent(HomeActivity.this, EditUserActivity.class);
+                        edit.putExtra("userInfo", userId);
+                        startActivity(edit);
+                    }
                 }
                 else{
-                    AuthCommunication auth = new AuthCommunication();
-                    userId = auth.getCurrentUserUid();
-                    Intent edit = new Intent(HomeActivity.this, EditUserActivity.class);
-                    edit.putExtra("userInfo", userId);
-                    startActivity(edit);
+                    startActivity(new Intent(HomeActivity.this, SignOffActivity.class));
                 }
+
             }
         });
 
         rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, RewardHomeActivity.class));
+                if(user != null && !user.isAnonymous()){
+                    startActivity(new Intent(HomeActivity.this, RewardHomeActivity.class));
+                }
+                else{
+                    Toast.makeText(HomeActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         collaboration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent edit = new Intent(HomeActivity.this, CollaboratorGardensActivity.class);
-                edit.putExtra("userID", userId);
-                startActivity(edit);
+                if(user != null && !user.isAnonymous()){
+                    Intent edit = new Intent(HomeActivity.this, CollaboratorGardensActivity.class);
+                    edit.putExtra("userID", userId);
+                    startActivity(edit);
+                }
+                else{
+                    Toast.makeText(HomeActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         generateReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent requests = new Intent(HomeActivity.this, GenerateReportsActivity.class);
-                requests.putExtra("idGardenFirebaseDoc","null");
-                requests.putExtra("idUser","null");
-                requests.putExtra("garden","false");//con esto se define si, al ejecutar GenerateReportsActivity es solo para la huerta o para todos
-                requests.putExtra("ownerName","null");
-                startActivity(requests);
-                finish();
+                if(user != null && !user.isAnonymous()){
+                    Intent requests = new Intent(HomeActivity.this, GenerateReportsActivity.class);
+                    requests.putExtra("idGardenFirebaseDoc","null");
+                    requests.putExtra("idUser","null");
+                    requests.putExtra("garden","false");//con esto se define si, al ejecutar GenerateReportsActivity es solo para la huerta o para todos
+                    requests.putExtra("ownerName","null");
+                    startActivity(requests);
+                    finish();
+                }
+                else{
+                    Toast.makeText(HomeActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

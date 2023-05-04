@@ -6,7 +6,9 @@
     <string name="User">Perfil</string>
     <string name="CreateProfile">Crea tu cuenta</string>
     <string name="question1">¿Ya tienes una cuenta?</string>
+    <string name="question2">Entrar como invitado</string>
     <string name="login_text1">Inicia sesión</string>
+    <string name="login_text2">Ingresa</string>
     <string name="GardenAvTittle">Huertas Activas Disponibles</string>
     <string name="gardenName">Nombre Huerta</string>
     <string name="privateL">Privado</string>

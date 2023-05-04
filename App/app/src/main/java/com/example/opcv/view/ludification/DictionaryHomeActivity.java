@@ -11,13 +11,17 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.opcv.view.auth.SignOffActivity;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.view.gardens.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.business.ludification.Level;
 import com.example.opcv.business.persistance.firebase.AuthCommunication;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class DictionaryHomeActivity extends AppCompatActivity {
 
@@ -25,6 +29,20 @@ public class DictionaryHomeActivity extends AppCompatActivity {
     private Button profile, myGardens, rewards;
     private String idUser, idDocUSer;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null && currentUser.isAnonymous()) {
+            FirebaseAuth.getInstance().signOut();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FirebaseAuth.getInstance().signOut();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +54,9 @@ public class DictionaryHomeActivity extends AppCompatActivity {
         plants = (Button) findViewById(R.id.plants);
         tools = (Button) findViewById(R.id.tools);
         AuthCommunication auth = new AuthCommunication();
-        Level level = new Level();
         idUser = auth.getCurrentUserUid();
+        AuthCommunication authCommunication = new AuthCommunication();
+        FirebaseUser user = authCommunication.guestUser();
 
 
 
@@ -74,19 +93,28 @@ public class DictionaryHomeActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent edit = new Intent(DictionaryHomeActivity.this, EditUserActivity.class);
-                AuthCommunication auth = new AuthCommunication();
-                String userId = auth.getCurrentUserUid();
-                edit.putExtra("userInfo", userId);
-                startActivity(edit);
-
+                if(user != null && !user.isAnonymous()){
+                    Intent edit = new Intent(DictionaryHomeActivity.this, EditUserActivity.class);
+                    AuthCommunication auth = new AuthCommunication();
+                    String userId = auth.getCurrentUserUid();
+                    edit.putExtra("userInfo", userId);
+                    startActivity(edit);
+                }
+                else{
+                    startActivity(new Intent(DictionaryHomeActivity.this, SignOffActivity.class));
+                }
             }
         });
 
         rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(DictionaryHomeActivity.this, RewardHomeActivity.class));
+                if(user != null && !user.isAnonymous()){
+                    startActivity(new Intent(DictionaryHomeActivity.this, RewardHomeActivity.class));
+                }
+                else{
+                    Toast.makeText(DictionaryHomeActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

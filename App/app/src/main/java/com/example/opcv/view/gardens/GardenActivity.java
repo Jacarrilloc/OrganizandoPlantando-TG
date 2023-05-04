@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.opcv.business.persistance.firebase.AuthCommunication;
 import com.example.opcv.business.persistance.garden.GardenPersistance;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
@@ -39,6 +40,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -69,6 +72,21 @@ public class GardenActivity extends AppCompatActivity {
     private String owner;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null && currentUser.isAnonymous()) {
+            FirebaseAuth.getInstance().signOut();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FirebaseAuth.getInstance().signOut();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_huerta);
@@ -89,10 +107,14 @@ public class GardenActivity extends AppCompatActivity {
         messages = (ImageButton) findViewById(R.id.messageButton);
         formsRegister = (Button) findViewById(R.id.formsRegister);
         generateReport = (ImageButton) findViewById(R.id.imageButton9);
+        gardenImage = findViewById(R.id.gardenProfilePicture);
+        ludification = (Button) findViewById(R.id.ludification);
+
         database = FirebaseFirestore.getInstance();
         gardensRef = database.collection("Gardens");
-        gardenImage = findViewById(R.id.gardenProfilePicture);
         GardenPersistance gardenPersistance = new GardenPersistance();
+        AuthCommunication authCommunication = new AuthCommunication();
+        FirebaseUser user = authCommunication.guestUser();
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
@@ -140,11 +162,17 @@ public class GardenActivity extends AppCompatActivity {
         moreFormsButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent infoForms = new Intent(GardenActivity.this, GardenFormsActivity.class);
-                String idGardenFirebase = extras.getString("idGardenFirebaseDoc");
-                infoForms.putExtra("idGardenFirebaseDoc",idGardenFirebase);
-                infoForms.putExtra("Register/Forms","Forms");
-                startActivity(infoForms);
+                if(user != null && !user.isAnonymous()){
+                    Intent infoForms = new Intent(GardenActivity.this, GardenFormsActivity.class);
+                    String idGardenFirebase = extras.getString("idGardenFirebaseDoc");
+                    infoForms.putExtra("idGardenFirebaseDoc",idGardenFirebase);
+                    infoForms.putExtra("Register/Forms","Forms");
+                    startActivity(infoForms);
+                }
+                else{
+                    Toast.makeText(GardenActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -152,11 +180,16 @@ public class GardenActivity extends AppCompatActivity {
         editGarden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent start = new Intent(GardenActivity.this, GardenEditActivity.class);
-                start.putExtra("idGarden", gardenID);
-                start.putExtra("gardenName", garden);
-                start.putExtra("infoGarden", infoGarden);
-                startActivity(start);
+                if(user != null && !user.isAnonymous()){
+                    Intent start = new Intent(GardenActivity.this, GardenEditActivity.class);
+                    start.putExtra("idGarden", gardenID);
+                    start.putExtra("gardenName", garden);
+                    start.putExtra("infoGarden", infoGarden);
+                    startActivity(start);
+                }
+                else{
+                    Toast.makeText(GardenActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -164,7 +197,12 @@ public class GardenActivity extends AppCompatActivity {
         rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(GardenActivity.this, RewardHomeActivity.class));
+                if(user != null && !user.isAnonymous()){
+                    startActivity(new Intent(GardenActivity.this, RewardHomeActivity.class));
+                }
+                else{
+                    Toast.makeText(GardenActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -180,7 +218,12 @@ public class GardenActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(GardenActivity.this, EditUserActivity.class));
+                if(user != null && !user.isAnonymous()){
+                    startActivity(new Intent(GardenActivity.this, EditUserActivity.class));
+                }
+                else{
+                    Toast.makeText(GardenActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         String idGardenFirebase = getIntent().getStringExtra("idGardenFirebaseDoc");
@@ -189,12 +232,17 @@ public class GardenActivity extends AppCompatActivity {
         seedTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newForm = new Intent(GardenActivity.this, Form_CPS.class);
-                newForm.putExtra("Name",formsName);
-                newForm.putExtra("idGardenFirebase",idGardenFirebase);
-                newForm.putExtra("watch","create");
-                startActivity(newForm);
-                finish();
+                if(user != null && !user.isAnonymous()){
+                    Intent newForm = new Intent(GardenActivity.this, Form_CPS.class);
+                    newForm.putExtra("Name",formsName);
+                    newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                    newForm.putExtra("watch","create");
+                    startActivity(newForm);
+                    finish();
+                }
+                else{
+                    Toast.makeText(GardenActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         String formsName2 = "Control de Inventarios de Herramientas";
@@ -202,12 +250,17 @@ public class GardenActivity extends AppCompatActivity {
         toolsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newForm = new Intent(GardenActivity.this, Form_CIH.class);
-                newForm.putExtra("Name",formsName2);
-                newForm.putExtra("idGardenFirebase",idGardenFirebase);
-                newForm.putExtra("watch","create");
-                startActivity(newForm);
-                finish();
+                if(user != null && !user.isAnonymous()){
+                    Intent newForm = new Intent(GardenActivity.this, Form_CIH.class);
+                    newForm.putExtra("Name",formsName2);
+                    newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                    newForm.putExtra("watch","create");
+                    startActivity(newForm);
+                    finish();
+                }
+                else{
+                    Toast.makeText(GardenActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -216,86 +269,108 @@ public class GardenActivity extends AppCompatActivity {
         worm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newForm = new Intent(GardenActivity.this, Form_RAC.class);
-                newForm.putExtra("Name",formname3);
-                newForm.putExtra("idGardenFirebase",idGardenFirebase);
-                newForm.putExtra("watch","create");
-                startActivity(newForm);
-                finish();
+                if(user != null && !user.isAnonymous()){
+                    Intent newForm = new Intent(GardenActivity.this, Form_RAC.class);
+                    newForm.putExtra("Name",formname3);
+                    newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                    newForm.putExtra("watch","create");
+                    startActivity(newForm);
+                    finish();
+                }
+                else{
+                    Toast.makeText(GardenActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         messages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Objects.equals(owner, "false")){
-                    goToLink(gardenID);
+                if(user != null && !user.isAnonymous()){
+                    if(Objects.equals(owner, "false")){
+                        goToLink(gardenID);
+                    }
+                    else{
+                        Intent newForm = new Intent(GardenActivity.this, WhatsappActivity.class);
+                        newForm.putExtra("ID", id);
+                        newForm.putExtra("idGarden", gardenID);
+                        newForm.putExtra("gardenName", garden);
+                        // newForm.putExtra("infoGarden", infoGarden);
+                        newForm.putExtra("owner", owner);
+                        startActivity(newForm);
+                        finish();
+                    }
                 }
                 else{
-                    Intent newForm = new Intent(GardenActivity.this, WhatsappActivity.class);
-                    newForm.putExtra("ID", id);
-                    newForm.putExtra("idGarden", gardenID);
-                    newForm.putExtra("gardenName", garden);
-                    // newForm.putExtra("infoGarden", infoGarden);
-                    newForm.putExtra("owner", owner);
-                    startActivity(newForm);
-                    finish();
+                    Toast.makeText(GardenActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
         formsRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent infoForms = new Intent(GardenActivity.this, GardenFormsActivity.class);
-                String idGardenFirebase = extras.getString("idGardenFirebaseDoc");
-                infoForms.putExtra("idGardenFirebaseDoc",idGardenFirebase);
-                infoForms.putExtra("Register/Forms","Register");
-                startActivity(infoForms);
+                if(user != null && !user.isAnonymous()){
+                    Intent infoForms = new Intent(GardenActivity.this, GardenFormsActivity.class);
+                    String idGardenFirebase = extras.getString("idGardenFirebaseDoc");
+                    infoForms.putExtra("idGardenFirebaseDoc",idGardenFirebase);
+                    infoForms.putExtra("Register/Forms","Register");
+                    startActivity(infoForms);
+                }
+                else{
+                    Toast.makeText(GardenActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         collaboratorGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CollaboratorCommunication cU = new CollaboratorCommunication();
-                Intent requests = new Intent(GardenActivity.this, GardenRequestsActivity.class);
-                requests.putExtra("Name",formsName2);
-                requests.putExtra("idGardenFirebase",idGardenFirebase);
-                startActivity(requests);
-                finish();
+                if(user != null && !user.isAnonymous()){
+                    CollaboratorCommunication cU = new CollaboratorCommunication();
+                    Intent requests = new Intent(GardenActivity.this, GardenRequestsActivity.class);
+                    requests.putExtra("Name",formsName2);
+                    requests.putExtra("idGardenFirebase",idGardenFirebase);
+                    startActivity(requests);
+                    finish();
+                }
+                else{
+                    Toast.makeText(GardenActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         generateReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String idGardenFirebase = extras.getString("idGardenFirebaseDoc");
-                Intent requests = new Intent(GardenActivity.this, GenerateReportsActivity.class);
-                requests.putExtra("idGardenFirebaseDoc",idGardenFirebase);
-                requests.putExtra("idUser",id);
-                requests.putExtra("garden","true");// con esto se define si, al ejecutar GenerateReportsActivity es solo para la huerta o para todos
-                CollectionReference collectionRef2 = database.collection("UserInfo");
-                Query query = collectionRef2.whereEqualTo("ID", id);
-                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            for (QueryDocumentSnapshot document : task.getResult()){
-                                String name = document.getData().get("Name").toString();
-                                String lastName =document.getData().get("LastName").toString();
-                                requests.putExtra("ownerName",name+" "+lastName);
-                                startActivity(requests);
-                                finish();
+                if(user != null && !user.isAnonymous()){
+                    String idGardenFirebase = extras.getString("idGardenFirebaseDoc");
+                    Intent requests = new Intent(GardenActivity.this, GenerateReportsActivity.class);
+                    requests.putExtra("idGardenFirebaseDoc",idGardenFirebase);
+                    requests.putExtra("idUser",id);
+                    requests.putExtra("garden","true");// con esto se define si, al ejecutar GenerateReportsActivity es solo para la huerta o para todos
+                    CollectionReference collectionRef2 = database.collection("UserInfo");
+                    Query query = collectionRef2.whereEqualTo("ID", id);
+                    query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()){
+                                for (QueryDocumentSnapshot document : task.getResult()){
+                                    String name = document.getData().get("Name").toString();
+                                    String lastName =document.getData().get("LastName").toString();
+                                    requests.putExtra("ownerName",name+" "+lastName);
+                                    startActivity(requests);
+                                    finish();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+                }
+                else{
+                    Toast.makeText(GardenActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
-        ludification = (Button) findViewById(R.id.ludification);
 
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override
