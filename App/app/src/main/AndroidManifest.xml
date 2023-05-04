@@ -5,21 +5,22 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
-
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
-    <uses-feature android:name="android.hardware.camera" android:required="true"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 
     <uses-feature
@@ -42,6 +43,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
+        <activity
+            android:name=".view.auth.ChangePassword"
+            android:exported="false" />
         <activity
             android:name=".view.ludification.RewardHomeActivity"
             android:exported="false" />
@@ -84,7 +88,6 @@
         <activity
             android:name=".view.gardens.OtherGardensActivity"
             android:exported="false" />
-
         <activity
             android:name=".view.auth.SelectPhotoActivity"
             android:exported="false" />
@@ -119,7 +122,6 @@
         <activity
             android:name=".view.forms.Form_RAC"
             android:exported="false" />
-
         <activity
             android:name=".view.auth.RegisterMobilePhone"
             android:exported="false" />
@@ -141,12 +143,9 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
 
-
         <activity
             android:name=".view.gardens.MapsActivity"
             android:exported="false" />
-
-
         <activity
             android:name=".view.auth.RegisterProfileActivity"
             android:exported="false" />
@@ -178,7 +177,6 @@
         <activity
             android:name=".view.auth.NewToAppActivity"
             android:exported="false" />
-
         <activity
             android:name=".view.gardens.CreateGardenActivity"
             android:exported="false" />
@@ -200,7 +198,6 @@
         <activity
             android:name=".view.base.HomeActivity"
             android:exported="false" />
-
         <activity
             android:name=".view.auth.LoginActivity"
             android:exported="false" />

@@ -65,6 +65,8 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.w3c.dom.Text;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -73,8 +75,8 @@ import java.io.InputStream;
 import java.util.Objects;
 
 public class EditUserActivity extends AppCompatActivity {
-    private Button signOff, delete, rewards, profile, myGardens, acceptChanges, changePhoto, ludification;
-    private TextView userNameTV, close, deleteP,levelInfo;
+    private Button signOff, delete, rewards, profile, myGardens, acceptChanges, changePhoto, ludification, changePasswordIcon;
+    private TextView userNameTV, close, deleteP,levelInfo, changePasswordText;
     private EditText userName, userLastName, userEmail, userPhone;
     private ImageView profilePhoto, borderImage;
     private FirebaseAuth autentication;
@@ -123,6 +125,8 @@ public class EditUserActivity extends AppCompatActivity {
         rewards = (Button) findViewById(R.id.rewards);
         acceptChanges = (Button) findViewById(R.id.editUser);
         borderImage = (ImageView) findViewById(R.id.imageLevel);
+        changePasswordIcon = (Button) findViewById(R.id.changePassword);
+        changePasswordText = (TextView) findViewById(R.id.changePasswordText);
 
         UserCommunication persistance = new UserCommunication();
 
@@ -226,6 +230,20 @@ public class EditUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(EditUserActivity.this, RewardHomeActivity.class));
+            }
+        });
+
+        changePasswordIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EditUserActivity.this, ChangePassword.class));
+            }
+        });
+
+        changePasswordText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EditUserActivity.this, ChangePassword.class));
             }
         });
 
