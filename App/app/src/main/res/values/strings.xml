@@ -264,5 +264,7 @@
     <string name="debes_subir_nivel">Para poder ingresar una imagen a tu huerta debes primero subir a nivel 2.</string>
     <string name="bonos">Bonos</string>
     <string name="recompensas">Recompensas</string>
+    <string name="passwordChange">Cambiar contraseña</string>
+    <string name="newPassword">Ingrese la nueva contraseña</string>
     <string name="seg_n_el_nivel_que_tienes_actualmente_a_continuaci_n_est_n_tus_recompensas_disponibles">Según el nivel que tienes actualmente, a continuación están tus recompensas disponibles.</string>
 </resources>

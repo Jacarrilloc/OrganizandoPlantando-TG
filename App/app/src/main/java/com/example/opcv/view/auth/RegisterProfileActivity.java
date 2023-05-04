@@ -15,8 +15,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.opcv.R;
+import com.example.opcv.business.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.adapter.SpinnerAdapter;
 import com.example.opcv.model.entity.User;
 import com.example.opcv.model.entity.ValidateRegisterInfo;
@@ -77,16 +79,27 @@ public class RegisterProfileActivity extends AppCompatActivity {
                 String gender = spinnerGender.getSelectedItem().toString();
                 Boolean termsBool = true;
                 int level = 0;
+                AuthCommunication auth = new AuthCommunication();
+                auth.validateEmailAlreadyInUse(emailString, new AuthCommunication.ValidateEmail() {
+                    @Override
+                    public void onComplete(boolean resp) {
+                        if(resp){
+                            ValidateRegisterInfo validate = new ValidateRegisterInfo();
+                            if(validate.validateFirstRegisterInfo(nameString,lastNameString,emailString,passwordString,confirmPasswordString,termsBool,RegisterProfileActivity.this)) {
+                                newUser = new User(nameString, lastNameString, emailString, null, null,null,gender, level);
 
-                ValidateRegisterInfo validate = new ValidateRegisterInfo();
-                if(validate.validateFirstRegisterInfo(nameString,lastNameString,emailString,passwordString,confirmPasswordString,termsBool,RegisterProfileActivity.this)) {
-                    newUser = new User(nameString, lastNameString, emailString, null, null,null,gender, level);
+                                Intent intent = new Intent(RegisterProfileActivity.this, RegisterMobilePhone.class);
+                                intent.putExtra("mapUser", (Serializable) newUser);
+                                intent.putExtra("password",passwordString);
+                                startActivity(intent);
+                            }
+                        }
+                        else{
+                            Toast.makeText(RegisterProfileActivity.this,"Ya existe una cuenta con ese correo electronico. Intenta con otro",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
 
-                    Intent intent = new Intent(RegisterProfileActivity.this, RegisterMobilePhone.class);
-                    intent.putExtra("mapUser", (Serializable) newUser);
-                    intent.putExtra("password",passwordString);
-                    startActivity(intent);
-                }
             }
         });
     }
