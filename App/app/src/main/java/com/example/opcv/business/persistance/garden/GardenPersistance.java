@@ -17,12 +17,18 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.List;
+
 public class GardenPersistance {
+    int countGardens = 0;
 
     public void deletePhotoGarden(String gardenId){
         FirebaseFirestore database = FirebaseFirestore.getInstance();
@@ -124,5 +130,43 @@ public class GardenPersistance {
         void onSuccess(String uri);
 
         void onFailure(String imageString);
+    }
+
+    public void retrieveCrops(final GetNumber callback){
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        CollectionReference Ref = database.collection("Gardens");
+
+        Ref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot q : task.getResult()){
+                        if(q!=null){
+                            Ref.document(q.getId()).collection("Forms").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task1) {
+                                    if(task1.isSuccessful()){
+                                        for(QueryDocumentSnapshot q : task1.getResult()){
+                                            String name = q.getString("nameForm");
+                                            if(name.equals("Control de Procesos de Siembra")){
+                                                countGardens++;
+                                                callback.onSuccess(countGardens);
+                                                break;
+                                            }
+                                        }
+
+                                    }
+                                }
+                            });
+                        }
+                    }
+
+                }
+            }
+        });
+
+    }
+    public interface GetNumber{
+        void onSuccess(int count);
     }
 }

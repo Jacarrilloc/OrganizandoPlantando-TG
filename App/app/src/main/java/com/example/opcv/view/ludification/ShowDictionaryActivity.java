@@ -37,7 +37,7 @@ public class ShowDictionaryActivity extends AppCompatActivity {
     private TextView name;
     private FloatingActionButton add;
     private String element, idUser;
-    private Button profile, myGardens, gardensMap, ludification;
+    private Button profile, myGardens, rewards, ludification;
     private androidx.appcompat.widget.SearchView searchView;
     private GridView listView;
 
@@ -50,7 +50,7 @@ public class ShowDictionaryActivity extends AppCompatActivity {
         add = (FloatingActionButton) findViewById(R.id.addButton);
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
-        gardensMap = (Button) findViewById(R.id.gardens);
+        rewards = (Button) findViewById(R.id.rewards);
         ludification = (Button) findViewById(R.id.ludification);
         searchView = (androidx.appcompat.widget.SearchView) findViewById(R.id.searchView);
         listView = (GridView) findViewById(R.id.plantsList);
@@ -145,10 +145,10 @@ public class ShowDictionaryActivity extends AppCompatActivity {
             }
         });
 
-        gardensMap.setOnClickListener(new View.OnClickListener() {
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ShowDictionaryActivity.this, MapsActivity.class));
+                startActivity(new Intent(ShowDictionaryActivity.this, RewardHomeActivity.class));
             }
         });
         ludification.setOnClickListener(new View.OnClickListener() {

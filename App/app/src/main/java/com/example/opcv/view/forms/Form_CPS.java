@@ -30,6 +30,7 @@ import com.example.opcv.R;
 import com.example.opcv.business.persistance.firebase.FormsCommunication;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.business.notifications.Notifications;
+import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -46,7 +47,7 @@ public class Form_CPS extends AppCompatActivity {
 
     private FloatingActionButton backButtom;
     private FormsCommunication formsUtilities;
-    private Button addFormButtom, gardens, myGardens, profile, ludification;
+    private Button addFormButtom, rewards, myGardens, profile, ludification;
     private EditText responsable, phase, duration, plantsSeeds, comments;
     private TextView formName;
     private Spinner spinner;
@@ -61,7 +62,7 @@ public class Form_CPS extends AppCompatActivity {
         setContentView(R.layout.activity_form_cps);
 
         database = FirebaseFirestore.getInstance();
-        gardens = (Button) findViewById(R.id.gardens);
+        rewards = (Button) findViewById(R.id.rewards);
         myGardens = (Button) findViewById(R.id.myGardens);
         profile = (Button) findViewById(R.id.profile);
         backButtom = findViewById(R.id.returnArrowButtonFormOnetoFormListElement);
@@ -73,11 +74,12 @@ public class Form_CPS extends AppCompatActivity {
         comments = (EditText) findViewById(R.id.observation_or_comments);
         spinner = (Spinner) findViewById(R.id.spinnerPhase);
         addFormButtom = findViewById(R.id.create_forms1_buttom);
+        ludification = (Button) findViewById(R.id.ludification);
 
-        gardens.setOnClickListener(new View.OnClickListener() {
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Form_CPS.this, MapsActivity.class));
+                startActivity(new Intent(Form_CPS.this, RewardHomeActivity.class));
             }
         });
         myGardens.setOnClickListener(new View.OnClickListener() {
@@ -166,8 +168,6 @@ public class Form_CPS extends AppCompatActivity {
                 Toast.makeText(Form_CPS.this, "Debe seleccionar un elemento", Toast.LENGTH_SHORT).show();
             }
         });
-
-        ludification = (Button) findViewById(R.id.ludification);
 
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override

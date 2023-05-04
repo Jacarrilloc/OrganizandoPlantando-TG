@@ -44,6 +44,7 @@ import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
+import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -71,7 +72,7 @@ import java.io.InputStream;
 
 public class GardenEditActivity extends AppCompatActivity {
     private EditText gardenName, comunity, description;
-    private Button acceptChanges, gardens, myGardens, profile, deleteGarden, addForm, changeImage, ludification;
+    private Button acceptChanges, rewards, myGardens, profile, deleteGarden, addForm, changeImage, ludification;
     private ImageView addParticipants,gardenImage;
     private Switch switchGardenTypeModified;
     private CheckBox publicGarden, privateGarden;
@@ -113,12 +114,15 @@ public class GardenEditActivity extends AppCompatActivity {
         gardenName = (EditText) findViewById(R.id.gardenName);
         description = (EditText) findViewById(R.id.gardenDescription);
         comunity = (EditText) findViewById(R.id.gardenInfo);
-        gardens = (Button) findViewById(R.id.gardens);
+        rewards = (Button) findViewById(R.id.rewards);
         myGardens = (Button) findViewById(R.id.myGardens);
         acceptChanges = (Button) findViewById(R.id.acceptChanges);
         deleteGarden = (Button) findViewById(R.id.deleteGarden);
         addForm = (Button) findViewById(R.id.addForm);
         idUser = autentication.getCurrentUser().getUid().toString();
+        ludification = (Button) findViewById(R.id.ludification);
+        profile = (Button) findViewById(R.id.profile);
+        addParticipants = (ImageView) findViewById(R.id.addPersons);
 
         IsChangedPhoto = false;
         UserCommunication com = new UserCommunication();
@@ -184,7 +188,7 @@ public class GardenEditActivity extends AppCompatActivity {
             }
         });
 
-        ludification = (Button) findViewById(R.id.ludification);
+
 
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,10 +226,10 @@ public class GardenEditActivity extends AppCompatActivity {
             }
         });
 
-        gardens.setOnClickListener(new View.OnClickListener() {
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(GardenEditActivity.this, GardensAvailableActivity.class));
+                startActivity(new Intent(GardenEditActivity.this, RewardHomeActivity.class));
             }
         });
 
@@ -236,7 +240,6 @@ public class GardenEditActivity extends AppCompatActivity {
             }
         });
 
-        profile = (Button) findViewById(R.id.profile);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -298,7 +301,6 @@ public class GardenEditActivity extends AppCompatActivity {
             }
         });
 
-        addParticipants = (ImageView) findViewById(R.id.addPersons);
         addParticipants.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

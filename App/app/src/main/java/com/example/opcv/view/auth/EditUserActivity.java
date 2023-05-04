@@ -46,6 +46,7 @@ import com.example.opcv.model.entity.User;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.business.persistance.firebase.LudificationCommunication;
 import com.example.opcv.business.persistance.firebase.UserCommunication;
+import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -72,8 +73,7 @@ import java.io.InputStream;
 import java.util.Objects;
 
 public class EditUserActivity extends AppCompatActivity {
-    private Button signOff, delete;
-    private Button gardensMap, profile, myGardens, acceptChanges, changePhoto, ludification;
+    private Button signOff, delete, rewards, profile, myGardens, acceptChanges, changePhoto, ludification;
     private TextView userNameTV, close, deleteP,levelInfo;
     private EditText userName, userLastName, userEmail, userPhone;
     private ImageView profilePhoto, borderImage;
@@ -120,7 +120,7 @@ public class EditUserActivity extends AppCompatActivity {
         deleteP = (TextView) findViewById(R.id.options4);
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
-        gardensMap = (Button) findViewById(R.id.gardens);
+        rewards = (Button) findViewById(R.id.rewards);
         acceptChanges = (Button) findViewById(R.id.editUser);
         borderImage = (ImageView) findViewById(R.id.imageLevel);
 
@@ -167,8 +167,6 @@ public class EditUserActivity extends AppCompatActivity {
 
             }
         });
-
-
 
         changePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,10 +222,10 @@ public class EditUserActivity extends AppCompatActivity {
             }
         });
 
-        gardensMap.setOnClickListener(new View.OnClickListener() {
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(EditUserActivity.this, MapsActivity.class));
+                startActivity(new Intent(EditUserActivity.this, RewardHomeActivity.class));
             }
         });
 
@@ -253,8 +251,6 @@ public class EditUserActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
     private void searchUserInfo(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();

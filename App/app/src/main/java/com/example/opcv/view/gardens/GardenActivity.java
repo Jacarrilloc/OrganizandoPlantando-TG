@@ -33,6 +33,7 @@ import com.example.opcv.view.forms.Form_CPS;
 import com.example.opcv.view.forms.Form_RAC;
 import com.example.opcv.model.entity.GardenInfo;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
+import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -54,7 +55,7 @@ import java.util.Objects;
 
 public class GardenActivity extends AppCompatActivity {
 
-    private Button formsRegister, gardens, myGardens, profile, ludification;
+    private Button formsRegister, rewards, myGardens, profile, ludification;
     private ImageButton editGarden, seedTime, toolsButton, worm, collaboratorGardens, messages, generateReport;
 
     private ImageView moreFormsButtom,gardenImage;
@@ -78,7 +79,7 @@ public class GardenActivity extends AppCompatActivity {
         backButtom = findViewById(R.id.returnArrowButtonToHome);
         gardenParticipants = (TextView) findViewById(R.id.gardenParticipants);
         editGarden = (ImageButton) findViewById(R.id.imageButton8);
-        gardens = (Button) findViewById(R.id.gardens);
+        rewards = (Button) findViewById(R.id.rewards);
         profile = (Button) findViewById(R.id.profile);
         seedTime = (ImageButton) findViewById(R.id.seedTime);
         toolsButton = (ImageButton) findViewById(R.id.toolsButton);
@@ -151,7 +152,6 @@ public class GardenActivity extends AppCompatActivity {
         editGarden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent start = new Intent(GardenActivity.this, GardenEditActivity.class);
                 start.putExtra("idGarden", gardenID);
                 start.putExtra("gardenName", garden);
@@ -161,10 +161,10 @@ public class GardenActivity extends AppCompatActivity {
         });
 
 
-        gardens.setOnClickListener(new View.OnClickListener() {
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(GardenActivity.this, MapsActivity.class));
+                startActivity(new Intent(GardenActivity.this, RewardHomeActivity.class));
             }
         });
 

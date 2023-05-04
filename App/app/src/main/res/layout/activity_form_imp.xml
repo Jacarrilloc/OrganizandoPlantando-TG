@@ -237,33 +237,31 @@
             android:textColor="@color/grayLetters" />
 
         <Button
-            android:id="@+id/gardens"
-            android:layout_width="@dimen/_79sdp"
+            android:id="@+id/rewards"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginStart="@dimen/_1sdp"
             android:fontFamily="@font/manropemedium"
             android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
-            android:drawableTop="@drawable/im_colombia"
+            android:drawableTop="@drawable/im_reward_icon"
             android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
-            android:text="@string/Map"
+            android:text="@string/bonos"
             android:textAllCaps="false"
             android:textColor="@color/grayLetters" />
 
         <Button
             android:id="@+id/myGardens"
-            android:layout_width="@dimen/_107sdp"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:ellipsize="end"
             android:maxLines="1"
-            android:layout_marginStart="@dimen/_1sdp"
             android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
@@ -278,10 +276,9 @@
 
         <Button
             android:id="@+id/profile"
-            android:layout_width="@dimen/_60sdp"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginStart="@dimen/_1sdp"
             android:layout_marginBottom="@dimen/_2sdp"
             android:fontFamily="@font/manropemedium"
             android:background="@color/white"
@@ -295,7 +292,6 @@
             android:text="@string/User"
             android:textAllCaps="false"
             android:textColor="@color/grayLetters" />
-
 
     </LinearLayout>
 </LinearLayout>

@@ -56,7 +56,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ShowDictionaryItemActivity extends AppCompatActivity {
 
-    private Button profile, myGardens, gardensMap, ludification;
+    private Button profile, myGardens, rewards, ludification;
     private String idUser, element, docRef, imageUri;
     private TextView authorName, elementName, likeNumber, dislikeNumber, description, tag1, tag2,tag3, tag4, tag5, tag6, author, publisherLevel, namelevel;
     private EditText input;
@@ -75,7 +75,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
 
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
-        gardensMap = (Button) findViewById(R.id.gardens);
+        rewards = (Button) findViewById(R.id.rewards);
         ludification = (Button) findViewById(R.id.ludification);
         authorName = (TextView) findViewById(R.id.nameAuthor);
         elementName = (TextView) findViewById(R.id.nameItem);
@@ -416,10 +416,10 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
             }
         });
 
-        gardensMap.setOnClickListener(new View.OnClickListener() {
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ShowDictionaryItemActivity.this, MapsActivity.class));
+                startActivity(new Intent(ShowDictionaryItemActivity.this, RewardHomeActivity.class));
             }
         });
         ludification.setOnClickListener(new View.OnClickListener() {

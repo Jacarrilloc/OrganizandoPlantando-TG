@@ -28,6 +28,7 @@ import com.example.opcv.model.entity.GardenInfo;
 import com.example.opcv.model.items.ItemCollaboratorsRequest;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.business.persistance.firebase.GardenCommunication;
+import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,7 +45,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CollaboratorGardensActivity extends AppCompatActivity {
-    private Button gardensMap, profile, myGardens, ludification;
+    private Button rewards, profile, myGardens, ludification;
     private String userId;
     private ListView listGardens;
     private FirebaseAuth autentication;
@@ -62,11 +63,12 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
 
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
-
+        ludification = (Button) findViewById(R.id.ludification);
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
-        gardensMap = (Button) findViewById(R.id.gardens);
+        rewards = (Button) findViewById(R.id.rewards);
         listGardens = findViewById(R.id.collaborationGardenList);
+
         Bundle extras = getIntent().getExtras();
         userId = getIntent().getStringExtra("userID");
         if (userId == null){
@@ -99,12 +101,10 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
             }
         });
 
-
-
-        gardensMap.setOnClickListener(new View.OnClickListener() {
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CollaboratorGardensActivity.this, MapsActivity.class));
+                startActivity(new Intent(CollaboratorGardensActivity.this, RewardHomeActivity.class));
             }
         });
         fillGardenUser();
@@ -128,7 +128,6 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
             }
         });
 
-        ludification = (Button) findViewById(R.id.ludification);
 
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override

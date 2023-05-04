@@ -27,6 +27,7 @@ import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.business.persistance.firebase.CollaboratorCommunication;
 import com.example.opcv.model.entity.GardenInfo;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
+import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -41,7 +42,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class OtherGardensActivity extends AppCompatActivity {
-    private Button otherGardensButton, profile, myGardens, join, visit, ludification;
+    private Button rewards, profile, myGardens, join, visit, ludification;
     private TextView nameGarden,descriptionGarden;
     private FirebaseFirestore database;
     private CollectionReference gardensRef;
@@ -59,42 +60,10 @@ public class OtherGardensActivity extends AppCompatActivity {
         descriptionGarden = (TextView) findViewById(R.id.descriptionGarden);
         returnButton = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
         image = (ImageView) findViewById(R.id.gardenProfilePicture);
-
-        UserCommunication communication = new UserCommunication();
-
-        returnButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-                finish();
-            }
-        });
-
-        otherGardensButton = (Button) findViewById(R.id.gardens);
-        otherGardensButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(OtherGardensActivity.this, MapsActivity.class));
-            }
-        });
-
+        rewards = (Button) findViewById(R.id.rewards);
         profile = (Button) findViewById(R.id.profile);
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(OtherGardensActivity.this, EditUserActivity.class));
-            }
-        });
         myGardens = (Button) findViewById(R.id.myGardens);
-        myGardens.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(OtherGardensActivity.this, HomeActivity.class));
-            }
-        });
-
-
-
+        ludification = (Button) findViewById(R.id.ludification);
         database = FirebaseFirestore.getInstance();
         gardensRef = database.collection("Gardens");
 
@@ -106,6 +75,37 @@ public class OtherGardensActivity extends AppCompatActivity {
             SearchInfoGardenSreen(id,garden);
         }
         getImageGarden(gardenID);
+        UserCommunication communication = new UserCommunication();
+
+
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+                finish();
+            }
+        });
+
+        rewards.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(OtherGardensActivity.this, RewardHomeActivity.class));
+            }
+        });
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(OtherGardensActivity.this, EditUserActivity.class));
+            }
+        });
+        myGardens.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(OtherGardensActivity.this, HomeActivity.class));
+            }
+        });
+
 
         communication.userAlreadyRequested(id, gardenID, new UserCommunication.GetUserRequest() {
             @Override
@@ -134,8 +134,6 @@ public class OtherGardensActivity extends AppCompatActivity {
                 join.setClickable(false);
             }
         });
-
-        ludification = (Button) findViewById(R.id.ludification);
 
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override
