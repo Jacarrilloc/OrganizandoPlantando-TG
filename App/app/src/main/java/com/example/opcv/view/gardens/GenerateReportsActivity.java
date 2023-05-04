@@ -39,6 +39,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.opcv.R;
+import com.example.opcv.business.persistance.garden.GardenPersistance;
 import com.example.opcv.view.gardens.GardenActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -92,13 +93,14 @@ public class GenerateReportsActivity extends AppCompatActivity {
     private HashMap<Object, String> collection3, collection4;
     private Map<String, List<String>> collectionCols;
     private FirebaseFirestore db;
-    private int count=0, countForms=0, countEvents=0, countCollabs=0, count1=0, count2=0, countGardens=0, STORAGE_PERMISSION_CODE = 1;
+    private int count=0, countForms=0, countEvents=0, countCollabs=0, count1=0, count2=0, countGardens=0, STORAGE_PERMISSION_CODE = 1, help;
 
     private Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_reports);
+
 
         cancel = (Button) findViewById(R.id.cancelReport);
         generate = (Button) findViewById(R.id.generateReportButton);
@@ -107,7 +109,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(ContextCompat.checkSelfPermission(GenerateReportsActivity.this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED){
-            System.out.println("se hizo");
+
         }
         else{
             requestStoragePermission();
@@ -786,7 +788,15 @@ public class GenerateReportsActivity extends AppCompatActivity {
     private void checkIfAllGeneralDataRetrieved(int numDocumentsToRetrieve, int numDocumentsRetrieved) throws IOException {
 
         if (numDocumentsRetrieved == numDocumentsToRetrieve ) {
-            createGeneralPDF(gardensNames, conts, collectionCols, crops, countEvents, count1, count2, countForms);
+            GardenPersistance persistance = new GardenPersistance();
+            persistance.retrieveCrops(new GardenPersistance.GetNumber() {
+                @Override
+                public void onSuccess(int count) {
+                    help = count;
+                    createGeneralPDF(gardensNames, conts, collectionCols, crops, help, count1, count2, countForms);
+                }
+            });
+
         }
     }
     private void createGeneralPDF(ArrayList<String> list, ArrayList<Integer> list2, Map<String, List<String>> map, ArrayList<String> crops, Integer countEvents, Integer count1, Integer count2, Integer countForms) {
@@ -927,7 +937,8 @@ public class GenerateReportsActivity extends AppCompatActivity {
                 page.getCanvas().drawText(i+1+": "+crops.get(i), x+10, z, paintDate);
                 z=z+20;
             }
-            page.getCanvas().drawText("De las "+list.size()+" huertas "+c3+" estan trabajando en estos cultivos.", x, z , paintDate);
+
+            page.getCanvas().drawText("De las "+list.size()+" huertas "+countEvents+" estan trabajando en estos cultivos.", x, z , paintDate);
         }
 
 
@@ -941,8 +952,8 @@ public class GenerateReportsActivity extends AppCompatActivity {
         canvas = page.getCanvas();
         page.getCanvas().drawBitmap(bitmap, null, destRect, null);
 
-        page.getCanvas().drawText("Las huertas existentes a dia de hoy son: ", x+5, y, paintBold);
-        int o=y+40;
+        page.getCanvas().drawText("Las huertas existentes a dia de hoy son: ", x+5, y+20, paintBold);
+        int o=y+60;
         for (int i = 0; i<list.size(); i++){
             page.getCanvas().drawText(i+1+": "+list.get(i), x+10, o, paintDate);
             o=o+14;
@@ -972,9 +983,8 @@ public class GenerateReportsActivity extends AppCompatActivity {
             emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
             startActivity(Intent.createChooser(emailIntent, "Send email"));
         }
-
-
     }
+
     @Override
     protected void attachBaseContext(Context newBase) {
         final Configuration override = new Configuration(newBase.getResources().getConfiguration());
