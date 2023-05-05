@@ -168,9 +168,17 @@ public class HomeActivity extends AppCompatActivity {
         rewards = (Button) findViewById(R.id.rewards);
         generateReport = (ImageButton) findViewById(R.id.generalReport);
         ludification = (Button) findViewById(R.id.ludification);
-        showProgressDialog(3000);
-        hideProgressDialog();
 
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            String previous = getIntent().getStringExtra("previusScreen");
+            if(previous != null){
+                if(previous.equals("true")){
+                    showProgressDialog(3000);
+                    hideProgressDialog();
+                }
+            }
+        }
 
         userId = getIntent().getStringExtra("userID");
         AuthCommunication authCommunication = new AuthCommunication();
@@ -228,8 +236,13 @@ public class HomeActivity extends AppCompatActivity {
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent edit = new Intent(HomeActivity.this, DictionaryHomeActivity.class);
-                startActivity(edit);
+                if(isOnline()){
+                    Intent edit = new Intent(HomeActivity.this, DictionaryHomeActivity.class);
+                    startActivity(edit);
+                }
+                else{
+                    Toast.makeText(HomeActivity.this, "Para acceder necesitas conexión a internet", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -404,36 +417,13 @@ public class HomeActivity extends AppCompatActivity {
 
     private void showProgressDialog(int durationMs) {
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Cargando...");
+        progressDialog.setTitle("Cargando...");
+        progressDialog.setMessage("Espera un momento, estamos configurando tu cuenta");
         progressDialog.setCancelable(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.show();
 
-
-/*
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    while(progressDialog.getProgress() <= progressDialog.getMax()){
-                        Thread.sleep(durationMs);
-                        handle.sendMessage(handle.obtainMessage());
-
-                    }
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }).start();*/
-
     }
-    Handler handle = new Handler(){
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            super.handleMessage(msg);
-            progressDialog.incrementProgressBy(1);
-        }
-    };
     private void hideProgressDialog() {
         new Handler().postDelayed(new Runnable() {
             @Override

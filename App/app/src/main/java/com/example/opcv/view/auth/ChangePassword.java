@@ -2,12 +2,16 @@ package com.example.opcv.view.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.opcv.R;
 import com.example.opcv.business.persistance.firebase.AuthCommunication;
@@ -55,7 +59,12 @@ public class ChangePassword extends AppCompatActivity {
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ChangePassword.this, DictionaryHomeActivity.class));
+                if(isOnline()){
+                    startActivity(new Intent(ChangePassword.this, DictionaryHomeActivity.class));
+                }
+                else{
+                    Toast.makeText(ChangePassword.this, "Para acceder necesitas conexión a internet", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -92,5 +101,11 @@ public class ChangePassword extends AppCompatActivity {
         });
 
 
+    }
+    private boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }

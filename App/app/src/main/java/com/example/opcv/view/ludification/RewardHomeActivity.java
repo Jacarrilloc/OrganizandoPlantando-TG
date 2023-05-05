@@ -2,14 +2,18 @@ package com.example.opcv.view.ludification;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.opcv.R;
 import com.example.opcv.business.ludification.Level;
@@ -44,6 +48,41 @@ public class RewardHomeActivity extends AppCompatActivity {
         AuthCommunication auth = new AuthCommunication();
         String user = auth.getCurrentUserUid();
 
+        lvl1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("Hola");
+            }
+        });
+
+        lvl2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("hola");
+            }
+        });
+
+        lvl3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("hola");
+            }
+        });
+
+        lvl4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("hola");
+            }
+        });
+
+        lvl5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent moon = new Intent(RewardHomeActivity.this, MoonCalendarActivity.class);
+                startActivity(moon);
+            }
+        });
         UserCommunication persistance = new UserCommunication();
         persistance.getUserLevel(user, new UserCommunication.GetUserLvl() {
             @Override
@@ -86,47 +125,21 @@ public class RewardHomeActivity extends AppCompatActivity {
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent edit = new Intent(RewardHomeActivity.this, DictionaryHomeActivity.class);
-                startActivity(edit);
+                if(isOnline()){
+                    Intent edit = new Intent(RewardHomeActivity.this, DictionaryHomeActivity.class);
+                    startActivity(edit);
+                }
+                else{
+                    Toast.makeText(RewardHomeActivity.this, "Para acceder necesitas conexión a internet", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
-        lvl1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println("Hola");
-            }
-        });
-
-        lvl2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println("hola");
-            }
-        });
-
-        lvl3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println("hola");
-            }
-        });
-
-        lvl4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println("hola");
-            }
-        });
-
-        lvl5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent moon = new Intent(RewardHomeActivity.this, MoonCalendarActivity.class);
-                startActivity(moon);
-            }
-        });
-
+    }
+    private boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     private void initializeButtons(int lv) {
