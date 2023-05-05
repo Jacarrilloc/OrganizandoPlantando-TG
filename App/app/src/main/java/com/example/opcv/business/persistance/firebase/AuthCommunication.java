@@ -12,11 +12,13 @@ import androidx.annotation.NonNull;
 
 import com.example.opcv.model.entity.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -31,6 +33,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;*/
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -150,6 +153,7 @@ public class AuthCommunication implements Serializable {
     private boolean ValidateInfo(String email, String password,Context context) {
         boolean isValid = true;
 
+
         if (TextUtils.isEmpty(email) && TextUtils.isEmpty(password)) {
             Toast.makeText(context,"No se ha Ingresado el Email y la Contraseña",Toast.LENGTH_LONG).show();
             isValid = false;
@@ -249,6 +253,49 @@ public class AuthCommunication implements Serializable {
             }
         });
     }
+
+    public void validateEmailAlreadyInUse(String email, final ValidateEmail callback){
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        Task<SignInMethodQueryResult> task = mAuth.fetchSignInMethodsForEmail(email);
+        task.addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+            @Override
+            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                if(task.isSuccessful()) {
+                    SignInMethodQueryResult result = task.getResult();
+                    List<String> signInMethod = result.getSignInMethods();
+                    if(signInMethod != null && !signInMethod.isEmpty()) {
+                        callback.onComplete(false);
+                    }
+                    else{
+                        callback.onComplete(true);
+                    }
+                }
+            }
+        });
+
+    }
+
+    public void changePassword(String password, Context context){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            user.updatePassword(password).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(context, "La contraseña se actualizó exitosamente", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, "Ocurrio un error al cambiar la contraseña, Intente mas tarde", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
     public interface GetUriUser{
         void onSuccess(String uri);
     }
@@ -263,5 +310,31 @@ public class AuthCommunication implements Serializable {
         if(password.length() < 4)
             return false;
         return true;
+    }
+
+    public interface ValidateEmail{
+        void onComplete(boolean resp);
+    }
+
+    public void guestLogin(Context context){
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.signInAnonymously().addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(context, "Se ha ingresado como invitado", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(context, "Ocurrio un error al ingresar como invitado. Intenta de nuevo", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public FirebaseUser guestUser(){
+        FirebaseAuth autentication = FirebaseAuth.getInstance();
+        return autentication.getCurrentUser();
     }
 }

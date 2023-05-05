@@ -30,6 +30,7 @@ import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.business.persistance.firebase.FormsCommunication;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.business.notifications.Notifications;
+import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -46,7 +47,7 @@ public class Form_RSMP extends AppCompatActivity {
 
     private FloatingActionButton backButtom;
     private FormsCommunication formsUtilities;
-    private Button addFormButtom, gardens, myGardens, profile, ludification;
+    private Button addFormButtom, rewards, myGardens, profile, ludification;
 
     private Spinner spinnerUnits, spinnerConcept;
     private String unitSelectedItem, conceptSelectedItem, watch, idGarden, idCollection;
@@ -66,18 +67,19 @@ public class Form_RSMP extends AppCompatActivity {
         quantity = (EditText) findViewById(R.id.amount_of_Mp);
         total = (EditText) findViewById(R.id.total_Mp);
         state = (EditText) findViewById(R.id.state);
-        gardens = (Button) findViewById(R.id.gardens);
+        rewards = (Button) findViewById(R.id.rewards);
         myGardens = (Button) findViewById(R.id.myGardens);
         profile = (Button) findViewById(R.id.profile);
         backButtom = (FloatingActionButton) findViewById(R.id.returnArrowButtonFormOnetoFormListElement);
         spinnerConcept = (Spinner) findViewById(R.id.conceptChoice);
         spinnerUnits = (Spinner) findViewById(R.id.unitsChoice);
         addFormButtom = findViewById(R.id.create_forms4_buttom);
+        ludification = (Button) findViewById(R.id.ludification);
 
-        gardens.setOnClickListener(new View.OnClickListener() {
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Form_RSMP.this, MapsActivity.class));
+                startActivity(new Intent(Form_RSMP.this, RewardHomeActivity.class));
             }
         });
 
@@ -93,8 +95,6 @@ public class Form_RSMP extends AppCompatActivity {
                 startActivity(new Intent(Form_RSMP.this, EditUserActivity.class));
             }
         });
-
-        ludification = (Button) findViewById(R.id.ludification);
 
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -285,6 +285,36 @@
 
 
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/changePassword"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:background="@drawable/im_password" />
+
+                    <TextView
+                        android:id="@+id/changePasswordText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/manroperegular"
+                        android:maxLines="1"
+                        android:text="@string/passwordChange"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13sdp" />
+
+                </LinearLayout>
 
             </LinearLayout>
         </ScrollView>
@@ -318,22 +348,21 @@
             android:textColor="@color/grayLetters" />
 
         <Button
-            android:id="@+id/gardens"
-            android:layout_width="@dimen/_79sdp"
+            android:id="@+id/rewards"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginStart="@dimen/_1sdp"
             android:fontFamily="@font/manropemedium"
             android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
-            android:drawableTop="@drawable/im_colombia"
+            android:drawableTop="@drawable/im_reward_icon"
             android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
-            android:text="@string/Map"
+            android:text="@string/bonos"
             android:textAllCaps="false"
             android:textColor="@color/grayLetters" />
 

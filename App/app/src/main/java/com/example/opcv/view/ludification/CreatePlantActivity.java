@@ -42,7 +42,7 @@ public class CreatePlantActivity extends AppCompatActivity {
     private String plantName, plantDescription, idUser;
     private Boolean flowerCheck, edibleCheck, fruitCheck, medicineCheck, petCheck, precautionCheck;
     private FloatingActionButton add;
-    private Button profile, myGardens, gardensMap, ludification;
+    private Button profile, myGardens, rewards, ludification;
     private ImageView image;
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri selectImageUri;
@@ -64,7 +64,7 @@ public class CreatePlantActivity extends AppCompatActivity {
         precaution = (CheckBox) findViewById(R.id.option6);
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
-        gardensMap = (Button) findViewById(R.id.gardens);
+        rewards = (Button) findViewById(R.id.rewards);
         ludification = (Button) findViewById(R.id.ludification);
         add = (FloatingActionButton) findViewById(R.id.addButton);
         image = (ImageView) findViewById(R.id.addImage);
@@ -140,10 +140,10 @@ public class CreatePlantActivity extends AppCompatActivity {
             }
         });
 
-        gardensMap.setOnClickListener(new View.OnClickListener() {
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CreatePlantActivity.this, MapsActivity.class));
+                startActivity(new Intent(CreatePlantActivity.this, RewardHomeActivity.class));
             }
         });
     }

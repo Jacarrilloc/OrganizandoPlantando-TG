@@ -11,16 +11,21 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.opcv.business.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.base.HomeActivity;
+import com.example.opcv.view.gardens.GardensAvailableActivity;
 import com.example.opcv.view.gardens.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
+import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SignOffActivity extends AppCompatActivity {
-    private Button returnScreen, signOff, gardensMap, profile, myGarden, ludification;
+    private Button returnScreen, signOff, rewards, profile, myGarden, ludification;
 
     private FirebaseAuth autentication;
     private FirebaseFirestore database;
@@ -32,15 +37,24 @@ public class SignOffActivity extends AppCompatActivity {
 
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
-
+        myGarden = (Button) findViewById(R.id.myGardens);
+        rewards = (Button) findViewById(R.id.rewards);
+        returnScreen = (Button) findViewById(R.id.returnButton2);
+        signOff = (Button) findViewById(R.id.closeButton);
+        ludification = (Button) findViewById(R.id.ludification);
         profile = (Button) findViewById(R.id.profile);
+        AuthCommunication authCommunication = new AuthCommunication();
+        FirebaseUser user = authCommunication.guestUser();
+
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SignOffActivity.this, EditUserActivity.class));
+                if(user != null && !user.isAnonymous()){
+                    startActivity(new Intent(SignOffActivity.this, EditUserActivity.class));
+                }
             }
         });
-        myGarden = (Button) findViewById(R.id.myGardens);
+
         myGarden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,24 +62,30 @@ public class SignOffActivity extends AppCompatActivity {
             }
         });
 
-        gardensMap = (Button) findViewById(R.id.gardens);
-
-        gardensMap.setOnClickListener(new View.OnClickListener() {
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SignOffActivity.this, MapsActivity.class));
+                if(user != null && !user.isAnonymous()){
+                    startActivity(new Intent(SignOffActivity.this, RewardHomeActivity.class));
+                }
+                else{
+                    Toast.makeText(SignOffActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
-        returnScreen = (Button) findViewById(R.id.returnButton2);
         returnScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SignOffActivity.this, EditUserActivity.class));
+                if(user != null && !user.isAnonymous()){
+                    startActivity(new Intent(SignOffActivity.this, EditUserActivity.class));
+                }
+                else{
+                    startActivity(new Intent(SignOffActivity.this, GardensAvailableActivity.class));
+                }
             }
         });
 
-        signOff = (Button) findViewById(R.id.closeButton);
         signOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,8 +95,6 @@ public class SignOffActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        ludification = (Button) findViewById(R.id.ludification);
 
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override

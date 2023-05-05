@@ -17,7 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.opcv.view.auth.SignOffActivity;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.view.gardens.MapsActivity;
 import com.example.opcv.R;
@@ -27,6 +29,8 @@ import com.example.opcv.business.persistance.firebase.AuthCommunication;
 import com.example.opcv.model.items.ItemPlantsTools;
 import com.example.opcv.business.persistance.firebase.LudificationCommunication;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +41,24 @@ public class ShowDictionaryActivity extends AppCompatActivity {
     private TextView name;
     private FloatingActionButton add;
     private String element, idUser;
-    private Button profile, myGardens, gardensMap, ludification;
+    private Button profile, myGardens, rewards, ludification;
     private androidx.appcompat.widget.SearchView searchView;
     private GridView listView;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null && currentUser.isAnonymous()) {
+            FirebaseAuth.getInstance().signOut();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FirebaseAuth.getInstance().signOut();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +69,12 @@ public class ShowDictionaryActivity extends AppCompatActivity {
         add = (FloatingActionButton) findViewById(R.id.addButton);
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
-        gardensMap = (Button) findViewById(R.id.gardens);
+        rewards = (Button) findViewById(R.id.rewards);
         ludification = (Button) findViewById(R.id.ludification);
         searchView = (androidx.appcompat.widget.SearchView) findViewById(R.id.searchView);
         listView = (GridView) findViewById(R.id.plantsList);
+        AuthCommunication authCommunication = new AuthCommunication();
+        FirebaseUser user = authCommunication.guestUser();
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
@@ -88,9 +109,14 @@ public class ShowDictionaryActivity extends AppCompatActivity {
             add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent edit = new Intent(ShowDictionaryActivity.this, CreatePlantActivity.class);
-                    edit.putExtra("userInfo", idUser);
-                    startActivity(edit);
+                    if(user != null && !user.isAnonymous()){
+                        Intent edit = new Intent(ShowDictionaryActivity.this, CreatePlantActivity.class);
+                        edit.putExtra("userInfo", idUser);
+                        startActivity(edit);
+                    }
+                    else{
+                        Toast.makeText(ShowDictionaryActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }
@@ -117,9 +143,14 @@ public class ShowDictionaryActivity extends AppCompatActivity {
             add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent edit = new Intent(ShowDictionaryActivity.this, CreateToolActivity.class);
-                    edit.putExtra("userInfo", idUser);
-                    startActivity(edit);
+                    if(user != null && !user.isAnonymous()){
+                        Intent edit = new Intent(ShowDictionaryActivity.this, CreateToolActivity.class);
+                        edit.putExtra("userInfo", idUser);
+                        startActivity(edit);
+                    }
+                    else{
+                        Toast.makeText(ShowDictionaryActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }
@@ -136,19 +167,28 @@ public class ShowDictionaryActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent edit = new Intent(ShowDictionaryActivity.this, EditUserActivity.class);
-                AuthCommunication auth = new AuthCommunication();
-                String userId = auth.getCurrentUserUid();
-                edit.putExtra("userInfo", userId);
-                startActivity(edit);
-
+                if(user != null && !user.isAnonymous()){
+                    Intent edit = new Intent(ShowDictionaryActivity.this, EditUserActivity.class);
+                    AuthCommunication auth = new AuthCommunication();
+                    String userId = auth.getCurrentUserUid();
+                    edit.putExtra("userInfo", userId);
+                    startActivity(edit);
+                }
+                else{
+                    startActivity(new Intent(ShowDictionaryActivity.this, SignOffActivity.class));
+                }
             }
         });
 
-        gardensMap.setOnClickListener(new View.OnClickListener() {
+        rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ShowDictionaryActivity.this, MapsActivity.class));
+                if(user != null && !user.isAnonymous()){
+                    startActivity(new Intent(ShowDictionaryActivity.this, RewardHomeActivity.class));
+                }
+                else{
+                    Toast.makeText(ShowDictionaryActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         ludification.setOnClickListener(new View.OnClickListener() {
