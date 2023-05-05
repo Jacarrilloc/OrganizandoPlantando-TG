@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,9 +21,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -75,6 +79,7 @@ public class SelectPhotoActivity extends AppCompatActivity {
         ImageSource = findViewById(R.id.profileImageSelected);
         backButtom = findViewById(R.id.returnArrowButtonSeleectPhoto);
 
+
         Intent intent = getIntent();
         newUserInfo = (User) intent.getSerializableExtra("newUserInfo");
         password = intent.getStringExtra("password");
@@ -84,6 +89,7 @@ public class SelectPhotoActivity extends AppCompatActivity {
         finishRegisterInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 createUserInDatabase();
                 callHome();
             }
@@ -112,6 +118,7 @@ public class SelectPhotoActivity extends AppCompatActivity {
     }
 
     private void createUserInDatabase(){
+
         Drawable drawable = ImageSource.getDrawable();
         if(drawable == null){
             if (authUtilities.createUser(newUserInfo.getEmail(), password, newUserInfo, null, SelectPhotoActivity.this)){

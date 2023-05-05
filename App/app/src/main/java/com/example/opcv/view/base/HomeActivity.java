@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +16,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.TrafficStats;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -71,6 +74,7 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseFirestore database;
     private Animation animSlideUp;
 
+    private ProgressDialog progressDialog;
 
     private ProgressBar progressBar;
 
@@ -157,6 +161,9 @@ public class HomeActivity extends AppCompatActivity {
         rewards = (Button) findViewById(R.id.rewards);
         generateReport = (ImageButton) findViewById(R.id.generalReport);
         ludification = (Button) findViewById(R.id.ludification);
+        showProgressDialog(3000);
+        hideProgressDialog();
+
 
         userId = getIntent().getStringExtra("userID");
 
@@ -358,5 +365,49 @@ public class HomeActivity extends AppCompatActivity {
                 (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    private void showProgressDialog(int durationMs) {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.show();
+
+
+/*
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    while(progressDialog.getProgress() <= progressDialog.getMax()){
+                        Thread.sleep(durationMs);
+                        handle.sendMessage(handle.obtainMessage());
+
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();*/
+
+    }
+    Handler handle = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            progressDialog.incrementProgressBy(1);
+        }
+    };
+    private void hideProgressDialog() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                    progressDialog = null;
+                }
+            }
+        }, 4000);
     }
 }
