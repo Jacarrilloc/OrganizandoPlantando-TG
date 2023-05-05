@@ -269,4 +269,10 @@
     <string name="passwordChange">Cambiar contraseña</string>
     <string name="newPassword">Ingrese la nueva contraseña</string>
     <string name="seg_n_el_nivel_que_tienes_actualmente_a_continuaci_n_est_n_tus_recompensas_disponibles">Según el nivel que tienes actualmente, a continuación están tus recompensas disponibles.</string>
+    <string name="calendario_lunar">Calendario Lunar</string>
+    <string name="gu_as_b_sicas_y_consejos">Guías básicas y consejos</string>
+    <string name="ponle_foto_a_tu_huerta">Ponle foto a tu huerta</string>
+    <string name="enfermedades_comunes">Enfermedades comunes</string>
+    <string name="usos_org_nicos">Usos orgánicos</string>
+    <string name="calendario">Calendario</string>
 </resources>
