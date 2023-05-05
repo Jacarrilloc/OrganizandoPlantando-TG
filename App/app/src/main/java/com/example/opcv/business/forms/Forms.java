@@ -11,6 +11,7 @@ import com.example.opcv.model.items.ItemRegistersList;
 import org.json.JSONException;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,16 +40,28 @@ public class Forms {
         FormsRepository info = new FormsRepository(context);
         List<Map<String,Object>> infoResult = info.getInfoForms(idGarden, formName);
         List<ItemRegistersList> itemRegistersList = new ArrayList<>();
-        for (Map<String, Object> infoForm : infoResult){
-            String register_name = (String) infoForm.get("register_name");
-            String infoFormResult = (String) infoForm.get("infoForm");
-            String date = (String) infoForm.get("Date");
-            ItemRegistersList item = new ItemRegistersList(idGarden, register_name, infoForm, date);
-            itemRegistersList.add(item);
+        if(infoResult != null) {
+            for (Map<String, Object> infoForm : infoResult) {
+                String register_name = (String) infoForm.get("register_name");
+                String infoFormResult = (String) infoForm.get("infoForm");
+                String date = (String) infoForm.get("Date");
+                ItemRegistersList item = new ItemRegistersList(idGarden, register_name, infoForm, date);
+                itemRegistersList.add(item);
+            }
+            Toast.makeText(context, "Tamaño en Forms: " + infoResult.size(), Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "No hay Informacion en la Base de datos local " , Toast.LENGTH_SHORT).show();
         }
-
-        Toast.makeText(context, "Tamaño en Forms: " + infoResult.size(), Toast.LENGTH_SHORT).show();
         return itemRegistersList;
+    }
+
+    public void deleteInfo(String idGarden, Map<String, Object> infoForm) throws IOException, JSONException {
+        if(idGarden != null){
+            if(infoForm != null){
+                FormsRepository deleteFormsInfo = new FormsRepository(context);
+                deleteFormsInfo.deleteInfoDatabase(idGarden,infoForm);
+            }
+        }
     }
 
     private static String getDateNow() {

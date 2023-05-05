@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.opcv.R;
+import com.example.opcv.business.forms.Forms;
 import com.example.opcv.business.persistance.firebase.FormsCommunication;
 import com.example.opcv.view.forms.Form_CIH;
 import com.example.opcv.view.forms.Form_CPS;
@@ -30,6 +31,10 @@ import com.example.opcv.view.forms.Form_SCMPH;
 import com.example.opcv.view.forms.Form_RE;
 import com.example.opcv.model.items.ItemRegistersList;
 
+import org.json.JSONException;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -297,12 +302,23 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                         .setNegativeButton(android.R.string.no, null)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface arg0, int arg1) {
+                                Forms deteleInfo = new Forms(context);
+                                try {
+                                    deteleInfo.deleteInfo(item.getIdGarden(),item.getInfo());
+                                } catch (FileNotFoundException e) {
+                                    throw new RuntimeException(e);
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                remove(item);
+                                notifyDataSetChanged();
                                 /*
                                 // Aqui se Borra el Formulario
                                 remove(item);
                                 FU.deleteForm(item.getIdGarden(), item.getIdFormCollection());
                                 notifyDataSetChanged();
-
                                  */
                             }
                         }).create().show();

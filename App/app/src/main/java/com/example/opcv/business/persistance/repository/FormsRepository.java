@@ -13,6 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.json.JSONException;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
@@ -49,6 +50,14 @@ public class FormsRepository {
                 notifications.notification("Formulario creado", "Tienes Conexion, Formulario Subido", mContext);
             }).start();
         });
+    }
+
+    public void deleteInfoDatabase(String idGarden,Map<String, Object> infoForm) throws IOException, JSONException {
+        if(isOnline()){
+
+        }
+        LocalDatabase deleteInfoLocal = new LocalDatabase(mContext);
+        deleteInfoLocal.deleteInfoJson(idGarden,infoForm);
     }
 
     public List<Map<String,Object>> getInfoForms(String idGarden, String formName) throws FileNotFoundException, JSONException {
