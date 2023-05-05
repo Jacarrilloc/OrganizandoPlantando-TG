@@ -21,12 +21,18 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.opcv.business.persistance.firebase.AuthCommunication;
+import com.example.opcv.view.auth.SignOffActivity;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.view.ludification.RewardHomeActivity;
+import com.example.opcv.view.ludification.ShowDictionaryItemActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MapsActivity extends AppCompatActivity {
     private MapView map;
@@ -34,6 +40,21 @@ public class MapsActivity extends AppCompatActivity {
     private MapController myMapController;
     private ImageView gardens;
     GeoPoint bogota = new GeoPoint(4.62, -74.07);
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null && currentUser.isAnonymous()) {
+            FirebaseAuth.getInstance().signOut();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FirebaseAuth.getInstance().signOut();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,18 +81,31 @@ public class MapsActivity extends AppCompatActivity {
                 Marker.ANCHOR_BOTTOM);
         map.getOverlays().add(marker);
 
+        AuthCommunication authCommunication = new AuthCommunication();
+        FirebaseUser user = authCommunication.guestUser();
+
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MapsActivity.this, EditUserActivity.class));
+                if(user != null && !user.isAnonymous()){
+                    startActivity(new Intent(MapsActivity.this, EditUserActivity.class));
+                }
+                else{
+                    startActivity(new Intent(MapsActivity.this, SignOffActivity.class));
+                }
             }
         });
 
         rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MapsActivity.this, RewardHomeActivity.class));
+                if(user != null && !user.isAnonymous()){
+                    startActivity(new Intent(MapsActivity.this, RewardHomeActivity.class));
+                }
+                else{
+                    Toast.makeText(MapsActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

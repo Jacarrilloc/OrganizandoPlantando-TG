@@ -21,8 +21,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.example.opcv.business.persistance.firebase.AuthCommunication;
 import com.example.opcv.business.persistance.garden.GardenPersistance;
+import com.example.opcv.view.auth.SignOffActivity;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.adapter.GardenListAdapter;
@@ -31,7 +34,9 @@ import com.example.opcv.model.items.ItemGardenHomeList;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.business.persistance.firebase.GardenCommunication;
 import com.example.opcv.view.ludification.RewardHomeActivity;
+import com.example.opcv.view.ludification.ShowDictionaryItemActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -56,9 +61,18 @@ public class GardensAvailableActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null && currentUser.isAnonymous()) {
+            FirebaseAuth.getInstance().signOut();
+        }
         fillGardenAvaliable();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FirebaseAuth.getInstance().signOut();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +87,8 @@ public class GardensAvailableActivity extends AppCompatActivity {
         myGardens = (Button) findViewById(R.id.myGardens);
         ludification = (Button) findViewById(R.id.ludification);
         mapIcon = (ImageView) findViewById(R.id.mapIcon);
+        AuthCommunication authCommunication = new AuthCommunication();
+        FirebaseUser user = authCommunication.guestUser();
 
         mapIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +100,15 @@ public class GardensAvailableActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(GardensAvailableActivity.this, EditUserActivity.class));
+                AuthCommunication authCommunication = new AuthCommunication();
+                FirebaseUser user = authCommunication.guestUser();
+                if(user != null && !user.isAnonymous()){
+                    startActivity(new Intent(GardensAvailableActivity.this, EditUserActivity.class));
+                }
+                else{
+                    startActivity(new Intent(GardensAvailableActivity.this, SignOffActivity.class));
+                }
+
             }
         });
 
@@ -99,7 +123,14 @@ public class GardensAvailableActivity extends AppCompatActivity {
         rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(GardensAvailableActivity.this, RewardHomeActivity.class));
+                AuthCommunication authCommunication = new AuthCommunication();
+                FirebaseUser user = authCommunication.guestUser();
+                if(user != null && !user.isAnonymous()){
+                    startActivity(new Intent(GardensAvailableActivity.this, RewardHomeActivity.class));
+                }
+                else{
+                    Toast.makeText(GardensAvailableActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -112,7 +143,12 @@ public class GardensAvailableActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Object selectedItem = adapterView.getItemAtPosition(i);
                 String itemName = ((ItemGardenHomeList) selectedItem).getName();
-                userID = autentication.getCurrentUser().getUid();
+                if(user != null && !user.isAnonymous()){
+                    userID = autentication.getCurrentUser().getUid();
+                }
+                else{
+                    userID = "a";
+                }
                 String idGarden = ((ItemGardenHomeList) selectedItem).getIdGarden();
                 String idGardenFirebaseDoc = getIntent().getStringExtra("idGarden");
                 Intent start = new Intent(GardensAvailableActivity.this, OtherGardensActivity.class);
@@ -135,7 +171,16 @@ public class GardensAvailableActivity extends AppCompatActivity {
     }
     private void fillGardenAvaliable() {
         CollectionReference Ref = database.collection("Gardens");
-        String currentUserId = autentication.getCurrentUser().getUid();
+        FirebaseUser user = autentication.getCurrentUser();
+        String currentUserId;
+        if(user != null && !user.isAnonymous()){
+            currentUserId = autentication.getCurrentUser().getUid();
+        }
+        else{
+            currentUserId = "a";
+        }
+
+
         Query query = Ref.whereEqualTo("GardenType", "Public").whereNotEqualTo("ID_Owner", currentUserId);
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
 

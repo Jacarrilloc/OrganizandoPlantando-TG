@@ -315,4 +315,26 @@ public class AuthCommunication implements Serializable {
     public interface ValidateEmail{
         void onComplete(boolean resp);
     }
+
+    public void guestLogin(Context context){
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.signInAnonymously().addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(context, "Se ha ingresado como invitado", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(context, "Ocurrio un error al ingresar como invitado. Intenta de nuevo", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public FirebaseUser guestUser(){
+        FirebaseAuth autentication = FirebaseAuth.getInstance();
+        return autentication.getCurrentUser();
+    }
 }
