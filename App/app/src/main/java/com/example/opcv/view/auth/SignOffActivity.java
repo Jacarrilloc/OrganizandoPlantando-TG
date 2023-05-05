@@ -11,13 +11,17 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.opcv.business.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.base.HomeActivity;
+import com.example.opcv.view.gardens.GardensAvailableActivity;
 import com.example.opcv.view.gardens.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SignOffActivity extends AppCompatActivity {
@@ -39,11 +43,15 @@ public class SignOffActivity extends AppCompatActivity {
         signOff = (Button) findViewById(R.id.closeButton);
         ludification = (Button) findViewById(R.id.ludification);
         profile = (Button) findViewById(R.id.profile);
+        AuthCommunication authCommunication = new AuthCommunication();
+        FirebaseUser user = authCommunication.guestUser();
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SignOffActivity.this, EditUserActivity.class));
+                if(user != null && !user.isAnonymous()){
+                    startActivity(new Intent(SignOffActivity.this, EditUserActivity.class));
+                }
             }
         });
 
@@ -57,14 +65,24 @@ public class SignOffActivity extends AppCompatActivity {
         rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SignOffActivity.this, RewardHomeActivity.class));
+                if(user != null && !user.isAnonymous()){
+                    startActivity(new Intent(SignOffActivity.this, RewardHomeActivity.class));
+                }
+                else{
+                    Toast.makeText(SignOffActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         returnScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SignOffActivity.this, EditUserActivity.class));
+                if(user != null && !user.isAnonymous()){
+                    startActivity(new Intent(SignOffActivity.this, EditUserActivity.class));
+                }
+                else{
+                    startActivity(new Intent(SignOffActivity.this, GardensAvailableActivity.class));
+                }
             }
         });
 

@@ -20,7 +20,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.opcv.business.persistance.firebase.AuthCommunication;
 import com.example.opcv.business.persistance.firebase.UserCommunication;
+import com.example.opcv.view.auth.SignOffActivity;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.auth.EditUserActivity;
@@ -28,9 +30,12 @@ import com.example.opcv.business.persistance.firebase.CollaboratorCommunication;
 import com.example.opcv.model.entity.GardenInfo;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.view.ludification.RewardHomeActivity;
+import com.example.opcv.view.ludification.ShowDictionaryItemActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -50,6 +55,21 @@ public class OtherGardensActivity extends AppCompatActivity {
     private FloatingActionButton returnButton;
     private ImageView image;
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null && currentUser.isAnonymous()) {
+            FirebaseAuth.getInstance().signOut();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FirebaseAuth.getInstance().signOut();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +86,8 @@ public class OtherGardensActivity extends AppCompatActivity {
         ludification = (Button) findViewById(R.id.ludification);
         database = FirebaseFirestore.getInstance();
         gardensRef = database.collection("Gardens");
+        AuthCommunication authCommunication = new AuthCommunication();
+        FirebaseUser user = authCommunication.guestUser();
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
@@ -89,14 +111,24 @@ public class OtherGardensActivity extends AppCompatActivity {
         rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(OtherGardensActivity.this, RewardHomeActivity.class));
+                if(user != null && !user.isAnonymous()){
+                    startActivity(new Intent(OtherGardensActivity.this, RewardHomeActivity.class));
+                }
+                else{
+                    Toast.makeText(OtherGardensActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(OtherGardensActivity.this, EditUserActivity.class));
+                if(user != null && !user.isAnonymous()){
+                    startActivity(new Intent(OtherGardensActivity.this, EditUserActivity.class));
+                }
+                else{
+                    startActivity(new Intent(OtherGardensActivity.this, SignOffActivity.class));
+                }
             }
         });
         myGardens.setOnClickListener(new View.OnClickListener() {
@@ -122,16 +154,21 @@ public class OtherGardensActivity extends AppCompatActivity {
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CollaboratorCommunication cU = new CollaboratorCommunication();
-                //Para que si le da click a unirse ya ese boton quede deshabilitado
-                Map<String, Object> request = new HashMap<>();
-                request.put("Garden", gardenID);
-                communication.addUserRequests(id, request);
+                if(user != null && !user.isAnonymous()){
+                    CollaboratorCommunication cU = new CollaboratorCommunication();
+                    //Para que si le da click a unirse ya ese boton quede deshabilitado
+                    Map<String, Object> request = new HashMap<>();
+                    request.put("Garden", gardenID);
+                    communication.addUserRequests(id, request);
 
-                cU.addRequests(OtherGardensActivity.this, id, gardenID);
-                Toast.makeText(OtherGardensActivity.this, "Se envio la solicitud al dueño de la huerta", Toast.LENGTH_SHORT).show();
-                join.setVisibility(View.INVISIBLE);
-                join.setClickable(false);
+                    cU.addRequests(OtherGardensActivity.this, id, gardenID);
+                    Toast.makeText(OtherGardensActivity.this, "Se envio la solicitud al dueño de la huerta", Toast.LENGTH_SHORT).show();
+                    join.setVisibility(View.INVISIBLE);
+                    join.setClickable(false);
+                }
+                else{
+                    Toast.makeText(OtherGardensActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

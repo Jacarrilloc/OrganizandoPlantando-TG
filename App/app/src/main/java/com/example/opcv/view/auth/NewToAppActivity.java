@@ -22,8 +22,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class NewToAppActivity extends AppCompatActivity {
 
-    Button createAcount;
-    TextView goToLogin;
+    private Button createAcount;
+    private TextView goToLogin, goToGuest, guestAccount;
     private FirebaseAuth autenticacion;
 
     @Override
@@ -44,9 +44,17 @@ public class NewToAppActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_to_app);
 
         autenticacion = FirebaseAuth.getInstance();
-
+        goToGuest = (TextView) findViewById(R.id.textViewGuest);
+        guestAccount = (TextView) findViewById(R.id.guestLogin);
         goToLogin = findViewById(R.id.loginTextNewOnMapActivity);
         createAcount = findViewById(R.id.createProfileNewToAppActivity);
+
+        guestAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(NewToAppActivity.this, guestLoginActivity.class));
+            }
+        });
 
         goToLogin.setOnClickListener(new View.OnClickListener(){
             @Override
