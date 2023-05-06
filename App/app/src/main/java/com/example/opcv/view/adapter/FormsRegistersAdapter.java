@@ -314,12 +314,6 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                                 }
                                 remove(item);
                                 notifyDataSetChanged();
-                                /*
-                                // Aqui se Borra el Formulario
-                                remove(item);
-                                FU.deleteForm(item.getIdGarden(), item.getIdFormCollection());
-                                notifyDataSetChanged();
-                                 */
                             }
                         }).create().show();
             }

@@ -1,6 +1,7 @@
 package com.example.opcv.business.persistance.repository.local_db;
 
 import android.content.Context;
+import android.os.FileUtils;
 import android.util.JsonWriter;
 import android.util.Log;
 import android.widget.Toast;
@@ -14,6 +15,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -124,38 +127,55 @@ public class LocalDatabase implements LocalDatabaseI {
         return null;
     }
 
-    public void deleteInfoJson(String idGarden,Map<String, Object> infoForm) throws IOException, JSONException {
+    public void deleteInfoJson(String idGarden, Map<String, Object> infoForm) throws IOException, JSONException {
         File gardenDir = new File(context.getExternalFilesDir(null), "Gardenforms/" + idGarden);
-        if(gardenDir.exists()) {
+        if (gardenDir.exists()) {
             File infoFormFile = new File(gardenDir, "infoForm.json");
             if (infoFormFile.exists()) {
-                FileInputStream inputStream = new FileInputStream(infoFormFile);
-                String jsonString = new Scanner(inputStream).useDelimiter("\\A").next();
-                JSONArray jsonArray = new JSONArray(new JSONTokener(jsonString));
-                List<Map<String,Object>> formsListResult = new ArrayList<>();
-                for( int i = 0 ;  i < jsonArray.length() ; i++){
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    Map<String, Object> map = new HashMap<>();
-                    Iterator<String> keys = jsonObject.keys();
-                    while(keys.hasNext()){
-                        String key = keys.next();
-                        if (!key.equals("nameForm") && !key.equals("idForm") && !key.equals("Date")) {
-                            map.put(key, jsonObject.get(key));
-                        }
-                        if (jsonObject.getString("nameForm").equals(infoForm.get("nameForm"))
-                                && jsonObject.getString("idForm").equals(infoForm.get("idForm"))
-                                && jsonObject.getString("Date").equals(infoForm.get("Date"))) {
-                            Log.i("DELETE-JSON", "SE ENCONTRO EL ELEMENTO EN EL JSON");
-                        }else{
-                            formsListResult.add(map);
-                        }
+                BufferedReader reader = null;
+                StringBuilder jsonBuilder = new StringBuilder();
+                try {
+                    reader = new BufferedReader(new FileReader(infoFormFile));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        jsonBuilder.append(line).append('\n');
                     }
-                    FileWriter fileWriter = new FileWriter(infoFormFile);
-                    fileWriter.write(new JSONArray(formsListResult).toString());
-                    fileWriter.flush();
-                    fileWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if (reader != null) {
+                        reader.close();
+                    }
+                }
+                String json = jsonBuilder.toString();
+                String date = (String) infoForm.get("Date");
+                String createdBy = (String) infoForm.get("CreatedBy");
+                String idForm = (String) infoForm.get("idForm");
+                JSONArray jsonArray = new JSONArray(json);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    String jsonDate = jsonObject.getString("Date");
+                    String jsonCreatedBy = jsonObject.getString("CreatedBy");
+                    String jsonIdForm = jsonObject.getString("idForm");
+                    if (jsonDate.equals(date) && jsonCreatedBy.equals(createdBy) && jsonIdForm.equals(idForm)) {
+                        jsonArray.remove(i);
+                        FileOutputStream fos = null;
+                        try {
+                            fos = new FileOutputStream(infoFormFile);
+                            fos.write(jsonArray.toString(2).getBytes("UTF-8"));
+                            fos.flush();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } finally {
+                            if (fos != null) {
+                                fos.close();
+                            }
+                        }
+                        break;
+                    }
                 }
             }
         }
     }
+
 }
