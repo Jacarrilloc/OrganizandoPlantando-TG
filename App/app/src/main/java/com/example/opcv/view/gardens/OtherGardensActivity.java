@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -175,8 +177,13 @@ public class OtherGardensActivity extends AppCompatActivity {
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent edit = new Intent(OtherGardensActivity.this, DictionaryHomeActivity.class);
-                startActivity(edit);
+                if(isOnline()){
+                    Intent edit = new Intent(OtherGardensActivity.this, DictionaryHomeActivity.class);
+                    startActivity(edit);
+                }
+                else{
+                    Toast.makeText(OtherGardensActivity.this, "Para acceder necesitas conexión a internet", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -228,6 +235,12 @@ public class OtherGardensActivity extends AppCompatActivity {
     private void fillSreen(GardenInfo gardenInfo){
         nameGarden.setText(gardenInfo.getName());
         descriptionGarden.setText(gardenInfo.getInfo());
+    }
+    private boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
     @Override
     protected void attachBaseContext(Context newBase) {

@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +16,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.TrafficStats;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -73,6 +76,7 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseFirestore database;
     private Animation animSlideUp;
 
+    private ProgressDialog progressDialog;
 
     private ProgressBar progressBar;
 
@@ -168,6 +172,17 @@ public class HomeActivity extends AppCompatActivity {
         generateReport = (ImageButton) findViewById(R.id.generalReport);
         ludification = (Button) findViewById(R.id.ludification);
 
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            String previous = getIntent().getStringExtra("previusScreen");
+            if(previous != null){
+                if(previous.equals("true")){
+                    showProgressDialog(3000);
+                    hideProgressDialog();
+                }
+            }
+        }
+
         userId = getIntent().getStringExtra("userID");
         AuthCommunication authCommunication = new AuthCommunication();
         FirebaseUser user = authCommunication.guestUser();
@@ -224,8 +239,13 @@ public class HomeActivity extends AppCompatActivity {
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent edit = new Intent(HomeActivity.this, DictionaryHomeActivity.class);
-                startActivity(edit);
+                if(isOnline()){
+                    Intent edit = new Intent(HomeActivity.this, DictionaryHomeActivity.class);
+                    startActivity(edit);
+                }
+                else{
+                    Toast.makeText(HomeActivity.this, "Para acceder necesitas conexión a internet", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -396,5 +416,26 @@ public class HomeActivity extends AppCompatActivity {
                 (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    private void showProgressDialog(int durationMs) {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Cargando...");
+        progressDialog.setMessage("Espera un momento, estamos configurando tu cuenta");
+        progressDialog.setCancelable(false);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.show();
+
+    }
+    private void hideProgressDialog() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                    progressDialog = null;
+                }
+            }
+        }, 4000);
     }
 }

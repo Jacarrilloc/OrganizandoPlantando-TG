@@ -21,6 +21,8 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -264,8 +266,13 @@ public class EditUserActivity extends AppCompatActivity {
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent edit = new Intent(EditUserActivity.this, DictionaryHomeActivity.class);
-                startActivity(edit);
+                if(isOnline()){
+                    Intent edit = new Intent(EditUserActivity.this, DictionaryHomeActivity.class);
+                    startActivity(edit);
+                }
+                else{
+                    Toast.makeText(EditUserActivity.this, "Para acceder necesitas conexión a internet", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -439,6 +446,12 @@ public class EditUserActivity extends AppCompatActivity {
     }
     public interface GetUriUser{
         void onSuccess(String uri);
+    }
+    private boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
     @Override
     protected void attachBaseContext(Context newBase) {
