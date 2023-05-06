@@ -76,16 +76,11 @@ public class GardenActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null && currentUser.isAnonymous()) {
-            FirebaseAuth.getInstance().signOut();
-        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        FirebaseAuth.getInstance().signOut();
     }
 
     @Override
@@ -221,7 +216,9 @@ public class GardenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(user != null && !user.isAnonymous()){
-                    startActivity(new Intent(GardenActivity.this, EditUserActivity.class));
+                    Intent start = new Intent(GardenActivity.this, EditUserActivity.class);
+                    start.putExtra("userInfo", id);
+                    startActivity(start);
                 }
                 else{
                     Toast.makeText(GardenActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();

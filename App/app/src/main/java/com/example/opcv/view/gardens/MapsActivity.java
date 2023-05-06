@@ -46,16 +46,11 @@ public class MapsActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null && currentUser.isAnonymous()) {
-            FirebaseAuth.getInstance().signOut();
-        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        FirebaseAuth.getInstance().signOut();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
