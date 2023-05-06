@@ -41,6 +41,7 @@ import android.widget.Toast;
 //import com.bumptech.glide.Glide;
 import com.bumptech.glide.Glide;
 import com.example.opcv.view.base.HomeActivity;
+import com.example.opcv.view.gardens.GardenActivity;
 import com.example.opcv.view.gardens.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.business.persistance.firebase.AuthCommunication;
@@ -224,7 +225,9 @@ public class EditUserActivity extends AppCompatActivity {
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(EditUserActivity.this, HomeActivity.class));
+                Intent start = new Intent(EditUserActivity.this, HomeActivity.class);
+                start.putExtra("userID", userID_Recived);
+                startActivity(start);
             }
         });
 
