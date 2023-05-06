@@ -180,7 +180,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:translationZ="5dp">
+            android:translationZ="5dp"
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -327,9 +328,10 @@
                 <ListView
                     android:id="@+id/listViewComments"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_600sdp"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/_1sdp"
-                    android:layout_marginTop="@dimen/_25sdp" />
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:paddingBottom="@dimen/_60sdp"/>
 
 
             </LinearLayout>
