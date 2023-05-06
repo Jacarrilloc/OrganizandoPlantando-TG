@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.Map;
 
@@ -28,4 +29,26 @@ public class FirebaseDatabase implements FirebaseDatabaseI {
             }
         });
     }
+
+    public void deleteInDatabase(String idGarden, Map<String, Object> infoForm) {
+        String date = (String) infoForm.get("Date");
+        String createdBy = (String) infoForm.get("CreatedBy");
+        int idForm = (int) Integer.parseInt((String) infoForm.get("idForm"));
+        mFirestore.collection("Gardens").document(idGarden).collection("Forms").get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        if(date.equals(documentSnapshot.getString("Date")) && createdBy.equals(documentSnapshot.getString("CreatedBy")) && idForm == documentSnapshot.getLong("idForm")){
+                            Log.i("resultDoc","Documento para borrar Encontado con el ID: " + documentSnapshot.getId());
+                            mFirestore.collection("Gardens").document(idGarden).collection("Forms").document(documentSnapshot.getId()).delete();
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firestore", "Error al obtener los documentos", e);
+                });
+
+
+
+    }
+
 }

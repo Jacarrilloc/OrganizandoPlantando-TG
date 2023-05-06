@@ -53,11 +53,21 @@ public class FormsRepository {
     }
 
     public void deleteInfoDatabase(String idGarden,Map<String, Object> infoForm) throws IOException, JSONException {
-        if(isOnline()){
-
-        }
         LocalDatabase deleteInfoLocal = new LocalDatabase(mContext);
         deleteInfoLocal.deleteInfoJson(idGarden,infoForm);
+
+        new Thread(() -> {
+            while (!isOnline()) {
+                try {
+                    Thread.sleep(1000); // Esperar 1 segundo antes de verificar de nuevo
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            FirebaseDatabase onlineDB = new FirebaseDatabase();
+            onlineDB.deleteInDatabase(idGarden,infoForm);
+        }).start();
     }
 
     public List<Map<String,Object>> getInfoForms(String idGarden, String formName) throws FileNotFoundException, JSONException {
