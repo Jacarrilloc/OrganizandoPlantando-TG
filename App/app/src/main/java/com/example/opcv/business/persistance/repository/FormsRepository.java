@@ -74,7 +74,18 @@ public class FormsRepository {
         LocalDatabase updateInfo = new LocalDatabase(mContext);
         updateInfo.updateInfoJson(idGarden,newInfoForm);
         if(isOnline()){
+            new Thread(() -> {
+                while (!isOnline()) {
+                    try {
+                        Thread.sleep(1000); // Esperar 1 segundo antes de verificar de nuevo
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
 
+                FirebaseDatabase onlineDB = new FirebaseDatabase();
+                onlineDB.updateInDatabase(idGarden,newInfoForm);
+            }).start();
         }
     }
 

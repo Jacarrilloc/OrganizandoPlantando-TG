@@ -59,8 +59,11 @@ public class Forms {
     public void updateInfoForm(Map<String,Object> oldInfo,Map<String,Object> newInfo,String idGraden) throws JSONException, IOException {
         boolean areEqual = oldInfo.equals(newInfo);
         if(!areEqual){
+            Log.i("Update-Form","Existen Cambios en el Formulario, se Procede a Actualizar");
             FormsRepository updateInfo = new FormsRepository(context);
             updateInfo.updateInfoDatabase(idGraden,newInfo);
+        }else{
+            Log.i("Update-Form","No hay Cambios en el formulario, no se Actualiza la Información");
         }
     }
 
