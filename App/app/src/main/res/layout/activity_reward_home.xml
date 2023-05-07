@@ -97,7 +97,6 @@
                             android:fontFamily="@font/manropemedium"
                             android:textSize="@dimen/_12sdp"
                             android:textAllCaps="false"
-                            android:visibility="gone"
                             android:background="@drawable/dr_bk_shadow"
                             android:elevation="@dimen/_4sdp"
                             android:backgroundTint="#FFE1E1"

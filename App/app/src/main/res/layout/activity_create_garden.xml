@@ -18,26 +18,25 @@
 
             <TextView
                 android:id="@+id/alert"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_130sdp"
-                android:layout_marginTop="@dimen/_70sdp"
-                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_15sdp"
                 android:background="@drawable/im_comment"
                 android:paddingBottom="@dimen/_35sdp"
-                android:paddingTop="@dimen/_10sdp"
-                android:paddingStart="@dimen/_10sdp"
+                android:paddingStart="@dimen/_12sdp"
                 android:paddingEnd="@dimen/_10sdp"
                 android:clickable="false"
                 android:elevation="@dimen/_580sdp"
                 android:layout_marginEnd="@dimen/_30sdp"
                 android:layout_marginBottom="@dimen/_70sdp"
-                android:gravity="start"
+                android:gravity="center_vertical"
                 android:text="@string/debes_subir_nivel"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray"
                 android:textSize="@dimen/_20sdp"
                 android:visibility="gone"
-                android:fontFamily="@font/manropemedium"/>
+                android:fontFamily="@font/manroperegular"/>
 
 
         <ScrollView

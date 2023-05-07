@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".view.ludification.MoonCalendarActivity">
+    android:orientation="vertical"
+    android:focusableInTouchMode="true"
+    tools:context=".view.ludification.ShowInfoLvl2Activity">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="0.9">
 
         <ScrollView
@@ -20,76 +21,58 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/_20sdp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/manropemedium"
-                    android:text="@string/calendario_lunar"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/_30sdp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/im_cute_moon"
-                    android:layout_gravity="center"
-                    />
-
-                <CalendarView
-                    android:id="@+id/calendarView"
-                    android:layout_margin="@dimen/_20sdp"
-                    android:theme="@style/AppTheme"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/moonphaseTittle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/manropesemibold"
-                    android:textSize="@dimen/_15sdp"
-                    android:textColor="@color/black"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginEnd="@dimen/_20sdp"/>
-
-                <LinearLayout
+                    android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
+                    android:text="@string/agrega_la_foto_de_tu_huerta"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:orientation="horizontal">
+                    android:fontFamily="@font/manropemedium"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="30sp" />
 
-                    <ImageView
-                        android:id="@+id/moonPhase"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="2"/>
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/im_cirles_menu" />
 
-                    <TextView
-                        android:id="@+id/moon_phase_textview"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        android:fontFamily="@font/manroperegular"
-                        android:textSize="@dimen/_11sdp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:text="@string/al_ser_nivel_2_ya_puedes_agregar_una_foto_de_tu_huerta_n_n_con_esto_podr_s_perzonalizar_la_descripci_n_de_tu_huerta_y_ser_m_s_llamativa_para_otras_personas"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:fontFamily="@font/manropemedium"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
 
-                </LinearLayout>
+                <ImageView
+                    android:id="@+id/addImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:src="@drawable/im_people_garden"
+                    android:scaleType="centerCrop" />
 
             </LinearLayout>
 
         </ScrollView>
+
+
 
     </FrameLayout>
 

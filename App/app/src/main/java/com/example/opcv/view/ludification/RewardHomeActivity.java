@@ -27,7 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class RewardHomeActivity extends AppCompatActivity {
 
-    private Button profile, myGardens, rewards, ludification, lvl1, lvl2, lvl3, lvl4, lvl5;
+    private Button profile, myGardens, ludification, lvl1, lvl2, lvl3, lvl4, lvl5;
     int lv;
 
 
@@ -37,7 +37,6 @@ public class RewardHomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reward_home);
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
-        rewards = (Button) findViewById(R.id.rewards);
         ludification = (Button) findViewById(R.id.ludification);
         lvl1 = (Button) findViewById(R.id.level1);
         lvl2 = (Button) findViewById(R.id.level2);
@@ -58,7 +57,8 @@ public class RewardHomeActivity extends AppCompatActivity {
         lvl2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("hola");
+                Intent lvl2 = new Intent(RewardHomeActivity.this, ShowInfoLvl2Activity.class);
+                startActivity(lvl2);
             }
         });
 
@@ -116,12 +116,7 @@ public class RewardHomeActivity extends AppCompatActivity {
             }
         });
 
-        rewards.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(RewardHomeActivity.this, RewardHomeActivity.class));
-            }
-        });
+
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

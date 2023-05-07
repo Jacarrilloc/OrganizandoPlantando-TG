@@ -275,4 +275,6 @@
     <string name="enfermedades_comunes">Enfermedades comunes</string>
     <string name="usos_org_nicos">Usos orgánicos</string>
     <string name="calendario">Calendario</string>
+    <string name="agrega_la_foto_de_tu_huerta">¡Agrega la foto de tu huerta!</string>
+    <string name="al_ser_nivel_2_ya_puedes_agregar_una_foto_de_tu_huerta_n_n_con_esto_podr_s_perzonalizar_la_descripci_n_de_tu_huerta_y_ser_m_s_llamativa_para_otras_personas">Al ser nivel 2 ya puedes agregar una foto de tu huerta. \n\n Con esto podrás perzonalizar la descripción de tu huerta y ser más llamativa para otras personas.</string>
 </resources>
