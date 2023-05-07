@@ -4,13 +4,24 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.opcv.R;
 import com.example.opcv.business.ludification.MoonCalendar;
+import com.example.opcv.business.persistance.firebase.AuthCommunication;
+import com.example.opcv.view.auth.EditUserActivity;
+import com.example.opcv.view.auth.SignOffActivity;
+import com.example.opcv.view.base.HomeActivity;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -25,6 +36,7 @@ public class MoonCalendarActivity extends AppCompatActivity {
     private CalendarView calendarView;
     private TextView moonPhaseTextView, moonPhaseTittle;
     private ImageView phaseMoon;
+    private Button profile, myGardens, rewards, ludification;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -36,6 +48,11 @@ public class MoonCalendarActivity extends AppCompatActivity {
         moonPhaseTextView = findViewById(R.id.moon_phase_textview);
         phaseMoon = findViewById(R.id.moonPhase);
         moonPhaseTittle = findViewById(R.id.moonphaseTittle);
+        profile = (Button) findViewById(R.id.profile);
+        myGardens = (Button) findViewById(R.id.myGardens);
+        rewards = (Button) findViewById(R.id.rewards);
+        ludification = (Button) findViewById(R.id.ludification);
+
 
         MoonCalendar moonCalendar = new MoonCalendar();
 
@@ -58,6 +75,53 @@ public class MoonCalendarActivity extends AppCompatActivity {
             }
         });
 
+        myGardens.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MoonCalendarActivity.this, HomeActivity.class));
+            }
+        });
+
+
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent edit = new Intent(MoonCalendarActivity.this, EditUserActivity.class);
+                AuthCommunication auth = new AuthCommunication();
+                String userId = auth.getCurrentUserUid();
+                edit.putExtra("userInfo", userId);
+                startActivity(edit);
+
+            }
+        });
+
+        rewards.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MoonCalendarActivity.this, RewardHomeActivity.class));
+            }
+        });
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isOnline()){
+                    Intent edit = new Intent(MoonCalendarActivity.this, DictionaryHomeActivity.class);
+                    startActivity(edit);
+                }
+                else{
+                    Toast.makeText(MoonCalendarActivity.this, "Para acceder necesitas conexión a internet", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+    private boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     @SuppressLint("SetTextI18n")
