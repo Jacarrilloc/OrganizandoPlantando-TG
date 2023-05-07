@@ -69,7 +69,7 @@ public class Level {
     public boolean levelTwoReward(String level){
         int resp = Integer.parseInt(level);
 
-        if(resp >= levelTwo){
+        if(resp >= levelOne){
             return true;
         }
         else{

@@ -112,20 +112,12 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null && currentUser.isAnonymous()) {
-            FirebaseAuth.getInstance().signOut();
-        }
         fillGardenUser();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null && currentUser.isAnonymous()) {
-            FirebaseAuth.getInstance().signOut();
-        }
     }
 
     @Override
@@ -181,6 +173,7 @@ public class HomeActivity extends AppCompatActivity {
                     hideProgressDialog();
                 }
             }
+
         }
 
         userId = getIntent().getStringExtra("userID");
