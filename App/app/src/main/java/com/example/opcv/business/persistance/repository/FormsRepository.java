@@ -70,8 +70,12 @@ public class FormsRepository {
         }).start();
     }
 
-    public void updateInfoDatabase(String idGarden,Map<String, Object> infoForm){
+    public void updateInfoDatabase(String idGarden,Map<String, Object> newInfoForm) throws JSONException, IOException {
+        LocalDatabase updateInfo = new LocalDatabase(mContext);
+        updateInfo.updateInfoJson(idGarden,newInfoForm);
+        if(isOnline()){
 
+        }
     }
 
     public List<Map<String,Object>> getInfoForms(String idGarden, String formName) throws FileNotFoundException, JSONException {

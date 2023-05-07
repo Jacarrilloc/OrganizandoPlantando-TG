@@ -12,6 +12,7 @@ import org.json.JSONException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,6 +54,14 @@ public class Forms {
             Toast.makeText(context, "No hay Informacion en la Base de datos local " , Toast.LENGTH_SHORT).show();
         }
         return itemRegistersList;
+    }
+
+    public void updateInfoForm(Map<String,Object> oldInfo,Map<String,Object> newInfo,String idGraden) throws JSONException, IOException {
+        boolean areEqual = oldInfo.equals(newInfo);
+        if(!areEqual){
+            FormsRepository updateInfo = new FormsRepository(context);
+            updateInfo.updateInfoDatabase(idGraden,newInfo);
+        }
     }
 
     public void deleteInfo(String idGarden, Map<String, Object> infoForm) throws IOException, JSONException {

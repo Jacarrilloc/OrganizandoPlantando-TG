@@ -127,6 +127,11 @@ public class LocalDatabase implements LocalDatabaseI {
         return null;
     }
 
+    public void updateInfoJson(String idGraden,Map<String,Object> newInfo) throws JSONException, IOException {
+        deleteInfoJson(idGraden, newInfo);
+        createJsonForm(idGraden, newInfo);
+    }
+
     public void deleteInfoJson(String idGarden, Map<String, Object> infoForm) throws IOException, JSONException {
         File gardenDir = new File(context.getExternalFilesDir(null), "Gardenforms/" + idGarden);
         if (gardenDir.exists()) {
