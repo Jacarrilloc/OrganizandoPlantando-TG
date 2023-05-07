@@ -70,6 +70,10 @@ public class FormsRepository {
         }).start();
     }
 
+    public void updateInfoDatabase(String idGarden,Map<String, Object> infoForm){
+
+    }
+
     public List<Map<String,Object>> getInfoForms(String idGarden, String formName) throws FileNotFoundException, JSONException {
         if(isOnline()){
             //Aqui debe ir el llamado a un metodo que actualice los datos del json con la informacion de Firebase

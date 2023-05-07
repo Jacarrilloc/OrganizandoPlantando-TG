@@ -46,9 +46,6 @@ public class FirebaseDatabase implements FirebaseDatabaseI {
                 .addOnFailureListener(e -> {
                     Log.e("Firestore", "Error al obtener los documentos", e);
                 });
-
-
-
     }
 
 }

@@ -15,6 +15,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -105,12 +106,9 @@ public class Form_CIH extends AppCompatActivity {
             showMapInfo(infoForm,watch);
 
         } else if (watch.equals("edit")) {
-            formsUtilities = new FormsCommunication();
-
-            idGarden = getIntent().getStringExtra("idGardenFirebase");
-            idCollection = getIntent().getStringExtra("idCollecion");
-            showInfo(idGarden, idCollection, "edit");
-            addFormButtom.setText("Aceptar cambios");
+            //Aqui es cuando se quiere editar la Informacion del Usuario
+            Map<String, Object> infoForm = (Map<String, Object>) getIntent().getSerializableExtra("idCollecion");
+            showMapInfo(infoForm,watch);
 
         }
         else if (watch.equals("create")){
@@ -202,33 +200,42 @@ public class Form_CIH extends AppCompatActivity {
     }
 
     private void showMapInfo(Map<String, Object> info,String status){
-        addFormButtom.setVisibility(View.INVISIBLE);
-        addFormButtom.setClickable(false);
-        spinner2.setEnabled(false);
-        spinnerConcept.setEnabled(false);
-        tool.setEnabled(false);
-        toolQuantity.setEnabled(false);
-        toolStatus.setEnabled(false);
-        preexistingTool.setEnabled(false);
-        tool.setText((CharSequence) info.get("tool"));
-        toolQuantity.setText((CharSequence) info.get("toolQuantity"));
-        toolStatus.setText((CharSequence) info.get("toolQuantity"));
-        preexistingTool.setText((CharSequence) info.get("existenceQuantity"));
-        if(status.equals("true")){
-            spinnerConcept.setVisibility(View.GONE);
-            spinner2.setVisibility(View.GONE);
+        switch (status){
+            case "true":
+                addFormButtom.setVisibility(View.GONE);
+                spinner2.setEnabled(false);
+                spinnerConcept.setEnabled(false);
+                tool.setEnabled(false);
+                toolQuantity.setEnabled(false);
+                toolStatus.setEnabled(false);
+                preexistingTool.setEnabled(false);
+                tool.setText((CharSequence) info.get("tool"));
+                toolQuantity.setText((CharSequence) info.get("toolQuantity"));
+                toolStatus.setText((CharSequence) info.get("toolQuantity"));
+                preexistingTool.setText((CharSequence) info.get("existenceQuantity"));
+                if (status.equals("true")) {
+                    spinnerConcept.setVisibility(View.GONE);
+                    spinner2.setVisibility(View.GONE);
 
-            TextView infoConcetSpinner = findViewById(R.id.spinnerConceptElementView);
-            TextView infoToolSpinner = findViewById(R.id.toolSpinnerInfo);
+                    TextView infoConcetSpinner = findViewById(R.id.spinnerConceptElementView);
+                    TextView infoToolSpinner = findViewById(R.id.toolSpinnerInfo);
 
-            infoConcetSpinner.setVisibility(View.VISIBLE);
-            infoToolSpinner.setVisibility(View.VISIBLE);
+                    infoConcetSpinner.setVisibility(View.VISIBLE);
+                    infoToolSpinner.setVisibility(View.VISIBLE);
 
-            String incomingOutgoingData = (String) info.get("incomingOutgoing");
-            String conceptData = (String) info.get("concept");
+                    String incomingOutgoingData = (String) info.get("incomingOutgoing");
+                    String conceptData = (String) info.get("concept");
 
-            infoConcetSpinner.setText(conceptData);
-            infoToolSpinner.setText(incomingOutgoingData);
+                    infoConcetSpinner.setText(conceptData);
+                    infoToolSpinner.setText(incomingOutgoingData);
+                }
+                break;
+            case "edit":
+                Toast.makeText(this, "Pantalla Editable", Toast.LENGTH_SHORT).show();
+                addFormButtom.setText("Aceptar cambios");
+                break;
+            default:
+                Log.i("Error","No se reconoce la Accion");
         }
     }
 

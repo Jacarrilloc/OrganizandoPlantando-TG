@@ -192,6 +192,20 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int formType = Integer.parseInt((String) item.getInfo().get("idForm"));
+                switch (formType){
+                    case 10:
+                        Intent newForm = new Intent(context, Form_CIH.class);
+                        newForm.putExtra("watch","edit");
+                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
+                        newForm.putExtra("idCollecion", (Serializable) item.getInfo());
+                        newForm.putExtra("Name",item.getFormName());
+                        context.startActivity(newForm);
+                        break;
+                    default:
+                        Log.i("LOCALFORM","NO SE RECONOCE EL ID DE ESTE FORM");
+                        break;
+                }
                 //FU.editForms(item.idGarden, item.idFormCollection, item.getFormName());
                 /*
                 int form;
