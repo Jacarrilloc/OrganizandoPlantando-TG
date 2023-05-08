@@ -31,6 +31,7 @@ public class guestLoginActivity extends AppCompatActivity {
                 auth.guestLogin(guestLoginActivity.this);
                 Intent intent = new Intent(guestLoginActivity.this, GardensAvailableActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("previusScreen", "false");
                 startActivity(intent);
             }
         });

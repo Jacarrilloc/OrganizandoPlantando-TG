@@ -80,5 +80,5 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'com.google.code.gson:gson:2.8.8'
     implementation 'com.itextpdf:itextg:5.5.10'
-
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 }

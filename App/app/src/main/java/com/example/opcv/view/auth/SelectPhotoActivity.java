@@ -201,6 +201,7 @@ public class SelectPhotoActivity extends AppCompatActivity {
         Intent intent = new Intent(SelectPhotoActivity.this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("previusScreen", "true");
+
         startActivity(intent);
     }
     @Override

@@ -175,10 +175,7 @@ public class HomeActivity extends AppCompatActivity {
             }
 
         }
-
         userId = getIntent().getStringExtra("userID");
-        AuthCommunication authCommunication = new AuthCommunication();
-        FirebaseUser user = authCommunication.guestUser();
 
 
         if (userId == null){
@@ -212,7 +209,8 @@ public class HomeActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(user != null && !user.isAnonymous()){
+                FirebaseUser us = FirebaseAuth.getInstance().getCurrentUser();
+                if(us != null && !us.isAnonymous()){
                     startActivity(new Intent(HomeActivity.this, CreateGardenActivity.class));
                 }
                 else{
@@ -246,7 +244,8 @@ public class HomeActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(user != null && !user.isAnonymous()){
+                FirebaseUser us = FirebaseAuth.getInstance().getCurrentUser();
+                if(us != null && !us.isAnonymous()){
                     if(userId != null) {
                         Intent edit = new Intent(HomeActivity.this, EditUserActivity.class);
                         edit.putExtra("userInfo", userId);
@@ -270,7 +269,8 @@ public class HomeActivity extends AppCompatActivity {
         rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(user != null && !user.isAnonymous()){
+                FirebaseUser us = FirebaseAuth.getInstance().getCurrentUser();
+                if(us != null && !us.isAnonymous()){
                     startActivity(new Intent(HomeActivity.this, RewardHomeActivity.class));
                 }
                 else{
@@ -282,7 +282,8 @@ public class HomeActivity extends AppCompatActivity {
         collaboration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(user != null && !user.isAnonymous()){
+                FirebaseUser us = FirebaseAuth.getInstance().getCurrentUser();
+                if(us != null && !us.isAnonymous()){
                     Intent edit = new Intent(HomeActivity.this, CollaboratorGardensActivity.class);
                     edit.putExtra("userID", userId);
                     startActivity(edit);
@@ -296,7 +297,8 @@ public class HomeActivity extends AppCompatActivity {
         generateReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(user != null && !user.isAnonymous()){
+                FirebaseUser us = FirebaseAuth.getInstance().getCurrentUser();
+                if(us != null && !us.isAnonymous()){
                     Intent requests = new Intent(HomeActivity.this, GenerateReportsActivity.class);
                     requests.putExtra("idGardenFirebaseDoc","null");
                     requests.putExtra("idUser","null");
