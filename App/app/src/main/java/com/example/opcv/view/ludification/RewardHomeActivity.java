@@ -3,27 +3,19 @@ package com.example.opcv.view.ludification;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.opcv.R;
-import com.example.opcv.business.ludification.Level;
 import com.example.opcv.business.persistance.firebase.AuthCommunication;
 import com.example.opcv.business.persistance.firebase.UserCommunication;
-import com.example.opcv.business.persistance.firebase.LudificationCommunication;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.view.base.HomeActivity;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class RewardHomeActivity extends AppCompatActivity {
 
@@ -50,7 +42,8 @@ public class RewardHomeActivity extends AppCompatActivity {
         lvl1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("Hola");
+                Intent guides = new Intent(RewardHomeActivity.this, ShowGuidesLevelOneActivity.class);
+                startActivity(guides);
             }
         });
 
@@ -72,7 +65,8 @@ public class RewardHomeActivity extends AppCompatActivity {
         lvl4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("hola");
+                Intent guides = new Intent(RewardHomeActivity.this, ShowLevelTwoGuidesActivity.class);
+                startActivity(guides);
             }
         });
 

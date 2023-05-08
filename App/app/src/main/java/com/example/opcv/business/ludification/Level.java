@@ -77,38 +77,4 @@ public class Level {
         }
     }
 
-    public boolean checkLevel(int level, String reward){
-        switch (reward){
-            case "Reward2":
-                if(level >= levelOne){
-                    return true;
-                }
-                else{
-                    return false;
-                }
-            case "Reward3":
-                if(level >= levelTwo){
-                    return true;
-                }
-                else{
-                    return false;
-                }
-            case "Reward4":
-                if(level >= levelThree){
-                    return true;
-                }
-                else{
-                    return false;
-                }
-            case "Reward5":
-                if(level == levelFour){
-                    return true;
-                }
-                else{
-                    return false;
-                }
-            default:
-                return false;
-        }
-    }
 }
