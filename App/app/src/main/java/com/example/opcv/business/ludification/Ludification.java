@@ -1,6 +1,7 @@
 package com.example.opcv.business.ludification;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.widget.Toast;
 
 import com.example.opcv.business.persistance.firebase.LudificationCommunication;
@@ -91,6 +92,9 @@ public class Ludification {
         }catch (Exception e){
             Toast.makeText(context, "Ocurrió un error al subir el comentario, intente de nuevo.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void downloadGuide(){
     }
 
 }
