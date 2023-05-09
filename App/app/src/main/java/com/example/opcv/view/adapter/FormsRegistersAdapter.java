@@ -12,23 +12,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.opcv.R;
 import com.example.opcv.business.forms.Forms;
-import com.example.opcv.business.persistance.firebase.FormsCommunication;
 import com.example.opcv.view.forms.Form_CIH;
-import com.example.opcv.view.forms.Form_CPS;
-import com.example.opcv.view.forms.Form_IMP;
-import com.example.opcv.view.forms.Form_RAC;
-import com.example.opcv.view.forms.Form_RCC;
-import com.example.opcv.view.forms.Form_RHC;
-import com.example.opcv.view.forms.Form_RRH;
-import com.example.opcv.view.forms.Form_RSMP;
-import com.example.opcv.view.forms.Form_SCMPH;
-import com.example.opcv.view.forms.Form_RE;
 import com.example.opcv.model.items.ItemRegistersList;
 
 import org.json.JSONException;
@@ -37,7 +26,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
 public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
     private TextView dateText,procesName;
@@ -74,7 +62,8 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
         seeMoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int formType = Integer.parseInt((String) item.getInfo().get("idForm"));
+                String idFormString = item.getInfo().get("idForm").toString();
+                int formType = Integer.parseInt(idFormString);
                 switch (formType){
                     case 10:
                         Intent newForm = new Intent(context, Form_CIH.class);
@@ -192,7 +181,7 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int formType = Integer.parseInt((String) item.getInfo().get("idForm"));
+                int formType = ((Integer) item.getInfo().get("idForm")).intValue();
                 switch (formType){
                     case 10:
                         Intent newForm = new Intent(context, Form_CIH.class);

@@ -1,21 +1,20 @@
-package com.example.opcv.business.persistance.repository;
+package com.example.opcv.model.persistance.repository;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.example.opcv.business.notifications.Notifications;
-import com.example.opcv.business.persistance.repository.local_db.LocalDatabase;
-import com.example.opcv.business.persistance.repository.local_db.LocalDatabaseI;
-import com.example.opcv.business.persistance.repository.remote_db.FirebaseDatabase;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.example.opcv.model.persistance.repository.local_db.LocalDatabase;
+import com.example.opcv.model.persistance.repository.remote_db.FirebaseDatabase;
+import com.example.opcv.model.persistance.repository.remote_db.ResultAsyncTask;
 
 import org.json.JSONException;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -89,12 +88,36 @@ public class FormsRepository {
         }
     }
 
-    public List<Map<String,Object>> getInfoForms(String idGarden, String formName) throws FileNotFoundException, JSONException {
-        if(isOnline()){
-            //Aqui debe ir el llamado a un metodo que actualice los datos del json con la informacion de Firebase
+    private boolean dataObtained = false;
+
+    public List<Map<String, Object>> getInfoForms(String idGarden, String formName) throws IOException, JSONException {
+        List<Map<String, Object>> infoJsonForms = null;
+
+        if (isOnline()) {
+            // Verifica si los datos ya han sido obtenidos antes de hacer una nueva consulta a la base de datos
+            if (!dataObtained) {
+                ResultAsyncTask task = new ResultAsyncTask(idGarden, formName, mContext);
+                task.execute();
+
+                try {
+                    task.get(); // espera a que la tarea se complete
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                LocalDatabase info = new LocalDatabase(mContext);
+                // Obtiene los datos de la base de datos y los almacena en una variable o estructura de datos
+                infoJsonForms = info.getInfoJsonForms(idGarden, formName);
+
+                // Actualiza la variable booleana para indicar que los datos ya han sido obtenidos
+                dataObtained = true;
+            }
+        } else {
+            LocalDatabase info = new LocalDatabase(mContext);
+            infoJsonForms = info.getInfoJsonForms(idGarden, formName);
         }
-        LocalDatabase infoForm = new LocalDatabase(mContext);
-        return infoForm.getInfoJsonForms(idGarden,formName);
+
+        return infoJsonForms;
     }
 
     private boolean isOnline() {

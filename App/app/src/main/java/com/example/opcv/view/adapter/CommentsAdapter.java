@@ -19,8 +19,8 @@ import com.bumptech.glide.Glide;
 import com.example.opcv.R;
 import com.example.opcv.business.ludification.Level;
 import com.example.opcv.model.items.ItemComments;
-import com.example.opcv.business.persistance.firebase.LudificationCommunication;
-import com.example.opcv.business.persistance.firebase.UserCommunication;
+import com.example.opcv.model.persistance.firebase.LudificationCommunication;
+import com.example.opcv.model.persistance.firebase.UserCommunication;
 
 import java.util.List;
 import java.util.Objects;

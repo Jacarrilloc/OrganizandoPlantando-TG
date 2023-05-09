@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -16,22 +15,19 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.opcv.view.auth.SignOffActivity;
 import com.example.opcv.view.base.HomeActivity;
-import com.example.opcv.view.gardens.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.adapter.PlantsToolsAdapter;
 import com.example.opcv.view.auth.EditUserActivity;
-import com.example.opcv.business.persistance.firebase.AuthCommunication;
+import com.example.opcv.model.persistance.firebase.AuthCommunication;
 import com.example.opcv.model.items.ItemPlantsTools;
-import com.example.opcv.business.persistance.firebase.LudificationCommunication;
+import com.example.opcv.model.persistance.firebase.LudificationCommunication;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;

@@ -15,16 +15,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.opcv.business.persistance.firebase.UserCommunication;
+import com.example.opcv.model.persistance.firebase.UserCommunication;
 import com.example.opcv.view.base.HomeActivity;
-import com.example.opcv.view.gardens.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.view.ludification.RewardHomeActivity;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DeleteAccountActivity extends AppCompatActivity {
 

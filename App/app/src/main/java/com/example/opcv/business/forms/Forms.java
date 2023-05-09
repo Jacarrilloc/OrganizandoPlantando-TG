@@ -2,17 +2,14 @@ package com.example.opcv.business.forms;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.example.opcv.business.persistance.firebase.UserCommunication;
-import com.example.opcv.business.persistance.repository.FormsRepository;
+import com.example.opcv.model.persistance.firebase.UserCommunication;
+import com.example.opcv.model.persistance.repository.FormsRepository;
 import com.example.opcv.model.items.ItemRegistersList;
 
 import org.json.JSONException;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,7 +34,7 @@ public class Forms {
         info.insertForm(infoForm,idGraden);
     }
 
-    public List<ItemRegistersList> getInfoForms(String idGarden, String formName) throws FileNotFoundException, JSONException {
+    public List<ItemRegistersList> getInfoForms(String idGarden, String formName) throws IOException, JSONException {
         FormsRepository info = new FormsRepository(context);
         List<Map<String,Object>> infoResult = info.getInfoForms(idGarden, formName);
         List<ItemRegistersList> itemRegistersList = new ArrayList<>();
@@ -49,9 +46,9 @@ public class Forms {
                 ItemRegistersList item = new ItemRegistersList(idGarden, register_name, infoForm, date);
                 itemRegistersList.add(item);
             }
-            Toast.makeText(context, "Tamaño en Forms: " + infoResult.size(), Toast.LENGTH_SHORT).show();
+            Log.d("Forms", "Tamaño en Forms: " + infoResult.size());
         }else{
-            Toast.makeText(context, "No hay Informacion en la Base de datos local " , Toast.LENGTH_SHORT).show();
+            Log.d("Forms", "No hay Informacion en la Base de datos local");
         }
         return itemRegistersList;
     }

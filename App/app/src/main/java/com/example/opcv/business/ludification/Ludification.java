@@ -1,10 +1,9 @@
 package com.example.opcv.business.ludification;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.widget.Toast;
 
-import com.example.opcv.business.persistance.firebase.LudificationCommunication;
+import com.example.opcv.model.persistance.firebase.LudificationCommunication;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.opcv.R;
-import com.example.opcv.business.persistance.firebase.AuthCommunication;
+import com.example.opcv.model.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.view.base.HomeActivity;
 

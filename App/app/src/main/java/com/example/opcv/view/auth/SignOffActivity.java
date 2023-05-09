@@ -15,10 +15,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.opcv.business.persistance.firebase.AuthCommunication;
+import com.example.opcv.model.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.view.gardens.GardensAvailableActivity;
-import com.example.opcv.view.gardens.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.view.ludification.RewardHomeActivity;

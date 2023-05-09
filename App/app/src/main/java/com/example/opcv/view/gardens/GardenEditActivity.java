@@ -23,7 +23,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -40,8 +39,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.opcv.business.ludification.Level;
-import com.example.opcv.business.persistance.firebase.UserCommunication;
-import com.example.opcv.business.persistance.garden.GardenPersistance;
+import com.example.opcv.model.persistance.firebase.UserCommunication;
+import com.example.opcv.model.persistance.garden.GardenPersistance;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.auth.EditUserActivity;
