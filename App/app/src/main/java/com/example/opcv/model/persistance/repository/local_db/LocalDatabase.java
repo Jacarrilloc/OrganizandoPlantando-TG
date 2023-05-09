@@ -63,6 +63,20 @@ public class LocalDatabase implements LocalDatabaseI {
                 } else {
                     jsonArray = new JSONArray();
                 }
+
+                // Verifica si la información ya existe en el archivo
+                boolean found = false;
+                JSONObject newObject = new JSONObject(infoForm);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    if (newObject.toString().equals(existingObject.toString())) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found) {
+                    Log.i("JSON:", "La información ya existe en el archivo.");
+                    return;
+                }
             } else {
                 jsonArray = new JSONArray();
             }
@@ -96,6 +110,7 @@ public class LocalDatabase implements LocalDatabaseI {
             Log.w("JSON:", "Error: " + e.getMessage().toString());
         }
     }
+
 
     public void updateAllJson(List<Map<String, Object>> newInfo, String idGarden) {
         if (newInfo.isEmpty()) {

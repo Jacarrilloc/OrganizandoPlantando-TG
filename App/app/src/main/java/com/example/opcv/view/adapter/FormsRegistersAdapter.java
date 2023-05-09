@@ -17,7 +17,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.example.opcv.R;
 import com.example.opcv.business.forms.Forms;
-import com.example.opcv.view.forms.Form_CIH;
+import com.example.opcv.view.forms.*;
 import com.example.opcv.model.items.ItemRegistersList;
 
 import org.json.JSONException;
@@ -64,9 +64,18 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
             public void onClick(View view) {
                 String idFormString = item.getInfo().get("idForm").toString();
                 int formType = Integer.parseInt(idFormString);
+                Intent newForm;
                 switch (formType){
+                    case 1:
+                        newForm = new Intent(context, Form_RAC.class);
+                        newForm.putExtra("watch","true");
+                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
+                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
+                        newForm.putExtra("Name",item.getFormName());
+                        context.startActivity(newForm);
+                        break;
                     case 10:
-                        Intent newForm = new Intent(context, Form_CIH.class);
+                        newForm = new Intent(context, Form_CIH.class);
                         newForm.putExtra("watch","true");
                         newForm.putExtra("idGardenFirebase",item.getIdGarden());
                         newForm.putExtra("idCollecion", (Serializable) item.getInfo());
