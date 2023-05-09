@@ -133,7 +133,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                         searchInfoUser(idGarden, id);
 
                                         Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
-                                        GenerateReportsActivity.super.onBackPressed();
+                                        onBackPressed();
                                         //finishAffinity();
                                     }
                                 })
@@ -145,7 +145,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                         searchInfoUser(idGarden, id);
 
                                         Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
-                                        GenerateReportsActivity.super.onBackPressed();
+                                        onBackPressed();
                                     }
                                 }).create().show();
 
@@ -167,7 +167,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                         searchGeneralInfo();
 
                                         Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
-                                        GenerateReportsActivity.super.onBackPressed();
+                                        onBackPressed();
                                     }
                                 })
                                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
@@ -177,7 +177,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                         searchGeneralInfo();
 
                                         Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
-                                        GenerateReportsActivity.super.onBackPressed();
+                                        onBackPressed();
 
                                     }
                                 }).create().show();
@@ -1009,5 +1009,9 @@ public class GenerateReportsActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }
