@@ -66,7 +66,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
     private String idUser, element, docRef, imageUri;
     private TextView authorName, elementName, likeNumber, dislikeNumber, description, tag1, tag2,tag3, tag4, tag5, tag6, author, publisherLevel, namelevel;
     private EditText input;
-    private FloatingActionButton add, sendComment;
+    private FloatingActionButton add, sendComment, back;
     private ImageButton likeButton, dislikeButton;
     private ListView listView;
     private FrameLayout authorLayout;
@@ -106,6 +106,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         input = (EditText) findViewById(R.id.inputText);
         image = (CircleImageView) findViewById(R.id.imageItem);
         dotborderImage = (ImageView) findViewById(R.id.border);
+        back = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
 
         //Vista del autor de la descripción
         authorLayout = (FrameLayout) findViewById(R.id.authorCard);
@@ -470,6 +471,12 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 }
             }
         });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     private void fillList(List<ItemComments> comments){
@@ -553,4 +560,9 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

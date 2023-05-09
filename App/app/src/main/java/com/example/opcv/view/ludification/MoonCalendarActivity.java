@@ -22,6 +22,7 @@ import com.example.opcv.business.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.view.auth.SignOffActivity;
 import com.example.opcv.view.base.HomeActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -37,6 +38,7 @@ public class MoonCalendarActivity extends AppCompatActivity {
     private TextView moonPhaseTextView, moonPhaseTittle;
     private ImageView phaseMoon;
     private Button profile, myGardens, rewards, ludification;
+    private FloatingActionButton back;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -52,6 +54,7 @@ public class MoonCalendarActivity extends AppCompatActivity {
         myGardens = (Button) findViewById(R.id.myGardens);
         rewards = (Button) findViewById(R.id.rewards);
         ludification = (Button) findViewById(R.id.ludification);
+        back = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
 
 
         MoonCalendar moonCalendar = new MoonCalendar();
@@ -115,6 +118,12 @@ public class MoonCalendarActivity extends AppCompatActivity {
             }
         });
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     private boolean isOnline() {
@@ -158,5 +167,11 @@ public class MoonCalendarActivity extends AppCompatActivity {
                     "Abonar.\n" +
                     "Planta árboles de hoja larga.");
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
