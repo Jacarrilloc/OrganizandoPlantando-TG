@@ -45,7 +45,7 @@ public class CreatePlantActivity extends AppCompatActivity {
     private EditText name, descr;
     private String plantName, plantDescription, idUser;
     private Boolean flowerCheck, edibleCheck, fruitCheck, medicineCheck, petCheck, precautionCheck;
-    private FloatingActionButton add;
+    private FloatingActionButton add, back;
     private Button profile, myGardens, rewards, ludification;
     private ImageView image;
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -72,6 +72,7 @@ public class CreatePlantActivity extends AppCompatActivity {
         ludification = (Button) findViewById(R.id.ludification);
         add = (FloatingActionButton) findViewById(R.id.addButton);
         image = (ImageView) findViewById(R.id.addImage);
+        back = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
@@ -155,6 +156,13 @@ public class CreatePlantActivity extends AppCompatActivity {
                 startActivity(new Intent(CreatePlantActivity.this, RewardHomeActivity.class));
             }
         });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -209,5 +217,11 @@ public class CreatePlantActivity extends AppCompatActivity {
                     }
                 }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

@@ -15,9 +15,11 @@ import com.example.opcv.R;
 import com.example.opcv.business.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.view.gardens.GardensAvailableActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ShowGuidesLevelOneActivity extends AppCompatActivity {
     private Button profile, myGardens, rewards, ludification, firstGuide, secondGuide, thirdGuide, fourthGuide;
+    private FloatingActionButton back;
     private String level;
 
     @Override
@@ -33,7 +35,7 @@ public class ShowGuidesLevelOneActivity extends AppCompatActivity {
         secondGuide = (Button) findViewById(R.id.secondGuide);
         thirdGuide = (Button) findViewById(R.id.thirdGuide);
         fourthGuide = (Button) findViewById(R.id.fourthGuide);
-
+        back = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
 
         firstGuide.setText("Pasos basicos para establecer y manejar tu huerta");
         secondGuide.setText("¿Cómo preparar el suelo para sembrar?");
@@ -123,11 +125,23 @@ public class ShowGuidesLevelOneActivity extends AppCompatActivity {
                 startActivity(new Intent(ShowGuidesLevelOneActivity.this, RewardHomeActivity.class));
             }
         });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
     private boolean isOnline() {
         ConnectivityManager cm =
                 (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

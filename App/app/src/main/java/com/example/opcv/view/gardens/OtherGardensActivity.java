@@ -101,7 +101,6 @@ public class OtherGardensActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 onBackPressed();
-                finish();
             }
         });
 
@@ -261,4 +260,9 @@ public class OtherGardensActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

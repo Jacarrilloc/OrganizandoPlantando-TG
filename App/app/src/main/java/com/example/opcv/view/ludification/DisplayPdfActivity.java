@@ -28,6 +28,7 @@ import com.example.opcv.view.gardens.GardensAvailableActivity;
 import com.example.opcv.view.gardens.GenerateReportsActivity;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -39,6 +40,7 @@ import java.io.InputStream;
 
 public class DisplayPdfActivity extends AppCompatActivity {
     private Button profile, myGardens, rewards, ludification;
+    private FloatingActionButton back;
     private ImageButton download;
     private PDFView pdf;
     private String pathPdf;
@@ -55,6 +57,7 @@ public class DisplayPdfActivity extends AppCompatActivity {
         ludification = (Button) findViewById(R.id.ludification);
         pdf = (PDFView) findViewById(R.id.pdfView);
         download = (ImageButton) findViewById(R.id.download);
+        back = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
@@ -127,6 +130,13 @@ public class DisplayPdfActivity extends AppCompatActivity {
 
             }
         });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     private boolean isOnline() {
@@ -158,6 +168,11 @@ public class DisplayPdfActivity extends AppCompatActivity {
         else{
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
         }
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

@@ -283,4 +283,9 @@
     <string name="ingresa_tu_nombre_de_invitado">Ingresa tu nombre de invitado</string>
     <string name="ingresar">Ingresar</string>
     <string name="textview">TextView</string>
+    <string name="ShowPlantsDiseases">A continuación se muestran las información de enfermedades mas comunes de estas plantas y sus posibles soluciones. </string>
+
+    <!--Textos estaticos para el nivel de plantas y sus enfermedades-->
+    <string name="TextLettuce">La lechuga es uno de los cultivos más importantes pero a la vez es de los más azotados por distintos insectos, hongos y bacterias que deterioras y alteran las hojas de esta hortaliza. A continuación estan los problemas más comúnes:</string>
+    <string name="LettucePlagues">Plagas de la lechuga: </string>
 </resources>
