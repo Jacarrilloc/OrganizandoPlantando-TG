@@ -23,7 +23,7 @@ public class ShowGuidesLevelOneActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_guides);
+        setContentView(R.layout.activity_show_level_one_guides);
 
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
