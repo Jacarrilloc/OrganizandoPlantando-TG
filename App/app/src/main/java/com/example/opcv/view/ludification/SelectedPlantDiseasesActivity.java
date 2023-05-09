@@ -9,32 +9,61 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.opcv.R;
 import com.example.opcv.business.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.auth.EditUserActivity;
-import com.example.opcv.view.base.HomeActivity;
+import com.example.opcv.view.gardens.GardensAvailableActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class ShowInfoLvl2Activity extends AppCompatActivity {
-
+public class SelectedPlantDiseasesActivity extends AppCompatActivity {
     private Button profile, myGardens, rewards, ludification;
-    private FloatingActionButton back;
+    private FloatingActionButton returnArrowButton;
+    private TextView textView;
+    private String selectedPlant;
+    private LinearLayout lettuceLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_info_lvl2);
+        setContentView(R.layout.activity_selected_plant_diseases);
+
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
         rewards = (Button) findViewById(R.id.rewards);
         ludification = (Button) findViewById(R.id.ludification);
-        back = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
+        returnArrowButton = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
+        textView = (TextView) findViewById(R.id.textView6);
+        lettuceLayout = (LinearLayout) findViewById(R.id.lettuceLayout);
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            selectedPlant = extras.getString("plant");
+        }
+        textView.setText(selectedPlant);
+
+        displayPlant(selectedPlant);
+
+        ludification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isOnline()){
+                    Intent edit = new Intent(SelectedPlantDiseasesActivity.this, DictionaryHomeActivity.class);
+                    startActivity(edit);
+                }
+                else{
+                    Toast.makeText(SelectedPlantDiseasesActivity.this, "Para acceder necesitas conexión a internet", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ShowInfoLvl2Activity.this, HomeActivity.class));
+                startActivity(new Intent(SelectedPlantDiseasesActivity.this, GardensAvailableActivity.class));
             }
         });
 
@@ -43,7 +72,7 @@ public class ShowInfoLvl2Activity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent edit = new Intent(ShowInfoLvl2Activity.this, EditUserActivity.class);
+                Intent edit = new Intent(SelectedPlantDiseasesActivity.this, EditUserActivity.class);
                 AuthCommunication auth = new AuthCommunication();
                 String userId = auth.getCurrentUserUid();
                 edit.putExtra("userInfo", userId);
@@ -55,27 +84,26 @@ public class ShowInfoLvl2Activity extends AppCompatActivity {
         rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ShowInfoLvl2Activity.this, RewardHomeActivity.class));
+                startActivity(new Intent(SelectedPlantDiseasesActivity.this, RewardHomeActivity.class));
             }
         });
-        ludification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(isOnline()){
-                    Intent edit = new Intent(ShowInfoLvl2Activity.this, DictionaryHomeActivity.class);
-                    startActivity(edit);
-                }
-                else{
-                    Toast.makeText(ShowInfoLvl2Activity.this, "Para acceder necesitas conexión a internet", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        back.setOnClickListener(new View.OnClickListener() {
+
+        returnArrowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
+    }
+
+    private void displayPlant(String selectedPlant) {
+        switch (selectedPlant){
+            case "Lechuga":
+                lettuceLayout.setVisibility(View.VISIBLE);
+                break;
+            default:
+                break;
+        }
     }
 
     private boolean isOnline() {

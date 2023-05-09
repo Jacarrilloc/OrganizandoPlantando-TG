@@ -382,6 +382,12 @@ public class Form_IMP extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private void requestStoragePermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             // Aquí puedes proporcionar una explicación al usuario sobre por qué necesitas el permiso.

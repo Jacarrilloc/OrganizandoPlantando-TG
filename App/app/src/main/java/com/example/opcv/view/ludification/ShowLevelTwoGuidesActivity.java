@@ -15,10 +15,11 @@ import com.example.opcv.R;
 import com.example.opcv.business.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.view.gardens.GardensAvailableActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ShowLevelTwoGuidesActivity extends AppCompatActivity {
     private Button profile, myGardens, rewards, ludification, firstGuide, secondGuide, thirdGuide;
-
+    private FloatingActionButton back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +32,7 @@ public class ShowLevelTwoGuidesActivity extends AppCompatActivity {
         firstGuide = (Button) findViewById(R.id.firstGuide);
         secondGuide = (Button) findViewById(R.id.secondGuide);
         thirdGuide = (Button) findViewById(R.id.thirdGuide);
+        back = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
 
         firstGuide.setText("5 plantas medicinales para tu huerta");
         secondGuide.setText("5 repelentes orgánicos caseros");
@@ -107,11 +109,24 @@ public class ShowLevelTwoGuidesActivity extends AppCompatActivity {
                 startActivity(new Intent(ShowLevelTwoGuidesActivity.this, RewardHomeActivity.class));
             }
         });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
     private boolean isOnline() {
         ConnectivityManager cm =
                 (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

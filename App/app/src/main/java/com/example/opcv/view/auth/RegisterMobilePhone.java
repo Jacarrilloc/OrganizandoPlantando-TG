@@ -16,11 +16,13 @@ import android.widget.TextView;
 
 import com.example.opcv.R;
 import com.example.opcv.model.entity.User;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.Serializable;
 
 public class RegisterMobilePhone extends AppCompatActivity {
     private ImageButton continueButtom;
+    private FloatingActionButton back;
     private TextView laterText,welcome;
     private EditText phone;
     private String password;
@@ -34,6 +36,7 @@ public class RegisterMobilePhone extends AppCompatActivity {
         continueButtom = findViewById(R.id.continueButtom_phone_activity);
         laterText = findViewById(R.id.later_Buttom);
         welcome = findViewById(R.id.welcome_msg);
+        back = (FloatingActionButton) findViewById(R.id.returnArrowButtonSeleectPhoto);
 
         Intent intent = getIntent();
         User newUser = (User) intent.getSerializableExtra("mapUser");
@@ -54,6 +57,12 @@ public class RegisterMobilePhone extends AppCompatActivity {
                 String PhoneNumberAdded = "";
                 newUser.setPhoneNumber(PhoneNumberAdded);
                 callSelectPhoto(newUser);
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
     }
@@ -86,5 +95,11 @@ public class RegisterMobilePhone extends AppCompatActivity {
             metrics.scaledDensity = configuration.fontScale * metrics.density;
             context.getResources().updateConfiguration(configuration, metrics);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
