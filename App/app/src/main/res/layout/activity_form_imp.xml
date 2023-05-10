@@ -92,6 +92,18 @@
                 android:layout_height="wrap_content"
                 android:text="@string/concepto" />
 
+            <EditText
+                android:id="@+id/showConceptInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/manropemedium"
+                android:ems="10"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                android:background="@drawable/dr_white_input_text"
+                android:inputType="text"
+                android:text="Name" />
+
             <Spinner
                 android:id="@+id/conceptChoice"
                 android:layout_width="fill_parent"
@@ -114,6 +126,17 @@
                 android:fontFamily="@font/manropemedium"
                 android:layout_height="wrap_content"
                 android:text="@string/movimiento_de_la_materia_prima" />
+
+            <EditText
+                android:id="@+id/rawMaterialChoise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                android:background="@drawable/dr_white_input_text"
+                android:inputType="text"
+                android:text="Name" />
 
             <Spinner
                 android:id="@+id/spinnerChoice"
@@ -159,6 +182,17 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
                 android:text="@string/unidad" />
+
+            <EditText
+                android:id="@+id/UnitSelectedForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:visibility="gone"
+                android:background="@drawable/dr_white_input_text"
+                android:textColor="@color/black"
+                android:inputType="text"
+                android:text="Name" />
 
             <Spinner
                 android:id="@+id/spinnerUnits"
