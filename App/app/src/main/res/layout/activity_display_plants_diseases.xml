@@ -91,7 +91,7 @@
                             android:layout_width="@dimen/_100sdp"
                             android:layout_height="@dimen/_100sdp"
                             android:scaleType="fitXY"
-                            tools:srcCompat="@drawable/im_repollo" />
+                            android:background="@drawable/im_repollo" />
 
                         <TextView
                             android:id="@+id/textView18"
@@ -124,7 +124,7 @@
                             android:layout_width="@dimen/_100sdp"
                             android:layout_height="@dimen/_100sdp"
                             android:scaleType="fitXY"
-                            tools:srcCompat="@drawable/im_brocoli" />
+                            android:background="@drawable/im_brocoli" />
 
                         <TextView
                             android:id="@+id/textView29"
@@ -147,7 +147,7 @@
                             android:layout_width="@dimen/_100sdp"
                             android:layout_height="@dimen/_100sdp"
                             android:scaleType="fitXY"
-                            tools:srcCompat="@drawable/im_rabano" />
+                            android:background="@drawable/im_rabano" />
 
                         <TextView
                             android:id="@+id/textView28"
@@ -176,7 +176,7 @@
                             android:layout_width="@dimen/_100sdp"
                             android:layout_height="@dimen/_100sdp"
                             android:scaleType="fitXY"
-                            tools:srcCompat="@drawable/im_cilantro" />
+                            android:background="@drawable/im_cilantro" />
 
                         <TextView
                             android:id="@+id/textView49"
@@ -199,7 +199,7 @@
                             android:layout_width="@dimen/_100sdp"
                             android:layout_height="@dimen/_100sdp"
                             android:scaleType="fitXY"
-                            tools:srcCompat="@drawable/im_papa" />
+                            android:background="@drawable/im_papa" />
 
                         <TextView
                             android:id="@+id/textView78"

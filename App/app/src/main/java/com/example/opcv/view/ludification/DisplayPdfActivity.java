@@ -43,7 +43,7 @@ public class DisplayPdfActivity extends AppCompatActivity {
     private FloatingActionButton back;
     private ImageButton download;
     private PDFView pdf;
-    private String pathPdf;
+    private String pathPdf, relative;
     private static final int STORAGE_PERMISSION_CODE = 1;
 
     @Override
@@ -62,6 +62,7 @@ public class DisplayPdfActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             pathPdf = getIntent().getStringExtra("path");
+            relative = getIntent().getStringExtra("relative");
         }
 
         pdf.fromAsset(pathPdf).load();
@@ -112,10 +113,11 @@ public class DisplayPdfActivity extends AppCompatActivity {
             public void onClick(View view) {
                 requestStoragePermission();
                 AssetManager assetManager = getAssets();
+                Toast.makeText(DisplayPdfActivity.this, "Espere un momento, estamos generando su archivo.", Toast.LENGTH_SHORT).show();
                 try {
                     InputStream inputStream = assetManager.open(pathPdf);
                     String folderName = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
-                    File file = new File(folderName, pathPdf);
+                    File file = new File(folderName, relative);
                     FileOutputStream fos = new FileOutputStream(file);
                     byte[] buffer = new byte[1024];
                     int length;
@@ -124,8 +126,10 @@ public class DisplayPdfActivity extends AppCompatActivity {
                     }
                     inputStream.close();
                     fos.close();
+                    Toast.makeText(DisplayPdfActivity.this, "Se ha generado el pdf en la caroeta de descargas", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    //throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
 
             }
