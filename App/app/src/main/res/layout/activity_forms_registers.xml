@@ -54,6 +54,12 @@
         android:layout_marginTop="@dimen/_16sdp"
         android:background="@drawable/im_gray_line" />
 
+    <ProgressBar
+        android:id="@+id/progressBarForms"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <ListView
         android:id="@+id/ListViewRegisters"
         android:layout_width="match_parent"

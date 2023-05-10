@@ -42,14 +42,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.opcv.business.ludification.Level;
-import com.example.opcv.business.persistance.firebase.UserCommunication;
+import com.example.opcv.model.persistance.firebase.UserCommunication;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.model.entity.GardenInfo;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.business.notifications.Notifications;
-import com.example.opcv.business.persistance.garden.GardenPersistance;
+import com.example.opcv.model.persistance.garden.GardenPersistance;
 import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
