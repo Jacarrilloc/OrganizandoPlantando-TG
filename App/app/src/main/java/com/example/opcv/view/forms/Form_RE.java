@@ -39,6 +39,9 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -160,45 +163,21 @@ public class Form_RE extends AppCompatActivity {
         watch = getIntent().getStringExtra("watch");
 
         if(watch.equals("true")){
+            addFormButtom.setVisibility(View.GONE);
             idGarden = getIntent().getStringExtra("idGardenFirebase");
-            idCollection = getIntent().getStringExtra("idCollecion");
-            addFormButtom.setVisibility(View.INVISIBLE);
-            addFormButtom.setClickable(false);
-            date.setEnabled(false);
-            eventName.setEnabled(false);
-            totalPerson.setEnabled(false);
-            femaleNumber.setEnabled(false);
-            maleNumber.setEnabled(false);
-            noSpcNumber.setEnabled(false);
-            infantNumber.setEnabled(false);
-            chilhoodNumber.setEnabled(false);
-            teenNumber.setEnabled(false);
-            youthNumber.setEnabled(false);
-            adultNumber.setEnabled(false);
-            elderlyNumber.setEnabled(false);
-            afroNumber.setEnabled(false);
-            nativeNumber.setEnabled(false);
-            lgtbiNumber.setEnabled(false);
-            romNumber.setEnabled(false);
-            victimNumber.setEnabled(false);
-            disabilityNumber.setEnabled(false);
-            desmobilizedNumber.setEnabled(false);
-            mongrelNumber.setEnabled(false);
-            foreignNumber.setEnabled(false);
-            peasantNumber.setEnabled(false);
-            otherNumber.setEnabled(false);
-            showInfo(idGarden, idCollection, "true");
+            Map<String, Object> infoForm = (Map<String, Object>) getIntent().getSerializableExtra("idCollecion");
+            showMapInfo(infoForm,idGarden);
         } else if (watch.equals("edit")) {
             idGarden = getIntent().getStringExtra("idGardenFirebase");
-            idCollection = getIntent().getStringExtra("idCollecion");
-            showInfo(idGarden, idCollection, "edit");
+            Map<String, Object> infoForm = (Map<String, Object>) getIntent().getSerializableExtra("idCollecion");
+            showMapInfo(infoForm,idGarden);
             addFormButtom.setText("Aceptar cambios");
         }
-        else if (watch.equals("create")){
-            addFormButtom.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(femaleNumber.getText().toString().equals("")){
+        addFormButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                watch = getIntent().getStringExtra("watch");
+                    if (femaleNumber.getText().toString().equals("")) {
                         femaleNumber.setText("0");
                     }
                     if (maleNumber.getText().toString().equals("")) {
@@ -207,7 +186,7 @@ public class Form_RE extends AppCompatActivity {
                     if (noSpcNumber.getText().toString().equals("")) {
                         noSpcNumber.setText("0");
                     }
-                    if (infantNumber.getText().toString().equals("")){
+                    if (infantNumber.getText().toString().equals("")) {
                         infantNumber.setText("0");
                     }
                     if (chilhoodNumber.getText().toString().equals("")) {
@@ -259,20 +238,31 @@ public class Form_RE extends AppCompatActivity {
                         otherNumber.setText("0");
                     }
 
-                    // Crear el formulario
-                    if (ContextCompat.checkSelfPermission(Form_RE.this,
-                            Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
-                            ContextCompat.checkSelfPermission(Form_RE.this,
-                                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        // Si no se han otorgado los permisos, solicítalos.
-                        requestStoragePermission();
-                    } else {
-                        // El permiso ya ha sido concedido, crea la instancia de la clase Forms
-                        createNewForm();
+                    if(watch.equals("create")){
+                        if (ContextCompat.checkSelfPermission(Form_RE.this,
+                                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                                ContextCompat.checkSelfPermission(Form_RE.this,
+                                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                            // Si no se han otorgado los permisos, solicítalos.
+                            requestStoragePermission();
+                        } else {
+                            // El permiso ya ha sido concedido, crea la instancia de la clase Forms
+                            createNewForm();
+                        }
+                    }
+
+                if(watch.equals("edit")){
+                    try {
+                        updateForm((Map<String, Object>) getIntent().getSerializableExtra("idCollecion"));
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
                 }
-            });
-        }
+            }
+        });
+
 
         backButtom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -280,79 +270,6 @@ public class Form_RE extends AppCompatActivity {
                 onBackPressed();
             }
         });
-    }
-
-    private void showInfo(String idGarden, String idCollection, String status) {
-
-        CollectionReference ref = database.collection("Gardens").document(idGarden).collection("Forms");
-
-        ref.document(idCollection).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                try {
-                    date.setText(Objects.requireNonNull(task.getResult().get("date")).toString());
-                    eventName.setText(Objects.requireNonNull(task.getResult().get("eventName")).toString());
-                    totalPerson.setText(Objects.requireNonNull(task.getResult().get("totalPerson")).toString());
-                    femaleNumber.setText(Objects.requireNonNull(task.getResult().get("womenNumber")).toString());
-                    maleNumber.setText(Objects.requireNonNull(task.getResult().get("menNumber")).toString());
-                    noSpcNumber.setText(Objects.requireNonNull(task.getResult().get("noSpcNumber")).toString());
-                    infantNumber.setText(Objects.requireNonNull(task.getResult().get("infantNumber")).toString());
-                    chilhoodNumber.setText(Objects.requireNonNull(task.getResult().get("childhoodNumber")).toString());
-                    teenNumber.setText(Objects.requireNonNull(task.getResult().get("teenNumber")).toString());
-                    youthNumber.setText(Objects.requireNonNull(task.getResult().get("youthNumber")).toString());
-                    adultNumber.setText(Objects.requireNonNull(task.getResult().get("adultNumber")).toString());
-                    elderlyNumber.setText(Objects.requireNonNull(task.getResult().get("elderlyNumber")).toString());
-                    afroNumber.setText(Objects.requireNonNull(task.getResult().get("afroNumber")).toString());
-                    nativeNumber.setText(Objects.requireNonNull(task.getResult().get("nativeNumber")).toString());
-                    lgtbiNumber.setText(Objects.requireNonNull(task.getResult().get("lgtbiNumber")).toString());
-                    romNumber.setText(Objects.requireNonNull(task.getResult().get("romNumber")).toString());
-                    victimNumber.setText(Objects.requireNonNull(task.getResult().get("victimNumber")).toString());
-                    disabilityNumber.setText(Objects.requireNonNull(task.getResult().get("disabilityNumber")).toString());
-                    desmobilizedNumber.setText(Objects.requireNonNull(task.getResult().get("demobilizedNumber")).toString());
-                    mongrelNumber.setText(Objects.requireNonNull(task.getResult().get("mongrelNumber")).toString());
-                    foreignNumber.setText(Objects.requireNonNull(task.getResult().get("foreignNumber")).toString());
-                    peasantNumber.setText(Objects.requireNonNull(task.getResult().get("peasantNumber")).toString());
-                    otherNumber.setText(Objects.requireNonNull(task.getResult().get("otherNumber")).toString());
-                }catch (Exception e){
-                    Toast.makeText(Form_RE.this, "Ocurrió un error al cargar los datos", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-
-        addFormButtom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String datex, eventN, totalP, femaleN, maleN, noSpcN, infantN, childhoodN, teenN, youthN, adultN, elderlyN, afroN, nativeN, lgtbiN, romN, victimN, disabilityN, desmobilizedN, mongrelN, foreignN, peasantN, otherN;
-                datex = date.getText().toString();
-                eventN = eventName.getText().toString();
-                totalP = totalPerson.getText().toString();
-                femaleN = femaleNumber.getText().toString();
-                maleN = maleNumber.getText().toString();
-                noSpcN= noSpcNumber.getText().toString();
-                infantN = infantNumber.getText().toString();
-                childhoodN = chilhoodNumber.getText().toString();
-                teenN = teenNumber.getText().toString();
-                youthN = youthNumber.getText().toString();
-                adultN = adultNumber.getText().toString();
-                elderlyN = elderlyNumber.getText().toString();
-                afroN = afroNumber.getText().toString();
-                nativeN = nativeNumber.getText().toString();
-                lgtbiN = lgtbiNumber.getText().toString();
-                romN = afroNumber.getText().toString();
-                victimN = victimNumber.getText().toString();
-                disabilityN = disabilityNumber.getText().toString();
-                desmobilizedN = desmobilizedNumber.getText().toString();
-                mongrelN = mongrelNumber.getText().toString();
-                foreignN = foreignNumber.getText().toString();
-                peasantN = peasantNumber.getText().toString();
-                otherN = otherNumber.getText().toString();
-                formsUtilities = new FormsCommunication();
-                formsUtilities.editInfoRE(Form_RE.this, idGarden, idCollection, datex, eventN, totalP, femaleN, maleN, noSpcN, infantN, childhoodN, teenN, youthN, adultN, elderlyN, afroN, nativeN, lgtbiN, romN, victimN, disabilityN, desmobilizedN, mongrelN, foreignN, peasantN, otherN);
-                Toast.makeText(Form_RE.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
-            }
-        });
-
     }
 
     private void createNewForm(){
@@ -394,7 +311,97 @@ public class Form_RE extends AppCompatActivity {
         Toast.makeText(Form_RE.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(Form_RE.this, HomeActivity.class));
         finish();
+    }
 
+    private void updateForm(Map<String, Object> oldInfo) throws JSONException, IOException{
+        Map<String,Object> infoForm = new HashMap<>();
+        infoForm.put("idForm",12);
+        infoForm.put("nameForm", formName.getText().toString());
+        infoForm.put("date",date.getText().toString());
+        infoForm.put("eventName", eventName.getText().toString());
+        infoForm.put("totalPerson", totalPerson.getText().toString());
+        infoForm.put("womenNumber", femaleNumber.getText().toString());
+        infoForm.put("menNumber", maleNumber.getText().toString());
+        infoForm.put("noSpcNumber", noSpcNumber.getText().toString());
+        infoForm.put("infantNumber", infantNumber.getText().toString());
+        infoForm.put("childhoodNumber",chilhoodNumber.getText().toString());
+        infoForm.put("teenNumber",teenNumber.getText().toString());
+        infoForm.put("youthNumber", youthNumber.getText().toString());
+        infoForm.put("adultNumber",adultNumber.getText().toString());
+        infoForm.put("elderlyNumber", elderlyNumber.getText().toString());
+        infoForm.put("afroNumber", afroNumber.getText().toString());
+        infoForm.put("nativeNumber", nativeNumber.getText().toString());
+        infoForm.put("lgtbiNumber", lgtbiNumber.getText().toString());
+        infoForm.put("romNumber",romNumber.getText().toString());
+        infoForm.put("victimNumber", victimNumber.getText().toString());
+        infoForm.put("disabilityNumber", disabilityNumber.getText().toString());
+        infoForm.put("demobilizedNumber", desmobilizedNumber.getText().toString());
+        infoForm.put("mongrelNumber",mongrelNumber.getText().toString());
+        infoForm.put("foreignNumber",foreignNumber.getText().toString());
+        infoForm.put("peasantNumber", peasantNumber.getText().toString());
+        infoForm.put("otherNumber", otherNumber.getText().toString());
+
+        String idGardenFb;
+        idGardenFb = getIntent().getStringExtra("idGardenFirebase");
+        Forms updateInfo = new Forms(this);
+        updateInfo.updateInfoForm(oldInfo,infoForm,idGardenFb);
+        Notifications notifications = new Notifications();
+        notifications.notification("Formulario Editado", "Felicidades! Actualizaste la Información de tu Formulario", Form_RE.this);
+        onBackPressed();
+    }
+
+    private void showMapInfo(Map<String, Object> info,String status){
+        if(status.equals("true")){
+            addFormButtom.setVisibility(View.INVISIBLE);
+            addFormButtom.setClickable(false);
+            date.setEnabled(false);
+            eventName.setEnabled(false);
+            totalPerson.setEnabled(false);
+            femaleNumber.setEnabled(false);
+            maleNumber.setEnabled(false);
+            noSpcNumber.setEnabled(false);
+            infantNumber.setEnabled(false);
+            chilhoodNumber.setEnabled(false);
+            teenNumber.setEnabled(false);
+            youthNumber.setEnabled(false);
+            adultNumber.setEnabled(false);
+            elderlyNumber.setEnabled(false);
+            afroNumber.setEnabled(false);
+            nativeNumber.setEnabled(false);
+            lgtbiNumber.setEnabled(false);
+            romNumber.setEnabled(false);
+            victimNumber.setEnabled(false);
+            disabilityNumber.setEnabled(false);
+            desmobilizedNumber.setEnabled(false);
+            mongrelNumber.setEnabled(false);
+            foreignNumber.setEnabled(false);
+            peasantNumber.setEnabled(false);
+            otherNumber.setEnabled(false);
+        }
+
+        date.setText((CharSequence) info.get("date"));
+        eventName.setText((CharSequence) info.get("eventName"));
+        totalPerson.setText((CharSequence) info.get("totalPerson"));
+        femaleNumber.setText((CharSequence) info.get("womenNumber"));
+        maleNumber.setText((CharSequence) info.get("menNumber"));
+        noSpcNumber.setText((CharSequence) info.get("noSpcNumber"));
+        infantNumber.setText((CharSequence) info.get("infantNumber"));
+        chilhoodNumber.setText((CharSequence) info.get("childhoodNumber"));
+        teenNumber.setText((CharSequence) info.get("teenNumber"));
+        youthNumber.setText((CharSequence) info.get("youthNumber"));
+        adultNumber.setText((CharSequence) info.get("adultNumber"));
+        elderlyNumber.setText((CharSequence) info.get("elderlyNumber"));
+        afroNumber.setText((CharSequence) info.get("afroNumber"));
+        nativeNumber.setText((CharSequence) info.get("nativeNumber"));
+        lgtbiNumber.setText((CharSequence) info.get("lgtbiNumber"));
+        romNumber.setText((CharSequence) info.get("romNumber"));
+        victimNumber.setText((CharSequence) info.get("victimNumber"));
+        disabilityNumber.setText((CharSequence) info.get("disabilityNumber"));
+        desmobilizedNumber.setText((CharSequence) info.get("demobilizedNumber"));
+        mongrelNumber.setText((CharSequence) info.get("mongrelNumber"));
+        foreignNumber.setText((CharSequence) info.get("foreignNumber"));
+        peasantNumber.setText((CharSequence) info.get("peasantNumber"));
+        otherNumber.setText((CharSequence) info.get("otherNumber"));
     }
 
     private void requestStoragePermission() {

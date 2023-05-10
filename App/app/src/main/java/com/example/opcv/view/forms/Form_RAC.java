@@ -129,7 +129,7 @@ public class Form_RAC extends AppCompatActivity {
 
         addFormButtom.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 watch = getIntent().getStringExtra("watch");
                 if(watch.equals("create")){
                     if (ContextCompat.checkSelfPermission(Form_RAC.this,
@@ -143,6 +143,7 @@ public class Form_RAC extends AppCompatActivity {
                         createNewForm();
                     }
                 }
+
                 if(watch.equals("edit")){
                     try {
                         updateForm((Map<String, Object>) getIntent().getSerializableExtra("idCollecion"));
@@ -214,7 +215,6 @@ public class Form_RAC extends AppCompatActivity {
             Notifications notifications = new Notifications();
             notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_RAC.this);
 
-            //newForm.insertInto_RAC(infoForm);
             Toast.makeText(Form_RAC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(Form_RAC.this, HomeActivity.class));
             finish();
@@ -223,34 +223,35 @@ public class Form_RAC extends AppCompatActivity {
 
     private void updateForm(Map<String, Object> oldInfo) throws JSONException, IOException{
 
-        String container, worms, humidity, waste, humus, nameForm, leached, idGardenFb;
+        Map<String, Object> newInfo = new HashMap<>();
+        newInfo.put("CreatedBy",oldInfo.get("CreatedBy"));
+        newInfo.put("Date",oldInfo.get("Date"));
+        newInfo.put("idForm",oldInfo.get("idForm"));
+        newInfo.put("nameForm",oldInfo.get("nameForm"));
+
+        String container, worms, humidity, waste, humus, leached, idGardenFb;
         container = containerSize.getText().toString();
         worms = worrmsWeightInfo.getText().toString();
         humidity = humidityInfo.getText().toString();
         waste = amount_of_waste_info.getText().toString();
         humus = collected_humus_info.getText().toString();
         leached = amount_leached_info.getText().toString();
-        nameForm = formsName.getText().toString();
+
+        newInfo.put("containerSize",container);
+        newInfo.put("wormsWeight",worms);
+        newInfo.put("humidity",humidity);
+        newInfo.put("amount of waste",waste);
+        newInfo.put("collected humus",humus);
+        newInfo.put("amount leached",leached);
 
         idGardenFb = getIntent().getStringExtra("idGardenFirebase");
 
-        Map<String,Object> infoForm = new HashMap<>();
-        infoForm.put("idForm",1);
-        infoForm.put("nameForm",nameForm);
-        infoForm.put("containerSize",container);
-        infoForm.put("wormsWeight",worms);
-        infoForm.put("humidity",humidity);
-        infoForm.put("amount of waste",waste);
-        infoForm.put("collected humus",humus);
-        infoForm.put("amount leached",leached);
+        Forms updateInfo = new Forms(Form_RAC.this);
+        updateInfo.updateInfoForm(oldInfo,newInfo,idGardenFb);
 
-        if(validateField(container, worms, humidity, waste, humus, leached)){
-            Forms updateInfo = new Forms(this);
-            updateInfo.updateInfoForm(oldInfo,infoForm,idGardenFb);
-            Notifications notifications = new Notifications();
-            notifications.notification("Formulario Editado", "Felicidades! Actualizaste la Información de tu Formulario", Form_RAC.this);
-            onBackPressed();
-        }
+        Notifications notifications = new Notifications();
+        notifications.notification("Formulario Editado", "Felicidades! Actualizaste la Información de tu Formulario", Form_RAC.this);
+        onBackPressed();
     }
 
     private boolean validateField(String container,String worms, String humidity, String waste, String humus, String leached){

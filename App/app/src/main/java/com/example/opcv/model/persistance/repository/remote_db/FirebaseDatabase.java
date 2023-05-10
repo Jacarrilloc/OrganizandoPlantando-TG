@@ -46,8 +46,10 @@ public class FirebaseDatabase implements FirebaseDatabaseI {
         mFirestore.collection("Gardens").document(idGarden).collection("Forms").get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                        if (date.equals(documentSnapshot.getString("Date")) && createdBy.equals(documentSnapshot.getString("CreatedBy")) && idForm == documentSnapshot.getLong("idForm")) {
-                            documentSnapshot.getReference().update(newInfoForm);
+                        if (date != null && createdBy != null) {
+                            if (date.equals(documentSnapshot.getString("Date")) && createdBy.equals(documentSnapshot.getString("CreatedBy")) ) {
+                                documentSnapshot.getReference().update(newInfoForm);
+                            }
                         }
                     }
                 }).addOnFailureListener(e -> {
@@ -58,19 +60,20 @@ public class FirebaseDatabase implements FirebaseDatabaseI {
     public void deleteInDatabase(String idGarden, Map<String, Object> infoForm) {
         String date = (String) infoForm.get("Date");
         String createdBy = (String) infoForm.get("CreatedBy");
-        int idForm = (Integer) infoForm.get("idForm");
-        mFirestore.collection("Gardens").document(idGarden).collection("Forms").get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                        if(date.equals(documentSnapshot.getString("Date")) && createdBy.equals(documentSnapshot.getString("CreatedBy")) && idForm == documentSnapshot.getLong("idForm")){
-                            Log.i("resultDoc","Documento para borrar Encontado con el ID: " + documentSnapshot.getId());
-                            mFirestore.collection("Gardens").document(idGarden).collection("Forms").document(documentSnapshot.getId()).delete();
-                        }
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Log.e("Firestore", "Error al obtener los documentos", e);
-                });
+        CollectionReference collectionReference = mFirestore.collection("Gardens").document(idGarden).collection("Forms");
+        Query query = collectionReference.whereEqualTo("Date",date).whereEqualTo("CreatedBy",createdBy);
+
+        query.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                for (QueryDocumentSnapshot document : task.getResult()){
+                    document.getReference().delete().addOnSuccessListener(aVoid ->{
+                        Log.i("DeleteFirebase","Se booro la informacion de Firebase");
+                    }).addOnFailureListener(e -> {
+                       Log.w("DeleteFirebase","Ocurrio un error al eliminar la Informacion:" + e.getMessage().toString());
+                    });
+                }
+            }
+        });
     }
 
     public void getAllFormsDatabase(String idGarden, String nameForm, onFormsLoaded listener) throws FileNotFoundException, JSONException {

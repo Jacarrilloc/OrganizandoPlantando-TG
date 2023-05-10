@@ -29,7 +29,6 @@ public class Forms {
         infoForm.put("Date",date);
         String createdBy = getUserName();
         infoForm.put("CreatedBy",createdBy);
-
         FormsRepository info = new FormsRepository(context);
         info.insertForm(infoForm,idGraden);
     }
@@ -69,7 +68,11 @@ public class Forms {
             if(infoForm != null){
                 FormsRepository deleteFormsInfo = new FormsRepository(context);
                 deleteFormsInfo.deleteInfoDatabase(idGarden,infoForm);
+            }else{
+                Log.i("Database-Delete","No existe Informacion para borrar");
             }
+        }else{
+            Log.w("Database-Delete","No existe Id de la Huerta");
         }
     }
 

@@ -53,8 +53,8 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
         delete = (ImageButton) view.findViewById(R.id.deleteButton);
 
         ItemRegistersList item = getItem(position);
-        ItemRegistersList IRL = new ItemRegistersList(item.getIdGarden(), item.getFormName(), item.getInfo(), item.getDate());
-        String nameByForm = "Creado por: " + item.getInfo().get("CreatedBy").toString();
+        Object createdBy = item.getInfo().get("CreatedBy");
+        String nameByForm = "Creado por: " + (createdBy != null ? createdBy.toString() : "");
         procesName.setText(nameByForm);
         dateText.setText(item.getDate());
 
@@ -79,6 +79,14 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                         newForm.putExtra("watch","true");
                         newForm.putExtra("idGardenFirebase",item.getIdGarden());
                         newForm.putExtra("idCollecion", (Serializable) item.getInfo());
+                        newForm.putExtra("Name",item.getFormName());
+                        context.startActivity(newForm);
+                        break;
+                    case 12:
+                        newForm = new Intent(context, Form_RE.class);
+                        newForm.putExtra("watch","true");
+                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
+                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
                         newForm.putExtra("Name",item.getFormName());
                         context.startActivity(newForm);
                         break;
@@ -190,7 +198,8 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int formType = ((Integer) item.getInfo().get("idForm")).intValue();
+                String idFormString = (String) item.getInfo().get("idForm");
+                int formType = Integer.parseInt(idFormString);
                 Intent newForm;
                 switch (formType){
                     case 1:
@@ -206,6 +215,14 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                         newForm.putExtra("watch","edit");
                         newForm.putExtra("idGardenFirebase",item.getIdGarden());
                         newForm.putExtra("idCollecion", (Serializable) item.getInfo());
+                        newForm.putExtra("Name",item.getFormName());
+                        context.startActivity(newForm);
+                        break;
+                    case 12:
+                        newForm = new Intent(context, Form_RE.class);
+                        newForm.putExtra("watch","edit");
+                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
+                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
                         newForm.putExtra("Name",item.getFormName());
                         context.startActivity(newForm);
                         break;

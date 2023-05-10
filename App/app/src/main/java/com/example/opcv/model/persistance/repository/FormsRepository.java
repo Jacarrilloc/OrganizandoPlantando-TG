@@ -52,8 +52,6 @@ public class FormsRepository {
     }
 
     public void deleteInfoDatabase(String idGarden,Map<String, Object> infoForm) throws IOException, JSONException {
-        LocalDatabase deleteInfoLocal = new LocalDatabase(mContext);
-        deleteInfoLocal.deleteInfoJson(idGarden,infoForm);
 
         new Thread(() -> {
             while (!isOnline()) {
@@ -67,6 +65,8 @@ public class FormsRepository {
             FirebaseDatabase onlineDB = new FirebaseDatabase();
             onlineDB.deleteInDatabase(idGarden,infoForm);
         }).start();
+        LocalDatabase deleteInfoLocal = new LocalDatabase(mContext);
+        deleteInfoLocal.deleteInfoJson(idGarden,infoForm);
     }
 
     public void updateInfoDatabase(String idGarden,Map<String, Object> newInfoForm) throws JSONException, IOException {
