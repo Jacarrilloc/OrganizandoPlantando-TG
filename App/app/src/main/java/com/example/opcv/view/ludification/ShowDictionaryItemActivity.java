@@ -1,10 +1,12 @@
 package com.example.opcv.view.ludification;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
@@ -67,7 +69,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
     private TextView authorName, elementName, likeNumber, dislikeNumber, description, tag1, tag2,tag3, tag4, tag5, tag6, author, publisherLevel, namelevel;
     private EditText input;
     private FloatingActionButton add, sendComment, back;
-    private ImageButton likeButton, dislikeButton;
+    private ImageButton likeButton, dislikeButton, deleteButton;
     private ListView listView;
     private FrameLayout authorLayout;
     private ImageView borderImage, dotborderImage;
@@ -107,6 +109,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         image = (CircleImageView) findViewById(R.id.imageItem);
         dotborderImage = (ImageView) findViewById(R.id.border);
         back = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
+        deleteButton = (ImageButton) findViewById(R.id.deleteButton);
 
         //Vista del autor de la descripción
         authorLayout = (FrameLayout) findViewById(R.id.authorCard);
@@ -201,6 +204,30 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 else{
                     Toast.makeText(ShowDictionaryItemActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ShowDictionaryItemActivity.this);
+                builder.setTitle("Confirmar borrado");
+                builder.setMessage("¿Estas seguro/a de eliminar esta entrada del diccionario?");
+                builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        persistance.deleteItemDictionary(element, docRef, idUser, ShowDictionaryItemActivity.this);
+                        startActivity(new Intent(ShowDictionaryItemActivity.this, DictionaryHomeActivity.class));
+                    }
+                });
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
 

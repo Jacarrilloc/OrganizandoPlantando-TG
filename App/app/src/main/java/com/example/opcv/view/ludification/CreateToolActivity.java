@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.opcv.business.persistance.firebase.LudificationCommunication;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.view.gardens.MapsActivity;
 import com.example.opcv.R;
@@ -88,6 +89,7 @@ public class CreateToolActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Ludification logic = new Ludification();
                 Level level = new Level();
+                LudificationCommunication communication = new LudificationCommunication();
                 toolName = name.getText().toString();
                 toolDescription = descr.getText().toString();
                 toolCheck = tool.isChecked();
@@ -100,13 +102,24 @@ public class CreateToolActivity extends AppCompatActivity {
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                     bytes = stream.toByteArray();
                     if(logic.validateField(toolName, toolDescription, CreateToolActivity.this, bytes)){
-                        logic.addToolElementsMap(toolName, toolDescription, toolCheck, fertilizerCheck, careCheck, CreateToolActivity.this, idUser, bytes);
-                        level.addLevel(idUser, true, CreateToolActivity.this, "Tools");
-                        //Notifications notifications = new Notifications();
-                        //notifications.notification("Has ganado puntos", "Felicidades! Ganaste 7 puntos por crear tu herramienta", CreateToolActivity.this, DictionaryHome.class);
-                        Intent edit = new Intent(CreateToolActivity.this, DictionaryHomeActivity.class);
-                        edit.putExtra("userInfo", idUser);
-                        startActivity(edit);
+                        communication.checkIfPlantOrToolExists("Tools", toolName, new LudificationCommunication.CheckIfItemExists() {
+                            @Override
+                            public void onComplete(boolean resp) {
+                                if(!resp){
+                                    logic.addToolElementsMap(toolName, toolDescription, toolCheck, fertilizerCheck, careCheck, CreateToolActivity.this, idUser, bytes);
+                                    level.addLevel(idUser, true, CreateToolActivity.this, "Tools");
+                                    //Notifications notifications = new Notifications();
+                                    //notifications.notification("Has ganado puntos", "Felicidades! Ganaste 7 puntos por crear tu herramienta", CreateToolActivity.this, DictionaryHome.class);
+                                    Intent edit = new Intent(CreateToolActivity.this, DictionaryHomeActivity.class);
+                                    edit.putExtra("userInfo", idUser);
+                                    startActivity(edit);
+                                }
+                                else{
+                                    Toast.makeText(CreateToolActivity.this, "Ya existe la herramienta. Por favor crea otra o revisa las existentes", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
                     }
                 }
             }
