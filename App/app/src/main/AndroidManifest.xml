@@ -44,7 +44,22 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".view.ludification.SelectedPlantDiseasesActivity"
+            android:name=".view.ludification.PotatoDiseaseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ludification.CorianderDiseaseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ludification.RadishDiseaseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ludification.BroccoliDiseaseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ludification.CabbageDiseasesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ludification.LettuceDiseasesActivity"
             android:exported="false" />
         <activity
             android:name=".view.ludification.DisplayPlantsDiseasesActivity"

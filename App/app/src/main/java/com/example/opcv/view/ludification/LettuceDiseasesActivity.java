@@ -19,7 +19,7 @@ import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.view.gardens.GardensAvailableActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class SelectedPlantDiseasesActivity extends AppCompatActivity {
+public class LettuceDiseasesActivity extends AppCompatActivity {
     private Button profile, myGardens, rewards, ludification;
     private FloatingActionButton returnArrowButton;
     private TextView textView;
@@ -29,7 +29,7 @@ public class SelectedPlantDiseasesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selected_plant_diseases);
+        setContentView(R.layout.activity_lettuce_diseases);
 
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
@@ -39,23 +39,16 @@ public class SelectedPlantDiseasesActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.textView6);
         lettuceLayout = (LinearLayout) findViewById(R.id.lettuceLayout);
 
-        Bundle extras = getIntent().getExtras();
-        if(extras != null){
-            selectedPlant = extras.getString("plant");
-        }
-        textView.setText(selectedPlant);
-
-        displayPlant(selectedPlant);
 
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(isOnline()){
-                    Intent edit = new Intent(SelectedPlantDiseasesActivity.this, DictionaryHomeActivity.class);
+                    Intent edit = new Intent(LettuceDiseasesActivity.this, DictionaryHomeActivity.class);
                     startActivity(edit);
                 }
                 else{
-                    Toast.makeText(SelectedPlantDiseasesActivity.this, "Para acceder necesitas conexión a internet", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LettuceDiseasesActivity.this, "Para acceder necesitas conexión a internet", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -63,7 +56,7 @@ public class SelectedPlantDiseasesActivity extends AppCompatActivity {
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SelectedPlantDiseasesActivity.this, GardensAvailableActivity.class));
+                startActivity(new Intent(LettuceDiseasesActivity.this, GardensAvailableActivity.class));
             }
         });
 
@@ -72,7 +65,7 @@ public class SelectedPlantDiseasesActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent edit = new Intent(SelectedPlantDiseasesActivity.this, EditUserActivity.class);
+                Intent edit = new Intent(LettuceDiseasesActivity.this, EditUserActivity.class);
                 AuthCommunication auth = new AuthCommunication();
                 String userId = auth.getCurrentUserUid();
                 edit.putExtra("userInfo", userId);
@@ -84,7 +77,7 @@ public class SelectedPlantDiseasesActivity extends AppCompatActivity {
         rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SelectedPlantDiseasesActivity.this, RewardHomeActivity.class));
+                startActivity(new Intent(LettuceDiseasesActivity.this, RewardHomeActivity.class));
             }
         });
 
@@ -94,16 +87,6 @@ public class SelectedPlantDiseasesActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-    }
-
-    private void displayPlant(String selectedPlant) {
-        switch (selectedPlant){
-            case "Lechuga":
-                lettuceLayout.setVisibility(View.VISIBLE);
-                break;
-            default:
-                break;
-        }
     }
 
     private boolean isOnline() {
