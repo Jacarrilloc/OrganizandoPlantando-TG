@@ -14,17 +14,6 @@
         android:layout_height="match_parent"
         android:layout_weight="0.9">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/returnArrowButtonToHome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:clickable="true"
-            android:contentDescription="@string/boton_para_regresar"
-            android:tint="@color/white"
-            app:backgroundTint="#91BF63"
-            app:srcCompat="@drawable/dr_return_arrow" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -34,6 +23,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/returnArrowButtonToHome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_14sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:clickable="true"
+                    android:contentDescription="@string/boton_para_regresar"
+                    android:tint="@color/white"
+                    app:backgroundTint="#91BF63"
+                    app:srcCompat="@drawable/dr_return_arrow" />
 
                 <TextView
                     android:id="@+id/textView6"
@@ -65,51 +66,72 @@
                         android:textAllCaps="false"
                         android:fontFamily="@font/manroperegular"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_18sdp"
+                        android:textSize="@dimen/_16sdp"
                         android:gravity="center"
                         android:padding="@dimen/_10sdp"
-                        android:drawableStart="@drawable/im_book_lvl"
+                        android:drawableStart="@drawable/im_lvl1_guide1"
                         android:background="@drawable/dr_green_button"
-                        android:backgroundTint="@color/Lightyellow"/>
+                        android:backgroundTint="@color/darkyellow"/>
 
                     <Button
                         android:id="@+id/secondGuide"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_110sdp"
+                        android:layout_height="@dimen/_90sdp"
                         android:layout_weight="1"
-                        android:text="TextView"
-                        android:textColor="#050505"
-                        android:textSize="@dimen/_18sdp"
-                        android:background="@drawable/dr_green_button"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_50sdp"
-                    android:orientation="horizontal">
-
+                        android:text="@string/textview"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:layout_marginBottom="@dimen/_20sdp"
+                        android:textAllCaps="false"
+                        android:fontFamily="@font/manroperegular"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_16sdp"
+                        android:gravity="center"
+                        android:padding="@dimen/_10sdp"
+                        android:drawableStart="@drawable/im_lvl1_guide2"
+                        android:background="@drawable/dr_green_button"
+                        android:backgroundTint="@color/darkyellow"/>
 
                     <Button
                         android:id="@+id/thirdGuide"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_110sdp"
+                        android:layout_height="@dimen/_90sdp"
                         android:layout_weight="1"
-                        android:text="TextView"
-                        android:textColor="#050505"
-                        android:textSize="@dimen/_18sdp"
-                        android:background="@drawable/dr_green_button"/>
+                        android:text="@string/textview"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:layout_marginBottom="@dimen/_20sdp"
+                        android:textAllCaps="false"
+                        android:fontFamily="@font/manroperegular"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_16sdp"
+                        android:gravity="center"
+                        android:padding="@dimen/_10sdp"
+                        android:drawableStart="@drawable/im_lvl1_guide3"
+                        android:background="@drawable/dr_green_button"
+                        android:backgroundTint="@color/darkyellow"/>
 
                     <Button
                         android:id="@+id/fourthGuide"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_110sdp"
+                        android:layout_height="@dimen/_90sdp"
                         android:layout_weight="1"
-                        android:text="TextView"
-                        android:textColor="#050505"
-                        android:textSize="@dimen/_18sdp"
-                        android:background="@drawable/dr_green_button"/>
+                        android:text="@string/textview"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:layout_marginBottom="@dimen/_20sdp"
+                        android:textAllCaps="false"
+                        android:fontFamily="@font/manroperegular"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_16sdp"
+                        android:gravity="center"
+                        android:padding="@dimen/_10sdp"
+                        android:drawableStart="@drawable/im_lvl1_guide4"
+                        android:background="@drawable/dr_green_button"
+                        android:backgroundTint="@color/darkyellow"/>
+
                 </LinearLayout>
+
             </LinearLayout>
         </ScrollView>
     </FrameLayout>
