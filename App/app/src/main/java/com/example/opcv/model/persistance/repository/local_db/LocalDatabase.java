@@ -68,6 +68,7 @@ public class LocalDatabase implements LocalDatabaseI {
                 boolean found = false;
                 JSONObject newObject = new JSONObject(infoForm);
                 for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject existingObject = jsonArray.getJSONObject(i);
                     if (newObject.toString().equals(existingObject.toString())) {
                         found = true;
                         break;
