@@ -2,6 +2,7 @@ package com.example.opcv.business.ludification;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.graphics.drawable.Drawable;
 import android.widget.Toast;
 
 import com.example.opcv.business.persistance.firebase.LudificationCommunication;
@@ -68,7 +69,13 @@ public class Ludification {
         }
         return true;
     }
-    //public boolean validatePhoto(St)
+    public boolean validatePhoto(Drawable drawable, Context context){
+        if(drawable == null){
+            Toast.makeText(context, "Es necesario una foto.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
 
 
     public void likesDislikes(String docRef, boolean isLike, String element){
@@ -94,7 +101,6 @@ public class Ludification {
         }
     }
 
-    public void downloadGuide(){
-    }
+
 
 }

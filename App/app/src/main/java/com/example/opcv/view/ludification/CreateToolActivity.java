@@ -94,18 +94,20 @@ public class CreateToolActivity extends AppCompatActivity {
                 fertilizerCheck = fertilizer.isChecked();
                 careCheck = care.isChecked();
                 Drawable drawable = image.getDrawable();
-                Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                bytes = stream.toByteArray();
-                if(logic.validateField(toolName, toolDescription, CreateToolActivity.this, bytes)){
-                    logic.addToolElementsMap(toolName, toolDescription, toolCheck, fertilizerCheck, careCheck, CreateToolActivity.this, idUser, bytes);
-                    level.addLevel(idUser, true, CreateToolActivity.this, "Tools");
-                    //Notifications notifications = new Notifications();
-                    //notifications.notification("Has ganado puntos", "Felicidades! Ganaste 7 puntos por crear tu herramienta", CreateToolActivity.this, DictionaryHome.class);
-                    Intent edit = new Intent(CreateToolActivity.this, DictionaryHomeActivity.class);
-                    edit.putExtra("userInfo", idUser);
-                    startActivity(edit);
+                if(logic.validatePhoto(drawable, CreateToolActivity.this)){
+                    Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    bytes = stream.toByteArray();
+                    if(logic.validateField(toolName, toolDescription, CreateToolActivity.this, bytes)){
+                        logic.addToolElementsMap(toolName, toolDescription, toolCheck, fertilizerCheck, careCheck, CreateToolActivity.this, idUser, bytes);
+                        level.addLevel(idUser, true, CreateToolActivity.this, "Tools");
+                        //Notifications notifications = new Notifications();
+                        //notifications.notification("Has ganado puntos", "Felicidades! Ganaste 7 puntos por crear tu herramienta", CreateToolActivity.this, DictionaryHome.class);
+                        Intent edit = new Intent(CreateToolActivity.this, DictionaryHomeActivity.class);
+                        edit.putExtra("userInfo", idUser);
+                        startActivity(edit);
+                    }
                 }
             }
         });

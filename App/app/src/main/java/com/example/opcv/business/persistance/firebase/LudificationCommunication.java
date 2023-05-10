@@ -595,4 +595,42 @@ public class LudificationCommunication implements Serializable {
         db.collection("UserInfo").document(idUser).collection("UserActionsPoints").add(map);
     }
 
+    public void checkIfPlantOrToolExists(String element, String name, final CheckIfItemExists callback){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference ref = db.collection(element);
+
+        ref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    String nameItem = null, nameLowerCase = name.toLowerCase();
+                    int a=0, b=0;
+                    for(QueryDocumentSnapshot doc : task.getResult()){
+                        if(element.equals("Plants")){
+                            nameItem = doc.getString("PlantName").toLowerCase();
+                        } else if (element.equals("Tools")) {
+                            nameItem = doc.getString("ToolName").toLowerCase();
+                        }
+                        if(nameItem != null){
+                            if(!nameItem.equals(nameLowerCase)){
+                                b++;
+                            }
+                        }
+                        a++;
+                    }
+                    //System.out.println("a: "+a+" b: "+b);
+                    if(a != b){
+                        callback.onComplete(true);
+                    }
+                    else{
+                        callback.onComplete(false);
+                    }
+                }
+            }
+        });
+    }
+
+    public interface CheckIfItemExists{
+        void onComplete(boolean resp);
+    }
 }
