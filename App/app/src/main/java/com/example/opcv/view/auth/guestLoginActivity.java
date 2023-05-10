@@ -8,9 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.opcv.R;
-import com.example.opcv.business.persistance.firebase.AuthCommunication;
-import com.example.opcv.view.base.HomeActivity;
-import com.example.opcv.view.base.MainActivity;
+import com.example.opcv.model.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.gardens.GardensAvailableActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.opcv.R;
 import com.example.opcv.model.items.ItemGardenHomeList;
-import com.example.opcv.business.persistance.firebase.GardenCommunication;
+import com.example.opcv.model.persistance.firebase.GardenCommunication;
 
 import java.util.List;
 
