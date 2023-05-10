@@ -17,13 +17,13 @@ import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.view.gardens.GardensAvailableActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class ShowLevelTwoGuidesActivity extends AppCompatActivity {
+public class ShowGuidesLevelFourActivity extends AppCompatActivity {
     private Button profile, myGardens, rewards, ludification, firstGuide, secondGuide, thirdGuide;
     private FloatingActionButton back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_level_two_guides);
+        setContentView(R.layout.activity_show_level_four_guides);
 
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
@@ -41,7 +41,7 @@ public class ShowLevelTwoGuidesActivity extends AppCompatActivity {
         firstGuide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent edit = new Intent(ShowLevelTwoGuidesActivity.this, DisplayPdfActivity.class);
+                Intent edit = new Intent(ShowGuidesLevelFourActivity.this, DisplayPdfActivity.class);
                 edit.putExtra("path", "LevelFour/5 plantas medicinales para tu huerta.pdf");
 
                 startActivity(edit);
@@ -50,7 +50,7 @@ public class ShowLevelTwoGuidesActivity extends AppCompatActivity {
         secondGuide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent edit = new Intent(ShowLevelTwoGuidesActivity.this, DisplayPdfActivity.class);
+                Intent edit = new Intent(ShowGuidesLevelFourActivity.this, DisplayPdfActivity.class);
 
                 edit.putExtra("path", "LevelFour/5 repelentes orgánicos caseros.pdf");
 
@@ -61,7 +61,7 @@ public class ShowLevelTwoGuidesActivity extends AppCompatActivity {
         thirdGuide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent edit = new Intent(ShowLevelTwoGuidesActivity.this, DisplayPdfActivity.class);
+                Intent edit = new Intent(ShowGuidesLevelFourActivity.this, DisplayPdfActivity.class);
 
                 edit.putExtra("path", "LevelFour/4 usos de la cáscara de huevo en la huerta.pdf");
 
@@ -73,11 +73,11 @@ public class ShowLevelTwoGuidesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(isOnline()){
-                    Intent edit = new Intent(ShowLevelTwoGuidesActivity.this, DictionaryHomeActivity.class);
+                    Intent edit = new Intent(ShowGuidesLevelFourActivity.this, DictionaryHomeActivity.class);
                     startActivity(edit);
                 }
                 else{
-                    Toast.makeText(ShowLevelTwoGuidesActivity.this, "Para acceder necesitas conexión a internet", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ShowGuidesLevelFourActivity.this, "Para acceder necesitas conexión a internet", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -85,7 +85,7 @@ public class ShowLevelTwoGuidesActivity extends AppCompatActivity {
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ShowLevelTwoGuidesActivity.this, GardensAvailableActivity.class));
+                startActivity(new Intent(ShowGuidesLevelFourActivity.this, GardensAvailableActivity.class));
             }
         });
 
@@ -94,7 +94,7 @@ public class ShowLevelTwoGuidesActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent edit = new Intent(ShowLevelTwoGuidesActivity.this, EditUserActivity.class);
+                Intent edit = new Intent(ShowGuidesLevelFourActivity.this, EditUserActivity.class);
                 AuthCommunication auth = new AuthCommunication();
                 String userId = auth.getCurrentUserUid();
                 edit.putExtra("userInfo", userId);
@@ -106,7 +106,7 @@ public class ShowLevelTwoGuidesActivity extends AppCompatActivity {
         rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ShowLevelTwoGuidesActivity.this, RewardHomeActivity.class));
+                startActivity(new Intent(ShowGuidesLevelFourActivity.this, RewardHomeActivity.class));
             }
         });
 

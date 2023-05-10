@@ -50,7 +50,7 @@
             android:name=".view.ludification.DisplayPlantsDiseasesActivity"
             android:exported="false" />
         <activity
-            android:name=".view.ludification.ShowLevelTwoGuidesActivity"
+            android:name=".view.ludification.ShowGuidesLevelFourActivity"
             android:exported="false" />
         <activity
             android:name=".view.ludification.DisplayPdfActivity"
