@@ -426,6 +426,12 @@
     <string name="PotatoSecondPlagueDescription">Esta es la enfermedad más peligrosa para los cultivos de papa en todo el mundo, debido a las grandes pérdidas que genera. Es causada por el hongo Phytophthora infestans, y afecta a hojas, tallos y tubérculos. </string>
     <string name="PotatoSecondPlagueSolution">Síntomas: Una vez que las plantas de papa comienzan a mostrar síntomas de tizón tardío, la enfermedad puede matar al cultivo en pocos días. Los signos más característicos de esta infección son: Manchas de color verde claro y oscuro en puntas y bordes de las hojas que luego oscurecen. Alrededor de estas manchas, puedes ver un círculo amarillo, y en el envés de la hoja aparece moho blanco, en los tallos puedes notar manchas longitudinales ascendentes, que pueden llevar a su colapso, Lesiones descoloridas en los tubérculos, desde la piel hacia el interior. estas necrosis amarronadas y secas pueden tornarse malolientes por la acción de bacterias secundarias, en afecciones severas, los cultivos pueden mostrar la apariencia de haber sido quemados por una helada.</string>
     <string name="PotatoSecondPlagueSymptoms">Soluciones: Algunas medidas sencillas que puedes tomar para evitar la aparición de esta enfermedad son: Uso de semilla certificada o libre del patógeno, riego en el suelo (evitar aspersión) en cantidades apropiadas, cubrir adecuadamente los tubérculos con tierra, quitar el follaje afectado antes de la cosecha.</string>
+    <string name="repollo">Repollo</string>
+    <string name="lechuga">Lechuga</string>
+    <string name="br_coli">Brócoli</string>
+    <string name="r_bano">Rábano</string>
+    <string name="cilantro">Cilantro</string>
+    <string name="papa">Papa</string>
 
     <!--Fin de la seccion de las plantas del nivel 3-->
 </resources>
