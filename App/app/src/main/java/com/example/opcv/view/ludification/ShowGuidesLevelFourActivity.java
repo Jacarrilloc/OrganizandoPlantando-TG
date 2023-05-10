@@ -43,7 +43,7 @@ public class ShowGuidesLevelFourActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent edit = new Intent(ShowGuidesLevelFourActivity.this, DisplayPdfActivity.class);
                 edit.putExtra("path", "LevelFour/5 plantas medicinales para tu huerta.pdf");
-
+                edit.putExtra("relative", "5 plantas medicinales para tu huerta.pdf");
                 startActivity(edit);
             }
         });
@@ -51,9 +51,8 @@ public class ShowGuidesLevelFourActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent edit = new Intent(ShowGuidesLevelFourActivity.this, DisplayPdfActivity.class);
-
                 edit.putExtra("path", "LevelFour/5 repelentes orgánicos caseros.pdf");
-
+                edit.putExtra("relative", "5 repelentes orgánicos caseros.pdf");
                 startActivity(edit);
             }
         });
@@ -62,9 +61,8 @@ public class ShowGuidesLevelFourActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent edit = new Intent(ShowGuidesLevelFourActivity.this, DisplayPdfActivity.class);
-
                 edit.putExtra("path", "LevelFour/4 usos de la cáscara de huevo en la huerta.pdf");
-
+                edit.putExtra("relative", "4 usos de la cáscara de huevo en la huerta.pdf");
                 startActivity(edit);
             }
         });

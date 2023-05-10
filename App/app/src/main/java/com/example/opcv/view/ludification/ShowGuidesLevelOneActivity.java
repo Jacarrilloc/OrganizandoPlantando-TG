@@ -48,7 +48,7 @@ public class ShowGuidesLevelOneActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent edit = new Intent(ShowGuidesLevelOneActivity.this, DisplayPdfActivity.class);
                 edit.putExtra("path", "LevelOne/Pasos_basicos_para_establecer_y_manejar_tu_huerta.pdf");
-
+                edit.putExtra("relative", "Pasos_basicos_para_establecer_y_manejar_tu_huerta.pdf");
                 startActivity(edit);
             }
         });
@@ -56,9 +56,8 @@ public class ShowGuidesLevelOneActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent edit = new Intent(ShowGuidesLevelOneActivity.this, DisplayPdfActivity.class);
-
                 edit.putExtra("path", "LevelOne/¿Cómo preparar el suelo para sembrar.pdf");
-
+                edit.putExtra("relative", "¿Cómo preparar el suelo para sembrar.pdf");
                 startActivity(edit);
             }
         });
@@ -67,9 +66,8 @@ public class ShowGuidesLevelOneActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent edit = new Intent(ShowGuidesLevelOneActivity.this, DisplayPdfActivity.class);
-
                 edit.putExtra("path", "LevelOne/Inicia tus huertas con estas 5 plantas.pdf");
-
+                edit.putExtra("relative", "Inicia tus huertas con estas 5 plantas.pdf");
                 startActivity(edit);
             }
         });
@@ -78,9 +76,8 @@ public class ShowGuidesLevelOneActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent edit = new Intent(ShowGuidesLevelOneActivity.this, DisplayPdfActivity.class);
-
                 edit.putExtra("path", "LevelOne/Polinizadores atráelos a tu huerta con estas plantas.pdf");
-
+                edit.putExtra("relative", "Polinizadores atráelos a tu huerta con estas plantas.pdf");
                 startActivity(edit);
             }
         });

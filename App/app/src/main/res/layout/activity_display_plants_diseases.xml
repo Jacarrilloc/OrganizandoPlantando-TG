@@ -48,15 +48,19 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:elevation="@dimen/_4sdp"
                     android:gravity="center"
+
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_25sdp"
                         android:orientation="vertical">
 
                         <ImageView
@@ -64,21 +68,22 @@
                             android:layout_width="@dimen/_100sdp"
                             android:layout_height="@dimen/_100sdp"
                             android:scaleType="fitXY"
-                            tools:srcCompat="@drawable/im_lechuga" />
+                            android:background="@drawable/im_lechuga"/>
 
                         <TextView
                             android:id="@+id/textView19"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Lechuga"
                             android:fontFamily="@font/manropemedium"
+                            android:text="Lechuga"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_17sdp"/>
+                            android:textSize="@dimen/_17sdp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_margin="@dimen/_25sdp"
                         android:orientation="vertical">
 
                         <ImageView
@@ -86,35 +91,40 @@
                             android:layout_width="@dimen/_100sdp"
                             android:layout_height="@dimen/_100sdp"
                             android:scaleType="fitXY"
-                            tools:srcCompat="@drawable/im_repollo" />
+                            android:background="@drawable/im_repollo" />
 
                         <TextView
                             android:id="@+id/textView18"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Repollo"
                             android:fontFamily="@font/manropemedium"
+                            android:text="Repollo"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_17sdp"/>
+                            android:textSize="@dimen/_17sdp" />
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:elevation="@dimen/_4sdp"
                     android:gravity="center"
-                    android:orientation="horizontal">
+
+                    android:orientation="horizontal"
+                    >
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_margin="@dimen/_25sdp">
 
                         <ImageView
                             android:id="@+id/broccoli"
                             android:layout_width="@dimen/_100sdp"
                             android:layout_height="@dimen/_100sdp"
                             android:scaleType="fitXY"
-                            tools:srcCompat="@drawable/im_brocoli" />
+                            android:background="@drawable/im_brocoli" />
 
                         <TextView
                             android:id="@+id/textView29"
@@ -129,14 +139,15 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_margin="@dimen/_25sdp">
 
                         <ImageView
                             android:id="@+id/radish"
                             android:layout_width="@dimen/_100sdp"
                             android:layout_height="@dimen/_100sdp"
                             android:scaleType="fitXY"
-                            tools:srcCompat="@drawable/im_rabano" />
+                            android:background="@drawable/im_rabano" />
 
                         <TextView
                             android:id="@+id/textView28"
@@ -157,14 +168,15 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_margin="@dimen/_20sdp">
 
                         <ImageView
                             android:id="@+id/coriander"
                             android:layout_width="@dimen/_100sdp"
                             android:layout_height="@dimen/_100sdp"
                             android:scaleType="fitXY"
-                            tools:srcCompat="@drawable/im_cilantro" />
+                            android:background="@drawable/im_cilantro" />
 
                         <TextView
                             android:id="@+id/textView49"
@@ -179,14 +191,15 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_margin="@dimen/_20sdp">
 
                         <ImageView
                             android:id="@+id/potato"
                             android:layout_width="@dimen/_100sdp"
                             android:layout_height="@dimen/_100sdp"
                             android:scaleType="fitXY"
-                            tools:srcCompat="@drawable/im_papa" />
+                            android:background="@drawable/im_papa" />
 
                         <TextView
                             android:id="@+id/textView78"

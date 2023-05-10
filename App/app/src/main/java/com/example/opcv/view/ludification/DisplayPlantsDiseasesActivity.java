@@ -43,8 +43,7 @@ public class DisplayPlantsDiseasesActivity extends AppCompatActivity {
         lettuce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DisplayPlantsDiseasesActivity.this, SelectedPlantDiseasesActivity.class);
-                intent.putExtra("plant", "Lechuga");
+                Intent intent = new Intent(DisplayPlantsDiseasesActivity.this, LettuceDiseasesActivity.class);
                 startActivity(intent);
             }
         });
@@ -52,8 +51,7 @@ public class DisplayPlantsDiseasesActivity extends AppCompatActivity {
         cabbage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DisplayPlantsDiseasesActivity.this, SelectedPlantDiseasesActivity.class);
-                intent.putExtra("plant", "Repollo");
+                Intent intent = new Intent(DisplayPlantsDiseasesActivity.this, CabbageDiseasesActivity.class);
                 startActivity(intent);
             }
         });
@@ -61,8 +59,7 @@ public class DisplayPlantsDiseasesActivity extends AppCompatActivity {
         broccoli.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DisplayPlantsDiseasesActivity.this, SelectedPlantDiseasesActivity.class);
-                intent.putExtra("plant", "Brocoli");
+                Intent intent = new Intent(DisplayPlantsDiseasesActivity.this, BroccoliDiseaseActivity.class);
                 startActivity(intent);
             }
         });
@@ -70,8 +67,7 @@ public class DisplayPlantsDiseasesActivity extends AppCompatActivity {
         radish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DisplayPlantsDiseasesActivity.this, SelectedPlantDiseasesActivity.class);
-                intent.putExtra("plant", "Rabano");
+                Intent intent = new Intent(DisplayPlantsDiseasesActivity.this, RadishDiseaseActivity.class);
                 startActivity(intent);
             }
         });
@@ -79,8 +75,7 @@ public class DisplayPlantsDiseasesActivity extends AppCompatActivity {
         coriander.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DisplayPlantsDiseasesActivity.this, SelectedPlantDiseasesActivity.class);
-                intent.putExtra("plant", "Cilantro");
+                Intent intent = new Intent(DisplayPlantsDiseasesActivity.this, CorianderDiseaseActivity.class);
                 startActivity(intent);
             }
         });
@@ -88,8 +83,7 @@ public class DisplayPlantsDiseasesActivity extends AppCompatActivity {
         potato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DisplayPlantsDiseasesActivity.this, SelectedPlantDiseasesActivity.class);
-                intent.putExtra("plant", "Papa");
+                Intent intent = new Intent(DisplayPlantsDiseasesActivity.this, PotatoDiseaseActivity.class);
                 startActivity(intent);
             }
         });

@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context=".view.ludification.SelectedPlantDiseasesActivity">
+    tools:context=".view.ludification.LettuceDiseasesActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -35,6 +35,7 @@
             android:layout_marginEnd="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:gravity="center"
+            android:text="Papa"
             android:textColor="#050505"
             android:textSize="@dimen/_35sdp" />
 
@@ -57,7 +58,7 @@
                     android:fontFamily="@font/manropemedium"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:gravity="center"
-                    android:text="@string/TextLettuce"
+                    android:text="@string/TextPotato"
                     android:textColor="#050505"
                     android:textSize="@dimen/_15sdp" />
 
@@ -68,16 +69,113 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:fontFamily="@font/manropemedium"
                     android:gravity=""
-                    android:text="@string/LettucePlagues"
+                    android:text="@string/PotatoPlagues"
                     android:textColor="#050505"
                     android:textSize="@dimen/_15sdp"
                     android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/imageView9"
+                <TextView
+                    android:id="@+id/textView10"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_300sdp"
-                    app:srcCompat="@drawable/im_tabla1" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/manropemedium"
+                    android:gravity=""
+                    android:text="@string/PotatoFirstPlagueName"
+                    android:textColor="#050505"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/manropemedium"
+                    android:gravity=""
+                    android:text="@string/PotatoFirstPlagueDescription"
+                    android:textColor="#050505"
+                    android:textSize="@dimen/_15sdp"/>
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/manropemedium"
+                    android:gravity=""
+                    android:text="@string/PotatoFirstPlagueSymptoms"
+                    android:textColor="#050505"
+                    android:textSize="@dimen/_15sdp" />
+
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/manropemedium"
+                    android:gravity=""
+                    android:text="@string/PotatoFirstPlagueSolution"
+                    android:textColor="#050505"
+                    android:textSize="@dimen/_15sdp"/>
+
+
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/manropemedium"
+                    android:gravity=""
+                    android:text="@string/PotatoDiseases"
+                    android:textColor="#050505"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/manropemedium"
+                    android:gravity=""
+                    android:text="@string/PotatoSecondPlagueName"
+                    android:textColor="#050505"
+                    android:textSize="@dimen/_15sdp"/>
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/manropemedium"
+                    android:gravity=""
+                    android:text="@string/PotatoSecondPlagueDescription"
+                    android:textColor="#050505"
+                    android:textSize="@dimen/_15sdp" />
+
+
+                <TextView
+                    android:id="@+id/textVie22"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:fontFamily="@font/manropemedium"
+                    android:gravity=""
+                    android:text="@string/PotatoSecondPlagueSolution"
+                    android:textColor="#050505"
+                    android:textSize="@dimen/_15sdp"/>
+
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/manropemedium"
+                    android:gravity=""
+                    android:text="@string/PotatoSecondPlagueSymptoms"
+                    android:textColor="#050505"
+                    android:textSize="@dimen/_15sdp" />
+
 
 
             </LinearLayout>
