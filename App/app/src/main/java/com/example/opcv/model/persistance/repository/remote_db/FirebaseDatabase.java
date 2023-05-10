@@ -58,7 +58,7 @@ public class FirebaseDatabase implements FirebaseDatabaseI {
     public void deleteInDatabase(String idGarden, Map<String, Object> infoForm) {
         String date = (String) infoForm.get("Date");
         String createdBy = (String) infoForm.get("CreatedBy");
-        int idForm = (int) infoForm.get("idForm");
+        int idForm = (Integer) infoForm.get("idForm");
         mFirestore.collection("Gardens").document(idGarden).collection("Forms").get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {

@@ -285,6 +285,7 @@ public class Form_CIH extends AppCompatActivity {
         newInfo.put("toolStatus",statusTools);
         newInfo.put("existenceQuantity",toolExistance);
 
+
         idGardenFb = getIntent().getStringExtra("idGardenFirebase");
         Forms updateInfo = new Forms(this);
         updateInfo.updateInfoForm(oldInfo,newInfo,idGardenFb);

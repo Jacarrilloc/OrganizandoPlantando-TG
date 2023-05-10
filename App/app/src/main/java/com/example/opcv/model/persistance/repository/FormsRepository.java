@@ -92,7 +92,7 @@ public class FormsRepository {
 
     public List<Map<String, Object>> getInfoForms(String idGarden, String formName) throws IOException, JSONException {
         List<Map<String, Object>> infoJsonForms = null;
-
+        /*
         if (isOnline()) {
             // Verifica si los datos ya han sido obtenidos antes de hacer una nueva consulta a la base de datos
             if (!dataObtained) {
@@ -116,7 +116,9 @@ public class FormsRepository {
             LocalDatabase info = new LocalDatabase(mContext);
             infoJsonForms = info.getInfoJsonForms(idGarden, formName);
         }
-
+         */
+        LocalDatabase info = new LocalDatabase(mContext);
+        infoJsonForms = info.getInfoJsonForms(idGarden, formName);
         return infoJsonForms;
     }
 
