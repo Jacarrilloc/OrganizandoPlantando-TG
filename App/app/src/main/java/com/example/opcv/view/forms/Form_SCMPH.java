@@ -263,9 +263,11 @@ public class Form_SCMPH extends AppCompatActivity {
     }
 
     private void showMapInfo(Map<String, Object> info,String status){
-        itemName.setText((CharSequence) info.get("itemName"));
-        quantity.setText((CharSequence) info.get("quantity"));
-        total.setText((CharSequence) info.get("total"));
+        if(info != null) {
+            itemName.setText((CharSequence) info.get("itemName"));
+            quantity.setText((CharSequence) info.get("quantity"));
+            total.setText((CharSequence) info.get("total"));
+        }
         switch (status){
             case "true":
                 EditText itemChoiseSelected = findViewById(R.id.itemChoiseSelected);
