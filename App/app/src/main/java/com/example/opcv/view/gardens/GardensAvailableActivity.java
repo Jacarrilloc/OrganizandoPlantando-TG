@@ -20,12 +20,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.opcv.model.persistance.firebase.AuthCommunication;
-import com.example.opcv.model.persistance.garden.GardenPersistance;
+import com.example.opcv.business.persistance.firebase.AuthCommunication;
+import com.example.opcv.business.persistance.garden.GardenPersistance;
 import com.example.opcv.view.auth.SignOffActivity;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
@@ -33,7 +34,10 @@ import com.example.opcv.view.adapter.GardenListAdapter;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.model.items.ItemGardenHomeList;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
+import com.example.opcv.business.persistance.firebase.GardenCommunication;
 import com.example.opcv.view.ludification.RewardHomeActivity;
+import com.example.opcv.view.ludification.ShowDictionaryItemActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -50,6 +54,7 @@ import java.util.List;
 public class GardensAvailableActivity extends AppCompatActivity {
 
     private Button rewards, profile, myGardens, ludification;
+    private FloatingActionButton back;
     private ImageView mapIcon;
     private FirebaseAuth autentication;
     private ListView listGardens;
@@ -80,6 +85,7 @@ public class GardensAvailableActivity extends AppCompatActivity {
         myGardens = (Button) findViewById(R.id.myGardens);
         ludification = (Button) findViewById(R.id.ludification);
         mapIcon = (ImageView) findViewById(R.id.mapIcon);
+        back = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
         AuthCommunication authCommunication = new AuthCommunication();
         FirebaseUser user = authCommunication.guestUser();
 
@@ -164,6 +170,13 @@ public class GardensAvailableActivity extends AppCompatActivity {
                 else{
                     Toast.makeText(GardensAvailableActivity.this, "Para acceder necesitas conexión a internet", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
     }
@@ -265,4 +278,9 @@ public class GardensAvailableActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

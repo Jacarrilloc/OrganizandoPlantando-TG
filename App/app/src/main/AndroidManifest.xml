@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -42,9 +42,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
-        tools:targetApi="31" >
+        tools:targetApi="31">
         <activity
-            android:name=".view.ludification.ShowLevelTwoGuidesActivity"
+            android:name=".view.ludification.PotatoDiseaseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ludification.CorianderDiseaseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ludification.RadishDiseaseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ludification.BroccoliDiseaseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ludification.CabbageDiseasesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ludification.LettuceDiseasesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ludification.DisplayPlantsDiseasesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ludification.ShowGuidesLevelFourActivity"
             android:exported="false" />
         <activity
             android:name=".view.ludification.DisplayPdfActivity"
@@ -94,7 +115,7 @@
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.opcv.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true" >
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
@@ -218,7 +239,7 @@
             android:exported="false" />
         <activity
             android:name=".view.base.MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

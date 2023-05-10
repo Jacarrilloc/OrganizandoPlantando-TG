@@ -608,4 +608,10 @@ public class GardenEditActivity extends AppCompatActivity {
             context.getResources().updateConfiguration(configuration, metrics);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

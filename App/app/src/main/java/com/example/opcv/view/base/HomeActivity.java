@@ -14,8 +14,12 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.TrafficStats;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -29,10 +33,11 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.opcv.BuildConfig;
 import com.example.opcv.R;
 import com.example.opcv.view.adapter.GardenListAdapter;
 import com.example.opcv.view.auth.EditUserActivity;
-import com.example.opcv.model.persistance.firebase.AuthCommunication;
+import com.example.opcv.business.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.auth.SignOffActivity;
 import com.example.opcv.view.gardens.CollaboratorGardensActivity;
 import com.example.opcv.view.gardens.CreateGardenActivity;
@@ -41,8 +46,9 @@ import com.example.opcv.view.gardens.GardensAvailableActivity;
 import com.example.opcv.model.entity.User;
 import com.example.opcv.model.items.ItemGardenHomeList;
 import com.example.opcv.view.gardens.GenerateReportsActivity;
+import com.example.opcv.view.gardens.MapsActivity;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
-import com.example.opcv.model.persistance.garden.GardenPersistance;
+import com.example.opcv.business.persistance.garden.GardenPersistance;
 import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -80,6 +86,7 @@ public class HomeActivity extends AppCompatActivity {
     private String userId;
 
     private Intent serviceIntent;
+    private Handler handle;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -165,11 +172,12 @@ public class HomeActivity extends AppCompatActivity {
             if(previous != null){
                 if(previous.equals("true")){
                     showProgressDialog(3000);
-                    hideProgressDialog();
+                    //hideProgressDialog();
                 }
             }
 
         }
+
         userId = getIntent().getStringExtra("userID");
 
 
@@ -414,18 +422,25 @@ public class HomeActivity extends AppCompatActivity {
         progressDialog.setMessage("Espera un momento, estamos configurando tu cuenta");
         progressDialog.setCancelable(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setMax(durationMs / 750);
+        progressDialog.setProgress(0);
         progressDialog.show();
 
-    }
-    private void hideProgressDialog() {
-        new Handler().postDelayed(new Runnable() {
+        final int[] currentProgress = {0};
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
             @Override
             public void run() {
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                    progressDialog = null;
+                if (progressDialog != null) {
+                    progressDialog.setProgress(currentProgress[0]++);
+                    if (currentProgress[0] <= progressDialog.getMax()) {
+                        handler.postDelayed(this, 1000);
+                    } else {
+                        progressDialog.dismiss();
+                        progressDialog = null;
+                    }
                 }
             }
-        }, 4000);
+        });
     }
 }

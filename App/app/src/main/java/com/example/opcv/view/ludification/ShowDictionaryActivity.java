@@ -37,7 +37,7 @@ import java.util.Map;
 public class ShowDictionaryActivity extends AppCompatActivity {
 
     private TextView name;
-    private FloatingActionButton add;
+    private FloatingActionButton add, back;
     private String element, idUser;
     private Button profile, myGardens, rewards, ludification;
     private androidx.appcompat.widget.SearchView searchView;
@@ -66,6 +66,7 @@ public class ShowDictionaryActivity extends AppCompatActivity {
         ludification = (Button) findViewById(R.id.ludification);
         searchView = (androidx.appcompat.widget.SearchView) findViewById(R.id.searchView);
         listView = (GridView) findViewById(R.id.plantsList);
+        back = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
         AuthCommunication authCommunication = new AuthCommunication();
         FirebaseUser user = authCommunication.guestUser();
 
@@ -210,6 +211,13 @@ public class ShowDictionaryActivity extends AppCompatActivity {
             }
         });
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
     }
     public void fillList(List<ItemPlantsTools> requestDocument){
         PlantsToolsAdapter adapter = new PlantsToolsAdapter(this, requestDocument, element);
@@ -261,5 +269,11 @@ public class ShowDictionaryActivity extends AppCompatActivity {
             metrics.scaledDensity = configuration.fontScale * metrics.density;
             context.getResources().updateConfiguration(configuration, metrics);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

@@ -10,9 +10,11 @@ import android.widget.Button;
 import com.example.opcv.R;
 import com.example.opcv.model.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.gardens.GardensAvailableActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class guestLoginActivity extends AppCompatActivity {
     private Button guestLoginButton;
+    private FloatingActionButton returnButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +22,7 @@ public class guestLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_guest_login);
 
         guestLoginButton = (Button) findViewById(R.id.guestLoginButton);
-
+        returnButton = (FloatingActionButton) findViewById(R.id.returnBotton);
 
         guestLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,5 +35,17 @@ public class guestLoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

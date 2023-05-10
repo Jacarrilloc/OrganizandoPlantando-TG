@@ -13,6 +13,18 @@
         android:layout_height="0dp"
         android:layout_weight="0.9">
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/returnArrowButtonToHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:clickable="true"
+            android:contentDescription="@string/boton_para_regresar"
+            android:tint="@color/white"
+            app:backgroundTint="#91BF63"
+            app:srcCompat="@drawable/dr_return_arrow" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -28,6 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_40sdp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/manropemedium"
                     android:text="@string/calendario_lunar"

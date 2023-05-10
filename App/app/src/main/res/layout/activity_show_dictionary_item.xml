@@ -14,6 +14,18 @@
         android:layout_height="0dp"
         android:layout_weight="0.9">
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/returnArrowButtonToHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:clickable="true"
+            android:contentDescription="@string/boton_para_regresar"
+            android:tint="@color/white"
+            app:backgroundTint="#91BF63"
+            app:srcCompat="@drawable/dr_return_arrow" />
+
         <EditText
             android:id="@+id/inputText"
             android:layout_width="match_parent"
@@ -52,7 +64,7 @@
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_40sdp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_gravity="center_horizontal">
@@ -200,7 +212,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/_5sdp"
-                        android:layout_marginTop="@dimen/_1sdp">
+                        android:layout_marginTop="@dimen/_10sdp">
 
                         <!-- Vista de imagen con borde -->
                         <ImageView

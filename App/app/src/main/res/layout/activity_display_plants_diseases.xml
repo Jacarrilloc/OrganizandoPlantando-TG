@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    tools:context=".view.ludification.DisplayPlantsDiseasesActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/returnArrowButtonToHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:clickable="true"
+            android:contentDescription="@string/boton_para_regresar"
+            android:tint="@color/white"
+            app:backgroundTint="#91BF63"
+            app:srcCompat="@drawable/dr_return_arrow" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="@dimen/_250sdp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginStart="@dimen/_60sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:gravity="center"
+            android:text="@string/ShowPlantsDiseases"
+            android:textColor="#050505"
+            android:textSize="@dimen/_15sdp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_100sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="@dimen/_4sdp"
+                    android:gravity="center"
+
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_25sdp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/lettuce"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_100sdp"
+                            android:scaleType="fitXY"
+                            android:background="@drawable/im_lechuga"/>
+
+                        <TextView
+                            android:id="@+id/textView19"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/manropemedium"
+                            android:text="Lechuga"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_17sdp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/_25sdp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/cabbage"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_100sdp"
+                            android:scaleType="fitXY"
+                            android:background="@drawable/im_repollo" />
+
+                        <TextView
+                            android:id="@+id/textView18"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/manropemedium"
+                            android:text="Repollo"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_17sdp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="@dimen/_4sdp"
+                    android:gravity="center"
+
+                    android:orientation="horizontal"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_margin="@dimen/_25sdp">
+
+                        <ImageView
+                            android:id="@+id/broccoli"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_100sdp"
+                            android:scaleType="fitXY"
+                            android:background="@drawable/im_brocoli" />
+
+                        <TextView
+                            android:id="@+id/textView29"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Brocoli"
+                            android:fontFamily="@font/manropemedium"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_17sdp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_margin="@dimen/_25sdp">
+
+                        <ImageView
+                            android:id="@+id/radish"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_100sdp"
+                            android:scaleType="fitXY"
+                            android:background="@drawable/im_rabano" />
+
+                        <TextView
+                            android:id="@+id/textView28"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rabano"
+                            android:fontFamily="@font/manropemedium"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_17sdp"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_margin="@dimen/_20sdp">
+
+                        <ImageView
+                            android:id="@+id/coriander"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_100sdp"
+                            android:scaleType="fitXY"
+                            android:background="@drawable/im_cilantro" />
+
+                        <TextView
+                            android:id="@+id/textView49"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cilantro"
+                            android:fontFamily="@font/manropemedium"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_17sdp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_margin="@dimen/_20sdp">
+
+                        <ImageView
+                            android:id="@+id/potato"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_100sdp"
+                            android:scaleType="fitXY"
+                            android:background="@drawable/im_papa" />
+
+                        <TextView
+                            android:id="@+id/textView78"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Papa"
+                            android:fontFamily="@font/manropemedium"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_17sdp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_80sdp"
+        android:background="@drawable/dr_shadow_top"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/ludification"
+            android:layout_width="@dimen/_98sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/im_dictionary"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:stateListAnimator="@null"
+            android:text="@string/Diccionary"
+            android:textAllCaps="false"
+            android:textColor="@color/grayLetters" />
+
+        <Button
+            android:id="@+id/rewards"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/im_reward_icon"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/_13sdp"
+            android:stateListAnimator="@null"
+            android:text="@string/bonos"
+            android:textAllCaps="false"
+            android:textColor="@color/grayLetters" />
+
+        <Button
+            android:id="@+id/myGardens"
+            android:layout_width="@dimen/_107sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/im_plant_icon"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
+            android:stateListAnimator="@null"
+            android:text="@string/Gardens"
+            android:textAllCaps="false"
+            android:textColor="@color/grayLetters" />
+
+        <Button
+            android:id="@+id/profile"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:fontFamily="@font/manropemedium"
+            android:background="@color/white"
+            android:drawableTop="@drawable/im_user_icon"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/_13sdp"
+            android:stateListAnimator="@null"
+            android:text="@string/User"
+            android:textAllCaps="false"
+            android:textColor="@color/grayLetters" />
+
+
+    </LinearLayout>
+</LinearLayout>

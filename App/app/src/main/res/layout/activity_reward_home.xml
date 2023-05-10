@@ -65,7 +65,7 @@
                     android:horizontalSpacing="@dimen/_10sdp"
                     android:verticalSpacing="@dimen/_15sdp"
                     android:stretchMode="columnWidth"
-                    android:gravity="center">
+                    android:layout_gravity="center">
 
                         <Button
                             android:id="@+id/level1"
@@ -116,7 +116,6 @@
                         android:fontFamily="@font/manropemedium"
                         android:textSize="@dimen/_12sdp"
                         android:textAllCaps="false"
-                        android:visibility="gone"
                         android:backgroundTint="#D8EFD9"
                         android:background="@drawable/dr_bk_shadow"
                         android:ellipsize="end"

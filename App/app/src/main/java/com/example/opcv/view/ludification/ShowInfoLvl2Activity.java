@@ -15,10 +15,12 @@ import com.example.opcv.R;
 import com.example.opcv.model.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.view.base.HomeActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ShowInfoLvl2Activity extends AppCompatActivity {
 
     private Button profile, myGardens, rewards, ludification;
+    private FloatingActionButton back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +29,7 @@ public class ShowInfoLvl2Activity extends AppCompatActivity {
         myGardens = (Button) findViewById(R.id.myGardens);
         rewards = (Button) findViewById(R.id.rewards);
         ludification = (Button) findViewById(R.id.ludification);
+        back = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
 
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +70,12 @@ public class ShowInfoLvl2Activity extends AppCompatActivity {
                 }
             }
         });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     private boolean isOnline() {
@@ -74,5 +83,11 @@ public class ShowInfoLvl2Activity extends AppCompatActivity {
                 (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

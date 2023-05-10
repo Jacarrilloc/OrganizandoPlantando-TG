@@ -25,17 +25,22 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.opcv.model.persistance.firebase.AuthCommunication;
+import com.example.opcv.business.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.auth.SignOffActivity;
+import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.view.ludification.RewardHomeActivity;
+import com.example.opcv.view.ludification.ShowDictionaryItemActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MapsActivity extends AppCompatActivity {
     private MapView map;
     private Button profile, rewards, home, ludification;
+    private FloatingActionButton back;
     private MapController myMapController;
     private ImageView gardens;
     GeoPoint bogota = new GeoPoint(4.62, -74.07);
@@ -62,6 +67,7 @@ public class MapsActivity extends AppCompatActivity {
         home = (Button) findViewById(R.id.myGardens);
         gardens = (ImageView) findViewById(R.id.gardensIcon);
         ludification = (Button) findViewById(R.id.ludification);
+        back = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
         map =findViewById(R.id.mapglobal);
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setMultiTouchControls(true);
@@ -132,6 +138,12 @@ public class MapsActivity extends AppCompatActivity {
             }
         });
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     @Override
@@ -175,5 +187,11 @@ public class MapsActivity extends AppCompatActivity {
             metrics.scaledDensity = configuration.fontScale * metrics.density;
             context.getResources().updateConfiguration(configuration, metrics);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

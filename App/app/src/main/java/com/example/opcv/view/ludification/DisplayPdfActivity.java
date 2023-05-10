@@ -11,29 +11,39 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.opcv.R;
-import com.example.opcv.model.persistance.firebase.AuthCommunication;
+import com.example.opcv.business.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.view.gardens.GardensAvailableActivity;
+import com.example.opcv.view.gardens.GenerateReportsActivity;
 import com.github.barteksc.pdfviewer.PDFView;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 public class DisplayPdfActivity extends AppCompatActivity {
     private Button profile, myGardens, rewards, ludification;
+    private FloatingActionButton back;
     private ImageButton download;
     private PDFView pdf;
-    private String pathPdf;
+    private String pathPdf, relative;
     private static final int STORAGE_PERMISSION_CODE = 1;
 
     @Override
@@ -47,10 +57,12 @@ public class DisplayPdfActivity extends AppCompatActivity {
         ludification = (Button) findViewById(R.id.ludification);
         pdf = (PDFView) findViewById(R.id.pdfView);
         download = (ImageButton) findViewById(R.id.download);
+        back = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             pathPdf = getIntent().getStringExtra("path");
+            relative = getIntent().getStringExtra("relative");
         }
 
         pdf.fromAsset(pathPdf).load();
@@ -101,10 +113,11 @@ public class DisplayPdfActivity extends AppCompatActivity {
             public void onClick(View view) {
                 requestStoragePermission();
                 AssetManager assetManager = getAssets();
+                Toast.makeText(DisplayPdfActivity.this, "Espere un momento, estamos generando su archivo.", Toast.LENGTH_SHORT).show();
                 try {
                     InputStream inputStream = assetManager.open(pathPdf);
                     String folderName = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
-                    File file = new File(folderName, pathPdf);
+                    File file = new File(folderName, relative);
                     FileOutputStream fos = new FileOutputStream(file);
                     byte[] buffer = new byte[1024];
                     int length;
@@ -113,10 +126,19 @@ public class DisplayPdfActivity extends AppCompatActivity {
                     }
                     inputStream.close();
                     fos.close();
+                    Toast.makeText(DisplayPdfActivity.this, "Se ha generado el pdf en la caroeta de descargas", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    //throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
 
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
     }
@@ -150,6 +172,11 @@ public class DisplayPdfActivity extends AppCompatActivity {
         else{
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
         }
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

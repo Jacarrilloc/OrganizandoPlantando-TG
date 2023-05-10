@@ -109,6 +109,7 @@ public class CreateGardenActivity extends AppCompatActivity {
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
         ludification = (Button) findViewById(R.id.ludification);
+        backButtom = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
         idUser = autentication.getCurrentUser().getUid().toString();
         UserCommunication com = new UserCommunication();
         Level levelLogic = new Level();
@@ -205,6 +206,13 @@ public class CreateGardenActivity extends AppCompatActivity {
                 else{
                     Toast.makeText(CreateGardenActivity.this, "Para acceder necesitas conexión a internet", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        backButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
     }
@@ -403,5 +411,11 @@ public class CreateGardenActivity extends AppCompatActivity {
             metrics.scaledDensity = configuration.fontScale * metrics.density;
             context.getResources().updateConfiguration(configuration, metrics);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

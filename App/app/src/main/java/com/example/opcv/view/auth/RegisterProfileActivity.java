@@ -22,6 +22,7 @@ import com.example.opcv.model.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.adapter.SpinnerAdapter;
 import com.example.opcv.model.entity.User;
 import com.example.opcv.model.entity.ValidateRegisterInfo;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ import java.util.List;
 public class RegisterProfileActivity extends AppCompatActivity {
 
     private EditText name,lastName,email,password,confirmPassword,phoneNumber;
+    private FloatingActionButton back;
     private CheckBox terms;
     private Button register,termsConditions;
     private Spinner spinnerGender;
@@ -48,6 +50,7 @@ public class RegisterProfileActivity extends AppCompatActivity {
         confirmPassword = findViewById(R.id.imputConfirmPaswordRegisterActivity);
         register = findViewById(R.id.createAcountButtomRegisterActivity);
         termsConditions = findViewById(R.id.terms_condition_buttom_registerProfileActivity);
+        back = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
 
         int textColor = ContextCompat.getColor(this,R.color.black);
 
@@ -102,6 +105,13 @@ public class RegisterProfileActivity extends AppCompatActivity {
 
             }
         });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -125,5 +135,11 @@ public class RegisterProfileActivity extends AppCompatActivity {
             metrics.scaledDensity = configuration.fontScale * metrics.density;
             context.getResources().updateConfiguration(configuration, metrics);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
