@@ -314,37 +314,40 @@ public class Form_RE extends AppCompatActivity {
     }
 
     private void updateForm(Map<String, Object> oldInfo) throws JSONException, IOException{
-        Map<String,Object> infoForm = new HashMap<>();
-        infoForm.put("idForm",12);
-        infoForm.put("nameForm", formName.getText().toString());
-        infoForm.put("date",date.getText().toString());
-        infoForm.put("eventName", eventName.getText().toString());
-        infoForm.put("totalPerson", totalPerson.getText().toString());
-        infoForm.put("womenNumber", femaleNumber.getText().toString());
-        infoForm.put("menNumber", maleNumber.getText().toString());
-        infoForm.put("noSpcNumber", noSpcNumber.getText().toString());
-        infoForm.put("infantNumber", infantNumber.getText().toString());
-        infoForm.put("childhoodNumber",chilhoodNumber.getText().toString());
-        infoForm.put("teenNumber",teenNumber.getText().toString());
-        infoForm.put("youthNumber", youthNumber.getText().toString());
-        infoForm.put("adultNumber",adultNumber.getText().toString());
-        infoForm.put("elderlyNumber", elderlyNumber.getText().toString());
-        infoForm.put("afroNumber", afroNumber.getText().toString());
-        infoForm.put("nativeNumber", nativeNumber.getText().toString());
-        infoForm.put("lgtbiNumber", lgtbiNumber.getText().toString());
-        infoForm.put("romNumber",romNumber.getText().toString());
-        infoForm.put("victimNumber", victimNumber.getText().toString());
-        infoForm.put("disabilityNumber", disabilityNumber.getText().toString());
-        infoForm.put("demobilizedNumber", desmobilizedNumber.getText().toString());
-        infoForm.put("mongrelNumber",mongrelNumber.getText().toString());
-        infoForm.put("foreignNumber",foreignNumber.getText().toString());
-        infoForm.put("peasantNumber", peasantNumber.getText().toString());
-        infoForm.put("otherNumber", otherNumber.getText().toString());
 
-        String idGardenFb;
-        idGardenFb = getIntent().getStringExtra("idGardenFirebase");
+        Map<String, Object> newInfo = new HashMap<>();
+        newInfo.put("CreatedBy",oldInfo.get("CreatedBy"));
+        newInfo.put("Date",oldInfo.get("Date"));
+        newInfo.put("idForm",oldInfo.get("idForm"));
+        newInfo.put("nameForm",oldInfo.get("nameForm"));
+
+        newInfo.put("date",date.getText().toString());
+        newInfo.put("eventName", eventName.getText().toString());
+        newInfo.put("totalPerson", totalPerson.getText().toString());
+        newInfo.put("womenNumber", femaleNumber.getText().toString());
+        newInfo.put("menNumber", maleNumber.getText().toString());
+        newInfo.put("noSpcNumber", noSpcNumber.getText().toString());
+        newInfo.put("infantNumber", infantNumber.getText().toString());
+        newInfo.put("childhoodNumber",chilhoodNumber.getText().toString());
+        newInfo.put("teenNumber",teenNumber.getText().toString());
+        newInfo.put("youthNumber", youthNumber.getText().toString());
+        newInfo.put("adultNumber",adultNumber.getText().toString());
+        newInfo.put("elderlyNumber", elderlyNumber.getText().toString());
+        newInfo.put("afroNumber", afroNumber.getText().toString());
+        newInfo.put("nativeNumber", nativeNumber.getText().toString());
+        newInfo.put("lgtbiNumber", lgtbiNumber.getText().toString());
+        newInfo.put("romNumber",romNumber.getText().toString());
+        newInfo.put("victimNumber", victimNumber.getText().toString());
+        newInfo.put("disabilityNumber", disabilityNumber.getText().toString());
+        newInfo.put("demobilizedNumber", desmobilizedNumber.getText().toString());
+        newInfo.put("mongrelNumber",mongrelNumber.getText().toString());
+        newInfo.put("foreignNumber",foreignNumber.getText().toString());
+        newInfo.put("peasantNumber", peasantNumber.getText().toString());
+        newInfo.put("otherNumber", otherNumber.getText().toString());
+
+        String idGardenFb = getIntent().getStringExtra("idGardenFirebase");
         Forms updateInfo = new Forms(this);
-        updateInfo.updateInfoForm(oldInfo,infoForm,idGardenFb);
+        updateInfo.updateInfoForm(oldInfo,newInfo,idGardenFb);
         Notifications notifications = new Notifications();
         notifications.notification("Formulario Editado", "Felicidades! Actualizaste la Información de tu Formulario", Form_RE.this);
         onBackPressed();
