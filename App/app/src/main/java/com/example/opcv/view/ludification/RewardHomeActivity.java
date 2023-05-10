@@ -66,7 +66,7 @@ public class RewardHomeActivity extends AppCompatActivity {
         lvl4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent guides = new Intent(RewardHomeActivity.this, ShowLevelTwoGuidesActivity.class);
+                Intent guides = new Intent(RewardHomeActivity.this, ShowGuidesLevelFourActivity.class);
                 startActivity(guides);
             }
         });

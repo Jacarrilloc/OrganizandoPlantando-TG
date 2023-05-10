@@ -279,6 +279,10 @@
     <string name="al_ser_nivel_2_ya_puedes_agregar_una_foto_de_tu_huerta_n_n_con_esto_podr_s_perzonalizar_la_descripci_n_de_tu_huerta_y_ser_m_s_llamativa_para_otras_personas">Al ser nivel 2 ya puedes agregar una foto de tu huerta. \n\n Con esto podrás perzonalizar la descripción de tu huerta y ser más llamativa para otras personas.</string>
     <string name="ShowGuidesText">A continuación se muestran las guias que corresponden al nivel desbloqueado: </string>
     <string name="DisplayPDF">A continuación podras visualizar la guia que seleccionaste o podras descargarla en tu dispositivo</string>
+    <string name="registrarse_como_invitado">Registrarse como invitado</string>
+    <string name="ingresa_tu_nombre_de_invitado">Ingresa tu nombre de invitado</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="textview">TextView</string>
     <string name="ShowPlantsDiseases">A continuación se muestran las información de enfermedades mas comunes de estas plantas y sus posibles soluciones. </string>
 
     <!--Textos estaticos para el nivel de plantas y sus enfermedades-->

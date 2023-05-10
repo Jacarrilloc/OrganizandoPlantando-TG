@@ -65,7 +65,7 @@
                     android:horizontalSpacing="@dimen/_10sdp"
                     android:verticalSpacing="@dimen/_15sdp"
                     android:stretchMode="columnWidth"
-                    android:gravity="center">
+                    android:layout_gravity="center">
 
                         <Button
                             android:id="@+id/level1"

@@ -25,4 +25,6 @@
     <color name="lightOrange">#FDC4B6</color>
     <color name="lightGreen2">#EEFAEB</color>
     <color name="lightPurple">#E9D6ED</color>
+    <color name="darkyellow">#EBB132</color>
+    <color name="darkpurple">#C986DB</color>
 </resources>
