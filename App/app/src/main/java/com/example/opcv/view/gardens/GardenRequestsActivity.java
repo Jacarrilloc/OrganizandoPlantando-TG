@@ -20,9 +20,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.opcv.R;
-import com.example.opcv.model.persistance.garden.GardenPersistance;
+import com.example.opcv.business.persistance.garden.GardenPersistance;
 import com.example.opcv.view.adapter.CollaboratorListAdapter;
 import com.example.opcv.model.items.ItemCollaboratorsRequest;
+import com.example.opcv.business.persistance.firebase.GardenCommunication;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;

@@ -1,24 +1,23 @@
 package com.example.opcv.model.items;
 
-import java.util.Map;
-
 public class ItemRegistersList {
-    private String idGarden, formName, date;
-    private Map<String,Object> info;
+    public String idGarden, formName, idFormCollection, date;
 
-    public ItemRegistersList(String idGarden, String formName, Map<String,Object> info, String date) {
+
+
+    public ItemRegistersList(String idGarden, String formName, String idFormCollection, String date) {
         this.idGarden = idGarden;
         this.formName = formName;
+        this.idFormCollection = idFormCollection;
         this.date = date;
-        this.info = info;
     }
 
-    public Map<String, Object> getInfo() {
-        return info;
+    public String getIdFormCollection() {
+        return idFormCollection;
     }
 
-    public void setInfo(Map<String, Object> info) {
-        this.info = info;
+    public void setIdFormCollection(String idFormCollection) {
+        this.idFormCollection = idFormCollection;
     }
 
     public String getIdGarden() {

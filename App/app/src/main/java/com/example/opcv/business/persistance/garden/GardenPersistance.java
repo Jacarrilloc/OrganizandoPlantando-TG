@@ -1,4 +1,4 @@
-package com.example.opcv.model.persistance.garden;
+package com.example.opcv.business.persistance.garden;
 
 import android.content.ContentResolver;
 import android.content.Context;

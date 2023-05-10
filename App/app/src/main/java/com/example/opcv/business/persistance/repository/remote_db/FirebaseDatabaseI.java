@@ -1,4 +1,4 @@
-package com.example.opcv.model.persistance.repository.remote_db;
+package com.example.opcv.business.persistance.repository.remote_db;
 
 import java.util.Map;
 

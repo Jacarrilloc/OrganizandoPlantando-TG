@@ -18,12 +18,14 @@ import android.widget.Toast;
 
 import com.example.opcv.R;
 import com.example.opcv.business.ludification.MoonCalendar;
-import com.example.opcv.model.persistance.firebase.AuthCommunication;
+import com.example.opcv.business.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.auth.EditUserActivity;
+import com.example.opcv.view.auth.SignOffActivity;
 import com.example.opcv.view.base.HomeActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;

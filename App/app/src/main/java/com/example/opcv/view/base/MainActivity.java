@@ -11,7 +11,7 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
 import com.example.opcv.R;
-import com.example.opcv.model.persistance.firebase.AuthCommunication;
+import com.example.opcv.business.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.auth.NewToAppActivity;
 
 public class MainActivity extends AppCompatActivity {

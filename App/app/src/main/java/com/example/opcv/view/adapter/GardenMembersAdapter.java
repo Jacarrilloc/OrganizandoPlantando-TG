@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.opcv.R;
-import com.example.opcv.model.persistance.firebase.CollaboratorCommunication;
+import com.example.opcv.business.persistance.firebase.CollaboratorCommunication;
 import com.example.opcv.model.items.ItemCollaborator;
 
 import java.util.List;

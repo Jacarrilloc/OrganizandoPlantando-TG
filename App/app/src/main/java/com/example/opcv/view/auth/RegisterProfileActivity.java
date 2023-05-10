@@ -18,7 +18,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.opcv.R;
-import com.example.opcv.model.persistance.firebase.AuthCommunication;
+import com.example.opcv.business.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.adapter.SpinnerAdapter;
 import com.example.opcv.model.entity.User;
 import com.example.opcv.model.entity.ValidateRegisterInfo;

@@ -101,15 +101,6 @@
                 />
 
             <TextView
-                android:id="@+id/spinnerConceptElementView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/dr_white_input_text"
-                android:textColor="@color/black"
-                android:visibility="gone"
-                android:text="TextView" />
-
-            <TextView
                 android:id="@+id/textView10"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
@@ -131,15 +122,6 @@
                 android:textStyle="bold"
 
                 />
-
-            <TextView
-                android:id="@+id/toolSpinnerInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:visibility="gone"
-                android:background="@drawable/dr_white_input_text"
-                android:text="TextView" />
 
             <TextView
                 android:id="@+id/textView9"

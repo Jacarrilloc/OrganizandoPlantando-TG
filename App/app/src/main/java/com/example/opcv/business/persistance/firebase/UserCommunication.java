@@ -1,4 +1,4 @@
-package com.example.opcv.model.persistance.firebase;
+package com.example.opcv.business.persistance.firebase;
 
 import android.net.Uri;
 import android.util.Log;
