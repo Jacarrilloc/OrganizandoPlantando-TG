@@ -42,14 +42,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.opcv.business.ludification.Level;
-import com.example.opcv.business.persistance.firebase.UserCommunication;
+import com.example.opcv.model.persistance.firebase.UserCommunication;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.model.entity.GardenInfo;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.business.notifications.Notifications;
-import com.example.opcv.business.persistance.garden.GardenPersistance;
+import com.example.opcv.model.persistance.garden.GardenPersistance;
 import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -189,9 +189,8 @@ public class CreateGardenActivity extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //if(validateFieldPhoto(CreateGardenActivity.this, bytes)){
                 createGarden();
-
+                //startActivity(new Intent(CreateGardenActivity.this, GardenAddressActivity.class));
             }
         });
 
@@ -233,7 +232,6 @@ public class CreateGardenActivity extends AppCompatActivity {
             }
 
 
-
             Map<String, Object> gardenInfo = new HashMap<>();
             gardenInfo.put("ID_Owner",newInfo.getID_Owner());
             gardenInfo.put("GardenName",newInfo.getName());
@@ -251,24 +249,18 @@ public class CreateGardenActivity extends AppCompatActivity {
                         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                        bytes = stream.toByteArray();Notifications notifications = new Notifications();
-                        notifications.notification("Huerta creada", "Felicidades! Tu huerta ha sido creada.", CreateGardenActivity.this);
-                        startActivity(new Intent(CreateGardenActivity.this, HomeActivity.class).putExtra("idGarden", documentReference.getId().toString()));
+                        bytes = stream.toByteArray();
+                        startActivity(new Intent(CreateGardenActivity.this, GardenAddressActivity.class).putExtra("idGarden", documentReference.getId().toString()));
                     }else{
                         bytes = null;
-                        Notifications notifications = new Notifications();
-                        notifications.notification("Huerta creada", "Felicidades! Tu huerta ha sido creada.", CreateGardenActivity.this);
-                        startActivity(new Intent(CreateGardenActivity.this, HomeActivity.class).putExtra("idGarden", documentReference.getId().toString()));
+                        startActivity(new Intent(CreateGardenActivity.this, GardenAddressActivity.class).putExtra("idGarden", documentReference.getId().toString()));
                     }
                     persistance.addGardenPhoto(bytes, idGarden, new GardenPersistance.GetUriGarden() {
                         @Override
                         public void onSuccess(String uri) {
                             //descomentar la siguiente linea si se necesita poner la uri en firestore
                             collectionRef.document(idGarden).update("UriPath", uri);
-                            Notifications notifications = new Notifications();
-                            notifications.notification("Huerta creada", "Felicidades! Tu huerta ha sido creada.", CreateGardenActivity.this);
-                            //Toast.makeText(CreateGardenActivity.this, "Se Creó exitosamente la Huerta", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(CreateGardenActivity.this, HomeActivity.class).putExtra("idGarden", documentReference.getId().toString()));
+                            startActivity(new Intent(CreateGardenActivity.this, GardenAddressActivity.class).putExtra("idGarden", documentReference.getId().toString()));
                         }
                     });
 

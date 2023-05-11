@@ -13,6 +13,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -23,9 +24,8 @@ import android.widget.Toast;
 import com.example.opcv.R;
 import com.example.opcv.business.forms.Forms;
 import com.example.opcv.view.auth.EditUserActivity;
-import com.example.opcv.business.persistance.firebase.FormsCommunication;
+import com.example.opcv.model.persistance.firebase.FormsCommunication;
 import com.example.opcv.view.base.HomeActivity;
-import com.example.opcv.view.gardens.MapsActivity;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.business.notifications.Notifications;
 import com.example.opcv.view.ludification.RewardHomeActivity;
@@ -36,13 +36,15 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Form_RAC extends AppCompatActivity {
 
     private FloatingActionButton backButtom;
-    private FormsCommunication formsUtilities;
     private Button addFormButtom, rewards, myGardens, profile, ludification;
 
     private TextView formsName;
@@ -58,7 +60,6 @@ public class Form_RAC extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_form);
 
-        database = FirebaseFirestore.getInstance();
         backButtom = findViewById(R.id.returnArrowButtonFormOnetoFormListElement);
         formsName = findViewById(R.id.formsNameFist);
         name = getIntent().getStringExtra("Name");
@@ -112,42 +113,25 @@ public class Form_RAC extends AppCompatActivity {
         watch = getIntent().getStringExtra("watch");
 
         if(watch.equals("true")){
+            addFormButtom.setVisibility(View.GONE);
             idGarden = getIntent().getStringExtra("idGardenFirebase");
-            idCollection = getIntent().getStringExtra("idCollecion");
-            addFormButtom.setVisibility(View.INVISIBLE);
-            addFormButtom.setClickable(false);
-            containerSize.setEnabled(false);
-            worrmsWeightInfo.setEnabled(false);
-            humidityInfo.setEnabled(false);
-            amount_of_waste_info.setEnabled(false);
-            amount_leached_info.setEnabled(false);
-            collected_humus_info.setEnabled(false);
-            containerSize.setFocusable(false);
-            containerSize.setClickable(false);
-            worrmsWeightInfo.setFocusable(false);
-            worrmsWeightInfo.setClickable(false);
-            humidityInfo.setFocusable(false);
-            humidityInfo.setClickable(false);
-            amount_leached_info.setFocusable(false);
-            amount_leached_info.setClickable(false);
-            amount_of_waste_info.setFocusable(false);
-            amount_of_waste_info.setClickable(false);
-            collected_humus_info.setFocusable(false);
-            collected_humus_info.setClickable(false);
-            showInfo(idGarden, idCollection, "true");
-        } else if (watch.equals("edit")) {
-            formsUtilities = new FormsCommunication();
-
-            idGarden = getIntent().getStringExtra("idGardenFirebase");
-            idCollection = getIntent().getStringExtra("idCollecion");
-            showInfo(idGarden, idCollection, "edit");
-            addFormButtom.setText("Aceptar cambios");
-
+            Map<String, Object> infoForm = (Map<String, Object>) getIntent().getSerializableExtra("idCollecion");
+            showMapInfo(infoForm,idGarden);
         }
-        else if (watch.equals("create")){
-            addFormButtom.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        if (watch.equals("edit")) {
+
+            addFormButtom.setVisibility(View.VISIBLE);
+            addFormButtom.setText("Aceptar cambios");
+            idGarden = getIntent().getStringExtra("idGardenFirebase");
+            Map<String, Object> infoForm = (Map<String, Object>) getIntent().getSerializableExtra("idCollecion");
+            showMapInfo(infoForm,idGarden);
+        }
+
+        addFormButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                watch = getIntent().getStringExtra("watch");
+                if(watch.equals("create")){
                     if (ContextCompat.checkSelfPermission(Form_RAC.this,
                             Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                             ContextCompat.checkSelfPermission(Form_RAC.this,
@@ -159,9 +143,18 @@ public class Form_RAC extends AppCompatActivity {
                         createNewForm();
                     }
                 }
-            });
 
-        }
+                if(watch.equals("edit")){
+                    try {
+                        updateForm((Map<String, Object>) getIntent().getSerializableExtra("idCollecion"));
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
 
         backButtom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,65 +163,27 @@ public class Form_RAC extends AppCompatActivity {
             }
         });
     }
-    private void showInfo(String idGarden, String idCollection, String status){
 
-        CollectionReference ref = database.collection("Gardens").document(idGarden).collection("Forms");
-        ref.document(idCollection).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                containerSize.setText(task.getResult().get("containerSize").toString());
-                worrmsWeightInfo.setText(task.getResult().get("wormsWeight").toString());
-                humidityInfo.setText(task.getResult().get("humidity").toString());
-                amount_of_waste_info.setText(task.getResult().get("amount of waste").toString());
-                collected_humus_info.setText(task.getResult().get("collected humus").toString());
-                amount_leached_info.setText(task.getResult().get("amount leached").toString());
+    private void showMapInfo(Map<String, Object> info,String status){
 
-            }
-        });
+        containerSize.setText((CharSequence) info.get("containerSize"));
+        worrmsWeightInfo.setText((CharSequence) info.get("wormsWeight"));
+        humidityInfo.setText((CharSequence) info.get("humidity"));
+        amount_of_waste_info.setText((CharSequence) info.get("amount of waste"));
+        collected_humus_info.setText((CharSequence) info.get("collected humus"));
+        amount_leached_info.setText((CharSequence) info.get("amount leached"));
 
-        addFormButtom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String container, worms, humidity, waste, humus, leached;
-                container = containerSize.getText().toString();
-                worms = worrmsWeightInfo.getText().toString();
-                humidity = humidityInfo.getText().toString();
-                waste = amount_of_waste_info.getText().toString();
-                humus = collected_humus_info.getText().toString();
-                leached = amount_leached_info.getText().toString();
-                if(validateField(container, worms, humidity, waste, humus, leached)){
-                    formsUtilities.editInfoRAC(Form_RAC.this, idGarden, idCollection, container, worms, humidity, waste, humus, leached);
-                    Toast.makeText(Form_RAC.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-    private boolean validateField(String container,String worms, String humidity, String waste, String humus, String leached){
-
-        if(container.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar el area del recipiente", Toast.LENGTH_SHORT).show();
-            return false;
+        switch (status){
+            case "true":
+                addFormButtom.setVisibility(View.GONE);
+                break;
+            case "edit":
+                addFormButtom.setVisibility(View.VISIBLE);
+                addFormButtom.setText("Aceptar cambios");
+                break;
+            default:
+                Log.i("Error","No se reconoce la Accion");
         }
-        else if(worms.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar la cantidad de lombrices", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        else if(humidity.isEmpty()) {
-            Toast.makeText(this, "Es necesario Ingresar la humedad", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        else if(waste.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar la cantidad de residuos", Toast.LENGTH_SHORT).show();
-            return false;
-        }else if(humus.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar la cantidad de humus recogida", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        else if(leached.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar la cantidad lixiviada", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
     }
 
     private void createNewForm(){
@@ -260,11 +215,71 @@ public class Form_RAC extends AppCompatActivity {
             Notifications notifications = new Notifications();
             notifications.notification("Formulario creado", "Felicidades! El formulario fue registrada satisfactoriamente", Form_RAC.this);
 
-            //newForm.insertInto_RAC(infoForm);
             Toast.makeText(Form_RAC.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(Form_RAC.this, HomeActivity.class));
             finish();
         }
+    }
+
+    private void updateForm(Map<String, Object> oldInfo) throws JSONException, IOException{
+
+        Map<String, Object> newInfo = new HashMap<>();
+        newInfo.put("CreatedBy",oldInfo.get("CreatedBy"));
+        newInfo.put("Date",oldInfo.get("Date"));
+        newInfo.put("idForm",oldInfo.get("idForm"));
+        newInfo.put("nameForm",oldInfo.get("nameForm"));
+
+        String container, worms, humidity, waste, humus, leached, idGardenFb;
+        container = containerSize.getText().toString();
+        worms = worrmsWeightInfo.getText().toString();
+        humidity = humidityInfo.getText().toString();
+        waste = amount_of_waste_info.getText().toString();
+        humus = collected_humus_info.getText().toString();
+        leached = amount_leached_info.getText().toString();
+
+        newInfo.put("containerSize",container);
+        newInfo.put("wormsWeight",worms);
+        newInfo.put("humidity",humidity);
+        newInfo.put("amount of waste",waste);
+        newInfo.put("collected humus",humus);
+        newInfo.put("amount leached",leached);
+
+        idGardenFb = getIntent().getStringExtra("idGardenFirebase");
+
+        Forms updateInfo = new Forms(Form_RAC.this);
+        updateInfo.updateInfoForm(oldInfo,newInfo,idGardenFb);
+
+        Notifications notifications = new Notifications();
+        notifications.notification("Formulario Editado", "Felicidades! Actualizaste la Información de tu Formulario", Form_RAC.this);
+        onBackPressed();
+    }
+
+    private boolean validateField(String container,String worms, String humidity, String waste, String humus, String leached){
+
+        if(container.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar el area del recipiente", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(worms.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la cantidad de lombrices", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(humidity.isEmpty()) {
+            Toast.makeText(this, "Es necesario Ingresar la humedad", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(waste.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la cantidad de residuos", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(humus.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la cantidad de humus recogida", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(leached.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la cantidad lixiviada", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     private void requestStoragePermission() {

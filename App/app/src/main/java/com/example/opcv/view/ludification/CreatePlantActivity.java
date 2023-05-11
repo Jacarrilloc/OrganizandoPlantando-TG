@@ -25,14 +25,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.opcv.business.persistance.firebase.LudificationCommunication;
-import com.example.opcv.view.base.HomeActivity;
-import com.example.opcv.view.gardens.MapsActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.business.ludification.Ludification;
 import com.example.opcv.business.ludification.Level;
-import com.example.opcv.business.persistance.firebase.AuthCommunication;
+import com.example.opcv.model.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.gardens.GardensAvailableActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -93,7 +90,6 @@ public class CreatePlantActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Ludification logic = new Ludification();
                 Level level = new Level();
-                LudificationCommunication communication = new LudificationCommunication();
                 plantName = name.getText().toString();
                 plantDescription = descr.getText().toString();
                 flowerCheck = flower.isChecked();
@@ -103,31 +99,18 @@ public class CreatePlantActivity extends AppCompatActivity {
                 petCheck = pet.isChecked();
                 precautionCheck = precaution.isChecked();
                 Drawable drawable = image.getDrawable();
-                if(logic.validatePhoto(drawable, CreatePlantActivity.this)){
-                    Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                    bytes = stream.toByteArray();
-                    if(logic.validateField(plantName, plantDescription, CreatePlantActivity.this, bytes)){
-                        communication.checkIfPlantOrToolExists("Plants", plantName, new LudificationCommunication.CheckIfItemExists() {
-                            @Override
-                            public void onComplete(boolean resp) {
-                                if(!resp){
-                                    logic.addPlantElementsMap(plantName, plantDescription, flowerCheck, fruitCheck, edibleCheck, medicineCheck, petCheck, precautionCheck, CreatePlantActivity.this, idUser, bytes);
-                                    level.addLevel(idUser, true, CreatePlantActivity.this, "Plants");
-                                    //Notifications  notifications = new Notifications();
-                                    //notifications.notification("Has ganado puntos", "Felicidades! Ganaste 7 puntos por crear tu planta", CreatePlantActivity.this, DictionaryHome.class);
-                                    Intent edit = new Intent(CreatePlantActivity.this, DictionaryHomeActivity.class);
-                                    edit.putExtra("userInfo", idUser);
-                                    startActivity(edit);
-                                    Toast.makeText(CreatePlantActivity.this, "Sirve", Toast.LENGTH_SHORT).show();
-                                }
-                                else{
-                                    Toast.makeText(CreatePlantActivity.this, "Ya existe la planta. Por favor crea otra o revisa las existentes", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-                    }
+                Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                bytes = stream.toByteArray();
+                if(logic.validateField(plantName, plantDescription, CreatePlantActivity.this, bytes)){
+                    logic.addPlantElementsMap(plantName, plantDescription, flowerCheck, fruitCheck, edibleCheck, medicineCheck, petCheck, precautionCheck, CreatePlantActivity.this, idUser, bytes);
+                    level.addLevel(idUser, true, CreatePlantActivity.this, "Plants");
+                    //Notifications  notifications = new Notifications();
+                    //notifications.notification("Has ganado puntos", "Felicidades! Ganaste 7 puntos por crear tu planta", CreatePlantActivity.this, DictionaryHome.class);
+                    Intent edit = new Intent(CreatePlantActivity.this, DictionaryHomeActivity.class);
+                    edit.putExtra("userInfo", idUser);
+                    startActivity(edit);
                 }
             }
         });

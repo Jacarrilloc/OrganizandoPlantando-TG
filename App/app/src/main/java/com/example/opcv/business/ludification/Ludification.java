@@ -5,7 +5,7 @@ import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.widget.Toast;
 
-import com.example.opcv.business.persistance.firebase.LudificationCommunication;
+import com.example.opcv.model.persistance.firebase.LudificationCommunication;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -101,6 +101,7 @@ public class Ludification {
         }
     }
 
-
+    public void downloadGuide(){
+    }
 
 }

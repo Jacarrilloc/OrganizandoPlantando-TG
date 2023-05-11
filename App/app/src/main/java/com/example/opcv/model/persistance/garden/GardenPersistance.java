@@ -1,4 +1,4 @@
-package com.example.opcv.business.persistance.garden;
+package com.example.opcv.model.persistance.garden;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -25,7 +25,11 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.osmdroid.util.GeoPoint;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GardenPersistance {
     int countGardens = 0;
@@ -102,23 +106,24 @@ public class GardenPersistance {
                 }
             }
         });
-        //lo siguiente era como se hacia antes, producia el StorageException
-/*
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference imageRef = storageRef.child("gardenMainPhoto/" +id + ".jpg");
-        imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+    }
+
+    public void addGardenAddress(String id, String address, GeoPoint p){
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        DocumentReference ref = database.collection("Gardens").document(id);
+        ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(Uri uri) {
-                String url = uri.toString();
-                callback.onSuccess(url);
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+               if(task.isSuccessful()){
+                   Map<String, Object> garden = new HashMap<>();
+                   garden.put("latitude", p.getLatitude());
+                   garden.put("longitude", p.getLongitude());
+                   garden.put("gardenAddress", address);
+                   ref.update(garden);
+               }
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                String imageString = "android.resource://" + context.getPackageName() + "/drawable/im_logo_ceres_green";
-                callback.onFailure(imageString);
-            }
-        });*/
+        });
+
     }
 
 
