@@ -432,6 +432,13 @@
     <string name="r_bano">Rábano</string>
     <string name="cilantro">Cilantro</string>
     <string name="papa">Papa</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="elije_la_ubicaci_n_de_tu_huerta">Elije la ubicación de tu huerta</string>
+    <string name="direcci_n_de_la_huerta">Dirección de la huerta</string>
+    <string name="mostrar">Mostrar</string>
+    <string name="seleccionar">Seleccionar</string>
+    <string name="finalizar_registro_de_huerta">Finalizar registro de huerta</string>
+    <string name="a_continuaci_n_puedes_seleccionar_en_el_mapa_la_ubicaci_n_de_tu_huerta_o_escribirla_directamente_y_mostrarla_en_el_mapa_usando_el_bot_n_mostrar_para_m_s_precisi_n_al_escribir_tu_direcci_n_escribe_la_ciudad_por_ejemplo_calle_333_44_33_bogot">A continuación, puedes seleccionar en el mapa la ubicación de tu huerta o escribirla directamente y mostrarla en el mapa usando el botón mostrar. Para más precisión al escribir tu dirección escribe la ciudad por ejemplo: calle 333 # 44-33, Bogotá.</string>
 
     <!--Fin de la seccion de las plantas del nivel 3-->
 </resources>
