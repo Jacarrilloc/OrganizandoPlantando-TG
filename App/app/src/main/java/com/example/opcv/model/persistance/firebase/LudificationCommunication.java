@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.opcv.view.ludification.ShowDictionaryItemActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -593,6 +594,79 @@ public class LudificationCommunication implements Serializable {
     public void addUserActionsPoints(String idUser, Map<String, Object> map){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("UserInfo").document(idUser).collection("UserActionsPoints").add(map);
+    }
+
+    public void checkIfPlantOrToolExists(String element, String name, final CheckIfItemExists callback){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference ref = db.collection(element);
+
+        ref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    String nameItem = null, nameLowerCase = name.toLowerCase();
+                    int a=0, b=0;
+                    for(QueryDocumentSnapshot doc : task.getResult()){
+                        if(element.equals("Plants")){
+                            nameItem = doc.getString("PlantName").toLowerCase();
+                        } else if (element.equals("Tools")) {
+                            nameItem = doc.getString("ToolName").toLowerCase();
+                        }
+                        if(nameItem != null){
+                            if(!nameItem.equals(nameLowerCase)){
+                                b++;
+                            }
+                        }
+                        a++;
+                    }
+                    //System.out.println("a: "+a+" b: "+b);
+                    if(a != b){
+                        callback.onComplete(true);
+                    }
+                    else{
+                        callback.onComplete(false);
+                    }
+                }
+            }
+        });
+    }
+
+    public interface CheckIfItemExists{
+        void onComplete(boolean resp);
+    }
+
+    public void deleteItemDictionary(String element, String docRef, String idLogged, Context context){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference ref = db.collection(element).document(docRef);
+
+        ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    String idOwner = task.getResult().getString("Publisher");
+                    if(idOwner != null){
+                        if(idOwner.equals(idLogged)){
+
+                            ref.collection("Comments").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if(task.isSuccessful()){
+                                        for(QueryDocumentSnapshot doc : task.getResult()){
+                                            ref.collection("Comments").document(doc.getId()).delete();
+                                        }
+                                        ref.delete();
+                                        Toast.makeText(context, "Se ha borrado con exito", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
+                        else{
+                            Toast.makeText(context, "No tienes permmiso para borrar. Solo el creador.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+        });
     }
 
 }
