@@ -88,7 +88,6 @@ public class DisplayPdfActivity extends AppCompatActivity {
         });
 
 
-
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,7 +125,7 @@ public class DisplayPdfActivity extends AppCompatActivity {
                     }
                     inputStream.close();
                     fos.close();
-                    Toast.makeText(DisplayPdfActivity.this, "Se ha generado el pdf en la caroeta de descargas", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DisplayPdfActivity.this, "Se ha generado el pdf en la carpeta de descargas", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
                     //throw new RuntimeException(e);
                     e.printStackTrace();

@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.opcv.R;
+import com.example.opcv.model.persistance.firebase.LudificationCommunication;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.business.ludification.Ludification;
 import com.example.opcv.business.ludification.Level;

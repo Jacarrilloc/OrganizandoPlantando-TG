@@ -51,6 +51,7 @@ import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.business.notifications.Notifications;
 import com.example.opcv.model.persistance.garden.GardenPersistance;
 import com.example.opcv.view.ludification.RewardHomeActivity;
+import com.example.opcv.view.ludification.ShowDictionaryItemActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -189,7 +190,23 @@ public class CreateGardenActivity extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createGarden();
+                AlertDialog.Builder builder = new AlertDialog.Builder(CreateGardenActivity.this);
+                builder.setTitle("Confirmar crear huerta");
+                builder.setMessage("¿Estas seguro/a que desea crear la huerta?");
+                builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        createGarden();
+                    }
+                });
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
                 //startActivity(new Intent(CreateGardenActivity.this, GardenAddressActivity.class));
             }
         });
