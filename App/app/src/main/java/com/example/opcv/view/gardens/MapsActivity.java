@@ -38,7 +38,6 @@ public class MapsActivity extends AppCompatActivity {
     private MapView map;
     private Button profile, rewards, home, ludification;
     private FloatingActionButton back;
-    private MapController myMapController;
     private ImageView gardens;
     GeoPoint bogota = new GeoPoint(4.62, -74.07);
 

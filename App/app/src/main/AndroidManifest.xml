@@ -44,6 +44,9 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".view.gardens.GardenAddressActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.ludification.PotatoDiseaseActivity"
             android:exported="false" />
         <activity
