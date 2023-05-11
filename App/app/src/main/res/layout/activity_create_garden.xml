@@ -207,7 +207,7 @@
                     android:layout_marginBottom="@dimen/_15sdp"
                     android:background="@drawable/dr_green_button"
                     android:fontFamily="@font/manropesemibold"
-                    android:text="@string/add"
+                    android:text="@string/siguiente"
                     android:textAllCaps="false" />
 
 
