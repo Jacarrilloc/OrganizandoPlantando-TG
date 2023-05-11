@@ -90,6 +90,14 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                         newForm.putExtra("Name",item.getFormName());
                         context.startActivity(newForm);
                         break;
+                    case 4:
+                        newForm = new Intent(context, Form_RSMP.class);
+                        newForm.putExtra("watch","true");
+                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
+                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
+                        newForm.putExtra("Name",item.getFormName());
+                        context.startActivity(newForm);
+                        break;
                     case 10:
                         newForm = new Intent(context, Form_CIH.class);
                         newForm.putExtra("watch","true");
@@ -112,15 +120,7 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                 }
                 /*
                 }
-                else if(Objects.equals(item.getFormName(), "Solicitud de compra de materia prima y herramientas")){
-                    form = 4;
-                    Intent newForm = new Intent(context, Form_SCMPH.class);
-                    newForm.putExtra("watch","true");
-                    newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                    newForm.putExtra("idCollecion",item.getIdFormCollection());
-                    newForm.putExtra("Name",item.getFormName());
-                    context.startActivity(newForm);
-                }
+
                 else if(Objects.equals(item.getFormName(), "Recepción y Requisición de Materia Prima")){
                     form = 5;
                     Intent newForm = new Intent(context, Form_RSMP.class);
@@ -209,6 +209,14 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                         break;
                     case 3:
                         newForm = new Intent(context, Form_IMP.class);
+                        newForm.putExtra("watch","edit");
+                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
+                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
+                        newForm.putExtra("Name",item.getFormName());
+                        context.startActivity(newForm);
+                        break;
+                    case 4:
+                        newForm = new Intent(context, Form_RSMP.class);
                         newForm.putExtra("watch","edit");
                         newForm.putExtra("idGardenFirebase",item.getIdGarden());
                         newForm.putExtra("idCollecion",(Serializable) item.getInfo());

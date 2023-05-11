@@ -92,6 +92,17 @@
                 android:text="@string/unidades" />
 
 
+            <EditText
+                android:id="@+id/unitFormRSMPSelected"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:visibility="gone"
+                android:background="@drawable/dr_white_input_text"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:text="Name" />
+
             <Spinner
                 android:id="@+id/unitsChoice"
                 android:layout_width="fill_parent"
@@ -157,6 +168,17 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
                 android:text="@string/concepto" />
+
+            <EditText
+                android:id="@+id/conceptSpinnerSelected"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textColor="@color/black"
+                android:background="@drawable/dr_white_input_text"
+                android:visibility="gone"
+                android:inputType="text"
+                android:text="Name" />
 
             <Spinner
                 android:id="@+id/conceptChoice"
