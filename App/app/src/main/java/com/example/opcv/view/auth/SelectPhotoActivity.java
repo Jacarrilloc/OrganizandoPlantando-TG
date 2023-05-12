@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -27,6 +28,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.opcv.view.base.HomeActivity;
@@ -46,12 +50,11 @@ public class SelectPhotoActivity extends AppCompatActivity {
     private ImageView ImageSource;
     private AuthCommunication authUtilities;
     private User newUserInfo;
-    private String currentPhotoPath;
     private FloatingActionButton backButtom;
     private String password;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int CAMERA_PERMISSION_CODE = 100;
-
+    private ProgressBar progressDialog;
     private Uri uriCamera;
 
     private Boolean IsChangedPhoto = false;
@@ -69,7 +72,6 @@ public class SelectPhotoActivity extends AppCompatActivity {
         ImageSource = findViewById(R.id.profileImageSelected);
         backButtom = findViewById(R.id.returnArrowButtonSeleectPhoto);
 
-
         Intent intent = getIntent();
         newUserInfo = (User) intent.getSerializableExtra("newUserInfo");
         password = intent.getStringExtra("password");
@@ -79,7 +81,6 @@ public class SelectPhotoActivity extends AppCompatActivity {
         finishRegisterInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 createUserInDatabase();
                 callHome();
             }
@@ -107,21 +108,23 @@ public class SelectPhotoActivity extends AppCompatActivity {
         });
     }
 
+    private boolean isCreated(){
+        boolean check = false;
+
+        return check;
+    }
+
     private void createUserInDatabase(){
 
         Drawable drawable = ImageSource.getDrawable();
         if(drawable == null){
-            if (authUtilities.createUser(newUserInfo.getEmail(), password, newUserInfo, null, SelectPhotoActivity.this)){
-                callHome();
-            }
+            authUtilities.createUser(newUserInfo.getEmail(), password, newUserInfo, null, SelectPhotoActivity.this);
         }else{
             Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             bytes = stream.toByteArray();
-            if (authUtilities.createUser(newUserInfo.getEmail(), password, newUserInfo, bytes, SelectPhotoActivity.this)) {
-                callHome();
-            }
+            authUtilities.createUser(newUserInfo.getEmail(), password, newUserInfo, bytes, SelectPhotoActivity.this);
         }
     }
 
@@ -191,7 +194,6 @@ public class SelectPhotoActivity extends AppCompatActivity {
         Intent intent = new Intent(SelectPhotoActivity.this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("previusScreen", "true");
-
         startActivity(intent);
     }
     @Override
