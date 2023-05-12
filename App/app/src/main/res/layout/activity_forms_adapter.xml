@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/_20sdp"
-            android:fontFamily="@font/manropesemibold"
+            android:fontFamily="@font/manropemedium"
             android:text="@string/formularios"
             android:textColor="@color/black"
             android:textSize="@dimen/_20sdp"/>

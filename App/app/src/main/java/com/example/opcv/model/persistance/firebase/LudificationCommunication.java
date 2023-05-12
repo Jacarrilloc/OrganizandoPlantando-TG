@@ -42,7 +42,6 @@ public class LudificationCommunication implements Serializable {
         auth.getUserDocumentId(idUser, new AuthCommunication.GetUserDocument() {
             @Override
             public void onComplete(String idDocu) {
-                System.out.println("xd: "+idDocu);
                 DocumentReference documentReference = db.collection("UserInfo").document(idDocu);//Esto sera para añadir el nivel al usuario cuando se implemente
             }
         });
@@ -52,7 +51,7 @@ public class LudificationCommunication implements Serializable {
             ref.add(plantInfo);
             Toast.makeText(context, "Planta añadida con exito", Toast.LENGTH_SHORT).show();
         }catch (Exception e){
-            Toast.makeText(context, "Ocurrio un error al subir la información", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Ocurrió un error al subir la información", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -62,7 +61,6 @@ public class LudificationCommunication implements Serializable {
         auth.getUserDocumentId(idUser, new AuthCommunication.GetUserDocument() {
             @Override
             public void onComplete(String idDocu) {
-                //System.out.println("xd: "+idDocu);
                 DocumentReference documentReference = db.collection("UserInfo").document(idDocu);//Esto sera para añadir el nivel al usuario cuando se implemente
             }
         });
@@ -71,7 +69,7 @@ public class LudificationCommunication implements Serializable {
             ref.add(plantInfo);
             Toast.makeText(context, "Herramienta añadida con exito", Toast.LENGTH_SHORT).show();
         }catch (Exception e){
-            Toast.makeText(context, "Ocurrio un error al subir la información", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Ocurrió un error al subir la información", Toast.LENGTH_SHORT).show();
         }
     }
 
