@@ -109,19 +109,6 @@ public class Form_RCC extends AppCompatActivity {
         Map<String, Object> infoForm = (Map<String, Object>) getIntent().getSerializableExtra("idCollecion");
         showMapInfo(infoForm,watch);
 
-        /*
-        } else if (watch.equals("edit")) {
-            formsUtilities = new FormsCommunication();
-
-            idGarden = getIntent().getStringExtra("idGardenFirebase");
-            idCollection = getIntent().getStringExtra("idCollecion");
-            showInfo(idGarden, idCollection, "edit");
-            addFormButtom.setText("Aceptar cambios");
-
-        }
-
-        else if (watch.equals("create")){ */
-
         addFormButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -190,35 +177,6 @@ public class Form_RCC extends AppCompatActivity {
                     break;
             }
         }
-    }
-
-    private void showInfo(String idGarden, String idCollection, String status){
-        CollectionReference ref = database.collection("Gardens").document(idGarden).collection("Forms");
-        ref.document(idCollection).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                recipientArea.setText(task.getResult().get("areaRecipient").toString());
-                description.setText(task.getResult().get("areaDescription").toString());
-                residueQuant.setText(task.getResult().get("residueQuantity").toString());
-                fertilizer.setText(task.getResult().get("fertilizerQuantity").toString());
-                leached.setText(task.getResult().get("leachedQuantity").toString());
-            }
-        });
-        addFormButtom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String areaRecipient, descriptionProc, quantityResidue, fertilizerQuantity, quantityLeached;
-                areaRecipient = recipientArea.getText().toString();
-                descriptionProc = description.getText().toString();
-                quantityResidue = residueQuant.getText().toString();
-                fertilizerQuantity = fertilizer.getText().toString();
-                quantityLeached = leached.getText().toString();
-                if(validateField(areaRecipient, descriptionProc, quantityResidue, fertilizerQuantity, quantityLeached)){
-                    formsUtilities.editInfoRCC(Form_RCC.this, idGarden, idCollection, areaRecipient, descriptionProc, quantityResidue, fertilizerQuantity, quantityLeached);
-                    Toast.makeText(Form_RCC.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
     private boolean validateField(String areaRecipient,String descriptionProc, String quantityResidue, String fertilizerQuantity, String quantityLeached){
 

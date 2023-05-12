@@ -80,6 +80,9 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                     case 4:
                         formClass = Form_RSMP.class;
                         break;
+                    case 7:
+                        formClass = Form_CPS.class;
+                        break;
                     case 8:
                         formClass = Form_RCC.class;
                         break;
@@ -95,7 +98,7 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                 }
 
                 newForm = new Intent(context, formClass);
-                newForm.putExtra("watch", "edit");
+                newForm.putExtra("watch", "true");
                 newForm.putExtra("idGardenFirebase", item.getIdGarden());
                 newForm.putExtra("idCollecion", (Serializable) item.getInfo());
                 newForm.putExtra("Name", item.getFormName());
@@ -187,6 +190,9 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                         break;
                     case 4:
                         formClass = Form_RSMP.class;
+                        break;
+                    case 7:
+                        formClass = Form_CPS.class;
                         break;
                     case 8:
                         formClass = Form_RCC.class;

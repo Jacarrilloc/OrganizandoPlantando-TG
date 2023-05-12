@@ -39,6 +39,9 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -96,37 +99,14 @@ public class Form_CPS extends AppCompatActivity {
             }
         });
         watch = getIntent().getStringExtra("watch");
-        if(watch.equals("true")){
-            idGarden = getIntent().getStringExtra("idGardenFirebase");
-            idCollection = getIntent().getStringExtra("idCollecion");
-            addFormButtom.setVisibility(View.INVISIBLE);
-            addFormButtom.setClickable(false);
-            responsable.setEnabled(false);
-            duration.setEnabled(false);
-            plantsSeeds.setEnabled(false);
-            comments.setEnabled(false);
-            spinner.setEnabled(false);
-            responsable.setFocusable(false);
-            responsable.setClickable(false);
-            duration.setFocusable(false);
-            duration.setClickable(false);
-            plantsSeeds.setFocusable(false);
-            plantsSeeds.setClickable(false);
-            comments.setFocusable(false);
-            comments.setClickable(false);
-            showInfo(idGarden, idCollection, "true");
+        Map<String, Object> infoForm = (Map<String, Object>) getIntent().getSerializableExtra("idCollecion");
+        showMapInfo(infoForm,watch);
 
-        } else if (watch.equals("edit")) {
-            formsUtilities = new FormsCommunication();
-            idGarden = getIntent().getStringExtra("idGardenFirebase");
-            idCollection = getIntent().getStringExtra("idCollecion");
-            showInfo(idGarden, idCollection, "edit");
-            addFormButtom.setText("Aceptar cambios");
-        }
-        else if (watch.equals("create")){
-            addFormButtom.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        addFormButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                watch = getIntent().getStringExtra("watch");
+                if(watch.equals("create")) {
                     if (ContextCompat.checkSelfPermission(Form_CPS.this,
                             Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                             ContextCompat.checkSelfPermission(Form_CPS.this,
@@ -138,8 +118,18 @@ public class Form_CPS extends AppCompatActivity {
                         createNewForm();
                     }
                 }
-            });
-        }
+                if (watch.equals("edit")){
+                    try {
+                        updateForm((Map<String, Object>) getIntent().getSerializableExtra("idCollecion"));
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
+
 
         ArrayList<String> phaseElements = new ArrayList<>();
         phaseElements.add("Seleccione un elemento");
@@ -191,130 +181,70 @@ public class Form_CPS extends AppCompatActivity {
         });
 
     }
-    private void showInfo(String idGarden, String idCollection, String status){
 
-        CollectionReference ref = database.collection("Gardens").document(idGarden).collection("Forms");
-        ref.document(idCollection).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                responsable.setText(task.getResult().get("personResponsable").toString());
-                duration.setText(task.getResult().get("phaseDuration").toString());
-                plantsSeeds.setText(task.getResult().get("plants or seeds").toString());
-                comments.setText(task.getResult().get("commentsObservations").toString());
-                if(task.isSuccessful()){
-                    if(status.equals("edit")){
-                        String choice1 = task.getResult().get("processPhase").toString();
-                        ArrayList<String> elementShow = new ArrayList<>();
-                        if(choice1.equals("Planeación")){
-                            elementShow.add("Planeación");
-                            elementShow.add("Establecer zona de plantación");
-                            elementShow.add("Preparación de zona de plantación");
-                            elementShow.add("Establecer método de plantación según semillas o plántulas");
-                            elementShow.add("Revisar el crecimiento de semillas y/o plántulas y control de plántulas");
-                            elementShow.add("Regado de las semillas y plántulas");
-                            elementShow.add("Verificar el tamaño de la planta");
-                            elementShow.add("Cosecha");
-                        }
-                        else if(choice1.equals("Establecer zona de plantación")){
-                            elementShow.add("Establecer zona de plantación");
-                            elementShow.add("Planeación");
-                            elementShow.add("Preparación de zona de plantación");
-                            elementShow.add("Establecer método de plantación según semillas o plántulas");
-                            elementShow.add("Revisar el crecimiento de semillas y/o plántulas y control de plántulas");
-                            elementShow.add("Regado de las semillas y plántulas");
-                            elementShow.add("Verificar el tamaño de la planta");
-                            elementShow.add("Cosecha");
-                        }
-                        else if(choice1.equals("Establecer método de plantación según semillas o plántulas")){
-                            elementShow.add("Establecer método de plantación según semillas o plántulas");
-                            elementShow.add("Establecer zona de plantación");
-                            elementShow.add("Planeación");
-                            elementShow.add("Preparación de zona de plantación");
-                            elementShow.add("Revisar el crecimiento de semillas y/o plántulas y control de plántulas");
-                            elementShow.add("Regado de las semillas y plántulas");
-                            elementShow.add("Verificar el tamaño de la planta");
-                            elementShow.add("Cosecha");
-                        }
-                        else if(choice1.equals("Preparación de zona de plantación")){
-                            elementShow.add("Preparación de zona de plantación");
-                            elementShow.add("Planeación");
-                            elementShow.add("Establecer zona de plantación");
-                            elementShow.add("Establecer método de plantación según semillas o plántulas");
-                            elementShow.add("Revisar el crecimiento de semillas y/o plántulas y control de plántulas");
-                            elementShow.add("Regado de las semillas y plántulas");
-                            elementShow.add("Verificar el tamaño de la planta");
-                            elementShow.add("Cosecha");
-                        }
-                        else if(choice1.equals("Revisar el crecimiento de semillas y/o plántulas y control de plántulas")){
-                            elementShow.add("Revisar el crecimiento de semillas y/o plántulas y control de plántulas");
-                            elementShow.add("Planeación");
-                            elementShow.add("Establecer zona de plantación");
-                            elementShow.add("Preparación de zona de plantación");
-                            elementShow.add("Establecer método de plantación según semillas o plántulas");
-                            elementShow.add("Regado de las semillas y plántulas");
-                            elementShow.add("Verificar el tamaño de la planta");
-                            elementShow.add("Cosecha");
-                        }
-                        else if(choice1.equals("Regado de las semillas y plántulas")){
-                            elementShow.add("Regado de las semillas y plántulas");
-                            elementShow.add("Planeación");
-                            elementShow.add("Establecer zona de plantación");
-                            elementShow.add("Preparación de zona de plantación");
-                            elementShow.add("Establecer método de plantación según semillas o plántulas");
-                            elementShow.add("Revisar el crecimiento de semillas y/o plántulas y control de plántulas");
-                            elementShow.add("Verificar el tamaño de la planta");
-                            elementShow.add("Cosecha");
-                        }
-                        else if(choice1.equals("Verificar el tamaño de la planta")){
-                            elementShow.add("Verificar el tamaño de la planta");
-                            elementShow.add("Planeación");
-                            elementShow.add("Establecer zona de plantación");
-                            elementShow.add("Preparación de zona de plantación");
-                            elementShow.add("Establecer método de plantación según semillas o plántulas");
-                            elementShow.add("Revisar el crecimiento de semillas y/o plántulas y control de plántulas");
-                            elementShow.add("Regado de las semillas y plántulas");
-                            elementShow.add("Cosecha");
-                        }
-                        else if(choice1.equals("Cosecha")){
-                            elementShow.add("Cosecha");
-                            elementShow.add("Planeación");
-                            elementShow.add("Establecer zona de plantación");
-                            elementShow.add("Preparación de zona de plantación");
-                            elementShow.add("Establecer método de plantación según semillas o plántulas");
-                            elementShow.add("Revisar el crecimiento de semillas y/o plántulas y control de plántulas");
-                            elementShow.add("Regado de las semillas y plántulas");
-                            elementShow.add("Verificar el tamaño de la planta");
-                        }
-                        ArrayAdapter adap2 = new ArrayAdapter(Form_CPS.this, android.R.layout.simple_spinner_item, elementShow);
-                        spinner.setAdapter(adap2);
-                    }
-                    else if(status.equals("true")){
-                        String choice1 = task.getResult().get("processPhase").toString();
-                        ArrayList<String> elementShow = new ArrayList<>();
-                        elementShow.add(choice1);
-                        ArrayAdapter adap2 = new ArrayAdapter(Form_CPS.this, android.R.layout.simple_spinner_item, elementShow);
-                        spinner.setAdapter(adap2);
-                    }
-                }
+    private void showMapInfo(Map<String, Object> info,String status){
+        if(info != null) {
+            responsable.setText((CharSequence) info.get("personResponsable"));
+            duration.setText((CharSequence) info.get("phaseDuration"));
+            plantsSeeds.setText((CharSequence) info.get("plants or seeds"));
+            comments.setText((CharSequence) info.get("commentsObservations"));
+            switch (status) {
+                case "true":
+                    TextView spinnerInfo = findViewById(R.id.showSpinnerInfo);
+                    spinnerInfo.setVisibility(View.VISIBLE);
+                    spinnerInfo.setText((CharSequence) info.get("processPhase"));
+                    responsable.setEnabled(false);
+                    duration.setEnabled(false);
+                    plantsSeeds.setEnabled(false);
+                    comments.setEnabled(false);
+                    spinner.setVisibility(View.GONE);
+                    responsable.setFocusable(false);
+                    responsable.setClickable(false);
+                    duration.setFocusable(false);
+                    duration.setClickable(false);
+                    plantsSeeds.setFocusable(false);
+                    plantsSeeds.setClickable(false);
+                    comments.setFocusable(false);
+                    comments.setClickable(false);
+                    addFormButtom.setVisibility(View.GONE);
+                    break;
+                case "edit":
+                    addFormButtom.setText("Aceptar cambios");
+                    break;
             }
-        });
-        addFormButtom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String personRep, durationT, plantsOrSeed, commentsC, idGardenFb, nameForm, phase;
-                personRep = responsable.getText().toString();
-                durationT = duration.getText().toString();
-                plantsOrSeed = plantsSeeds.getText().toString();
-                commentsC = comments.getText().toString();
-                phase = phaseSelectedItem;
-                if(validateField(personRep, durationT, plantsOrSeed, commentsC, phase)){
-                    formsUtilities.editInfoCPS(Form_CPS.this, idGarden, idCollection, personRep, durationT, plantsOrSeed, commentsC, phase);
-                    Toast.makeText(Form_CPS.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
+        }
     }
+
+    private void updateForm(Map<String, Object> oldInfo) throws JSONException, IOException{
+        Map<String, Object> newInfo = new HashMap<>();
+        newInfo.put("CreatedBy",oldInfo.get("CreatedBy"));
+        newInfo.put("Date",oldInfo.get("Date"));
+        newInfo.put("idForm",oldInfo.get("idForm"));
+        newInfo.put("nameForm",oldInfo.get("nameForm"));
+
+        String defaultSelected = "Seleccione un elemento";
+        if(phaseSelectedItem.equals(defaultSelected)){
+            newInfo.put("processPhase",oldInfo.get("processPhase"));
+        }else{
+            newInfo.put("processPhase",phaseSelectedItem);
+        }
+
+        newInfo.put("personResponsable",responsable.getText().toString());
+        newInfo.put("phaseDuration",duration.getText().toString());
+        newInfo.put("plants or seeds",plantsSeeds.getText().toString());
+        newInfo.put("commentsObservations",comments.getText().toString());
+
+        String idGardenFb = getIntent().getStringExtra("idGardenFirebase");
+
+        Forms updateInfo = new Forms(this);
+        updateInfo.updateInfoForm(oldInfo,newInfo,idGardenFb);
+
+        Notifications notifications = new Notifications();
+        notifications.notification("Formulario Editado", "Felicidades! Actualizaste la Información de tu Formulario", Form_CPS.this);
+
+        onBackPressed();
+    }
+
     private boolean validateField(String personRep,String duration, String plantsOrSeed, String commentsC, String phase){
 
         if(personRep.isEmpty()){
