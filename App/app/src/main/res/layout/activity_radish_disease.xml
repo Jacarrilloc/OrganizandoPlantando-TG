@@ -298,6 +298,29 @@
                     android:text="@string/RadishThirdDiseaseSolution"
                     android:textSize="@dimen/_15sdp" />
 
+                <TextView
+                    android:id="@+id/textVie32"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:fontFamily="@font/manropesemibold"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:text="@string/moreInfo"
+                    android:textSize="@dimen/_15sdp" />
+
+                <TextView
+                    android:id="@+id/textView34"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:text="@string/RadishReference"
+                    android:textSize="@dimen/_15sdp" />
+
             </LinearLayout>
         </ScrollView>
     </FrameLayout>

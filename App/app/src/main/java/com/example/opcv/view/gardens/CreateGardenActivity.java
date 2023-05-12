@@ -242,10 +242,10 @@ public class CreateGardenActivity extends AppCompatActivity {
             CollectionReference collectionRef = database.collection("Gardens");
 
             if(!gardenPrivateOrPublic){
-                newInfo = new GardenInfo(user.getUid(),nameGarden.getText().toString(),infoGarden.getText().toString(),"Public");
+                newInfo = new GardenInfo(user.getUid(),nameGarden.getText().toString(),infoGarden.getText().toString(),"Public", null);
             }
             if(gardenPrivateOrPublic){
-                newInfo = new GardenInfo(user.getUid(),nameGarden.getText().toString(),infoGarden.getText().toString(),"Private");
+                newInfo = new GardenInfo(user.getUid(),nameGarden.getText().toString(),infoGarden.getText().toString(),"Private", null);
             }
 
 
