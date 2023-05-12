@@ -283,7 +283,7 @@ public class Form_RSMP extends AppCompatActivity {
         newInfo.put("idForm",oldInfo.get("idForm"));
         newInfo.put("nameForm",oldInfo.get("nameForm"));
 
-        String descriptionR, quantityR, totalR, stateR, nameForm, idGardenFb;
+        String descriptionR, quantityR, totalR, stateR, idGardenFb;
 
         descriptionR = description.getText().toString();
         quantityR = quantity.getText().toString();

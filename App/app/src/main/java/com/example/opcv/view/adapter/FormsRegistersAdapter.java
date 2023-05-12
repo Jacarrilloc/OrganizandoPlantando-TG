@@ -98,6 +98,14 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                         newForm.putExtra("Name",item.getFormName());
                         context.startActivity(newForm);
                         break;
+                    case 8:
+                        newForm = new Intent(context, Form_RCC.class);
+                        newForm.putExtra("watch","true");
+                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
+                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
+                        newForm.putExtra("Name",item.getFormName());
+                        context.startActivity(newForm);
+                        break;
                     case 10:
                         newForm = new Intent(context, Form_CIH.class);
                         newForm.putExtra("watch","true");
@@ -199,7 +207,7 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                         newForm.putExtra("Name",item.getFormName());
                         context.startActivity(newForm);
                         break;
-                    case 2 :
+                    case 2:
                         newForm = new Intent(context, Form_SCMPH.class);
                         newForm.putExtra("watch","edit");
                         newForm.putExtra("idGardenFirebase",item.getIdGarden());
@@ -217,6 +225,14 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                         break;
                     case 4:
                         newForm = new Intent(context, Form_RSMP.class);
+                        newForm.putExtra("watch","edit");
+                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
+                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
+                        newForm.putExtra("Name",item.getFormName());
+                        context.startActivity(newForm);
+                        break;
+                    case 8:
+                        newForm = new Intent(context, Form_RCC.class);
                         newForm.putExtra("watch","edit");
                         newForm.putExtra("idGardenFirebase",item.getIdGarden());
                         newForm.putExtra("idCollecion",(Serializable) item.getInfo());
@@ -351,7 +367,6 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                         }).create().show();
             }
         });
-
 
         view.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT));
         if(view != null){

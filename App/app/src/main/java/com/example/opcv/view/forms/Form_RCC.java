@@ -35,6 +35,9 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -102,28 +105,11 @@ public class Form_RCC extends AppCompatActivity {
         });
 
         watch = getIntent().getStringExtra("watch");
+        watch = getIntent().getStringExtra("watch");
+        Map<String, Object> infoForm = (Map<String, Object>) getIntent().getSerializableExtra("idCollecion");
+        showMapInfo(infoForm,watch);
 
-        if(watch.equals("true")){
-            idGarden = getIntent().getStringExtra("idGardenFirebase");
-            idCollection = getIntent().getStringExtra("idCollecion");
-            addFormButtom.setVisibility(View.INVISIBLE);
-            addFormButtom.setClickable(false);
-            recipientArea.setEnabled(false);
-            description.setEnabled(false);
-            residueQuant.setEnabled(false);
-            fertilizer.setEnabled(false);
-            leached.setEnabled(false);
-            recipientArea.setFocusable(false);
-            recipientArea.setClickable(false);
-            description.setFocusable(false);
-            description.setClickable(false);
-            residueQuant.setFocusable(false);
-            residueQuant.setClickable(false);
-            fertilizer.setFocusable(false);
-            fertilizer.setClickable(false);
-            leached.setFocusable(false);
-            leached.setClickable(false);
-            showInfo(idGarden, idCollection, "true");
+        /*
         } else if (watch.equals("edit")) {
             formsUtilities = new FormsCommunication();
 
@@ -133,10 +119,14 @@ public class Form_RCC extends AppCompatActivity {
             addFormButtom.setText("Aceptar cambios");
 
         }
-        else if (watch.equals("create")){
-            addFormButtom.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+
+        else if (watch.equals("create")){ */
+
+        addFormButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                watch = getIntent().getStringExtra("watch");
+                if(watch.equals("create")) {
                     if (ContextCompat.checkSelfPermission(Form_RCC.this,
                             Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                             ContextCompat.checkSelfPermission(Form_RCC.this,
@@ -148,8 +138,18 @@ public class Form_RCC extends AppCompatActivity {
                         createNewForm();
                     }
                 }
-            });
-        }
+                if (watch.equals("edit")){
+                    try {
+                        updateForm((Map<String, Object>) getIntent().getSerializableExtra("idCollecion"));
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
+
 
         backButtom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,6 +157,39 @@ public class Form_RCC extends AppCompatActivity {
                 onBackPressed();
             }
         });
+    }
+
+    private void showMapInfo(Map<String, Object> info,String status){
+        if(info != null) {
+            recipientArea.setText((CharSequence) info.get("areaRecipient"));
+            description.setText((CharSequence) info.get("areaDescription"));
+            residueQuant.setText((CharSequence) info.get("residueQuantity"));
+            fertilizer.setText((CharSequence) info.get("fertilizerQuantity"));
+            leached.setText((CharSequence) info.get("leachedQuantity"));
+            switch (status) {
+                case "true":
+                    recipientArea.setEnabled(false);
+                    description.setEnabled(false);
+                    residueQuant.setEnabled(false);
+                    fertilizer.setEnabled(false);
+                    leached.setEnabled(false);
+                    recipientArea.setFocusable(false);
+                    recipientArea.setClickable(false);
+                    description.setFocusable(false);
+                    description.setClickable(false);
+                    residueQuant.setFocusable(false);
+                    residueQuant.setClickable(false);
+                    fertilizer.setFocusable(false);
+                    fertilizer.setClickable(false);
+                    leached.setFocusable(false);
+                    leached.setClickable(false);
+                    addFormButtom.setVisibility(View.GONE);
+                    break;
+                case "edit":
+                    addFormButtom.setText("Aceptar cambios");
+                    break;
+            }
+        }
     }
 
     private void showInfo(String idGarden, String idCollection, String status){
@@ -242,6 +275,30 @@ public class Form_RCC extends AppCompatActivity {
             startActivity(new Intent(Form_RCC.this, HomeActivity.class));
             finish();
         }
+    }
+
+    private void updateForm(Map<String, Object> oldInfo) throws JSONException, IOException{
+        Map<String, Object> newInfo = new HashMap<>();
+        newInfo.put("CreatedBy",oldInfo.get("CreatedBy"));
+        newInfo.put("Date",oldInfo.get("Date"));
+        newInfo.put("idForm",oldInfo.get("idForm"));
+        newInfo.put("nameForm",oldInfo.get("nameForm"));
+
+        newInfo.put("areaRecipient",recipientArea.getText().toString());
+        newInfo.put("areaDescription",description.getText().toString());
+        newInfo.put("residueQuantity",residueQuant.getText().toString());
+        newInfo.put("fertilizerQuantity",fertilizer.getText().toString());
+        newInfo.put("leachedQuantity",leached.getText().toString());
+
+        String idGardenFb = getIntent().getStringExtra("idGardenFirebase");
+
+        Forms updateInfo = new Forms(this);
+        updateInfo.updateInfoForm(oldInfo,newInfo,idGardenFb);
+
+        Notifications notifications = new Notifications();
+        notifications.notification("Formulario Editado", "Felicidades! Actualizaste la Información de tu Formulario", Form_RCC.this);
+
+        onBackPressed();
     }
 
     private void requestStoragePermission() {

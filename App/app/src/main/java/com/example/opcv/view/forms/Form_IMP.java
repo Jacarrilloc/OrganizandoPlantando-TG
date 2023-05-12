@@ -357,8 +357,7 @@ public class Form_IMP extends AppCompatActivity {
 
     private void requestStoragePermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            // Aquí puedes proporcionar una explicación al usuario sobre por qué necesitas el permiso.
-            // Esta explicación solo se mostrará si el usuario ha denegado previamente los permisos.
+            //Aqui se le da el porque del permiso
         }
         requestPermissions(new String[] {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION);
     }
