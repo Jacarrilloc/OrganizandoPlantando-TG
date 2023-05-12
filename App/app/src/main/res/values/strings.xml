@@ -313,7 +313,7 @@
     <string name="LettuceThirdDiseaseName">Marchitamiento por Rhizoctonia solani Kuhn</string>
     <string name="LettuceThirdDiseaseeDescription">Se presentan lesiones rojizas en la base de las hojas de la lechuga que después se irán a la raíz, esto provocará podredumbre en el cuello.</string>
     <string name="LettuceThirdDiseaseSolution">Muchas veces sirve el acolchado con plástico para evitar charcos.</string>
-
+    <string name="LettuceReference">https://huerto-en-casa.com/plagas-y-enfermedades-de-la-lechuga/</string>
     <!--Repollo-->
     <string name="TextCabbage">El repollo es una hortaliza muy utilizada a nivel mundial para la elaboración de platillos como sopas, ensaladas, jugos y fermentos. A continuación estan los problemas más comúnes:</string>
     <string name="CabbagePlagues">Plagas del repollo: </string>
@@ -338,7 +338,7 @@
     <string name="CabbageSecondDiseaseName">Podredumbre negra de la col</string>
     <string name="CabbageSecondDiseaseDescription">Causada por unas bacterias conocidas como Xanthomonas campestris. Éstas bacterias afectan tanto a las plantas jóvenes como a las adultas. Si las condiciones de humedad y temperatura son las favorables pueden causar graves daños.</string>
     <string name="CabbageSecondDiseaseSolution">Solución: Usar semilla certificada, cultivar en suelos libres de estas bacterias, mantener el campo libre de crucíferas silvestres, destruir rápidamente los focos infectados.</string>
-
+    <string name="CabbageReference">https://www.agrohuerto.com/plagas-y-enfermedades-del-repollo/</string>
     <!--Brocoli-->
     <string name="TextBroccoli">El brócoli es la hortaliza con mayor valor nutricional que aporta grandes beneficios a la salud. Su cultivo es muy sencillo y depende principalmente de un suelo bien nutrido, humedad y una temperatura fresca. También es conocido como brécol o bróculi y pertenece a la familia de las crucíferas como la coliflor o la col. Contiene grandes cantidades de vitaminas y minerales, aparte de fibra. Al consumirlo habitualmente funciona como antioxidante y depurativo, además  ayuda a prevenir el cáncer. A continuación estan los problemas más comúnes:</string>
     <string name="BroccoliPlagues">Plagas del brócoli: </string>
@@ -364,7 +364,7 @@
     <string name="BroccoliThirdDiseaseName">Pie negro</string>
     <string name="BroccoliThirdDiseaseeDescription">Se presentan partes necrosadas en las hojas y el tallo.</string>
     <string name="BroccoliThirdDiseaseSolution">Soluciones: Siempre es mejor actuar en prevención o control temprano pues de no intervenir, pueden proliferar y afectar toda la planta dejando inservible el cultivo para el consumo.  Observar y revisar tus plantas de manera frecuente debe ser parte del control de tu cultivo pues servirá para detectar en los primeros momentos cualquier cambio.</string>
-
+    <string name="BroccoliReference">https://www.agromatica.es/plagas-y-enfermedades-del-brocoli/</string>
     <!--Rabano-->
     <string name="TextRadish">El rábano es una hortaliza que se conoce con el nombre de rábano o rabanito. Los rábanos tienen un alto contenido de agua, por lo cual son de bajo aporte calórico. Destaca su contenido de vitamina C, la cual actúa como antioxidante, ayudando a restaurar tejidos y vasos sanguíneos, aumentando el nivel inmunológico del cuerpo, manteniendo dientes y huesos fuertes. En cuanto a los minerales, el rábano tiene un mayor contenido de potasio y yodo que otras hortalizas.</string>
     <string name="RadishPlagues">Plagas del rábano: </string>
@@ -392,7 +392,7 @@
     <string name="RadishThirdDiseaseName">Rocío harinoso en el rábano</string>
     <string name="RadishThirdDiseaseeDescription">Este hongo es similar al mildiú, afecta a los tallos y hojas del rábano, aunque se ven con más frecuencia en las hojas. Como síntomas notarás que aparecen zonas harinosas en la parte afectada, las flores se oscurecen y las hojas se deforman y secan.</string>
     <string name="RadishThirdDiseaseSolution">Solución: asilar los rábanos para que no afecten a otras plantas</string>
-
+    <string name="RadishReference">https://www.agrohuerto.com/el-rabano-plagas-enfermedades-comunes/</string>
     <!--Cilantro-->
     <string name="TextCoriander">El cilantro es una hierba aromática de crecimiento anual utilizada de forma habitual en la gastronomía de todo el mundo. Hoy en día su uso es muy común tanto en la cocina mediterránea como en otras cocinas orientales o en Sudamérica. A continuación estan los problemas más comúnes:</string>
     <string name="CorianderPlagues">Plagas del cilantro: </string>
