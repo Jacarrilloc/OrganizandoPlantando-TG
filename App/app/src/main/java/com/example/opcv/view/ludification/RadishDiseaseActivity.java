@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.util.Linkify;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -22,7 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class RadishDiseaseActivity extends AppCompatActivity {
     private Button profile, myGardens, rewards, ludification;
     private FloatingActionButton returnArrowButton;
-    private TextView textView;
+    private TextView textView, radishReference;
     private String selectedPlant;
     private LinearLayout lettuceLayout;
 
@@ -38,7 +39,9 @@ public class RadishDiseaseActivity extends AppCompatActivity {
         returnArrowButton = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
         textView = (TextView) findViewById(R.id.textView6);
         lettuceLayout = (LinearLayout) findViewById(R.id.lettuceLayout);
+        radishReference = (TextView) findViewById(R.id.textView34);
 
+        Linkify.addLinks(radishReference, Linkify.WEB_URLS);
 
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override

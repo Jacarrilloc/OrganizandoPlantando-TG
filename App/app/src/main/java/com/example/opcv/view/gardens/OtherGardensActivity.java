@@ -207,7 +207,8 @@ public class OtherGardensActivity extends AppCompatActivity {
 
                     String typeDoc = documentSnapshot.getString("GardenType");
                     infoDoc = documentSnapshot.getString("InfoGarden");
-                    GardenInfo gardenInfo = new GardenInfo(idUser,name,infoDoc,typeDoc);
+                    String gardenAddress = documentSnapshot.getString("gardenAddress");
+                    GardenInfo gardenInfo = new GardenInfo(idUser,name,infoDoc,typeDoc, gardenAddress);
 
                     fillSreen(gardenInfo);
                 }

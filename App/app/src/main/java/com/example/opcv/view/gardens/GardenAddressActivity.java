@@ -49,6 +49,7 @@ public class GardenAddressActivity extends AppCompatActivity {
             idGarden= getIntent().getStringExtra("idGarden");
         }
 
+
         map = findViewById(R.id.mapglobal);
         address = findViewById(R.id.addressinput);
         show = findViewById(R.id.showButton);
@@ -66,6 +67,7 @@ public class GardenAddressActivity extends AppCompatActivity {
         // Check permissions
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 1);
+            recreate();
         } else {
             // Add MyLocationNewOverlay
             MyLocationNewOverlay myLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this), map);

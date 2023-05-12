@@ -52,6 +52,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
@@ -67,6 +68,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class EditUserActivity extends AppCompatActivity {
@@ -252,7 +255,7 @@ public class EditUserActivity extends AppCompatActivity {
                 Name = userName.getText().toString();
                 PhoneNumber = userPhone.getText().toString();
                 if(validateField(Name, Lastname)){
-                    editUserInfo(Name, Lastname, PhoneNumber);
+                    editUserInfo(Name, Lastname, PhoneNumber, userID_Recived);
                     Toast.makeText(EditUserActivity.this, "Se guardarón los cambios con exito", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -305,14 +308,22 @@ public class EditUserActivity extends AppCompatActivity {
         });
     }
     
-    private void editUserInfo(String name, String lastName, String phoneNumber){
+    private void editUserInfo(String name, String lastName, String phoneNumber, String userId){
         autentication = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
-        changePhotoProfile(new GetImageUri() {
-            @Override
-            public void onSuccess(String uri) {
+        if(IsChangedPhoto){
+            changePhotoProfile(new GetImageUri() {
+                @Override
+                public void onSuccess(String uri) {
+                    Map<String, Object> userInfo = new HashMap<>();
+                    userInfo.put("Name", name);
+                    userInfo.put("LastName", lastName);
+                    userInfo.put("PhoneNumber", phoneNumber);
+                    userInfo.put("UriPath", uri);
+                    database.collection("UserInfo").document(userId).update(userInfo);
 
-                String userID = autentication.getCurrentUser().getUid().toString();
+                    //este es el codigo de antes, si no funciona lo anterior usar esto
+                /*
                 database.collection("UserInfo")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -339,10 +350,17 @@ public class EditUserActivity extends AppCompatActivity {
                                     }
                                 }
                             }
-                        });
-            }
-        });
-
+                        });*/
+                }
+            });
+        }
+        else{
+            Map<String, Object> userInfo = new HashMap<>();
+            userInfo.put("Name", name);
+            userInfo.put("LastName", lastName);
+            userInfo.put("PhoneNumber", phoneNumber);
+            database.collection("UserInfo").document(userId).update(userInfo);
+        }
     }
     private boolean validateField(String name,String lastName){
 

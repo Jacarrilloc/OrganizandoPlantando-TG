@@ -57,16 +57,13 @@ public class GardenActivity extends AppCompatActivity {
 
     private Button formsRegister, rewards, myGardens, profile, ludification;
     private ImageButton editGarden, seedTime, toolsButton, worm, collaboratorGardens, messages, generateReport;
-
     private ImageView moreFormsButtom,gardenImage;
-    private TextView nameGarden,descriptionGarden, gardenParticipants;
+    private TextView nameGarden,descriptionGarden, gardenParticipants, gardenAddress;
     private FloatingActionButton backButtom;
     private FirebaseFirestore database;
     private CollectionReference gardensRef;
     private int participants;
-
-    private String gardenID, garden, infoGarden, idUSerColab, groupLink, id;
-    private String owner;
+    private String gardenID, garden, infoGarden, idUSerColab, groupLink, id, owner;
 
     @Override
     protected void onStart() {
@@ -101,6 +98,7 @@ public class GardenActivity extends AppCompatActivity {
         generateReport = (ImageButton) findViewById(R.id.imageButton9);
         gardenImage = findViewById(R.id.gardenProfilePicture);
         ludification = (Button) findViewById(R.id.ludification);
+        gardenAddress = (TextView) findViewById(R.id.adressGarden);
 
         database = FirebaseFirestore.getInstance();
         gardensRef = database.collection("Gardens");
@@ -400,7 +398,8 @@ public class GardenActivity extends AppCompatActivity {
 
                     String typeDoc = documentSnapshot.getString("GardenType");
                     infoDoc = documentSnapshot.getString("InfoGarden");
-                    GardenInfo gardenInfo = new GardenInfo(idUser,name,infoDoc,typeDoc);
+                    String gardenAddress = documentSnapshot.getString("gardenAddress");
+                    GardenInfo gardenInfo = new GardenInfo(idUser,name,infoDoc,typeDoc, gardenAddress);
                     //para conocer el numero de participantes de la huerta
                     ref.collection("Collaborators").get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -431,6 +430,7 @@ public class GardenActivity extends AppCompatActivity {
             gardenParticipants.setText(gardenParticipant+ " Participantes de la huerta");
         }
         descriptionGarden.setText(gardenInfo.getInfo());
+        gardenAddress.setText(gardenInfo.getAddress());
     }
     private void insertGroupLink(String link, String idGarden){
         Map<String, Object> gardenLink = new HashMap<>();

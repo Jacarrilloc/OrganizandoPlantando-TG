@@ -180,28 +180,18 @@ public class AuthCommunication implements Serializable {
         if (ValidateInfo(emailRegister, passwordRegister,context)) {
             final boolean[] isUserCreated = {false};
             try{
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailRegister,passwordRegister)
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                if (bytes != null){
-                                        addProfilePhoto(bytes, user.getUid().toString(), new GetUriUser() {
-                                            @Override
-                                            public void onSuccess(String uri) {
-                                                newUserInfo.setId(user.getUid().toString());
-                                                newUserInfo.setUriPath(uri);
-                                                addtoDataBase(newUserInfo.toMap());
-                                                isUserCreated[0] = true;
-                                            }
-                                        });
-                                }else{
-                                    newUserInfo.setId(user.getUid().toString());
-                                    newUserInfo.setUriPath(null);
-                                    addtoDataBase(newUserInfo.toMap());
-                                    isUserCreated[0] = true;
-                                }
-                            }
-                        });
+                FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailRegister, passwordRegister).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            newUserInfo.setId(user.getUid().toString());
+                            newUserInfo.setUriPath(null);
+                            addtoDataBase(newUserInfo.toMap(), bytes);
+                            isUserCreated[0] = true;
+                        }
+                    }
+                });
             }catch (Exception e){
                 Log.i("ERROR CREAR CUENTA: ",e.getMessage().toString());
             }
@@ -211,28 +201,29 @@ public class AuthCommunication implements Serializable {
         }
     }
 
-    private boolean addtoDataBase(Map<String, Object> newUserInfo){
-        final boolean[] result = {false};
+    private void addtoDataBase(Map<String, Object> newUserInfo, byte[] bytes){
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = user.getUid();
 
-        DocumentReference collectionReference = database.collection("UserInfo").document(user.getUid());
-        collectionReference.set(newUserInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
+        database.collection("UserInfo").document(userId).set(newUserInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            addProfilePhoto(bytes, userId, new GetUriUser() {
+                                @Override
+                                public void onSuccess(String uri) {
+                                    database.collection("UserInfo").document(userId).update("UriPath", uri);
+                                }
+                            });
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onSuccess(Void unused) {
-                result[0] = true;
+            public void onFailure(@NonNull Exception e) {
+                Log.i("No creo", "No se crea la base de datos");
             }
         });
-
-
-        //Lo siguiente era como se creaba el user antes->ahora asigna el id del documento igual al id del auth
-       /* collectionReference.add(newUserInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                result[0] = true;
-            }
-        });*/
-        return result[0];
     }
 
     public void addProfilePhoto(byte[] bytes, String userID, final GetUriUser callback) {

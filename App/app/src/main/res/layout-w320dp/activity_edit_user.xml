@@ -90,12 +90,12 @@
                     android:id="@+id/userName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_gravity="center"
-                    android:text="@string/nameUsr"
                     android:fontFamily="@font/manropemedium"
+                    android:text="@string/nameUsr"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_20sdp" />
@@ -119,7 +119,7 @@
                     <EditText
                         android:id="@+id/userName2"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_32sdp"
+                        android:layout_height="@dimen/_29sdp"
                         android:layout_gravity="center"
                         android:fontFamily="@font/manroperegular"
                         android:layout_marginStart="@dimen/_10sdp"
@@ -149,7 +149,7 @@
                     <EditText
                         android:id="@+id/lastNameInfo"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_32sdp"
+                        android:layout_height="@dimen/_29sdp"
                         android:layout_gravity="center"
                         android:fontFamily="@font/manroperegular"
                         android:layout_marginStart="@dimen/_10sdp"
@@ -179,11 +179,12 @@
                     <EditText
                         android:id="@+id/gardenName"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_32sdp"
+                        android:layout_height="@dimen/_29sdp"
                         android:layout_gravity="center"
                         android:fontFamily="@font/manroperegular"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginEnd="@dimen/_20sdp"
+                        android:text="Comabaquinta"
                         android:background="@drawable/dr_gray_input_text"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
@@ -255,10 +256,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/_15sdp"
-                        android:text="@string/signout"
-                        android:fontFamily="@font/manroperegular"
                         android:ellipsize="end"
+                        android:fontFamily="@font/manroperegular"
                         android:maxLines="1"
+                        android:text="@string/signout"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_14sdp" />
 
@@ -275,16 +276,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:fontFamily="@font/manroperegular"
                         android:layout_marginStart="@dimen/_15sdp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/manroperegular"
+                        android:maxLines="1"
                         android:text="@string/delete"
                         android:textColor="@color/black"
-                        android:ellipsize="end"
-                        android:maxLines="1"
                         android:textSize="@dimen/_13sdp" />
 
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
