@@ -233,40 +233,42 @@ public class Form_IMP extends AppCompatActivity {
     }
 
     private void showMapInfo(Map<String, Object> info,String status){
-        EditText showConceptInfo = findViewById(R.id.showConceptInfo);
-        EditText rawMaterialChoise = findViewById(R.id.rawMaterialChoise);
-        EditText unitSelected = findViewById(R.id.UnitSelectedForm);
-        rawMatirial.setText((CharSequence) info.get("rawMaterial"));
-        quantity.setText((CharSequence) info.get("quantityRawMaterial"));
-        existingTool.setText((CharSequence) info.get("existenceQuantity"));
-        switch (status){
-            case "true":
-                spinnerConcept.setVisibility(View.GONE);
-                spinnerMovement.setVisibility(View.GONE);
-                spinnerUnits.setVisibility(View.GONE);
-                rawMatirial.setEnabled(false);
-                quantity.setEnabled(false);
-                existingTool.setEnabled(false);
-                rawMatirial.setFocusable(false);
-                rawMatirial.setClickable(false);
-                existingTool.setFocusable(false);
-                existingTool.setClickable(false);
-                quantity.setFocusable(false);
-                quantity.setClickable(false);
-                showConceptInfo.setVisibility(View.VISIBLE);
-                showConceptInfo.setText((String) info.get("concept"));
-                rawMaterialChoise.setVisibility(View.VISIBLE);
-                rawMaterialChoise.setText((String) info.get("movement"));
-                unitSelected.setVisibility(View.VISIBLE);
-                unitSelected.setText((String) info.get("units"));
-                showConceptInfo.setFocusable(false);
-                rawMaterialChoise.setFocusable(false);
-                unitSelected.setFocusable(false);
-                addFormButtom.setVisibility(View.GONE);
-                break;
-            case "edit":
-                addFormButtom.setText("Aceptar cambios");
-                break;
+        if(info != null) {
+            EditText showConceptInfo = findViewById(R.id.showConceptInfo);
+            EditText rawMaterialChoise = findViewById(R.id.rawMaterialChoise);
+            EditText unitSelected = findViewById(R.id.UnitSelectedForm);
+            rawMatirial.setText((CharSequence) info.get("rawMaterial"));
+            quantity.setText((CharSequence) info.get("quantityRawMaterial"));
+            existingTool.setText((CharSequence) info.get("existenceQuantity"));
+            switch (status) {
+                case "true":
+                    spinnerConcept.setVisibility(View.GONE);
+                    spinnerMovement.setVisibility(View.GONE);
+                    spinnerUnits.setVisibility(View.GONE);
+                    rawMatirial.setEnabled(false);
+                    quantity.setEnabled(false);
+                    existingTool.setEnabled(false);
+                    rawMatirial.setFocusable(false);
+                    rawMatirial.setClickable(false);
+                    existingTool.setFocusable(false);
+                    existingTool.setClickable(false);
+                    quantity.setFocusable(false);
+                    quantity.setClickable(false);
+                    showConceptInfo.setVisibility(View.VISIBLE);
+                    showConceptInfo.setText((String) info.get("concept"));
+                    rawMaterialChoise.setVisibility(View.VISIBLE);
+                    rawMaterialChoise.setText((String) info.get("movement"));
+                    unitSelected.setVisibility(View.VISIBLE);
+                    unitSelected.setText((String) info.get("units"));
+                    showConceptInfo.setFocusable(false);
+                    rawMaterialChoise.setFocusable(false);
+                    unitSelected.setFocusable(false);
+                    addFormButtom.setVisibility(View.GONE);
+                    break;
+                case "edit":
+                    addFormButtom.setText("Aceptar cambios");
+                    break;
+            }
         }
     }
 
