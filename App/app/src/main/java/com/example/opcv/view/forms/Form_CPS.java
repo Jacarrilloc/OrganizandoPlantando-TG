@@ -98,6 +98,7 @@ public class Form_CPS extends AppCompatActivity {
                 startActivity(new Intent(Form_CPS.this, EditUserActivity.class));
             }
         });
+
         watch = getIntent().getStringExtra("watch");
         Map<String, Object> infoForm = (Map<String, Object>) getIntent().getSerializableExtra("idCollecion");
         showMapInfo(infoForm,watch);

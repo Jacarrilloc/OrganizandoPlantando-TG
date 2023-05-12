@@ -89,6 +89,9 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                     case 10:
                         formClass = Form_CIH.class;
                         break;
+                    case 11:
+                        formClass = Form_RHC.class;
+                        break;
                     case 12:
                         formClass = Form_RE.class;
                         break;
@@ -199,6 +202,9 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                         break;
                     case 10:
                         formClass = Form_CIH.class;
+                        break;
+                    case 11:
+                        formClass = Form_RHC.class;
                         break;
                     case 12:
                         formClass = Form_RE.class;
