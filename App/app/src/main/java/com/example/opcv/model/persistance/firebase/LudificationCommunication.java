@@ -655,13 +655,13 @@ public class LudificationCommunication implements Serializable {
                                             ref.collection("Comments").document(doc.getId()).delete();
                                         }
                                         ref.delete();
-                                        Toast.makeText(context, "Se ha borrado con exito", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, "Se ha borrado con exito.", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
                         }
                         else{
-                            Toast.makeText(context, "No tienes permmiso para borrar. Solo el creador.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "No tienes permiso para eliminar, solo el publicador.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }

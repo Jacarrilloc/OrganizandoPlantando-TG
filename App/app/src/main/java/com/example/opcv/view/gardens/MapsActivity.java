@@ -10,9 +10,12 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -25,14 +28,22 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.opcv.business.interfaces.firebase.map.GetGardensAddressesInt;
+import com.example.opcv.business.maps.GardenMaps;
+import com.example.opcv.model.entity.Address;
 import com.example.opcv.model.persistance.firebase.AuthCommunication;
 import com.example.opcv.view.auth.SignOffActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.auth.EditUserActivity;
+import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class MapsActivity extends AppCompatActivity {
     private MapView map;
@@ -61,25 +72,50 @@ public class MapsActivity extends AppCompatActivity {
         profile = (Button) findViewById(R.id.profile);
         rewards = (Button) findViewById(R.id.rewards);
         home = (Button) findViewById(R.id.myGardens);
-        gardens = (ImageView) findViewById(R.id.gardensIcon);
         ludification = (Button) findViewById(R.id.ludification);
         back = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
+
         map =findViewById(R.id.mapglobal);
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setMultiTouchControls(true);
 
-        Marker marker = new Marker(map);
-        marker.setTitle("Mi Marcador");
-        Drawable myIcon = getResources().getDrawable(R.drawable.dr_location_red, this.getTheme());
-        marker.setIcon(myIcon);
-        marker.setPosition(this.bogota);
-        marker.setAnchor(Marker.ANCHOR_CENTER,
-                Marker.ANCHOR_BOTTOM);
-        map.getOverlays().add(marker);
+        // Add MyLocationNewOverlay
+        MyLocationNewOverlay myLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this), map);
+        myLocationOverlay.enableMyLocation();
+        map.getOverlays().add(myLocationOverlay);
+        myLocationOverlay.runOnFirstFix(new Runnable() {
+            public void run() {
+                if (myLocationOverlay.getMyLocation()!=null) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            map.getController().animateTo(myLocationOverlay.getMyLocation());
+                        }
+                    });
+                }
+            }
+        });
+
+        GardenMaps gardenMaps = new GardenMaps();
+        gardenMaps.getAddresses(new GetGardensAddressesInt() {
+            @Override
+            public void onComplete(Map<Integer, Address> addresses) {
+                for (int i = 0; i < addresses.size(); i++){
+                    System.out.println("eee: "+ Objects.requireNonNull(addresses.get(i)).getGardenName());
+
+                    Marker marker = new Marker(map);
+                    marker.setTitle(Objects.requireNonNull(addresses.get(i)).getGardenName());
+                    marker.setPosition(Objects.requireNonNull(addresses.get(i)).getPoint());
+                    marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                    map.getOverlays().add(marker);
+
+                }
+            }
+
+        });
 
         AuthCommunication authCommunication = new AuthCommunication();
         FirebaseUser user = authCommunication.guestUser();
-
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,14 +144,7 @@ public class MapsActivity extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MapsActivity.this, MapsActivity.class));
-            }
-        });
-
-        gardens.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MapsActivity.this, GardensAvailableActivity.class));
+                startActivity(new Intent(MapsActivity.this, HomeActivity.class));
             }
         });
 

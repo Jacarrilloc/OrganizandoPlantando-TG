@@ -48,21 +48,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:fontFamily="@font/manropemedium"
-                android:layout_marginStart="@dimen/_20sdp"
+                android:fontFamily="@font/manroperegular"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:gravity="center"
                 android:text="@string/GardenAvTittle"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_20sdp" />
-
-            <ImageView
-                android:id="@+id/gardensIcon"
-                android:layout_width="match_parent"
-                android:layout_weight="2"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_gravity="center"
-                android:clickable="true"
-                android:focusable="true"
-                app:srcCompat="@drawable/im_list_view" />
 
         </LinearLayout>
 

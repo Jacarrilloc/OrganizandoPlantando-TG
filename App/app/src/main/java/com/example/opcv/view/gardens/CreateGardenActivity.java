@@ -207,7 +207,6 @@ public class CreateGardenActivity extends AppCompatActivity {
                 });
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
-                //startActivity(new Intent(CreateGardenActivity.this, GardenAddressActivity.class));
             }
         });
 
