@@ -1,6 +1,7 @@
 package com.example.opcv.view.ludification;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -49,11 +50,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -312,11 +317,6 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
         sendComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -364,6 +364,26 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                         dislikeButton.setBackgroundResource(R.drawable.im_dislike_gray);
                     }
 
+                }
+            }
+        });
+
+        CollectionReference collectionReference = FirebaseFirestore.getInstance().collection(element);
+        collectionReference.document(docRef).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    String var = task.getResult().getString("Publisher");
+                    if (var!= null){
+                        if(var.equals(idUser)){
+                            System.out.println("Entro");
+                            likeButton.setEnabled(false);
+                            dislikeButton.setEnabled(false);
+                            likeButton.setBackgroundResource(R.drawable.im_like_gray);
+                            dislikeButton.setBackgroundResource(R.drawable.im_dislike_gray);
+                            deleteButton.setVisibility(View.VISIBLE);
+                        }
+                    }
                 }
             }
         });
