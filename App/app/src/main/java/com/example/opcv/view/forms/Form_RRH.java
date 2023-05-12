@@ -32,13 +32,12 @@ import com.example.opcv.model.persistance.firebase.FormsCommunication;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.business.notifications.Notifications;
 import com.example.opcv.view.ludification.RewardHomeActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -110,39 +109,14 @@ public class Form_RRH extends AppCompatActivity {
         });
 
         watch = getIntent().getStringExtra("watch");
+        Map<String, Object> infoForm = (Map<String, Object>) getIntent().getSerializableExtra("idCollecion");
+        showMapInfo(infoForm,watch);
 
-        if(watch.equals("true")){
-            idGarden = getIntent().getStringExtra("idGardenFirebase");
-            idCollection = getIntent().getStringExtra("idCollecion");
-            addFormButtom.setVisibility(View.INVISIBLE);
-            addFormButtom.setClickable(false);
-            spinner.setEnabled(false);
-            description.setEnabled(false);
-            quantity.setEnabled(false);
-            performedBy.setEnabled(false);
-            status.setEnabled(false);
-            quantity.setFocusable(false);
-            quantity.setClickable(false);
-            description.setFocusable(false);
-            description.setClickable(false);
-            performedBy.setFocusable(false);
-            performedBy.setClickable(false);
-            status.setFocusable(false);
-            status.setClickable(false);
-            showInfo(idGarden, idCollection, "true");
-        } else if (watch.equals("edit")) {
-            formsUtilities = new FormsCommunication();
-
-            idGarden = getIntent().getStringExtra("idGardenFirebase");
-            idCollection = getIntent().getStringExtra("idCollecion");
-            showInfo(idGarden, idCollection, "edit");
-            addFormButtom.setText("Aceptar cambios");
-
-        }
-        else if (watch.equals("create")){
-            addFormButtom.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        addFormButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                watch = getIntent().getStringExtra("watch");
+                if(watch.equals("create")) {
                     if (ContextCompat.checkSelfPermission(Form_RRH.this,
                             Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                             ContextCompat.checkSelfPermission(Form_RRH.this,
@@ -154,9 +128,17 @@ public class Form_RRH extends AppCompatActivity {
                         createNewForm();
                     }
                 }
-            });
-
-        }
+                if (watch.equals("edit")){
+                    try {
+                        updateForm((Map<String, Object>) getIntent().getSerializableExtra("idCollecion"));
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
 
         ArrayList<String> phaseElements = new ArrayList<>();
         phaseElements.add("Seleccione un elemento");
@@ -190,79 +172,41 @@ public class Form_RRH extends AppCompatActivity {
             }
         });
     }
-    private void showInfo(String idGarden, String idCollection, String status1){
 
-        CollectionReference ref = database.collection("Gardens").document(idGarden).collection("Forms");
-        ref.document(idCollection).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                description.setText(task.getResult().get("description").toString());
-                quantity.setText(task.getResult().get("toolQuantity").toString());
-                performedBy.setText(task.getResult().get("performedBy").toString());
-                status.setText(task.getResult().get("toolStatus").toString());
-                if(task.isSuccessful()){
-                    if(status1.equals("edit")){
-                        String choice1 = task.getResult().get("concept").toString();
-                        ArrayList<String> elementShow = new ArrayList<>();
-                        if(choice1.equals("Recepción")){
-                            elementShow.add("Recepción");
-                            elementShow.add("Salida");
-                        } else if (choice1.equals("Salida")) {
-                            elementShow.add("Salida");
-                            elementShow.add("Recepción");
-                        }
-                        ArrayAdapter adap2 = new ArrayAdapter(Form_RRH.this, android.R.layout.simple_spinner_item, elementShow);
-                        spinner.setAdapter(adap2);
-                    }
-                    else if(status1.equals("true")){
-                        String choice1 = task.getResult().get("concept").toString();
-                        System.out.println("el concepto"+choice1);
-                        ArrayList<String> elementShow = new ArrayList<>();
-                        elementShow.add(choice1);
-                        ArrayAdapter adap2 = new ArrayAdapter(Form_RRH.this, android.R.layout.simple_spinner_item, elementShow);
-                        spinner.setAdapter(adap2);
-                    }
-                }
-            }
-        });
-        addFormButtom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String processDescription, toolQuantity, processPerformedBy, processStatus, concept;
-                processDescription = description.getText().toString();
-                toolQuantity = quantity.getText().toString();
-                processPerformedBy = performedBy.getText().toString();
-                processStatus = status.getText().toString();
-                concept = conceptSelectedItem;
-                if(validateField(processDescription, toolQuantity, processPerformedBy, processStatus, concept)){
-                    formsUtilities.editInfoRRH(Form_RRH.this, idGarden, idCollection, processDescription, toolQuantity, processPerformedBy, processStatus, concept);
-                    Toast.makeText(Form_RRH.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-    private boolean validateField(String processDescription,String toolQuantity, String processPerformedBy, String processStatus, String concept){
+    private void showMapInfo(Map<String, Object> info,String statusInfo){
+        if (info != null) {
+            description.setText((CharSequence) info.get("description"));
+            quantity.setText((CharSequence) info.get("toolQuantity"));
+            performedBy.setText((CharSequence) info.get("performedBy"));
+            status.setText((CharSequence) info.get("toolStatus"));
+            switch (statusInfo) {
+                case "true":
+                    addFormButtom.setVisibility(View.GONE);
+                    spinner.setEnabled(false);
+                    description.setEnabled(false);
+                    quantity.setEnabled(false);
+                    performedBy.setEnabled(false);
+                    status.setEnabled(false);
+                    quantity.setFocusable(false);
+                    quantity.setClickable(false);
+                    description.setFocusable(false);
+                    description.setClickable(false);
+                    performedBy.setFocusable(false);
+                    performedBy.setClickable(false);
+                    status.setFocusable(false);
+                    status.setClickable(false);
 
-        if(processDescription.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar la descripción", Toast.LENGTH_SHORT).show();
-            return false;
+                    spinner.setVisibility(View.GONE);
+                    TextView conceptSelectedSpinner = findViewById(R.id.conceptSelectedSpinner);
+                    conceptSelectedSpinner.setVisibility(View.VISIBLE);
+                    conceptSelectedSpinner.setText((CharSequence) info.get("concept"));
+
+                    break;
+                case "edit":
+                    addFormButtom.setText("Aceptar cambios");
+                    break;
+            }
         }
-        else if(concept.equals("Seleccione un elemento")){
-            Toast.makeText(this, "Es necesario seleccionar un concepto", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        else if(toolQuantity.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar la cantidad", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        else if(processPerformedBy.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar el nombre del responsable", Toast.LENGTH_SHORT).show();
-            return false;
-        }else if(processStatus.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar el estado del proceso", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
     }
 
     private void createNewForm(){
@@ -298,6 +242,58 @@ public class Form_RRH extends AppCompatActivity {
         }
     }
 
+    private void updateForm(Map<String, Object> oldInfo) throws JSONException, IOException{
+        Map<String, Object> newInfo = new HashMap<>();
+        newInfo.put("CreatedBy", oldInfo.get("CreatedBy"));
+        newInfo.put("Date", oldInfo.get("Date"));
+        newInfo.put("idForm", oldInfo.get("idForm"));
+        newInfo.put("nameForm", oldInfo.get("nameForm"));
+
+        String defaultSelected = "Seleccione un elemento";
+        if(conceptSelectedItem.equals(defaultSelected)){
+            newInfo.put("concept",oldInfo.get("concept"));
+        }else{
+            newInfo.put("concept",conceptSelectedItem);
+        }
+
+        newInfo.put("description",description.getText().toString());
+        newInfo.put("toolQuantity",quantity.getText().toString());
+        newInfo.put("performedBy",performedBy.getText().toString());
+        newInfo.put("toolStatus",status.getText().toString());
+
+        String idGardenFb = getIntent().getStringExtra("idGardenFirebase");
+        Forms updateInfo = new Forms(this);
+        updateInfo.updateInfoForm(oldInfo,newInfo,idGardenFb);
+
+        Notifications notifications = new Notifications();
+        notifications.notification("Formulario Editado", "Felicidades! Actualizaste la Información de tu Formulario", Form_RRH.this);
+
+        onBackPressed();
+    }
+
+    private boolean validateField(String processDescription,String toolQuantity, String processPerformedBy, String processStatus, String concept){
+
+        if(processDescription.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la descripción", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(concept.equals("Seleccione un elemento")){
+            Toast.makeText(this, "Es necesario seleccionar un concepto", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(toolQuantity.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la cantidad", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(processPerformedBy.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar el nombre del responsable", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(processStatus.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar el estado del proceso", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
     private void requestStoragePermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             // Aquí puedes proporcionar una explicación al usuario sobre por qué necesitas el permiso.

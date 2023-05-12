@@ -39,6 +39,9 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,8 +49,6 @@ import java.util.Map;
 
 //Solicitud de compra de materia prima y/o herramientas
 public class Form_SCMPH extends AppCompatActivity {
-
-    private FormsCommunication formsUtilities;
     private FloatingActionButton backButtom;
     private Button addFormButtom, rewards, myGardens, profile, ludification;
     private EditText itemName, quantity, total;
@@ -74,6 +75,11 @@ public class Form_SCMPH extends AppCompatActivity {
         spinnerUnits = (Spinner) findViewById(R.id.unitsChoice);
         addFormButtom = findViewById(R.id.create_forms3_buttom);
         ludification = (Button) findViewById(R.id.ludification);
+
+
+        watch = getIntent().getStringExtra("watch");
+        Map<String, Object> infoForm = (Map<String, Object>) getIntent().getSerializableExtra("idCollecion");
+        showMapInfo(infoForm,watch);
 
         rewards.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,38 +115,11 @@ public class Form_SCMPH extends AppCompatActivity {
             }
         });
 
-        watch = getIntent().getStringExtra("watch");
-
-        if(watch.equals("true")){
-            idGarden = getIntent().getStringExtra("idGardenFirebase");
-            idCollection = getIntent().getStringExtra("idCollecion");
-            addFormButtom.setVisibility(View.INVISIBLE);
-            addFormButtom.setClickable(false);
-            spinnerItem.setEnabled(false);
-            spinnerUnits.setEnabled(false);
-            itemName.setEnabled(false);
-            quantity.setEnabled(false);
-            total.setEnabled(false);
-            itemName.setFocusable(false);
-            itemName.setClickable(false);
-            quantity.setFocusable(false);
-            quantity.setClickable(false);
-            total.setFocusable(false);
-            total.setClickable(false);
-            showInfo(idGarden, idCollection, "true");
-        } else if (watch.equals("edit")) {
-            formsUtilities = new FormsCommunication();
-
-            idGarden = getIntent().getStringExtra("idGardenFirebase");
-            idCollection = getIntent().getStringExtra("idCollecion");
-            showInfo(idGarden, idCollection, "edit");
-            addFormButtom.setText("Aceptar cambios");
-
-        }
-        else if (watch.equals("create")){
-            addFormButtom.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        addFormButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                watch = getIntent().getStringExtra("watch");
+                if(watch.equals("create")) {
                     if (ContextCompat.checkSelfPermission(Form_SCMPH.this,
                             Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                             ContextCompat.checkSelfPermission(Form_SCMPH.this,
@@ -152,9 +131,17 @@ public class Form_SCMPH extends AppCompatActivity {
                         createNewForm();
                     }
                 }
-            });
-
-        }
+                if (watch.equals("edit")){
+                    try {
+                        updateForm((Map<String, Object>) getIntent().getSerializableExtra("idCollecion"));
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
 
         backButtom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,100 +203,7 @@ public class Form_SCMPH extends AppCompatActivity {
         });
 
     }
-    private void showInfo(String idGarden, String idCollection, String status){
 
-        CollectionReference ref = database.collection("Gardens").document(idGarden).collection("Forms");
-        ref.document(idCollection).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                itemName.setText(task.getResult().get("itemName").toString());
-                quantity.setText(task.getResult().get("quantity").toString());
-                total.setText(task.getResult().get("total").toString());
-                if(task.isSuccessful()){
-                    if(status.equals("edit")){
-                        String choice1 = task.getResult().get("item").toString();
-                        ArrayList<String> elementShow = new ArrayList<>();
-                        if(choice1.equals("Herramienta")){
-                            elementShow.add("Herramienta");
-                            elementShow.add("Materia prima");
-                        } else if (choice1.equals("Materia prima")) {
-                            elementShow.add("Materia prima");
-                            elementShow.add("Herramienta");
-                        }
-                        ArrayAdapter adap2 = new ArrayAdapter(Form_SCMPH.this, android.R.layout.simple_spinner_item, elementShow);
-                        spinnerItem.setAdapter(adap2);
-
-                        String choice2 = task.getResult().get("units").toString();
-                        ArrayList<String> elementShow2 = new ArrayList<>();
-                        if(choice2.equals("Litros")){
-                            elementShow2.add("Litros");
-                            elementShow2.add("Kilogramos");
-                            elementShow2.add("Libras");
-                            elementShow2.add("Mililitros");
-                            elementShow2.add("Gramos");
-                            elementShow2.add("No aplica");
-                        }
-                        else if(choice2.equals("Kilogramos")){
-                            elementShow2.add("Kilogramos");
-                            elementShow2.add("Litros");
-                            elementShow2.add("Libras");
-                            elementShow2.add("Mililitros");
-                            elementShow2.add("Gramos");
-                            elementShow2.add("No aplica");
-                        }
-                        else if(choice2.equals("Libras")){
-                            elementShow2.add("Libras");
-                            elementShow2.add("Litros");
-                            elementShow2.add("Kilogramos");
-                            elementShow2.add("Mililitros");
-                            elementShow2.add("Gramos");
-                            elementShow2.add("No aplica");
-                        }
-                        else if(choice2.equals("Mililitros")){
-                            elementShow2.add("Mililitros");
-                            elementShow2.add("Litros");
-                            elementShow2.add("Kilogramos");
-                            elementShow2.add("Libras");
-                            elementShow2.add("Gramos");
-                            elementShow2.add("No aplica");
-                        }
-                        else if(choice2.equals("Gramos")){
-                            elementShow2.add("Gramos");
-                            elementShow2.add("Litros");
-                            elementShow2.add("Kilogramos");
-                            elementShow2.add("Libras");
-                            elementShow2.add("Mililitros");
-                            elementShow2.add("No aplica");
-                        }
-                        else if(choice2.equals("No aplica")){
-                            elementShow2.add("No aplica");
-                            elementShow2.add("Litros");
-                            elementShow2.add("Kilogramos");
-                            elementShow2.add("Libras");
-                            elementShow2.add("Mililitros");
-                            elementShow2.add("Gramos");
-                        }
-                        ArrayAdapter adap = new ArrayAdapter(Form_SCMPH.this, android.R.layout.simple_spinner_item, elementShow2);
-                        spinnerUnits.setAdapter(adap);
-                    }
-                    else if(status.equals("true")){
-
-                        String choice1 = task.getResult().get("item").toString();
-                        ArrayList<String> elementShow = new ArrayList<>();
-                        elementShow.add(choice1);
-                        ArrayAdapter adap2 = new ArrayAdapter(Form_SCMPH.this, android.R.layout.simple_spinner_item, elementShow);
-                        spinnerItem.setAdapter(adap2);
-                        String choice2 = task.getResult().get("units").toString();
-                        ArrayList<String> elementShow2 = new ArrayList<>();
-                        elementShow2.add(choice2);
-                        ArrayAdapter adap = new ArrayAdapter(Form_SCMPH.this, android.R.layout.simple_spinner_item, elementShow2);
-                        spinnerUnits.setAdapter(adap);
-
-                    }
-                }
-            }
-        });
-    }
     private boolean validateField(String itemR,String quantityR, String totalR, String item, String units){
 
         if(itemR.isEmpty()){
@@ -336,7 +230,7 @@ public class Form_SCMPH extends AppCompatActivity {
     }
 
     private void createNewForm(){
-        String itemR, quantityR, totalR, stateR, nameForm, idGardenFb;
+        String itemR, quantityR, totalR, nameForm, idGardenFb;
 
         itemR = itemName.getText().toString();
         quantityR = quantity.getText().toString();
@@ -366,6 +260,84 @@ public class Form_SCMPH extends AppCompatActivity {
             startActivity(new Intent(Form_SCMPH.this, HomeActivity.class));
             finish();
         }
+    }
+
+    private void showMapInfo(Map<String, Object> info,String status){
+        if(info != null) {
+            itemName.setText((CharSequence) info.get("itemName"));
+            quantity.setText((CharSequence) info.get("quantity"));
+            total.setText((CharSequence) info.get("total"));
+        }
+        switch (status){
+            case "true":
+                EditText itemChoiseSelected = findViewById(R.id.itemChoiseSelected);
+                itemChoiseSelected.setVisibility(View.VISIBLE);
+                itemChoiseSelected.setFocusable(false);
+                itemChoiseSelected.setText((CharSequence) info.get("item"));
+                spinnerItem.setVisibility(View.GONE);
+
+                EditText UnitViewChoise = findViewById(R.id.UnitViewChoise);
+                UnitViewChoise.setVisibility(View.VISIBLE);
+                UnitViewChoise.setFocusable(false);
+                UnitViewChoise.setText((CharSequence) info.get("units"));
+                spinnerUnits.setVisibility(View.GONE);
+
+                itemName.setEnabled(false);
+                quantity.setEnabled(false);
+                total.setEnabled(false);
+                itemName.setFocusable(false);
+                itemName.setClickable(false);
+                quantity.setFocusable(false);
+                quantity.setClickable(false);
+                total.setFocusable(false);
+                total.setClickable(false);
+                addFormButtom.setVisibility(View.GONE);
+                break;
+            case "edit":
+                addFormButtom.setText("Aceptar cambios");
+                break;
+
+        }
+    }
+
+    private void updateForm(Map<String, Object> oldInfo) throws JSONException, IOException {
+        Map<String, Object> newInfo = new HashMap<>();
+        newInfo.put("CreatedBy",oldInfo.get("CreatedBy"));
+        newInfo.put("Date",oldInfo.get("Date"));
+        newInfo.put("idForm",oldInfo.get("idForm"));
+        newInfo.put("nameForm",oldInfo.get("nameForm"));
+
+        String itemR, quantityR, totalR,idGardenFb;
+
+        idGardenFb = getIntent().getStringExtra("idGardenFirebase");
+
+        itemR = itemName.getText().toString();
+        quantityR = quantity.getText().toString();
+        totalR = total.getText().toString();
+
+        String defaultSelected = "Seleccione un elemento";
+        if (itemSelectedItem.equals(defaultSelected)){
+            newInfo.put("item",oldInfo.get("item"));
+        }else{
+            newInfo.put("item",itemSelectedItem);
+        }
+
+        if(unitSelectedItem.equals(defaultSelected)){
+            newInfo.put("units",oldInfo.get("units"));
+        }else{
+            newInfo.put("units",unitSelectedItem);
+        }
+        newInfo.put("itemName",itemR);
+        newInfo.put("quantity",quantityR);
+        newInfo.put("total",totalR);
+
+        Forms updateInfo = new Forms(this);
+        updateInfo.updateInfoForm(oldInfo,newInfo,idGardenFb);
+
+        Notifications notifications = new Notifications();
+        notifications.notification("Formulario Editado", "Felicidades! Actualizaste la Información de tu Formulario", Form_SCMPH.this);
+
+        onBackPressed();
     }
 
     private boolean isOnline() {

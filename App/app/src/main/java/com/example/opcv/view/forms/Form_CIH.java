@@ -94,17 +94,8 @@ public class Form_CIH extends AppCompatActivity {
             }
         });
         watch = getIntent().getStringExtra("watch");
-
-        if(watch.equals("true")){
-            //Aqui es cuando solo se quiere ver la informción del formulario
-            Map<String, Object> infoForm = (Map<String, Object>) getIntent().getSerializableExtra("idCollecion");
-            showMapInfo(infoForm,watch);
-
-        } else if (watch.equals("edit")) {
-            //Aqui es cuando se quiere editar la Informacion del Usuario
-            Map<String, Object> infoForm = (Map<String, Object>) getIntent().getSerializableExtra("idCollecion");
-            showMapInfo(infoForm,watch);
-        }
+        Map<String, Object> infoForm = (Map<String, Object>) getIntent().getSerializableExtra("idCollecion");
+        showMapInfo(infoForm,watch);
 
         ArrayList<String> phaseElements = new ArrayList<>();
         phaseElements.add("Seleccione un elemento");

@@ -39,7 +39,11 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -114,50 +118,14 @@ public class Form_RHC extends AppCompatActivity {
         });
 
         watch = getIntent().getStringExtra("watch");
+        Map<String, Object> infoForm = (Map<String, Object>) getIntent().getSerializableExtra("idCollecion");
+        showMapInfo(infoForm,watch);
 
-        if(watch.equals("true")){
-            idGarden = getIntent().getStringExtra("idGardenFirebase");
-            idCollection = getIntent().getStringExtra("idCollecion");
-            addFormButtom.setVisibility(View.INVISIBLE);
-            addFormButtom.setClickable(false);
-            spinnerType.setEnabled(false);
-            spinnerConcept.setEnabled(false);
-            responsable.setEnabled(false);
-            code.setEnabled(false);
-            itemName.setEnabled(false);
-            units.setEnabled(false);
-            measurement.setEnabled(false);
-            totalCost.setEnabled(false);
-            comments.setEnabled(false);
-            responsable.setFocusable(false);
-            responsable.setClickable(false);
-            code.setFocusable(false);
-            code.setClickable(false);
-            units.setFocusable(false);
-            units.setClickable(false);
-            itemName.setFocusable(false);
-            itemName.setClickable(false);
-            measurement.setFocusable(false);
-            measurement.setClickable(false);
-            totalCost.setFocusable(false);
-            totalCost.setClickable(false);
-            comments.setFocusable(false);
-            comments.setClickable(false);
-            showInfo(idGarden, idCollection, "true");
-        } else if (watch.equals("edit")) {
-            formsUtilities = new FormsCommunication();
-
-            idGarden = getIntent().getStringExtra("idGardenFirebase");
-            idCollection = getIntent().getStringExtra("idCollecion");
-            showInfo(idGarden, idCollection, "edit");
-            addFormButtom.setText("Aceptar cambios");
-
-        }
-        else if (watch.equals("create")){
-            addFormButtom.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
+        addFormButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                watch = getIntent().getStringExtra("watch");
+                if(watch.equals("create")) {
                     if (ContextCompat.checkSelfPermission(Form_RHC.this,
                             Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                             ContextCompat.checkSelfPermission(Form_RHC.this,
@@ -168,76 +136,20 @@ public class Form_RHC extends AppCompatActivity {
                         // El permiso ya ha sido concedido, crea la instancia de la clase Forms
                         createNewForm();
                     }
-
                 }
-            });
-
-        }
-
-        ArrayList<String> phaseElements = new ArrayList<>();
-        phaseElements.add("Seleccione un elemento");
-        phaseElements.add("Ingreso");
-        phaseElements.add("Egreso");
-        ArrayAdapter adap = new ArrayAdapter(Form_RHC.this, android.R.layout.simple_spinner_item, phaseElements);
-        adap.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerConcept.setAdapter(adap);
-        spinnerConcept.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                conceptSelectedItem = spinnerConcept.getAdapter().getItem(i).toString();
-                TextView text = (TextView) view;
-                text.setText(conceptSelectedItem);
-                text.setTextColor(Color.BLACK); // set the text color
-                if(conceptSelectedItem != null){
-                    if(conceptSelectedItem.equals("Ingreso")){
-                        ArrayList<String> choiceElementsIncome = new ArrayList<>();
-                        choiceElementsIncome.add("Seleccione un elemento");
-                        choiceElementsIncome.add("Venta");
-                        choiceElementsIncome.add("Donativo");
-                        choiceElementsIncome.add("Mano de obra");
-                        choiceElementsIncome.add("Aporte comunitario");
-                        choiceElementsIncome.add("Otro");
-                        ArrayAdapter adap2 = new ArrayAdapter(Form_RHC.this, android.R.layout.simple_spinner_item, choiceElementsIncome);
-                        adap2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinnerType.setAdapter(adap2);
-                    }
-                    else if(conceptSelectedItem.equals("Egreso")){
-                        ArrayList<String> choiceElementsExpenses = new ArrayList<>();
-                        choiceElementsExpenses.add("Seleccione un elemento");
-                        choiceElementsExpenses.add("Compra");
-                        choiceElementsExpenses.add("Obligación fiscal");
-                        choiceElementsExpenses.add("Cobro");
-                        choiceElementsExpenses.add("Devolución");
-                        choiceElementsExpenses.add("Otro");
-                        ArrayAdapter adap2 = new ArrayAdapter(Form_RHC.this, android.R.layout.simple_spinner_item, choiceElementsExpenses);
-                        adap2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinnerType.setAdapter(adap2);
+                if (watch.equals("edit")){
+                    try {
+                        updateForm((Map<String, Object>) getIntent().getSerializableExtra("idCollecion"));
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
                 }
-                spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        selectedType = spinnerType.getAdapter().getItem(i).toString();
-                        TextView text = (TextView) view;
-
-                        if(Objects.nonNull(text)){
-                            text.setText(selectedType);
-                            text.setTextColor(Color.BLACK); // set the text color
-                        }
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-                        Toast.makeText(Form_RHC.this, "Debe seleccionar un elemento", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                Toast.makeText(Form_RHC.this, "Debe seleccionar un elemento", Toast.LENGTH_SHORT).show();
             }
         });
+
+        setupSpinners();
 
         backButtom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,200 +159,96 @@ public class Form_RHC extends AppCompatActivity {
         });
     }
 
-    private void showInfo(String idGarden, String idCollection, String status){
+    private void updateForm(Map<String, Object> oldInfo) throws JSONException, IOException {
+        Map<String, Object> newInfo = new HashMap<>();
+        newInfo.put("CreatedBy", oldInfo.get("CreatedBy"));
+        newInfo.put("Date", oldInfo.get("Date"));
+        newInfo.put("idForm", oldInfo.get("idForm"));
+        newInfo.put("nameForm", oldInfo.get("nameForm"));
 
-        CollectionReference ref = database.collection("Gardens").document(idGarden).collection("Forms");
-        ref.document(idCollection).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                responsable.setText(task.getResult().get("responsable").toString());
-                code.setText(task.getResult().get("code").toString());
-                itemName.setText(task.getResult().get("itemName").toString());
-                units.setText(task.getResult().get("units").toString());
-                measurement.setText(task.getResult().get("measurement").toString());
-                totalCost.setText(task.getResult().get("totalCost").toString());
-                comments.setText(task.getResult().get("comments").toString());
-                if(task.isSuccessful()){
-                    if(status.equals("edit")){
-                        String choice1 = task.getResult().get("incomeExpense").toString();
-                        ArrayList<String> elementShow = new ArrayList<>();
-                        if(choice1.equals("Ingreso")){
-                            elementShow.add("Ingreso");
-                            elementShow.add("Egreso");
-                            ArrayAdapter adap = new ArrayAdapter(Form_RHC.this, android.R.layout.simple_spinner_item, elementShow);
-                            adap.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            spinnerConcept.setAdapter(adap);
+        String defaultSelected = "Seleccione un elemento";
+        if(selectedType.equals(defaultSelected)){
+            newInfo.put("type",oldInfo.get("type"));
+        }else{
+            newInfo.put("type",selectedType);
+        }
+        if(conceptSelectedItem.equals(defaultSelected) || conceptSelectedItem.equals("")){
+            newInfo.put("incomeExpense",oldInfo.get("incomeExpense"));
+        }else{
+            newInfo.put("incomeExpense",conceptSelectedItem);
+        }
+        newInfo.put("responsable",responsable.getText().toString());
+        newInfo.put("code",code.getText().toString());
+        newInfo.put("itemName",itemName.getText().toString());
+        newInfo.put("measurement",measurement.getText().toString());
+        newInfo.put("totalCost",totalCost.getText().toString());
+        newInfo.put("comments",comments.getText().toString());
+        newInfo.put("units",units.getText().toString());
 
-                            String choice2 = task.getResult().get("type").toString();
-                            ArrayList<String> elementShow2 = new ArrayList<>();
-                                if(choice2.equals("Venta")){
-                                    elementShow2.add("Venta");
-                                    elementShow2.add("Donativo");
-                                    elementShow2.add("Mano de obra");
-                                    elementShow2.add("Aporte comunitario");
-                                    elementShow2.add("Otro");
+        String idGardenFb = getIntent().getStringExtra("idGardenFirebase");
+        Forms updateInfo = new Forms(this);
+        updateInfo.updateInfoForm(oldInfo,newInfo,idGardenFb);
 
-                                }
-                                else if(choice2.equals("Donativo")){
-                                    elementShow2.add("Donativo");
-                                    elementShow2.add("Venta");
-                                    elementShow2.add("Mano de obra");
-                                    elementShow2.add("Aporte comunitario");
-                                    elementShow2.add("Otro");
-                                }
-                                else if(choice2.equals("Mano de obra")){
-                                    elementShow2.add("Mano de obra");
-                                    elementShow2.add("Venta");
-                                    elementShow2.add("Donativo");
-                                    elementShow2.add("Aporte comunitario");
-                                    elementShow2.add("Otro");
-                                }else if(choice2.equals("Aporte comunitario")){
-                                    elementShow2.add("Aporte comunitario");
-                                    elementShow2.add("Venta");
-                                    elementShow2.add("Donativo");
-                                    elementShow2.add("Mano de obra");
-                                    elementShow2.add("Otro");
-                                }
-                                else if(choice2.equals("Otro")){
-                                    elementShow2.add("Otro");
-                                    elementShow2.add("Aporte comunitario");
-                                    elementShow2.add("Venta");
-                                    elementShow2.add("Donativo");
-                                    elementShow2.add("Mano de obra");
-                                }
-                                ArrayAdapter adap2 = new ArrayAdapter(Form_RHC.this, android.R.layout.simple_spinner_item, elementShow2);
-                                adap2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                spinnerType.setAdapter(adap2);
+        Notifications notifications = new Notifications();
+        notifications.notification("Formulario Editado", "Felicidades! Actualizaste la Información de tu Formulario", Form_RHC.this);
 
-
-                        } else if (choice1.equals("Egreso")) {
-                            elementShow.add("Egreso");
-                            elementShow.add("Ingreso");
-
-                            ArrayAdapter adap = new ArrayAdapter(Form_RHC.this, android.R.layout.simple_spinner_item, elementShow);
-                            adap.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            spinnerConcept.setAdapter(adap);
-
-                            String choice3 = task.getResult().get("type").toString();
-                            ArrayList<String> elementShow3 = new ArrayList<>();
-                            if(choice3.equals("Compra")){
-                                elementShow3.add("Compra");
-                                elementShow3.add("Obligación fiscal");
-                                elementShow3.add("Cobro");
-                                elementShow3.add("Devolución");
-                                elementShow3.add("Otro");
-                            }
-                            else if(choice3.equals("Obligación fiscal")){
-                                elementShow3.add("Obligación fiscal");
-                                elementShow3.add("Compra");
-                                elementShow3.add("Cobro");
-                                elementShow3.add("Devolución");
-                                elementShow3.add("Otro");
-                            }
-                            else if(choice3.equals("Cobro")){
-                                elementShow3.add("Cobro");
-                                elementShow3.add("Compra");
-                                elementShow3.add("Obligación fiscal");
-                                elementShow3.add("Devolución");
-                                elementShow3.add("Otro");
-                            }
-                            else if(choice3.equals("Devolución")){
-                                elementShow3.add("Devolución");
-                                elementShow3.add("Compra");
-                                elementShow3.add("Obligación fiscal");
-                                elementShow3.add("Cobro");
-                                elementShow3.add("Otro");
-                            }
-                            else if(choice3.equals("Otro")){
-                                elementShow3.add("Otro");
-                                elementShow3.add("Compra");
-                                elementShow3.add("Obligación fiscal");
-                                elementShow3.add("Cobro");
-                                elementShow3.add("Devolución");
-                            }
-                            ArrayAdapter adap3 = new ArrayAdapter(Form_RHC.this, android.R.layout.simple_spinner_item, elementShow3);
-                            adap3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            spinnerType.setAdapter(adap3);
-
-                        }
-
-                    }
-                    else if(status.equals("true")){
-
-                        String choice1 = task.getResult().get("incomeExpense").toString();
-                        ArrayList<String> elementShow = new ArrayList<>();
-                        elementShow.add(choice1);
-                        ArrayAdapter adap2 = new ArrayAdapter(Form_RHC.this, android.R.layout.simple_spinner_item, elementShow);
-                        spinnerConcept.setAdapter(adap2);
-                        String choice2 = task.getResult().get("type").toString();
-                        ArrayList<String> elementShow2 = new ArrayList<>();
-                        elementShow2.add(choice2);
-                        ArrayAdapter adap = new ArrayAdapter(Form_RHC.this, android.R.layout.simple_spinner_item, elementShow2);
-                        spinnerType.setAdapter(adap);
-                    }
-                }
-            }
-        });
-
-        addFormButtom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String personResponsable, codeC, itemNameC, unitsC, measurementC, totalCostC, commentsC, incomeExpense, type;
-                personResponsable = responsable.getText().toString();
-                codeC = code.getText().toString();
-                itemNameC = itemName.getText().toString();
-                unitsC = units.getText().toString();
-                measurementC = measurement.getText().toString();
-                totalCostC = totalCost.getText().toString();
-                commentsC = comments.getText().toString();
-                incomeExpense = conceptSelectedItem;
-                type =selectedType;
-                if(validateField(personResponsable, codeC, itemNameC, unitsC, measurementC, totalCostC, commentsC, incomeExpense, type)){
-                    formsUtilities.editInfoRHC(Form_RHC.this, idGarden, idCollection, personResponsable, codeC, itemNameC, unitsC, measurementC, totalCostC, commentsC, incomeExpense, type);
-                    Toast.makeText(Form_RHC.this, "Se actualizó correctamente el formulario", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
+        onBackPressed();
     }
-    private boolean validateField(String personResponsable,String codeC, String itemNameC, String unitsC, String measurementC, String totalCostC, String commentsC, String incomeExpense, String type){
 
-        if(personResponsable.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar la persona responsable", Toast.LENGTH_SHORT).show();
-            return false;
+    private void showMapInfo(Map<String, Object> info,String status) {
+        if (info != null) {
+            responsable.setText((CharSequence) info.get("responsable"));
+            code.setText((CharSequence) info.get("code"));
+            itemName.setText((CharSequence) info.get("itemName"));
+            units.setText((CharSequence) info.get("units"));
+            measurement.setText((CharSequence) info.get("measurement"));
+            totalCost.setText((CharSequence) info.get("totalCost"));
+            comments.setText((CharSequence) info.get("comments"));
+            switch (status) {
+                case "true":
+                    addFormButtom.setVisibility(View.GONE);
+                    spinnerType.setEnabled(false);
+                    spinnerConcept.setEnabled(false);
+                    responsable.setEnabled(false);
+                    code.setEnabled(false);
+                    itemName.setEnabled(false);
+                    units.setEnabled(false);
+                    measurement.setEnabled(false);
+                    totalCost.setEnabled(false);
+                    comments.setEnabled(false);
+                    responsable.setFocusable(false);
+                    responsable.setClickable(false);
+                    code.setFocusable(false);
+                    code.setClickable(false);
+                    units.setFocusable(false);
+                    units.setClickable(false);
+                    itemName.setFocusable(false);
+                    itemName.setClickable(false);
+                    measurement.setFocusable(false);
+                    measurement.setClickable(false);
+                    totalCost.setFocusable(false);
+                    totalCost.setClickable(false);
+                    comments.setFocusable(false);
+                    comments.setClickable(false);
+
+                    spinnerConcept.setVisibility(View.GONE);
+                    TextView textShowSpinner1 = findViewById(R.id.textShowSpinner1);
+                    textShowSpinner1.setVisibility(View.VISIBLE);
+                    textShowSpinner1.setClickable(false);
+                    textShowSpinner1.setText((CharSequence) info.get("incomeExpense"));
+
+                    spinnerType.setVisibility(View.GONE);
+                    TextView textTypeSpinner = findViewById(R.id.textTypeSpinner);
+                    textTypeSpinner.setVisibility(View.VISIBLE);
+                    textTypeSpinner.setClickable(false);
+                    textTypeSpinner.setText((CharSequence) info.get("type"));
+                    break;
+                case "edit":
+                    setupSpinners();
+                    addFormButtom.setText("Aceptar cambios");
+                    break;
+            }
         }
-        else if(incomeExpense.equals("Seleccione un elemento")){
-            Toast.makeText(this, "Es necesario seleccionar si es ingreso o egreso", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        else if(type.equals("Seleccione un elemento")){
-            Toast.makeText(this, "Es necesario seleccionar un tipo", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        else if(codeC.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar el codigo", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        else if(itemNameC.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar el nombre del item", Toast.LENGTH_SHORT).show();
-            return false;
-        }else if(unitsC.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar las unidades", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        else if(measurementC.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar las medidas del ingreso/egreso", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        else if(totalCostC.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar el costo total", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        else if(commentsC.isEmpty()){
-            Toast.makeText(this, "Es necesario Ingresar comentarios", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
     }
 
     private void createNewForm(){
@@ -480,6 +288,116 @@ public class Form_RHC extends AppCompatActivity {
             startActivity(new Intent(Form_RHC.this, HomeActivity.class));
             finish();
         }
+    }
+
+    private void setupSpinners() {
+        ArrayList<String> phaseElements = new ArrayList<>(Arrays.asList(
+                "Seleccione un elemento",
+                "Ingreso",
+                "Egreso"
+        ));
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, phaseElements);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerConcept.setAdapter(adapter);
+
+        spinnerConcept.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                conceptSelectedItem = spinnerConcept.getItemAtPosition(i).toString();
+                TextView text = (TextView) view;
+                text.setText(conceptSelectedItem);
+                text.setTextColor(Color.BLACK);
+
+                ArrayList<String> choiceElements = new ArrayList<>();
+                if (conceptSelectedItem.equals("Ingreso")) {
+                    choiceElements.addAll(Arrays.asList(
+                            "Seleccione un elemento",
+                            "Venta",
+                            "Donativo",
+                            "Mano de obra",
+                            "Aporte comunitario",
+                            "Otro"
+                    ));
+                } else if (conceptSelectedItem.equals("Egreso")) {
+                    choiceElements.addAll(Arrays.asList(
+                            "Seleccione un elemento",
+                            "Compra",
+                            "Obligación fiscal",
+                            "Cobro",
+                            "Devolución",
+                            "Otro"
+                    ));
+                }
+
+                ArrayAdapter<String> choiceAdapter = new ArrayAdapter<>(Form_RHC.this, android.R.layout.simple_spinner_item, choiceElements);
+                choiceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerType.setAdapter(choiceAdapter);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(Form_RHC.this, "Debe seleccionar un elemento", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedType = spinnerType.getItemAtPosition(i).toString();
+                TextView text = (TextView) view;
+
+                if (text != null) {
+                    text.setText(selectedType);
+                    text.setTextColor(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(Form_RHC.this, "Debe seleccionar un elemento", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private boolean validateField(String personResponsable,String codeC, String itemNameC, String unitsC, String measurementC, String totalCostC, String commentsC, String incomeExpense, String type){
+
+        if(personResponsable.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar la persona responsable", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(incomeExpense.equals("Seleccione un elemento")){
+            Toast.makeText(this, "Es necesario seleccionar si es ingreso o egreso", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(type.equals("Seleccione un elemento")){
+            Toast.makeText(this, "Es necesario seleccionar un tipo", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(codeC.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar el codigo", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(itemNameC.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar el nombre del item", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(unitsC.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar las unidades", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(measurementC.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar las medidas del ingreso/egreso", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(totalCostC.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar el costo total", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(commentsC.isEmpty()){
+            Toast.makeText(this, "Es necesario Ingresar comentarios", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     private void requestStoragePermission() {

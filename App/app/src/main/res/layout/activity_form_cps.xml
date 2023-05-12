@@ -91,6 +91,16 @@
                 android:layout_height="wrap_content"
                 android:text="@string/etapa" />
 
+            <TextView
+                android:id="@+id/showSpinnerInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:fontFamily="@font/manroperegular"
+                android:textColor="@color/black"
+                android:background="@drawable/dr_white_input_text"
+                android:text="TextView" />
+
             <Spinner
                 android:id="@+id/spinnerPhase"
                 android:layout_width="fill_parent"

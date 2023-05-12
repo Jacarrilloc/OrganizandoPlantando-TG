@@ -62,76 +62,57 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
         seeMoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String idFormString = item.getInfo().get("idForm").toString();
-                int formType = Integer.parseInt(idFormString);
+                String idFormString = String.valueOf(item.getInfo().get("idForm"));
+                int formType = (int) Double.parseDouble(idFormString);
                 Intent newForm;
-                switch (formType){
+                Class<?> formClass;
+
+                switch (formType) {
                     case 1:
-                        newForm = new Intent(context, Form_RAC.class);
-                        newForm.putExtra("watch","true");
-                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
-                        newForm.putExtra("Name",item.getFormName());
-                        context.startActivity(newForm);
+                        formClass = Form_RAC.class;
+                        break;
+                    case 2:
+                        formClass = Form_SCMPH.class;
+                        break;
+                    case 3:
+                        formClass = Form_IMP.class;
+                        break;
+                    case 4:
+                        formClass = Form_RSMP.class;
+                        break;
+                    case 7:
+                        formClass = Form_CPS.class;
+                        break;
+                    case 8:
+                        formClass = Form_RCC.class;
+                        break;
+                    case 9:
+                        formClass = Form_RRH.class;
                         break;
                     case 10:
-                        newForm = new Intent(context, Form_CIH.class);
-                        newForm.putExtra("watch","true");
-                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                        newForm.putExtra("idCollecion", (Serializable) item.getInfo());
-                        newForm.putExtra("Name",item.getFormName());
-                        context.startActivity(newForm);
+                        formClass = Form_CIH.class;
+                        break;
+                    case 11:
+                        formClass = Form_RHC.class;
                         break;
                     case 12:
-                        newForm = new Intent(context, Form_RE.class);
-                        newForm.putExtra("watch","true");
-                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
-                        newForm.putExtra("Name",item.getFormName());
-                        context.startActivity(newForm);
+                        formClass = Form_RE.class;
                         break;
                     default:
-                        Log.i("LOCALFORM","NO SE RECONOCE EL ID DE ESTE FORM");
-                        break;
+                        Log.i("LOCALFORM", "NO SE RECONOCE EL ID DE ESTE FORM");
+                        return;
                 }
+
+                newForm = new Intent(context, formClass);
+                newForm.putExtra("watch", "true");
+                newForm.putExtra("idGardenFirebase", item.getIdGarden());
+                newForm.putExtra("idCollecion", (Serializable) item.getInfo());
+                newForm.putExtra("Name", item.getFormName());
+                context.startActivity(newForm);
+
                 /*
-                int form;
-                if(Objects.equals(item.getFormName(), "Registro y Actualización de Compostaje")){
-                    form = 1;
-                    Intent newForm = new Intent(context, Form_RAC.class);
-                    newForm.putExtra("watch","true");
-                    newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                    newForm.putExtra("idCollecion",item.getIdFormCollection());
-                    newForm.putExtra("Name",item.getFormName());
-                    context.startActivity(newForm);
                 }
-                else if(Objects.equals(item.getFormName(), "Registro de evento")){
-                    form = 2;
-                    Intent newForm = new Intent(context, Form_RE.class);
-                    newForm.putExtra("watch","true");
-                    newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                    newForm.putExtra("idCollecion",item.getIdFormCollection());
-                    newForm.putExtra("Name",item.getFormName());
-                    context.startActivity(newForm);
-                }
-                else if(Objects.equals(item.getFormName(), "Control de inventario de Materia Prima")){
-                    form = 3;
-                    Intent newForm = new Intent(context, Form_IMP.class);
-                    newForm.putExtra("watch","true");
-                    newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                    newForm.putExtra("idCollecion",item.getIdFormCollection());
-                    newForm.putExtra("Name",item.getFormName());
-                    context.startActivity(newForm);
-                }
-                else if(Objects.equals(item.getFormName(), "Solicitud de compra de materia prima y herramientas")){
-                    form = 4;
-                    Intent newForm = new Intent(context, Form_SCMPH.class);
-                    newForm.putExtra("watch","true");
-                    newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                    newForm.putExtra("idCollecion",item.getIdFormCollection());
-                    newForm.putExtra("Name",item.getFormName());
-                    context.startActivity(newForm);
-                }
+
                 else if(Objects.equals(item.getFormName(), "Recepción y Requisición de Materia Prima")){
                     form = 5;
                     Intent newForm = new Intent(context, Form_RSMP.class);
@@ -198,62 +179,60 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String idFormString = (String) item.getInfo().get("idForm");
-                int formType = Integer.parseInt(idFormString);
+                String idFormString = String.valueOf(item.getInfo().get("idForm"));
+                int formType = (int) Double.parseDouble(idFormString);
                 Intent newForm;
-                switch (formType){
+                Class<?> formClass;
+
+                switch (formType) {
                     case 1:
-                        newForm = new Intent(context, Form_RAC.class);
-                        newForm.putExtra("watch","edit");
-                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                        newForm.putExtra("idCollecion", (Serializable) item.getInfo());
-                        newForm.putExtra("Name",item.getFormName());
-                        context.startActivity(newForm);
+                        formClass = Form_RAC.class;
+                        break;
+                    case 2:
+                        formClass = Form_SCMPH.class;
+                        break;
+                    case 3:
+                        formClass = Form_IMP.class;
+                        break;
+                    case 4:
+                        formClass = Form_RSMP.class;
+                        break;
+                    case 7:
+                        formClass = Form_CPS.class;
+                        break;
+                    case 8:
+                        formClass = Form_RCC.class;
+                        break;
+                    case 9:
+                        formClass = Form_RRH.class;
                         break;
                     case 10:
-                        newForm = new Intent(context, Form_CIH.class);
-                        newForm.putExtra("watch","edit");
-                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                        newForm.putExtra("idCollecion", (Serializable) item.getInfo());
-                        newForm.putExtra("Name",item.getFormName());
-                        context.startActivity(newForm);
+                        formClass = Form_CIH.class;
+                        break;
+                    case 11:
+                        formClass = Form_RHC.class;
                         break;
                     case 12:
-                        newForm = new Intent(context, Form_RE.class);
-                        newForm.putExtra("watch","edit");
-                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
-                        newForm.putExtra("Name",item.getFormName());
-                        context.startActivity(newForm);
+                        formClass = Form_RE.class;
                         break;
                     default:
-                        Log.i("LOCALFORM","NO SE RECONOCE EL ID DE ESTE FORM");
-                        break;
+                        Log.i("LOCALFORM", "NO SE RECONOCE EL ID DE ESTE FORM");
+                        return;
                 }
+
+                newForm = new Intent(context, formClass);
+                newForm.putExtra("watch", "edit");
+                newForm.putExtra("idGardenFirebase", item.getIdGarden());
+                newForm.putExtra("idCollecion", (Serializable) item.getInfo());
+                newForm.putExtra("Name", item.getFormName());
+                context.startActivity(newForm);
+
                 //FU.editForms(item.idGarden, item.idFormCollection, item.getFormName());
                 /*
                 int form;
                 if(Objects.equals(item.getFormName(), "Registro y Actualización de Compostaje")){
                     form = 1;
                     Intent newForm = new Intent(context, Form_RAC.class);
-                    newForm.putExtra("watch","edit");
-                    newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                    newForm.putExtra("idCollecion",item.getIdFormCollection());
-                    newForm.putExtra("Name",item.getFormName());
-                    context.startActivity(newForm);
-                }
-                else if(Objects.equals(item.getFormName(), "Registro de evento")){
-                    form = 2;
-                    Intent newForm = new Intent(context, Form_RE.class);
-                    newForm.putExtra("watch","edit");
-                    newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                    newForm.putExtra("idCollecion",item.getIdFormCollection());
-                    newForm.putExtra("Name",item.getFormName());
-                    context.startActivity(newForm);
-                }
-                else if(Objects.equals(item.getFormName(), "Control de inventario de Materia Prima")){
-                    form = 3;
-                    Intent newForm = new Intent(context, Form_IMP.class);
                     newForm.putExtra("watch","edit");
                     newForm.putExtra("idGardenFirebase",item.getIdGarden());
                     newForm.putExtra("idCollecion",item.getIdFormCollection());
@@ -342,12 +321,8 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                             public void onClick(DialogInterface arg0, int arg1) {
                                 Forms deteleInfo = new Forms(context);
                                 try {
-                                    deteleInfo.deleteInfo(item.getIdGarden(),item.getInfo());
-                                } catch (FileNotFoundException e) {
-                                    throw new RuntimeException(e);
-                                } catch (JSONException e) {
-                                    throw new RuntimeException(e);
-                                } catch (IOException e) {
+                                    deteleInfo.deleteInfo(item.getIdGarden(), item.getInfo());
+                                } catch (IOException | JSONException e) {
                                     throw new RuntimeException(e);
                                 }
                                 remove(item);

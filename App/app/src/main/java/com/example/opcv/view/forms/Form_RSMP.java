@@ -39,6 +39,9 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -111,40 +114,14 @@ public class Form_RSMP extends AppCompatActivity {
         });
 
         watch = getIntent().getStringExtra("watch");
+        Map<String, Object> infoForm = (Map<String, Object>) getIntent().getSerializableExtra("idCollecion");
+        showMapInfo(infoForm,watch);
 
-        if(watch.equals("true")){
-            idGarden = getIntent().getStringExtra("idGardenFirebase");
-            idCollection = getIntent().getStringExtra("idCollecion");
-            addFormButtom.setVisibility(View.INVISIBLE);
-            addFormButtom.setClickable(false);
-            spinnerUnits.setEnabled(false);
-            spinnerConcept.setEnabled(false);
-            description.setEnabled(false);
-            quantity.setEnabled(false);
-            total.setEnabled(false);
-            state.setEnabled(false);
-            quantity.setFocusable(false);
-            quantity.setClickable(false);
-            total.setFocusable(false);
-            total.setClickable(false);
-            state.setFocusable(false);
-            state.setClickable(false);
-            description.setFocusable(false);
-            description.setClickable(false);
-            showInfo(idGarden, idCollection, "true");
-        } else if (watch.equals("edit")) {
-            formsUtilities = new FormsCommunication();
-
-            idGarden = getIntent().getStringExtra("idGardenFirebase");
-            idCollection = getIntent().getStringExtra("idCollecion");
-            showInfo(idGarden, idCollection, "edit");
-            addFormButtom.setText("Aceptar cambios");
-
-        }
-        else if (watch.equals("create")){
-            addFormButtom.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        addFormButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                watch = getIntent().getStringExtra("watch");
+                if(watch.equals("create")) {
                     if (ContextCompat.checkSelfPermission(Form_RSMP.this,
                             Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                             ContextCompat.checkSelfPermission(Form_RSMP.this,
@@ -156,9 +133,17 @@ public class Form_RSMP extends AppCompatActivity {
                         createNewForm();
                     }
                 }
-            });
-
-        }
+                if (watch.equals("edit")){
+                    try {
+                        updateForm((Map<String, Object>) getIntent().getSerializableExtra("idCollecion"));
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
 
         backButtom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,86 +204,6 @@ public class Form_RSMP extends AppCompatActivity {
         });
     }
 
-    private void showInfo(String idGarden, String idCollection, String status){
-
-        CollectionReference ref = database.collection("Gardens").document(idGarden).collection("Forms");
-        ref.document(idCollection).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                description.setText(task.getResult().get("description").toString());
-                quantity.setText(task.getResult().get("quantity").toString());
-                total.setText(task.getResult().get("total").toString());
-                state.setText(task.getResult().get("state").toString());
-                if(task.isSuccessful()){
-                    if(status.equals("edit")){
-                        String choice1 = task.getResult().get("concept").toString();
-                        ArrayList<String> elementShow = new ArrayList<>();
-                        if(choice1.equals("Recepción")){
-                            elementShow.add("Recepción");
-                            elementShow.add("Salida");
-                        } else if (choice1.equals("Salida")) {
-                            elementShow.add("Salida");
-                            elementShow.add("Recepción");
-                        }
-                        ArrayAdapter adap2 = new ArrayAdapter(Form_RSMP.this, android.R.layout.simple_spinner_item, elementShow);
-                        spinnerConcept.setAdapter(adap2);
-
-                        String choice2 = task.getResult().get("units").toString();
-                        ArrayList<String> elementShow2 = new ArrayList<>();
-                        if(choice2.equals("Litros")){
-                            elementShow2.add("Litros");
-                            elementShow2.add("Kilogramos");
-                            elementShow2.add("Libras");
-                            elementShow2.add("Mililitros");
-                            elementShow2.add("Gramos");
-                        }
-                        else if(choice2.equals("Kilogramos")){
-                            elementShow2.add("Kilogramos");
-                            elementShow2.add("Litros");
-                            elementShow2.add("Libras");
-                            elementShow2.add("Mililitros");
-                            elementShow2.add("Gramos");
-                        }
-                        else if(choice2.equals("Libras")){
-                            elementShow2.add("Libras");
-                            elementShow2.add("Litros");
-                            elementShow2.add("Kilogramos");
-                            elementShow2.add("Mililitros");
-                            elementShow2.add("Gramos");
-                        }
-                        else if(choice2.equals("Mililitros")){
-                            elementShow2.add("Mililitros");
-                            elementShow2.add("Litros");
-                            elementShow2.add("Kilogramos");
-                            elementShow2.add("Libras");
-                            elementShow2.add("Gramos");
-                        }
-                        else if(choice2.equals("Gramos")){
-                            elementShow2.add("Gramos");
-                            elementShow2.add("Litros");
-                            elementShow2.add("Kilogramos");
-                            elementShow2.add("Libras");
-                            elementShow2.add("Mililitros");
-                        }
-                        ArrayAdapter adap = new ArrayAdapter(Form_RSMP.this, android.R.layout.simple_spinner_item, elementShow2);
-                        spinnerUnits.setAdapter(adap);
-                    }
-                    else if(status.equals("true")){
-                        String choice1 = task.getResult().get("concept").toString();
-                        ArrayList<String> elementShow = new ArrayList<>();
-                        elementShow.add(choice1);
-                        ArrayAdapter adap2 = new ArrayAdapter(Form_RSMP.this, android.R.layout.simple_spinner_item, elementShow);
-                        spinnerConcept.setAdapter(adap2);
-                        String choice2 = task.getResult().get("units").toString();
-                        ArrayList<String> elementShow2 = new ArrayList<>();
-                        elementShow2.add(choice2);
-                        ArrayAdapter adap = new ArrayAdapter(Form_RSMP.this, android.R.layout.simple_spinner_item, elementShow2);
-                        spinnerUnits.setAdapter(adap);
-                    }
-                }
-            }
-        });
-    }
     private boolean validateField(String descriptionR,String quantityR, String totalR, String stateR, String concept, String units){
 
         if(descriptionR.isEmpty()){
@@ -368,6 +273,90 @@ public class Form_RSMP extends AppCompatActivity {
             Toast.makeText(Form_RSMP.this, "Se ha creado el Formulario con Exito", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(Form_RSMP.this, HomeActivity.class));
             finish();
+        }
+    }
+
+    private void updateForm(Map<String, Object> oldInfo) throws JSONException, IOException{
+        Map<String, Object> newInfo = new HashMap<>();
+        newInfo.put("CreatedBy",oldInfo.get("CreatedBy"));
+        newInfo.put("Date",oldInfo.get("Date"));
+        newInfo.put("idForm",oldInfo.get("idForm"));
+        newInfo.put("nameForm",oldInfo.get("nameForm"));
+
+        String descriptionR, quantityR, totalR, stateR, idGardenFb;
+
+        descriptionR = description.getText().toString();
+        quantityR = quantity.getText().toString();
+        totalR = total.getText().toString();
+        stateR = state.getText().toString();
+
+        newInfo.put("description",descriptionR);
+        newInfo.put("quantity",quantityR);
+        newInfo.put("total",totalR);
+        newInfo.put("state",stateR);
+
+        idGardenFb = getIntent().getStringExtra("idGardenFirebase");
+
+        String defaultSelected = "Seleccione un elemento";
+
+        if(unitSelectedItem.equals(defaultSelected)){
+            newInfo.put("units",oldInfo.get("units"));
+        }else{
+            newInfo.put("units",unitSelectedItem);
+        }
+
+        if(conceptSelectedItem.equals(defaultSelected)){
+            newInfo.put("concept",oldInfo.get("concept"));
+        }else{
+            newInfo.put("concept",conceptSelectedItem);
+        }
+
+        Forms updateInfo = new Forms(this);
+        updateInfo.updateInfoForm(oldInfo,newInfo,idGardenFb);
+
+        Notifications notifications = new Notifications();
+        notifications.notification("Formulario Editado", "Felicidades! Actualizaste la Información de tu Formulario", Form_RSMP.this);
+
+        onBackPressed();
+    }
+
+    private void showMapInfo(Map<String, Object> info,String status){
+        if(info != null) {
+            description.setText((CharSequence) info.get("description"));
+            quantity.setText((CharSequence) info.get("quantity"));
+            total.setText((CharSequence) info.get("total"));
+            state.setText((CharSequence) info.get("state"));
+        }
+        switch (status) {
+            case "true":
+
+                EditText unitFormRSMPSelected = findViewById(R.id.unitFormRSMPSelected);
+                unitFormRSMPSelected.setVisibility(View.VISIBLE);
+                unitFormRSMPSelected.setText((CharSequence) info.get("units"));
+                spinnerConcept.setVisibility(View.GONE);
+
+                EditText conceptSpinnerSelected = findViewById(R.id.conceptSpinnerSelected);
+                conceptSpinnerSelected.setVisibility(View.VISIBLE);
+                conceptSpinnerSelected.setText((CharSequence) info.get("concept"));
+                spinnerUnits.setVisibility(View.GONE);
+
+                addFormButtom.setVisibility(View.GONE);
+                description.setEnabled(false);
+                quantity.setEnabled(false);
+                total.setEnabled(false);
+                state.setEnabled(false);
+                quantity.setFocusable(false);
+                quantity.setClickable(false);
+                total.setFocusable(false);
+                total.setClickable(false);
+                state.setFocusable(false);
+                state.setClickable(false);
+                description.setFocusable(false);
+                description.setClickable(false);
+                break;
+            case "edit":
+                addFormButtom.setText("Aceptar cambios");
+                break;
         }
     }
 

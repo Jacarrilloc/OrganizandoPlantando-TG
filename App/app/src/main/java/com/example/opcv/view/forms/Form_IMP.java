@@ -39,6 +39,9 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -113,37 +116,14 @@ public class Form_IMP extends AppCompatActivity {
 
         watch = getIntent().getStringExtra("watch");
 
-        if(watch.equals("true")){
-            idGarden = getIntent().getStringExtra("idGardenFirebase");
-            idCollection = getIntent().getStringExtra("idCollecion");
-            addFormButtom.setVisibility(View.INVISIBLE);
-            addFormButtom.setClickable(false);
-            spinnerConcept.setEnabled(false);
-            spinnerMovement.setEnabled(false);
-            spinnerUnits.setEnabled(false);
-            rawMatirial.setEnabled(false);
-            quantity.setEnabled(false);
-            existingTool.setEnabled(false);
-            rawMatirial.setFocusable(false);
-            rawMatirial.setClickable(false);
-            existingTool.setFocusable(false);
-            existingTool.setClickable(false);
-            quantity.setFocusable(false);
-            quantity.setClickable(false);
-            showInfo(idGarden, idCollection, "true");
+        Map<String, Object> infoForm = (Map<String, Object>) getIntent().getSerializableExtra("idCollecion");
+        showMapInfo(infoForm,watch);
 
-        } else if (watch.equals("edit")) {
-            formsUtilities = new FormsCommunication();
-
-            idGarden = getIntent().getStringExtra("idGardenFirebase");
-            idCollection = getIntent().getStringExtra("idCollecion");
-            showInfo(idGarden, idCollection, "edit");
-            addFormButtom.setText("Aceptar cambios");
-        }
-        else {
-           addFormButtom.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        addFormButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                watch = getIntent().getStringExtra("watch");
+                if(watch.equals("create")) {
                     if (ContextCompat.checkSelfPermission(Form_IMP.this,
                             Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                             ContextCompat.checkSelfPermission(Form_IMP.this,
@@ -155,9 +135,18 @@ public class Form_IMP extends AppCompatActivity {
                         createNewForm();
                     }
                 }
-            });
+                if (watch.equals("edit")){
+                    try {
+                        updateForm((Map<String, Object>) getIntent().getSerializableExtra("idCollecion"));
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
 
-        }
         backButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -242,111 +231,43 @@ public class Form_IMP extends AppCompatActivity {
 
 
     }
-    private void showInfo(String idGarden, String idCollection, String status){
 
-
-        CollectionReference ref = database.collection("Gardens").document(idGarden).collection("Forms");
-        ref.document(idCollection).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                rawMatirial.setText(task.getResult().get("rawMaterial").toString());
-                quantity.setText(task.getResult().get("quantityRawMaterial").toString());
-                existingTool.setText(task.getResult().get("existenceQuantity").toString());
-                if(task.isSuccessful()){
-                    if(status.equals("edit")){
-                        String choice1 = task.getResult().get("concept").toString();
-                        ArrayList<String> elementShow = new ArrayList<>();
-                        if(choice1.equals("Donación")){
-                            elementShow.add("Donación");
-                            elementShow.add("Compra");
-                            elementShow.add("Salida");
-                        }
-                        else if(choice1.equals("Compra")){
-                            elementShow.add("Compra");
-                            elementShow.add("Donación");
-                            elementShow.add("Salida");
-                        }
-                        else if(choice1.equals("Salida")){
-                            elementShow.add("Salida");
-                            elementShow.add("Donación");
-                            elementShow.add("Compra");
-                        }
-                        ArrayAdapter adap2 = new ArrayAdapter(Form_IMP.this, android.R.layout.simple_spinner_item, elementShow);
-                        spinnerConcept.setAdapter(adap2);
-                        String choice2 = task.getResult().get("movement").toString();
-                        ArrayList<String> elementShow2 = new ArrayList<>();
-                        if(choice2.equals("Entrada")){
-                            elementShow2.add("Entrada");
-                            elementShow2.add("Salida");
-                        }
-                        else if(choice2.equals("Salida")){
-                            elementShow2.add("Salida");
-                            elementShow2.add("Entrada");
-                        }
-                        ArrayAdapter adap = new ArrayAdapter(Form_IMP.this, android.R.layout.simple_spinner_item, elementShow2);
-                        spinnerMovement.setAdapter(adap);
-                        String choice3 = task.getResult().get("units").toString();
-                        ArrayList<String> elementShow3 = new ArrayList<>();
-                        if(choice3.equals("Litros")){
-                            elementShow3.add("Litros");
-                            elementShow3.add("Kilogramos");
-                            elementShow3.add("Libras");
-                            elementShow3.add("Mililitros");
-                            elementShow3.add("Gramos");
-                        }
-                        else if(choice3.equals("Kilogramos")){
-                            elementShow3.add("Kilogramos");
-                            elementShow3.add("Litros");
-                            elementShow3.add("Libras");
-                            elementShow3.add("Mililitros");
-                            elementShow3.add("Gramos");
-                        }
-                        else if(choice3.equals("Libras")){
-                            elementShow3.add("Libras");
-                            elementShow3.add("Litros");
-                            elementShow3.add("Kilogramos");
-                            elementShow3.add("Mililitros");
-                            elementShow3.add("Gramos");
-                        }
-                        else if(choice3.equals("Mililitros")){
-                            elementShow3.add("Mililitros");
-                            elementShow3.add("Litros");
-                            elementShow3.add("Kilogramos");
-                            elementShow3.add("Libras");
-                            elementShow3.add("Gramos");
-                        }
-                        else if(choice3.equals("Gramos")){
-                            elementShow3.add("Gramos");
-                            elementShow3.add("Litros");
-                            elementShow3.add("Kilogramos");
-                            elementShow3.add("Libras");
-                            elementShow3.add("Mililitros");
-                        }
-                        ArrayAdapter adap3 = new ArrayAdapter(Form_IMP.this, android.R.layout.simple_spinner_item, elementShow3);
-                        spinnerUnits.setAdapter(adap3);
-                    }
-                    else if(status.equals("true")){
-
-                        String choice1 = task.getResult().get("concept").toString();
-                        ArrayList<String> elementShow = new ArrayList<>();
-                        elementShow.add(choice1);
-                        ArrayAdapter adap2 = new ArrayAdapter(Form_IMP.this, android.R.layout.simple_spinner_item, elementShow);
-                        spinnerConcept.setAdapter(adap2);
-                        String choice2 = task.getResult().get("movement").toString();
-                        ArrayList<String> elementShow2 = new ArrayList<>();
-                        elementShow2.add(choice2);
-                        ArrayAdapter adap = new ArrayAdapter(Form_IMP.this, android.R.layout.simple_spinner_item, elementShow2);
-                        spinnerMovement.setAdapter(adap);
-                        String choice3 = task.getResult().get("units").toString();
-                       // System.out.println("id colec"+ task.getResult().get("units").toString());
-                        ArrayList<String> elementShow3 = new ArrayList<>();
-                        elementShow3.add(choice3);
-                        ArrayAdapter adap3 = new ArrayAdapter(Form_IMP.this, android.R.layout.simple_spinner_item, elementShow3);
-                        spinnerUnits.setAdapter(adap3);
-                    }
-                }
-            }
-        });
+    private void showMapInfo(Map<String, Object> info,String status){
+        EditText showConceptInfo = findViewById(R.id.showConceptInfo);
+        EditText rawMaterialChoise = findViewById(R.id.rawMaterialChoise);
+        EditText unitSelected = findViewById(R.id.UnitSelectedForm);
+        rawMatirial.setText((CharSequence) info.get("rawMaterial"));
+        quantity.setText((CharSequence) info.get("quantityRawMaterial"));
+        existingTool.setText((CharSequence) info.get("existenceQuantity"));
+        switch (status){
+            case "true":
+                spinnerConcept.setVisibility(View.GONE);
+                spinnerMovement.setVisibility(View.GONE);
+                spinnerUnits.setVisibility(View.GONE);
+                rawMatirial.setEnabled(false);
+                quantity.setEnabled(false);
+                existingTool.setEnabled(false);
+                rawMatirial.setFocusable(false);
+                rawMatirial.setClickable(false);
+                existingTool.setFocusable(false);
+                existingTool.setClickable(false);
+                quantity.setFocusable(false);
+                quantity.setClickable(false);
+                showConceptInfo.setVisibility(View.VISIBLE);
+                showConceptInfo.setText((String) info.get("concept"));
+                rawMaterialChoise.setVisibility(View.VISIBLE);
+                rawMaterialChoise.setText((String) info.get("movement"));
+                unitSelected.setVisibility(View.VISIBLE);
+                unitSelected.setText((String) info.get("units"));
+                showConceptInfo.setFocusable(false);
+                rawMaterialChoise.setFocusable(false);
+                unitSelected.setFocusable(false);
+                addFormButtom.setVisibility(View.GONE);
+                break;
+            case "edit":
+                addFormButtom.setText("Aceptar cambios");
+                break;
+        }
     }
 
     private void createNewForm() {
@@ -381,6 +302,53 @@ public class Form_IMP extends AppCompatActivity {
         finish();
     }
 
+    private void updateForm(Map<String, Object> oldInfo) throws JSONException, IOException{
+        Map<String, Object> newInfo = new HashMap<>();
+        newInfo.put("CreatedBy",oldInfo.get("CreatedBy"));
+        newInfo.put("Date",oldInfo.get("Date"));
+        newInfo.put("idForm",oldInfo.get("idForm"));
+        newInfo.put("nameForm",oldInfo.get("nameForm"));
+
+        String rawMaterial, quantityMaterial, existance;
+        rawMaterial = rawMatirial.getText().toString();
+        quantityMaterial = quantity.getText().toString();
+        existance = existingTool.getText().toString();
+
+        idGarden = getIntent().getStringExtra("idGardenFirebase");
+
+        String defaultSelected = "Seleccione un elemento";
+
+        if(conceptSelectedItem.equals(defaultSelected)){
+            newInfo.put("concept",oldInfo.get("concept"));
+        }else{
+            newInfo.put("concept",conceptSelectedItem);
+        }
+
+        if(movementSelectedItem.equals(defaultSelected)){
+            newInfo.put("movement",oldInfo.get("movement"));
+        }else{
+            newInfo.put("movement",movementSelectedItem);
+        }
+
+        if(unitSelectedItem.equals(defaultSelected)){
+            newInfo.put("units",oldInfo.get("units"));
+        }else{
+            newInfo.put("units",unitSelectedItem);
+        }
+
+        newInfo.put("rawMaterial",rawMaterial);
+        newInfo.put("quantityRawMaterial",quantityMaterial);
+        newInfo.put("existenceQuantity",existance);
+
+        Forms updateInfo = new Forms(this);
+        updateInfo.updateInfoForm(oldInfo,newInfo,idGarden);
+
+        Notifications notifications = new Notifications();
+        notifications.notification("Formulario Editado", "Felicidades! Actualizaste la Información de tu Formulario", Form_IMP.this);
+
+        onBackPressed();
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -389,8 +357,7 @@ public class Form_IMP extends AppCompatActivity {
 
     private void requestStoragePermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            // Aquí puedes proporcionar una explicación al usuario sobre por qué necesitas el permiso.
-            // Esta explicación solo se mostrará si el usuario ha denegado previamente los permisos.
+            //Aqui se le da el porque del permiso
         }
         requestPermissions(new String[] {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION);
     }

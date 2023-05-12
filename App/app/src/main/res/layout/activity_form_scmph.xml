@@ -93,6 +93,18 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tem" />
 
+            <EditText
+                android:id="@+id/itemChoiseSelected"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:ems="10"
+                android:fontFamily="@font/manroperegular"
+                android:background="@drawable/dr_white_input_text"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:text="Name" />
+
             <Spinner
                 android:id="@+id/itemChoice"
                 android:layout_width="fill_parent"
@@ -116,6 +128,17 @@
                 android:layout_height="wrap_content"
                 android:text="@string/unidades" />
 
+
+            <EditText
+                android:id="@+id/UnitViewChoise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:background="@drawable/dr_white_input_text"
+                android:visibility="gone"
+                android:textColor="@color/black"
+                android:inputType="text"
+                android:text="Name" />
 
             <Spinner
                 android:id="@+id/unitsChoice"

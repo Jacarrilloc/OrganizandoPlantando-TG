@@ -52,7 +52,6 @@ public class FormsRegistersActivity extends AppCompatActivity {
     private ListView ListViewRegisters;
     private FloatingActionButton backButtom;
     private String register_name, idGarden;
-    private ProgressBar progressBar;
     private ProgressDialog progressDialog;
     private Forms infoForms;
 
