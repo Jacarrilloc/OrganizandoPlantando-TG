@@ -309,12 +309,8 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                             public void onClick(DialogInterface arg0, int arg1) {
                                 Forms deteleInfo = new Forms(context);
                                 try {
-                                    deteleInfo.deleteInfo(item.getIdGarden(),item.getInfo());
-                                } catch (FileNotFoundException e) {
-                                    throw new RuntimeException(e);
-                                } catch (JSONException e) {
-                                    throw new RuntimeException(e);
-                                } catch (IOException e) {
+                                    deteleInfo.deleteInfo(item.getIdGarden(), item.getInfo());
+                                } catch (IOException | JSONException e) {
                                     throw new RuntimeException(e);
                                 }
                                 remove(item);
@@ -323,6 +319,7 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
                         }).create().show();
             }
         });
+
 
         view.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT));
         if(view != null){
