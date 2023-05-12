@@ -203,4 +203,46 @@ public class GardenPersistance {
     public interface GetNumber{
         void onSuccess(int count);
     }
+
+    public void deleteGardensCollections(String idGarden){
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        DocumentReference Ref = database.collection("Gardens").document(idGarden);
+
+
+        Ref.collection("Collaborators").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot doc : task.getResult()){
+                        doc.getReference().delete();
+                    }
+                    Log.i("Collaborators", "Se elimino la coleccion de collaborators");
+                }
+            }
+        });
+
+        Ref.collection("Requests").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot doc : task.getResult()){
+                        doc.getReference().delete();
+                    }
+                    Log.i("Requests", "Se elimino la coleccion de Requests");
+                }
+            }
+        });
+
+        Ref.collection("Forms").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot doc : task.getResult()){
+                        doc.getReference().delete();
+                    }
+                    Log.i("Forms", "Se elimino la coleccion de Forms");
+                }
+            }
+        });
+    }
 }

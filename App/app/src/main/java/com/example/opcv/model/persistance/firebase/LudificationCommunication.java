@@ -669,4 +669,5 @@ public class LudificationCommunication implements Serializable {
         });
     }
 
+
 }

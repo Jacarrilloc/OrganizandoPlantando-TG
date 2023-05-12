@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.opcv.model.persistance.firebase.LudificationCommunication;
 import com.example.opcv.model.persistance.firebase.UserCommunication;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
@@ -43,6 +44,8 @@ public class DeleteAccountActivity extends AppCompatActivity {
         ludification = (Button) findViewById(R.id.ludification);
         returnButton = (Button) findViewById(R.id.returnButton2);
         delete = (Button) findViewById(R.id.deleteButton);
+        LudificationCommunication ludificationCommunication = new LudificationCommunication();
+
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +96,8 @@ public class DeleteAccountActivity extends AppCompatActivity {
                 FirebaseUser user = autentication.getCurrentUser();
                 UserCommunication userCom = new UserCommunication();
                 idUser = user.getUid();
+                //ludificationCommunication.deleteUserComments(idUser);
+                userCom.deleteUserCollections(idUser);
                 userCom.deleteUser(idUser);
                 Toast.makeText(DeleteAccountActivity.this, "Cuenta eliminada", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(DeleteAccountActivity.this, NewToAppActivity.class);

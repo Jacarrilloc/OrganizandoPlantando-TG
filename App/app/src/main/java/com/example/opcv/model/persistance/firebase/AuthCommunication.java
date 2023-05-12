@@ -230,19 +230,21 @@ public class AuthCommunication implements Serializable {
         StorageReference storage = FirebaseStorage.getInstance().getReference();
         String imageName = userID + ".jpg";
         StorageReference ref = storage.child("userProfilePhoto/" + imageName);
-        UploadTask uploadTask = ref.putBytes(bytes);
-        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        String url = uri.toString();
-                        callback.onSuccess(url);
-                    }
-                });
-            }
-        });
+        if(bytes != null){
+            UploadTask uploadTask = ref.putBytes(bytes);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String url = uri.toString();
+                            callback.onSuccess(url);
+                        }
+                    });
+                }
+            });
+        }
     }
 
     public void validateEmailAlreadyInUse(String email, final ValidateEmail callback){

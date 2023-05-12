@@ -355,6 +355,7 @@ public class GardenEditActivity extends AppCompatActivity {
     private void deleteGarden(String idGarden) {
         GardenPersistance persistance = new GardenPersistance();
         persistance.deletePhotoGarden(idGarden);
+        persistance.deleteGardensCollections(idGarden);
         database2 = FirebaseFirestore.getInstance();
         database2.collection("Gardens").document(idGarden).collection("Requests")
                         .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
