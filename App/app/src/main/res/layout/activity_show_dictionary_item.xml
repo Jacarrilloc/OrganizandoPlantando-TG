@@ -14,26 +14,27 @@
         android:layout_height="0dp"
         android:layout_weight="0.9">
 
-        <ImageButton
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/deleteButton"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:backgroundTint="@color/graylight3"
-            android:layout_gravity="top|end"
             android:clickable="true"
-            android:elevation="@dimen/_40sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/dr_delete_button"
-            android:focusable="true" />
+            android:contentDescription="@string/boton_para_regresar"
+            android:tint="@color/white"
+            app:backgroundTint="@color/redDarker"
+            android:layout_gravity="top|end"
+            app:srcCompat="@drawable/dr_delete_button" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/returnArrowButtonToHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_1sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:clickable="true"
             android:contentDescription="@string/boton_para_regresar"
             android:tint="@color/white"
@@ -78,7 +79,7 @@
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_30sdp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_gravity="center_horizontal">
@@ -162,8 +163,6 @@
             android:layout_gravity="bottom|end"
             android:elevation="150dp">
 
-
-
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/addButton"
                 android:layout_width="@dimen/_85sdp"
@@ -177,7 +176,6 @@
                 android:foregroundTintMode="multiply"
                 android:tint="@color/white"
                 android:tintMode="multiply"
-
                 app:backgroundTintMode="src_in"
                 app:maxImageSize="@dimen/_30sdp"
                 app:rippleColor="@color/white"
@@ -208,13 +206,13 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:translationZ="5dp"
-            android:fillViewport="true">
+            android:fillViewport="true"
+            android:translationZ="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_45sdp"
                 android:orientation="vertical" >
 
                 <LinearLayout
@@ -228,7 +226,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/_5sdp"
-                        android:layout_marginTop="@dimen/_10sdp">
+                        android:layout_marginTop="@dimen/_1sdp">
 
                         <!-- Vista de imagen con borde -->
                         <ImageView
@@ -297,12 +295,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_23sdp"
+                    android:layout_marginTop="@dimen/_13sdp"
                     android:layout_marginEnd="@dimen/_40sdp"
                     android:text="@string/description23"
-                    android:fontFamily="@font/manropemedium"
+                    android:fontFamily="@font/manroperegular"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_17sdp" />
+                    android:textSize="@dimen/_15sdp" />
 
                 <LinearLayout
                     android:id="@+id/likesBar"
@@ -353,13 +351,13 @@
 
                 </LinearLayout>
 
-                <ListView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/listViewComments"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_1sdp"
                     android:layout_marginTop="@dimen/_25sdp"
-                    android:paddingBottom="@dimen/_60sdp"/>
+                    android:layout_marginBottom="@dimen/_88sdp"/>
 
 
             </LinearLayout>

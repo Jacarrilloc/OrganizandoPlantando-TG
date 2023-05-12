@@ -1,5 +1,6 @@
 package com.example.opcv.view.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -14,9 +15,15 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.opcv.R;
+
 import com.example.opcv.business.ludification.Level;
 import com.example.opcv.model.items.ItemComments;
 import com.example.opcv.model.persistance.firebase.LudificationCommunication;
@@ -27,113 +34,104 @@ import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class CommentsAdapter extends ArrayAdapter<ItemComments> {
+public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentsViewHolder> {
 
     private Context context;
-    private TextView comment, commentator , author, publisherLevel, namelevel;
-    private FrameLayout levelLayout;
-    private ImageView borderImage;
-    private SparseArray<FrameLayout> levelLayoutArray = new SparseArray<>();
-    private SparseArray<TextView> authorArray = new SparseArray<>();
-    private SparseArray<TextView> publisherLevelArray = new SparseArray<>();
-    private SparseArray<TextView> nameLevelArray = new SparseArray<>();
-    private SparseArray<ImageView> borderImageArray = new SparseArray<>();
-    private SparseArray<CircleImageView> imageArray = new SparseArray<>();
+    private List<ItemComments> items;
 
     public CommentsAdapter(Context context, List<ItemComments> items) {
-        super(context, 0, items);
         this.context = context;
+        this.items = items;
+    }
+
+    public static class CommentsViewHolder extends RecyclerView.ViewHolder {
+        TextView comment;
+        TextView commentator;
+        FrameLayout levelLayout;
+        TextView author;
+        TextView publisherLevel;
+        TextView namelevel;
+        ImageView borderImage;
+        CircleImageView image;
+
+        public CommentsViewHolder(View itemView) {
+            super(itemView);
+            comment = itemView.findViewById(R.id.description);
+            commentator = itemView.findViewById(R.id.author);
+            levelLayout = itemView.findViewById(R.id.showLevel);
+            author = itemView.findViewById(R.id.name);
+            publisherLevel = itemView.findViewById(R.id.level);
+            namelevel = itemView.findViewById(R.id.nameLevel);
+            borderImage = itemView.findViewById(R.id.imageLevel);
+            image = itemView.findViewById(R.id.image);
+        }
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public CommentsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_new_description, parent, false);
+        return new CommentsViewHolder(view);
+    }
 
+    @Override
+    public void onBindViewHolder(CommentsViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        ItemComments item = items.get(position);
 
+        holder.levelLayout.setVisibility(View.GONE);
 
-        if(convertView == null){
-            convertView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_new_description, parent, false);
-        }
-        ItemComments item = getItem(position);
-
-        comment = convertView.findViewById(R.id.description);
-        commentator = convertView.findViewById(R.id.author);
-        comment.setText(item.getComment());
-        commentator.setText(item.getNameCommentator());
-        Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_right_to_left);
-        animation.setStartOffset(position * 100);
-        convertView.startAnimation(animation);
+        holder.comment.setText(item.getComment());
+        holder.commentator.setText(item.getNameCommentator());
         Level level = new Level();
         LudificationCommunication persistance = new LudificationCommunication();
         UserCommunication persistanceuser = new UserCommunication();
-        levelLayout = convertView.findViewById(R.id.showLevel);
-        levelLayoutArray.put(position, levelLayout);
-        TextView author = convertView.findViewById(R.id.name);
-        authorArray.put(position, author);
-        TextView publisherLevel = convertView.findViewById(R.id.level);
-        publisherLevelArray.put(position, publisherLevel);
-        TextView namelevel = convertView.findViewById(R.id.nameLevel);
-        nameLevelArray.put(position, namelevel);
-        ImageView borderImage = convertView.findViewById(R.id.imageLevel);
-        borderImageArray.put(position, borderImage);
-        CircleImageView image = convertView.findViewById(R.id.image);
-        imageArray.put(position, image);
 
-        ItemComments IC = new ItemComments(item.getComment(), item.getNameCommentator(), item.getIdUSer());
-
-        commentator.setOnClickListener(new View.OnClickListener() {
+        holder.commentator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FrameLayout currentLevelLayout = levelLayoutArray.get(position);
-                TextView currentAuthor = authorArray.get(position);
-                TextView currentPublisherLevel = publisherLevelArray.get(position);
-                TextView currentNameLevel = nameLevelArray.get(position);
-                ImageView currentBorderImage = borderImageArray.get(position);
-                CircleImageView currentImage =imageArray.get(position);
-                if (currentLevelLayout.getVisibility() == View.GONE) {
-                    currentAuthor.setText(item.getNameCommentator());
-                    persistance.getPublisherLevel(IC.getIdUSer(), new LudificationCommunication.getPublisherLevel() {
+                if (holder.levelLayout.getVisibility() == View.GONE) {
+                    holder.author.setText(item.getNameCommentator());
+                    persistance.getPublisherLevel(item.getIdUSer(), new LudificationCommunication.getPublisherLevel() {
                         @Override
                         public void onComplete(String leveli) {
-                            currentPublisherLevel.setText(leveli);
+                            holder.publisherLevel.setText(leveli);
 
-                            double lvDouble = Double.parseDouble(publisherLevel.getText().toString());
+                            double lvDouble = Double.parseDouble(holder.publisherLevel.getText().toString());
                             int lv = Double.valueOf(lvDouble).intValue();
-                            currentNameLevel.setText(level.levelName(lv));
+                            holder.namelevel.setText(level.levelName(lv));
 
-                            persistanceuser.getProfilePicture(IC.getIdUSer(), new UserCommunication.GetUriUser() {
+                            persistanceuser.getProfilePicture(item.getIdUSer(), new UserCommunication.GetUriUser() {
                                 @Override
                                 public void onComplete(String uri) {
-                                    if(!Objects.equals(uri, "")){
-                                        Glide.with(context).load(uri).into(currentImage);
-                                    }
-                                    else{
-                                        currentImage.setImageResource(R.drawable.im_logo_ceres);
+                                    if (!Objects.equals(uri, "")) {
+                                        Glide.with(context).load(uri).into(holder.image);
+                                    } else {
+                                        holder.image.setImageResource(R.drawable.im_logo_ceres);
                                     }
                                 }
                             });
 
-                            if (lv >=0 && lv <10){
-                                currentBorderImage.setImageResource(R.drawable.im_level_1);
-                            }else if (lv>= 10 && lv <30) {
-                                currentBorderImage.setImageResource(R.drawable.im_level_2);
-                            } else if (lv>=30 && lv <60) {
-                                currentBorderImage.setImageResource(R.drawable.im_level_3);
-                            } else if (lv >= 60 && lv <100) {
-                                currentBorderImage.setImageResource(R.drawable.im_level_4);
+                            if (lv >= 0 && lv < 10) {
+                                holder.borderImage.setImageResource(R.drawable.im_level_1);
+                            } else if (lv >= 10 && lv < 30) {
+                                holder.borderImage.setImageResource(R.drawable.im_level_2);
+                            } else if (lv >= 30 && lv < 60) {
+                                holder.borderImage.setImageResource(R.drawable.im_level_3);
+                            } else if (lv >= 60 && lv < 100) {
+                                holder.borderImage.setImageResource(R.drawable.im_level_4);
                             } else if (lv >= 100) {
-                                currentBorderImage.setImageResource(R.drawable.im_level_5);
+                                holder.borderImage.setImageResource(R.drawable.im_level_5);
                             }
 
                             Animation fadeIn = new AlphaAnimation(0, 1);
                             fadeIn.setInterpolator(new DecelerateInterpolator());
                             fadeIn.setDuration(900);
 
-                            currentLevelLayout.post(new Runnable() {
+                            holder.levelLayout.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    currentLevelLayout.setVisibility(View.VISIBLE);
-                                    currentLevelLayout.startAnimation(fadeIn);
+                                    holder.levelLayout.setVisibility(View.VISIBLE);
+                                    holder.levelLayout.startAnimation(fadeIn);
                                 }
                             });
                         }
@@ -145,23 +143,30 @@ public class CommentsAdapter extends ArrayAdapter<ItemComments> {
 
                     fadeOut.setAnimationListener(new Animation.AnimationListener() {
                         @Override
-                        public void onAnimationStart(Animation animation) {}
-
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-                            currentLevelLayout.setVisibility(View.GONE);
+                        public void onAnimationStart(Animation animation) {
                         }
 
                         @Override
-                        public void onAnimationRepeat(Animation animation) {}
-                    });
+                        public void onAnimationEnd(Animation animation) {
+                            holder.levelLayout.setVisibility(View.GONE);
+                        }
 
-                    currentLevelLayout.startAnimation(fadeOut);
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+                        }
+                    });
+                    holder.levelLayout.startAnimation(fadeOut);
                 }
             }
         });
 
-        return convertView;
+    }
+
+    @Override
+    public int getItemCount() {
+        return items.size();
     }
 }
+
+
 
