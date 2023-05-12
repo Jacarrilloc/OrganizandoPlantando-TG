@@ -46,12 +46,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginStart="@dimen/_1sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
         android:fontFamily="@font/manroperegular"
         android:gravity="center"
         android:text="@string/DisplayPDF"
         android:textColor="#050505"
-        android:textSize="@dimen/_14sdp" />
+        android:textSize="@dimen/_15sdp" />
 
     <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdfView"

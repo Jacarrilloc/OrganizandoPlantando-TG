@@ -130,7 +130,9 @@ public class GardenPersistance {
     public void gardensAddresses(final GetGardensAddresses callback){
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         CollectionReference ref = database.collection("Gardens");
-        ref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+        Query query = ref.whereEqualTo("GardenType", "Public");
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){

@@ -1,6 +1,7 @@
 package com.example.opcv.view.ludification;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,7 +20,7 @@ import com.example.opcv.view.base.HomeActivity;
 
 public class RewardHomeActivity extends AppCompatActivity {
 
-    private Button profile, myGardens, ludification, lvl1, lvl2, lvl3, lvl4, lvl5;
+    private Button profile, myGardens, ludification, rewards, lvl1, lvl2, lvl3, lvl4, lvl5;
     int lv;
 
 
@@ -30,6 +31,7 @@ public class RewardHomeActivity extends AppCompatActivity {
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
         ludification = (Button) findViewById(R.id.ludification);
+        rewards = (Button) findViewById(R.id.rewards);
         lvl1 = (Button) findViewById(R.id.level1);
         lvl2 = (Button) findViewById(R.id.level2);
         lvl3 = (Button) findViewById(R.id.level3);
@@ -39,6 +41,19 @@ public class RewardHomeActivity extends AppCompatActivity {
         AuthCommunication auth = new AuthCommunication();
         String user = auth.getCurrentUserUid();
 
+        rewards.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.green));
+
+        UserCommunication persistence = new UserCommunication();
+        persistence.getUserLevel(user, new UserCommunication.GetUserLvl() {
+            @Override
+            public void onComplete(String leveli) {
+
+                double lvDouble = Double.parseDouble(leveli);
+                lv = Double.valueOf(lvDouble).intValue();
+                initializeButtons(lv);
+
+            }
+        });
         lvl1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,17 +93,7 @@ public class RewardHomeActivity extends AppCompatActivity {
                 startActivity(moon);
             }
         });
-        UserCommunication persistance = new UserCommunication();
-        persistance.getUserLevel(user, new UserCommunication.GetUserLvl() {
-            @Override
-            public void onComplete(String leveli) {
 
-                double lvDouble = Double.parseDouble(leveli);
-                lv = Double.valueOf(lvDouble).intValue();
-                initializeButtons(lv);
-
-            }
-        });
 
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,8 +138,6 @@ public class RewardHomeActivity extends AppCompatActivity {
     }
 
     private void initializeButtons(int lv) {
-
-        /*
         if (lv >=0 && lv <10){
             lvl1.setVisibility(View.VISIBLE);
             lvl1.setClickable(true);
@@ -170,6 +173,6 @@ public class RewardHomeActivity extends AppCompatActivity {
             lvl4.setClickable(true);
             lvl5.setVisibility(View.VISIBLE);
             lvl5.setClickable(true);
-        }*/
+        }
     }
 }

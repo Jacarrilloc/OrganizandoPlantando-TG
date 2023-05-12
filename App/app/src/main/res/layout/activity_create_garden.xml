@@ -70,7 +70,7 @@
                     android:layout_width="@dimen/_183sdp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/manropebold"
+                    android:fontFamily="@font/manropemedium"
                     android:gravity="center"
                     android:text="@string/createGarden"
                     android:textColor="@color/black"

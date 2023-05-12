@@ -10,14 +10,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Level {
-    final static int levelComment =3;
-    final static int levelPublish =7;
+    final static int levelComment =1;
+    final static int levelPublish =3;
     final static int levelDislikes =1;
     final static int levelOne = 10;
     final static int levelTwo = 30;
     final static int levelThree = 60;
     final static int levelFour = 100;
-    final static int levelFive = 10;
 
 
     public void addLevel(String idUser, Boolean gains, Context context, String element){//va a recibir una variable booleana si es true es que realizo una publicacion de lo contrario es un comentario
@@ -33,16 +32,16 @@ public class Level {
         if(gains){
             map.put("Level", levelPublish);
             persistance.addLevelUser(idUser, map);
-            Toast.makeText(context, "Has ganado puntos .Felicidades! Ganaste 7 puntos por crear tu "+translate, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Has ganado puntos. ¡Felicidades! Ganaste 3 puntos por crear tu "+translate, Toast.LENGTH_SHORT).show();
             Notifications notifications = new Notifications();
-            notifications.notification("Has ganado puntos", "Felicidades! Ganaste 7 puntos por crear tu "+translate, context);
+            notifications.notification("Has ganado puntos", "¡Felicidades! Ganaste 3 puntos por crear tu "+translate, context);
         }
         else {
             map.put("Level", levelComment);
             persistance.addLevelUser(idUser, map);
-            Toast.makeText(context, "Felicidades! Ganaste 3 puntos por hacer un comentario.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "¡Felicidades! Ganaste 1 punto por hacer un comentario.", Toast.LENGTH_SHORT).show();
             Notifications notifications = new Notifications();
-            notifications.notification("Has ganado puntos", "Felicidades! Ganaste 3 puntos por hacer un comentario.", context);
+            notifications.notification("Has ganado puntos", "¡Felicidades! Ganaste 1 punto por hacer un comentario.", context);
         }
     }
     public void deductLevel(String docRef, String element){//se llama en el boton de dar dislike
