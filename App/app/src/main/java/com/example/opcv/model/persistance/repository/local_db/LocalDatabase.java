@@ -4,6 +4,9 @@ import android.content.Context;
 import android.util.JsonWriter;
 import android.util.Log;
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,6 +21,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,7 +40,7 @@ public class LocalDatabase implements LocalDatabaseI {
     }
 
     public void createJsonForm(String idGarden, Map<String, Object> infoForm) {
-        if(infoForm.get("CreatedBy") != null) {
+        if (infoForm.get("CreatedBy") != null) {
             // El permiso ya está concedido, ejecutamos la tarea
             File gardenDir = new File(context.getExternalFilesDir(null), "Gardenforms/" + idGarden);
             if (!gardenDir.exists()) {
@@ -46,73 +50,40 @@ public class LocalDatabase implements LocalDatabaseI {
 
             File infoFormFile = new File(gardenDir, "infoForm.json");
             try {
-                JSONArray jsonArray;
+                Gson gson = new Gson();
+
+                List<Map<String, Object>> existingForms = new ArrayList<>();
+
                 if (infoFormFile.exists()) {
-                    // Lee el archivo existente y convierte su contenido en un objeto JSON
-                    FileInputStream inputStream = new FileInputStream(infoFormFile);
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        stringBuilder.append(line);
-                    }
-                    reader.close();
-                    inputStream.close();
-                    String existingContent = stringBuilder.toString();
-                    if (!existingContent.isEmpty()) {
-                        jsonArray = new JSONArray(existingContent);
-                    } else {
-                        jsonArray = new JSONArray();
-                    }
+                    // Lee el archivo existente y convierte su contenido en una lista de mapas
+                    FileReader fileReader = new FileReader(infoFormFile);
+                    Type listType = new TypeToken<List<Map<String, Object>>>() {}.getType();
+                    existingForms = gson.fromJson(fileReader, listType);
+                    fileReader.close();
 
                     // Verifica si la información ya existe en el archivo
-                    boolean found = false;
-                    JSONObject newObject = new JSONObject(infoForm);
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject existingObject = jsonArray.getJSONObject(i);
-                        if (newObject.toString().equals(existingObject.toString())) {
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (found) {
+                    if (existingForms.contains(infoForm)) {
                         Log.i("JSON:", "La información ya existe en el archivo.");
                         return;
                     }
-                } else {
-                    jsonArray = new JSONArray();
                 }
 
-                // Convierte el nuevo objeto a un objeto JSON y lo agrega al arreglo
-                JSONObject jsonObj = new JSONObject(infoForm);
-                jsonArray.put(jsonObj);
+                // Agrega la nueva información al archivo
+                existingForms.add(infoForm);
 
-                // Escribe el JSON con formato en el archivo
+                // Escribe la lista actualizada en el archivo
                 FileWriter fileWriter = new FileWriter(infoFormFile);
-                JsonWriter jsonWriter = new JsonWriter(fileWriter);
-                jsonWriter.setIndent("  "); // 2 espacios para la sangría
-                jsonWriter.beginArray(); // Inicia el arreglo
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    jsonWriter.beginObject(); // Inicia un objeto dentro del arreglo
-                    Iterator<String> keys = jsonObject.keys();
-                    while (keys.hasNext()) {
-                        String key = keys.next();
-                        Object value = jsonObject.get(key);
-                        jsonWriter.name(key);
-                        jsonWriter.value(String.valueOf(value));
-                    }
-                    jsonWriter.endObject(); // Finaliza el objeto dentro del arreglo
-                }
-                jsonWriter.endArray(); // Finaliza el arreglo
-                jsonWriter.flush();
-                jsonWriter.close();
+                gson.toJson(existingForms, fileWriter);
+                fileWriter.flush();
+                fileWriter.close();
+
                 Log.i("JSON:", "Se actualizó el archivo con la nueva información.");
-            } catch (IOException | JSONException e) {
-                Log.w("JSON:", "Error: " + e.getMessage().toString());
+            } catch (IOException e) {
+                Log.w("JSON:", "Error: " + e.getMessage());
             }
         }
     }
+
 
     public void updateAllJson(List<Map<String, Object>> newInfo, String idGarden) {
         if (newInfo.isEmpty()) {
@@ -175,117 +146,70 @@ public class LocalDatabase implements LocalDatabaseI {
     }
 
 
-    public List<Map<String,Object>> getInfoJsonForms(String idGarden, String formName) {
+    public List<Map<String, Object>> getInfoJsonForms(String idGarden, String formName) {
         try {
             File gardenDir = new File(context.getExternalFilesDir(null), "Gardenforms/" + idGarden);
-            if(gardenDir.isDirectory()){
+            if (gardenDir.isDirectory()) {
                 File infoFormFile = new File(gardenDir, "infoForm.json");
-                if (infoFormFile.exists()) {
-                    if (infoFormFile.length() > 0) { // Agregamos esta verificación para asegurarnos de que el archivo tenga contenido
-                        FileInputStream inputStream = new FileInputStream(infoFormFile);
-                        String jsonString = new Scanner(inputStream).useDelimiter("\\Z").next();
-                        JSONArray jsonArray = new JSONArray(new JSONTokener(jsonString));
-                        List<Map<String,Object>> formsListResult = new ArrayList<>();
-                        for( int i = 0 ;  i < jsonArray.length() ; i++){
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            if(jsonObject.getString("nameForm").equals(formName)){
-                                Map<String, Object> formMap = new HashMap<>();
-                                Iterator<String> iterator = jsonObject.keys();
-                                while(iterator.hasNext()){
-                                    String key = iterator.next();
-                                    Object value = jsonObject.get(key);
-                                    if(value instanceof JSONObject){
-                                        formMap.put(key, toMap((JSONObject) value));
-                                    } else {
-                                        formMap.put(key,value);
-                                    }
-                                }
-                                formsListResult.add(formMap);
-                            }
+                if (infoFormFile.exists() && infoFormFile.length() > 0) {
+                    Gson gson = new Gson();
+
+                    FileReader fileReader = new FileReader(infoFormFile);
+                    Type listType = new TypeToken<List<Map<String, Object>>>() {}.getType();
+                    List<Map<String, Object>> formsList = gson.fromJson(fileReader, listType);
+                    fileReader.close();
+
+                    List<Map<String, Object>> formsListResult = new ArrayList<>();
+                    for (Map<String, Object> form : formsList) {
+                        if (form.get("nameForm").equals(formName)) {
+                            formsListResult.add(form);
                         }
-                        return formsListResult;
                     }
+                    return formsListResult;
                 }
             }
             return null;
-        } catch (IOException | JSONException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchElementException e) {
-            // Manejo específico de la excepción NoSuchElementException
+        } catch (IOException e) {
             throw new RuntimeException("Error al leer el archivo JSON: " + e.getMessage(), e);
         }
     }
-
-    private static Map<String, Object> toMap(JSONObject jsonObject) throws JSONException {
-        Map<String, Object> map = new HashMap<>();
-        Iterator<String> keysIterator = jsonObject.keys();
-        while (keysIterator.hasNext()) {
-            String key = keysIterator.next();
-            Object value = jsonObject.get(key);
-            if (value instanceof JSONObject) {
-                value = toMap((JSONObject) value);
-            }
-            map.put(key, value);
-        }
-        return map;
-    }
-
-
 
     public void updateInfoJson(String idGraden,Map<String,Object> newInfo) throws JSONException, IOException {
         deleteInfoJson(idGraden, newInfo);
         createJsonForm(idGraden, newInfo);
     }
 
-    public void deleteInfoJson(String idGarden, Map<String, Object> infoForm) throws IOException, JSONException {
+    public void deleteInfoJson(String idGarden, Map<String, Object> infoForm) throws IOException {
         File gardenDir = new File(context.getExternalFilesDir(null), "Gardenforms/" + idGarden);
         if (gardenDir.exists()) {
             File infoFormFile = new File(gardenDir, "infoForm.json");
             if (infoFormFile.exists()) {
-                BufferedReader reader = null;
-                StringBuilder jsonBuilder = new StringBuilder();
-                try {
-                    reader = new BufferedReader(new FileReader(infoFormFile));
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        jsonBuilder.append(line).append('\n');
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    if (reader != null) {
-                        reader.close();
-                    }
-                }
-                String json = jsonBuilder.toString();
+                Gson gson = new Gson();
+
+                FileReader fileReader = new FileReader(infoFormFile);
+                Type listType = new TypeToken<List<Map<String, Object>>>() {}.getType();
+                List<Map<String, Object>> formsList = gson.fromJson(fileReader, listType);
+                fileReader.close();
+
                 String date = (String) infoForm.get("Date");
                 String createdBy = (String) infoForm.get("CreatedBy");
                 String idForm = String.valueOf(infoForm.get("idForm"));
-                JSONArray jsonArray = new JSONArray(json);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    String jsonDate = jsonObject.getString("Date");
-                    String jsonCreatedBy = jsonObject.getString("CreatedBy");
-                    String jsonIdForm = jsonObject.getString("idForm");
+
+                for (int i = 0; i < formsList.size(); i++) {
+                    Map<String, Object> form = formsList.get(i);
+                    String jsonDate = (String) form.get("Date");
+                    String jsonCreatedBy = (String) form.get("CreatedBy");
+                    String jsonIdForm = String.valueOf(form.get("idForm"));
                     if (jsonDate.equals(date) && jsonCreatedBy.equals(createdBy) && jsonIdForm.equals(idForm)) {
-                        jsonArray.remove(i);
-                        FileOutputStream fos = null;
-                        try {
-                            fos = new FileOutputStream(infoFormFile);
-                            fos.write(jsonArray.toString(2).getBytes("UTF-8"));
-                            fos.flush();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } finally {
-                            if (fos != null) {
-                                fos.close();
-                            }
-                        }
+                        formsList.remove(i);
                         break;
                     }
                 }
+
+                FileWriter fileWriter = new FileWriter(infoFormFile);
+                gson.toJson(formsList, fileWriter);
+                fileWriter.close();
             }
         }
     }
-
 }

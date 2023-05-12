@@ -1,65 +1,206 @@
 package com.example.opcv.model.forms;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class RE_Element {
-    int idForm;
-    String nameForm;
-    String date;
-    String eventName;
-    String totalPerson,womenNumber,menNumber,noSpcNumber,infantNumber,childhoodNumber,teenNumber, youthNumber,adultNumber,elderlyNumber,afroNumber,nativeNumber,lgtbiNumber,romNumber,victimNumber, disabilityNumber, demobilizedNumber,mongrelNumber,foreignNumber,peasantNumber,otherNumber;
+    private String peasantNumber;
+    private String victimNumber;
+    private String lgtbiNumber;
+    private String CreatedBy;
+    private String otherNumber;
+    private String infantNumber;
+    private String idForm;
+    private String noSpcNumber;
+    private String mongrelNumber;
+    private String romNumber;
+    private String elderlyNumber;
+    private String adultNumber;
+    private String Date;
+    private String disabilityNumber;
+    private String menNumber;
+    private String eventName;
+    private String totalPerson;
+    private String nativeNumber;
+    private String nameForm;
+    private String teenNumber;
+    private String demobilizedNumber;
+    private String childhoodNumber;
+    private String afroNumber;
+    private String date;
+    private String youthNumber;
+    private String foreignNumber;
+    private String womenNumber;
 
-    public RE_Element(int idForm, String nameForm, String date, String eventName, String totalPerson, String womenNumber, String menNumber, String noSpcNumber, String infantNumber, String childhoodNumber, String teenNumber, String youthNumber, String adultNumber, String elderlyNumber, String afroNumber, String nativeNumber, String lgtbiNumber, String romNumber, String victimNumber, String disabilityNumber, String demobilizedNumber, String mongrelNumber, String foreignNumber, String peasantNumber, String otherNumber) {
+    public RE_Element(String peasantNumber, String victimNumber, String lgtbiNumber, String createdBy, String otherNumber, String infantNumber, String idForm, String noSpcNumber, String mongrelNumber, String romNumber, String elderlyNumber, String adultNumber, String date, String disabilityNumber, String menNumber, String eventName, String totalPerson, String nativeNumber, String nameForm, String teenNumber, String demobilizedNumber, String childhoodNumber, String afroNumber, String date1, String youthNumber, String foreignNumber, String womenNumber) {
+        this.peasantNumber = peasantNumber;
+        this.victimNumber = victimNumber;
+        this.lgtbiNumber = lgtbiNumber;
+        CreatedBy = createdBy;
+        this.otherNumber = otherNumber;
+        this.infantNumber = infantNumber;
         this.idForm = idForm;
-        this.nameForm = nameForm;
-        this.date = date;
+        this.noSpcNumber = noSpcNumber;
+        this.mongrelNumber = mongrelNumber;
+        this.romNumber = romNumber;
+        this.elderlyNumber = elderlyNumber;
+        this.adultNumber = adultNumber;
+        Date = date;
+        this.disabilityNumber = disabilityNumber;
+        this.menNumber = menNumber;
         this.eventName = eventName;
         this.totalPerson = totalPerson;
-        this.womenNumber = womenNumber;
-        this.menNumber = menNumber;
-        this.noSpcNumber = noSpcNumber;
-        this.infantNumber = infantNumber;
-        this.childhoodNumber = childhoodNumber;
-        this.teenNumber = teenNumber;
-        this.youthNumber = youthNumber;
-        this.adultNumber = adultNumber;
-        this.elderlyNumber = elderlyNumber;
-        this.afroNumber = afroNumber;
         this.nativeNumber = nativeNumber;
-        this.lgtbiNumber = lgtbiNumber;
-        this.romNumber = romNumber;
-        this.victimNumber = victimNumber;
-        this.disabilityNumber = disabilityNumber;
+        this.nameForm = nameForm;
+        this.teenNumber = teenNumber;
         this.demobilizedNumber = demobilizedNumber;
-        this.mongrelNumber = mongrelNumber;
+        this.childhoodNumber = childhoodNumber;
+        this.afroNumber = afroNumber;
+        this.date = date1;
+        this.youthNumber = youthNumber;
         this.foreignNumber = foreignNumber;
+        this.womenNumber = womenNumber;
+    }
+
+    public String getPeasantNumber() {
+        return peasantNumber;
+    }
+
+    public void setPeasantNumber(String peasantNumber) {
         this.peasantNumber = peasantNumber;
+    }
+
+    public String getVictimNumber() {
+        return victimNumber;
+    }
+
+    public void setVictimNumber(String victimNumber) {
+        this.victimNumber = victimNumber;
+    }
+
+    public String getLgtbiNumber() {
+        return lgtbiNumber;
+    }
+
+    public void setLgtbiNumber(String lgtbiNumber) {
+        this.lgtbiNumber = lgtbiNumber;
+    }
+
+    public String getCreatedBy() {
+        return CreatedBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        CreatedBy = createdBy;
+    }
+
+    public String getOtherNumber() {
+        return otherNumber;
+    }
+
+    public void setOtherNumber(String otherNumber) {
         this.otherNumber = otherNumber;
     }
 
-    public int getIdForm() {
+    public String getInfantNumber() {
+        return infantNumber;
+    }
+
+    public void setInfantNumber(String infantNumber) {
+        this.infantNumber = infantNumber;
+    }
+
+    public String getIdForm() {
         return idForm;
     }
 
-    public void setIdForm(int idForm) {
+    public void setIdForm(String idForm) {
         this.idForm = idForm;
     }
 
-    public String getNameForm() {
-        return nameForm;
+    public String getNoSpcNumber() {
+        return noSpcNumber;
     }
 
-    public void setNameForm(String nameForm) {
-        this.nameForm = nameForm;
+    public void setNoSpcNumber(String noSpcNumber) {
+        this.noSpcNumber = noSpcNumber;
+    }
+
+    public String getMongrelNumber() {
+        return mongrelNumber;
+    }
+
+    public void setMongrelNumber(String mongrelNumber) {
+        this.mongrelNumber = mongrelNumber;
+    }
+
+    public String getRomNumber() {
+        return romNumber;
+    }
+
+    public void setRomNumber(String romNumber) {
+        this.romNumber = romNumber;
+    }
+
+    public String getElderlyNumber() {
+        return elderlyNumber;
+    }
+
+    public void setElderlyNumber(String elderlyNumber) {
+        this.elderlyNumber = elderlyNumber;
+    }
+
+    public String getAdultNumber() {
+        return adultNumber;
+    }
+
+    public void setAdultNumber(String adultNumber) {
+        this.adultNumber = adultNumber;
     }
 
     public String getDate() {
-        return date;
+        return Date;
     }
 
     public void setDate(String date) {
-        this.date = date;
+        Date = date;
+    }
+
+    public String getYouthNumber() {
+        return youthNumber;
+    }
+
+    public void setYouthNumber(String youthNumber) {
+        this.youthNumber = youthNumber;
+    }
+
+    public String getForeignNumber() {
+        return foreignNumber;
+    }
+
+    public void setForeignNumber(String foreignNumber) {
+        this.foreignNumber = foreignNumber;
+    }
+
+    public String getWomenNumber() {
+        return womenNumber;
+    }
+
+    public void setWomenNumber(String womenNumber) {
+        this.womenNumber = womenNumber;
+    }
+
+    public String getDisabilityNumber() {
+        return disabilityNumber;
+    }
+
+    public void setDisabilityNumber(String disabilityNumber) {
+        this.disabilityNumber = disabilityNumber;
+    }
+
+    public String getMenNumber() {
+        return menNumber;
+    }
+
+    public void setMenNumber(String menNumber) {
+        this.menNumber = menNumber;
     }
 
     public String getEventName() {
@@ -78,44 +219,20 @@ public class RE_Element {
         this.totalPerson = totalPerson;
     }
 
-    public String getWomenNumber() {
-        return womenNumber;
+    public String getNativeNumber() {
+        return nativeNumber;
     }
 
-    public void setWomenNumber(String womenNumber) {
-        this.womenNumber = womenNumber;
+    public void setNativeNumber(String nativeNumber) {
+        this.nativeNumber = nativeNumber;
     }
 
-    public String getMenNumber() {
-        return menNumber;
+    public String getNameForm() {
+        return nameForm;
     }
 
-    public void setMenNumber(String menNumber) {
-        this.menNumber = menNumber;
-    }
-
-    public String getNoSpcNumber() {
-        return noSpcNumber;
-    }
-
-    public void setNoSpcNumber(String noSpcNumber) {
-        this.noSpcNumber = noSpcNumber;
-    }
-
-    public String getInfantNumber() {
-        return infantNumber;
-    }
-
-    public void setInfantNumber(String infantNumber) {
-        this.infantNumber = infantNumber;
-    }
-
-    public String getChildhoodNumber() {
-        return childhoodNumber;
-    }
-
-    public void setChildhoodNumber(String childhoodNumber) {
-        this.childhoodNumber = childhoodNumber;
+    public void setNameForm(String nameForm) {
+        this.nameForm = nameForm;
     }
 
     public String getTeenNumber() {
@@ -126,78 +243,6 @@ public class RE_Element {
         this.teenNumber = teenNumber;
     }
 
-    public String getYouthNumber() {
-        return youthNumber;
-    }
-
-    public void setYouthNumber(String youthNumber) {
-        this.youthNumber = youthNumber;
-    }
-
-    public String getAdultNumber() {
-        return adultNumber;
-    }
-
-    public void setAdultNumber(String adultNumber) {
-        this.adultNumber = adultNumber;
-    }
-
-    public String getElderlyNumber() {
-        return elderlyNumber;
-    }
-
-    public void setElderlyNumber(String elderlyNumber) {
-        this.elderlyNumber = elderlyNumber;
-    }
-
-    public String getAfroNumber() {
-        return afroNumber;
-    }
-
-    public void setAfroNumber(String afroNumber) {
-        this.afroNumber = afroNumber;
-    }
-
-    public String getNativeNumber() {
-        return nativeNumber;
-    }
-
-    public void setNativeNumber(String nativeNumber) {
-        this.nativeNumber = nativeNumber;
-    }
-
-    public String getLgtbiNumber() {
-        return lgtbiNumber;
-    }
-
-    public void setLgtbiNumber(String lgtbiNumber) {
-        this.lgtbiNumber = lgtbiNumber;
-    }
-
-    public String getRomNumber() {
-        return romNumber;
-    }
-
-    public void setRomNumber(String romNumber) {
-        this.romNumber = romNumber;
-    }
-
-    public String getVictimNumber() {
-        return victimNumber;
-    }
-
-    public void setVictimNumber(String victimNumber) {
-        this.victimNumber = victimNumber;
-    }
-
-    public String getDisabilityNumber() {
-        return disabilityNumber;
-    }
-
-    public void setDisabilityNumber(String disabilityNumber) {
-        this.disabilityNumber = disabilityNumber;
-    }
-
     public String getDemobilizedNumber() {
         return demobilizedNumber;
     }
@@ -206,66 +251,19 @@ public class RE_Element {
         this.demobilizedNumber = demobilizedNumber;
     }
 
-    public String getMongrelNumber() {
-        return mongrelNumber;
+    public String getChildhoodNumber() {
+        return childhoodNumber;
     }
 
-    public void setMongrelNumber(String mongrelNumber) {
-        this.mongrelNumber = mongrelNumber;
+    public void setChildhoodNumber(String childhoodNumber) {
+        this.childhoodNumber = childhoodNumber;
     }
 
-    public String getForeignNumber() {
-        return foreignNumber;
+    public String getAfroNumber() {
+        return afroNumber;
     }
 
-    public void setForeignNumber(String foreignNumber) {
-        this.foreignNumber = foreignNumber;
-    }
-
-    public String getPeasantNumber() {
-        return peasantNumber;
-    }
-
-    public void setPeasantNumber(String peasantNumber) {
-        this.peasantNumber = peasantNumber;
-    }
-
-    public String getOtherNumber() {
-        return otherNumber;
-    }
-
-    public void setOtherNumber(String otherNumber) {
-        this.otherNumber = otherNumber;
-    }
-
-    public Map<String, Object> toMap() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("idForm", idForm);
-        map.put("nameForm", nameForm);
-        map.put("date", date);
-        map.put("eventName", eventName);
-        map.put("totalPerson", totalPerson);
-        map.put("womenNumber", womenNumber);
-        map.put("menNumber", menNumber);
-        map.put("infantNumber", infantNumber);
-        map.put("childhoodNumber", childhoodNumber);
-        map.put("teenNumber", teenNumber);
-        map.put("youthNumber", youthNumber);
-        map.put("adultNumber", adultNumber);
-        map.put("elderlyNumber", elderlyNumber);
-        map.put("noSpcNumber", noSpcNumber);
-        map.put("nativeNumber", nativeNumber);
-        map.put("lgtbiNumber", lgtbiNumber);
-        map.put("romNumber", romNumber);
-        map.put("victimNumber", victimNumber);
-        map.put("disabilityNumber", disabilityNumber);
-        map.put("demobilizedNumber", demobilizedNumber);
-        map.put("mongrelNumber", mongrelNumber);
-        map.put("foreignNumber", foreignNumber);
-        map.put("peasantNumber", peasantNumber);
-        map.put("otherNumber", otherNumber);
-        map.put("afroNumber", afroNumber);
-
-        return map;
+    public void setAfroNumber(String afroNumber) {
+        this.afroNumber = afroNumber;
     }
 }

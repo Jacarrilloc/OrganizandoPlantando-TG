@@ -39,21 +39,24 @@ public class FirebaseDatabase implements FirebaseDatabaseI {
         });
     }
 
-    public void updateInDatabase(String idGarden,Map<String, Object> newInfoForm){
+    public void updateInDatabase(String idGarden, Map<String, Object> newInfoForm) {
         String date = (String) newInfoForm.get("Date");
         String createdBy = (String) newInfoForm.get("CreatedBy");
-        int idForm = Integer.parseInt(newInfoForm.get("idForm").toString());
-        mFirestore.collection("Gardens").document(idGarden).collection("Forms").get()
+        int idForm = (int) Math.floor(Double.parseDouble(newInfoForm.get("idForm").toString()));
+
+        mFirestore.collection("Gardens")
+                .document(idGarden)
+                .collection("Forms")
+                .whereEqualTo("Date", date)
+                .whereEqualTo("CreatedBy", createdBy)
+                .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                        if (date != null && createdBy != null) {
-                            if (date.equals(documentSnapshot.getString("Date")) && createdBy.equals(documentSnapshot.getString("CreatedBy")) ) {
-                                documentSnapshot.getReference().update(newInfoForm);
-                            }
-                        }
+                        documentSnapshot.getReference().update(newInfoForm);
                     }
-                }).addOnFailureListener(e -> {
-                    Log.e("Update-Firebase","No fue posible Actualizar en Firebase");
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Update-Firebase", "No fue posible actualizar en Firebase: " + e.getMessage());
                 });
     }
 

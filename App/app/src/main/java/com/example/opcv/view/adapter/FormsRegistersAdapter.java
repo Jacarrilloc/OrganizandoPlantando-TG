@@ -62,70 +62,45 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
         seeMoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String idFormString = item.getInfo().get("idForm").toString();
-                int formType = Integer.parseInt(idFormString);
+                String idFormString = String.valueOf(item.getInfo().get("idForm"));
+                int formType = (int) Double.parseDouble(idFormString);
                 Intent newForm;
-                switch (formType){
+                Class<?> formClass;
+
+                switch (formType) {
                     case 1:
-                        newForm = new Intent(context, Form_RAC.class);
-                        newForm.putExtra("watch","true");
-                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
-                        newForm.putExtra("Name",item.getFormName());
-                        context.startActivity(newForm);
+                        formClass = Form_RAC.class;
                         break;
-                    case 2 :
-                        newForm = new Intent(context, Form_SCMPH.class);
-                        newForm.putExtra("watch","true");
-                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
-                        newForm.putExtra("Name",item.getFormName());
-                        context.startActivity(newForm);
+                    case 2:
+                        formClass = Form_SCMPH.class;
                         break;
                     case 3:
-                        newForm = new Intent(context, Form_IMP.class);
-                        newForm.putExtra("watch","true");
-                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
-                        newForm.putExtra("Name",item.getFormName());
-                        context.startActivity(newForm);
+                        formClass = Form_IMP.class;
                         break;
                     case 4:
-                        newForm = new Intent(context, Form_RSMP.class);
-                        newForm.putExtra("watch","true");
-                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
-                        newForm.putExtra("Name",item.getFormName());
-                        context.startActivity(newForm);
+                        formClass = Form_RSMP.class;
                         break;
                     case 8:
-                        newForm = new Intent(context, Form_RCC.class);
-                        newForm.putExtra("watch","true");
-                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
-                        newForm.putExtra("Name",item.getFormName());
-                        context.startActivity(newForm);
+                        formClass = Form_RCC.class;
                         break;
                     case 10:
-                        newForm = new Intent(context, Form_CIH.class);
-                        newForm.putExtra("watch","true");
-                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                        newForm.putExtra("idCollecion", (Serializable) item.getInfo());
-                        newForm.putExtra("Name",item.getFormName());
-                        context.startActivity(newForm);
+                        formClass = Form_CIH.class;
                         break;
                     case 12:
-                        newForm = new Intent(context, Form_RE.class);
-                        newForm.putExtra("watch","true");
-                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
-                        newForm.putExtra("Name",item.getFormName());
-                        context.startActivity(newForm);
+                        formClass = Form_RE.class;
                         break;
                     default:
-                        Log.i("LOCALFORM","NO SE RECONOCE EL ID DE ESTE FORM");
-                        break;
+                        Log.i("LOCALFORM", "NO SE RECONOCE EL ID DE ESTE FORM");
+                        return;
                 }
+
+                newForm = new Intent(context, formClass);
+                newForm.putExtra("watch", "edit");
+                newForm.putExtra("idGardenFirebase", item.getIdGarden());
+                newForm.putExtra("idCollecion", (Serializable) item.getInfo());
+                newForm.putExtra("Name", item.getFormName());
+                context.startActivity(newForm);
+
                 /*
                 }
 
@@ -195,70 +170,45 @@ public class FormsRegistersAdapter extends ArrayAdapter<ItemRegistersList> {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String idFormString = (String) item.getInfo().get("idForm");
-                int formType = Integer.parseInt(idFormString);
+                String idFormString = String.valueOf(item.getInfo().get("idForm"));
+                int formType = (int) Double.parseDouble(idFormString);
                 Intent newForm;
-                switch (formType){
+                Class<?> formClass;
+
+                switch (formType) {
                     case 1:
-                        newForm = new Intent(context, Form_RAC.class);
-                        newForm.putExtra("watch","edit");
-                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                        newForm.putExtra("idCollecion", (Serializable) item.getInfo());
-                        newForm.putExtra("Name",item.getFormName());
-                        context.startActivity(newForm);
+                        formClass = Form_RAC.class;
                         break;
                     case 2:
-                        newForm = new Intent(context, Form_SCMPH.class);
-                        newForm.putExtra("watch","edit");
-                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
-                        newForm.putExtra("Name",item.getFormName());
-                        context.startActivity(newForm);
+                        formClass = Form_SCMPH.class;
                         break;
                     case 3:
-                        newForm = new Intent(context, Form_IMP.class);
-                        newForm.putExtra("watch","edit");
-                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
-                        newForm.putExtra("Name",item.getFormName());
-                        context.startActivity(newForm);
+                        formClass = Form_IMP.class;
                         break;
                     case 4:
-                        newForm = new Intent(context, Form_RSMP.class);
-                        newForm.putExtra("watch","edit");
-                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
-                        newForm.putExtra("Name",item.getFormName());
-                        context.startActivity(newForm);
+                        formClass = Form_RSMP.class;
                         break;
                     case 8:
-                        newForm = new Intent(context, Form_RCC.class);
-                        newForm.putExtra("watch","edit");
-                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
-                        newForm.putExtra("Name",item.getFormName());
-                        context.startActivity(newForm);
+                        formClass = Form_RCC.class;
                         break;
                     case 10:
-                        newForm = new Intent(context, Form_CIH.class);
-                        newForm.putExtra("watch","edit");
-                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                        newForm.putExtra("idCollecion", (Serializable) item.getInfo());
-                        newForm.putExtra("Name",item.getFormName());
-                        context.startActivity(newForm);
+                        formClass = Form_CIH.class;
                         break;
                     case 12:
-                        newForm = new Intent(context, Form_RE.class);
-                        newForm.putExtra("watch","edit");
-                        newForm.putExtra("idGardenFirebase",item.getIdGarden());
-                        newForm.putExtra("idCollecion",(Serializable) item.getInfo());
-                        newForm.putExtra("Name",item.getFormName());
-                        context.startActivity(newForm);
+                        formClass = Form_RE.class;
                         break;
                     default:
-                        Log.i("LOCALFORM","NO SE RECONOCE EL ID DE ESTE FORM");
-                        break;
+                        Log.i("LOCALFORM", "NO SE RECONOCE EL ID DE ESTE FORM");
+                        return;
                 }
+
+                newForm = new Intent(context, formClass);
+                newForm.putExtra("watch", "edit");
+                newForm.putExtra("idGardenFirebase", item.getIdGarden());
+                newForm.putExtra("idCollecion", (Serializable) item.getInfo());
+                newForm.putExtra("Name", item.getFormName());
+                context.startActivity(newForm);
+
                 //FU.editForms(item.idGarden, item.idFormCollection, item.getFormName());
                 /*
                 int form;
