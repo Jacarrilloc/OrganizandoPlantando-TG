@@ -164,3 +164,4 @@ public class CommentsAdapter extends ArrayAdapter<ItemComments> {
         return convertView;
     }
 }
+

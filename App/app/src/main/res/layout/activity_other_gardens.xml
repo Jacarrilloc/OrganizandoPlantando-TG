@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_185sdp"
             android:layout_gravity="center"
-            android:background="@drawable/im_garden_pic"
+            android:src="@drawable/im_garden_pic"
             android:scaleType="centerCrop" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -43,45 +43,25 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/gardenNameText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:fontFamily="@font/manroperegular"
+            android:text="@string/oza_n"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_35sdp" />
 
-            <TextView
-                android:id="@+id/gardenNameText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:layout_weight="1"
-                android:fontFamily="@font/manropemedium"
-                android:text="@string/oza_n"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_35sdp" />
-
-            <Button
-                android:id="@+id/requesteJoin"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_35sdp"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_1sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
-                android:textSize="@dimen/_13sdp"
-                android:backgroundTint="@color/blueblue"
-                android:fontFamily="@font/manropemedium"
-                android:background="@drawable/dr_green_button"
-                android:text="@string/requestJoin"
-                android:textAllCaps="false" />
-        </LinearLayout>
 
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_margin="@dimen/_10sdp"
         android:layout_weight="1">
 
@@ -103,10 +83,9 @@
             <TextView
                 android:id="@+id/descriptionGarden"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:textSize="@dimen/_16sdp"
                 android:layout_margin="@dimen/_4sdp"
-                android:layout_weight="1"
                 android:text="@string/description2"
                 android:fontFamily="@font/manroperegular"
                 android:textColor="@color/black"/>
@@ -130,10 +109,28 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_5sdp"
                     android:text="@string/participants1"
+                    android:paddingStart="@dimen/_10sdp"
                     android:fontFamily="@font/manropemedium"
                     android:textColor="@color/gray"
-                    android:textSize="@dimen/_16sdp"/>
+                    android:textSize="@dimen/_16sdp"
+                    tools:ignore="RtlSymmetry" />
             </LinearLayout>
+
+            <Button
+                android:id="@+id/requesteJoin"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_22sdp"
+                android:layout_marginStart="@dimen/_22sdp"
+                android:textSize="@dimen/_13sdp"
+                android:backgroundTint="@color/blueblue"
+                android:fontFamily="@font/manropemedium"
+                android:background="@drawable/dr_green_button"
+                android:text="@string/requestJoin"
+                android:textAllCaps="false" />
 
 
         </LinearLayout>

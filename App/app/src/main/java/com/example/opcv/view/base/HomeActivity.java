@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -434,8 +435,10 @@ public class HomeActivity extends AppCompatActivity {
                     if (currentProgress[0] <= progressDialog.getMax()) {
                         handler.postDelayed(this, 1000);
                     } else {
-                        progressDialog.dismiss();
-                        progressDialog = null;
+                        if(!((Activity) HomeActivity.this).isFinishing()){
+                            progressDialog.dismiss();
+                            progressDialog = null;
+                        }
                     }
                 }
             }

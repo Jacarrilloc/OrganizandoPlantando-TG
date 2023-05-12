@@ -1,5 +1,6 @@
 package com.example.opcv.view.gardens;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -71,6 +72,9 @@ public class GardenAddressActivity extends AppCompatActivity {
             myLocationOverlay.enableMyLocation();
             map.getOverlays().add(myLocationOverlay);
 
+            startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+            map.getOverlays().add(startMarker);
+
             myLocationOverlay.runOnFirstFix(new Runnable() {
                 public void run() {
                     if (myLocationOverlay.getMyLocation()!=null) {
@@ -83,9 +87,6 @@ public class GardenAddressActivity extends AppCompatActivity {
                     }
                 }
             });
-
-            startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-            map.getOverlays().add(startMarker);
 
             // Add MapEventsOverlay
             MapEventsReceiver mReceive = new MapEventsReceiver() {
@@ -108,6 +109,7 @@ public class GardenAddressActivity extends AppCompatActivity {
             MapEventsOverlay OverlayEvents = new MapEventsOverlay(getBaseContext(), mReceive);
             map.getOverlays().add(OverlayEvents);
 
+
         }
 
         show.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +131,20 @@ public class GardenAddressActivity extends AppCompatActivity {
                 startActivity(new Intent(GardenAddressActivity.this, HomeActivity.class));
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // El permiso fue concedido. Reiniciar la actividad para que la ubicación se pueda obtener inmediatamente.
+                recreate();
+            } else {
+                // El permiso fue denegado. Manejar este caso si es necesario.
+            }
+        }
     }
 
 

@@ -67,16 +67,6 @@ public class GardenCommunication {
             }
         });
 
-        /*FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference ref = db.collection("Gardens").document(id);
-        ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if(documentSnapshot.exists()){
-                    callback.onSuccess(documentSnapshot.getString("UriPath"));
-                }
-            }
-        });*/
     }
 
 

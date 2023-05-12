@@ -277,13 +277,13 @@
     <string name="calendario">Calendario</string>
     <string name="agrega_la_foto_de_tu_huerta">¡Agrega la foto de tu huerta!</string>
     <string name="al_ser_nivel_2_ya_puedes_agregar_una_foto_de_tu_huerta_n_n_con_esto_podr_s_perzonalizar_la_descripci_n_de_tu_huerta_y_ser_m_s_llamativa_para_otras_personas">Al ser nivel 2 ya puedes agregar una foto de tu huerta. \n\n Con esto podrás perzonalizar la descripción de tu huerta y ser más llamativa para otras personas.</string>
-    <string name="ShowGuidesText">A continuación se muestran las guias que corresponden al nivel desbloqueado: </string>
-    <string name="DisplayPDF">A continuación podras visualizar la guia que seleccionaste o podras descargarla en tu dispositivo</string>
+    <string name="ShowGuidesText">A continuación, se muestran las guías que corresponden al nivel desbloqueado. </string>
+    <string name="DisplayPDF">A continuación, podrás visualizar la guía que seleccionaste o podrás descargarla en tu dispositivo.</string>
     <string name="registrarse_como_invitado">Registrarse como invitado</string>
     <string name="ingresa_tu_nombre_de_invitado">Ingresa tu nombre de invitado</string>
     <string name="ingresar">Ingresar</string>
     <string name="textview">TextView</string>
-    <string name="ShowPlantsDiseases">A continuación se muestran las información de enfermedades mas comunes de estas plantas y sus posibles soluciones. </string>
+    <string name="ShowPlantsDiseases">A continuación, se muestran las información de enfermedades más comunes de estas plantas y sus posibles soluciones. </string>
 
     <!--Textos estaticos para el nivel de plantas y sus enfermedades-->
     <!--Lechuga-->
@@ -438,7 +438,8 @@
     <string name="mostrar">Mostrar</string>
     <string name="seleccionar">Seleccionar</string>
     <string name="finalizar_registro_de_huerta">Finalizar registro de huerta</string>
-    <string name="a_continuaci_n_puedes_seleccionar_en_el_mapa_la_ubicaci_n_de_tu_huerta_o_escribirla_directamente_y_mostrarla_en_el_mapa_usando_el_bot_n_mostrar_para_m_s_precisi_n_al_escribir_tu_direcci_n_escribe_la_ciudad_por_ejemplo_calle_333_44_33_bogot">A continuación, puedes seleccionar en el mapa la ubicación de tu huerta o escribirla directamente y mostrarla en el mapa usando el botón mostrar. Para más precisión al escribir tu dirección escribe la ciudad por ejemplo: calle 333 # 44-33, Bogotá.</string>
+    <string name="addressGarden">Ingresa la dirección de tu huerta o selecciónala en el mapa.</string>
+    <string name="insumos">Insumos</string>
 
     <!--Fin de la seccion de las plantas del nivel 3-->
 </resources>

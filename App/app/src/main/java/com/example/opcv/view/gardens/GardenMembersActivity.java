@@ -78,7 +78,6 @@ public class GardenMembersActivity extends AppCompatActivity {
 
     private void fillGardenMembers(){
         CollectionReference collaboratorsRef = database.collection("Gardens").document(idGarden).collection("Collaborators");
-        System.out.println("xd: "+collaboratorsRef);
 
         getCollaboratorIds(collaboratorsRef, new OnCollaboratorIdsObtained() {
             @Override

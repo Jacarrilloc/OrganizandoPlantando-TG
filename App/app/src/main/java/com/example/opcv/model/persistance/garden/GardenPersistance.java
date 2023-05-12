@@ -9,6 +9,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.opcv.R;
+import com.example.opcv.business.interfaces.firebase.map.GetGardensAddresses;
+import com.example.opcv.model.entity.Address;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -123,7 +125,34 @@ public class GardenPersistance {
                }
             }
         });
+    }
 
+    public void gardensAddresses(final GetGardensAddresses callback){
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        CollectionReference ref = database.collection("Gardens");
+        ref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    GeoPoint point;
+                    String gardenName;
+                    Map<Integer, Address> addresses = new HashMap<>();
+                    int i = 0;
+                    for(QueryDocumentSnapshot docs: task.getResult()) {
+                        if (docs.getDouble("latitude") != null && docs.getDouble("longitude") != null) {
+                            point = new GeoPoint(docs.getDouble("latitude"), docs.getDouble("longitude"));
+                            gardenName = docs.getString("GardenName");
+                            Address address = new Address(gardenName, point);
+                            addresses.put(i, address);
+                            i++;
+                        }
+                    }
+                    callback.onComplete(addresses);
+                }else{
+                    System.out.println("Error");
+                }
+            }
+        });
     }
 
 
