@@ -21,6 +21,7 @@
             android:gravity="end"
             android:fontFamily="@font/manroperegular"
             android:textColor="@color/black"
+            android:layout_marginStart="@dimen/_10sdp"
             android:textSize="@dimen/_15sdp"
             android:text="@string/description2"
             android:layout_marginEnd="@dimen/_30sdp"/>
@@ -34,7 +35,8 @@
             android:textStyle="italic"
             android:layout_marginEnd="@dimen/_20sdp"
             android:textColor="@color/gray"
-            android:textSize="@dimen/_13sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:textSize="@dimen/_14sdp"
             android:text="@string/description2" />
     </LinearLayout>
 

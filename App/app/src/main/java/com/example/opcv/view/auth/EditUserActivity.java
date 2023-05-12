@@ -128,6 +128,8 @@ public class EditUserActivity extends AppCompatActivity {
 
         UserCommunication persistance = new UserCommunication();
 
+        profile.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.green));
+
         searchUserInfo();
         persistance.getProfilePicture(userID_Recived, new UserCommunication.GetUriUser() {
             @Override

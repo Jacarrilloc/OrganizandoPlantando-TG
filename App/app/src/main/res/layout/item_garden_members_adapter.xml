@@ -29,7 +29,7 @@
             <TextView
                 android:id="@+id/userName"
                 android:layout_weight="1"
-                android:textSize="@dimen/_18sdp"
+                android:textSize="@dimen/_15sdp"
                 android:layout_width="match_parent"
                 android:fontFamily="@font/manropemedium"
                 android:layout_height="wrap_content"

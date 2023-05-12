@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:clickable="true"
             android:contentDescription="@string/boton_para_regresar"
             android:tint="@color/white"
@@ -34,7 +34,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/_45sdp">
 
                 <TextView
                     android:id="@+id/name"
@@ -42,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
                     android:text="@string/agrega_la_foto_de_tu_huerta"
-                    android:layout_marginStart="@dimen/_60sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:fontFamily="@font/manropemedium"
                     android:textAlignment="center"
@@ -64,7 +65,7 @@
                     android:text="@string/al_ser_nivel_2_ya_puedes_agregar_una_foto_de_tu_huerta_n_n_con_esto_podr_s_perzonalizar_la_descripci_n_de_tu_huerta_y_ser_m_s_llamativa_para_otras_personas"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:fontFamily="@font/manropemedium"
+                    android:fontFamily="@font/manroperegular"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="20sp" />

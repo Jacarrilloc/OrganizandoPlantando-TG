@@ -13,6 +13,18 @@
         android:layout_height="match_parent"
         android:layout_weight="0.9">
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/returnArrowButtonToHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:clickable="true"
+            android:contentDescription="@string/boton_para_regresar"
+            android:tint="@color/white"
+            app:backgroundTint="#91BF63"
+            app:srcCompat="@drawable/dr_return_arrow" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -21,19 +33,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/returnArrowButtonToHome"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_14sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:clickable="true"
-                    android:contentDescription="@string/boton_para_regresar"
-                    android:tint="@color/white"
-                    app:backgroundTint="#91BF63"
-                    app:srcCompat="@drawable/dr_return_arrow" />
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/_45sdp">
 
                 <TextView
                     android:id="@+id/textView6"

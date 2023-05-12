@@ -2,6 +2,7 @@ package com.example.opcv.view.ludification;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class DictionaryHomeActivity extends AppCompatActivity {
 
     private Button plants, tools;
-    private Button profile, myGardens, rewards;
+    private Button profile, myGardens, rewards, dictionary;
     private String idUser, idDocUSer;
 
     @Override
@@ -45,12 +46,13 @@ public class DictionaryHomeActivity extends AppCompatActivity {
         rewards = (Button) findViewById(R.id.rewards);
         plants = (Button) findViewById(R.id.plants);
         tools = (Button) findViewById(R.id.tools);
+        dictionary =(Button) findViewById(R.id.ludification);
         AuthCommunication auth = new AuthCommunication();
         idUser = auth.getCurrentUserUid();
         AuthCommunication authCommunication = new AuthCommunication();
         FirebaseUser user = authCommunication.guestUser();
 
-
+        dictionary.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.green));
 
         plants.setOnClickListener(new View.OnClickListener() {
             @Override

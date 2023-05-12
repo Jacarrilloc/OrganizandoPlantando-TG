@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -33,7 +34,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
+import androidx.core.content.ContextCompat;
 import com.example.opcv.R;
 import com.example.opcv.model.persistance.firebase.AuthCommunication;
 import com.example.opcv.model.persistance.garden.GardenPersistance;
@@ -140,6 +141,7 @@ public class HomeActivity extends AppCompatActivity {
                 }).create().show();
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -242,6 +244,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        myGardens.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.green));
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override

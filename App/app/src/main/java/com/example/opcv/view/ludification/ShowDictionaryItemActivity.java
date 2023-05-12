@@ -112,7 +112,6 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         back = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
         deleteButton = (ImageButton) findViewById(R.id.deleteButton);
 
-        listView.setLayoutManager(new LinearLayoutManager(this));
 
         //Vista del autor de la descripción
         authorLayout = (FrameLayout) findViewById(R.id.authorCard);
@@ -121,6 +120,8 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         namelevel = (TextView) findViewById(R.id.nameLevel);
         borderImage = (ImageView) findViewById(R.id.imageLevel);
         imagePusblisher = (CircleImageView) findViewById(R.id.image);
+
+        listView.setLayoutManager(new LinearLayoutManager(this));
 
         LudificationCommunication persistance = new LudificationCommunication();
         UserCommunication userPersistance = new UserCommunication();
