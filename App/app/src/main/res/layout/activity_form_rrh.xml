@@ -90,6 +90,16 @@
                 android:layout_height="wrap_content"
                 android:text="@string/concepto" />
 
+            <TextView
+                android:id="@+id/conceptSelectedSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                android:fontFamily="@font/manroperegular"
+                android:background="@drawable/dr_white_input_text"
+                android:text="TextView" />
+
             <Spinner
                 android:id="@+id/spinnerConcept"
                 android:layout_width="fill_parent"
