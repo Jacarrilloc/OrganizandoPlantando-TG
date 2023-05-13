@@ -16,6 +16,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageException;
@@ -82,14 +83,17 @@ public class UserCommunication {
     }
     public void deleteUser(String idUser){
         //eliminar del authentication
+
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         mAuth.signOut();
         if(user != null){
+            deleteDatabase(user.getUid());
             user.delete();
         }
         //eliminar primero la foto del storage
         String uri = idUser+".jpg";
+
 
         try{
             StorageReference storageReference = FirebaseStorage.getInstance().getReference("userProfilePhoto/"+uri);
@@ -106,13 +110,12 @@ public class UserCommunication {
                     storageReference.delete();
                 }
             });
+
         }catch(Exception e){
             Log.i("No hay foto", e.getMessage());
         }
 
-        //eliminar coleccion en firestore
-        FirebaseFirestore database = FirebaseFirestore.getInstance();
-        database.collection("UserInfo").document(idUser).delete();
+
 
     }
     //este metodo es para crear una coleccion en el usuario para que si le dio a 'unirse' a una huerta, se deshabilite esa opcion para despues
@@ -120,6 +123,33 @@ public class UserCommunication {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("UserInfo").document(idUser).collection("UserGardenRequests").add(map);
     }
+
+    public void deleteDatabase(String idUser){
+        //eliminar coleccion en firestore
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+
+        database.collection("UserInfo").whereEqualTo("ID", idUser).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot query : task.getResult()){
+                        String document = query.getId();
+                        database.collection("UserInfo").document(document).delete();
+                        break;
+                    }
+                }
+            }
+        });
+      /*  database.collection("UserInfo").document(idUser).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Log.i("User borrado", "Se elimino la base de datos del user");
+                }
+            }
+        });*/
+    }
+
 
     public void userAlreadyRequested(String idUser, String idGarden, final GetUserRequest callback){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -143,6 +173,47 @@ public class UserCommunication {
     }
     public interface GetUserRequest{
         void onComplete(Boolean response);
+    }
+
+    public void deleteUserCollections(String idUser){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference ref = db.collection("UserInfo").document(idUser);
+
+        ref.collection("UserActionsPoints").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot doc : task.getResult()){
+                        doc.getReference().delete();
+                    }
+                    Log.i("UserActionsPoints", "Se elimino la coleccion de UserActionsPoints");
+                }
+            }
+        });
+
+        ref.collection("GardensCollaboration").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot doc : task.getResult()){
+                        doc.getReference().delete();
+                    }
+                    Log.i("GardensCollaboration", "Se elimino la coleccion de GardensCollaboration");
+                }
+            }
+        });
+
+        ref.collection("UserGardenRequests").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot doc : task.getResult()){
+                        doc.getReference().delete();
+                    }
+                    Log.i("UserGardenRequests", "Se elimino la coleccion de UserGardenRequests");
+                }
+            }
+        });
     }
 
 }
