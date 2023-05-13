@@ -7,36 +7,27 @@
     android:background="@color/white"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context=".ludificationScreens.ShowDictionaryItemActivity">
+    tools:context=".view.ludification.ShowDictionaryItemActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.9">
 
-        <EditText
-            android:id="@+id/inputText"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_150sdp"
-            android:layout_gravity="bottom|end"
-            android:layout_marginTop="@dimen/_120sdp"
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/returnArrowButtonToHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
-            android:background="@drawable/im_input"
-            android:fontFamily="@font/manroperegular"
-            android:paddingBottom="@dimen/_35sdp"
-            android:paddingTop="@dimen/_10sdp"
-            android:paddingStart="@dimen/_10sdp"
-            android:paddingEnd="@dimen/_10sdp"
-            android:clickable="false"
-            android:elevation="150dp"
-            android:layout_marginEnd="@dimen/_30sdp"
-            android:layout_marginBottom="@dimen/_70sdp"
-            android:gravity="start|left"
-            android:hint="@string/ingrese_comentario"
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray"
-            android:textSize="@dimen/_20sdp"
-            android:visibility="invisible"/>
+            android:layout_marginTop="@dimen/_10sdp"
+            android:clickable="true"
+            android:contentDescription="@string/boton_para_regresar"
+            android:tint="@color/white"
+            app:backgroundTint="#91BF63"
+            app:srcCompat="@drawable/dr_return_arrow" />
+
+
 
         <FrameLayout
             android:id="@+id/authorCard"
@@ -46,7 +37,7 @@
             android:elevation="150dp"
             android:visibility="gone"
             android:layout_marginStart="@dimen/_90sdp"
-            android:layout_marginTop="@dimen/_60sdp"
+            android:layout_marginTop="@dimen/_95sdp"
             android:background="@drawable/im_show_author">
 
             <FrameLayout
@@ -129,68 +120,23 @@
 
         </FrameLayout>
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:layout_gravity="bottom|end"
-            android:elevation="150dp">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/addButton"
-                android:layout_width="@dimen/_85sdp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5sp"
-                android:backgroundTint="#D0A9D7"
-                android:clickable="true"
-                android:contentDescription="@string/a_adir"
-                android:focusable="true"
-                android:foregroundTint="@color/green"
-                android:foregroundTintMode="multiply"
-                android:tint="@color/white"
-                android:tintMode="multiply"
-
-                app:backgroundTintMode="src_in"
-                app:maxImageSize="@dimen/_30sdp"
-                app:rippleColor="@color/white"
-                app:srcCompat="@drawable/dr_add_button" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/sendButton"
-                android:layout_width="@dimen/_85sdp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5sp"
-                android:backgroundTint="#D0A9D7"
-                android:contentDescription="@string/a_adir_comentario"
-                android:foregroundTint="@color/green"
-                android:foregroundTintMode="multiply"
-                android:tint="@color/white"
-                android:tintMode="multiply"
-                android:visibility="invisible"
-                android:clickable="false"
-                android:focusable="false"
-                android:translationZ="10dp"
-                app:backgroundTintMode="src_in"
-                app:maxImageSize="@dimen/_30sdp"
-                app:rippleColor="@color/white"
-                app:srcCompat="@drawable/im_paper_airplane" />
-
-        </FrameLayout>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fillViewport="true"
             android:translationZ="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:orientation="vertical" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="195dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <FrameLayout
@@ -220,7 +166,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical">
 
                         <TextView
@@ -228,7 +174,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_16sdp"
-                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
                             android:layout_marginEnd="@dimen/_16sdp"
                             android:fontFamily="@font/manropemedium"
                             android:text="@string/nombre5"
@@ -258,82 +204,175 @@
                             app:alignContent="stretch"
                             app:justifyContent="center"/>
 
+                        <ImageButton
+                            android:id="@+id/deleteButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top|end"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:clickable="true"
+                            android:visibility="gone"
+                            android:contentDescription="@string/boton_para_regresar"
+                            app:backgroundTint="@color/white"
+                            app:srcCompat="@drawable/dr_delete_button" />
+
                     </LinearLayout>
 
                 </LinearLayout>
 
 
-                <TextView
-                    android:id="@+id/descriptionAuthor"
+
+
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_23sdp"
-                    android:layout_marginEnd="@dimen/_40sdp"
-                    android:text="@string/description23"
-                    android:fontFamily="@font/manropemedium"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_17sdp" />
+                    android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:id="@+id/likesBar"
-                    android:layout_width="@dimen/_120sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:layout_marginStart="@dimen/_23sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:layout_marginEnd="@dimen/_23sdp"
-                    android:orientation="horizontal">
-
-                    <ImageButton
-                        android:id="@+id/likebutton"
-                        android:layout_width="@dimen/_25sdp"
-                        android:layout_height="@dimen/_25sdp"
-                        android:background="@drawable/im_like_green" />
-
-                    <TextView
-                        android:id="@+id/likeNumber"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:gravity="center"
-                        android:fontFamily="@font/manroperegular"
-                        android:text="@string/_0"
-                        android:textColor="@color/gray"
-                        android:textSize="@dimen/_16sdp" />
+                        android:orientation="vertical">
 
-                    <ImageButton
-                        android:id="@+id/dislikebutton"
-                        android:layout_width="@dimen/_25sdp"
-                        android:layout_height="@dimen/_25sdp"
-                        android:layout_marginStart="@dimen/_20sdp"
-                        android:background="@drawable/im_dislike_red" />
+                        <TextView
+                            android:id="@+id/descriptionAuthor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_20sdp"
+                            android:layout_marginTop="@dimen/_13sdp"
+                            android:layout_marginEnd="@dimen/_70sdp"
+                            android:text="@string/description23"
+                            android:fontFamily="@font/manroperegular"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15sdp" />
 
-                    <TextView
-                        android:id="@+id/dislikeNumber"
-                        android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/likesBar"
+                            android:layout_width="@dimen/_120sdp"
+                            android:layout_height="@dimen/_25sdp"
+                            android:layout_marginStart="@dimen/_23sdp"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:layout_marginEnd="@dimen/_23sdp"
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:id="@+id/likebutton"
+                                android:layout_width="@dimen/_25sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:background="@drawable/im_like_green" />
+
+                            <TextView
+                                android:id="@+id/likeNumber"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:gravity="center"
+                                android:fontFamily="@font/manroperegular"
+                                android:text="@string/_0"
+                                android:textColor="@color/gray"
+                                android:textSize="@dimen/_16sdp" />
+
+                            <ImageButton
+                                android:id="@+id/dislikebutton"
+                                android:layout_width="@dimen/_25sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:layout_marginStart="@dimen/_20sdp"
+                                android:background="@drawable/im_dislike_red" />
+
+                            <TextView
+                                android:id="@+id/dislikeNumber"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/manroperegular"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:gravity="center"
+                                android:text="@string/_0"
+                                android:textColor="@color/gray"
+                                android:textSize="@dimen/_16sdp" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/addButton"
+                        android:layout_width="@dimen/_85sdp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/manroperegular"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:gravity="center"
-                        android:text="@string/_0"
-                        android:textColor="@color/gray"
-                        android:textSize="@dimen/_16sdp" />
+                        android:layout_margin="10sp"
+                        android:backgroundTint="#D0A9D7"
+                        android:layout_gravity="end|bottom"
+                        android:clickable="true"
+                        android:contentDescription="@string/a_adir"
+                        android:focusable="true"
+                        android:foregroundTint="@color/green"
+                        android:foregroundTintMode="multiply"
+                        android:tint="@color/white"
+                        android:tintMode="multiply"
+                        app:backgroundTintMode="src_in"
+                        app:maxImageSize="@dimen/_30sdp"
+                        app:rippleColor="@color/white"
+                        app:srcCompat="@drawable/dr_add_button" />
 
+                </FrameLayout>
 
-                </LinearLayout>
-
-                <ListView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/listViewComments"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_600sdp"
-                    android:layout_marginStart="@dimen/_1sdp"
-                    android:layout_marginTop="@dimen/_25sdp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_25sdp"/>
 
 
             </LinearLayout>
         </ScrollView>
+
+        <EditText
+            android:id="@+id/inputText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_110sdp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/im_input"
+            android:fontFamily="@font/manroperegular"
+            android:paddingBottom="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:clickable="true"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:gravity="start|left"
+            android:visibility="invisible"
+            android:elevation="@dimen/_150sdp"
+            android:hint="@string/ingrese_comentario"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"
+            android:textSize="@dimen/_20sdp"
+            android:focusable="true" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/sendButton"
+            android:layout_width="@dimen/_85sdp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#D0A9D7"
+            android:contentDescription="@string/a_adir_comentario"
+            android:foregroundTint="@color/green"
+            android:foregroundTintMode="multiply"
+            android:tint="@color/white"
+            android:tintMode="multiply"
+            android:layout_gravity="end|bottom"
+            android:clickable="false"
+            android:focusable="false"
+            android:visibility="invisible"
+            android:elevation="@dimen/_150sdp"
+            android:layout_marginBottom="@dimen/_120sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:backgroundTintMode="src_in"
+            app:maxImageSize="@dimen/_30sdp"
+            app:rippleColor="@color/white"
+            app:srcCompat="@drawable/im_paper_airplane" />
     </FrameLayout>
 
     <LinearLayout
@@ -363,22 +402,21 @@
             android:textColor="@color/grayLetters" />
 
         <Button
-            android:id="@+id/gardens"
-            android:layout_width="@dimen/_79sdp"
+            android:id="@+id/rewards"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginStart="@dimen/_1sdp"
             android:fontFamily="@font/manropemedium"
             android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
-            android:drawableTop="@drawable/im_colombia"
+            android:drawableTop="@drawable/im_reward_icon"
             android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
-            android:text="@string/Map"
+            android:text="@string/bonos"
             android:textAllCaps="false"
             android:textColor="@color/grayLetters" />
 

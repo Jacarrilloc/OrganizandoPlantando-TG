@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".gardens.GardensAvailableActivity">
+    tools:context=".view.gardens.GardensAvailableActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -29,25 +29,20 @@
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="@dimen/_183sdp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_30sdp"
-                android:fontFamily="@font/manropesemibold"
+                android:gravity="center"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:fontFamily="@font/manropemedium"
                 android:text="@string/MyCollaborations"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:layout_editor_absoluteY="293dp" />
 
-            <ImageView
-                android:id="@+id/mapIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:padding="20dp"
-                app:srcCompat="@drawable/im_map_icon" />
 
         </LinearLayout>
 
@@ -55,6 +50,8 @@
             android:id="@+id/collaborationGardenList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_100sdp"
             android:layout_weight="0.9">
 
@@ -65,7 +62,7 @@
     <LinearLayout
         android:id="@+id/linearLayout8"
         android:layout_width="wrap_content"
-        android:layout_height="110dp"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/dr_shadow_top"
         android:orientation="horizontal">
 
@@ -89,33 +86,31 @@
             android:textColor="@color/grayLetters" />
 
         <Button
-            android:id="@+id/gardens"
-            android:layout_width="@dimen/_79sdp"
+            android:id="@+id/rewards"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginStart="@dimen/_1sdp"
             android:fontFamily="@font/manropemedium"
             android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
-            android:drawableTop="@drawable/im_colombia"
+            android:drawableTop="@drawable/im_reward_icon"
             android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
-            android:text="@string/Map"
+            android:text="@string/bonos"
             android:textAllCaps="false"
             android:textColor="@color/grayLetters" />
 
         <Button
             android:id="@+id/myGardens"
-            android:layout_width="@dimen/_107sdp"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:ellipsize="end"
             android:maxLines="1"
-            android:layout_marginStart="@dimen/_1sdp"
             android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
@@ -130,10 +125,9 @@
 
         <Button
             android:id="@+id/profile"
-            android:layout_width="@dimen/_60sdp"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginStart="@dimen/_1sdp"
             android:layout_marginBottom="@dimen/_2sdp"
             android:fontFamily="@font/manropemedium"
             android:background="@color/white"
@@ -147,7 +141,6 @@
             android:text="@string/User"
             android:textAllCaps="false"
             android:textColor="@color/grayLetters" />
-
 
     </LinearLayout>
 

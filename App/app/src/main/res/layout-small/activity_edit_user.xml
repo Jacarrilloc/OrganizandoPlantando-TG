@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:focusableInTouchMode="true"
-    tools:context=".auth.EditUserActivity">
+    tools:context=".view.auth.EditUserActivity">
 
 
     <FrameLayout
@@ -77,16 +77,25 @@
                     android:gravity="center"
                     android:text="Nivel  " />
 
+                <ProgressBar
+                    android:id="@+id/progressBarUserLevel"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_marginLeft="@dimen/_30sdp"
+                    android:layout_marginRight="@dimen/_30sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:progressDrawable="@drawable/dr_progress_bar_green" />
+
                 <TextView
                     android:id="@+id/userName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_gravity="center"
-                    android:text="@string/nameUsr"
                     android:fontFamily="@font/manropemedium"
+                    android:text="@string/nameUsr"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_20sdp" />
@@ -110,7 +119,7 @@
                     <EditText
                         android:id="@+id/userName2"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_29sdp"
+                        android:layout_height="@dimen/_35sdp"
                         android:layout_gravity="center"
                         android:fontFamily="@font/manroperegular"
                         android:layout_marginStart="@dimen/_10sdp"
@@ -140,7 +149,7 @@
                     <EditText
                         android:id="@+id/lastNameInfo"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_29sdp"
+                        android:layout_height="@dimen/_35sdp"
                         android:layout_gravity="center"
                         android:fontFamily="@font/manroperegular"
                         android:layout_marginStart="@dimen/_10sdp"
@@ -170,11 +179,14 @@
                     <EditText
                         android:id="@+id/gardenName"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_29sdp"
+                        android:layout_height="@dimen/_35sdp"
                         android:layout_gravity="center"
                         android:fontFamily="@font/manroperegular"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginEnd="@dimen/_20sdp"
+                        android:text="@string/comabaquinta"
+                        android:enabled="false"
+                        android:clickable="false"
                         android:background="@drawable/dr_gray_input_text"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
@@ -200,7 +212,7 @@
                     <EditText
                         android:id="@+id/address"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_29sdp"
+                        android:layout_height="@dimen/_35sdp"
                         android:layout_gravity="center"
                         android:fontFamily="@font/manroperegular"
                         android:layout_marginStart="@dimen/_10sdp"
@@ -246,10 +258,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/_15sdp"
-                        android:text="@string/signout"
-                        android:fontFamily="@font/manroperegular"
                         android:ellipsize="end"
+                        android:fontFamily="@font/manroperegular"
                         android:maxLines="1"
+                        android:text="@string/signout"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_14sdp" />
 
@@ -266,14 +278,45 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:fontFamily="@font/manroperegular"
                         android:layout_marginStart="@dimen/_15sdp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/manroperegular"
+                        android:maxLines="1"
                         android:text="@string/delete"
                         android:textColor="@color/black"
-                        android:ellipsize="end"
-                        android:maxLines="1"
                         android:textSize="@dimen/_13sdp" />
 
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/changePassword"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:background="@drawable/im_password" />
+
+                    <TextView
+                        android:id="@+id/changePasswordText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/manroperegular"
+                        android:maxLines="1"
+                        android:text="@string/passwordChange"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13sdp" />
 
                 </LinearLayout>
 
@@ -309,22 +352,21 @@
             android:textColor="@color/grayLetters" />
 
         <Button
-            android:id="@+id/gardens"
-            android:layout_width="@dimen/_79sdp"
+            android:id="@+id/rewards"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginStart="@dimen/_1sdp"
             android:fontFamily="@font/manropemedium"
             android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
-            android:drawableTop="@drawable/im_colombia"
+            android:drawableTop="@drawable/im_reward_icon"
             android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
-            android:text="@string/Map"
+            android:text="@string/bonos"
             android:textAllCaps="false"
             android:textColor="@color/grayLetters" />
 

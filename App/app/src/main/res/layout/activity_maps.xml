@@ -7,13 +7,25 @@
     android:background="@color/white"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context=".MapsActivity">
+    tools:context=".view.gardens.MapsActivity">
 
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.9">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/returnArrowButtonToHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+
+            android:clickable="true"
+            android:contentDescription="@string/boton_para_regresar"
+            android:tint="@color/white"
+            app:backgroundTint="#91BF63"
+            app:srcCompat="@drawable/dr_return_arrow" />
 
         <ImageView
             android:id="@+id/backImage"
@@ -27,6 +39,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_60sdp"
             android:orientation="horizontal">
 
             <TextView
@@ -35,21 +48,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:fontFamily="@font/manropemedium"
-                android:layout_marginStart="@dimen/_20sdp"
+                android:fontFamily="@font/manroperegular"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:gravity="center"
                 android:text="@string/GardenAvTittle"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_20sdp" />
-
-            <ImageView
-                android:id="@+id/gardensIcon"
-                android:layout_width="match_parent"
-                android:layout_weight="2"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_gravity="center"
-                android:clickable="true"
-                android:focusable="true"
-                app:srcCompat="@drawable/im_list_view" />
 
         </LinearLayout>
 
@@ -89,22 +93,21 @@
             android:textColor="@color/grayLetters" />
 
         <Button
-            android:id="@+id/gardens"
-            android:layout_width="@dimen/_79sdp"
+            android:id="@+id/rewards"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginStart="@dimen/_1sdp"
             android:fontFamily="@font/manropemedium"
             android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
-            android:drawableTop="@drawable/im_colombia"
+            android:drawableTop="@drawable/im_reward_icon"
             android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
-            android:text="@string/Map"
+            android:text="@string/bonos"
             android:textAllCaps="false"
             android:textColor="@color/grayLetters" />
 

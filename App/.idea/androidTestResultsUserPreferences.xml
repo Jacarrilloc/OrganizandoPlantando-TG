@@ -3,6 +3,47 @@
   <component name="AndroidTestResultsUserPreferences">
     <option name="androidTestResultsTableState">
       <map>
+        <entry key="-1223219920">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="85L4C19A18003821" value="120" />
+                  <entry key="Duration" value="90" />
+                  <entry key="HUAWEI&#10; STK-LX3" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-595238122">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_6_Pro_API_23" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-200818375">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="85L4C19A18003821" value="120" />
+                  <entry key="Duration" value="90" />
+                  <entry key="HUAWEI&#10; STK-LX3" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="731788454">
           <value>
             <AndroidTestResultsTableState>
@@ -10,6 +51,48 @@
                 <map>
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_4_API_24_3" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1307656541">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="85L4C19A18003821" value="120" />
+                  <entry key="Duration" value="90" />
+                  <entry key="HUAWEI&#10; STK-LX3" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1308580062">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="85L4C19A18003821" value="120" />
+                  <entry key="Duration" value="90" />
+                  <entry key="HUAWEI&#10; STK-LX3" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1309503583">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="85L4C19A18003821" value="120" />
+                  <entry key="Duration" value="90" />
+                  <entry key="HUAWEI&#10; STK-LX3" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
               </option>

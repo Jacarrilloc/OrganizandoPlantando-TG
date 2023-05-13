@@ -2,11 +2,13 @@
     <string name="app_name">OPCV</string>
     <string name="Diccionary">Diccionario</string>
     <string name="Map">Huertas</string>
-    <string name="Gardens">Mis Huertas</string>
+    <string name="Gardens">Huerta</string>
     <string name="User">Perfil</string>
     <string name="CreateProfile">Crea tu cuenta</string>
     <string name="question1">¿Ya tienes una cuenta?</string>
+    <string name="question2">Entrar como invitado</string>
     <string name="login_text1">Inicia sesión</string>
+    <string name="login_text2">Ingresa</string>
     <string name="GardenAvTittle">Huertas Activas Disponibles</string>
     <string name="gardenName">Nombre Huerta</string>
     <string name="privateL">Privado</string>
@@ -180,7 +182,7 @@
     <string name="da_fruto">Da fruto</string>
     <string name="comestible">Comestible</string>
     <string name="medicinal">Medicinal</string>
-    <string name="precausi_n">Precausión</string>
+    <string name="precausi_n">Precaución</string>
     <string name="descripci_n_">Descripción:</string>
     <string name="agregar_planta">Agregar Planta</string>
     <string name="mascota_amigable">Mascota amigable</string>
@@ -236,7 +238,7 @@
     <string name="solicitud_de_compra_de_materia_prima_y_herramientas">Solicitud de compra de materia prima y herramientas</string>
     <string name="formsname">FormsName</string>
     <string name="la_imagen">La imagen</string>
-    <string name="mis_huertas">Mis Huertas</string>
+    <string name="mis_huertas">Huertas</string>
     <string name="boton_de_descargar">Boton de descargar</string>
     <string name="oza_n">Ozaín</string>
     <string name="lombricultura">Lombricultura</string>
@@ -261,4 +263,191 @@
     <string name="he_leido_los">He leido los</string>
     <string name="t_rminos_y_condiciones2">Términos y Condiciones</string>
     <string name="al_crear_una_cuenta_aceptas_los">Al crear una cuenta aceptas los</string>
+    <string name="debes_subir_nivel">Para poder ingresar una imagen a tu huerta debes primero subir a nivel 2.</string>
+    <string name="bonos">Bonos</string>
+    <string name="recompensas">Recompensas</string>
+    <string name="passwordChange">Cambiar contraseña</string>
+    <string name="newPassword">Ingrese la nueva contraseña</string>
+    <string name="seg_n_el_nivel_que_tienes_actualmente_a_continuaci_n_est_n_tus_recompensas_disponibles">Según el nivel que tienes actualmente, a continuación están tus recompensas disponibles.</string>
+    <string name="calendario_lunar">Calendario Lunar</string>
+    <string name="gu_as_b_sicas_y_consejos">Guías básicas y consejos</string>
+    <string name="ponle_foto_a_tu_huerta">Ponle foto a tu huerta</string>
+    <string name="enfermedades_comunes">Enfermedades comunes</string>
+    <string name="usos_org_nicos">Usos orgánicos</string>
+    <string name="calendario">Calendario</string>
+    <string name="agrega_la_foto_de_tu_huerta">¡Agrega la foto de tu huerta!</string>
+    <string name="al_ser_nivel_2_ya_puedes_agregar_una_foto_de_tu_huerta_n_n_con_esto_podr_s_perzonalizar_la_descripci_n_de_tu_huerta_y_ser_m_s_llamativa_para_otras_personas">Al ser nivel 2 ya puedes agregar una foto de tu huerta. \n\n Con esto podrás perzonalizar la descripción de tu huerta y ser más llamativa para otras personas.</string>
+    <string name="ShowGuidesText">A continuación, se muestran las guías que corresponden al nivel desbloqueado. </string>
+    <string name="DisplayPDF">A continuación, podrás visualizar la guía que seleccionaste o podrás descargarla en tu dispositivo.</string>
+    <string name="registrarse_como_invitado">Registrarse como invitado</string>
+    <string name="ingresa_tu_nombre_de_invitado">Ingresa tu nombre de invitado</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="textview">TextView</string>
+    <string name="ShowPlantsDiseases">A continuación, se muestran las información de enfermedades más comunes de estas plantas y sus posibles soluciones. </string>
+
+    <!--Textos estaticos para el nivel de plantas y sus enfermedades-->
+    <!--Lechuga-->
+    <string name="TextLettuce">La lechuga es uno de los cultivos más importantes pero a la vez es de los más azotados por distintos insectos, hongos y bacterias que deterioras y alteran las hojas de esta hortaliza. A continuación estan los problemas más comúnes:</string>
+    <string name="LettucePlagues">Plagas de la lechuga: </string>
+    <string name="LettuceDiseases">Enfermedades de la lechuga: </string>
+    <string name="LettuceFirstPlagueName">Larvas de lepidopteros</string>
+    <string name="LettuceFirstPlagueDescription">Estas orugas las encontramos con más frecuencia en el cultivo de lechugas, pueden provocar pérdidas de cosecha. En la variedad de lechuga iceberg estas larvas pueden producir podredumbres.</string>
+    <string name="LettuceFirstPlagueSolution">Solución: Se pueden usar \'plantas trampa\' (hierbas de olor) entre el cultivo de lechuga.</string>
+
+    <string name="LettuceSecondPlagueName">Caracoles y babosas</string>
+    <string name="LettuceSecondPlagueDescription">Estos insectos se dan en condiciones húmedas y pueden causar daños en las hojas de lechuga. </string>
+    <string name="LettuceSecondPlagueSolution">Solución: Las soluciones caseras más comunes es la aplicación de sal de mar, cerveza, cenizas o trampas amarillas.</string>
+
+    <string name="LettuceThirdPlagueName">Gusanos grises</string>
+    <string name="LettuceThirdPlagueDescription">Los gusanos grises también atacan plantas jóvenes a nivel del cuello lo que provoca el marchitamiento o la muerte de la planta.</string>
+    <string name="LettuceThirdPlagueSolution">Solución: El uso de plantas trampa puede prevenir esta plaga en la lechuga.</string>
+
+    <string name="LettuceFirstDiseaseName">Oidio</string>
+    <string name="LettuceFirstDiseaseDescription">En las hojas de la lechuga una especie de -polvo blanco-, después las hojas se decoloran y posteriormente acaban por marchitarse.</string>
+    <string name="LettuceFirstDiseaseSolution">Solución: El azufre es un buen tratamiento para esta enfermedad.</string>
+
+    <string name="LettuceSecondDiseaseName">Mildiu</string>
+    <string name="LettuceSecondDiseaseDescription">Salen manchas amarillentas entre las enervaciones de las hojas de la lechuga, que después se volverán color gris para terminar secándose o pudriéndose. </string>
+    <string name="LettuceSecondDiseaseSolution">El remedio ideal para combatir el mildiu en la lechuga son las sales de cobre.</string>
+
+    <string name="LettuceThirdDiseaseName">Marchitamiento por Rhizoctonia solani Kuhn</string>
+    <string name="LettuceThirdDiseaseeDescription">Se presentan lesiones rojizas en la base de las hojas de la lechuga que después se irán a la raíz, esto provocará podredumbre en el cuello.</string>
+    <string name="LettuceThirdDiseaseSolution">Muchas veces sirve el acolchado con plástico para evitar charcos.</string>
+    <string name="LettuceReference">https://huerto-en-casa.com/plagas-y-enfermedades-de-la-lechuga/</string>
+    <!--Repollo-->
+    <string name="TextCabbage">El repollo es una hortaliza muy utilizada a nivel mundial para la elaboración de platillos como sopas, ensaladas, jugos y fermentos. A continuación estan los problemas más comúnes:</string>
+    <string name="CabbagePlagues">Plagas del repollo: </string>
+    <string name="CabbageDiseases">Enfermedades del repollo: </string>
+
+    <string name="CabbageFirstPlagueName">Orugas en el repollo</string>
+    <string name="CabbageFirstPlagueDescription">Son una de las principales plagas de la cloriflor. Sobretodo atacan en su estado larvario, es decir, antes de convertirse en mariposas. Los daños más comunes son mordeduras en las hojas. Su forma adulta se caracteriza, principalmente por ser blanca y presentar dos puntos negros en las alas.</string>
+    <string name="CabbageFirstPlagueSolution">Solución: El control de estos insectos se basa en el empleo de feromonas o focos de luz. También, es importante detectar cuanto antes las larvitas pequeñas para poder actuar más rápidamente.</string>
+
+    <string name="CabbageSecondPlagueName">Mosca de la col</string>
+    <string name="CabbageSecondPlagueDescription">La mosca de la col causa daños importantes en primavera, principalmente en las plantas más jóvenes. Las larvas de estos insectos penetran por las raíces de la planta de repollo pudiendo acabar con él.</string>
+    <string name="CabbageSecondPlagueSolution">Solución: Modificar fecha de siembra y trasplante o utilizar variedades tempranas.</string>
+
+    <string name="CabbageThirdPlagueName">Chinche de las crucíferas</string>
+    <string name="CabbageThirdPlagueDescription">Producen picaduras en el limbo de las hojas superiores, succionando líquidos y provocando su marchitez.</string>
+    <string name="CabbageThirdPlagueSolution">Solución: Destruir la maleza de los alrededores ya que les sirve de refugio.</string>
+
+    <string name="CabbageFirstDiseaseName">Repollo podrido: podredumbre seca</string>
+    <string name="CabbageFirstDiseaseDescription">También se conoce como «cáncer de las coles» y «pie negro». El causante de esta enfermedad es un hongo y suele atacar también a otras crucíferas. Los principales síntomas son la aparición de unas manchas redondeadas de color pardo en el tallo. Al principio éstas manchas se encuentran aisladas pero a medida que avanza la enfermedad se van uniendo y destruyendo los tejidos. Las hojas también pueden verse afectadas por esta enfermedad apareciendo en ellas unas manchas grisáceas que se oscurecen con el tiempo.</string>
+    <string name="CabbageFirstDiseaseSolution">Solución: Se puede disminuir la severidad del ataque al incrementar el pH del suelo (>7.1), mejorar su drenaje, realizar rotación de cultivos y controlar malezas de la misma familia (crucíferas). Es importante notar que algunas plantas pueden mostrar síntomas leves, por lo que es de suma importancia monitorear las raíces frecuentemente.</string>
+
+    <string name="CabbageSecondDiseaseName">Podredumbre negra de la col</string>
+    <string name="CabbageSecondDiseaseDescription">Causada por unas bacterias conocidas como Xanthomonas campestris. Éstas bacterias afectan tanto a las plantas jóvenes como a las adultas. Si las condiciones de humedad y temperatura son las favorables pueden causar graves daños.</string>
+    <string name="CabbageSecondDiseaseSolution">Solución: Usar semilla certificada, cultivar en suelos libres de estas bacterias, mantener el campo libre de crucíferas silvestres, destruir rápidamente los focos infectados.</string>
+    <string name="CabbageReference">https://www.agrohuerto.com/plagas-y-enfermedades-del-repollo/</string>
+    <!--Brocoli-->
+    <string name="TextBroccoli">El brócoli es la hortaliza con mayor valor nutricional que aporta grandes beneficios a la salud. Su cultivo es muy sencillo y depende principalmente de un suelo bien nutrido, humedad y una temperatura fresca. También es conocido como brécol o bróculi y pertenece a la familia de las crucíferas como la coliflor o la col. Contiene grandes cantidades de vitaminas y minerales, aparte de fibra. Al consumirlo habitualmente funciona como antioxidante y depurativo, además  ayuda a prevenir el cáncer. A continuación estan los problemas más comúnes:</string>
+    <string name="BroccoliPlagues">Plagas del brócoli: </string>
+    <string name="BroccoliDiseases">Enfermedades del brócoli: </string>
+    <string name="BroccoliFirstPlagueName">Pulgón verde</string>
+    <string name="BroccoliFirstPlagueDescription">Es una plaga de pulgón de color variable, siendo normal el tono amarillo-verde. El pulgón verde provoca abarquillamiento de las hojas y brotes al succionar el jugo celular y succionar la savia. Además de la succión, es una plaga portadora de virus y atrayente de hongos como la negrilla debido a la producción de melaza.</string>
+    <string name="BroccoliFirstPlagueSolution">Solución: Insecticidas ecológicos son una buena opción para no utilizar químicos, ya que las plagas pueden generar inmunidad contra estos. Algunas opciones que se puede usar son: aceite de neem, ajo, hojas de tomate, pimienta, aceite de naranja, ortiga entre otros.</string>
+
+    <string name="BroccoliSecondPlagueName">Mosca blanca de las crucíferas</string>
+    <string name="BroccoliSecondPlagueDescription">Son frecuentes en primavera y verano, se localizan en el envés de las hojas. Se alimentan de la savia de la planta y contribuyen a la aparición de maleza dando lugar a otras enfermedades.</string>
+    <string name="BroccoliSecondPlagueSolution">Solución: Deshacerse de la mala hierba ademas del uso de insecticidas ecológicos que son una buena opción para no utilizar químicos, ya que las plagas pueden generar inmunidad contra estos. Algunas opciones que se puede usar son: aceite de neem, ajo, hojas de tomate, pimienta, aceite de naranja, ortiga entre otros.</string>
+
+    <string name="BroccoliThirdPlagueName">Pulgón negro</string>
+    <string name="BroccoliThirdPlagueDescription">Produce el debilitamiento de la planta por succión de la savia, con la excepción de que las hojas no se enrollan. Al segregar melaza fruto de la succión atrae al hongo negrilla. Es un importante transmisor de virus.</string>
+    <string name="BroccoliThirdPlagueSolution">Solución: Insecticidas ecológicos son una buena opción para no utilizar químicos, ya que las plagas pueden generar inmunidad contra estos. Algunas opciones que se puede usar son: aceite de neem, ajo, hojas de tomate, pimienta, aceite de naranja, ortiga entre otros.</string>
+
+    <string name="BroccoliFirstDiseaseName">Mildiu</string>
+    <string name="BroccoliFirstDiseaseDescription">Es un hongo que produce manchas marrones en las hojas del brócoli hasta marchitarlas.</string>
+
+    <string name="BroccoliSecondDiseaseName">Moho blanco:</string>
+    <string name="BroccoliSecondDiseaseDescription">Esta enfermedad comienza en el suelo, se caracteriza por presentar abundante micelio algodonoso color blanco.</string>
+
+    <string name="BroccoliThirdDiseaseName">Pie negro</string>
+    <string name="BroccoliThirdDiseaseeDescription">Se presentan partes necrosadas en las hojas y el tallo.</string>
+    <string name="BroccoliThirdDiseaseSolution">Soluciones: Siempre es mejor actuar en prevención o control temprano pues de no intervenir, pueden proliferar y afectar toda la planta dejando inservible el cultivo para el consumo.  Observar y revisar tus plantas de manera frecuente debe ser parte del control de tu cultivo pues servirá para detectar en los primeros momentos cualquier cambio.</string>
+    <string name="BroccoliReference">https://www.agromatica.es/plagas-y-enfermedades-del-brocoli/</string>
+    <!--Rabano-->
+    <string name="TextRadish">El rábano es una hortaliza que se conoce con el nombre de rábano o rabanito. Los rábanos tienen un alto contenido de agua, por lo cual son de bajo aporte calórico. Destaca su contenido de vitamina C, la cual actúa como antioxidante, ayudando a restaurar tejidos y vasos sanguíneos, aumentando el nivel inmunológico del cuerpo, manteniendo dientes y huesos fuertes. En cuanto a los minerales, el rábano tiene un mayor contenido de potasio y yodo que otras hortalizas.</string>
+    <string name="RadishPlagues">Plagas del rábano: </string>
+    <string name="RadishDiseases">Enfermedades del rábano: </string>
+    <string name="RadishFirstPlagueName">Pulgones</string>
+    <string name="RadishFirstPlagueDescription">Son una de las plagas más comunes de huertos y jardines. Atacan a los brotes jóvenes de cultivos con alto contenido en azúcares. Las larvas causan daños al hacer galerías en las hojas de las plantas.Además, excretan un líquido azucarado y pegajoso denominado melaza que atrae a las hormigas. Favorecen la aparición de un hongo conocido como negrilla y también pueden transmitir virus de unas plantas a otras.</string>
+    <string name="RadishFirstPlagueSolution">Solución: Algunos métodos de control que podéis emplear se basan en: Eliminar malas hierbas, buena preparación del sustrato, trampas cromáticas, poda o enemigos naturales como las mariquitas, crisopas, tijeretas o avispillas.</string>
+
+    <string name="RadishSecondPlagueName">Caracoles y babosas</string>
+    <string name="RadishSecondPlagueDescription">Suelen salir cuando el ambiente es cálido y húmedo (cuando acaba de llover, por la noche, después de regar). pueden afectar a las hojas y a los frutos de casi todas las plantas. El problema no suele ser muy grave al no ser que haya demasiados. </string>
+    <string name="RadishSecondPlagueSolution">Solución: El mejor método para quitarlos es manualmente</string>
+
+    <string name="RadishThirdPlagueName">Rosquilla negra</string>
+    <string name="RadishThirdPlagueDescription">Es una oruga que se alimenta principalmente de las hojas interiores. A lo largo del día se esconden y por la noche es cuando se alimentan. Normalmente la puesta la realizan en la parte aérea de la planta, en el envés de las hojas. Cuando se convierten en mariposas ya no hacen ningún daño.</string>
+    <string name="RadishThirdPlagueSolution">Solución: Se recomienda colocar trampas de feromonas, Vigilar los primeros estados de desarrollo de los cultivos, ya que es la época donde son más susceptibles.</string>
+
+    <string name="RadishFirstDiseaseName">Kila</string>
+    <string name="RadishFirstDiseaseDescription">La kila o quilla es un hongo que solo se encuentra en las raíces, pero afecta a toda la planta provocando hojas amarillas y marchitas, un crecimiento estancado de la planta y obviamente las raíces podridas que se volverán color gris.</string>
+    <string name="RadishFirstDiseaseSolution">Solución: Para prevenir la kila no siembres rábano en suelos muy ácidos, mantén la planta limpia de mala hierba y no encharques la tierra al regar. La mezcla de leche con agua en partes iguales puede ayudar si aún no ha afectado toda la planta.</string>
+
+    <string name="RadishSecondDiseaseName">Mildiu</string>
+    <string name="RadishSecondDiseaseDescription">Otro de los hongos que afecta a los rábanos es el Mildiu. Produce en las hojas manchas de aspecto grasiento de diferentes tonalidades, que luego se vuelven marrones y se marchitan.</string>
+    <string name="RadishSecondDiseaseSolution">Solución: Se recomienda hacer rotación de cultivo y mantener la humedad y temperatura adecuadas para el rábano además de seguir los cuidados correspondientes del mismo. Los remedios caseros que contrarrestan mejor al mildiú son alcohol con ajo, infusión de cola de caballo y leche mezclada con agua.</string>
+
+    <string name="RadishThirdDiseaseName">Rocío harinoso en el rábano</string>
+    <string name="RadishThirdDiseaseeDescription">Este hongo es similar al mildiú, afecta a los tallos y hojas del rábano, aunque se ven con más frecuencia en las hojas. Como síntomas notarás que aparecen zonas harinosas en la parte afectada, las flores se oscurecen y las hojas se deforman y secan.</string>
+    <string name="RadishThirdDiseaseSolution">Solución: asilar los rábanos para que no afecten a otras plantas</string>
+    <string name="RadishReference">https://www.agrohuerto.com/el-rabano-plagas-enfermedades-comunes/</string>
+    <!--Cilantro-->
+    <string name="TextCoriander">El cilantro es una hierba aromática de crecimiento anual utilizada de forma habitual en la gastronomía de todo el mundo. Hoy en día su uso es muy común tanto en la cocina mediterránea como en otras cocinas orientales o en Sudamérica. A continuación estan los problemas más comúnes:</string>
+    <string name="CorianderPlagues">Plagas del cilantro: </string>
+    <string name="CorianderDiseases">Enfermedades del cilantro: </string>
+    <string name="CorianderFirstPlagueName">Pulgones</string>
+    <string name="CorianderFirstPlagueDescription">Defecan un líquido azucarado (melaza), dándole a la planta un aspecto pegajoso. Atacan tallo y hojas nuevas</string>
+    <string name="CorianderFirstPlagueSolution">Solución: Aceite de neem, Ajo plantado al rededor, Catarinas</string>
+
+    <string name="CorianderSecondPlagueName">Ácaros</string>
+    <string name="CorianderSecondPlagueDescription">Amarillamiento y quemadura en las hojas, follaje arrugado y deformado</string>
+    <string name="CorianderSecondPlagueSolution">Solución: Acaracidas (insecticidas) orgánicos</string>
+
+    <string name="CorianderThirdPlagueName">Gusanos de las hojas</string>
+    <string name="CorianderThirdPlagueDescription">Devoran grandes cantidades de follaje rápidamente</string>
+    <string name="CorianderThirdPlagueSolution">Solución: Jabón de potasa, 2 ml de jabón por cada litro de agua</string>
+
+    <string name="CorianderFirstDiseaseName">Mancha Bacteriana</string>
+    <string name="CorianderFirstDiseaseDescription">Venas delimitadas y angulares de la hoja, cuando es más grave la hoja se marchita.</string>
+    <string name="CorianderFirstDiseaseSolution">Solución: Evitar encharcamientos. Aplicar con un rociador extractos vegetales de cola de caballo. Aceite de neem</string>
+    <string name="CorianderReference">https://huerto-en-casa.com/plagas-y-enfermedades-del-cilantro/</string>
+
+    <!--Papa-->
+    <string name="TextPotato">El cultivo de papa es uno de los más populares en todo el mundo, por la versatilidad en el uso, así como por la demanda constante de este tubérculo. Sin embargo, se trata de plantas que pueden resultar vulnerables a una gran cantidad de virus, bacterias y hongos. A continuación estan los problemas más comúnes:</string>
+    <string name="PotatoPlagues">Plagas de la papa: </string>
+    <string name="PotatoDiseases">Enfermedades de la papa: </string>
+    <string name="PotatoFirstPlagueName">Pie negro o pudrición blanda de la papa</string>
+    <string name="PotatoFirstPlagueDescription">Es producida por un complejo de bacteria. El pie negro afecta a la totalidad de la planta de papa, tanto tallos, como hojas y tubérculo, por lo cual las pérdidas que genera son de gran importancia.</string>
+    <string name="PotatoFirstPlagueSymptoms">Síntomas: Esta enfermedad puede desatarse en cualquier punto de desarrollo de la planta de papa, y puede llevar a su muerte. Los principales signos de que tus plantas de papa han sido infectadas por pie negro son: Los tallos muestran pudrición negra ascendente, detienen su crecimiento y se muestran más rectas que lo normal, Las hojas desarrollan clorosis y marchitamiento, Los tubérculos pueden mostrar desde una ligera decoloración en su extremo, hasta una completa pudrición húmeda y blanda, de color canela. Puede presentar un olor desagradable.</string>
+    <string name="PotatoFirstPlagueSolution">Solución: Usar semilla certificada y libre de la bacteria, evitar el exceso de humedad y de abono nitrogenado, quitar los restos vegetales del suelo y del espacio de almacenamiento, evitar la cosecha durante temperaturas superiores a 20ºC, y secar las papas adecuadamente antes de almacenarlas.</string>
+    <string name="PotatoReference">https://huerto-en-casa.com/enfermedades-de-las-papas/</string>
+    <!--Fin de la seccion de las plantas del nivel 3-->
+
+
+    <string name="PotatoSecondPlagueName">Tizón tardío de la papa</string>
+    <string name="PotatoSecondPlagueDescription">Esta es la enfermedad más peligrosa para los cultivos de papa en todo el mundo, debido a las grandes pérdidas que genera. Es causada por el hongo Phytophthora infestans, y afecta a hojas, tallos y tubérculos. </string>
+    <string name="PotatoSecondPlagueSolution">Síntomas: Una vez que las plantas de papa comienzan a mostrar síntomas de tizón tardío, la enfermedad puede matar al cultivo en pocos días. Los signos más característicos de esta infección son: Manchas de color verde claro y oscuro en puntas y bordes de las hojas que luego oscurecen. Alrededor de estas manchas, puedes ver un círculo amarillo, y en el envés de la hoja aparece moho blanco, en los tallos puedes notar manchas longitudinales ascendentes, que pueden llevar a su colapso, Lesiones descoloridas en los tubérculos, desde la piel hacia el interior. estas necrosis amarronadas y secas pueden tornarse malolientes por la acción de bacterias secundarias, en afecciones severas, los cultivos pueden mostrar la apariencia de haber sido quemados por una helada.</string>
+    <string name="PotatoSecondPlagueSymptoms">Soluciones: Algunas medidas sencillas que puedes tomar para evitar la aparición de esta enfermedad son: Uso de semilla certificada o libre del patógeno, riego en el suelo (evitar aspersión) en cantidades apropiadas, cubrir adecuadamente los tubérculos con tierra, quitar el follaje afectado antes de la cosecha.</string>
+    <string name="repollo">Repollo</string>
+    <string name="lechuga">Lechuga</string>
+    <string name="br_coli">Brócoli</string>
+    <string name="r_bano">Rábano</string>
+    <string name="cilantro">Cilantro</string>
+    <string name="papa">Papa</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="elije_la_ubicaci_n_de_tu_huerta">Elije la ubicación de tu huerta</string>
+    <string name="direcci_n_de_la_huerta">Dirección de la huerta</string>
+    <string name="mostrar">Mostrar</string>
+    <string name="seleccionar">Seleccionar</string>
+    <string name="finalizar_registro_de_huerta">Finalizar registro de huerta</string>
+    <string name="a_continuaci_n_puedes_seleccionar_en_el_mapa_la_ubicaci_n_de_tu_huerta_o_escribirla_directamente_y_mostrarla_en_el_mapa_usando_el_bot_n_mostrar_para_m_s_precisi_n_al_escribir_tu_direcci_n_escribe_la_ciudad_por_ejemplo_calle_333_44_33_bogot">A continuación, puedes seleccionar en el mapa la ubicación de tu huerta o escribirla directamente y mostrarla en el mapa usando el botón mostrar. Para más precisión al escribir tu dirección escribe la ciudad por ejemplo: calle 333 # 44-33, Bogotá.</string>
+    <string name="moreInfo">Para más información consulte:</string>
+    <string name="gardenAdress">Dirección de la huerta</string>
+    <string name="address">Dirección</string>
+    <string name="addressGarden">Ingresa la dirección de tu huerta o selecciónala en el mapa.</string>
+    <string name="insumos">Insumos</string>
+    <string name="comabaquinta">Comabaquinta</string>
+
 </resources>

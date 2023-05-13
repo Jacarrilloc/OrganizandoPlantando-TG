@@ -7,12 +7,24 @@
     android:background="@color/white"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context=".ludificationScreens.ShowDictionaryActivity">
+    tools:context=".view.ludification.ShowDictionaryActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.9">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/returnArrowButtonToHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:clickable="true"
+            android:contentDescription="@string/boton_para_regresar"
+            android:tint="@color/white"
+            app:backgroundTint="#91BF63"
+            app:srcCompat="@drawable/dr_return_arrow" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -22,6 +34,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_30sdp"
                 android:orientation="vertical">
 
                 <TextView
@@ -44,27 +57,21 @@
                     android:layout_gravity="center"
                     android:background="@drawable/im_cirles_menu" />
 
-                <EditText
-                    android:id="@+id/search"
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/searchView"
+                    android:theme="@style/SearchView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="@dimen/_30sdp"
-                    android:layout_marginStart="@dimen/_30sdp"
-                    android:fontFamily="@font/manroperegular"
+                    android:iconifiedByDefault="false"
                     android:background="@drawable/dr_white_input_text"
-                    android:ems="10"
-                    android:hint="@string/buscar"
-                    android:inputType="text"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gray" />
+                    android:layout_margin="@dimen/_15sdp"
+                    app:iconifiedByDefault="false" />
 
 
                 <GridView
                     android:id="@+id/plantsList"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/_25sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_height="match_parent"
                     android:numColumns="2"
                     android:horizontalSpacing="@dimen/_10sdp"
@@ -132,24 +139,23 @@
             android:textColor="@color/grayLetters" />
 
         <Button
-            android:id="@+id/gardens"
-            android:layout_width="@dimen/_79sdp"
+            android:id="@+id/rewards"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginStart="@dimen/_1sdp"
             android:fontFamily="@font/manropemedium"
             android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
-            android:drawableTop="@drawable/im_colombia"
+            android:drawableTop="@drawable/im_reward_icon"
             android:padding="@dimen/_5sdp"
             android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
-            android:text="@string/Map"
+            android:text="@string/bonos"
             android:textAllCaps="false"
-            android:textColor="@color/grayLetters" />
+            android:textColor="@color/grayLetters"  />
 
         <Button
             android:id="@+id/myGardens"

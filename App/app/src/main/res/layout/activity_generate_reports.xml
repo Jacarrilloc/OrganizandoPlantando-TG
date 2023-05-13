@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/green"
     android:orientation="vertical"
-    tools:context=".GenerateReportsActivity">
+    tools:context=".view.gardens.GenerateReportsActivity">
 
     <ScrollView
         android:layout_width="match_parent"

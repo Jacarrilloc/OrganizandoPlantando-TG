@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".formsScreen.FormsRegistersActivity">
+    tools:context=".view.forms.FormsRegistersActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout10"
@@ -53,6 +53,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_16sdp"
         android:background="@drawable/im_gray_line" />
+
+    <ProgressBar
+        android:id="@+id/progressBarForms"
+        style="?android:attr/progressBarStyle"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <ListView
         android:id="@+id/ListViewRegisters"

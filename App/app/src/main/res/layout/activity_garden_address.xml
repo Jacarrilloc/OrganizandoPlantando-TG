@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:focusableInTouchMode="true"
+    tools:context=".view.gardens.GardenAddressActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/manropemedium"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:gravity="center"
+                android:text="@string/elije_la_ubicaci_n_de_tu_huerta"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20sdp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:fontFamily="@font/manroperegular"
+                android:textSize="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:text="@string/addressGarden"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/addressinput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dr_white_input_text"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:hint="@string/direcci_n_de_la_huerta"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:textColorHint="@color/gray"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/_10sdp"/>
+
+                <Button
+                    android:id="@+id/showButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dr_green_button"
+                    android:text="@string/mostrar"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/manroperegular"
+                    android:textSize="@dimen/_15sdp"
+                    android:layout_weight="2"
+                    android:layout_marginEnd="@dimen/_10sdp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/nextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dr_green_button"
+                android:backgroundTint="@color/blueblue"
+                android:layout_marginStart="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:text="@string/finalizar_registro_de_huerta"
+                android:textAllCaps="false"
+                android:fontFamily="@font/manroperegular"
+                android:textSize="@dimen/_14sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_40sdp"/>
+
+
+            <org.osmdroid.views.MapView
+                android:id="@+id/mapglobal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"/>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>

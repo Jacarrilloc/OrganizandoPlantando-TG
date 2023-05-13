@@ -7,11 +7,22 @@
     android:background="@color/white"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context=".auth.RegisterProfileActivity">
+    tools:context=".view.auth.RegisterProfileActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/returnArrowButtonToHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:clickable="true"
+            android:contentDescription="@string/boton_para_regresar"
+            android:tint="@color/white"
+            app:backgroundTint="#91BF63"
+            app:srcCompat="@drawable/dr_return_arrow" />
 
         <ImageView
             android:id="@+id/logoDecoration"
