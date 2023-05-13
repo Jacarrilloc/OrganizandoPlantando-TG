@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.opcv.R;
+import com.example.opcv.model.persistance.firebase.UserCommunication;
 import com.example.opcv.model.persistance.garden.GardenPersistance;
 import com.example.opcv.view.adapter.CollaboratorListAdapter;
 import com.example.opcv.model.items.ItemCollaboratorsRequest;
@@ -111,18 +112,13 @@ public class GardenRequestsActivity extends AppCompatActivity {
                                                     if(idSearch.equals(idUser)){
                                                         name = (String) document.getData().get("Name");
                                                         //Si se necesita mas informacion usar la clase User
-                                                        GardenPersistance persistance = new GardenPersistance();
-                                                        persistance.getGardenPicture(gardenId, GardenRequestsActivity.this, new GardenPersistance.GetUri() {
-                                                            @Override
-                                                            public void onSuccess(String uri) {
-                                                                ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(name, idUser, gardenId, uri);
-                                                                gardenNames.add(newItem);
-                                                                fillListRequests(gardenNames);
-                                                            }
+                                                        UserCommunication userCommunication = new UserCommunication();
 
+                                                        userCommunication.getProfilePicture(idUser, new UserCommunication.GetUriUser() {
                                                             @Override
-                                                            public void onFailure(String imageString) {
-                                                                ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(name, idUser, gardenId, imageString);
+                                                            public void onComplete(String uri) {
+
+                                                                ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(name, idUser, gardenId, uri);
                                                                 gardenNames.add(newItem);
                                                                 fillListRequests(gardenNames);
                                                             }
@@ -133,9 +129,7 @@ public class GardenRequestsActivity extends AppCompatActivity {
                                             }
                                         }
                                     });
-
                         }
-
                     } else {
                         Toast.makeText(GardenRequestsActivity.this, "Error al obtener los documentos", Toast.LENGTH_SHORT).show();
                     }

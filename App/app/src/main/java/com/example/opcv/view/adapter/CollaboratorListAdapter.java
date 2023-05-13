@@ -75,6 +75,7 @@ public class CollaboratorListAdapter extends ArrayAdapter<ItemCollaboratorsReque
         }
         else{
             image = convertView.findViewById(R.id.UserImage);
+            image.setImageResource(R.drawable.im_logo_ceres);
             image.setVisibility(View.VISIBLE);
         }
         return convertView;
