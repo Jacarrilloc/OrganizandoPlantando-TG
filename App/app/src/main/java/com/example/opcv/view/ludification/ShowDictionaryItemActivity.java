@@ -44,11 +44,15 @@ import com.example.opcv.model.persistance.firebase.LudificationCommunication;
 import com.example.opcv.model.persistance.firebase.UserCommunication;
 import com.example.opcv.view.adapter.CommentsAdapter;
 import com.example.opcv.view.auth.EditUserActivity;
+import com.example.opcv.view.auth.SignOffActivity;
 import com.example.opcv.view.base.HomeActivity;
+import com.example.opcv.view.gardens.GardensAvailableActivity;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -194,42 +198,54 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                add.setVisibility(View.INVISIBLE);
-                add.setClickable(false);
-                add.setFocusable(false);
-                sendComment.setVisibility(View.VISIBLE);
-                sendComment.setClickable(true);
-                sendComment.setFocusable(true);
-                input.setVisibility(View.VISIBLE);
-                input.setClickable(true);
-                input.setFocusable(true);
-                input.setEnabled(true);
-                input.setText("");
-                input.setHint("Ingrese comentario");
+                FirebaseUser us = FirebaseAuth.getInstance().getCurrentUser();
+                if(us != null && !us.isAnonymous()){
+                    add.setVisibility(View.INVISIBLE);
+                    add.setClickable(false);
+                    add.setFocusable(false);
+                    sendComment.setVisibility(View.VISIBLE);
+                    sendComment.setClickable(true);
+                    sendComment.setFocusable(true);
+                    input.setVisibility(View.VISIBLE);
+                    input.setClickable(true);
+                    input.setFocusable(true);
+                    input.setEnabled(true);
+                    input.setText("");
+                    input.setHint("Ingrese comentario");
+                }
+                else{
+                    Toast.makeText(ShowDictionaryItemActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ShowDictionaryItemActivity.this);
-                builder.setTitle("Confirmar borrado");
-                builder.setMessage("¿Estas seguro/a de eliminar esta entrada del diccionario?");
-                builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        persistance.deleteItemDictionary(element, docRef, idUser, ShowDictionaryItemActivity.this);
-                        startActivity(new Intent(ShowDictionaryItemActivity.this, DictionaryHomeActivity.class));
-                    }
-                });
-                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
+                FirebaseUser us = FirebaseAuth.getInstance().getCurrentUser();
+                if(us != null && !us.isAnonymous()){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ShowDictionaryItemActivity.this);
+                    builder.setTitle("Confirmar borrado");
+                    builder.setMessage("¿Estas seguro/a de eliminar esta entrada del diccionario?");
+                    builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            persistance.deleteItemDictionary(element, docRef, idUser, ShowDictionaryItemActivity.this);
+                            startActivity(new Intent(ShowDictionaryItemActivity.this, DictionaryHomeActivity.class));
+                        }
+                    });
+                    builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                }
+                else{
+                    Toast.makeText(ShowDictionaryItemActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -317,6 +333,11 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+
+
         sendComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -391,42 +412,54 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logic.likesDislikes(docRef, true, element);
-                int number = Integer.parseInt(likeNumber.getText().toString());
-                number++;
-                String numberText = String.valueOf(number);
-                likeNumber.setText(numberText);
-                FirebaseFirestore database = FirebaseFirestore.getInstance();
-                Map<String, Object> like = new HashMap<>();
-                likeButton.setEnabled(false);
-                dislikeButton.setEnabled(false);
-                likeButton.setBackgroundResource(R.drawable.im_like_gray);
-                dislikeButton.setBackgroundResource(R.drawable.im_dislike_gray);
-                like.put("idItem", docRef);
-                like.put("like", true);
-                like.put("dislike", false);
-                database.collection("UserInfo").document(idUser).collection("UserActionsPoints").add(like);
+                FirebaseUser us = FirebaseAuth.getInstance().getCurrentUser();
+                if(us != null && !us.isAnonymous()){
+                    logic.likesDislikes(docRef, true, element);
+                    int number = Integer.parseInt(likeNumber.getText().toString());
+                    number++;
+                    String numberText = String.valueOf(number);
+                    likeNumber.setText(numberText);
+                    FirebaseFirestore database = FirebaseFirestore.getInstance();
+                    Map<String, Object> like = new HashMap<>();
+                    likeButton.setEnabled(false);
+                    dislikeButton.setEnabled(false);
+                    likeButton.setBackgroundResource(R.drawable.im_like_gray);
+                    dislikeButton.setBackgroundResource(R.drawable.im_dislike_gray);
+                    like.put("idItem", docRef);
+                    like.put("like", true);
+                    like.put("dislike", false);
+                    database.collection("UserInfo").document(idUser).collection("UserActionsPoints").add(like);
+                }
+                else{
+                    Toast.makeText(ShowDictionaryItemActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         dislikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                level.deductLevel(docRef, element);
-                logic.likesDislikes(docRef, false, element);
-                likeButton.setEnabled(false);
-                dislikeButton.setEnabled(false);
-                int number = Integer.parseInt(dislikeNumber.getText().toString());
-                number++;
-                String numberText = String.valueOf(number);
-                dislikeNumber.setText(numberText);
-                likeButton.setBackgroundResource(R.drawable.im_like_gray);
-                dislikeButton.setBackgroundResource(R.drawable.im_dislike_gray);
-                FirebaseFirestore database = FirebaseFirestore.getInstance();
-                Map<String, Object> like = new HashMap<>();
-                like.put("idItem", docRef);
-                like.put("like", false);
-                like.put("dislike", true);
-                database.collection("UserInfo").document(idUser).collection("UserActionsPoints").add(like);
+                FirebaseUser us = FirebaseAuth.getInstance().getCurrentUser();
+                if(us != null && !us.isAnonymous()){
+                    level.deductLevel(docRef, element);
+                    logic.likesDislikes(docRef, false, element);
+                    likeButton.setEnabled(false);
+                    dislikeButton.setEnabled(false);
+                    int number = Integer.parseInt(dislikeNumber.getText().toString());
+                    number++;
+                    String numberText = String.valueOf(number);
+                    dislikeNumber.setText(numberText);
+                    likeButton.setBackgroundResource(R.drawable.im_like_gray);
+                    dislikeButton.setBackgroundResource(R.drawable.im_dislike_gray);
+                    FirebaseFirestore database = FirebaseFirestore.getInstance();
+                    Map<String, Object> like = new HashMap<>();
+                    like.put("idItem", docRef);
+                    like.put("like", false);
+                    like.put("dislike", true);
+                    database.collection("UserInfo").document(idUser).collection("UserActionsPoints").add(like);
+                }
+                else{
+                    Toast.makeText(ShowDictionaryItemActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -482,11 +515,17 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent edit = new Intent(ShowDictionaryItemActivity.this, EditUserActivity.class);
-                AuthCommunication auth = new AuthCommunication();
-                String userId = auth.getCurrentUserUid();
-                edit.putExtra("userInfo", userId);
-                startActivity(edit);
+                FirebaseUser us = FirebaseAuth.getInstance().getCurrentUser();
+                if(us != null && !us.isAnonymous()){
+                    Intent edit = new Intent(ShowDictionaryItemActivity.this, EditUserActivity.class);
+                    AuthCommunication auth = new AuthCommunication();
+                    String userId = auth.getCurrentUserUid();
+                    edit.putExtra("userInfo", userId);
+                    startActivity(edit);
+                }
+                else{
+                    startActivity(new Intent(ShowDictionaryItemActivity.this, SignOffActivity.class));
+                }
 
             }
         });
@@ -494,7 +533,13 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ShowDictionaryItemActivity.this, HomeActivity.class));
+                FirebaseUser us = FirebaseAuth.getInstance().getCurrentUser();
+                if(us != null && !us.isAnonymous()){
+                    startActivity(new Intent(ShowDictionaryItemActivity.this, HomeActivity.class));
+                }
+                else{
+                    Toast.makeText(ShowDictionaryItemActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         ludification.setOnClickListener(new View.OnClickListener() {

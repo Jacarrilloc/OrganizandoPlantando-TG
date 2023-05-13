@@ -238,7 +238,7 @@
     <string name="solicitud_de_compra_de_materia_prima_y_herramientas">Solicitud de compra de materia prima y herramientas</string>
     <string name="formsname">FormsName</string>
     <string name="la_imagen">La imagen</string>
-    <string name="mis_huertas">Huerta</string>
+    <string name="mis_huertas">Huertas</string>
     <string name="boton_de_descargar">Boton de descargar</string>
     <string name="oza_n">Ozaín</string>
     <string name="lombricultura">Lombricultura</string>
@@ -399,7 +399,7 @@
     <string name="CorianderDiseases">Enfermedades del cilantro: </string>
     <string name="CorianderFirstPlagueName">Pulgones</string>
     <string name="CorianderFirstPlagueDescription">Defecan un líquido azucarado (melaza), dándole a la planta un aspecto pegajoso. Atacan tallo y hojas nuevas</string>
-    <string name="CorianderFirstPlagueSolution">Solución: ceite de neem, Ajo plantado al rededor, Catarinas</string>
+    <string name="CorianderFirstPlagueSolution">Solución: Aceite de neem, Ajo plantado al rededor, Catarinas</string>
 
     <string name="CorianderSecondPlagueName">Ácaros</string>
     <string name="CorianderSecondPlagueDescription">Amarillamiento y quemadura en las hojas, follaje arrugado y deformado</string>

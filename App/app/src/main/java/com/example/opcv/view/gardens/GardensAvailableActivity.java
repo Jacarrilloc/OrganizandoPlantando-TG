@@ -96,8 +96,7 @@ public class GardensAvailableActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AuthCommunication authCommunication = new AuthCommunication();
-                FirebaseUser user = authCommunication.guestUser();
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if(user != null && !user.isAnonymous()){
                     startActivity(new Intent(GardensAvailableActivity.this, EditUserActivity.class));
                 }
@@ -120,8 +119,8 @@ public class GardensAvailableActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AuthCommunication authCommunication = new AuthCommunication();
-                FirebaseUser user = authCommunication.guestUser();
-                if(user != null && !user.isAnonymous()){
+                FirebaseUser us = FirebaseAuth.getInstance().getCurrentUser();
+                if(us != null && !us.isAnonymous()){
                     startActivity(new Intent(GardensAvailableActivity.this, RewardHomeActivity.class));
                 }
                 else{
