@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_110sdp"
+    android:layout_height="@dimen/_140sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="@dimen/_16sdp"
+    app:cardCornerRadius="@dimen/_12sdp"
+    android:backgroundTint="@color/yellow">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_margin="@dimen/_14sdp"
+        android:src="@drawable/im_logo_ceres"
+        android:scaleType="centerCrop"
+        android:background="@drawable/dr_image_border"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_33sdp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/dr_rectangle_item"
+        android:gravity="center"
+        android:text="@string/tool"
+        android:fontFamily="@font/manroperegular"
+        android:textColor="@color/black"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingRight="@dimen/_8sdp"
+        android:paddingLeft="@dimen/_8sdp"
+        android:textSize="@dimen/_14sdp" />
+
+</androidx.cardview.widget.CardView>

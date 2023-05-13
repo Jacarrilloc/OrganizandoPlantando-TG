@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".formsScreen.Form_RE">
+    android:focusableInTouchMode="true"
+    tools:context=".view.forms.Form_RE">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,8 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:layout_marginStart="20dp"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_20sdp"
             android:clickable="true"
             android:contentDescription="@string/boton_para_regresar"
             android:tint="#F8F5F5"
@@ -33,16 +34,19 @@
             app:srcCompat="@drawable/dr_return_arrow"
             android:focusable="true" />
 
+
+
         <TextView
             android:id="@+id/form_RE_name"
+            android:text="@string/registro_de_evento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:text="@string/registro_de_evento"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:fontFamily="@font/manropesemibold"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_17sdp" />
 
 
     </LinearLayout>
@@ -56,16 +60,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingBottom="@dimen/_15sdp"
             android:background="@color/white"
-            android:layout_margin="20sp">
+            android:layout_margin="@dimen/_20sdp">
 
             <TextView
                 android:id="@+id/info1"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:textSize="15sp"
+                android:fontFamily="@font/manropemedium"
+                android:layout_margin="@dimen/_2sdp"
+                android:textSize="@dimen/_15sdp"
                 android:text="@string/fecha" />
 
             <EditText
@@ -83,8 +89,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textSize="15sp"
+                android:fontFamily="@font/manropemedium"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:textSize="@dimen/_15sdp"
                 android:textColor="@color/black"
                 android:text="@string/nombre_del_evento" />
 
@@ -94,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:layout_margin="2sp"
+                android:layout_margin="@dimen/_2sdp"
                 android:textColor="@color/black"
                 android:background="@drawable/dr_white_input_text"
                 tools:ignore="TextFields" />
@@ -102,27 +109,31 @@
 
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:fontFamily="@font/manroperegular"
+                    android:textSize="@dimen/_15sdp"
+                    android:layout_weight="1"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/personas_que_asistieron" />
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:text="@string/personas_que_asistieron"
+                    android:layout_marginBottom="@dimen/_10sdp"/>
 
                 <EditText
                     android:id="@+id/totalPerson"
                     android:inputType="number"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
@@ -130,83 +141,96 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="@dimen/_18sdp"
+                android:fontFamily="@font/manropemedium"
                 android:gravity="center"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:textColor="@color/black"
                 android:text="@string/asistencia_seg_n_el_g_nero" />
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_15sdp"
+                    android:layout_weight="1"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/mujeres" />
 
                 <EditText
                     android:id="@+id/female"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/manroperegular"
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_15sdp"
+                    android:layout_weight="1"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/hombres" />
 
                 <EditText
                     android:id="@+id/male"
                     android:inputType="number"
+                    android:layout_weight="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_15sdp"
+                    android:fontFamily="@font/manroperegular"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/no_especificado" />
 
                 <EditText
                     android:id="@+id/noSpecificated"
                     android:inputType="number"
+                    android:layout_weight="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
+                    android:fontFamily="@font/manroperegular"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
@@ -214,158 +238,182 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="@dimen/_18sdp"
                 android:gravity="center"
-                android:layout_marginTop="15dp"
+                android:fontFamily="@font/manropemedium"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:textColor="@color/black"
                 android:text="@string/asistencia_seg_n_el_rango_de_edad" />
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:fontFamily="@font/manroperegular"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
                     android:text="@string/primera_infancia_0_5_a_os" />
 
                 <EditText
                     android:id="@+id/infant"
                     android:inputType="number"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_weight="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/_15sdp"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_weight="1"
+                    android:paddingBottom="@dimen/_10sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/infancia_6_11_a_os" />
 
                 <EditText
                     android:id="@+id/childhood"
                     android:inputType="number"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_weight="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/manroperegular"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/adolescencia_12_18_a_os" />
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="@string/adolescencia_12_18_a_os"
+                    android:paddingBottom="@dimen/_10sdp"/>
 
                 <EditText
                     android:id="@+id/teen"
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_weight="2"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/manroperegular"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/juventud_19_26_a_os" />
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="@string/juventud_19_26_a_os"
+                    android:paddingBottom="@dimen/_10sdp"/>
 
                 <EditText
                     android:id="@+id/youth"
+                    android:layout_weight="2"
                     android:inputType="number"
                     android:layout_width="match_parent"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_weight="1"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/adultez_27_59_a_os" />
 
                 <EditText
                     android:id="@+id/adult"
+                    android:layout_weight="2"
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/manroperegular"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/persona_mayor_60_a_os_o_m_s" />
 
                 <EditText
                     android:id="@+id/elderly"
+                    android:layout_weight="2"
                     android:inputType="number"
                     android:layout_width="match_parent"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
@@ -374,107 +422,124 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="@dimen/_18sdp"
                 android:gravity="center"
-                android:layout_marginTop="15dp"
+                android:fontFamily="@font/manropemedium"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:textColor="@color/black"
                 android:text="@string/asistencia_de_personas" />
 
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/poblaci_n_afro" />
 
                 <EditText
                     android:id="@+id/afroPoblation"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_weight="2"
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/poblaci_n_ind_gena" />
 
                 <EditText
                     android:id="@+id/nativePoblation"
                     android:inputType="number"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/poblaci_n_lgbti" />
 
                 <EditText
                     android:id="@+id/LGBTIPoblation"
                     android:inputType="number"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:textSize="15sp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/_15sdp"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/poblaci_n_rom" />
 
                 <EditText
                     android:id="@+id/RomPoblation"
                     android:inputType="number"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -482,27 +547,31 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/poblaci_n_v_ctima_del_conflicto_armado"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_15sdp" />
 
                 <EditText
                     android:id="@+id/victimPoblation"
                     android:inputType="number"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:textColor="@color/black"
                     android:background="@drawable/dr_white_input_text" />
             </LinearLayout>
@@ -510,24 +579,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/poblaci_n_en_condici_n_de_discapacidad"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_15sdp" />
 
                 <EditText
                     android:id="@+id/disabilityPoblation"
                     android:layout_width="match_parent"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:background="@drawable/dr_white_input_text"
                     android:inputType="number"
                     android:textColor="@color/black" />
@@ -536,24 +609,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/poblaci_n_desmovilizada"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_15sdp" />
 
                 <EditText
                     android:id="@+id/demobilizedPoblation"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:background="@drawable/dr_white_input_text"
                     android:inputType="number"
                     android:textColor="@color/black" />
@@ -562,24 +639,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/poblaci_n_mestiza"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_15sdp" />
 
                 <EditText
                     android:id="@+id/mongrelPoblation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_weight="2"
+                    android:layout_margin="@dimen/_2sdp"
                     android:background="@drawable/dr_white_input_text"
                     android:inputType="number"
                     android:textColor="@color/black" />
@@ -588,24 +669,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/extranjero_a"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_15sdp" />
 
                 <EditText
                     android:id="@+id/foreignPoblation"
+                    android:fontFamily="@font/manroperegular"
+                    android:layout_weight="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:background="@drawable/dr_white_input_text"
                     android:inputType="number"
                     android:textColor="@color/black" />
@@ -614,24 +699,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:text="@string/campesino_a"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_15sdp" />
 
                 <EditText
                     android:id="@+id/peasantPoblation"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:background="@drawable/dr_white_input_text"
                     android:inputType="number"
                     android:textColor="@color/black" />
@@ -640,42 +729,41 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="227dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:layout_marginEnd="10dp"
-                    android:text="Otros"
+                    android:fontFamily="@font/manroperegular"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="@string/otros"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_15sdp" />
 
                 <EditText
                     android:id="@+id/otherPoblation"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/manroperegular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2sp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:background="@drawable/dr_white_input_text"
                     android:inputType="number"
                     android:textColor="@color/black" />
             </LinearLayout>
-
 
             <Button
                 android:id="@+id/create_forms1_buttom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
-                android:textSize="20sp"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/dr_green_button"
+                android:layout_margin="@dimen/_10sdp"
+                android:fontFamily="@font/manropemedium"
                 android:text="@string/agregar_formulario"
+                android:background="@drawable/dr_green_button"
                 />
 
         </LinearLayout>
@@ -683,55 +771,63 @@
 
     <LinearLayout
         android:id="@+id/linearLayout8"
-        android:layout_width="411dp"
-        android:layout_height="122dp"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/dr_shadow_top"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/ludification"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
             android:textColor="@color/grayLetters" />
 
         <Button
-            android:id="@+id/gardens"
-            android:layout_width="77dp"
+            android:id="@+id/rewards"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="7dp"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
-            android:drawableTop="@drawable/im_colombia"
-            android:padding="10dp"
+            android:drawableTop="@drawable/im_reward_icon"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
-            android:text="@string/Map"
+            android:text="@string/bonos"
             android:textAllCaps="false"
             android:textColor="@color/grayLetters" />
 
         <Button
             android:id="@+id/myGardens"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="7dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Gardens"
             android:textAllCaps="false"
@@ -739,20 +835,22 @@
 
         <Button
             android:id="@+id/profile"
-            android:layout_width="78dp"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:fontFamily="@font/manropemedium"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"
             android:textAllCaps="false"
             android:textColor="@color/grayLetters" />
-
 
     </LinearLayout>
 </LinearLayout>

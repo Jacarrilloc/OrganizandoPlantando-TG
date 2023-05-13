@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".formsScreen.Form_RAC">
+    android:focusableInTouchMode="true"
+    tools:context=".view.forms.Form_RAC">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/_10sdp"
             android:clickable="true"
             android:contentDescription="@string/boton_para_regresar"
             android:tint="#F8F5F5"
@@ -33,21 +34,22 @@
 
         <TextView
             android:id="@+id/form_RCC_name"
+            android:text="@string/RCC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:text="@string/RCC"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:fontFamily="@font/manropesemibold"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_17sdp" />
 
 
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1">
 
         <LinearLayout
@@ -55,33 +57,37 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@color/white"
-            android:layout_margin="20sp">
+            android:paddingBottom="@dimen/_20sdp"
+            android:layout_margin="@dimen/_20sdp">
 
             <TextView
                 android:id="@+id/info1"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="2sp"
-                android:text="Area del Recipiente (m2)" />
+                android:fontFamily="@font/manropemedium"
+                android:layout_margin="@dimen/_2sdp"
+                android:text="@string/area_del_recipiente_m2" />
 
             <EditText
                 android:id="@+id/areaRecipient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="2sp"
+                android:layout_margin="@dimen/_2sdp"
                 android:ems="10"
-                android:inputType="number"
+                android:inputType="numberDecimal"
+                android:fontFamily="@font/manroperegular"
                 android:textColor="@color/black"
                 android:background="@drawable/dr_white_input_text"/>
 
             <TextView
                 android:id="@+id/textView8"
-                android:layout_marginTop="5sp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Descripción del área" />
+                android:fontFamily="@font/manropemedium"
+                android:text="@string/descripci_n_del_rea" />
 
             <EditText
                 android:id="@+id/areaDescription"
@@ -89,25 +95,28 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="text"
-                android:layout_margin="2sp"
+                android:layout_margin="@dimen/_2sdp"
                 android:textColor="@color/black"
+                android:fontFamily="@font/manroperegular"
                 android:text=""
                 android:background="@drawable/dr_white_input_text"/>
 
             <TextView
                 android:id="@+id/textView9"
-                android:layout_marginTop="5sp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cantidad de residuos (kg)" />
+                android:fontFamily="@font/manropemedium"
+                android:text="@string/cantidad_de_residuos_kg" />
 
             <EditText
                 android:id="@+id/residueQuantity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:layout_margin="2sp"
+                android:fontFamily="@font/manroperegular"
+                android:layout_margin="@dimen/_2sdp"
                 android:inputType="numberDecimal"
                 android:background="@drawable/dr_white_input_text"
                 android:textColor="@color/black"/>
@@ -116,46 +125,51 @@
                 android:id="@+id/textView10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
-                android:text="Cantidad de abono recogido (Kg)" />
+                android:fontFamily="@font/manropemedium"
+                android:text="@string/cantidad_de_abono_recogido_kg" />
 
             <EditText
                 android:id="@+id/fertilizerQuantity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="number"
-                android:layout_margin="2sp"
+                android:inputType="numberDecimal"
+                android:layout_margin="@dimen/_2sdp"
                 android:textColor="@color/black"
+                android:fontFamily="@font/manroperegular"
                 android:background="@drawable/dr_white_input_text" />
 
 
 
             <TextView
                 android:id="@+id/textView12"
-                android:layout_marginTop="5sp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cantidad Lixiviado(L)" />
+                android:fontFamily="@font/manropemedium"
+                android:text="@string/cantidad_lixiviado_l" />
 
             <EditText
                 android:id="@+id/amount_leached_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manroperegular"
                 android:background="@drawable/dr_white_input_text"
-                android:layout_margin="2sp"
+                android:layout_margin="@dimen/_2sdp"
                 android:ems="10"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/addForm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10sp"
-                android:text="Agregar Formulario"
+                android:layout_margin="@dimen/_10sdp"
+                android:fontFamily="@font/manropemedium"
+                android:text="@string/agregar_formulario"
                 android:background="@drawable/dr_green_button"/>
 
         </LinearLayout>
@@ -163,55 +177,63 @@
 
     <LinearLayout
         android:id="@+id/linearLayout8"
-        android:layout_width="411dp"
-        android:layout_height="122dp"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/dr_shadow_top"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/ludification"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
             android:textColor="@color/grayLetters" />
 
         <Button
-            android:id="@+id/gardens"
-            android:layout_width="77dp"
+            android:id="@+id/rewards"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="7dp"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
-            android:drawableTop="@drawable/im_colombia"
-            android:padding="10dp"
+            android:drawableTop="@drawable/im_reward_icon"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
-            android:text="@string/Map"
+            android:text="@string/bonos"
             android:textAllCaps="false"
             android:textColor="@color/grayLetters" />
 
         <Button
             android:id="@+id/myGardens"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="7dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Gardens"
             android:textAllCaps="false"
@@ -219,20 +241,22 @@
 
         <Button
             android:id="@+id/profile"
-            android:layout_width="78dp"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:fontFamily="@font/manropemedium"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"
             android:textAllCaps="false"
             android:textColor="@color/grayLetters" />
-
 
     </LinearLayout>
 </LinearLayout>

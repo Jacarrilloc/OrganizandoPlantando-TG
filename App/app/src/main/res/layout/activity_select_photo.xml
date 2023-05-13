@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".auth.SelectPhotoActivity">
+    tools:context=".view.auth.SelectPhotoActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/_10sdp"
             android:clickable="true"
             android:contentDescription="@string/boton_para_regresar"
             android:tint="#F8F5F5"
@@ -29,32 +29,35 @@
             app:layout_constraintStart_toStartOf="@+id/gardenProfilePicture"
             app:layout_constraintTop_toTopOf="@+id/gardenProfilePicture"
             app:layout_constraintVertical_bias="0.064"
-            app:srcCompat="@drawable/dr_return_arrow" />
+            app:srcCompat="@drawable/dr_return_arrow"
+            android:focusable="true" />
 
         <TextView
             android:id="@+id/form_CIH_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="20dp"
-            android:text="Para Finalizar, selecciona tu foto de perfil"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:text="@string/para_finalizar_selecciona_tu_foto_de_perfil"
+            android:fontFamily="@font/manropemedium"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="@dimen/_18sdp" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/profileImageSelected"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20sp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/_20sdp"
         android:layout_weight="1"
+        android:scaleType="centerCrop"
         tools:src="@tools:sample/avatars" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10sp"
+        android:layout_margin="@dimen/_10sdp"
         android:orientation="horizontal">
 
         <Button
@@ -65,7 +68,8 @@
             android:textColor="@color/black"
             android:backgroundTint="#F4EEE5"
             android:layout_weight="1"
-            android:textSize="18sp"
+            android:textSize="@dimen/_18sdp"
+            android:fontFamily="@font/manropemedium"
             android:background="@drawable/dr_green_button"
             android:text="@string/c_mara"
             android:textAllCaps="false"/>
@@ -76,10 +80,11 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:backgroundTint="#F4EEE5"
-            android:layout_margin="5sp"
+            android:layout_margin="@dimen/_5sdp"
+            android:fontFamily="@font/manropemedium"
             android:layout_weight="1"
             android:textAllCaps="false"
-            android:textSize="18sp"
+            android:textSize="@dimen/_18sdp"
             android:background="@drawable/dr_green_button"
             android:text="@string/seleccionar_foto" />
     </LinearLayout>
@@ -88,10 +93,10 @@
         android:id="@+id/finishRegisterInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="25dp"
-
+        android:layout_margin="@dimen/_25sdp"
+        android:fontFamily="@font/manropemedium"
         android:textAllCaps="false"
-        android:textSize="20sp"
+        android:textSize="@dimen/_20sdp"
         android:background="@drawable/dr_green_button"
         android:text="@string/finalizar_registro" />
 

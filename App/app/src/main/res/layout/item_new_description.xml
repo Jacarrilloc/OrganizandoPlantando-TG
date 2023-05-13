@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="end"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_15sdp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/description"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:fontFamily="@font/manroperegular"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15sdp"
+            android:text="@string/description2"
+            android:layout_marginEnd="@dimen/_30sdp"/>
+        <TextView
+            android:id="@+id/author"
+            android:layout_gravity="end"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="end"
+            android:fontFamily="@font/manroperegular"
+            android:textStyle="italic"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/_13sdp"
+            android:text="@string/description2" />
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/showLevel"
+        android:layout_width="@dimen/_160sdp"
+        android:layout_height="@dimen/_180sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:visibility="gone"
+        android:elevation="150dp"
+        android:background="@drawable/im_show_other_people">
+
+        <FrameLayout
+            android:id="@+id/imagenCom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_gravity="center_horizontal" >
+
+            <!-- Vista de imagen circular -->
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/im_logo_ceres"
+                android:layout_gravity="center_horizontal"/>
+
+            <!-- Vista de imagen con borde -->
+            <ImageView
+                android:layout_marginStart="@dimen/_2sdp"
+                android:id="@+id/imageLevel"
+                android:layout_width="124dp"
+                android:layout_height="120dp"
+                android:src="@drawable/im_level_1"
+                android:scaleType="centerCrop" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_110sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_45sdp"
+            android:layout_gravity="start"
+            android:fontFamily="@font/manropemedium"
+            android:text="@string/nombre"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/_13sdp"
+            />
+
+        <TextView
+            android:id="@+id/nameLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="@dimen/_128sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_45sdp"
+            android:textColor="@color/gray"
+            android:fontFamily="@font/manroperegular"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/_11sdp"
+            android:text="@string/anlevel"
+            android:textStyle="italic"
+            />
+
+        <TextView
+            android:id="@+id/level"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/manroperegular"
+            android:layout_gravity="start"
+            android:layout_marginTop="@dimen/_148sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_45sdp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/_11sdp"
+            android:text=""
+            />
+
+
+
+    </FrameLayout>
+</RelativeLayout>

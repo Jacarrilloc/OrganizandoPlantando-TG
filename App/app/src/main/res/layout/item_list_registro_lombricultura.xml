@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    android:backgroundTint="#F2F2F2">
+    android:layout_margin="@dimen/_20sdp"
+    android:backgroundTint="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,79 +13,90 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="306dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/dateRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:text="Fecha: 01/11/2022"
+                android:layout_marginStart="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:text="@string/fecha_01_11_2022"
                 android:textColor="#000000"
-                android:textStyle="bold"
+                android:fontFamily="@font/manropesemibold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/processMade"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:text="Proceso: se hizo..."
-                android:textColor="#000000"
-                android:visibility="invisible"
+                android:layout_marginStart="@dimen/_24sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:text="@string/proceso_se_hizo"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dateRegister" />
 
             <Button
                 android:id="@+id/seeMorButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="2dp"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="@dimen/_34sdp"
+                android:layout_marginStart="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/dr_white_input_text"
                 android:backgroundTint="#91BF63"
-                android:text="Ver más"
+                android:text="@string/ver_m_s"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
-                app:cornerRadius="50dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/processMade" />
+                android:fontFamily="@font/manroperegular"
+                android:textColor="@color/white" />
+
+
         </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
                 android:orientation="vertical">
 
                 <ImageButton
                     android:id="@+id/deleteButton"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="48dp"
-                    android:backgroundTint="@color/lightgray"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_48sdp"
+                    android:backgroundTint="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/dr_delete_button" />
 
                 <ImageButton
                     android:id="@+id/editButton"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="50dp"
-                    android:backgroundTint="@color/lightgray"
-                    android:contentDescription="Boton de editar"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginEnd="@dimen/_50sdp"
+                    android:backgroundTint="@color/white"
+                    android:contentDescription="@string/boton_de_editar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/deleteButton"
                     app:srcCompat="@drawable/dr_edit_button" />
 
             </LinearLayout>
 
-
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/im_gray_line"
+        android:contentDescription="@string/la_imagen" />
 
 </androidx.cardview.widget.CardView>

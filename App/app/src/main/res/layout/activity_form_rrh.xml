@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".formsScreen.Form_RAC">
+    android:focusableInTouchMode="true"
+    tools:context=".view.forms.Form_RAC">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/_20sdp"
             android:clickable="true"
             android:contentDescription="@string/boton_para_regresar"
             android:tint="#F8F5F5"
@@ -31,57 +32,73 @@
             app:layout_constraintVertical_bias="0.064"
             app:srcCompat="@drawable/dr_return_arrow" />
 
+
         <TextView
             android:id="@+id/form_RRH_name"
+            android:text="@string/RRH"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:text="@string/RRH"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:fontFamily="@font/manropesemibold"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_17sdp" />
 
 
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingBottom="@dimen/_15sdp"
             android:background="@color/white"
-            android:layout_margin="20sp">
+            android:layout_margin="@dimen/_20sdp">
 
             <TextView
                 android:id="@+id/info1"
+                android:fontFamily="@font/manropemedium"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="2sp"
-                android:text="Descripción" />
+                android:layout_margin="@dimen/_2sdp"
+                android:text="@string/descripci_n" />
 
             <EditText
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="2sp"
+                android:layout_margin="@dimen/_2sdp"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:textColor="@color/black"
+                android:fontFamily="@font/manroperegular"
                 android:background="@drawable/dr_white_input_text"/>
 
             <TextView
                 android:id="@+id/textView8"
-                android:layout_marginTop="5sp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:fontFamily="@font/manropemedium"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Concepto" />
+                android:text="@string/concepto" />
+
+            <TextView
+                android:id="@+id/conceptSelectedSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                android:fontFamily="@font/manroperegular"
+                android:background="@drawable/dr_white_input_text"
+                android:text="TextView" />
 
             <Spinner
                 android:id="@+id/spinnerConcept"
@@ -92,24 +109,27 @@
                 android:backgroundTint="@color/black"
                 android:overlapAnchor="false"
                 android:textAlignment="inherit"
+                android:fontFamily="@font/manroperegular"
                 android:textStyle="bold"
                 />
 
             <TextView
                 android:id="@+id/textView9"
-                android:layout_marginTop="5sp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/black"
+                android:fontFamily="@font/manropemedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cantidad" />
+                android:text="@string/cantidad" />
 
             <EditText
                 android:id="@+id/toolsQuantity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:layout_margin="2sp"
-                android:inputType="number"
+                android:fontFamily="@font/manroperegular"
+                android:layout_margin="@dimen/_2sdp"
+                android:inputType="numberDecimal"
                 android:background="@drawable/dr_white_input_text"
                 android:textColor="@color/black"/>
 
@@ -117,9 +137,10 @@
                 android:id="@+id/textView10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:fontFamily="@font/manropemedium"
                 android:textColor="@color/black"
-                android:text="Realizado por" />
+                android:text="@string/realizado_por" />
 
             <EditText
                 android:id="@+id/performedBy"
@@ -127,36 +148,38 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="text"
-                android:layout_margin="2sp"
+                android:layout_margin="@dimen/_2sdp"
                 android:textColor="@color/black"
+                android:fontFamily="@font/manroperegular"
                 android:background="@drawable/dr_white_input_text" />
 
             <TextView
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:fontFamily="@font/manropemedium"
                 android:textColor="@color/black"
-                android:text="Estado" />
+                android:text="@string/estado" />
 
             <EditText
                 android:id="@+id/status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manroperegular"
                 android:ems="10"
                 android:inputType="text"
-                android:layout_margin="2sp"
+                android:layout_margin="@dimen/_2sdp"
                 android:background="@drawable/dr_white_input_text"
                 android:textColor="@color/black" />
-
-
 
             <Button
                 android:id="@+id/create_forms1_buttom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10sp"
-                android:text="Agregar Formulario"
+                android:layout_margin="@dimen/_10sdp"
+                android:fontFamily="@font/manropemedium"
+                android:text="@string/agregar_formulario"
                 android:background="@drawable/dr_green_button"/>
 
         </LinearLayout>
@@ -164,55 +187,63 @@
 
     <LinearLayout
         android:id="@+id/linearLayout8"
-        android:layout_width="411dp"
-        android:layout_height="122dp"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/dr_shadow_top"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/ludification"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_98sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_dictionary"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:stateListAnimator="@null"
             android:text="@string/Diccionary"
             android:textAllCaps="false"
             android:textColor="@color/grayLetters" />
 
         <Button
-            android:id="@+id/gardens"
-            android:layout_width="77dp"
+            android:id="@+id/rewards"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="7dp"
+            android:fontFamily="@font/manropemedium"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
-            android:drawableTop="@drawable/im_colombia"
-            android:padding="10dp"
+            android:drawableTop="@drawable/im_reward_icon"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
-            android:text="@string/Map"
+            android:text="@string/bonos"
             android:textAllCaps="false"
             android:textColor="@color/grayLetters" />
 
         <Button
             android:id="@+id/myGardens"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="7dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             android:drawableTop="@drawable/im_plant_icon"
-            android:padding="10dp"
+            android:fontFamily="@font/manropemedium"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/Gardens"
             android:textAllCaps="false"
@@ -220,20 +251,22 @@
 
         <Button
             android:id="@+id/profile"
-            android:layout_width="78dp"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:fontFamily="@font/manropemedium"
             android:background="@color/white"
             android:drawableTop="@drawable/im_user_icon"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/_13sdp"
             android:stateListAnimator="@null"
             android:text="@string/User"
             android:textAllCaps="false"
             android:textColor="@color/grayLetters" />
-
 
     </LinearLayout>
 </LinearLayout>
