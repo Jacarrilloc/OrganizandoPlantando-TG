@@ -12,7 +12,6 @@
         android:layout_margin="@dimen/_14sdp"
         android:src="@drawable/im_logo_ceres"
         android:scaleType="centerCrop"
-        android:background="@drawable/dr_image_border"
         android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_80sdp"
         />

@@ -334,10 +334,6 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
         sendComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -365,6 +361,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
             }
         });
 
+
         //Manejo de Likes y Dislikes
         CollectionReference userActionsPoints = FirebaseFirestore.getInstance().collection("UserInfo").document(idUser).collection("UserActionsPoints");
         Query query = userActionsPoints.whereEqualTo("idItem", docRef);
@@ -374,40 +371,42 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 if (task.isSuccessful()){
                     QuerySnapshot querySnapshot = task.getResult();
                     if (querySnapshot.isEmpty()){
-                        likeButton.setEnabled(true);
-                        dislikeButton.setEnabled(true);
-                        likeButton.setBackgroundResource(R.drawable.im_like_green);
-                        dislikeButton.setBackgroundResource(R.drawable.im_dislike_red);
+
+                        CollectionReference collectionReference = FirebaseFirestore.getInstance().collection(element);
+                        collectionReference.document(docRef).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    String var = task.getResult().getString("Publisher");
+                                    if (var!= null){
+                                        if(var.equals(idUser)){
+                                            likeButton.setEnabled(false);
+                                            dislikeButton.setEnabled(false);
+                                            likeButton.setBackgroundResource(R.drawable.im_like_gray);
+                                            dislikeButton.setBackgroundResource(R.drawable.im_dislike_gray);
+                                            deleteButton.setVisibility(View.VISIBLE);
+                                        }
+                                    }else{
+                                        likeButton.setEnabled(true);
+                                        dislikeButton.setEnabled(true);
+                                        likeButton.setBackgroundResource(R.drawable.im_like_green);
+                                        dislikeButton.setBackgroundResource(R.drawable.im_dislike_red);
+                                    }
+                                }
+                            }
+                        });
+
                     }else{
                         likeButton.setEnabled(false);
                         dislikeButton.setEnabled(false);
                         likeButton.setBackgroundResource(R.drawable.im_like_gray);
                         dislikeButton.setBackgroundResource(R.drawable.im_dislike_gray);
                     }
-
                 }
             }
         });
 
-        CollectionReference collectionReference = FirebaseFirestore.getInstance().collection(element);
-        collectionReference.document(docRef).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    String var = task.getResult().getString("Publisher");
-                    if (var!= null){
-                        if(var.equals(idUser)){
-                            System.out.println("Entro");
-                            likeButton.setEnabled(false);
-                            dislikeButton.setEnabled(false);
-                            likeButton.setBackgroundResource(R.drawable.im_like_gray);
-                            dislikeButton.setBackgroundResource(R.drawable.im_dislike_gray);
-                            deleteButton.setVisibility(View.VISIBLE);
-                        }
-                    }
-                }
-            }
-        });
+
 
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
