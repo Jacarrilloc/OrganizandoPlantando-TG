@@ -9,6 +9,8 @@ import com.example.opcv.business.notifications.Notifications;
 import com.example.opcv.model.persistance.repository.local_db.LocalDatabase;
 import com.example.opcv.model.persistance.repository.remote_db.FirebaseDatabase;
 import com.example.opcv.model.persistance.repository.remote_db.ResultAsyncTask;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONException;
 
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class FormsRepository {
@@ -70,11 +73,15 @@ public class FormsRepository {
         deleteInfoLocal.deleteInfoJson(idGarden,infoForm);
     }
 
-    public void updateInfoDatabase(String idGarden,Map<String, Object> newInfoForm) throws JSONException, IOException {
+    public void updateInfoDatabase(String idGarden, Map<String, Object> newInfoForm) throws JSONException, IOException {
         LocalDatabase updateInfo = new LocalDatabase(mContext);
-        updateInfo.updateInfoJson(idGarden,newInfoForm);
-        if(isOnline()){
-            new Thread(() -> {
+        updateInfo.updateInfoJson(idGarden, newInfoForm);
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            executor.execute(() -> {
                 while (!isOnline()) {
                     try {
                         Thread.sleep(1000); // Esperar 1 segundo antes de verificar de nuevo
@@ -82,10 +89,10 @@ public class FormsRepository {
                         e.printStackTrace();
                     }
                 }
-
                 FirebaseDatabase onlineDB = new FirebaseDatabase();
-                onlineDB.updateInDatabase(idGarden,newInfoForm);
-            }).start();
+                onlineDB.updateInDatabase(idGarden, newInfoForm);
+            });
+            executor.shutdown();
         }
     }
 

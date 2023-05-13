@@ -161,8 +161,6 @@ public class FormsRegistersActivity extends AppCompatActivity {
         Forms infoForms = new Forms(FormsRegistersActivity.this);
         List<ItemRegistersList> infoFormsResult = infoForms.getInfoForms(idGarden, register_name);
 
-        Toast.makeText(this, "Tamaño en Pantalla: "+ +infoFormsResult.size(), Toast.LENGTH_SHORT).show();
-
         if (infoFormsResult != null) {
             infoFormsLiveData.setValue(infoFormsResult);
             infoWhile.setVisibility(View.GONE);
