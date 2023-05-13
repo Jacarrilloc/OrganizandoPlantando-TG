@@ -2,6 +2,7 @@ package com.example.opcv.business.forms;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.opcv.model.persistance.firebase.UserCommunication;
 import com.example.opcv.model.persistance.repository.FormsRepository;
@@ -40,7 +41,6 @@ public class Forms {
         if(infoResult != null) {
             for (Map<String, Object> infoForm : infoResult) {
                 String register_name = (String) infoForm.get("register_name");
-                String infoFormResult = (String) infoForm.get("infoForm");
                 String date = (String) infoForm.get("Date");
                 ItemRegistersList item = new ItemRegistersList(idGarden, register_name, infoForm, date);
                 itemRegistersList.add(item);
@@ -49,6 +49,7 @@ public class Forms {
         }else{
             Log.d("Forms", "No hay Informacion en la Base de datos local");
         }
+        Toast.makeText(context, "Tamaño en Forms: "+ +itemRegistersList.size(), Toast.LENGTH_SHORT).show();
         return itemRegistersList;
     }
 

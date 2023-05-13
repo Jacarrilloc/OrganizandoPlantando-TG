@@ -7,6 +7,10 @@ import android.util.Log;
 import com.example.opcv.model.persistance.repository.local_db.LocalDatabase;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.json.JSONException;
 
@@ -21,74 +25,47 @@ public class ResultAsyncTask extends AsyncTask<Void, Void, List<Map<String,Objec
     private String idGarden;
     private String formName;
     private Context mContext;
+    private OnResultLoadedListener mListener;
 
-    public ResultAsyncTask(String idGarden,String formName, Context context){
+    public ResultAsyncTask(String idGarden, String formName, Context context, OnResultLoadedListener listener) {
         this.idGarden = idGarden;
         this.formName = formName;
         mContext = context;
+        mListener = listener;
     }
 
     @Override
     protected List<Map<String, Object>> doInBackground(Void... voids) {
-        LocalDatabase infoForm = new LocalDatabase(mContext);
         List<Map<String, Object>> result = new ArrayList<>();
 
-        TaskCompletionSource<List<Map<String,Object>>> taskCompletionSource = new TaskCompletionSource<>();
-        FirebaseDatabase updateInfo = new FirebaseDatabase();
-        try {
-            updateInfo.getAllFormsDatabase(idGarden, formName, new FirebaseDatabase.onFormsLoaded() {
-                @Override
-                public void FormsLoad(List<Map<String, Object>> infoResult) throws IOException, JSONException {
-                    List<Map<String,Object>> resultLocal = infoForm.getInfoJsonForms(idGarden,formName);
-                    updateInfo(resultLocal,infoResult,idGarden);
-
-                    taskCompletionSource.setResult(infoResult);
-                }
-            });
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference formsCollection = db.collection("Gardens").document(idGarden).collection("Forms");
 
         try {
-            result = Tasks.await(taskCompletionSource.getTask());
-        } catch (InterruptedException | ExecutionException e) {
+            QuerySnapshot querySnapshot = Tasks.await(formsCollection.get());
+
+            for (DocumentSnapshot documentSnapshot : querySnapshot.getDocuments()) {
+                Map<String, Object> data = documentSnapshot.getData();
+                result.add(data);
+            }
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
         return result;
     }
 
-
     @Override
-    protected void onPostExecute(List<Map<String,Object>> resultI) {
-        LocalDatabase info = new LocalDatabase(mContext);
-        info.updateAllJson(resultI,idGarden);
+    protected void onPostExecute(List<Map<String, Object>> result) {
+        // Actualiza la interfaz de usuario o realiza otras operaciones con el resultado aquí
+
+        if (mListener != null) {
+            mListener.onResultLoaded(result);
+        }
     }
 
-    private void updateInfo(List<Map<String, Object>> local,List<Map<String, Object>> firebase, String idGarden){
-        List<Map<String, Object>> newInfo = new ArrayList<>();
-        if (local == null) {
-            newInfo.addAll(firebase);
-            Log.d("TAG", "No hay Local,Info en Firebase : " + firebase.size());
-        } else {
-            Log.d("TAG", "Firebase : " + firebase.size() + " Local: " + local.size());
-            for(Map<String,Object> firebaseData : firebase){
-                boolean found = false;
-                for (Map<String,Object> localData : local){
-                    if(firebaseData.get("Date").equals(localData.get("Date")) &&  firebaseData.get("idForm").equals(localData.get("idForm"))  && firebaseData.get("CreatedBy").equals(localData.get("CreatedBy")) && !firebaseData.equals(localData)){
-                        found = true;
-                        break;
-                    }
-                }
-                if(!found){
-                    newInfo.add(firebaseData);
-                }
-            }
-        }
-        LocalDatabase info = new LocalDatabase(mContext);
-        info.updateAllJson(newInfo,idGarden);
-        Log.d("ResultAsyncTask", "Diferencia: " + newInfo.size());
+    public interface OnResultLoadedListener {
+        void onResultLoaded(List<Map<String, Object>> result);
     }
+
 }
