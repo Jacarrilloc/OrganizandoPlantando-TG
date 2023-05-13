@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.opcv.model.persistance.repository.FormsRepository;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -79,32 +80,35 @@ public class FirebaseDatabase implements FirebaseDatabaseI {
         });
     }
 
-    public void getAllFormsDatabase(String idGarden, String nameForm, onFormsLoaded listener) throws FileNotFoundException, JSONException {
+    public void getAllInfoFormDatabase(String idGarden, FormsRepository.OnDataLoadedListener listener) {
         CollectionReference collectionReference = mFirestore.collection("Gardens").document(idGarden).collection("Forms");
-        Query query = collectionReference.whereEqualTo("nameForm", nameForm);
-        List<Map<String, Object>> infoResult = new ArrayList<>();
-        query.get().addOnCompleteListener(task -> {
+
+        collectionReference.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 QuerySnapshot querySnapshot = task.getResult();
-                for( QueryDocumentSnapshot info : querySnapshot){
-                    Map<String, Object> infoData = info.getData();
-                    infoResult.add(infoData);
+                List<Map<String, Object>> result = new ArrayList<>();
+                for (QueryDocumentSnapshot documentSnapshot : querySnapshot) {
+                    Map<String, Object> data = documentSnapshot.getData();
+                    result.add(data);
                 }
-                try {
-                    listener.FormsLoad(infoResult);
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                if (listener != null) {
+                    try {
+                        listener.onDataLoaded(result);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            } else {
+                Exception exception = task.getException();
+                Log.i("FirebaseForms", "Error: " + exception.getMessage());
+                if (listener != null) {
+                    try {
+                        listener.onDataLoaded(null);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         });
-
-    }
-
-    public interface onFormsLoaded{
-        void FormsLoad(List<Map<String, Object>> infoResult) throws IOException, JSONException;
     }
 }

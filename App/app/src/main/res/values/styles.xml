@@ -15,4 +15,12 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">@font/manroperegular</item>
     </style>
+
+    <style name="AppProgressBarStyle" parent="@android:style/Widget.ProgressBar">
+        <item name="android:colorAccent">@color/green</item>
+        <item name="android:minHeight">8dp</item>
+        <item name="android:maxHeight">16dp</item>
+        <item name="android:indeterminateDuration">3000</item>
+    </style>
+
 </resources>

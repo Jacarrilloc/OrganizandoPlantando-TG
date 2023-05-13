@@ -3,6 +3,7 @@ package com.example.opcv.model.persistance.repository;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 import com.example.opcv.business.notifications.Notifications;
 import com.example.opcv.model.persistance.repository.local_db.LocalDatabase;
@@ -88,37 +89,18 @@ public class FormsRepository {
         }
     }
 
-    private boolean dataObtained = false;
 
-    public List<Map<String, Object>> getInfoForms(String idGarden, String formName) throws IOException, JSONException {
+
+    public List<Map<String, Object>> getInfoForms(String idGarden, String formName) {
         List<Map<String, Object>> infoJsonForms = null;
-        /*
+
         if (isOnline()) {
-            // Verifica si los datos ya han sido obtenidos antes de hacer una nueva consulta a la base de datos
-            if (!dataObtained) {
-                ResultAsyncTask task = new ResultAsyncTask(idGarden, formName, mContext);
-                task.execute();
-
-                try {
-                    task.get(); // espera a que la tarea se complete
-                } catch (ExecutionException | InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                LocalDatabase info = new LocalDatabase(mContext);
-                // Obtiene los datos de la base de datos y los almacena en una variable o estructura de datos
-                infoJsonForms = info.getInfoJsonForms(idGarden, formName);
-
-                // Actualiza la variable booleana para indicar que los datos ya han sido obtenidos
-                dataObtained = true;
-            }
-        } else {
-            LocalDatabase info = new LocalDatabase(mContext);
-            infoJsonForms = info.getInfoJsonForms(idGarden, formName);
+            updateDatabase(idGarden);
         }
-         */
+
         LocalDatabase info = new LocalDatabase(mContext);
         infoJsonForms = info.getInfoJsonForms(idGarden, formName);
+
         return infoJsonForms;
     }
 
@@ -127,6 +109,32 @@ public class FormsRepository {
                 (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+
+    private void updateDatabase(String idGarden) {
+        FirebaseDatabase info = new FirebaseDatabase();
+        info.getAllInfoFormDatabase(idGarden, new OnDataLoadedListener() {
+            @Override
+            public void onDataLoaded(List<Map<String, Object>> data) throws InterruptedException {
+                if (data != null) {
+                    Log.i("Respository", "Info: " + data.size());
+                    writeInLocal(data,idGarden);
+                } else {
+                    Log.i("Respository", "Info: null");
+                }
+            }
+        });
+    }
+
+    private void writeInLocal(List<Map<String, Object>> data,String idGarden) throws InterruptedException {
+        Log.i("writeInLocal", "Info: " + data.size());
+        LocalDatabase info = new LocalDatabase(mContext);
+        info.updateAllJson(data,idGarden);
+    }
+
+    public interface OnDataLoadedListener {
+        void onDataLoaded(List<Map<String, Object>> data) throws InterruptedException;
     }
 
 }
