@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -15,6 +17,8 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -30,54 +34,66 @@ import com.example.opcv.business.forms.Forms;
 import com.example.opcv.view.adapter.FormsRegistersAdapter;
 import com.example.opcv.model.items.ItemRegistersList;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import org.json.JSONException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 public class FormsRegistersActivity extends AppCompatActivity {
     private TextView registerNameText;
     private ListView ListViewRegisters;
     private FloatingActionButton backButtom;
     private String register_name, idGarden;
-    private ProgressDialog progressDialog;
+    private ProgressBar infoWhile;
     private Forms infoForms;
+
+    private MutableLiveData<List<ItemRegistersList>> infoFormsLiveData = new MutableLiveData<>();
+
+    private boolean recreateCalled = false;
 
     @Override
     protected void onStart() {
         super.onStart();
-        fillFormsRegisters();
+        try {
+            fillFormsRegisters();
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        fillFormsRegisters();
+        try {
+            fillFormsRegisters();
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        fillFormsRegisters();
+        try {
+            fillFormsRegisters();
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forms_registers);
-        Toast.makeText(this, "FormsRegisterActivity", Toast.LENGTH_SHORT).show();
 
         registerNameText = (TextView) findViewById(R.id.registerName);
         ListViewRegisters = (ListView) findViewById(R.id.ListViewRegisters);
@@ -86,13 +102,18 @@ public class FormsRegistersActivity extends AppCompatActivity {
         register_name = getIntent().getStringExtra("Name");
         idGarden = getIntent().getStringExtra("idGardenFirebase");
         registerNameText.setText(register_name);
+        infoWhile = findViewById(R.id.progressBarForms);
 
         infoForms = new Forms(this);
 
-        Toast.makeText(this, "Name: "+ register_name, Toast.LENGTH_SHORT).show();
-
         if(ContextCompat.checkSelfPermission(FormsRegistersActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-            fillFormsRegisters();
+            try {
+                fillFormsRegisters();
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }else if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)){
             Toast.makeText(this, "El permiso es necesario para guardar los formularios", Toast.LENGTH_SHORT).show();
             getStoragePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -107,71 +128,54 @@ public class FormsRegistersActivity extends AppCompatActivity {
             }
         });
 
-
+        infoFormsLiveData.observe(this, new Observer<List<ItemRegistersList>>() {
+            @Override
+            public void onChanged(List<ItemRegistersList> infoFormsResult) {
+                // Aquí puedes actualizar la interfaz de usuario con la nueva lista de resultados
+                fillListGardens(infoFormsResult);
+                infoWhile.setVisibility(View.GONE);
+            }
+        });
     }
 
     ActivityResultLauncher<String> getStoragePermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
         @Override
         public void onActivityResult(Boolean result) {
             if(result == true){
-                fillFormsRegisters();
+                try {
+                    fillFormsRegisters();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }else{
                 Toast.makeText(FormsRegistersActivity.this, "Es necesario acceder al alamcenamiento", Toast.LENGTH_SHORT).show();
             }
         }
     });
 
-    private void fillFormsRegisters() {
-        long startTime = System.currentTimeMillis();
-        showLoadingScreen();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Forms infoForms = new Forms(FormsRegistersActivity.this);
-                List<ItemRegistersList> infoFormsResult = null;
-                try {
-                    infoFormsResult = infoForms.getInfoForms(idGarden,register_name);
-                    Log.i("size","Info Traida: " + infoFormsResult.size());
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+    // Método fillFormsRegisters actualizado
+    private void fillFormsRegisters() throws JSONException, IOException {
+        infoWhile.setVisibility(View.VISIBLE);
+        Forms infoForms = new Forms(FormsRegistersActivity.this);
+        List<ItemRegistersList> infoFormsResult = infoForms.getInfoForms(idGarden, register_name);
 
-                List<ItemRegistersList> finalInfoFormsResult = infoFormsResult;
-                final boolean[] isCodeBlockExecuted = {false};
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!isCodeBlockExecuted[0]) {
-                            Log.i("size","Info enviada LLenar: " + finalInfoFormsResult.size());
-                            fillListGardens(finalInfoFormsResult);
-                            hideLoadingScreen();
-                            long endTime = System.currentTimeMillis();
-                            long duration = endTime - startTime;
-                            System.out.println("El bloque de código tardó " + duration + " milisegundos en ejecutarse.");
-                            isCodeBlockExecuted[0] = true;
-                        }
+        if (infoFormsResult != null) {
+            infoFormsLiveData.setValue(infoFormsResult);
+            infoWhile.setVisibility(View.GONE);
+        } else {
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        fillFormsRegisters(); // Llamar de nuevo a fillFormsRegisters después del retraso
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
                     }
-                });
-            }
-        }).start();
-    }
-
-
-    private void showProgressDialog() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Cargando datos...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-    }
-
-    private void hideProgressDialog() {
-        if (progressDialog != null && progressDialog.isShowing()) {
-            progressDialog.dismiss();
+                }
+            }, 1000); // 1000 milisegundos = 1 segundo
         }
     }
 
@@ -180,18 +184,6 @@ public class FormsRegistersActivity extends AppCompatActivity {
         FormsRegistersAdapter adapter = new FormsRegistersAdapter(this, gardenInfoDocument);
         ListViewRegisters.setAdapter(adapter);
         ListViewRegisters.setDividerHeight(5);
-    }
-
-    private void showLoadingScreen() {
-        // Mostrar la pantalla de carga, por ejemplo:
-        ProgressBar progressBar = findViewById(R.id.progressBarForms);
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    private void hideLoadingScreen() {
-        // Ocultar la pantalla de carga, por ejemplo:
-        ProgressBar progressBar = findViewById(R.id.progressBarForms);
-        progressBar.setVisibility(View.GONE);
     }
 
     @Override

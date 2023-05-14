@@ -3,11 +3,14 @@ package com.example.opcv.model.persistance.repository;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 import com.example.opcv.business.notifications.Notifications;
 import com.example.opcv.model.persistance.repository.local_db.LocalDatabase;
 import com.example.opcv.model.persistance.repository.remote_db.FirebaseDatabase;
 import com.example.opcv.model.persistance.repository.remote_db.ResultAsyncTask;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONException;
 
@@ -16,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class FormsRepository {
@@ -69,11 +73,15 @@ public class FormsRepository {
         deleteInfoLocal.deleteInfoJson(idGarden,infoForm);
     }
 
-    public void updateInfoDatabase(String idGarden,Map<String, Object> newInfoForm) throws JSONException, IOException {
+    public void updateInfoDatabase(String idGarden, Map<String, Object> newInfoForm) throws JSONException, IOException {
         LocalDatabase updateInfo = new LocalDatabase(mContext);
-        updateInfo.updateInfoJson(idGarden,newInfoForm);
-        if(isOnline()){
-            new Thread(() -> {
+        updateInfo.updateInfoJson(idGarden, newInfoForm);
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            executor.execute(() -> {
                 while (!isOnline()) {
                     try {
                         Thread.sleep(1000); // Esperar 1 segundo antes de verificar de nuevo
@@ -81,44 +89,25 @@ public class FormsRepository {
                         e.printStackTrace();
                     }
                 }
-
                 FirebaseDatabase onlineDB = new FirebaseDatabase();
-                onlineDB.updateInDatabase(idGarden,newInfoForm);
-            }).start();
+                onlineDB.updateInDatabase(idGarden, newInfoForm);
+            });
+            executor.shutdown();
         }
     }
 
-    private boolean dataObtained = false;
 
-    public List<Map<String, Object>> getInfoForms(String idGarden, String formName) throws IOException, JSONException {
+
+    public List<Map<String, Object>> getInfoForms(String idGarden, String formName) {
         List<Map<String, Object>> infoJsonForms = null;
-        /*
+
         if (isOnline()) {
-            // Verifica si los datos ya han sido obtenidos antes de hacer una nueva consulta a la base de datos
-            if (!dataObtained) {
-                ResultAsyncTask task = new ResultAsyncTask(idGarden, formName, mContext);
-                task.execute();
-
-                try {
-                    task.get(); // espera a que la tarea se complete
-                } catch (ExecutionException | InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                LocalDatabase info = new LocalDatabase(mContext);
-                // Obtiene los datos de la base de datos y los almacena en una variable o estructura de datos
-                infoJsonForms = info.getInfoJsonForms(idGarden, formName);
-
-                // Actualiza la variable booleana para indicar que los datos ya han sido obtenidos
-                dataObtained = true;
-            }
-        } else {
-            LocalDatabase info = new LocalDatabase(mContext);
-            infoJsonForms = info.getInfoJsonForms(idGarden, formName);
+            updateDatabase(idGarden);
         }
-         */
+
         LocalDatabase info = new LocalDatabase(mContext);
         infoJsonForms = info.getInfoJsonForms(idGarden, formName);
+
         return infoJsonForms;
     }
 
@@ -127,6 +116,32 @@ public class FormsRepository {
                 (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+
+    private void updateDatabase(String idGarden) {
+        FirebaseDatabase info = new FirebaseDatabase();
+        info.getAllInfoFormDatabase(idGarden, new OnDataLoadedListener() {
+            @Override
+            public void onDataLoaded(List<Map<String, Object>> data) throws InterruptedException {
+                if (data != null) {
+                    Log.i("Respository", "Info: " + data.size());
+                    writeInLocal(data,idGarden);
+                } else {
+                    Log.i("Respository", "Info: null");
+                }
+            }
+        });
+    }
+
+    private void writeInLocal(List<Map<String, Object>> data,String idGarden) throws InterruptedException {
+        Log.i("writeInLocal", "Info: " + data.size());
+        LocalDatabase info = new LocalDatabase(mContext);
+        info.updateAllJson(data,idGarden);
+    }
+
+    public interface OnDataLoadedListener {
+        void onDataLoaded(List<Map<String, Object>> data) throws InterruptedException;
     }
 
 }
