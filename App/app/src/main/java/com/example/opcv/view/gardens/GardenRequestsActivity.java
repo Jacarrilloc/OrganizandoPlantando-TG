@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import com.example.opcv.R;
 import com.example.opcv.model.persistance.firebase.UserCommunication;
-import com.example.opcv.model.persistance.garden.GardenPersistance;
 import com.example.opcv.view.adapter.CollaboratorListAdapter;
 import com.example.opcv.model.items.ItemCollaboratorsRequest;
 import com.google.android.gms.tasks.OnSuccessListener;

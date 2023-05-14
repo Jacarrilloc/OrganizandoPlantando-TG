@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.opcv.R;
 import com.example.opcv.model.items.ItemGardenHomeList;
-import com.example.opcv.model.persistance.firebase.GardenCommunication;
 
 import java.util.List;
 
@@ -45,8 +44,6 @@ public class GardenListAdapter extends ArrayAdapter<ItemGardenHomeList> {
 
         image = convertView.findViewById(R.id.garden_imagen_list_item);
         image.setVisibility(View.VISIBLE);
-        GardenCommunication persistance = new GardenCommunication();
-        String id = item.getIdGarden();
 
         if(item.getUri() != null){
             image = convertView.findViewById(R.id.garden_imagen_list_item);

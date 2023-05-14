@@ -7,7 +7,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -16,12 +15,9 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.TrafficStats;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
-import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -37,7 +33,7 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 import com.example.opcv.R;
 import com.example.opcv.model.persistance.firebase.AuthCommunication;
-import com.example.opcv.model.persistance.garden.GardenPersistance;
+import com.example.opcv.model.persistance.firebase.GardenCommunication;
 import com.example.opcv.view.adapter.GardenListAdapter;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.view.auth.SignOffActivity;
@@ -338,10 +334,10 @@ public class HomeActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : value) {
                             String name = document.getString("GardenName");
                             String gardenId = document.getId();
-                            GardenPersistance persistance = new GardenPersistance();
+                            GardenCommunication persistance = new GardenCommunication();
                             if(isOnline()) {
                                 try {
-                                    persistance.getGardenPicture(gardenId, HomeActivity.this, new GardenPersistance.GetUri() {
+                                    persistance.getGardenPicture(gardenId, HomeActivity.this, new GardenCommunication.GetUri() {
                                         @Override
                                         public void onSuccess(String uri) {
                                             ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);

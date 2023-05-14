@@ -81,6 +81,7 @@ public class SelectPhotoActivity extends AppCompatActivity {
         finishRegisterInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                finishRegisterInfo.setClickable(false);
                 createUserInDatabase();
                 callHome();
             }
