@@ -40,7 +40,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.opcv.business.ludification.Level;
 import com.example.opcv.model.persistance.firebase.UserCommunication;
-import com.example.opcv.model.persistance.garden.GardenPersistance;
+import com.example.opcv.model.persistance.firebase.GardenCommunication;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.auth.EditUserActivity;
@@ -353,7 +353,7 @@ public class GardenEditActivity extends AppCompatActivity {
     }
 
     private void deleteGarden(String idGarden) {
-        GardenPersistance persistance = new GardenPersistance();
+        GardenCommunication persistance = new GardenCommunication();
         persistance.deletePhotoGarden(idGarden);
         persistance.deleteGardensCollections(idGarden);
         database2 = FirebaseFirestore.getInstance();

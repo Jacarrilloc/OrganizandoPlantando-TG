@@ -25,7 +25,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.opcv.model.persistance.firebase.AuthCommunication;
-import com.example.opcv.model.persistance.garden.GardenPersistance;
+import com.example.opcv.model.persistance.firebase.GardenCommunication;
 import com.example.opcv.view.auth.SignOffActivity;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
@@ -208,8 +208,8 @@ public class GardensAvailableActivity extends AppCompatActivity {
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     if (task.getResult().isEmpty()) { // User is not a collaborator
-                                        GardenPersistance persistance = new GardenPersistance();
-                                        persistance.getGardenPicture(gardenId, GardensAvailableActivity.this, new GardenPersistance.GetUri() {
+                                        GardenCommunication persistance = new GardenCommunication();
+                                        persistance.getGardenPicture(gardenId, GardensAvailableActivity.this, new GardenCommunication.GetUri() {
                                             @Override
                                             public void onSuccess(String uri) {
                                                 ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);

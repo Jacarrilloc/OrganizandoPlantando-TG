@@ -32,7 +32,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.opcv.R;
-import com.example.opcv.model.persistance.garden.GardenPersistance;
+import com.example.opcv.model.persistance.firebase.GardenCommunication;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -768,8 +768,8 @@ public class GenerateReportsActivity extends AppCompatActivity {
     private void checkIfAllGeneralDataRetrieved(int numDocumentsToRetrieve, int numDocumentsRetrieved) throws IOException {
 
         if (numDocumentsRetrieved == numDocumentsToRetrieve ) {
-            GardenPersistance persistance = new GardenPersistance();
-            persistance.retrieveCrops(new GardenPersistance.GetNumber() {
+            GardenCommunication persistance = new GardenCommunication();
+            persistance.retrieveCrops(new GardenCommunication.GetNumber() {
                 @Override
                 public void onSuccess(int count) {
                     help = count;

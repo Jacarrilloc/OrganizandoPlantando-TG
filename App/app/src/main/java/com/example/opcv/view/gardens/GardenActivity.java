@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.opcv.model.persistance.firebase.AuthCommunication;
-import com.example.opcv.model.persistance.garden.GardenPersistance;
+import com.example.opcv.model.persistance.firebase.GardenCommunication;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.auth.EditUserActivity;
@@ -102,7 +102,7 @@ public class GardenActivity extends AppCompatActivity {
 
         database = FirebaseFirestore.getInstance();
         gardensRef = database.collection("Gardens");
-        GardenPersistance gardenPersistance = new GardenPersistance();
+        GardenCommunication gardenCommunication = new GardenCommunication();
         AuthCommunication authCommunication = new AuthCommunication();
         FirebaseUser user = authCommunication.guestUser();
 
@@ -129,7 +129,7 @@ public class GardenActivity extends AppCompatActivity {
             }
         }
 
-        gardenPersistance.getGardenPicture(gardenID, this, new GardenPersistance.GetUri() {
+        gardenCommunication.getGardenPicture(gardenID, this, new GardenCommunication.GetUri() {
             @Override
             public void onSuccess(String uri) {
                 Glide.with(GardenActivity.this).load(uri).into(gardenImage);

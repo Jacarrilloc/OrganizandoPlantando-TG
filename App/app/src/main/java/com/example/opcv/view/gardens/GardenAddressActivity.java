@@ -1,14 +1,19 @@
 package com.example.opcv.view.gardens;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +22,7 @@ import com.example.opcv.R;
 import com.example.opcv.business.maps.GeocodeAsyncTask;
 import com.example.opcv.business.maps.GeocodeInputAsyncTask;
 import com.example.opcv.business.notifications.Notifications;
-import com.example.opcv.model.persistance.garden.GardenPersistance;
+import com.example.opcv.model.persistance.firebase.GardenCommunication;
 import com.example.opcv.view.base.HomeActivity;
 
 import org.osmdroid.config.Configuration;
@@ -55,7 +60,31 @@ public class GardenAddressActivity extends AppCompatActivity {
         show = findViewById(R.id.showButton);
         next = findViewById(R.id.nextButton);
 
-        GardenPersistance gardenPersistance = new GardenPersistance();
+        GardenCommunication gardenCommunication = new GardenCommunication();
+        LocationManager lm = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+        boolean gps_enabled = false;
+        boolean network_enabled = false;
+
+        try {
+            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch(Exception ex) {}
+
+        try {
+            network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch(Exception ex) {}
+
+        if(!gps_enabled && !network_enabled) {
+            // notify user
+            new AlertDialog.Builder(this)
+                    .setMessage("Para lo siguiente es necesario activar su ubicación. Oprima siguiente para activar")
+                    .setPositiveButton("Siguiente", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                        }
+                    })
+                    .show();
+        }
 
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.getController().setZoom(18.0);
@@ -127,7 +156,7 @@ public class GardenAddressActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String addressStr = address.getText().toString();
-                gardenPersistance.addGardenAddress(idGarden, addressStr, point);
+                gardenCommunication.addGardenAddress(idGarden, addressStr, point);
                 Notifications notifications = new Notifications();
                 notifications.notification("Huerta creada", "Felicidades! Tu huerta ha sido creada.", GardenAddressActivity.this);
                 startActivity(new Intent(GardenAddressActivity.this, HomeActivity.class));
@@ -149,6 +178,29 @@ public class GardenAddressActivity extends AppCompatActivity {
         }
     }
 
+
+    /*
+    public void statusCheck() {
+        final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps();
+
+        }
+    }
+
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Para lo siguiente se necesitan permisos de ubicación. Oprima siguiente para otorgarlos")
+                .setCancelable(false)
+                .setPositiveButton("Siguiente", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }*/
 
     @Override
     protected void onResume() {

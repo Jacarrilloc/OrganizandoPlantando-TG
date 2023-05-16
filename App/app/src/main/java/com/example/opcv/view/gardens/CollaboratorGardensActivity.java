@@ -21,7 +21,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.opcv.model.persistance.garden.GardenPersistance;
+import com.example.opcv.model.persistance.firebase.GardenCommunication;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.adapter.MyCollaborationsListAdapter;
@@ -186,8 +186,8 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
                                                                     gardenType = task.getResult().get("GardenType").toString();
                                                                     //idSearch = new GardenInfo(idOwner, name, info, gardenType);
                                                                     String idGarde = document.getData().get("idGardenCollab").toString();
-                                                                    GardenPersistance persistance = new GardenPersistance();
-                                                                    persistance.getGardenPicture(idGarde, CollaboratorGardensActivity.this, new GardenPersistance.GetUri() {
+                                                                    GardenCommunication persistance = new GardenCommunication();
+                                                                    persistance.getGardenPicture(idGarde, CollaboratorGardensActivity.this, new GardenCommunication.GetUri() {
                                                                         @Override
                                                                         public void onSuccess(String uri) {
                                                                             ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(nameUser, userId, idGarde, uri);

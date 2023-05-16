@@ -48,10 +48,8 @@ import com.example.opcv.R;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.model.entity.GardenInfo;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
-import com.example.opcv.business.notifications.Notifications;
-import com.example.opcv.model.persistance.garden.GardenPersistance;
+import com.example.opcv.model.persistance.firebase.GardenCommunication;
 import com.example.opcv.view.ludification.RewardHomeActivity;
-import com.example.opcv.view.ludification.ShowDictionaryItemActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -259,7 +257,7 @@ public class CreateGardenActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
                     String idGarden = documentReference.getId();
-                    GardenPersistance persistance = new GardenPersistance();
+                    GardenCommunication persistance = new GardenCommunication();
                     Drawable drawable = photo.getDrawable();
                     if(drawable != null){
                         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
@@ -271,7 +269,7 @@ public class CreateGardenActivity extends AppCompatActivity {
                         bytes = null;
                         startActivity(new Intent(CreateGardenActivity.this, GardenAddressActivity.class).putExtra("idGarden", documentReference.getId().toString()));
                     }
-                    persistance.addGardenPhoto(bytes, idGarden, new GardenPersistance.GetUriGarden() {
+                    persistance.addGardenPhoto(bytes, idGarden, new GardenCommunication.GetUriGarden() {
                         @Override
                         public void onSuccess(String uri) {
                             //descomentar la siguiente linea si se necesita poner la uri en firestore

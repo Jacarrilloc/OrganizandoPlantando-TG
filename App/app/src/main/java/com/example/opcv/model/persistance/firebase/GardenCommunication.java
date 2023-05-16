@@ -1,73 +1,157 @@
 package com.example.opcv.model.persistance.firebase;
 
-import static android.content.ContentValues.TAG;
-
-import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-import com.example.opcv.R;
-import com.example.opcv.model.items.ItemGardenHomeList;
+import com.example.opcv.business.interfaces.firebase.map.GetGardensAddresses;
+import com.example.opcv.model.entity.Address;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.osmdroid.util.GeoPoint;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class GardenCommunication {
+    int countGardens = 0;
+
+    public void deletePhotoGarden(String gardenId){
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        DocumentReference Ref = database.collection("Gardens").document(gardenId);
+        Ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    String uri = task.getResult().getString("UriPath");
+                    String path = gardenId+".jpg";
+                    //if(uri != null){
+                        StorageReference storage = FirebaseStorage.getInstance().getReference("gardenMainPhoto/"+path);
+                        storage.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                System.out.println("borro");
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                System.out.println("no borro");
+                            }
+                        });
+                   // }
+                }
+            }
+        });
+    }
 
 
     public void addGardenPhoto(byte[] bytes, String gardenID, final GetUriGarden callback) {
-        StorageReference storage = FirebaseStorage.getInstance().getReference();
-        String imageName = gardenID + ".jpg";
-        StorageReference ref = storage.child("gardenMainPhoto/" + imageName);
-        UploadTask uploadTask = ref.putBytes(bytes);
-        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        try {
+            if (bytes != null) {
+                StorageReference storage = FirebaseStorage.getInstance().getReference();
+                String imageName = gardenID + ".jpg";
+                StorageReference ref = storage.child("gardenMainPhoto/" + imageName);
+                UploadTask uploadTask = ref.putBytes(bytes);
+                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
-                    public void onSuccess(Uri uri) {
-                        String url = uri.toString();
-                        callback.onSuccess(url);
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                String url = uri.toString();
+                                callback.onSuccess(url);
+                            }
+                        });
                     }
                 });
             }
-        });
+        }catch (Exception e){
+            Log.i("Error: ", e.getMessage());
+        }
     }
 
     public void getGardenPicture(String id, Context context, final GetUri callback){
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference imageRef = storageRef.child("gardenMainPhoto/" +id + ".jpg");
-        imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        DocumentReference Ref = database.collection("Gardens").document(id);
+        Ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(Uri uri) {
-                String url = uri.toString();
-                callback.onSuccess(url);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Uri uri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + context.getApplicationContext().getPackageName() + "/" + R.drawable.im_logo_ceres_green);
-                callback.onSuccess(uri.toString());
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(documentSnapshot.exists()){
+                    String uri = documentSnapshot.getString("UriPath");
+                    if(uri != null){
+                        callback.onSuccess(uri);
+                    }
+                    else{
+                        String imageString = "android.resource://" + context.getPackageName() + "/drawable/im_logo_ceres_green";
+                        callback.onFailure(imageString);
+                    }
+                }
             }
         });
-
     }
+
+    public void addGardenAddress(String id, String address, GeoPoint p){
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        DocumentReference ref = database.collection("Gardens").document(id);
+        ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+               if(task.isSuccessful()){
+                   Map<String, Object> garden = new HashMap<>();
+                   garden.put("latitude", p.getLatitude());
+                   garden.put("longitude", p.getLongitude());
+                   garden.put("gardenAddress", address);
+                   ref.update(garden);
+               }
+            }
+        });
+    }
+
+    public void gardensAddresses(final GetGardensAddresses callback){
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        CollectionReference ref = database.collection("Gardens");
+
+        Query query = ref.whereEqualTo("GardenType", "Public");
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    GeoPoint point;
+                    String gardenName;
+                    Map<Integer, Address> addresses = new HashMap<>();
+                    int i = 0;
+                    for(QueryDocumentSnapshot docs: task.getResult()) {
+                        if (docs.getDouble("latitude") != null && docs.getDouble("longitude") != null) {
+                            point = new GeoPoint(docs.getDouble("latitude"), docs.getDouble("longitude"));
+                            gardenName = docs.getString("GardenName");
+                            Address address = new Address(gardenName, point);
+                            addresses.put(i, address);
+                            i++;
+                        }
+                    }
+                    callback.onComplete(addresses);
+                }else{
+                    System.out.println("Error");
+                }
+            }
+        });
+    }
+
 
 
     public interface GetUriGarden{
@@ -79,42 +163,82 @@ public class GardenCommunication {
         void onFailure(String imageString);
     }
 
-    public interface OnGardenUserFilledListener {
-        void onGardenUserFilled(List<ItemGardenHomeList> gardenNames);
-    }
-
-    private void fillGardenUser(String ID, OnGardenUserFilledListener listener) {
+    public void retrieveCrops(final GetNumber callback){
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         CollectionReference Ref = database.collection("Gardens");
-        String userID = ID;
-        Query query = Ref.whereEqualTo("ID_Owner", userID);
-        query.whereEqualTo("ID_Owner", userID).addSnapshotListener(new EventListener<QuerySnapshot>() {
 
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException e) {
-                if(e != null){
-                    Log.d(TAG, "Se genero error: ", e);
-                    return;
-                }
-                List<ItemGardenHomeList> gardenNames = new ArrayList<>();
-                for(DocumentSnapshot documentSnapshot : value){
-                    if(documentSnapshot.exists()){
-                        String name = documentSnapshot.getString("GardenName");
-                        String gardenId = documentSnapshot.getId();
-                        GardenCommunication persistance = new GardenCommunication();
-                        /*persistance.getGardenPicture(gardenId, this, new GardenPersistance.GetUri() {
-                            @Override
-                            public void onSuccess(String uri) {
-                                ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);
-                                gardenNames.add(newItem);
-                            }
-                        });*/
+        Ref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot q : task.getResult()){
+                        if(q!=null){
+                            Ref.document(q.getId()).collection("Forms").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task1) {
+                                    if(task1.isSuccessful()){
+                                        for(QueryDocumentSnapshot q : task1.getResult()){
+                                            String name = q.getString("nameForm");
+                                            if(name.equals("Control de Procesos de Siembra")){
+                                                countGardens++;
+                                                callback.onSuccess(countGardens);
+                                                break;
+                                            }
+                                        }
 
-
-                    } else {
-
+                                    }
+                                }
+                            });
+                        }
                     }
+
                 }
-                listener.onGardenUserFilled(gardenNames);
+            }
+        });
+
+    }
+    public interface GetNumber{
+        void onSuccess(int count);
+    }
+
+    public void deleteGardensCollections(String idGarden){
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        DocumentReference Ref = database.collection("Gardens").document(idGarden);
+
+
+        Ref.collection("Collaborators").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot doc : task.getResult()){
+                        doc.getReference().delete();
+                    }
+                    Log.i("Collaborators", "Se elimino la coleccion de collaborators");
+                }
+            }
+        });
+
+        Ref.collection("Requests").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot doc : task.getResult()){
+                        doc.getReference().delete();
+                    }
+                    Log.i("Requests", "Se elimino la coleccion de Requests");
+                }
+            }
+        });
+
+        Ref.collection("Forms").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot doc : task.getResult()){
+                        doc.getReference().delete();
+                    }
+                    Log.i("Forms", "Se elimino la coleccion de Forms");
+                }
             }
         });
     }
