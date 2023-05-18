@@ -21,12 +21,10 @@ import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.view.ludification.RewardHomeActivity;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class DeleteAccountActivity extends AppCompatActivity {
 
     private Button delete, returnButton, rewards, profile, myGardens, ludification;
-    private FirebaseAuth autentication;
     private String idUser;
 
     @Override
@@ -34,7 +32,6 @@ public class DeleteAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_account);
 
-        autentication = FirebaseAuth.getInstance();
 
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);

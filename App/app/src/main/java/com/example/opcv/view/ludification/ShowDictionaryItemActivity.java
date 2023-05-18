@@ -350,48 +350,50 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
 
 
         //Manejo de Likes y Dislikes
-        CollectionReference userActionsPoints = FirebaseFirestore.getInstance().collection("UserInfo").document(idUser).collection("UserActionsPoints");
-        Query query = userActionsPoints.whereEqualTo("idItem", docRef);
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()){
-                    QuerySnapshot querySnapshot = task.getResult();
-                    if (querySnapshot.isEmpty()){
+        if(idUser != null){
+            CollectionReference userActionsPoints = FirebaseFirestore.getInstance().collection("UserInfo").document(idUser).collection("UserActionsPoints");
+            Query query = userActionsPoints.whereEqualTo("idItem", docRef);
+            query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()){
+                        QuerySnapshot querySnapshot = task.getResult();
+                        if (querySnapshot.isEmpty()){
 
-                        CollectionReference collectionReference = FirebaseFirestore.getInstance().collection(element);
-                        collectionReference.document(docRef).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    String var = task.getResult().getString("Publisher");
-                                    if (var!= null){
-                                        if(var.equals(idUser)){
-                                            likeButton.setEnabled(false);
-                                            dislikeButton.setEnabled(false);
-                                            likeButton.setBackgroundResource(R.drawable.im_like_gray);
-                                            dislikeButton.setBackgroundResource(R.drawable.im_dislike_gray);
-                                            deleteButton.setVisibility(View.VISIBLE);
+                            CollectionReference collectionReference = FirebaseFirestore.getInstance().collection(element);
+                            collectionReference.document(docRef).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        String var = task.getResult().getString("Publisher");
+                                        if (var!= null){
+                                            if(var.equals(idUser)){
+                                                likeButton.setEnabled(false);
+                                                dislikeButton.setEnabled(false);
+                                                likeButton.setBackgroundResource(R.drawable.im_like_gray);
+                                                dislikeButton.setBackgroundResource(R.drawable.im_dislike_gray);
+                                                deleteButton.setVisibility(View.VISIBLE);
+                                            }
+                                        }else{
+                                            likeButton.setEnabled(true);
+                                            dislikeButton.setEnabled(true);
+                                            likeButton.setBackgroundResource(R.drawable.im_like_green);
+                                            dislikeButton.setBackgroundResource(R.drawable.im_dislike_red);
                                         }
-                                    }else{
-                                        likeButton.setEnabled(true);
-                                        dislikeButton.setEnabled(true);
-                                        likeButton.setBackgroundResource(R.drawable.im_like_green);
-                                        dislikeButton.setBackgroundResource(R.drawable.im_dislike_red);
                                     }
                                 }
-                            }
-                        });
+                            });
 
-                    }else{
-                        likeButton.setEnabled(false);
-                        dislikeButton.setEnabled(false);
-                        likeButton.setBackgroundResource(R.drawable.im_like_gray);
-                        dislikeButton.setBackgroundResource(R.drawable.im_dislike_gray);
+                        }else{
+                            likeButton.setEnabled(false);
+                            dislikeButton.setEnabled(false);
+                            likeButton.setBackgroundResource(R.drawable.im_like_gray);
+                            dislikeButton.setBackgroundResource(R.drawable.im_dislike_gray);
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
 
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
