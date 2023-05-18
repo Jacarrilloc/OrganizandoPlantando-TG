@@ -194,9 +194,7 @@
         <activity
             android:name=".view.gardens.GardenRequestsActivity"
             android:exported="false" />
-        <activity
-            android:name=".view.adapter.GardenMembersAdapter"
-            android:exported="false" />
+
         <activity
             android:name=".view.gardens.GardenMembersActivity"
             android:exported="false" />
