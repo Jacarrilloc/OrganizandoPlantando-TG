@@ -47,7 +47,6 @@ public class CreatePlantActivity extends AppCompatActivity {
     private Button profile, myGardens, rewards, ludification;
     private ImageView image;
     private static final int PICK_IMAGE_REQUEST = 1;
-    private Uri selectImageUri;
     private byte[] bytes;
     private boolean imageSelected = false;
 
@@ -106,8 +105,6 @@ public class CreatePlantActivity extends AppCompatActivity {
                 if(logic.validateField(plantName, plantDescription, CreatePlantActivity.this, bytes)){
                     logic.addPlantElementsMap(plantName, plantDescription, flowerCheck, fruitCheck, edibleCheck, medicineCheck, petCheck, precautionCheck, CreatePlantActivity.this, idUser, bytes);
                     level.addLevel(idUser, true, CreatePlantActivity.this, "Plants");
-                    //Notifications  notifications = new Notifications();
-                    //notifications.notification("Has ganado puntos", "Felicidades! Ganaste 3 puntos por crear tu planta", CreatePlantActivity.this, DictionaryHome.class);
                     Intent edit = new Intent(CreatePlantActivity.this, DictionaryHomeActivity.class);
                     edit.putExtra("userInfo", idUser);
                     startActivity(edit);

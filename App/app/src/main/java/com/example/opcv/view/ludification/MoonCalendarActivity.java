@@ -54,7 +54,6 @@ public class MoonCalendarActivity extends AppCompatActivity {
         ludification = (Button) findViewById(R.id.ludification);
         back = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
 
-
         MoonCalendar moonCalendar = new MoonCalendar();
 
         //Fecha actual
@@ -82,8 +81,6 @@ public class MoonCalendarActivity extends AppCompatActivity {
                 startActivity(new Intent(MoonCalendarActivity.this, HomeActivity.class));
             }
         });
-
-
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override

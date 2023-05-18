@@ -1,10 +1,8 @@
 package com.example.opcv.view.ludification;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,7 +11,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -29,8 +26,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +41,6 @@ import com.example.opcv.view.adapter.CommentsAdapter;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.view.auth.SignOffActivity;
 import com.example.opcv.view.base.HomeActivity;
-import com.example.opcv.view.gardens.GardensAvailableActivity;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -55,16 +49,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,7 +65,7 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
 
     private Button profile, myGardens, rewards, ludification;
     private String idUser, element, docRef, imageUri;
-    private TextView authorName, elementName, likeNumber, dislikeNumber, description, tag1, tag2,tag3, tag4, tag5, tag6, author, publisherLevel, namelevel;
+    private TextView authorName, elementName, likeNumber, dislikeNumber, description, author, publisherLevel, namelevel;
     private EditText input;
     private FloatingActionButton add, sendComment, back;
     private ImageButton likeButton, dislikeButton;
@@ -120,8 +109,6 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
         dotborderImage = (ImageView) findViewById(R.id.border);
         back = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
         deleteButton = (ImageButton) findViewById(R.id.deleteButton);
-
-
         //Vista del autor de la descripción
         authorLayout = (FrameLayout) findViewById(R.id.authorCard);
         author = (TextView) findViewById(R.id.name);
@@ -406,8 +393,6 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
             }
         });
 
-
-
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -499,17 +484,12 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ShowDictionaryItemActivity.this, HomeActivity.class));
             }
         });
-
-
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override

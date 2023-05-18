@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -28,7 +27,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 import com.example.opcv.R;
@@ -41,7 +39,6 @@ import com.example.opcv.view.gardens.CollaboratorGardensActivity;
 import com.example.opcv.view.gardens.CreateGardenActivity;
 import com.example.opcv.view.gardens.GardenActivity;
 import com.example.opcv.view.gardens.GardensAvailableActivity;
-import com.example.opcv.model.entity.User;
 import com.example.opcv.model.items.ItemGardenHomeList;
 import com.example.opcv.view.gardens.GenerateReportsActivity;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
@@ -49,17 +46,7 @@ import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.FirebaseFirestoreSettings;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -68,21 +55,10 @@ public class HomeActivity extends AppCompatActivity {
     private Button otherGardensButton, profile, myGardens, collaboration, ludification, rewards;
     private ImageButton generateReport;
     private ListView listAviableGardensInfo;
-    private FloatingActionButton nextArrow, addButton;
-    private FirebaseAuth autentication;
-    private FirebaseFirestore database;
+    private FloatingActionButton addButton;
     private Animation animSlideUp;
-
     private ProgressDialog progressDialog;
-
-    private ProgressBar progressBar;
-
-    private String idHuerta;
-    private User userInfo;
     private String userId;
-
-    private Intent serviceIntent;
-    private Handler handle;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -110,7 +86,9 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        fillGardenUser();
+        AuthCommunication auth = new AuthCommunication();
+        GardenCommunication com = new GardenCommunication();
+        com.fillGardenUser(auth.getCurrentUserUid(), this);
     }
 
     @Override
@@ -121,7 +99,9 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        fillGardenUser();
+        AuthCommunication auth = new AuthCommunication();
+        GardenCommunication com = new GardenCommunication();
+        com.fillGardenUser(auth.getCurrentUserUid(), this);
     }
 
     @Override
@@ -143,14 +123,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-                .setPersistenceEnabled(true)
-                .build();
-
-        autentication = FirebaseAuth.getInstance();
-        database = FirebaseFirestore.getInstance();
-        database.setFirestoreSettings(settings);
-
         //Declaracion metodos de navegacion
         listAviableGardensInfo = findViewById(R.id.listAviableGardens);
         addButton = (FloatingActionButton) findViewById(R.id.addButton);
@@ -169,10 +141,8 @@ public class HomeActivity extends AppCompatActivity {
             if(previous != null){
                 if(previous.equals("true")){
                     showProgressDialog(3000);
-                    //hideProgressDialog();
                 }
             }
-
         }
 
         userId = getIntent().getStringExtra("userID");
@@ -183,7 +153,10 @@ public class HomeActivity extends AppCompatActivity {
             userId = auth.getCurrentUserUid();
         }
 
-        fillGardenUser();
+        //fillGardenUser();
+        AuthCommunication auth = new AuthCommunication();
+        GardenCommunication com = new GardenCommunication();
+        com.fillGardenUser(auth.getCurrentUserUid(), this);
 
         listAviableGardensInfo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -193,7 +166,6 @@ public class HomeActivity extends AppCompatActivity {
                 String itemName = ((ItemGardenHomeList) selectedItem).getName();
                 String userID = userId;
                 String idGarden = ((ItemGardenHomeList) selectedItem).getIdGarden();
-                String idGardenFirebaseDoc = getIntent().getStringExtra("idGarden");
                 Intent start = new Intent(HomeActivity.this, GardenActivity.class);
                 start.putExtra("ID",userID);
                 start.putExtra("gardenName",itemName);
@@ -316,76 +288,13 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    private void fillGardenUser(){
-        //startActivity(new Intent(HomeActivity.this, HomeActivity.class));
-        CollectionReference Ref = database.collection("Gardens");
 
-        Query query = Ref.whereEqualTo("ID_Owner", userId);
-        query.whereEqualTo("ID_Owner", userId).addSnapshotListener(new EventListener<QuerySnapshot>() {
-
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException e) {
-                if(e != null){
-                    Log.d(TAG, "Se genero error: ", e);
-                    return;
-                }
-                for(DocumentSnapshot documentSnapshot : value){
-                    if(documentSnapshot.exists()){
-                        List<ItemGardenHomeList> gardenNames = new ArrayList<>();
-                        for (QueryDocumentSnapshot document : value) {
-                            String name = document.getString("GardenName");
-                            String gardenId = document.getId();
-                            GardenCommunication persistance = new GardenCommunication();
-                            if(isOnline()) {
-                                try {
-                                    persistance.getGardenPicture(gardenId, HomeActivity.this, new GardenCommunication.GetUri() {
-                                        @Override
-                                        public void onSuccess(String uri) {
-                                            ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);
-                                            gardenNames.add(newItem);
-                                            fillListGardens(gardenNames);
-                                        }
-
-                                        @Override
-                                        public void onFailure(String imageString) {
-                                            ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, imageString);
-                                            gardenNames.add(newItem);
-                                            fillListGardens(gardenNames);
-                                        }
-                                    });
-                                }catch (Exception a){
-                                    Log.i("HOME-ERROR","Error: " + a.getMessage().toString());
-                                }
-                            }else{
-                                ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, null);
-                                gardenNames.add(newItem);
-                                fillListGardens(gardenNames);
-                            }
-                        }
-                        //fillListGardens(gardenNames);
-                    } else {
-                        Toast.makeText(HomeActivity.this, "Error al obtener los documentos", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        });
-
-    }
-
-    private void fillListGardens(List<ItemGardenHomeList> gardenInfoDocument) {
+    public void fillListGardens(List<ItemGardenHomeList> gardenInfoDocument) {
 
         try {
-
-            //listAviableGardensInfo.setVisibility(View.GONE);
-            //progressBar.setVisibility(View.VISIBLE);
-
-
             if(isOnline()) {
                 Thread.sleep(15);
             }
-
-            //progressBar.setVisibility(View.GONE);
-            //listAviableGardensInfo.setVisibility(View.VISIBLE);
-
             // Crear un comparador que compare los objetos por nombre
             Comparator<ItemGardenHomeList> nameComparator = new Comparator<ItemGardenHomeList>() {
                 @Override
@@ -393,10 +302,8 @@ public class HomeActivity extends AppCompatActivity {
                     return item1.getName().compareTo(item2.getName());
                 }
             };
-
             // Ordenar la lista usando el comparador
             Collections.sort(gardenInfoDocument, nameComparator);
-
             GardenListAdapter adapter = new GardenListAdapter(this, gardenInfoDocument);
             listAviableGardensInfo.setAdapter(adapter);
             listAviableGardensInfo.setDividerHeight(5);
@@ -407,7 +314,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private boolean isOnline() {
+    public boolean isOnline() {
         ConnectivityManager cm =
                 (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();

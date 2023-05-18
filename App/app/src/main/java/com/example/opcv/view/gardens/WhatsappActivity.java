@@ -51,7 +51,6 @@ public class WhatsappActivity extends AppCompatActivity {
                 newForm.putExtra("ID", id);
                 newForm.putExtra("idGarden", idGarden);
                 newForm.putExtra("gardenName", garden);
-                //newForm.putExtra("infoGarden", infoGarden);
                 newForm.putExtra("owner", owner);
                 newForm.putExtra("GroupLink", link);
                 startActivity(newForm);

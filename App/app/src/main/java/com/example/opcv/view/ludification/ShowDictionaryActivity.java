@@ -156,8 +156,6 @@ public class ShowDictionaryActivity extends AppCompatActivity {
             }
         });
 
-
-
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -54,7 +54,6 @@ public class GardenAddressActivity extends AppCompatActivity {
             idGarden= getIntent().getStringExtra("idGarden");
         }
 
-
         map = findViewById(R.id.mapglobal);
         address = findViewById(R.id.addressinput);
         show = findViewById(R.id.showButton);
@@ -177,30 +176,6 @@ public class GardenAddressActivity extends AppCompatActivity {
             }
         }
     }
-
-
-    /*
-    public void statusCheck() {
-        final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            buildAlertMessageNoGps();
-
-        }
-    }
-
-    private void buildAlertMessageNoGps() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Para lo siguiente se necesitan permisos de ubicación. Oprima siguiente para otorgarlos")
-                .setCancelable(false)
-                .setPositiveButton("Siguiente", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, final int id) {
-                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                    }
-                });
-        final AlertDialog alert = builder.create();
-        alert.show();
-    }*/
 
     @Override
     protected void onResume() {

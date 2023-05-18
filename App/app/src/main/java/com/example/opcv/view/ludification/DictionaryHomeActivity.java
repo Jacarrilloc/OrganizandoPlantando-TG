@@ -25,7 +25,7 @@ public class DictionaryHomeActivity extends AppCompatActivity {
 
     private Button plants, tools;
     private Button profile, myGardens, rewards, dictionary;
-    private String idUser, idDocUSer;
+    private String idUser;
 
     @Override
     protected void onStart() {
@@ -57,7 +57,6 @@ public class DictionaryHomeActivity extends AppCompatActivity {
         plants.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent edit = new Intent(DictionaryHomeActivity.this, ShowDictionaryActivity.class);
                 edit.putExtra("userInfo", idUser);
                 edit.putExtra("element", "Plants");

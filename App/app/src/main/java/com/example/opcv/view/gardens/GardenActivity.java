@@ -10,10 +10,8 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -28,29 +26,15 @@ import com.example.opcv.model.persistance.firebase.GardenCommunication;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.auth.EditUserActivity;
-import com.example.opcv.model.persistance.firebase.CollaboratorCommunication;
 import com.example.opcv.view.forms.Form_CIH;
 import com.example.opcv.view.forms.Form_CPS;
 import com.example.opcv.view.forms.Form_RAC;
 import com.example.opcv.model.entity.GardenInfo;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.view.ludification.RewardHomeActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class GardenActivity extends AppCompatActivity {
@@ -60,10 +44,7 @@ public class GardenActivity extends AppCompatActivity {
     private ImageView moreFormsButtom,gardenImage;
     private TextView nameGarden,descriptionGarden, gardenParticipants, gardenAddress;
     private FloatingActionButton backButtom;
-    private FirebaseFirestore database;
-    private CollectionReference gardensRef;
-    private int participants;
-    private String gardenID, garden, infoGarden, idUSerColab, groupLink, id, owner;
+    private String gardenID, garden, infoGarden, groupLink, id, owner;
 
     @Override
     protected void onStart() {
@@ -100,8 +81,6 @@ public class GardenActivity extends AppCompatActivity {
         ludification = (Button) findViewById(R.id.ludification);
         gardenAddress = (TextView) findViewById(R.id.adressGarden);
 
-        database = FirebaseFirestore.getInstance();
-        gardensRef = database.collection("Gardens");
         GardenCommunication gardenCommunication = new GardenCommunication();
         AuthCommunication authCommunication = new AuthCommunication();
         FirebaseUser user = authCommunication.guestUser();
@@ -113,8 +92,7 @@ public class GardenActivity extends AppCompatActivity {
             gardenID = extras.getString("idGarden");
             groupLink = extras.getString("GroupLink");
             owner = extras.getString("owner");
-            //System.out.println("El que es "+ owner);
-            SearchInfoGardenSreen(id,garden);
+            gardenCommunication.SearchInfoGardenScreen(id, garden, gardenID, this);
         }
 
         if(!Objects.equals(owner, "true")){
@@ -125,7 +103,7 @@ public class GardenActivity extends AppCompatActivity {
         }
         else{
             if(groupLink != null){
-                insertGroupLink(groupLink, gardenID);
+                gardenCommunication.insertGroupLink(groupLink, gardenID, this);
             }
         }
 
@@ -141,7 +119,6 @@ public class GardenActivity extends AppCompatActivity {
             }
         });
 
-        //getImageGarden(extras.getString("idGarden"));
         backButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -166,7 +143,6 @@ public class GardenActivity extends AppCompatActivity {
             }
         });
 
-
         editGarden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -183,7 +159,6 @@ public class GardenActivity extends AppCompatActivity {
             }
         });
 
-
         rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -196,14 +171,12 @@ public class GardenActivity extends AppCompatActivity {
             }
         });
 
-
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(GardenActivity.this, HomeActivity.class));
             }
         });
-
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -280,14 +253,13 @@ public class GardenActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(user != null && !user.isAnonymous()){
                     if(Objects.equals(owner, "false")){
-                        goToLink(gardenID);
+                        gardenCommunication.goToLink(gardenID, GardenActivity.this);
                     }
                     else{
                         Intent newForm = new Intent(GardenActivity.this, WhatsappActivity.class);
                         newForm.putExtra("ID", id);
                         newForm.putExtra("idGarden", gardenID);
                         newForm.putExtra("gardenName", garden);
-                        // newForm.putExtra("infoGarden", infoGarden);
                         newForm.putExtra("owner", owner);
                         startActivity(newForm);
                         finish();
@@ -319,7 +291,6 @@ public class GardenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(user != null && !user.isAnonymous()){
-                    CollaboratorCommunication cU = new CollaboratorCommunication();
                     Intent requests = new Intent(GardenActivity.this, GardenRequestsActivity.class);
                     requests.putExtra("Name",formsName2);
                     requests.putExtra("idGardenFirebase",idGardenFirebase);
@@ -337,26 +308,7 @@ public class GardenActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(user != null && !user.isAnonymous()){
                     String idGardenFirebase = extras.getString("idGardenFirebaseDoc");
-                    Intent requests = new Intent(GardenActivity.this, GenerateReportsActivity.class);
-                    requests.putExtra("idGardenFirebaseDoc",idGardenFirebase);
-                    requests.putExtra("idUser",id);
-                    requests.putExtra("garden","true");// con esto se define si, al ejecutar GenerateReportsActivity es solo para la huerta o para todos
-                    CollectionReference collectionRef2 = database.collection("UserInfo");
-                    Query query = collectionRef2.whereEqualTo("ID", id);
-                    query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if(task.isSuccessful()){
-                                for (QueryDocumentSnapshot document : task.getResult()){
-                                    String name = document.getData().get("Name").toString();
-                                    String lastName =document.getData().get("LastName").toString();
-                                    requests.putExtra("ownerName",name+" "+lastName);
-                                    startActivity(requests);
-                                    finish();
-                                }
-                            }
-                        }
-                    });
+                    gardenCommunication.gardenReportGeneration(GardenActivity.this, idGardenFirebase, id);
                 }
                 else{
                     Toast.makeText(GardenActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
@@ -381,48 +333,12 @@ public class GardenActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
         Intent toHome = new Intent(GardenActivity.this,HomeActivity.class);
         toHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(toHome);
     }
 
-    private void SearchInfoGardenSreen(String idUser, String name){
-        DocumentReference ref = gardensRef.document(gardenID);
-
-        ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                String infoDoc=null;
-                if (documentSnapshot.exists()) {
-
-                    String typeDoc = documentSnapshot.getString("GardenType");
-                    infoDoc = documentSnapshot.getString("InfoGarden");
-                    String gardenAddress = documentSnapshot.getString("gardenAddress");
-                    GardenInfo gardenInfo = new GardenInfo(idUser,name,infoDoc,typeDoc, gardenAddress);
-                    //para conocer el numero de participantes de la huerta
-                    ref.collection("Collaborators").get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    participants = task.getResult().size();
-                                    fillSreen(gardenInfo, participants);
-                                }
-                            });
-                }
-                /*else {
-                    System.out.println("Se genero error al mostrar la información");
-                }*/
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "Se genero error: ", e);
-            }
-        });
-    }
-
-    private void fillSreen(GardenInfo gardenInfo, int gardenParticipant){
+    public void fillScreen(GardenInfo gardenInfo, int gardenParticipant){
         nameGarden.setText(gardenInfo.getName());
         if(gardenParticipant == 1){
             gardenParticipants.setText(gardenParticipant+ " Participante de la huerta");
@@ -432,34 +348,7 @@ public class GardenActivity extends AppCompatActivity {
         descriptionGarden.setText(gardenInfo.getInfo());
         gardenAddress.setText(gardenInfo.getAddress());
     }
-    private void insertGroupLink(String link, String idGarden){
-        Map<String, Object> gardenLink = new HashMap<>();
-        gardenLink.put("Garden_Chat_Link",link);
-        DocumentReference documentRef = database.collection("Gardens").document(idGarden);
 
-        documentRef.update(gardenLink);
-        Toast.makeText(GardenActivity.this, "Se agregó el link exitosamente", Toast.LENGTH_SHORT).show();
-    }
-    private void goToLink(String idGardem){
-        database.collection("Gardens").document(idGardem).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if(task.isSuccessful()){
-                            String link = (String) task.getResult().get("Garden_Chat_Link");
-                            if(link != null){
-                                Intent intent = new Intent(Intent.ACTION_VIEW);
-                                intent.setData(Uri.parse(link));
-                                startActivity(intent);
-                            }
-                            else{
-                                Toast.makeText(GardenActivity.this, "Esta huerta no tiene chat grupal", Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
-                    }
-                });
-    }
     private boolean isOnline() {
         ConnectivityManager cm =
                 (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);

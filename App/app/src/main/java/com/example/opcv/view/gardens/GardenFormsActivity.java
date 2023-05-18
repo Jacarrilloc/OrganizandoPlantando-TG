@@ -40,7 +40,6 @@ public class GardenFormsActivity extends AppCompatActivity {
     private ListView gardenFormsList;
     private TextView text;
     private String[] itemsList;
-
     private FloatingActionButton backButtom;
     private Animation animSlideUp;
     @Override
@@ -197,7 +196,6 @@ public class GardenFormsActivity extends AppCompatActivity {
                             Intent newForm = new Intent(GardenFormsActivity.this, FormsRegistersActivity.class);
                             newForm.putExtra("Name",formsName);
                             newForm.putExtra("idGardenFirebase",idGardenFirebase);
-                            //newForm.putExtra("watch","true");
                             startActivity(newForm);
                             break;
                         }

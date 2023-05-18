@@ -3,7 +3,6 @@ package com.example.opcv.view.gardens;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -13,7 +12,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -27,23 +25,11 @@ import com.example.opcv.R;
 import com.example.opcv.view.adapter.MyCollaborationsListAdapter;
 import com.example.opcv.view.auth.EditUserActivity;
 import com.example.opcv.model.persistance.firebase.AuthCommunication;
-import com.example.opcv.model.entity.GardenInfo;
 import com.example.opcv.model.items.ItemCollaboratorsRequest;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.view.ludification.RewardHomeActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CollaboratorGardensActivity extends AppCompatActivity {
@@ -51,12 +37,10 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
     private String userId;
     private ListView listGardens;
     private FirebaseAuth autentication;
-    private FirebaseFirestore database;
 
     @Override
     protected void onStart() {
         super.onStart();
-        fillGardenUser();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +48,12 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
         setContentView(R.layout.activity_collaborator_gardens);
 
         autentication = FirebaseAuth.getInstance();
-        database = FirebaseFirestore.getInstance();
         ludification = (Button) findViewById(R.id.ludification);
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
         rewards = (Button) findViewById(R.id.rewards);
         listGardens = findViewById(R.id.collaborationGardenList);
+        GardenCommunication gardenCom = new GardenCommunication();
 
         Bundle extras = getIntent().getExtras();
         userId = getIntent().getStringExtra("userID");
@@ -79,12 +63,10 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
         }
         if(extras != null){
             String id = extras.getString("ID");
-            //garden = extras.getString("Name");
-            //gardenId = extras.getString("idGardenFirebase");
-
         }
-        //System.out.println("el id xd "+userId);
-
+        if(userId != null){
+            gardenCom.fillGardenUser(userId, this, this);
+        }
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,7 +91,7 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
                 startActivity(new Intent(CollaboratorGardensActivity.this, RewardHomeActivity.class));
             }
         });
-        fillGardenUser();
+
         listGardens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -117,7 +99,6 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
                 String itemName = ((ItemCollaboratorsRequest) selectedItem).getName();
                 String userID = userId;
                 String idGarden = ((ItemCollaboratorsRequest) selectedItem).getIdGarden();
-                String idGardenFirebaseDoc = getIntent().getStringExtra("idGarden");
 
                 Intent start = new Intent(CollaboratorGardensActivity.this, GardenActivity.class);
                 start.putExtra("ID",userID);
@@ -144,87 +125,8 @@ public class CollaboratorGardensActivity extends AppCompatActivity {
             }
         });
     }
-    private void fillGardenUser(){
-        CollectionReference Ref = database.collection("UserInfo");
 
-        Query query = Ref.whereEqualTo("ID", userId);
-        if(query.equals(null)){
-            query = Ref.whereEqualTo("id", userId);
-        }
-        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException e) {
-                if(e != null){
-                    Log.d(TAG, "Se genero error: ", e);
-                    return;
-                }
-                for(DocumentSnapshot documentSnapshot : value) {
-                    if (documentSnapshot.exists()) {
-                        for (QueryDocumentSnapshot document : value) {
-
-                            database.collection("UserInfo").document(document.getId()).collection("GardensCollaboration").get()
-                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            if(task.isSuccessful()) {
-                                                List<ItemCollaboratorsRequest> gardenNames = new ArrayList<>();
-                                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                                    String idUser = document.getId().toString();
-
-                                                    database.collection("Gardens").document(document.getData().get("idGardenCollab").toString()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                            String idOwner, name, info, gardenType, idGarden;
-
-                                                            if(task.isSuccessful()){
-
-                                                                for(QueryDocumentSnapshot documen:value){
-                                                                    GardenInfo idSearch;
-                                                                    String nameUser = task.getResult().get("GardenName").toString();
-                                                                    idOwner = task.getResult().get("ID_Owner").toString();
-                                                                    info = task.getResult().get("InfoGarden").toString();
-                                                                    gardenType = task.getResult().get("GardenType").toString();
-                                                                    //idSearch = new GardenInfo(idOwner, name, info, gardenType);
-                                                                    String idGarde = document.getData().get("idGardenCollab").toString();
-                                                                    GardenCommunication persistance = new GardenCommunication();
-                                                                    persistance.getGardenPicture(idGarde, CollaboratorGardensActivity.this, new GardenCommunication.GetUri() {
-                                                                        @Override
-                                                                        public void onSuccess(String uri) {
-                                                                            ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(nameUser, userId, idGarde, uri);
-                                                                            //System.out.println("EL id es "+newItem.getName());
-                                                                            gardenNames.add(newItem);
-                                                                            fillListGardens(gardenNames);
-                                                                        }
-
-                                                                        @Override
-                                                                        public void onFailure(String imageString) {
-                                                                            ItemCollaboratorsRequest newItem = new ItemCollaboratorsRequest(nameUser, userId, idGarde, imageString);
-                                                                            //System.out.println("EL id es "+newItem.getName());
-                                                                            gardenNames.add(newItem);
-                                                                            fillListGardens(gardenNames);
-                                                                        }
-                                                                    });
-
-                                                                }
-
-                                                            }
-
-                                                        }
-                                                    });
-
-
-                                                }
-                                            }
-                                        }
-                                    });
-                        }
-                    }
-                }
-            }
-        });
-
-    }
-    private void fillListGardens( List<ItemCollaboratorsRequest> gardenInfoDocument){
+    public void fillListGardens( List<ItemCollaboratorsRequest> gardenInfoDocument){
         try{
             Thread.sleep(65);
             MyCollaborationsListAdapter adapter = new MyCollaborationsListAdapter(this, gardenInfoDocument);

@@ -12,7 +12,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -30,9 +29,8 @@ import java.util.List;
 
 public class RegisterProfileActivity extends AppCompatActivity {
 
-    private EditText name,lastName,email,password,confirmPassword,phoneNumber;
+    private EditText name,lastName,email,password,confirmPassword;
     private FloatingActionButton back;
-    private CheckBox terms;
     private Button register,termsConditions;
     private Spinner spinnerGender;
     private User newUser;
@@ -61,9 +59,6 @@ public class RegisterProfileActivity extends AppCompatActivity {
 
         SpinnerAdapter adatperSpinner = new SpinnerAdapter(this, R.layout.item_spinner_adapter,genders,textColor);
         spinnerGender.setAdapter(adatperSpinner);
-        /*ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(this,R.array.gendersElements, android.R.layout.simple_spinner_item);
-        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerGender.setAdapter(adapterSpinner);*/
 
         termsConditions.setOnClickListener(new View.OnClickListener() {
             @Override

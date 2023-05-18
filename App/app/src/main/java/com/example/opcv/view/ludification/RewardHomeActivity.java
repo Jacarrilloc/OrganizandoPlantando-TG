@@ -102,8 +102,6 @@ public class RewardHomeActivity extends AppCompatActivity {
             }
         });
 
-
-
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,7 +113,6 @@ public class RewardHomeActivity extends AppCompatActivity {
 
             }
         });
-
 
         ludification.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -38,8 +38,6 @@ public class ShowInfoLvl2Activity extends AppCompatActivity {
             }
         });
 
-
-
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
