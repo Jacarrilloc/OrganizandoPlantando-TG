@@ -36,40 +36,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.bumptech.glide.Glide;
 import com.bumptech.glide.Glide;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.model.persistance.firebase.AuthCommunication;
-import com.example.opcv.model.entity.User;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.model.persistance.firebase.UserCommunication;
 import com.example.opcv.view.ludification.RewardHomeActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.Transaction;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class EditUserActivity extends AppCompatActivity {
@@ -77,21 +54,16 @@ public class EditUserActivity extends AppCompatActivity {
     private TextView userNameTV, close, deleteP,levelInfo, changePasswordText;
     private EditText userName, userLastName, userEmail, userPhone;
     private ImageView profilePhoto, borderImage;
-    private FirebaseAuth autentication;
-    private FirebaseFirestore database;
-    private User userActive;
-    private String userID_Recived, photoUri;
+    private String userID_Recived;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int CAMERA_PERMISSION_CODE = 100;
 
     private Uri uriCamera;
     private Boolean IsChangedPhoto = false, imageSelected = false;
-    private File photoFile;
 
     @Override
     protected void onStart() {
         super.onStart();
-        searchUserInfo();
     }
 
     @Override
@@ -125,12 +97,11 @@ public class EditUserActivity extends AppCompatActivity {
         borderImage = (ImageView) findViewById(R.id.imageLevel);
         changePasswordIcon = (Button) findViewById(R.id.changePassword);
         changePasswordText = (TextView) findViewById(R.id.changePasswordText);
-
         UserCommunication persistance = new UserCommunication();
 
         profile.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.green));
 
-        searchUserInfo();
+        persistance.searchUserInfo(userID_Recived,userNameTV, userName, userLastName, userEmail, userPhone);
         persistance.getProfilePicture(userID_Recived, new UserCommunication.GetUriUser() {
             @Override
             public void onComplete(String uri) {
@@ -218,7 +189,6 @@ public class EditUserActivity extends AppCompatActivity {
             }
         });
 
-
         myGardens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -252,12 +222,12 @@ public class EditUserActivity extends AppCompatActivity {
         acceptChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email, Lastname, Name, PhoneNumber;
+                String Lastname, Name, PhoneNumber;
                 Lastname = userLastName.getText().toString();
                 Name = userName.getText().toString();
                 PhoneNumber = userPhone.getText().toString();
                 if(validateField(Name, Lastname)){
-                    editUserInfo(Name, Lastname, PhoneNumber, userID_Recived);
+                    persistance.editUserInfo(Name, Lastname, PhoneNumber, userID_Recived, IsChangedPhoto, profilePhoto, EditUserActivity.this);
                     Toast.makeText(EditUserActivity.this, "Se guardarón los cambios con exito", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -277,95 +247,7 @@ public class EditUserActivity extends AppCompatActivity {
         });
     }
 
-    private void searchUserInfo(){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference collectionRef = db.collection("UserInfo");
-        Query query = collectionRef.whereEqualTo("ID", userID_Recived);
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String name = document.getData().get("Name").toString();
-                        String email = document.getData().get("Email").toString();
-                        String lastname = document.getData().get("LastName").toString();
-                        String phoneNumber = document.getData().get("PhoneNumber").toString();
-
-                        int level;
-                        try {
-                            level = (int) document.getData().get("Level");
-                        }catch (Exception e){
-                            level = 0;
-                        }
-
-                        userActive =  new User(name, lastname, email, userID_Recived, phoneNumber,null,null, level);
-                        userNameTV.setText(userActive.getName());
-                        userName.setText(userActive.getName());
-                        userLastName.setText(userActive.getLastName());
-                        userEmail.setText("Comabaquinta");
-                        userPhone.setText(userActive.getPhoneNumber());
-                    }
-                }
-            }
-        });
-    }
-    
-    private void editUserInfo(String name, String lastName, String phoneNumber, String userId){
-        autentication = FirebaseAuth.getInstance();
-        database = FirebaseFirestore.getInstance();
-        if(IsChangedPhoto){
-            changePhotoProfile(new GetImageUri() {
-                @Override
-                public void onSuccess(String uri) {
-                    Map<String, Object> userInfo = new HashMap<>();
-                    userInfo.put("Name", name);
-                    userInfo.put("LastName", lastName);
-                    userInfo.put("PhoneNumber", phoneNumber);
-                    userInfo.put("UriPath", uri);
-                    database.collection("UserInfo").document(userId).update(userInfo);
-
-                    //este es el codigo de antes, si no funciona lo anterior usar esto
-                /*
-                database.collection("UserInfo")
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if(task.isSuccessful()){
-                                    String idSearch;
-                                    for(QueryDocumentSnapshot document : task.getResult()){
-                                        idSearch = (String) document.getData().get("ID");
-                                        if(idSearch == null){
-                                            idSearch = (String) document.getData().get("id");
-                                        }
-                                        if(idSearch.equals(userID)){
-                                            final DocumentReference docRef = database.collection("UserInfo").document(document.getId().toString());
-                                            database.runTransaction(new Transaction.Function<Void>() {
-                                                @Nullable
-                                                @Override
-                                                public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
-                                                    transaction.update(docRef, "LastName", lastName, "Name", name, "PhoneNumber", phoneNumber, "UriPath", uri);
-                                                    return null;
-                                                }
-                                            });
-                                        }
-                                    }
-                                }
-                            }
-                        });*/
-                }
-            });
-        }
-        else{
-            Map<String, Object> userInfo = new HashMap<>();
-            userInfo.put("Name", name);
-            userInfo.put("LastName", lastName);
-            userInfo.put("PhoneNumber", phoneNumber);
-            database.collection("UserInfo").document(userId).update(userInfo);
-        }
-    }
     private boolean validateField(String name,String lastName){
-
         if(name.isEmpty() || lastName.isEmpty()){
             Toast.makeText(this, "Es necesario Ingresar el nombre o apellido del usuario", Toast.LENGTH_SHORT).show();
             return false;
@@ -425,43 +307,6 @@ public class EditUserActivity extends AppCompatActivity {
                 }
             });
 
-    private void changePhotoProfile(final GetImageUri callback){
-        if(IsChangedPhoto) {
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReference().child("userProfilePhoto/" + userID_Recived + ".jpg");
-            profilePhoto.setDrawingCacheEnabled(true);
-            Bitmap bitmap = profilePhoto.getDrawingCache();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            InputStream stream = new ByteArrayInputStream(baos.toByteArray());
-            UploadTask uploadTask = storageRef.putStream(stream);
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            String url = uri.toString();
-                            callback.onSuccess(url);
-                            Toast.makeText(EditUserActivity.this, "Se Cambio la Foto de Perfil Exitosamente", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // La carga de la foto ha fallado, manejar el error aquí
-                }
-            });
-        }
-    }
-
-    public interface GetImageUri{
-        void onSuccess(String uri);
-    }
-    public interface GetUriUser{
-        void onSuccess(String uri);
-    }
     private boolean isOnline() {
         ConnectivityManager cm =
                 (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);

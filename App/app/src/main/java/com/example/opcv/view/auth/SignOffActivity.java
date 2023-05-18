@@ -23,13 +23,10 @@ import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SignOffActivity extends AppCompatActivity {
     private Button returnScreen, signOff, rewards, profile, myGarden, ludification;
-
     private FirebaseAuth autentication;
-    private FirebaseFirestore database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +34,6 @@ public class SignOffActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_off);
 
         autentication = FirebaseAuth.getInstance();
-        database = FirebaseFirestore.getInstance();
         myGarden = (Button) findViewById(R.id.myGardens);
         rewards = (Button) findViewById(R.id.rewards);
         returnScreen = (Button) findViewById(R.id.returnButton2);

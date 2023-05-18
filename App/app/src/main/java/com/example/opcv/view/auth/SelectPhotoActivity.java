@@ -11,7 +11,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -28,9 +27,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.opcv.view.base.HomeActivity;
@@ -54,7 +50,6 @@ public class SelectPhotoActivity extends AppCompatActivity {
     private String password;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int CAMERA_PERMISSION_CODE = 100;
-    private ProgressBar progressDialog;
     private Uri uriCamera;
 
     private Boolean IsChangedPhoto = false;
@@ -109,14 +104,7 @@ public class SelectPhotoActivity extends AppCompatActivity {
         });
     }
 
-    private boolean isCreated(){
-        boolean check = false;
-
-        return check;
-    }
-
     private void createUserInDatabase(){
-
         Drawable drawable = ImageSource.getDrawable();
         if(drawable == null){
             authUtilities.createUser(newUserInfo.getEmail(), password, newUserInfo, null, SelectPhotoActivity.this);

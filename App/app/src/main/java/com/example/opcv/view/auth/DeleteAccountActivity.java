@@ -15,19 +15,17 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.opcv.model.persistance.firebase.LudificationCommunication;
+import com.example.opcv.model.persistance.firebase.AuthCommunication;
 import com.example.opcv.model.persistance.firebase.UserCommunication;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class DeleteAccountActivity extends AppCompatActivity {
 
     private Button delete, returnButton, rewards, profile, myGardens, ludification;
-
     private FirebaseAuth autentication;
     private String idUser;
 
@@ -44,8 +42,6 @@ public class DeleteAccountActivity extends AppCompatActivity {
         ludification = (Button) findViewById(R.id.ludification);
         returnButton = (Button) findViewById(R.id.returnButton2);
         delete = (Button) findViewById(R.id.deleteButton);
-        LudificationCommunication ludificationCommunication = new LudificationCommunication();
-
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,14 +85,12 @@ public class DeleteAccountActivity extends AppCompatActivity {
             }
         });
 
-
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseUser user = autentication.getCurrentUser();
                 UserCommunication userCom = new UserCommunication();
-                idUser = user.getUid();
-                //ludificationCommunication.deleteUserComments(idUser);
+                AuthCommunication auth = new AuthCommunication();
+                idUser = auth.getCurrentUserUid();
                 userCom.deleteUserCollections(idUser);
                 userCom.deleteUser(idUser);
                 Toast.makeText(DeleteAccountActivity.this, "Cuenta eliminada", Toast.LENGTH_SHORT).show();
@@ -106,7 +100,6 @@ public class DeleteAccountActivity extends AppCompatActivity {
             }
         });
     }
-
 
     @Override
     protected void attachBaseContext(Context newBase) {
