@@ -24,7 +24,6 @@ public class RadishDiseaseActivity extends AppCompatActivity {
     private Button profile, myGardens, rewards, ludification;
     private FloatingActionButton returnArrowButton;
     private TextView textView, radishReference;
-    private String selectedPlant;
     private LinearLayout lettuceLayout;
 
     @Override

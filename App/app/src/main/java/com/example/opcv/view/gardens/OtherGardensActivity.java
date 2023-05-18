@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.opcv.model.persistance.firebase.AuthCommunication;
+import com.example.opcv.model.persistance.firebase.GardenCommunication;
 import com.example.opcv.model.persistance.firebase.UserCommunication;
 import com.example.opcv.view.auth.SignOffActivity;
 import com.example.opcv.view.base.HomeActivity;
@@ -32,26 +33,17 @@ import com.example.opcv.model.persistance.firebase.CollaboratorCommunication;
 import com.example.opcv.model.entity.GardenInfo;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.view.ludification.RewardHomeActivity;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class OtherGardensActivity extends AppCompatActivity {
-    private Button rewards, profile, myGardens, join, visit, ludification;
+    private Button rewards, profile, myGardens, join, ludification;
     private TextView nameGarden,descriptionGarden;
-    private FirebaseFirestore database;
-    private CollectionReference gardensRef;
-    private String gardenID, garden, infoGarden, id;
+    private String gardenID, garden, id;
     private FloatingActionButton returnButton;
     private ImageView image;
 
@@ -79,19 +71,18 @@ public class OtherGardensActivity extends AppCompatActivity {
         profile = (Button) findViewById(R.id.profile);
         myGardens = (Button) findViewById(R.id.myGardens);
         ludification = (Button) findViewById(R.id.ludification);
-        database = FirebaseFirestore.getInstance();
-        gardensRef = database.collection("Gardens");
         AuthCommunication authCommunication = new AuthCommunication();
         FirebaseUser user = authCommunication.guestUser();
+        GardenCommunication gardenCom = new GardenCommunication();
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             id = extras.getString("ID");
             garden = extras.getString("gardenName");
             gardenID = extras.getString("idGarden");
-            SearchInfoGardenSreen(id,garden);
+            gardenCom.searchInfoGardenScreen(gardenID, id, garden, this);
         }
-        getImageGarden(gardenID);
+        gardenCom.getImageGarden(gardenID, image);
         UserCommunication communication = new UserCommunication();
 
 
@@ -179,53 +170,8 @@ public class OtherGardensActivity extends AppCompatActivity {
             }
         });
     }
-    private void getImageGarden(String idGarden){
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        String imageName = idGarden + ".jpg";
-        StorageReference imageRef = storageRef.child("gardenMainPhoto/" + imageName);
-        final long ONE_MEGABYTE = 1024 * 1024;
-        imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                image.setImageBitmap(bitmap);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                image.setImageResource(R.drawable.im_logo_ceres_green);
-            }
-        });
-    }
-    private void SearchInfoGardenSreen(String idUser,String name){
-        DocumentReference ref = gardensRef.document(gardenID);
-        ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                String infoDoc=null;
-                if (documentSnapshot.exists()) {
 
-                    String typeDoc = documentSnapshot.getString("GardenType");
-                    infoDoc = documentSnapshot.getString("InfoGarden");
-                    String gardenAddress = documentSnapshot.getString("gardenAddress");
-                    GardenInfo gardenInfo = new GardenInfo(idUser,name,infoDoc,typeDoc, gardenAddress);
-
-                    fillSreen(gardenInfo);
-                }
-                /*else {
-                    System.out.println("Se genero error al mostrar la información");
-                }*/
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "Se genero error: ", e);
-            }
-        });
-
-    }
-
-    private void fillSreen(GardenInfo gardenInfo){
+    public void fillSreen(GardenInfo gardenInfo){
         nameGarden.setText(gardenInfo.getName());
         descriptionGarden.setText(gardenInfo.getInfo());
     }

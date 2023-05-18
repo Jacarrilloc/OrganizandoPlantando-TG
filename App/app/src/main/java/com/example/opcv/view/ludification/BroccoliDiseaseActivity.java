@@ -24,7 +24,6 @@ public class BroccoliDiseaseActivity extends AppCompatActivity {
     private Button profile, myGardens, rewards, ludification;
     private FloatingActionButton returnArrowButton;
     private TextView textView, broccoliReference;
-    private String selectedPlant;
     private LinearLayout lettuceLayout;
 
     @Override

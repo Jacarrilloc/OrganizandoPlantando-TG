@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.text.util.Linkify;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,8 +59,6 @@ public class PotatoDiseaseActivity extends AppCompatActivity {
                 startActivity(new Intent(PotatoDiseaseActivity.this, GardensAvailableActivity.class));
             }
         });
-
-
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -24,7 +24,6 @@ public class LettuceDiseasesActivity extends AppCompatActivity {
     private Button profile, myGardens, rewards, ludification;
     private FloatingActionButton returnArrowButton;
     private TextView textView, lettuceReference;
-    private String selectedPlant;
     private LinearLayout lettuceLayout;
 
     @Override

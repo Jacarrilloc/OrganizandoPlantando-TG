@@ -48,7 +48,6 @@ public class CreateToolActivity extends AppCompatActivity {
     private Button profile, myGardens, rewards, ludification;
     private ImageView image;
     private static final int PICK_IMAGE_REQUEST = 1;
-    private Uri selectImageUri;
     private byte[] bytes;
     private boolean imageSelected = false;
 
@@ -106,8 +105,6 @@ public class CreateToolActivity extends AppCompatActivity {
                                 if(!resp){
                                     logic.addToolElementsMap(toolName, toolDescription, toolCheck, fertilizerCheck, careCheck, CreateToolActivity.this, idUser, bytes);
                                     level.addLevel(idUser, true, CreateToolActivity.this, "Tools");
-                                    //Notifications notifications = new Notifications();
-                                    //notifications.notification("Has ganado puntos", "Felicidades! Ganaste 7 puntos por crear tu herramienta", CreateToolActivity.this, DictionaryHome.class);
                                     Intent edit = new Intent(CreateToolActivity.this, DictionaryHomeActivity.class);
                                     edit.putExtra("userInfo", idUser);
                                     startActivity(edit);
@@ -142,8 +139,6 @@ public class CreateToolActivity extends AppCompatActivity {
                 startActivity(new Intent(CreateToolActivity.this, GardensAvailableActivity.class));
             }
         });
-
-
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override

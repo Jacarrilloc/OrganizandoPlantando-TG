@@ -20,7 +20,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class ShowGuidesLevelOneActivity extends AppCompatActivity {
     private Button profile, myGardens, rewards, ludification, firstGuide, secondGuide, thirdGuide, fourthGuide;
     private FloatingActionButton back;
-    private String level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

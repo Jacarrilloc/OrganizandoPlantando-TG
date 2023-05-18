@@ -21,13 +21,10 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -46,27 +43,15 @@ import com.example.opcv.model.persistance.firebase.UserCommunication;
 import com.example.opcv.view.base.HomeActivity;
 import com.example.opcv.R;
 import com.example.opcv.view.auth.EditUserActivity;
-import com.example.opcv.model.entity.GardenInfo;
 import com.example.opcv.view.ludification.DictionaryHomeActivity;
 import com.example.opcv.model.persistance.firebase.GardenCommunication;
 import com.example.opcv.view.ludification.RewardHomeActivity;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CreateGardenActivity extends AppCompatActivity {
 
@@ -76,19 +61,14 @@ public class CreateGardenActivity extends AppCompatActivity {
     private ImageView photo;
     private Button selectPhoto;
     private FirebaseAuth autentication;
-    private FirebaseFirestore database;
     private Button create, rewards, profile, myGardens, ludification;
     private Switch gardenType;
-    private GardenInfo newInfo;
-
     private FloatingActionButton backButtom;
-
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int CAMERA_PERMISSION_CODE = 100;
     private Uri uriCamera;
 
     private Boolean IsChangedPhoto = false, isLevelTwo;
-    private byte[] bytes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +82,6 @@ public class CreateGardenActivity extends AppCompatActivity {
         selectPhoto = findViewById(R.id.SelectImageCreateGarden);
         banner = (TextView) findViewById(R.id.alert);
         autentication = FirebaseAuth.getInstance();
-        database = FirebaseFirestore.getInstance();
         create = findViewById(R.id.add_garden_button);
         rewards = (Button) findViewById(R.id.rewards);
         profile = (Button) findViewById(R.id.profile);
@@ -112,6 +91,7 @@ public class CreateGardenActivity extends AppCompatActivity {
         idUser = autentication.getCurrentUser().getUid().toString();
         UserCommunication com = new UserCommunication();
         Level levelLogic = new Level();
+        GardenCommunication gardenCom = new GardenCommunication();
         com.getUserLevel(idUser, new UserCommunication.GetUserLvl() {
             @Override
             public void onComplete(String lvl) {
@@ -194,7 +174,7 @@ public class CreateGardenActivity extends AppCompatActivity {
                 builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        createGarden();
+                        gardenCom.createGarden(nameGarden, infoGarden, gardenType, CreateGardenActivity.this, CreateGardenActivity.this, photo);
                     }
                 });
                 builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -230,61 +210,7 @@ public class CreateGardenActivity extends AppCompatActivity {
         });
     }
 
-    private void createGarden(){
-        String name = nameGarden.getText().toString();
-        String info = infoGarden.getText().toString();
-        Boolean gardenPrivateOrPublic = gardenType.isChecked();
-        if(validateField(name,info)){
-            FirebaseUser user = autentication.getCurrentUser();
-            CollectionReference collectionRef = database.collection("Gardens");
-
-            if(!gardenPrivateOrPublic){
-                newInfo = new GardenInfo(user.getUid(),nameGarden.getText().toString(),infoGarden.getText().toString(),"Public", null);
-            }
-            if(gardenPrivateOrPublic){
-                newInfo = new GardenInfo(user.getUid(),nameGarden.getText().toString(),infoGarden.getText().toString(),"Private", null);
-            }
-
-
-            Map<String, Object> gardenInfo = new HashMap<>();
-            gardenInfo.put("ID_Owner",newInfo.getID_Owner());
-            gardenInfo.put("GardenName",newInfo.getName());
-            gardenInfo.put("InfoGarden",newInfo.getInfo());
-            gardenInfo.put("GardenType", newInfo.getGardenType());
-            gardenInfo.put("UriPath", null);
-
-            collectionRef.add(gardenInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                @Override
-                public void onSuccess(DocumentReference documentReference) {
-                    String idGarden = documentReference.getId();
-                    GardenCommunication persistance = new GardenCommunication();
-                    Drawable drawable = photo.getDrawable();
-                    if(drawable != null){
-                        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                        bytes = stream.toByteArray();
-                        startActivity(new Intent(CreateGardenActivity.this, GardenAddressActivity.class).putExtra("idGarden", documentReference.getId().toString()));
-                    }else{
-                        bytes = null;
-                        startActivity(new Intent(CreateGardenActivity.this, GardenAddressActivity.class).putExtra("idGarden", documentReference.getId().toString()));
-                    }
-                    persistance.addGardenPhoto(bytes, idGarden, new GardenCommunication.GetUriGarden() {
-                        @Override
-                        public void onSuccess(String uri) {
-                            //descomentar la siguiente linea si se necesita poner la uri en firestore
-                            collectionRef.document(idGarden).update("UriPath", uri);
-                            startActivity(new Intent(CreateGardenActivity.this, GardenAddressActivity.class).putExtra("idGarden", documentReference.getId().toString()));
-                        }
-                    });
-
-                }
-            });
-        }
-    }
-
-    private boolean validateField(String name,String info){
-
+    public boolean validateField(String name,String info){
         if(name.isEmpty() || info.isEmpty()){
             Toast.makeText(this, "Es necesario Ingresar el nombre y la información de la Huerta", Toast.LENGTH_SHORT).show();
             return false;
@@ -360,39 +286,6 @@ public class CreateGardenActivity extends AppCompatActivity {
                     }
                 }
         }
-    }
-
-    private void openCamaraAndTakePhoto() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 0);
-    }
-
-    private void uploadPhotoGarden(String idGarden){
-        try{
-            Bitmap bitmap = ((BitmapDrawable) photo.getDrawable()).getBitmap();
-            if(bitmap != null){
-                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-                StorageReference gardenRef = storageRef.child("gardenMainPhoto");
-                String imageName = idGarden + ".jpg";
-                StorageReference imageRef = gardenRef.child(imageName);
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byte[] data = baos.toByteArray();
-                UploadTask uploadTask = imageRef.putBytes(data);
-                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Log.i("IMG","Image uploaded to Storage");
-                    }
-                });
-            }
-        }catch (Exception e){
-            Log.d(TAG, "Error con la foto: ", e);
-        }
-    }
-
-    public interface GetGardenUri{
-        void onSuccess(String uri);
     }
 
     @Override

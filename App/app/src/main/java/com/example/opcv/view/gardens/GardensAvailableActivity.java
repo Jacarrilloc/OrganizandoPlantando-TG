@@ -3,7 +3,6 @@ package com.example.opcv.view.gardens;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -13,7 +12,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -37,15 +35,7 @@ import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GardensAvailableActivity extends AppCompatActivity {
@@ -55,7 +45,6 @@ public class GardensAvailableActivity extends AppCompatActivity {
     private ImageView mapIcon;
     private FirebaseAuth autentication;
     private ListView listGardens;
-    private FirebaseFirestore database;
     String userID;
     private Animation animSlideUp;
 
@@ -75,7 +64,6 @@ public class GardensAvailableActivity extends AppCompatActivity {
         setContentView(R.layout.activity_vegetable_patch_available);
         animSlideUp = AnimationUtils.loadAnimation(this, R.anim.slide_right_to_left);
         autentication = FirebaseAuth.getInstance();
-        database = FirebaseFirestore.getInstance();
         listGardens = findViewById(R.id.gardenList);
         rewards = (Button) findViewById(R.id.rewards);
         profile = (Button) findViewById(R.id.profile);
@@ -85,6 +73,8 @@ public class GardensAvailableActivity extends AppCompatActivity {
         back = (FloatingActionButton) findViewById(R.id.returnArrowButtonToHome);
         AuthCommunication authCommunication = new AuthCommunication();
         FirebaseUser user = authCommunication.guestUser();
+        GardenCommunication gardenCom = new GardenCommunication();
+        gardenCom.fillGardenAvailable(this, this);
 
         mapIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +108,6 @@ public class GardensAvailableActivity extends AppCompatActivity {
         rewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AuthCommunication authCommunication = new AuthCommunication();
                 FirebaseUser us = FirebaseAuth.getInstance().getCurrentUser();
                 if(us != null && !us.isAnonymous()){
                     startActivity(new Intent(GardensAvailableActivity.this, RewardHomeActivity.class));
@@ -128,9 +117,6 @@ public class GardensAvailableActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-        fillGardenAvaliable();
 
         listGardens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -145,7 +131,6 @@ public class GardensAvailableActivity extends AppCompatActivity {
                     userID = "a";
                 }
                 String idGarden = ((ItemGardenHomeList) selectedItem).getIdGarden();
-                String idGardenFirebaseDoc = getIntent().getStringExtra("idGarden");
                 Intent start = new Intent(GardensAvailableActivity.this, OtherGardensActivity.class);
                 start.putExtra("ID",userID);
                 start.putExtra("gardenName",itemName);
@@ -176,72 +161,12 @@ public class GardensAvailableActivity extends AppCompatActivity {
             }
         });
     }
-    private void fillGardenAvaliable() {
-        CollectionReference Ref = database.collection("Gardens");
-        FirebaseUser user = autentication.getCurrentUser();
-        String currentUserId;
-        if(user != null && !user.isAnonymous()){
-            currentUserId = autentication.getCurrentUser().getUid();
-        }
-        else{
-            currentUserId = "a";
-        }
 
 
-        Query query = Ref.whereEqualTo("GardenType", "Public").whereNotEqualTo("ID_Owner", currentUserId);
-        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
-
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.d(TAG, "Se generó error: ", e);
-                    return;
-                }
-
-                List<ItemGardenHomeList> gardenNames = new ArrayList<>();
-                for (QueryDocumentSnapshot document : value) {
-                    String name = document.getString("GardenName");
-                    String gardenId = document.getId();
-                    // Check if user is not a collaborator
-                    document.getReference().collection("Collaborators")
-                            .whereEqualTo("idCollaborator", currentUserId)
-                            .get()
-                            .addOnCompleteListener(task -> {
-                                if (task.isSuccessful()) {
-                                    if (task.getResult().isEmpty()) { // User is not a collaborator
-                                        GardenCommunication persistance = new GardenCommunication();
-                                        persistance.getGardenPicture(gardenId, GardensAvailableActivity.this, new GardenCommunication.GetUri() {
-                                            @Override
-                                            public void onSuccess(String uri) {
-                                                ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, uri);
-                                                gardenNames.add(newItem);
-                                                fillListGardens(gardenNames);
-                                            }
-
-                                            @Override
-                                            public void onFailure(String imageString) {
-                                                ItemGardenHomeList newItem = new ItemGardenHomeList(name, gardenId, imageString);
-                                                gardenNames.add(newItem);
-                                                fillListGardens(gardenNames);
-                                            }
-                                        });
-
-
-                                    }
-                                } else {
-                                    Log.d(TAG, "Error al verificar colaboradores: ", task.getException());
-                                }
-                            });
-                }
-            }
-        });
-
-    }
-
-    private void fillListGardens( List<ItemGardenHomeList> gardenInfoDocument){
+    public void fillListGardens( List<ItemGardenHomeList> gardenInfoDocument){
         GardenListAdapter  adapter = new GardenListAdapter(this, gardenInfoDocument);
         listGardens.setAdapter(adapter);
         listGardens.setDividerHeight(15);
-
     }
 
     private boolean isOnline() {

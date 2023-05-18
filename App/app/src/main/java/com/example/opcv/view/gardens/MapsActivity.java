@@ -8,15 +8,12 @@ import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.views.MapView;
 import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.MapController;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -25,7 +22,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.opcv.business.interfaces.firebase.map.GetGardensAddressesInt;
@@ -41,7 +37,6 @@ import com.example.opcv.view.ludification.RewardHomeActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -49,7 +44,6 @@ public class MapsActivity extends AppCompatActivity {
     private MapView map;
     private Button profile, rewards, home, ludification;
     private FloatingActionButton back;
-    private ImageView gardens;
     GeoPoint bogota = new GeoPoint(4.62, -74.07);
 
     @Override
@@ -101,8 +95,6 @@ public class MapsActivity extends AppCompatActivity {
             @Override
             public void onComplete(Map<Integer, Address> addresses) {
                 for (int i = 0; i < addresses.size(); i++){
-                    System.out.println("eee: "+ Objects.requireNonNull(addresses.get(i)).getGardenName());
-
                     Marker marker = new Marker(map);
                     marker.setTitle(Objects.requireNonNull(addresses.get(i)).getGardenName());
                     marker.setPosition(Objects.requireNonNull(addresses.get(i)).getPoint());
@@ -111,7 +103,6 @@ public class MapsActivity extends AppCompatActivity {
 
                 }
             }
-
         });
 
         AuthCommunication authCommunication = new AuthCommunication();

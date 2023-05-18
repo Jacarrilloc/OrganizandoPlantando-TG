@@ -60,7 +60,7 @@ import java.util.Objects;
 
 public class GenerateReportsActivity extends AppCompatActivity {
     private Button cancel, generate;
-    private String id, idGarden, garden, ownerName, nameU, gardenU, type, info, group, idCollab, answer, name, idStored;
+    private String id, idGarden, garden, ownerName, gardenU, type, info, group, idCollab, answer, name;
 
     private ArrayList<String> collection1Data;
     private ArrayList<String> collection2Data;
@@ -72,15 +72,13 @@ public class GenerateReportsActivity extends AppCompatActivity {
     private List<HashMap<Object, String>> mapsArray;
     private HashMap<Object, String> collection3, collection4;
     private Map<String, List<String>> collectionCols;
-    private FirebaseFirestore db;
-    private int count=0, countForms=0, countEvents=0, countCollabs=0, count1=0, count2=0, countGardens=0, STORAGE_PERMISSION_CODE = 1, help;
+    private int count=0, countForms=0, countCollabs=0, count1=0, count2=0, countGardens=0, STORAGE_PERMISSION_CODE = 1, help;
 
     private Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_reports);
-
 
         cancel = (Button) findViewById(R.id.cancelReport);
         generate = (Button) findViewById(R.id.generateReportButton);
@@ -89,11 +87,11 @@ public class GenerateReportsActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(ContextCompat.checkSelfPermission(GenerateReportsActivity.this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED){
-
         }
         else{
             requestStoragePermission();
         }
+
         if(extras != null){
             garden = extras.getString("garden");
             if(garden.equals("true")){
@@ -111,25 +109,19 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                         answer = "false";
                                         searchInfo(idGarden, id);
                                         searchInfoUser(idGarden, id);
-
                                         Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
                                         onBackPressed();
-                                        //finishAffinity();
                                     }
                                 })
                                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface arg0, int arg1) {
-                                        //finishAffinity();
                                         answer = "true";
                                         searchInfo(idGarden, id);
                                         searchInfoUser(idGarden, id);
-
                                         Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
                                         onBackPressed();
                                     }
                                 }).create().show();
-
-                        //onBackPressed();
                     }
                 });
             }
@@ -142,17 +134,14 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                 .setNegativeButton("no", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        //finishAffinity();
                                         answer = "false";
                                         searchGeneralInfo();
-
                                         Toast.makeText(GenerateReportsActivity.this, "Se generó el reporte correctamente", Toast.LENGTH_SHORT).show();
                                         onBackPressed();
                                     }
                                 })
                                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface arg0, int arg1) {
-                                        //finishAffinity();
                                         answer = "true";
                                         searchGeneralInfo();
 
@@ -161,20 +150,16 @@ public class GenerateReportsActivity extends AppCompatActivity {
 
                                     }
                                 }).create().show();
-
-                        //onBackPressed();
                     }
                 });
             }
         }
-
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
-
     }
 
     private void requestStoragePermission() {
@@ -239,7 +224,6 @@ public class GenerateReportsActivity extends AppCompatActivity {
                     }
 
                     info = task.getResult().getString("InfoGarden");
-
                     CollectionReference collRef = collectionRef.collection("Forms");
                     collRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -322,7 +306,6 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                         collection3.put("youthNumber", youth);
                                         collection3.put("otherNumber", others);
                                         collection3.put("infantNumber", infant);
-                                        countEvents++;
                                         mapsArray.add(collection3);
                                     }
                                     collection1Data.add(field);
@@ -344,13 +327,10 @@ public class GenerateReportsActivity extends AppCompatActivity {
     }
 
     private void checkIfAllDataRetrieved(int numDocumentsToRetrieve, int numDocumentsRetrieved) throws IOException {
-
         if (numDocumentsRetrieved == numDocumentsToRetrieve) {
-            //createxd();
             createPDF(gardenU, ownerName, collection1Data, type, info, group, count, countForms, answer, mapsArray, collectionCrops);
         }
     }
-
 
     public void createPDF( String name, String nameUser, ArrayList<String> list, String type, String info, String group, int count, int countForms, String answer, List<HashMap<Object, String>> map, ArrayList<String> crops) throws IOException{
         PdfDocument document = new PdfDocument();
@@ -624,14 +604,12 @@ public class GenerateReportsActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    int a=0, b=0;
                     ArrayList<String> ids = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         idCollab = document.getString("idCollaborator");
                         ids.add(idCollab);
                         count++;
                     }
-                    System.out.println("name: " + count);
                     collectionRef2.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -643,16 +621,12 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                             if (task.isSuccessful()) {
                                                 String name = null;
-
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                                     collection2Data = new ArrayList<>();
                                                     name = document.getData().get("Name").toString();
-
-                                                    //count++;
                                                     collection2Data.add(name);
                                                 }
                                             }
-
                                         }
                                     });
                                 }
@@ -675,8 +649,6 @@ public class GenerateReportsActivity extends AppCompatActivity {
                     gardensNames = new ArrayList<>();
                     contColl = new ArrayList<>();
                     conts = new ArrayList<>();
-
-
                     for(QueryDocumentSnapshot q : task.getResult()){
 
                         if(q != null ){
@@ -693,19 +665,15 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if(task.isSuccessful()){
-                                        String field, nameCrop, date, idR;
-                                        int cont = 0;
+                                        String field, nameCrop, date;
                                         Calendar calendar = Calendar.getInstance();
                                         calendar.add(Calendar.MONTH, -1);
                                         Date startDate = calendar.getTime();
                                         Date endDate = new Date();
                                         collectionCols = new HashMap<>();
-
                                         for(QueryDocumentSnapshot document : task.getResult()){
-
                                             field = document.getString("nameForm");
                                             date = document.getString("Date");
-                                            idR= document.getString("Gardenid");
                                             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                                             try{
                                                 Date createForm = formatter.parse(date);
@@ -716,7 +684,6 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                             } catch (Exception e) {
                                                 throw new RuntimeException(e);
                                             }
-
                                             if(field.equals("Control de Procesos de Siembra")){
                                                 List<String> listCrop = new ArrayList<>();
 
@@ -725,17 +692,12 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                                 crops.add(nameCrop);
                                                 collectionCols.put("name", listCrop);
                                                 count1++;
-
                                             }
                                             if(field.equals("Control de Procesos de Siembra") && count1 == 1){
                                                 countGardens++;
                                             }
-
-
                                             count2++;
                                         }
-                                        // System.out.println("el contador: "+countEvents);
-                                        countEvents++;
                                     }
 
                                     collectionRef.document(q.getId()).collection("Collaborators").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -743,9 +705,7 @@ public class GenerateReportsActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                             if(task.isSuccessful()){
                                                 int cont=task.getResult().size();
-                                                //System.out.println("el tamano "+task.getResult().size());
                                                 conts.add(cont);
-                                                //collectionCols.put(name, cont);
                                             }
                                             NUM_DOCUMENTS_RETRIEVED[0]++;
                                             try {
@@ -766,7 +726,6 @@ public class GenerateReportsActivity extends AppCompatActivity {
 
     }
     private void checkIfAllGeneralDataRetrieved(int numDocumentsToRetrieve, int numDocumentsRetrieved) throws IOException {
-
         if (numDocumentsRetrieved == numDocumentsToRetrieve ) {
             GardenCommunication persistance = new GardenCommunication();
             persistance.retrieveCrops(new GardenCommunication.GetNumber() {
@@ -776,37 +735,16 @@ public class GenerateReportsActivity extends AppCompatActivity {
                     createGeneralPDF(gardensNames, conts, collectionCols, crops, help, count1, count2, countForms);
                 }
             });
-
         }
     }
     private void createGeneralPDF(ArrayList<String> list, ArrayList<Integer> list2, Map<String, List<String>> map, ArrayList<String> crops, Integer countEvents, Integer count1, Integer count2, Integer countForms) {
-
-       /* int cont=0;
-        for (int i = 0; i<list.size(); i++){
-            System.out.println("Garden: "+list.get(i)+"Colabs: "+list2.get(i));
-            cont = cont+list2.get(i);
-        }System.out.println("Cont: "+cont);
-
-
-        System.out.println("Map: "+crops.size());
-        for (int i = 0; i<crops.size(); i++){
-            System.out.println("Cultivos: "+crops.get(i));
-        }
-        int x=count1+count2;
-        int y=x-countEvents;
-        System.out.println("Counteventos: "+y);//numero de huertas trabajando los cultivos
-        System.out.println("Contador de registros ultimo mes: "+countForms);*/
-
-
         PdfDocument document = new PdfDocument();
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 1).create();
         PdfDocument.Page page = document.startPage(pageInfo);
-        Canvas canvas = page.getCanvas();
         Paint paint = new Paint();
         int x = 10, y = 150, width = 50;
         float left = 50, top = 50;
         //pa la imagen
-        AssetManager assetManager = getAssets();
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.im_logo_ceres_green);
         int maxWidth = 200;   // Maximum width of the image
@@ -830,7 +768,6 @@ public class GenerateReportsActivity extends AppCompatActivity {
         int destBottom = destTop + destHeight;
         Rect destRect = new Rect(destLeft, destTop, destRight, destBottom);
         page.getCanvas().drawBitmap(bitmap, null, destRect, null);
-        Layout.Alignment alignment = Layout.Alignment.ALIGN_NORMAL;
 
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -884,7 +821,6 @@ public class GenerateReportsActivity extends AppCompatActivity {
         paintBold.setTypeface(bold);
         page.getCanvas().drawText("Fecha: "+day+" de "+monthU+" del "+year, x+130, y, paintDate);
         page.getCanvas().drawText("Reporte General de Ceres", x, y + 20, paintBold);
-        //page.getCanvas().drawText("Actualmente Ceres cuenta con " + list.size() + " huertas", x, y + 40, paint);
         page.getCanvas().drawText("Actualmente Ceres cuenta con " + list.size() + " huertas", x, y + 40, paint);
         page.getCanvas().drawText("Nombres de las huertas en pagina siguiente.", x, y + 60, paint);
         int cont = 0;
@@ -904,9 +840,6 @@ public class GenerateReportsActivity extends AppCompatActivity {
         }
         //prove = prove*2;
         int z=y+120;
-        int c2=count1-c1-prove;
-        int c3 = countGardens-countEvents;
-        System.out.println("count1: "+count1+" count2: "+count2+" countevents: "+countEvents+" countgarden: "+countGardens+" countforms: "+countForms);
         if(count1 ==0){
             page.getCanvas().drawText("Actualmente no hay cultivos", x, y + 100, paint);
         }
@@ -929,7 +862,6 @@ public class GenerateReportsActivity extends AppCompatActivity {
 
         pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 2).create();
         page = document.startPage(pageInfo);
-        canvas = page.getCanvas();
         page.getCanvas().drawBitmap(bitmap, null, destRect, null);
 
         page.getCanvas().drawText("Las huertas existentes a dia de hoy son: ", x+5, y+20, paintBold);
