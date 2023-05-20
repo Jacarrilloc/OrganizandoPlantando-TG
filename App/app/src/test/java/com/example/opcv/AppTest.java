@@ -29,7 +29,7 @@ public class AppTest extends TestCase {
     private Context mContext;
 
     @Test
-    public void testCreateInfo() throws IOException {
+    public void testCreateInfo() {
         String formName = "nombreForm";
         Map<String, Object> infoForm = new HashMap<>();
         infoForm.put("Date", "2023-05-19");
@@ -59,7 +59,7 @@ public class AppTest extends TestCase {
     }
 
     @Test
-    public void testUpdateInfo() throws IOException {
+    public void testUpdateInfo(){
         Map<String, Object> infoForm = new HashMap<>();
         infoForm.put("Date", "2023-05-19");
         infoForm.put("CreatedBy", "John Doe");
