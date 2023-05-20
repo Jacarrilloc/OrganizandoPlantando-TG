@@ -333,9 +333,13 @@ public class ShowDictionaryItemActivity extends AppCompatActivity {
                 //añadir la logica para recibir de un edittext
                 String textInput = String.valueOf(input.getText());
                 if(!textInput.isEmpty()){
-                    logic.addComments(element, idUser,  textInput, docRef, ShowDictionaryItemActivity.this);
-                    level.addLevel(idUser, false, ShowDictionaryItemActivity.this, element);
-
+                    if(logic.checkTextLenght(textInput, ShowDictionaryItemActivity.this)){
+                        logic.addComments(element, idUser,  textInput, docRef, ShowDictionaryItemActivity.this);
+                        level.addLevel(idUser, false, ShowDictionaryItemActivity.this, element);
+                    }
+                    else{
+                        Toast.makeText(ShowDictionaryItemActivity.this, "Tu comentario debe tener 50 caracteres minimo.", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 recreate();
             }

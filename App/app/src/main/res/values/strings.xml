@@ -449,5 +449,7 @@
     <string name="addressGarden">Ingresa la dirección de tu huerta o selecciónala en el mapa.</string>
     <string name="insumos">Insumos</string>
     <string name="comabaquinta">Comabaquinta</string>
+    <string name="RetrievePassword">Ingrese su correo electronico para recuperar la contraseña</string>
+    <string name="reestablecer">Reestablecer</string>
 
 </resources>

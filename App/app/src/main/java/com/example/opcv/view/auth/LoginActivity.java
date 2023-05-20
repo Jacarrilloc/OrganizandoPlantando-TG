@@ -20,7 +20,7 @@ import com.example.opcv.model.persistance.firebase.AuthCommunication;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Button registerButtom,loginButtom;
+    private Button registerButtom,loginButtom, forgotPassword;
     private EditText emailLogin,passwordLogin;
 
     @Override
@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
         emailLogin = findViewById(R.id.editTextTextEmailAddress);
         passwordLogin = findViewById(R.id.editTextTextPassword);
+        forgotPassword = (Button) findViewById(R.id.fotgotPasswordButtom);
 
         registerButtom = findViewById(R.id.registerButtom);
         loginButtom = findViewById(R.id.buttonLoginActivity);
@@ -47,6 +48,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LoginActivity.this, RegisterProfileActivity.class));
+            }
+        });
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
             }
         });
     }

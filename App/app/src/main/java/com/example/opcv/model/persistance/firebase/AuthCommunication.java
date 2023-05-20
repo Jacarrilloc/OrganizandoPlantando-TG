@@ -3,6 +3,7 @@ package com.example.opcv.model.persistance.firebase;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.opcv.model.entity.User;
+import com.example.opcv.view.auth.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -329,5 +331,23 @@ public class AuthCommunication implements Serializable {
     public FirebaseUser guestUser(){
         FirebaseAuth autentication = FirebaseAuth.getInstance();
         return autentication.getCurrentUser();
+    }
+
+    public void forgottenPassword(String email, Context context){
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(context, "Se envio el correo para reestablecer su contraseña", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }
+                else{
+                    Toast.makeText(context, "Ocurrio un error al enviar el correo, intente de nuevo", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

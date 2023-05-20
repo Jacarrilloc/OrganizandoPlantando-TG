@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -130,11 +131,17 @@ public class GardenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(user != null && !user.isAnonymous()){
-                    Intent infoForms = new Intent(GardenActivity.this, GardenFormsActivity.class);
-                    String idGardenFirebase = extras.getString("idGardenFirebaseDoc");
-                    infoForms.putExtra("idGardenFirebaseDoc",idGardenFirebase);
-                    infoForms.putExtra("Register/Forms","Forms");
-                    startActivity(infoForms);
+                    int android13SdkVersion = 33; // Android 13 (S) SDK version
+                    boolean isAndroid13 = (Build.VERSION.SDK_INT == android13SdkVersion);
+                    if (isAndroid13) {
+                        Toast.makeText(GardenActivity.this, "Esta funcionalidad no esta disponible para tu versión de celular.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent infoForms = new Intent(GardenActivity.this, GardenFormsActivity.class);
+                        String idGardenFirebase = extras.getString("idGardenFirebaseDoc");
+                        infoForms.putExtra("idGardenFirebaseDoc",idGardenFirebase);
+                        infoForms.putExtra("Register/Forms","Forms");
+                        startActivity(infoForms);
+                    }
                 }
                 else{
                     Toast.makeText(GardenActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
@@ -198,12 +205,19 @@ public class GardenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(user != null && !user.isAnonymous()){
-                    Intent newForm = new Intent(GardenActivity.this, Form_CPS.class);
-                    newForm.putExtra("Name",formsName);
-                    newForm.putExtra("idGardenFirebase",idGardenFirebase);
-                    newForm.putExtra("watch","create");
-                    startActivity(newForm);
-                    finish();
+                    int android13SdkVersion = 33; // Android 13 (S) SDK version
+                    boolean isAndroid13 = (Build.VERSION.SDK_INT == android13SdkVersion);
+
+                    if (isAndroid13) {
+                        Toast.makeText(GardenActivity.this, "Esta funcionalidad no esta disponible para tu versión de celular.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent newForm = new Intent(GardenActivity.this, Form_CPS.class);
+                        newForm.putExtra("Name",formsName);
+                        newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                        newForm.putExtra("watch","create");
+                        startActivity(newForm);
+                        finish();
+                    }
                 }
                 else{
                     Toast.makeText(GardenActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
@@ -216,12 +230,20 @@ public class GardenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(user != null && !user.isAnonymous()){
-                    Intent newForm = new Intent(GardenActivity.this, Form_CIH.class);
-                    newForm.putExtra("Name",formsName2);
-                    newForm.putExtra("idGardenFirebase",idGardenFirebase);
-                    newForm.putExtra("watch","create");
-                    startActivity(newForm);
-                    finish();
+
+                    int android13SdkVersion = 33; // Android 13 (S) SDK version
+                    boolean isAndroid13 = (Build.VERSION.SDK_INT == android13SdkVersion);
+
+                    if (isAndroid13) {
+                        Toast.makeText(GardenActivity.this, "Esta funcionalidad no esta disponible para tu versión de celular.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent newForm = new Intent(GardenActivity.this, Form_CIH.class);
+                        newForm.putExtra("Name",formsName2);
+                        newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                        newForm.putExtra("watch","create");
+                        startActivity(newForm);
+                        finish();
+                    }
                 }
                 else{
                     Toast.makeText(GardenActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
@@ -235,12 +257,19 @@ public class GardenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(user != null && !user.isAnonymous()){
-                    Intent newForm = new Intent(GardenActivity.this, Form_RAC.class);
-                    newForm.putExtra("Name",formname3);
-                    newForm.putExtra("idGardenFirebase",idGardenFirebase);
-                    newForm.putExtra("watch","create");
-                    startActivity(newForm);
-                    finish();
+                    int android13SdkVersion = 33; // Android 13 (S) SDK version
+                    boolean isAndroid13 = (Build.VERSION.SDK_INT == android13SdkVersion);
+
+                    if (isAndroid13) {
+                        Toast.makeText(GardenActivity.this, "Esta funcionalidad no esta disponible para tu versión de celular.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent newForm = new Intent(GardenActivity.this, Form_RAC.class);
+                        newForm.putExtra("Name",formname3);
+                        newForm.putExtra("idGardenFirebase",idGardenFirebase);
+                        newForm.putExtra("watch","create");
+                        startActivity(newForm);
+                        finish();
+                    }
                 }
                 else{
                     Toast.makeText(GardenActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();
@@ -275,11 +304,19 @@ public class GardenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(user != null && !user.isAnonymous()){
-                    Intent infoForms = new Intent(GardenActivity.this, GardenFormsActivity.class);
-                    String idGardenFirebase = extras.getString("idGardenFirebaseDoc");
-                    infoForms.putExtra("idGardenFirebaseDoc",idGardenFirebase);
-                    infoForms.putExtra("Register/Forms","Register");
-                    startActivity(infoForms);
+
+                    int android13SdkVersion = 33; // Android 13 (S) SDK version
+                    boolean isAndroid13 = (Build.VERSION.SDK_INT == android13SdkVersion);
+
+                    if (isAndroid13) {
+                        Toast.makeText(GardenActivity.this, "Esta funcionalidad no esta disponible para tu versión de celular.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent infoForms = new Intent(GardenActivity.this, GardenFormsActivity.class);
+                        String idGardenFirebase = extras.getString("idGardenFirebaseDoc");
+                        infoForms.putExtra("idGardenFirebaseDoc",idGardenFirebase);
+                        infoForms.putExtra("Register/Forms","Register");
+                        startActivity(infoForms);
+                    }
                 }
                 else{
                     Toast.makeText(GardenActivity.this, "No tienes permiso para usar esto. Crea una cuenta para interactuar", Toast.LENGTH_SHORT).show();

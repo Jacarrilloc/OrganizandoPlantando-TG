@@ -101,7 +101,11 @@ public class Ludification {
         }
     }
 
-    public void downloadGuide(){
+    public boolean checkTextLenght(String input, Context context){
+        if(input.length() > 50){
+            return true;
+        }
+        return false;
     }
 
 }

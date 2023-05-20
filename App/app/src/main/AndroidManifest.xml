@@ -44,6 +44,9 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".view.auth.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.gardens.GardenAddressActivity"
             android:exported="false" />
         <activity
@@ -194,7 +197,6 @@
         <activity
             android:name=".view.gardens.GardenRequestsActivity"
             android:exported="false" />
-
         <activity
             android:name=".view.gardens.GardenMembersActivity"
             android:exported="false" />
