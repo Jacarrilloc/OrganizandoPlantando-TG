@@ -26,12 +26,19 @@ import java.util.Map;
 public class FirebaseDatabase implements FirebaseDatabaseI {
 
     private final FirebaseFirestore mFirestore;
+    private boolean createJsonFormCalled = false;
 
     public FirebaseDatabase() {
         mFirestore = FirebaseFirestore.getInstance();
     }
 
+    public boolean isCreateJsonFormCalled() {
+        return createJsonFormCalled;
+    }
+
+    @Override
     public void createInDatabase(String idGarden, Map<String,Object> infoForm){
+        createJsonFormCalled = true;
         mFirestore.collection("Gardens").document(idGarden).collection("Forms").add(infoForm).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
@@ -41,6 +48,7 @@ public class FirebaseDatabase implements FirebaseDatabaseI {
     }
 
     public void updateInDatabase(String idGarden, Map<String, Object> newInfoForm) {
+        createJsonFormCalled = true;
         String date = (String) newInfoForm.get("Date");
         String createdBy = (String) newInfoForm.get("CreatedBy");
         int idForm = (int) Math.floor(Double.parseDouble(newInfoForm.get("idForm").toString()));
@@ -62,6 +70,7 @@ public class FirebaseDatabase implements FirebaseDatabaseI {
     }
 
     public void deleteInDatabase(String idGarden, Map<String, Object> infoForm) {
+        createJsonFormCalled = true;
         String date = (String) infoForm.get("Date");
         String createdBy = (String) infoForm.get("CreatedBy");
         CollectionReference collectionReference = mFirestore.collection("Gardens").document(idGarden).collection("Forms");
@@ -81,6 +90,7 @@ public class FirebaseDatabase implements FirebaseDatabaseI {
     }
 
     public void getAllInfoFormDatabase(String idGarden, FormsRepository.OnDataLoadedListener listener) {
+        createJsonFormCalled = true;
         CollectionReference collectionReference = mFirestore.collection("Gardens").document(idGarden).collection("Forms");
 
         collectionReference.get().addOnCompleteListener(task -> {

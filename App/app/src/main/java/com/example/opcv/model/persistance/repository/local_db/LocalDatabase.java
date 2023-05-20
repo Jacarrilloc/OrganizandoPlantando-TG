@@ -39,11 +39,17 @@ import java.util.concurrent.CountDownLatch;
 
 public class LocalDatabase implements LocalDatabaseI {
     private Context context;
+    private boolean createJsonFormCalled = false;
 
     public LocalDatabase(Context mContext) {
         context = mContext;
     }
 
+    public boolean isCreateJsonFormCalled() {
+        return createJsonFormCalled;
+    }
+
+    @Override
     public void createJsonForm(String idGarden, Map<String, Object> infoForm) {
         if (infoForm.get("CreatedBy") != null) {
             // El permiso ya está concedido, ejecutamos la tarea
@@ -82,14 +88,16 @@ public class LocalDatabase implements LocalDatabaseI {
                 fileWriter.flush();
                 fileWriter.close();
 
-                Log.i("JSON:", "Se actualizó el archivo con la nueva información.");
+                //Log.i("JSON:", "Se actualizó el archivo con la nueva información.");
             } catch (IOException e) {
-                Log.w("JSON:", "Error: " + e.getMessage());
+                //Log.w("JSON:", "Error: " + e.getMessage());
             }
         }
+        createJsonFormCalled = true;
     }
 
     public void updateAllJson(List<Map<String, Object>> newInfo, String idGarden) throws InterruptedException {
+        createJsonFormCalled = true;
         if (newInfo.isEmpty()) {
             return;
         }
@@ -167,8 +175,6 @@ public class LocalDatabase implements LocalDatabaseI {
     }
 
 
-
-
     public List<Map<String, Object>> getInfoJsonForms(String idGarden, String formName) {
         try {
             File gardenDir = new File(context.getExternalFilesDir(null), "Gardenforms/" + idGarden);
@@ -239,10 +245,11 @@ public class LocalDatabase implements LocalDatabaseI {
             fileWriter.flush();
             fileWriter.close();
 
-            Log.i("JSON:", "Se actualizó el archivo con la nueva información.");
+            //Log.i("JSON:", "Se actualizó el archivo con la nueva información.");
         } catch (IOException e) {
-            Log.w("JSON:", "Error: " + e.getMessage());
+            //Log.w("JSON:", "Error: " + e.getMessage());
         }
+        createJsonFormCalled = true;
     }
 
 
@@ -278,5 +285,6 @@ public class LocalDatabase implements LocalDatabaseI {
                 fileWriter.close();
             }
         }
+        createJsonFormCalled = true;
     }
 }
